@@ -8,6 +8,7 @@ npm run dev      # 本地开发：http://localhost:4321
 npm run build    # 构建到 dist/，并自动检查文件大小与站内链接
 npm run preview  # 预览构建结果
 npm run check    # TypeScript / 模板类型检查
+npm test         # 单元测试（appcast 生成逻辑）
 ```
 
 ## 目录结构
@@ -61,6 +62,29 @@ scripts/check-dist.mjs       构建后检查
 ```
 
 首页的下载按钮、"最近更新"和详情页的版本信息都会自动更新。**第一条带下载地址的 stable 记录**会被当作最新版本。
+
+### 自动更新（Sparkle appcast）
+
+每个 Mac 软件都有一个自动生成的更新清单：
+
+```
+https://aethernative.com/apps/<id>/appcast.xml
+```
+
+把软件 `Info.plist` 里的 `SUFeedURL` 设成这个地址即可。版本要出现在清单里，需要在 `releases.yaml` 对应版本下加上 `sparkle`（数据来自打包后运行的 `sign_update`）：
+
+```yaml
+    sparkle:
+      edSignature: "sign_update 输出的 sparkle:edSignature"
+      length: 24639275          # sign_update 输出的 length（安装包字节数）
+      minimumSystemVersion: "15.0"   # 可选；不写则用 app.yaml 里的 minimumSystemVersion
+```
+
+规则：
+- 只收录填了 `sparkle` 的版本（没签名的版本 Sparkle 会拒绝安装，所以不会放进去）；
+- `channel: beta` 的版本带 `<sparkle:channel>beta</sparkle:channel>`，只推送给开启了测试版更新的用户；`preview` 不收录；
+- 更新说明默认中文，另附英文（Sparkle 按系统语言显示），并链接到网站上的完整版本说明；
+- 签名格式、`build` 缺失等错误会在构建时直接报出来。
 
 ### 安装包放在哪里
 

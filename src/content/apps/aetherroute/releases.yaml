@@ -8,6 +8,9 @@ releases:
     download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.27/AetherRoute-1.0.27-build-2026092402-arm64.dmg"
     github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.27"
     sha256: "d42d91e86a57c188edae1598f5d614db7df1a685530b7ef76c03f5beb7fc0ac1"
+    sparkle:
+      edSignature: "Rj7llTW6tzP4A4t2Khv0ZA39Qv+huMgGF7aA6ddVv3NYe+KlGQCn5zoca3zgqvvbUKeD9FJTAek/1L9ZmPvjAA=="
+      length: 24639275
     badge:
       zh: "正式版 · 已通过 Apple 公证"
       en: "Release · Apple notarized"

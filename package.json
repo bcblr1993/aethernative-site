@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-dist.mjs",
+    "build": "vitest run && astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.2"
   }
 }

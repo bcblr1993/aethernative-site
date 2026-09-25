@@ -28,6 +28,8 @@ const apps = defineCollection({
       summary: L,
       tech: z.array(z.string()).default([]),
       repo: z.url().optional(),
+      /** Mac 版最低系统版本，写进 appcast 的 sparkle:minimumSystemVersion（单个版本可覆盖） */
+      minimumSystemVersion: z.string().regex(/^\d+(\.\d+)*$/).optional(),
       platforms: z.array(
         z.object({
           id: z.enum(['mac', 'ios']),
@@ -128,6 +130,17 @@ const releases = defineCollection({
         badge: L.optional(),
         summary: L,
         notes: z.array(z.object({ title: L, items: z.array(L) })).default([]),
+        /** Sparkle 自动更新信息（sign_update 的输出）。只有填了这项的版本才会出现在 appcast.xml 里 */
+        sparkle: z
+          .object({
+            edSignature: z.string().regex(/^[A-Za-z0-9+/]{86}==$/, 'edSignature 应为 sign_update 输出的 88 位 Base64'),
+            length: z.number().int().positive(),
+            minimumSystemVersion: z.string().regex(/^\d+(\.\d+)*$/).optional(),
+          })
+          .optional(),
+      })
+      .refine((r) => !r.sparkle || (r.build && r.download), {
+        message: '填写了 sparkle 的版本必须同时有 build（对应 CFBundleVersion）和 download',
       }),
     ),
   }),

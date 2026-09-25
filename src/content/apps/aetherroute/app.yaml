@@ -5,6 +5,7 @@ order: 1
 featured: true
 icon: ./media/mark-1024.png
 repo: https://github.com/bcblr1993/AetherRoute
+minimumSystemVersion: "15.0"
 tech: [SwiftUI + Rust, iCloud Sync]
 
 tagline:
