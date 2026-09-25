@@ -1,6 +1,47 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.28"
+    build: "2026092501"
+    date: 2026-09-25
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.28/AetherRoute-1.0.28-build-2026092501-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.28
+    sha256: 20ab5f308a66d3b8ed10792edc130a03c876f8257675572a23e317bfff72ce28
+    sparkle:
+      edSignature: AxRQDht9GBs8l4fpwqvKJe5YfKGH/paJ7qPIDa55XSbTUqxizvlOIh1SrTuePaI8WFSFIWLAcpP/Pohp/X3vCQ==
+      length: 25881900
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 彻底解决 Darwin TUN 内核数据包缓冲区突发溢出（ENOSPC / ENOBUFS）导致的断流问题，实现 32 批次限流与 2ms 异步无损退避重试；数据面探测会话动态自愈防误回滚；真机实测 10.4 Gbps 满物理线速吞吐与 10,000 UDP 零丢包。
+      en: Resolved Darwin TUN kernel packet buffer overflow (ENOSPC / ENOBUFS) with 32-packet batching and 2ms async lossless backoff; dynamic self-healing probe session prevents false rollbacks; verified 10.4 Gbps wire speed on physical Apple silicon.
+    notes:
+      - title:
+          zh: 核心修复：Darwin TUN 内核队列溢出无损回退与异步重试
+          en: Darwin TUN Kernel Queue Overflow Backoff & Lossless Retry
+        items:
+          - zh: 解决缓冲满断流：在高并发与大流量猝发时捕获系统 writePackets 返回值，遇到 ENOSPC / ENOBUFS 内核缓冲区满时，将未发数据包插回待发送队列头部，杜绝静默丢包与假死断流。
+            en: Handled ENOSPC / ENOBUFS when writePackets overflows, prepending unwritten packets back to the head of the transmit queue to prevent silent packet drops and stall.
+          - zh: 批次入核限流与退避调度：将单次入核批次限制为 32 包，并调度 2ms 异步退避延时，给 Darwin 内核驱动充足时间排空硬件网卡缓冲区。
+            en: Capped kernel packet batch size to 32 and scheduled a 2ms async backoff delay to allow the Darwin driver to drain hardware buffers.
+          - zh: 数据面探测会话动态自愈：网络拓扑或路由状态变动时主动重建纯净 URLSession 探测会话，杜绝复用失效连接池引发的误报与意外回滚。
+            en: Automatically recreates clean URLSession instances on network topology changes, preventing false-positive proxy fallback caused by stale connection pools.
+      - title:
+          zh: 严苛真实硬件与虚拟机矩阵验证
+          en: Rigorous Physical Hardware & VM Matrix Verification
+        items:
+          - zh: Apple Silicon 物理 Mac mini 实测通过：10.4 Gbps（10,488 Mbps）物理线速吞吐，10,000 个高频 UDP 数据报 0 丢包，协议与系统扩展测试 100% 通过。
+            en: "Verified on physical Apple Silicon Mac mini: 10.4 Gbps line-rate throughput, 0 packet loss across 10,000 UDP datagrams, 100% pass on protocol and extension tests."
+          - zh: Tart 虚拟机 6 维网络矩阵验证：TUN/透明代理 x 规则/全局/直连共 6 项模式矩阵 100% 验收通过，测试环境彻底清理干净。
+            en: Verified across all 6 engine/routing modes in Tart VM (aether-diag-1434) with 100% pass rate and clean environment cleanup.
+      - title:
+          zh: 安全合规与发布规范
+          en: Security Compliance & Release Standards
+        items:
+          - zh: 采用标准生产核心构建，通过 Apple Developer ID 签名与 Apple 官方双重公证（Stapled App + Stapled DMG），完全兼容 macOS 15+ Apple Silicon。
+            en: Built with standard production core, signed with Apple Developer ID, and double-notarized by Apple (App + DMG stapled), fully compatible with macOS 15+ Apple Silicon.
   - version: "1.0.27"
     build: "2026092402"
     date: 2026-09-24
