@@ -7,10 +7,10 @@ releases:
     channel: stable
     download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.28/AetherRoute-1.0.28-build-2026092501-arm64.dmg
     github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.28
-    sha256: 20ab5f308a66d3b8ed10792edc130a03c876f8257675572a23e317bfff72ce28
+    sha256: 491b42fd52b3878c6b0c528273bb37720f984bc0554d2f24c716edbd7f2f50d7
     sparkle:
-      edSignature: AxRQDht9GBs8l4fpwqvKJe5YfKGH/paJ7qPIDa55XSbTUqxizvlOIh1SrTuePaI8WFSFIWLAcpP/Pohp/X3vCQ==
-      length: 25881900
+      edSignature: g+HpFCZFXUszCRfvFTUmXM6gnXFg9SH6QfPeY546v//FP0lhofqvcKdh1AttwLofqoJsjjN2Ws63O+jXle9eAQ==
+      length: 25879675
     badge:
       zh: 正式版 · 已通过 Apple 公证
       en: Release · Apple notarized
