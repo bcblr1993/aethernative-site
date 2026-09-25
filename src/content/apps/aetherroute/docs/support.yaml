@@ -1,0 +1,65 @@
+title: { zh: 使用帮助, en: Help }
+heading: { zh: "安装与连接，\n从这里开始。", en: "Set up and connect.\nStart here." }
+lead:
+  zh: 请勿公开订阅地址、激活码、节点密码、私钥或完整配置。
+  en: Never post subscription URLs, activation keys, node passwords, private keys, or complete profiles.
+sections:
+  - heading: { zh: Mac：三步开始使用, en: "Mac: get started in three steps" }
+    steps:
+      - { zh: 下载免费 Beta 或稳定版，打开 DMG，将 AetherRoute 拖入“应用程序”，再从“应用程序”打开。, en: "Download the free release, open the DMG, drag AetherRoute into Applications, and launch it from there." }
+      - { zh: 在“配置”中添加自己的订阅、节点或本地配置。路由资源已随应用提供，无需单独下载数据库。, en: "Add your own subscription, nodes, or local configuration in Profiles. Routing resources are bundled with the app; no separate database download is needed." }
+      - { zh: 回到“概览”点击连接，按下方步骤批准 macOS 网络扩展，然后返回应用继续连接。, en: "Click Connect in Overview, approve the macOS Network Extension using the steps below, then return to the app to continue." }
+    note: { zh: 免费版不需要账号或付费激活。应用本身不提供订阅或代理节点。, en: The free edition needs no account or paid activation. The app does not provide subscriptions or proxy nodes. }
+    links:
+      - { label: { zh: 下载与版本说明 →, en: Downloads and release notes → }, href: releases/ }
+  - heading: { zh: Mac：首次启用网络扩展, en: "Mac: enable the Network Extension" }
+    body:
+      - { zh: 透明代理和 TUN 可以路由网络流量，因此 macOS 15 或更高版本要求您亲自批准。AetherRoute 会把您带到正确的系统设置页面，但不会绕过、自动点击或模拟这项安全授权。, en: "Transparent Proxy and TUN can route network traffic, so macOS 15 or later requires your approval. AetherRoute takes you to the correct System Settings page but never bypasses, auto-clicks, or simulates this security authorization." }
+    steps:
+      - { zh: 将 AetherRoute 拖到“应用程序”，打开后导入或选择一个有效配置，再点击连接。, en: "Move AetherRoute to Applications, open it, import or select a valid profile, then click Connect." }
+      - { zh: 出现“批准网络扩展”卡片后，点击“打开系统设置”。, en: "When the “Approve Network Extension” card appears, click “Open System Settings.”" }
+      - { zh: 在“通用 → 登录项与扩展”中继续滚动到页面底部的“扩展”区域；不要操作上方的“登录时打开”列表。, en: "In General → Login Items & Extensions, scroll to the Extensions section at the bottom. Do not use the Open at Login list." }
+      - { zh: 找到“网络扩展”，点右侧信息按钮 ⓘ，打开 AetherRoute，然后点“完成”。, en: "Next to Network Extensions, click the info button, turn on AetherRoute, then click Done." }
+      - { zh: 返回 AetherRoute，点击“已批准，重新检查”；应用会继续刚才的连接。, en: "Return to AetherRoute and click “Approved — Check Again.” The app resumes the pending connection." }
+    note: { zh: 不需要降低系统安全性。AetherRoute 使用 Apple 的用户空间 Network Extension，不需要关闭 SIP，也不需要在恢复模式启用内核扩展。如果这台 Mac 由组织管理且开关不可用，请联系管理员批准网络扩展。, en: "No reduced security required. AetherRoute uses Apple's user-space Network Extension. It does not require disabling SIP or enabling kernel extensions in Recovery. If this Mac is managed by an organization and the switch is unavailable, ask your administrator to approve the Network Extension." }
+    links:
+      - { label: { zh: 查看 Apple 的“登录项与扩展”官方说明 ↗, en: "Read Apple's Login Items & Extensions guide ↗" }, href: "https://support.apple.com/guide/mac-help/mtusr003/mac" }
+  - heading: { zh: 显示已连接，但网页打不开, en: "Connected, but websites do not load" }
+    body:
+      - { zh: “已连接”不能保证每个节点和网站都能访问。先确认实际网页是否可用，再按以下顺序排查：, en: "A connected status does not guarantee that every node or website is reachable. Check a real webpage, then try these steps:" }
+    steps:
+      - { zh: 确认当前配置和选择的节点正确；需要代理的网站应使用代理节点，避免误选 DIRECT（直连）。, en: "Check the active profile and selected node. Use a proxy node for sites that require one, and check that DIRECT was not selected by mistake." }
+      - { zh: 如果还有其他代理或 VPN 软件正在连接，先断开它们，再重新连接 AetherRoute 一次。, en: "If another proxy or VPN is connected, disconnect it and reconnect AetherRoute once." }
+      - { zh: 尝试另一个已知可用的节点，并访问两个不同的网站。记录是所有网站都失败，还是只有某个网站无法访问。, en: "Try another known-working node and two different websites. Note whether all sites fail or only one is affected." }
+      - { zh: 仍然失败时，记录使用的是 TUN 还是透明代理，以及页面或应用显示的错误，再导出下方的诊断报告。, en: "If it still fails, note whether you use TUN or Transparent Proxy and the error shown by the page or app, then export the diagnostics described below." }
+    note: { zh: 如需恢复原有网络，先点击“断开连接”。不要为了排查而关闭系统完整性保护或删除系统网络文件。, en: "To restore your previous network, click Disconnect first. Do not disable System Integrity Protection or delete system network files while troubleshooting." }
+  - heading: { zh: 仍然看不到 AetherRoute？, en: Still cannot find AetherRoute? }
+    steps:
+      - { zh: 确认 App 位于“应用程序”文件夹，而不是仍从 DMG 或下载目录运行。, en: "Confirm the app is in Applications rather than running from the DMG or Downloads." }
+      - { zh: 完全退出 AetherRoute，重新打开，再点击一次连接以重新提交安装请求。, en: "Quit AetherRoute completely, reopen it, and click Connect once to submit the installation request again." }
+      - { zh: 若系统要求重启，请先保存工作并按提示重启；返回后点击“已批准，重新检查”。, en: "If macOS asks for a restart, save your work and restart as instructed; then return and click “Approved — Check Again.”" }
+      - { zh: 仍失败时，在“设置 → 诊断”导出隐私安全报告，并附上错误文字；不要发送订阅、节点密码或私钥。, en: "If it still fails, export the privacy-safe report from Settings → Diagnostics and include the exact error text. Never send subscriptions, node passwords, or private keys." }
+  - heading: { zh: Mac 与多台 iPhone：iCloud 加密配置同步, en: "Mac and multiple iPhones: encrypted iCloud profile sync" }
+    body:
+      - { zh: 例如：在 Mac 整理好订阅后，将配置同步到日常使用的 iPhone 与备用 iPhone。多台设备共享配置，但连接开关仍独立控制；不会因为一台设备连接或断开，就要求其他设备做相同操作。, en: "For example, organize subscriptions on your Mac, then sync profiles to your everyday and spare iPhones. Devices share profiles but retain independent connection controls; connecting or disconnecting one does not require the others to follow." }
+    steps:
+      - { zh: 在 Mac 和每台 iPhone 上安装支持 iCloud 同步的 AetherRoute 版本，并登录同一 Apple 账户。, en: "Install versions of AetherRoute that support iCloud sync and sign in to the same Apple Account on every device." }
+      - { zh: 在系统设置中开启「iCloud 密码与钥匙串」，并在每台设备的 App 中分别启用 iCloud 同步。, en: "Enable iCloud Passwords & Keychain in system settings, then enable iCloud sync in each app." }
+      - { zh: 先在已有配置的设备上传，再在其他 Mac 或 iPhone 上拉取配置。云端与本地已有配置会合并，每台设备保留自己的活动配置和连接控制。, en: "Upload from the device with your existing profiles, then pull on your other Macs or iPhones. Cloud and local profiles are merged, while each device keeps its own connection controls." }
+    note: { zh: 功能预告：iPhone 端同步仍在测试与完善，以上为预期使用方式，以正式发布版本为准。配置使用 AES-256-GCM 加密后写入 iCloud；若提示密钥不可用，请检查相关设备的 Apple 账户及 iCloud 钥匙串设置，等待系统完成同步后重试。, en: "Feature preview: iPhone sync is still being tested and refined; the setup above is subject to the final release. Profiles are encrypted with AES-256-GCM before being stored in iCloud. If the key is unavailable, check the Apple Account and iCloud Keychain settings on the affected devices, allow time for system sync, and retry." }
+  - heading: { zh: iPhone：系统要求与测试进度, en: "iPhone: requirements and availability" }
+    body:
+      - { zh: iPhone 版仅支持 iOS 26 及以上版本，不支持更早的 iOS 系统。适用机型为 iPhone 12 系列及后续机型，设备需升级至受支持的系统版本后才能安装使用。即将上架，部分功能仍在测试与优化中，暂未开放公开下载。具体上架时间与下载方式将在官网公布。, en: "The iPhone app requires iOS 26 or later. Earlier iOS versions are not supported. Supported devices are the iPhone 12 family and later, and must be updated to a supported iOS version before installation. The app is coming soon. Some features are still being tested and refined, and public downloads are not yet available. Release timing and download details will be announced on this website." }
+  - heading: { zh: 提交问题前, en: Before reporting }
+    list:
+      - { zh: 确认正在使用的版本、构建号和 macOS 版本。, en: "Record the AetherRoute version, build, and macOS version." }
+      - { zh: 在“设置 → 诊断”导出隐私安全报告。, en: "Export the privacy-safe report from Settings → Diagnostics." }
+      - { zh: 说明使用透明代理还是 TUN、问题是否可复现，以及其他代理软件是否同时运行。, en: "State whether you use Transparent Proxy or TUN, whether it reproduces, and whether another proxy app is running." }
+      - { zh: 若单个节点失败，说明它是否能在你原来使用的客户端中正常连接。, en: "For a node-specific failure, note whether the same node connects successfully in your previous client." }
+  - heading: { zh: 官方支持渠道, en: Contact }
+    list:
+      - { zh: GitHub Issues：适合可复现的错误、兼容性问题和功能建议。, en: "GitHub Issues: for reproducible bugs, compatibility issues, and feature requests." }
+      - { zh: 安全漏洞：请遵循仓库 SECURITY.md 的私密报告流程，不要创建公开问题。, en: "Security: for vulnerabilities, follow the private reporting process in SECURITY.md instead of opening a public issue." }
+    links:
+      - { label: { zh: 创建 Issue ↗, en: Open an issue ↗ }, href: "https://github.com/bcblr1993/AetherRoute/issues/new/choose" }
+      - { label: { zh: 安全策略 ↗, en: Security policy ↗ }, href: "https://github.com/bcblr1993/AetherRoute/security/policy" }

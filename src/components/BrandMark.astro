@@ -1,0 +1,7 @@
+---
+interface Props { size?: number }
+const { size = 14 } = Astro.props;
+---
+<span class="brand-mark" aria-hidden="true">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="#fff"><path d="M12 2l9 5v10l-9 5-9-5V7z" opacity=".95" /></svg>
+</span>

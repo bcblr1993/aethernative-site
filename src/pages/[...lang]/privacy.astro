@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getApps } from '../../lib/apps';
+import { href, langParams, site, ui, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const zh = lang === 'zh';
+const apps = await getApps();
+---
+<Base lang={lang} title={ui[lang].privacy}>
+  <div class="wrap">
+    <header class="page-hero">
+      <p class="eyebrow">Privacy</p>
+      <h1>{zh ? '网站隐私说明' : 'Website privacy'}</h1>
+      <p class="muted">{zh ? `生效日期：2026-09-25 · 适用于 ${site.name} 官网` : `Effective: 2026-09-25 · Applies to the ${site.name} website`}</p>
+    </header>
+    <article class="prose">
+      <section>
+        <h2>{zh ? '不追踪' : 'No tracking'}</h2>
+        <p>{zh
+          ? '本网站是静态网站，不使用广告、分析脚本、指纹识别或营销 Cookie，也不需要注册账号。'
+          : 'This is a static website. It uses no advertising, analytics scripts, fingerprinting or marketing cookies, and requires no account.'}</p>
+      </section>
+      <section>
+        <h2>{zh ? '托管与下载' : 'Hosting and downloads'}</h2>
+        <p>{zh
+          ? '网站由 Cloudflare Pages 托管。和所有网络服务一样，Cloudflare 可能为安全和故障排查处理标准连接信息，例如请求时间、IP 地址、访问路径和 User-Agent。安装包托管在 GitHub Releases，下载时适用 GitHub 的隐私政策。'
+          : 'The site is hosted on Cloudflare Pages. Like any network service, Cloudflare may process standard connection metadata for security and troubleshooting, such as request time, IP address, path and User-Agent. Installers are hosted on GitHub Releases, where GitHub’s privacy policy applies to downloads.'}</p>
+      </section>
+      <section>
+        <h2>{zh ? '本地偏好' : 'Local preferences'}</h2>
+        <p>{zh
+          ? '如果你切换了深色外观，这项选择只保存在你自己浏览器的本地存储中，不会发送给任何服务器。'
+          : 'If you switch to dark appearance, that choice is stored only in your browser’s local storage and is never sent to a server.'}</p>
+      </section>
+      <section>
+        <h2>{zh ? '各软件的隐私政策' : 'App privacy policies'}</h2>
+        <p>{zh ? '每款软件如何处理数据，请查看各自的隐私政策：' : 'For how each app handles data, see its own privacy policy:'}</p>
+        <ul>{apps.map((a) => <li><a href={href(lang, `/apps/${a.id}/privacy/`)}>{a.data.name}</a></li>)}</ul>
+      </section>
+    </article>
+  </div>
+</Base>

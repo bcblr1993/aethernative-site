@@ -1,0 +1,59 @@
+---
+/** 软件文档页：隐私政策、许可协议、使用帮助……内容来自 src/content/apps/<id>/docs/<doc>.yaml */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../../../layouts/Base.astro';
+import Text from '../../../../components/Text.astro';
+import { getApps, type App } from '../../../../lib/apps';
+import { href, langs, t, ui, type Lang } from '../../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const apps = new Map((await getApps()).map((a) => [a.id, a]));
+  const docs = await getCollection('docs');
+  return docs.flatMap((doc) => {
+    const [appId, name] = doc.id.split('/');
+    const app = apps.get(appId!);
+    if (!app) throw new Error(`docs/${doc.id}: 找不到软件 ${appId}`);
+    return langs.map((lang) => ({
+      params: { lang: lang === 'zh' ? undefined : lang, slug: app.id, doc: name },
+      props: { lang, app, doc },
+    }));
+  });
+}
+
+interface Props { lang: Lang; app: App; doc: CollectionEntry<'docs'> }
+const { lang, app, doc } = Astro.props;
+const d = doc.data;
+const base = href(lang, `/apps/${app.id}/`);
+// 相对链接（如 releases/）按软件目录解析
+const link = (h: string) => (/^(https?:|mailto:|\/|#)/.test(h) ? h : base + h);
+const external = (h: string) => /^https?:/.test(h);
+---
+<Base lang={lang} title={`${t(d.title, lang)} · ${app.data.name}`} current="support">
+  <div class="wrap">
+    <header class="page-hero">
+      <a class="crumb" href={base}>{ui[lang].backTo(app.data.name)}</a>
+      <h1><Text v={d.heading} lang={lang} /></h1>
+      {d.meta && <p class="muted"><Text v={d.meta} lang={lang} /></p>}
+      {d.lead && <p class="note lead-note"><Text v={d.lead} lang={lang} /></p>}
+    </header>
+    <article class="prose">
+      {d.sections.map((s) => (
+        <section>
+          <h2><Text v={s.heading} lang={lang} /></h2>
+          {s.body.map((p) => <p><Text v={p} lang={lang} /></p>)}
+          {s.steps.length > 0 && <ol>{s.steps.map((x) => <li><Text v={x} lang={lang} /></li>)}</ol>}
+          {s.list.length > 0 && <ul>{s.list.map((x) => <li><Text v={x} lang={lang} /></li>)}</ul>}
+          {s.note && <p class="note"><Text v={s.note} lang={lang} /></p>}
+          {s.links.length > 0 && (
+            <p class="links">{s.links.map((l) => <a href={link(l.href)} rel={external(l.href) ? 'noopener' : undefined}>{t(l.label, lang)}</a>)}</p>
+          )}
+        </section>
+      ))}
+    </article>
+  </div>
+</Base>
+
+<style>
+  .lead-note { max-width: 780px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; }
+</style>

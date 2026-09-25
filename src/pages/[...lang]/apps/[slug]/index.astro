@@ -1,0 +1,429 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../../../../layouts/Base.astro';
+import Text from '../../../../components/Text.astro';
+import Checksum from '../../../../components/Checksum.astro';
+import PlatformBadges from '../../../../components/PlatformBadges.astro';
+import { getApps, getReleases, latestStable, type App, type Release } from '../../../../lib/apps';
+import { href, langs, t, ui, type Lang } from '../../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const apps = await getApps();
+  return (
+    await Promise.all(
+      apps.map(async (app) => {
+        const releases = await getReleases(app.id);
+        return langs.map((lang) => ({
+          params: { lang: lang === 'zh' ? undefined : lang, slug: app.id },
+          props: { lang, app, releases },
+        }));
+      }),
+    )
+  ).flat();
+}
+
+const { lang, app, releases } = Astro.props as { lang: Lang; app: App; releases: Release[] };
+const u = ui[lang];
+const d = app.data;
+const base = href(lang, `/apps/${app.id}/`);
+const latest = latestStable(releases);
+const previous = latest ? releases.slice(releases.indexOf(latest) + 1).find((r) => r.download) : undefined;
+const ios = d.platforms.find((p) => p.id === 'ios');
+const iosLink = ios?.appStore ?? ios?.testFlight;
+const shotOf = (s: (typeof d.gallery)[number]) => (lang === 'en' && s.en ? s.en : s.zh);
+const zh = lang === 'zh';
+// 分享预览图与“查看原图”链接需要独立生成的文件（只用 <Image> 引用的原图在构建时不会保留）
+const fulls = await Promise.all(d.gallery.map(async (s) => (await getImage({ src: shotOf(s), format: 'webp', quality: 90 })).src));
+const ogImage = d.gallery[0] ? (await getImage({ src: shotOf(d.gallery[0]), width: 1200, format: 'png' })).src : undefined;
+
+const subnav = [
+  d.ios && { id: 'ios', label: zh ? 'iOS 版' : 'iPhone' },
+  d.protocols && { id: 'protocols', label: zh ? '协议' : 'Protocols' },
+  d.features && { id: 'features', label: zh ? '特性' : 'Features' },
+  d.benchmarks && { id: 'benchmarks', label: zh ? '实测' : 'Benchmarks' },
+  d.faq && { id: 'faq', label: 'FAQ' },
+].filter(Boolean) as { id: string; label: string }[];
+---
+<Base lang={lang} title={d.name} description={t(d.tagline, lang)} current="apps" image={ogImage}>
+  <div class="subnav">
+    <div class="wrap">
+      <a class="sn-name" href="#top">{d.name}</a>
+      <div class="sn-links">
+        {subnav.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
+        <a href={`${base}releases/`}>{u.releases}</a>
+        <a href={`${base}support/`}>{u.help}</a>
+      </div>
+      {latest?.download && <a class="btn btn-p btn-sm" href={latest.download}>{u.download(latest.version)}</a>}
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap center">
+      <div class="hero-icon"><Image src={d.icon} alt={`${d.name} icon`} width={192} height={192} loading="eager" /></div>
+      <p class="eyebrow"><Text v={d.hero.eyebrow} lang={lang} /></p>
+      <h1><Text v={d.hero.title} lang={lang} /></h1>
+      <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
+      <div class="cta">
+        {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
+        {ios && (iosLink
+          ? <a class="btn btn-s" href={iosLink}>iPhone ↗</a>
+          : d.ios && <a class="btn btn-s" href="#ios">{zh ? 'iPhone 版预告' : 'iPhone preview'} ↓</a>)}
+      </div>
+      <p class="req muted"><Text v={d.hero.requirements} lang={lang} /></p>
+    </div>
+
+    {d.gallery.length > 0 && (
+      <div class="wrap">
+        <div class="stage">
+          <div class="stage-top">
+            <span class="eyebrow">{d.name} for Mac</span>
+            <a class="more" id="stage-full" href={fulls[0]} target="_blank" rel="noopener">{u.openFull}</a>
+          </div>
+          <div class="stage-shots">
+            {d.gallery.map((s, i) => (
+              <figure data-shot={i} hidden={i > 0}>
+                <Image src={shotOf(s)} alt={`${d.name} — ${t(s.label, lang)}`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading={i === 0 ? 'eager' : 'lazy'} data-full={fulls[i]} />
+              </figure>
+            ))}
+          </div>
+          {d.gallery.length > 1 && (
+            <div class="stage-tabs" role="group" aria-label={u.screenshots}>
+              {d.gallery.map((s, i) => (
+                <button type="button" data-target={i} aria-pressed={i === 0 ? 'true' : 'false'}>{t(s.label, lang)}</button>
+              ))}
+            </div>
+          )}
+        </div>
+        {latest && (
+          <div class="release-line">
+            <PlatformBadges app={app} lang={lang} tech={false} />
+            <span>{d.name} {latest.version} · <a class="more" href={`${base}releases/${latest.version}/`}>{u.releaseNotes}</a>
+              {previous && <> · <a class="more" href={`${base}releases/${previous.version}/`}>{previous.version} {u.previous}</a></>}
+            </span>
+            {latest.sha256 && <div class="rl-sum"><span class="muted">{u.sha}</span><Checksum value={latest.sha256} lang={lang} /></div>}
+          </div>
+        )}
+      </div>
+    )}
+  </header>
+
+  {d.ios && (
+    <section id="ios" class="ios">
+      <div class="wrap">
+        <div class="ios-hero card">
+          <div>
+            <div class="badges"><span class="badge soon">{d.name} for iOS · <Text v={d.ios.badge} lang={lang} /></span></div>
+            <h2><Text v={d.ios.title} lang={lang} /></h2>
+            <p class="lead"><Text v={d.ios.lead} lang={lang} /></p>
+            <div class="badges chips">{d.ios.chips.map((c) => <span class="badge gray">{c}</span>)}</div>
+            <p class="ios-status"><Text v={d.ios.status} lang={lang} /></p>
+            <p class="muted small"><Text v={d.ios.requirements} lang={lang} /></p>
+            {d.sync && <a class="more" href="#sync">{zh ? '了解多设备同步 ↓' : 'Explore multi-device sync ↓'}</a>}
+          </div>
+          <div class="phone"><Image src={d.ios.image} alt={`${d.name} iPhone`} widths={[300, 600]} sizes="300px" /></div>
+        </div>
+        <p class="note"><Text v={d.ios.notice} lang={lang} /></p>
+        <div class="grid-3 ios-feats">
+          {d.ios.features.map((f) => (
+            <div class="card">
+              <div class="kicker">{f.kicker}</div>
+              <h3><Text v={f.title} lang={lang} /></h3>
+              <p><Text v={f.body} lang={lang} /></p>
+            </div>
+          ))}
+        </div>
+        <div class="sec-head shots-head">
+          <div><div class="eyebrow">A closer look</div><h2><Text v={d.ios.shotsTitle} lang={lang} /></h2></div>
+          <p class="muted small"><Text v={d.ios.shotsNote} lang={lang} /></p>
+        </div>
+        <div class="phones">
+          {d.ios.shots.map((s) => (
+            <figure>
+              <div class="phone"><Image src={s.image} alt={t(s.title, lang)} widths={[300, 600]} sizes="(max-width: 640px) 70vw, 300px" /></div>
+              <figcaption><b><Text v={s.title} lang={lang} /></b><Text v={s.caption} lang={lang} /></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.sync && (
+    <section id="sync" class="sync">
+      <div class="wrap">
+        <div class="center">
+          <div class="eyebrow"><Text v={d.sync.eyebrow} lang={lang} /></div>
+          <h2 class="mt"><Text v={d.sync.title} lang={lang} /></h2>
+        </div>
+        <Image class="sync-art" src={d.sync.image} alt={t(d.sync.imageAlt, lang)} />
+        <p class="lead center-block"><Text v={d.sync.lead} lang={lang} /></p>
+        <div class="grid-3 mt-lg">
+          {d.sync.points.map((p) => (
+            <div class="card flat"><h3 class="h4"><Text v={p.title} lang={lang} /></h3><p><Text v={p.body} lang={lang} /></p></div>
+          ))}
+        </div>
+        <p class="note"><Text v={d.sync.note} lang={lang} /></p>
+      </div>
+    </section>
+  )}
+
+  {d.experience && (
+    <section class="experience">
+      <div class="wrap">
+        <div class="sec-head"><div><div class="eyebrow"><Text v={d.experience.eyebrow} lang={lang} /></div><h2><Text v={d.experience.title} lang={lang} /></h2></div></div>
+        <div class="grid-3">
+          {d.experience.cards.map((c) => (
+            <div class="card flat"><h3><Text v={c.title} lang={lang} /></h3><p class="mt-sm"><Text v={c.body} lang={lang} /></p></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.protocols && (
+    <section id="protocols">
+      <div class="wrap">
+        <div class="sec-head"><div>
+          <div class="eyebrow"><Text v={d.protocols.eyebrow} lang={lang} /></div>
+          <h2><Text v={d.protocols.title} lang={lang} /></h2>
+          <p class="lead"><Text v={d.protocols.lead} lang={lang} /></p>
+        </div></div>
+        <div class="grid-3 protos">
+          {d.protocols.items.map((p) => (
+            <details class="card proto">
+              <summary><b>{p.name}</b><span>{p.tag}</span></summary>
+              <p><Text v={p.body} lang={lang} /></p>
+              <div class="badges">{p.chips.map((c) => <span class="badge gray">{c}</span>)}</div>
+            </details>
+          ))}
+        </div>
+        {d.protocols.tools.length > 0 && (
+          <div class="grid-3 mt-lg">
+            {d.protocols.tools.map((x) => (
+              <div class="card flat"><h3 class="h4"><Text v={x.title} lang={lang} /></h3><p><Text v={x.body} lang={lang} /></p></div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {d.features && (
+    <section id="features">
+      <div class="wrap">
+        <div class="sec-head"><div>
+          <div class="eyebrow"><Text v={d.features.eyebrow} lang={lang} /></div>
+          <h2><Text v={d.features.title} lang={lang} /></h2>
+          <p class="lead"><Text v={d.features.lead} lang={lang} /></p>
+        </div></div>
+        <div class="grid-2 feats">
+          {d.features.items.map((f, i) => (
+            <div class:list={['card', { wide: i === 0 }]}>
+              <div class="kicker"><Text v={f.kicker} lang={lang} /></div>
+              <h3><Text v={f.title} lang={lang} /></h3>
+              <p class="mt-sm"><Text v={f.body} lang={lang} /></p>
+              {f.details.length > 0 && (
+                <details class="fold">
+                  <summary>{u.explore}</summary>
+                  <ul class="fold-body">{f.details.map((x) => <li><Text v={x} lang={lang} /></li>)}</ul>
+                </details>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.benchmarks && (
+    <section id="benchmarks">
+      <div class="wrap">
+        <div class="sec-head"><div>
+          <div class="eyebrow"><Text v={d.benchmarks.eyebrow} lang={lang} /></div>
+          <h2><Text v={d.benchmarks.title} lang={lang} /></h2>
+          <p class="lead"><Text v={d.benchmarks.lead} lang={lang} /></p>
+        </div></div>
+        <div class="grid-4">
+          {d.benchmarks.stats.map((s) => (
+            <div class="card bench"><strong><Text v={s.value} lang={lang} /></strong><span><Text v={s.label} lang={lang} /></span><p><Text v={s.note} lang={lang} /></p></div>
+          ))}
+        </div>
+        {d.benchmarks.table && (
+          <details class="fold compare">
+            <summary>{u.compare}</summary>
+            <div class="fold-body table-wrap">
+              <table>
+                <thead><tr>{d.benchmarks.table.columns.map((c) => <th scope="col"><Text v={c} lang={lang} /></th>)}</tr></thead>
+                <tbody>
+                  {d.benchmarks.table.rows.map((r) => (
+                    <tr>
+                      <th scope="row"><Text v={r.metric} lang={lang} /></th>
+                      {r.cells.map((c) => <td><b><Text v={c.value} lang={lang} /></b><span><Text v={c.note} lang={lang} /></span></td>)}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {d.benchmarks.footnote && <p class="muted small mt-sm"><Text v={d.benchmarks.footnote} lang={lang} /></p>}
+            </div>
+          </details>
+        )}
+      </div>
+    </section>
+  )}
+
+  {d.faq && (
+    <section id="faq">
+      <div class="wrap faq">
+        <div>
+          <div class="eyebrow"><Text v={d.faq.eyebrow} lang={lang} /></div>
+          <h2 class="mt"><Text v={d.faq.title} lang={lang} /></h2>
+          <p class="lead mt"><Text v={d.faq.lead} lang={lang} /></p>
+          {d.repo && <a class="btn btn-s mt-lg" href={d.repo} rel="noopener">{zh ? '在 GitHub 了解项目 ↗' : 'Explore on GitHub ↗'}</a>}
+        </div>
+        <div>
+          {d.faq.items.map((f) => (
+            <details class="fold"><summary><Text v={f.q} lang={lang} /></summary><p class="fold-body"><Text v={f.a} lang={lang} /></p></details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {d.cta && (
+    <section class="final">
+      <div class="wrap center">
+        <div class="final-icon"><Image src={d.icon} alt="" width={128} height={128} /></div>
+        <p class="eyebrow">{d.name} for Mac & iPhone</p>
+        <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
+        <div class="cta">
+          {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
+          <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>
+        </div>
+        <p class="req muted"><Text v={d.cta.note} lang={lang} /></p>
+        <nav class="doc-links" aria-label={d.name}>
+          <a href={`${base}releases/`}>{u.releases}</a>
+          <a href={`${base}support/`}>{u.help}</a>
+          <a href={`${base}privacy/`}>{u.privacy}</a>
+          <a href={`${base}license/`}>{u.license}</a>
+          {d.repo && <a href={d.repo} rel="noopener">GitHub ↗</a>}
+        </nav>
+      </div>
+    </section>
+  )}
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.stage-tabs button');
+  const full = document.getElementById('stage-full') as HTMLAnchorElement | null;
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const i = btn.dataset.target;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      document.querySelectorAll<HTMLElement>('[data-shot]').forEach((f) => {
+        f.hidden = f.dataset.shot !== i;
+        if (!f.hidden && full) full.href = f.querySelector('img')?.dataset.full ?? full.href;
+      });
+    }),
+  );
+</script>
+
+<style>
+  .subnav { position: sticky; top: var(--nav-h); z-index: 40; background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
+  .subnav .wrap { display: flex; align-items: center; gap: 24px; height: 52px; }
+  .sn-name { font-weight: 600; font-size: 18px; }
+  .sn-links { display: flex; gap: 20px; margin-left: auto; font-size: 13px; color: var(--text-2); }
+  .sn-links a:hover { color: var(--text); }
+  :global(html) { scroll-padding-top: calc(var(--nav-h) + 64px); }
+
+  .hero { padding: 72px 0 40px; }
+  .hero-icon { width: 112px; height: 112px; margin: 0 auto 14px; }
+  .hero h1 { margin: 14px 0 18px; }
+  .req { font-size: 13px; margin-top: 18px; }
+  .stage { margin-top: 56px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px; }
+  .stage-top { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 14px; }
+  .stage-shots figure { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  .stage-tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .stage-tabs button { border: 1px solid var(--line); background: var(--surface-2); color: var(--text-2); border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
+  .stage-tabs button[aria-pressed='true'] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .release-line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 18px; font-size: 14px; color: var(--text-2); }
+  .rl-sum { display: flex; align-items: center; gap: 10px; flex: 1 1 420px; min-width: 0; }
+  .rl-sum > .muted { white-space: nowrap; }
+  .rl-sum .checksum { flex: 1; min-width: 0; }
+
+  .mt { margin-top: 12px; }
+  .mt-sm { margin-top: 8px; }
+  .mt-lg { margin-top: 28px; }
+  .small { font-size: 13px; }
+  .flat { box-shadow: none; }
+  .h4 { font-size: 18px; margin-bottom: 8px; }
+  .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 14px; text-transform: uppercase; }
+  .center-block { margin: 28px auto 0; text-align: center; }
+
+  .ios-hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; padding: 48px; }
+  .ios-hero h2 { margin: 16px 0 16px; }
+  .ios-hero .lead { font-size: 17px; }
+  .ios-hero .chips { margin: 20px 0 16px; }
+  .ios-status { font-weight: 600; margin-bottom: 6px; }
+  .ios-hero .more { display: inline-block; margin-top: 16px; }
+  .phone { max-width: 260px; margin: 0 auto; border-radius: 36px; overflow: hidden; border: 6px solid #1d1d1f; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18); background: #1d1d1f; }
+  .ios-feats { margin-top: 20px; }
+  .shots-head { margin-top: 80px; }
+  .phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .phones figcaption { text-align: center; margin-top: 18px; font-size: 14px; color: var(--text-2); }
+  .phones figcaption b { display: block; color: var(--text); font-size: 16px; margin-bottom: 2px; }
+
+  .sync { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .sync-art { margin: 40px auto 0; width: 100%; max-width: 900px; }
+  .sync .card { background: var(--bg); }
+
+  .protos { align-items: start; }
+  .proto { padding: 22px 24px; box-shadow: none; }
+  .proto summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .proto summary::-webkit-details-marker { display: none; }
+  .proto summary b { font-size: 18px; }
+  .proto summary span { font-size: 11px; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; text-align: right; }
+  .proto[open] summary span { color: var(--accent); }
+  .proto p { margin: 14px 0 12px; font-size: 14px; }
+
+  .feats .wide { grid-column: 1 / -1; }
+  .feats .fold { margin-top: 20px; }
+  .feats .fold > summary { font-size: 14px; color: var(--accent); padding: 14px 0 4px; }
+  .feats ul.fold-body { padding-left: 1.2em; display: grid; gap: 10px; font-size: 14px; }
+
+  .bench strong { display: block; font-size: 30px; letter-spacing: -0.02em; font-weight: 650; }
+  .bench span { display: block; font-weight: 600; margin-top: 4px; }
+  .bench p { font-size: 13px; margin-top: 10px; }
+  .compare { margin-top: 28px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 720px; }
+  th, td { text-align: left; vertical-align: top; padding: 14px 12px; border-bottom: 1px solid var(--line); }
+  thead th { color: var(--text-3); font-weight: 600; font-size: 12px; }
+  thead th:nth-child(2) { color: var(--accent); }
+  tbody th { font-weight: 600; width: 18%; }
+  td b { display: block; color: var(--text); font-weight: 600; }
+  td span { color: var(--text-3); }
+  td:nth-child(2) { background: var(--accent-soft); }
+
+  .faq { display: grid; grid-template-columns: 1fr 1.6fr; gap: 60px; align-items: start; }
+  .faq .btn { display: inline-flex; }
+  .faq .fold:last-child { border-bottom: 1px solid var(--line); }
+
+  .final-icon { width: 84px; height: 84px; margin: 0 auto 14px; }
+  .doc-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 48px; font-size: 14px; color: var(--text-2); }
+  .doc-links a:hover { color: var(--text); }
+
+  @media (max-width: 900px) {
+    .sn-links { display: none; }
+    .subnav .btn { margin-left: auto; }
+    .ios-hero { grid-template-columns: 1fr; padding: 32px; }
+    .faq { grid-template-columns: 1fr; gap: 24px; }
+  }
+  @media (max-width: 640px) {
+    .stage { padding: 10px; border-radius: 20px; margin-top: 40px; }
+    .stage-top { padding: 4px 6px 10px; }
+    .ios-hero { padding: 24px; }
+    .phones { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 70%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+    .phones figure { scroll-snap-align: center; }
+    .rl-sum { flex-basis: 100%; }
+  }
+</style>

@@ -1,0 +1,1521 @@
+# AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
+# 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
+releases:
+  - version: "1.0.27"
+    build: "2026092402"
+    date: 2026-09-24
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.27/AetherRoute-1.0.27-build-2026092402-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.27"
+    sha256: "d42d91e86a57c188edae1598f5d614db7df1a685530b7ef76c03f5beb7fc0ac1"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "彻底根治 Tailscale (100.64.0.0/10) 及虚拟覆盖网络与 macOS Darwin NetworkExtension 排除路由冲突，杜绝内核生成物理网卡静态路由劫持流量；构建版本递增保障系统扩展平滑在轨热升级；真机与虚拟机全矩阵 100% 通过。"
+      en: "Permanently eliminated Darwin kernel routing conflicts between Tailscale (100.64.0.0/10) overlay networks and NetworkExtension excludedRoutes; incremented build version for seamless system extension in-place upgrade; verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "核心修复：Tailscale 虚拟覆盖网络与内核路由冲突彻底根治"
+          en: "Permanent Fix for Tailscale Overlay Network & Kernel Route Conflict"
+        items:
+          - zh: "移除内核排除路由冲突：深度定位发现用户配置 100.64.0.0/10 自定义分流规则或绕过规则时，macOS Darwin NetworkExtension 的 excludedRoutes 会强制向物理出口网卡（en0）下发静态网关路由，导致内核克隆主机路由劫持 Tailscale utun 流量并中断 SSH 会话。在 PacketTunnelNetworkSettingsPlan 与 PacketTunnelProvider 中增加虚拟覆盖网络识别拦截，杜绝 100.64.0.0/10 及 IPv6 虚拟网段进入内核 excludedRoutes。"
+            en: "Prevented 100.64.0.0/10 and IPv6 overlay subnets from entering Darwin NetworkExtension excludedRoutes, preventing the kernel from cloning static host routes to physical interfaces that hijack Tailscale utun traffic."
+          - zh: "引擎底层覆盖网络穿透直连：虚拟覆盖网络流量完全交由分流引擎内核规则与无物理网卡强绑定的 Socket 原生出站，确保与 Tailscale 并行时零干扰、毫秒级低延迟通信。"
+            en: "Handed overlay traffic entirely to rule-based engine routing and unbounded sockets, ensuring zero-interference, sub-millisecond coexistence with Tailscale."
+          - zh: "配置策略安全净化：TunnelManager 启动与运行时自动净化历史遗留覆盖网段配置，保障全生命周期环境一致性。"
+            en: "Added automated profile sanitization in TunnelManager to prune legacy overlay subnet entries from bypass policies."
+      - title:
+          zh: "系统扩展在轨平滑升级优化"
+          en: "Seamless System Extension In-Place Upgrade"
+        items:
+          - zh: "构建版本严格递增：递增构建版本号至 2026092402，确保 Darwin sysextd 在实机环境下精准触发网络扩展热替换，杜绝二进制 hash 校验异常。"
+            en: "Bumped build number to 2026092402 to guarantee sysextd cleanly recognizes and upgrades existing system extensions."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机 6 维网络矩阵实测：TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过（aether-diag-1434），测试完成后虚拟机测试文件和记录完成全量自动清理并关机。"
+            en: "Verified across all 6 engine and routing matrix permutations in Tart VM (aether-diag-1434) with 100% pass rate and clean post-run teardown."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量 50+ 项协议与网络性能测试 100% 通过（TCP 吞吐达 7500+ Mbps，UDP 10,000 数据包 0 丢包）；实机部署公证版后，双向 Ping 稳定 0.0% 丢包（22~29ms），Tailscale 与 SSH 连接无缝稳定。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP 7500+ Mbps, UDP 0 drops); live notarized deployment ping test achieved 0.0% packet loss with completely stable Tailscale and SSH sessions."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订（App + DMG Stapled），不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.27 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.26"
+    build: "2026092401"
+    date: 2026-09-24
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.26/AetherRoute-1.0.26-build-2026092401-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.26"
+    sha256: "46180dd57904f9ff729ab5b38e85f4bb4f8cde2eb73f98dfca5831e1e60911a0"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "优化核心代理引擎 socket 出口网卡绑定穿透，对 Tailscale (100.64.0.0/10) 与虚拟覆盖网络直连跳过物理网卡强绑定，彻底恢复与 Tailscale 原生 P2P 直连与 SSH 互通；自动化注入 Tailscale/DERP 直连与 Fake-IP 避让；阻断自定义规则 /0 掩码风险；真机与虚拟机全矩阵 100% 通过。"
+      en: "Bypassed physical interface binding for Tailscale (100.64.0.0/10) and overlay network direct connections in Core Engine, fully restoring native Tailscale P2P and SSH connectivity; added automated bypass for Tailscale/DERP infrastructure; guarded custom rule /0 prefix; verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "核心引擎虚拟覆盖网络路由绑定穿透修复"
+          en: "Core Engine Physical Interface Binding Bypass for Overlay Networks"
+        items:
+          - zh: "深度排查并定位 Tailscale 节点在开启代理后不可达的底层根本原因：当分流引擎发起 DIRECT 出站连接时，底层 socket 默认被绑定（IP_BOUND_IF）至主物理出口网卡（如 en0），导致发往 Tailscale utun 虚拟网卡的数据包被内核阻断。"
+            en: "Resolved root-cause issue where DIRECT sockets bound to physical network interface (en0) blocked Darwin kernel from routing traffic to Tailscale utun virtual interfaces."
+          - zh: "在底层核心引擎中实现覆盖网络地址判定：针对发往 100.64.0.0/10 及 fd7a:115c:a1e0::/48 的连接跳过物理网卡强绑定，使内核正常路由至 Tailscale 虚拟接口，P2P 直连与 SSH 访问完全恢复秒级通畅。"
+            en: "Implemented overlay network detection in Core Engine to bypass physical interface binding for Tailscale CGNAT subnet (100.64.0.0/10) and IPv6 overlay (fd7a:115c:a1e0::/48), restoring seamless peer-to-peer and SSH traffic."
+          - zh: "内置 Tailscale 协调服务器与 DERP 中继放行规则与 Fake-IP 避让，保障 NAT 打洞与 DERP 回退毫秒级就绪。"
+            en: "Injected automated bypass and Fake-IP avoidance for Tailscale and DERP relay infrastructure."
+      - title:
+          zh: "自定义规则安全防护与核心证据链锁定"
+          en: "Custom Rule Safety & Core Evidence Synchronization"
+        items:
+          - zh: "自定义规则前缀校验防护：阻断 /0 无效掩码输入，杜绝意外生成 0.0.0.0/0 全局捕获规则造成正常网络误拦截。"
+            en: "Prevented /0 mask input in custom CIDR rules to avoid accidental 0.0.0.0/0 catch-all rule creation."
+          - zh: "核心引擎提交与哈希对齐：锁定核心引擎提交 c23370da96b70e6282f04254b4a93761e2a54fee，同步更新 ProtocolCoreEvidence.json 与 ThirdPartyLicenses.json。"
+            en: "Synchronized production core hashes and git commit in ProtocolCoreEvidence.json and ThirdPartyLicenses.json."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机 6 维网络矩阵实测：TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过（aether-diag-1434），测试完成后虚拟机测试文件和记录完成全量自动清理并关机。"
+            en: "Verified across all 6 engine and routing matrix permutations in Tart VM (aether-diag-1434) with 100% pass rate and clean post-run teardown."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量 50+ 项协议与网络性能测试 100% 通过（TCP 吞吐达 7579 Mbps，UDP 10,000 数据包 0 丢包），Tailscale 开启 AetherRoute 实测延迟低至 27ms 稳定畅通。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP 7579 Mbps, UDP 0 drops), verified fast and stable Tailscale P2P connectivity with AetherRoute running."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订（App + DMG Stapled），不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.26 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.25"
+    build: "2026092302"
+    date: 2026-09-23
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.25/AetherRoute-1.0.25-build-2026092302-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.25"
+    sha256: "23838bee877db06f213ae5e8d6f64b077ac713adf0edebefd26df4afa27ac8a1"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "从内核 TUN 排除路由中完全移除 100.64.0.0/10，彻底根治 macOS Darwin 静态网关选路对 Tailscale 虚拟覆盖网络的劫持冲突，实现与 Tailscale 原生共存无丢包；升级核心引擎时钟单调性防 panic 治理，真机与虚拟机全矩阵 100% 通过。"
+      en: "Decoupled 100.64.0.0/10 from TUN excludedRoutes, permanently resolving Darwin kernel static route hijacking of Tailscale utun interfaces; upgraded core engine monotonic clock-skew resilience, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "Tailscale CGNAT 底层路由冲突彻底根治"
+          en: "Tailscale CGNAT Overlay Routing Collision Resolution"
+        items:
+          - zh: "深度溯源并解决 macOS Darwin 内核对 NetworkExtension 排除路由（excludedRoutes）的特殊行为：系统会在全局路由表强行添加指向物理网卡默认网关的静态路由（如 100.64/10 -> 10.8.7.254 on en11），导致 Tailscale 虚拟网卡（utun4）的覆盖路由被劫持而产生丢包与超时。"
+            en: "Resolved macOS Darwin kernel routing conflict where NEIPv4Settings.excludedRoutes forcibly installs a global static gateway route to physical LAN router, superseding Tailscale interface routes on utun4."
+          - zh: "解耦虚拟覆盖网络与内核物理排除网段：正式从 excludedRoutes 移除 100.64.0.0/10 及自定义 CIDR，仅保留 RFC 1918 物理内网网段。"
+            en: "Decoupled overlay networks from kernel excludedRoutes, retaining only true physical RFC 1918 LAN routes."
+          - zh: "分流引擎内核内置直连保护：Tailscale 流量的直连放行与 Fake-IP 避让交由分流内核（DomesticRoutingOptimizer）处理，内核不再产生冲突静态路由，Tailscale peer 间连接与 SSH 秒级互通无阻。"
+            en: "Engine-layer direct rules and Fake-IP avoidance for Tailscale domains without kernel static route interference, restoring instant SSH connectivity."
+      - title:
+          zh: "核心引擎睡眠唤醒时钟健壮性优化"
+          en: "Core Engine Sleep/Wake Clock Resilience"
+        items:
+          - zh: "单调时钟防 Panic 治理：升级 Clash 核心至提交 7bb5f30，在系统跨周期睡眠唤醒场景下，将所有可能产生负向时钟偏差的 Instant::duration_since 全面替换为 saturating_duration_since，底层杜绝时钟漂移崩溃。"
+            en: "Upgraded clash core submodule (7bb5f30), migrating duration_since calls to saturating_duration_since during system sleep/wake transitions to eliminate monotonic clock-skew panics."
+          - zh: "协议证据链与许可证哈希对齐：同步更新并锁定 ProtocolCoreEvidence.json 与 ThirdPartyLicenses.json 的核心 SHA-256 哈希值与源码提交点，严格保障供应链完整性与协议证据链闭环。"
+            en: "Synchronized production core hashes and git commit in ProtocolCoreEvidence.json and ThirdPartyLicenses.json."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机 6 维网络矩阵实测：TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过（aether-diag-1434），测试完成后虚拟机测试文件和记录完成全量自动清理并关机。"
+            en: "Verified across all 6 engine and routing matrix permutations in Tart VM (aether-diag-1434) with 100% pass rate and clean post-run teardown."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量 50+ 项协议与网络性能测试 100% 通过（TCP 吞吐达 7579 Mbps，UDP 10,000 数据包 0 丢包），Tailscale 连通与 SSH 握手极速无延迟。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP 7579 Mbps, UDP 0 drops), zero Tailscale latency."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订（App + DMG Stapled），不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.25 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.24"
+    build: "2026092301"
+    date: 2026-09-23
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.24/AetherRoute-1.0.24-build-2026092301-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.24"
+    sha256: "d726825ce0efd8bd5c97ea1776e81bbd15309294a1fab54826828aa2b9ac48c5"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "全新原生自定义分流规则管理系统，支持多维类型与动作、双向解析、实时语法校验与路由匹配模拟；解决 Tailscale CGNAT (100.64.0.0/10) 及私有 DERP 连通超时；优化应用安全退出响应至毫秒级，真机与虚拟机全矩阵 100% 通过。"
+      en: "Native custom routing rules engine with multi-target actions, Clash/Form dual-mode parsing, real-time syntax validation and route match simulation; resolved Tailscale CGNAT (100.64.0.0/10) and private DERP timeouts; sub-second graceful application exit teardown, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "用户自定义分流规则与实时语法校验"
+          en: "Custom Routing Rules & Real-time Validation"
+        items:
+          - zh: "全面支持用户自主添加与管理自定义路由规则，支持 DOMAIN、DOMAIN-SUFFIX、DOMAIN-KEYWORD、IP-CIDR、IP-CIDR6 及 GEOIP 六大类型，目标灵活指定 DIRECT、REJECT、PROXY 或节点选择组。"
+            en: "Comprehensive custom routing rules supporting DOMAIN, DOMAIN-SUFFIX, DOMAIN-KEYWORD, IP-CIDR, IP-CIDR6, and GEOIP with custom targets (DIRECT, REJECT, PROXY, or proxy groups)."
+          - zh: "表单向导与 Clash 单行字符串双向解析切换，内置 CustomRuleValidator 实时语法纠错，支持 no-resolve 与注释管理。"
+            en: "Dual-mode editing supporting visual form and Clash text line syntax, with real-time field-level validation and syntax error hints."
+          - zh: "分流最高优先级与 Fake-IP 穿透保护：自定义规则置于分流链最顶端，直连域名规则自动注入 fake-ip-filter 防止 DNS 劫持。"
+            en: "Top priority in routing chain, and direct domain custom rules are automatically injected into fake-ip-filter to bypass DNS hijacking."
+      - title:
+          zh: "自定义规则实测、路由模拟与热重载"
+          en: "Live Rule Simulation, Verification & Hot Reload"
+        items:
+          - zh: "规则实测与路由模拟：在规则编辑窗中集成一键实测，主界面分流测试引擎实时展示绿色 CUSTOM 徽章与命中详情。"
+            en: "One-click rule test in editor and route simulation engine highlighting custom rule matches with distinctive green CUSTOM badges."
+          - zh: "零中断热重载（Live Reload）：规则修改与开关切换通过轻量 IPC 管道动态刷新，无需重启网络扩展或断开当前连接。"
+            en: "Seamless hot reload via lightweight IPC without restarting network extensions or dropping active connections."
+      - title:
+          zh: "Tailscale CGNAT 直连与私有网络超时根本解决"
+          en: "Tailscale CGNAT Bypass & Headscale Timeout Resolution"
+        items:
+          - zh: "在内核 TUN 默认直连排除网段中正式加入 100.64.0.0/10（掩码 255.192.0.0），防止内核 TUN 捕获 Tailscale 内网流量。"
+            en: "Explicitly added Tailscale CGNAT 100.64.0.0/10 to TUN default excluded routes, preventing kernel packet interception."
+          - zh: "预置 Tailscale 官方域及私有 Headscale/DERP 直连放行与 Fake-IP 过滤，彻底消除 Tailscale 与 SSH 远程超时。"
+            en: "Built-in direct bypass and Fake-IP avoidance for Tailscale domains, permanently eliminating Tailscale and SSH timeouts."
+      - title:
+          zh: "应用退出生命周期同步优化"
+          en: "Application Termination Synchronization Optimization"
+        items:
+          - zh: "引入退出前同步清理 prepareForApplicationTermination()，立即取消进行中的健康测量与 URLSession 任务，应用退出耗时从 60s 骤降至 < 0.5s。"
+            en: "Introduced synchronous pre-termination cleanup, cancelling in-flight health and probe tasks immediately, cutting exit latency from 60s to < 0.5s."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机 6 维网络矩阵实测：TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过（aether-diag-1434），测试完成后虚拟机测试文件和记录完成全量自动清理并关机。"
+            en: "Verified across all 6 engine and routing matrix permutations in Tart VM (aether-diag-1434) with 100% pass rate and clean post-run teardown."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量 50+ 项协议与网络性能测试 100% 通过（TCP 吞吐达 8032–9670 Mbps，UDP 10,000 数据包 0 丢包）。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP 8032–9670 Mbps, UDP 0 drops)."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订（App + DMG Stapled），不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.24 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.23"
+    build: "2026092202"
+    date: 2026-09-22
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.23/AetherRoute-1.0.23-build-2026092202-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.23"
+    sha256: "809d40b74ff2148ada5a99ed1a4d9a4cfb5b7cdbe4ba50e63cb8e631ae6cc34d"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "物理网卡变更通知防抖与 SCDynamicStore 长连接复用彻底解决高频 CF 事件风暴，底层核心 MMDB 内存映射满足严格 Jetsam 预算，Tokio 运行时异步线程收敛，真机与虚拟机全矩阵 100% 通过。"
+      en: "Network path change debouncing and SCDynamicStore session reuse resolving CoreFoundation event storm, zero-copy MMDB memory mapping fulfilling iOS Jetsam budget, bounded Tokio worker threads, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "物理网络变更通知防抖与动态存储会话复用"
+          en: "Network Path Notification Debounce & Dynamic Store Reuse"
+        items:
+          - zh: "150ms 聚合防抖：在隧道扩展启动（installNetworkSettings）及网卡物理链路切换时，对网络接口变动事件实施 150ms 防抖归并，彻底终结了高达 220+ 次/秒的 CoreFoundation 事件风暴与内核 IPC 争用。"
+            en: "Integrated 150ms DispatchWorkItem debounce on physical path changes, eliminating >220 events/sec CoreFoundation notification storms and system throttling warnings."
+          - zh: "SCDynamicStore 实例长连接复用：消除了每次网卡事件重复创建与销毁会话的开销，保持低开销的系统配置变更监听。"
+            en: "Persistent SCDynamicStore session reuse across interface transitions without reallocation churn."
+      - title:
+          zh: "底层核心 MMDB 内存映射与线程预算收敛"
+          en: "Core Engine MMDB Memory Mapping & Bounded Threads"
+        items:
+          - zh: "MMDB 零拷贝内存映射：底层 GeoIP 库全面迁移至 memmap2 只读内存映射，大幅降低物理堆内存占用，严格满足 iOS 15MB Jetsam 上限并减小 macOS 系统扩展常驻驻留。"
+            en: "Migrated GeoIP resolution to zero-copy memory-mapped I/O via memmap2, fulfilling iOS 15MB Jetsam budget constraints and trimming memory footprint."
+          - zh: "异步运行时线程收敛：约束 Tokio 运行时工作线程数量，削减无谓的多线程上下文切换与常驻开销。"
+            en: "Bounded Tokio runtime worker thread pools to reduce background context switching."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机 6 维网络矩阵实测：TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过（aether-diag-1434），测试后虚拟机测试文件和记录完成全量自动清理。"
+            en: "Verified across all 6 engine and routing matrix permutations in Tart VM (aether-diag-1434) with 100% pass rate and clean post-run teardown."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量 50+ 项协议与网络性能测试 100% 通过（TCP 吞吐达 7490–8264 Mbps，UDP 10,000 数据包 0 丢包）。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP 7490–8264 Mbps, UDP 0 drops)."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订（App + DMG Stapled），不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.23 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.22"
+    build: "2026092008"
+    date: 2026-09-20
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.22/AetherRoute-1.0.22-build-2026092008-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.22"
+    sha256: "7ba7028b2d52f3fbe43bd764e292d78bcda64943049a6800cb9ec9303774c005"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "活动连接下的配置热重载（Live Profile Reload）无损生效，直接内存 IPC 载荷传输（5~35KB）彻底解决沙盒隔离，跨平台 iCloud 配置目录加密同步，真机与虚拟机全矩阵 100% 通过。"
+      en: "Live profile reload without connection drops, direct in-memory IPC payload transmission (5~35KB) resolving sandbox isolation, cross-platform iCloud profile catalog sync, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "活动连接下的配置热重载（Live Profile Reload）无损生效"
+          en: "Live Profile Reload Without Connection Drops"
+        items:
+          - zh: "直接内存 IPC 载荷传输：彻底移除基于磁盘共享快照文件（pending-reload-snapshot.bin）的旧设计，改用 ProxySelectionProviderRequest.reloadProfile(Data) 直接在内存中传输轻量二进制 PropertyList（5~35 KB），完美契合 iOS/macOS Jetsam 标准（< 128 KB）。"
+            en: "Direct in-memory IPC payload transmission over reloadProfile(Data) via binary PropertyList, complying strictly with Jetsam IPC boundaries (< 128 KB)."
+          - zh: "解决 macOS 跨 UID 沙盒隔离问题：根除了 root 权限系统扩展无法读取用户目录配置的问题，热重载过程无需断开连接、不重建 utun 网卡、不重启进程，实现 TCP 长连接 0 中断。"
+            en: "Resolved cross-UID sandbox container isolation on macOS, eliminating tunnel teardown, process restarts, and dropped TCP connections during live profile reload."
+      - title:
+          zh: "跨平台 iCloud 订阅与配置目录同步"
+          en: "Cross-Platform iCloud Profile Catalog Sync"
+        items:
+          - zh: "端到端加密云端同步：引入 ProfileCloudSyncManager，支持 macOS 与 iOS 设备间通过 iCloud 私有数据库与钥匙串进行配置目录端到端加密同步。"
+            en: "End-to-end encrypted profile catalog synchronization between macOS and iOS devices through iCloud Private Database and synchronizable Keychain."
+          - zh: "冲突自动解决与状态反馈：内置冲突检测与版本合并机制，支持手动/自动触发同步，并在设置面板提供实时同步状态及详细日志展示。"
+            en: "Built-in conflict resolution and automatic version merging, manual sync triggers, and real-time status reporting."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证通过"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "Tart 虚拟机热重载与 6 维矩阵实测：在持续压测流量下热重载 10/10 次 HTTP 200 成功；TUN/透明代理 x 规则/全局/直连全部 6 项模式矩阵 100% 通过；网卡断开 8 秒自愈测试 0 异常。"
+            en: "Verified live reload in Tart VM with 10/10 HTTP 200 success, passed all 6 matrix permutations, and verified 8-second network drop recovery."
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量协议与性能指标 100% 通过（TCP 吞吐速率 > 8500 Mbps，UDP 10,000 数据包 0 丢包）。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate (TCP > 8500 Mbps, UDP 0 drops)."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.22 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.21"
+    build: "2026092001"
+    date: 2026-09-20
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.21/AetherRoute-1.0.21-build-2026092001-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.21"
+    sha256: "b110e9348cadcc8fca2da2ad503ecc80b4868ed00591819d1b23712dda30c1a1"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "常驻后台内存主动释放与回收（123MB -> 60-90MB），数据包突发批处理缓冲预留，10 小时长周期稳定性监控 0 异常验证，物理真机与虚拟机全矩阵 100% 通过。"
+      en: "Proactive background memory pressure relief (123MB -> 60-90MB), packet tunnel queue capacity pre-allocation, 10-hour soak zero-error verification, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "后台常驻内存主动回收"
+          en: "Background Memory Footprint Trimming"
+        items:
+          - zh: "主窗口关闭与最小化内存回收：引入 Darwin malloc_zone_pressure_relief，在窗口隐藏或最小化时主动通知系统收缩虚拟内存分页，物理驻留内存自 ~123MB 回收至 60–90MB。"
+            en: "Proactive background memory pressure relief on window closure and miniaturization, reducing physical resident footprint from ~123MB down to 60–90MB."
+          - zh: "数据包批处理缓冲预分配：网络发包队列初始化预留容量（reserveCapacity(64)），消除高吞吐网络流量下的数组频繁扩容与内存抖动。"
+            en: "Packet tunnel queue capacity pre-allocation to eliminate array reallocation overhead and heap thrashing under burst packet throughput."
+      - title:
+          zh: "10 小时长周期监控验证通过"
+          en: "10-Hour Soak & Telemetry Verification"
+        items:
+          - zh: "连续 10.0 小时稳定性长跑：采集 600 组样本（1 分钟高频采样），0 崩溃、0 接口错误，Canary 连通性探针 100% 成功（600/600）。"
+            en: "Completed continuous 10.0-hour soak run (600 samples, 1-min intervals) with zero crashes, zero interface errors, and 100% canary HTTP probe success."
+          - zh: "极低系统资源开销：主程序平均 CPU 负载 0.04%（P95 0.00%），PacketTunnel 扩展均值 0.27%（P95 1.00%）。"
+            en: "Ultra-low CPU utilization with App average of 0.04% (P95 0.00%) and PacketTunnel average of 0.27% (P95 1.00%)."
+      - title:
+          zh: "虚拟机与物理真机全矩阵验证"
+          en: "Hardware & VM Matrix Verification"
+        items:
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量协议与性能指标 100% 通过。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate."
+          - zh: "Tart 虚拟机全模式矩阵与网络自愈：TUN / 透明代理 x 规则 / 全局 / 直连 6 项矩阵全绿通过，网卡断开与重连秒级无感恢复。"
+            en: "Passed all 6 Tart VM matrix configurations and verified physical network disconnect & reconnect seamless recovery."
+          - zh: "本地产品套件 280+ 自动化测试用例 100% 通过。"
+            en: "Full product test suite of 280+ tests passed cleanly with 0 failures."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.21 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.20"
+    build: "2026091904"
+    date: 2026-09-19
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.20/AetherRoute-1.0.20-build-2026091904-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.20"
+    sha256: "9d806cace555d40df5f5f9f1610319521881cad9a8bf87b609445f26117080a6"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "菜单栏 Popover 节点即时搜索，订阅自动更新调度周期，分流规则模拟器一键域名预设，Outlet 出口完整显示，配置整行极速切换，AppKit 退出自愈保护与真机虚拟机全矩阵验证。"
+      en: "Menu bar popover instant node search, profile auto-update refresh intervals, rule simulator domain presets, auto-fitting outlet columns, whole-row profile activation, AppKit clean exit recovery, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "菜单栏与节点检索体验升级"
+          en: "Menu Bar & Node Search Enhancements"
+        items:
+          - zh: "菜单栏 Popover 节点即时搜索：在菜单栏弹窗中集成关键字快速搜索与实时筛选（searchText / isFiltering），支持按节点名与协议快速定位，无需层层翻找。"
+            en: "Instant keyword search and live node filtering in the menu bar popover, enabling fast proxy node lookup by keyword or protocol without navigating submenus."
+          - zh: "订阅配置自动更新调度周期：新增 1 小时、6 小时、12 小时、24 小时及手动更新周期配置，定时器在后台平滑触发自动拉取与热重载。"
+            en: "Configurable subscription refresh schedules (1h, 6h, 12h, 24h, or manual) with persistent storage and scheduled background timer synchronization."
+          - zh: "分流规则模拟器一键域名预设：规则测试面板内置 Google、Apple、GitHub、Bilibili 等高频预设标签，一键点选模拟分流决策。"
+            en: "Quick preset chips (google.com, apple.com, github.com, bilibili.com) in Rule Simulator for rapid routing decision verification."
+      - title:
+          zh: "页面交互与视觉自适应优化"
+          en: "Page Interaction & Responsive Grid"
+        items:
+          - zh: "连接页面 Outlet 出口名称自适应拓展：扩大 Outlet 最小与建议列宽（100~320px），结合中间截断与原生 Tooltip 浮窗提示，彻底解决节点名称省略号截断。"
+            en: "Expanded Outlet column width with middle truncation and full tooltips in Connections view, eliminating proxy node title clipping."
+          - zh: "代理卡片多端自适应网格：微调网格卡片列宽边界（250~380px），适配 13 寸 MacBook 至 32 寸 4K 宽屏显示器。"
+            en: "Fine-tuned adaptive proxy card column widths for optimal reading comfort across all display sizes."
+          - zh: "配置整行点击极速切换：移除多余的“使用”按钮，点击未激活配置整行即可直接切换激活，交互更加简洁高效。"
+            en: "Whole-row click activation for inactive configuration profiles without redundant buttons."
+          - zh: "全部断开二次确认防误触：在“全部断开”操作增加原生确认对话框，有效防止误触断开 VPN。"
+            en: "Added confirmation dialog to Disconnect All action to prevent unintended tunnel teardowns."
+      - title:
+          zh: "生命周期与网络扩展退出自愈"
+          en: "Lifecycle & Extension Clean Exit"
+        items:
+          - zh: "AppKit 退出响应者链校验修复：遵循 AppKit 响应者规范并显式实现协议代理，安装专用 AppleEvent 退出拦截器，彻底解决自动化与 AppleScript 退出异常。"
+            en: "Resolved AppKit responder chain validation failures during Quit AppleEvent handling with dedicated AppleEvent dispatcher."
+          - zh: "退出过程防重入保护：退出进行中自动丢弃重复退出信号，防止外部重入打断网络扩展与路由恢复流程。"
+            en: "Re-entrancy guards prevent redundant quit events from interrupting graceful network extension teardown."
+      - title:
+          zh: "虚拟机与物理真机三级验证全绿"
+          en: "Hardware & VM Verification"
+        items:
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：通过 SSH 远程测试门禁，全量协议与性能指标 100% 通过。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate."
+          - zh: "Tart 虚拟机全模式矩阵（TUN / 透明代理 x 规则 / 全局 / 直连）6 项矩阵验收 100% 通过，0 崩溃 0 失败。"
+            en: "Passed all 6 Tart VM matrix configurations across TUN and Transparent Proxy modes with 0 failures and 0 crashes."
+          - zh: "本地产品套件 280+ 自动化测试用例 100% 通过。"
+            en: "Full product test suite of 280+ tests passed cleanly with 0 failures."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.20 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.19"
+    build: "2026091901"
+    date: 2026-09-19
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.19/AetherRoute-1.0.19-build-2026091901-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.19"
+    sha256: "daa7767fa1c6b3638fc25119ebb12095c1c30f717633aad448cc8ea67fbd0553"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "国内与 Apple 加速优化界面开关，双引擎网络切换自愈机制统一，TunnelManager 与 UI 架构解耦，Dock 图标与更新检查防抖修复，真机与虚拟机全矩阵验证。"
+      en: "User-facing toggle for domestic routing optimization, symmetrical dual-engine network switch recovery, TunnelManager & UI architectural decoupling, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "核心功能与体验演进"
+          en: "Core Features & Architecture Evolution"
+        items:
+          - zh: "国内与 Apple 加速界面开关：在配置与通用设置中支持随时启用/关闭零配置内存优化引擎，设置即时平滑生效。"
+            en: "User-facing toggle for domestic routing optimization in Settings and Profiles, reloading seamlessly on change."
+          - zh: "双引擎网络自愈机制统一：透明代理对齐 Packet Tunnel 的系统级 NWPathMonitor 与 SCDynamicStore 监听，Wi-Fi 与手机热点切换时零重启无感自愈。"
+            en: "Symmetrical dual-engine physical interface recovery via NWPathMonitor and SCDynamicStore, enabling zero-restart healing across Wi-Fi and hotspot handovers."
+          - zh: "规则优化器健壮容错：增强对空配置、空白行、行内注释及畸形规则符号的容错清洗能力。"
+            en: "Enhanced fault tolerance for blank lines, comments, and malformed empty items in profile optimization."
+      - title:
+          zh: "核心架构治理与超大对象解耦"
+          en: "Architecture Refactoring & Decoupling"
+        items:
+          - zh: "TunnelManager 领域驱动分拆：保持公共外观 API 不变，将 6,400+ 行单体拆分为 7 个高内聚扩展模块（连接生命周期、扩展注册、配置管理、路由资源、节点选择、流量遥测、并发测速）。"
+            en: "Decoupled monolithic TunnelManager into 7 high-cohesion domain extensions while preserving 100% backward API compatibility."
+          - zh: "UI 视图组件化重构：拆分 ProfilesPageView、RulesPageView 与 DNSPageView，全面推行 DesignSystem 语义 Token 并消除内存强引用循环。"
+            en: "Modularized UI into dedicated Profiles, Rules, and DNS page views with DesignSystem tokens and retain cycle prevention."
+      - title:
+          zh: "物理真机硬件与虚拟机矩阵全绿验证"
+          en: "Physical Hardware & VM Matrix Verification"
+        items:
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：系统扩展稳定加载，协议与底层网络流门禁 100% 通过。"
+            en: "Verified on physical Apple Silicon Mac mini via remote automated test gate with 100% pass rate."
+          - zh: "Tart 虚拟机全模式矩阵（TUN / 透明代理 x 规则 / 全局 / 直连）6 项矩阵验收 100% 通过，0 崩溃 0 失败。"
+            en: "Passed all 6 Tart VM matrix configurations across TUN and Transparent Proxy modes with 0 failures and 0 crashes."
+      - title:
+          zh: "Apple 芯片专属底层深度调优与极致能效"
+          en: "Apple Silicon M-Series Deep Optimization"
+        items:
+          - zh: "ARMv8 硬件加解密扩展指令加速：直接调用 M 芯片内部专用 AES 与 SHA 指令流水线，吞吐过程 CPU 负载降低至 0.7% ~ 1.7%。"
+            en: "ARMv8 Cryptography Extensions: hardware-accelerated AES and SHA instructions execute directly on-chip, reducing CPU load to 0.7% ~ 1.7%."
+          - zh: "异构内核休眠调度与统一内存：折叠菜单栏时 100% 线程进入 mach_msg2_trap 内核深睡，后台静默 CPU 0.0% ~ 0.1%，物理内存 footprint 控制在 ~210MB。"
+            en: "Heterogeneous sleep scheduling & unified memory: 100% of threads enter mach_msg2_trap deep sleep when idle, yielding 0.0% ~ 0.1% CPU and ~210MB total memory footprint."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机与虚拟机矩阵实测闭环通过后发布 v1.0.19 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware and VM matrix verification."
+  - version: "1.0.18"
+    build: "2026091816"
+    date: 2026-09-18
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.18/AetherRoute-1.0.18-build-2026091816-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.18"
+    sha256: "6864fcacb950c95401504ac04fb0b3a91ca41993d7cfd23069154cc1cb3d31bf"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "零配置透明国内与 Apple 服务加速引擎，Apple CDN 智能避让与 34.9MB/s 满带宽线速直连，网络切换防振荡治理与真机全矩阵验证。"
+      en: "Zero-config transparent domestic and Apple acceleration engine, Apple CDN line-rate bypass (34.9 MB/s verified), anti-oscillation recovery, verified on physical Mac mini & VM matrix."
+    notes:
+      - title:
+          zh: "零配置透明国内与 Apple 服务加速引擎"
+          en: "Zero-Config Domestic & Apple Acceleration Engine"
+        items:
+          - zh: "内存级无损配置优化：在不破坏用户磁盘原始配置的前提下，运行时自动注入 Apple 服务与国内高优规则，达成“国内直连丝滑、国外自动代理”。"
+            en: "Lossless in-memory optimization dynamically injects Apple and domestic direct rules without mutating on-disk profiles."
+          - zh: "Apple 服务 CDN 智能防护：针对 swcdn.apple.com 等系统更新服务智能过滤 fake-ip 劫持，国内 DNS 直接解析真实 Anycast IP，实测 34.9 MB/s 线速跑满带宽。"
+            en: "Bypasses Fake-IP for Apple CDN domains, resolving to authentic domestic Anycast IPs for saturated line-rate downloads (34.9 MB/s verified)."
+          - zh: "智能 DNS 分流：国内域名全自动映射至低延迟国内 DNS（223.5.5.5），杜绝海外 DNS 污染与解析延迟。"
+            en: "Maps domestic domains to fast domestic upstream DNS (223.5.5.5), eliminating latency and poisoning."
+      - title:
+          zh: "网络切换防振荡与健壮解析"
+          en: "Anti-Oscillation & Robust Parsing"
+        items:
+          - zh: "彻底根治应用层接收网络事件触发重复重置引起的无限振荡循环，保障休眠唤醒与 Wi-Fi 切换平稳自愈。"
+            en: "Eliminated reassertion feedback loops during network path changes, ensuring smooth reconnection on wake and Wi-Fi handovers."
+          - zh: "全面兼容非缩进 YAML 列表项及不规则大小写/复数段落名，解析健壮性大幅增强。"
+            en: "Fully compatible with non-indented list items and varied section case/plural headers in imported profiles."
+      - title:
+          zh: "物理真机硬件与虚拟机矩阵全绿验证"
+          en: "Physical Hardware & VM Matrix Verification"
+        items:
+          - zh: "真实 Apple Silicon Mac mini 硬件实机验证：系统扩展稳定加载，国内下载拉满带宽，Apple CDN 直连解析，海外目标 HTTP/2 代理畅通，0 振荡 100% 通过。"
+            en: "Verified on physical Apple Silicon Mac mini: line-rate domestic throughput, authentic Apple CDN resolution, stable proxy routing, and zero oscillation."
+          - zh: "Tart 虚拟机全模式矩阵（TUN / 透明代理 x 规则 / 全局 / 直连）6 项矩阵验收 100% 通过，0 崩溃 0 失败。"
+            en: "Passed all 6 Tart VM matrix configurations across TUN and Transparent Proxy modes with 0 failures and 0 crashes."
+      - title:
+          zh: "Apple 芯片专属底层深度调优与极致能效"
+          en: "Apple Silicon M-Series Deep Optimization"
+        items:
+          - zh: "ARMv8 硬件加解密扩展指令加速：直接调用 M 芯片内部专用 AES 与 SHA 指令流水线，吞吐过程 CPU 负载降低至 0.7% ~ 1.7%。"
+            en: "ARMv8 Cryptography Extensions: hardware-accelerated AES and SHA instructions execute directly on-chip, reducing CPU load to 0.7% ~ 1.7%."
+          - zh: "异构内核休眠调度与统一内存：折叠菜单栏时 100% 线程进入 mach_msg2_trap 内核深睡，后台静默 CPU 0.0% ~ 0.1%，物理内存 footprint 控制在 ~210MB。"
+            en: "Heterogeneous sleep scheduling & unified memory: 100% of threads enter mach_msg2_trap deep sleep when idle, yielding 0.0% ~ 0.1% CPU and ~210MB total memory footprint."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者要求，在真实物理机实测闭环通过后发布 v1.0.18 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware verification."
+  - version: "1.0.17"
+    build: "2026091802"
+    date: 2026-09-18
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.17/AetherRoute-1.0.17-build-2026091802-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.17"
+    sha256: "66d2cd3fe12c54e3c864971d3a6a20fe73985951eaa6bc329702f139fbbc1576"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复开机启动异步初始化期间因准备锁未复位导致跳过自动连接缺陷；菜单栏低功耗按需刷新；TCP 半关闭看门狗与 TUN 出站包批量写入吞吐优化。"
+      en: "Fixed startup auto-reconnect gate locking issue; added menu bar low-power on-demand telemetry polling, TCP half-close watchdog, and outbound packet batching optimization."
+    notes:
+      - title:
+          zh: "开机自启动连接恢复门禁彻底解耦修复"
+          en: "Startup Auto-Reconnect Gate Decoupling"
+        items:
+          - zh: "彻底修复初始化准备阶段 isPreparing 锁未复位导致开机启动时 100% 误判跳过连接的缺陷。"
+            en: "Resolved critical gate lock issue where isPreparing caused startup auto-reconnection to be skipped on boot."
+          - zh: "独立定义 canRestorePreviousConnection 门禁，开机自启动后全自动静默秒级恢复隧道连接。"
+            en: "Decoupled security gate ensuring fully automatic and silent tunnel restoration upon boot or cold start."
+      - title:
+          zh: "菜单栏低功耗按需刷新与多项性能优化"
+          en: "Menu Bar Power Optimization & Performance"
+        items:
+          - zh: "动态追踪菜单栏 Popover 弹出与遮挡状态，仅在展示时调度高频遥测轮询，收起时自动休眠，杜绝后台 CPU 浪费。"
+            en: "Dynamically observe menu bar popover visibility, suspending telemetry polling when hidden to eliminate background CPU load."
+          - zh: "TCP 半关闭看门狗机制：为透明代理半关闭流提供 15 秒看门狗超时清理，防止会话悬空与句柄泄漏。"
+            en: "15-second watchdog timer for half-closed transparent TCP flows, safely reclaiming orphaned resources."
+          - zh: "TUN 出站包批量写入：引入线程安全出站缓冲区合并发包，大幅减少内核边界切换与系统调用开销。"
+            en: "Thread-safe batched writePackets queueing, boosting packet tunnel throughput."
+      - title:
+          zh: "真机硬件与生产全量自动化回归通过"
+          en: "Hardware & Automated Regression Verification"
+        items:
+          - zh: "在真实硬件 Apple Silicon Mac mini 上实测静默开机秒级自动重连、主动断开保持断开，全生命周期通过率 100%。"
+            en: "Verified silent auto-reconnect and state retention on real Apple Silicon Mac mini with 100% pass rate."
+          - zh: "全量本地构建与自动化测试套件（104+ 测试用例）全绿通过，零回归。"
+            en: "All product test suites (104+ test cases) passed cleanly with zero regressions."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方双重公证装订，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple double-notarized (app + dmg stapled), and contains no QA automation flags."
+          - zh: "经维护者授权，在真实物理机实测闭环通过后发布 v1.0.17 正式版。"
+            en: "Authorized by the maintainer for stable release following real hardware verification."
+  - version: "1.0.16"
+    build: "2026091801"
+    date: 2026-09-18
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.16/AetherRoute-1.0.16-build-2026091801-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.16"
+    sha256: "186e8c2fd047977d1c79495caab1b0a549e5a30b2d76a9f33a6913a525d655d6"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "支持开机自启动管理，退出安全切断保护，启动智能检测并自动恢复上次连接状态。"
+      en: "Support launch at login management, safe termination protection, and smart startup detection with previous connection state auto-recovery."
+    notes:
+      - title:
+          zh: "原生 macOS 开机自启动深度集成"
+          en: "Native macOS Launch at Login Integration"
+        items:
+          - zh: "基于 macOS 原生 ServiceManagement (SMAppService.mainApp) 框架构建，遵循沙盒与系统登录项安全规范。"
+            en: "Built with native ServiceManagement (SMAppService.mainApp) framework, strictly adhering to macOS sandbox and login items security standards."
+          - zh: "在设置面板中提供开机自启动直观切换开关，支持动态感知系统授权状态并提供未批准引导。"
+            en: "Provide an intuitive toggle in settings, dynamically reflecting system authorization status with guidance when approval is required."
+      - title:
+          zh: "退出保护与智能连接状态记忆恢复"
+          en: "Termination Protection & Smart State Recovery"
+        items:
+          - zh: "退出或关机时安全切断 Network Extension 避免系统网络瘫痪，同时锁定连接意图隔离标志，防止清理逻辑误判。"
+            en: "Safely disengage Network Extension on quit or reboot to protect OS networking while preserving user connection intent."
+          - zh: "应用冷启动或开机自启动就绪后，若退出前为连接状态且满足网络权限则自动秒级恢复连接；若此前为关闭状态则保持关闭。"
+            en: "Automatically reconnect on launch if connected before quit; gracefully remain disconnected if previously turned off."
+          - zh: "严格区分用户主动操作与系统生命周期断开，记忆状态始终精准体现用户真实意志。"
+            en: "Strictly distinguish manual user toggles from lifecycle cleanup, ensuring state memory accurately reflects user intent."
+      - title:
+          zh: "Tart 虚拟机与物理真机双机全生命周期验证"
+          en: "Dual-Machine Full Lifecycle Verification"
+        items:
+          - zh: "在 Tart 虚拟机（macOS 15.0 / arm64）中完成连接退出保护、冷启动自动重连、主动断开退出及冷启动保持断开 4 大全链路自动化测试，100% 通过。"
+            en: "Automated tests across all 4 lifecycle scenarios passed 100% in Tart VM."
+          - zh: "通过 SSH 在真实 Apple Silicon 硬件设备（Mac mini）上执行实机闭环联调，对齐正式签名与扩展权限，全量测试验证 100% 通过。"
+            en: "Physical hardware validation on Apple Silicon Mac mini completed with 100% pass rate."
+          - zh: "包含单元测试（ConnectionIntentStoreTests）与回归测试在内的 104+ 测试用例全部通过。"
+            en: "All unit and regression test suites (104+ test cases) passed with zero failures."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动化标记。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA automation flags."
+          - zh: "经维护者授权，在虚拟机与物理真机详细测试全部通过后发布 v1.0.16 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all test suites."
+  - version: "1.0.15"
+    build: "2026091706"
+    date: 2026-09-17
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.15/AetherRoute-1.0.15-build-2026091706-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.15"
+    sha256: "27a019b0ecde25da1f0b96793d3decb74ce1d1651fe8bdc76248ae8214a27a95"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "统一主窗口单例生命周期、新增隐藏Dock常驻菜单栏模式、重构DNS页面为紧凑双列与合并运行时卡片。"
+      en: "Unified singleton window lifecycle, added menu bar only mode with Dock icon hidden, streamlined DNS page into compact dual-column view with merged runtime card."
+    notes:
+      - title:
+          zh: "统一主窗口单例生命周期与唤醒体验"
+          en: "Unified Singleton Window Lifecycle"
+        items:
+          - zh: "彻底解决点击 Dock 与点击菜单栏分别弹出独立面板的体验缺陷，重构主窗口为全局唯一单例生命周期管理。"
+            en: "Resolve dual-window duplication between Dock and menu bar by establishing a unified singleton window lifecycle manager."
+          - zh: "无论从 Dock 图标、菜单栏菜单、快捷键还是系统通知唤起，始终平滑激活并置顶当前已打开的主窗口面板，杜绝重复创建或窗口叠置。"
+            en: "Smoothly activate and front the existing window from Dock, menu bar, shortcuts, or notifications without window stacking or duplicates."
+      - title:
+          zh: "新增隐藏 Dock 仅菜单栏常驻模式"
+          en: "Menu Bar Only Mode with Dock Hidden"
+        items:
+          - zh: "在设置中新增“隐藏 Dock 图标（仅在菜单栏常驻）”选项，支持将应用转换为 macOS Accessory 模式，满足桌面极简与常驻后台需求。"
+            en: "Add \"Hide Dock Icon (Menu Bar Only)\" preference, converting the app into macOS Accessory mode for a clean, minimalist desktop."
+          - zh: "在常驻菜单栏模式下，主窗口关闭后应用仍在后台平稳运行，点击状态栏菜单项可秒级重新唤出完整大面板，体验行云流水。"
+            en: "In menu bar only mode, closing the main window keeps the app running seamlessly, and status bar actions instantly restore the main interface."
+      - title:
+          zh: "DNS 页面现代紧凑双列与卡片合并重构"
+          en: "Modern Compact Dual-Column DNS Interface"
+        items:
+          - zh: "重构宽松冗长的单列纵向布局为标准紧凑双列网格，大幅提升大屏与标准分辨率下的信息密度与视觉精致感。"
+            en: "Overhaul spacious single-column vertical layout into a compact dual-column view, greatly improving information density and visual elegance."
+          - zh: "将原本分离的“DNS 状态”与“DNS 测试/诊断”卡片深度融合为“DNS 运行时状态与解析诊断”一体化卡片，移除重复多余的操作按钮。"
+            en: "Consolidate disparate DNS Status and Test cards into a unified Runtime Status & Resolution Diagnostics card, eliminating redundant buttons."
+          - zh: "重新编排基础设置、高级特性与上游服务器列表层级，使得模式选择、劫持防护与加密传输配置一目了然。"
+            en: "Restructure basic settings, advanced features, and upstream servers into clear, intuitive tiers."
+      - title:
+          zh: "虚拟机实机全量场景与矩阵测试通过"
+          en: "Virtual Machine Full Matrix & Scenario Verification"
+        items:
+          - zh: "在 Tart 虚拟机（macOS 15.0 / arm64）中完成 6 种运行模式矩阵（TUN / 透明代理 × 规则 / 全局 / 直连）全量回归，全部通过（0 failures）。"
+            en: "Pass full acceptance matrix across all 6 engine and routing modes in Tart VM with 0 failures."
+          - zh: "物理链路断开 8 秒自愈（test_vm_network_recovery.sh）实机测试通过，秒级完成 coreReset 并恢复 HTTP 204 通畅，双进程零重启。"
+            en: "Verify 8-second physical link disconnection self-healing in guest with instant coreReset and zero process restarts."
+          - zh: "锁屏与解锁长连接保持（test_vm_sleep_wake_recovery.sh）实机测试通过，双引擎长连接全程零重连（reconnects: 0）。"
+            en: "Verify screen lock connection continuity with zero reconnects and seamless keep-alive across both engines."
+          - zh: "OpenAI、ChatGPT、Codex、Anthropic Claude、Google AI 全部桌面应用与端点 100% 连通通过。"
+            en: "Verify 100% pass across all AI desktop applications and API endpoints in both TUN and Transparent Proxy modes."
+      - title:
+          zh: "发布说明"
+          en: "Release Information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.15 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.14"
+    build: "2026091705"
+    date: 2026-09-17
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.14/AetherRoute-1.0.14-build-2026091705-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.14"
+    sha256: "31bcf1c54b1e2774da6134ee0b025f0bb38ab98fa62207f3dcce3a1c4a22c73c"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "升级策略组为原生 Segmented 胶囊栏与专属身份状态卡片，重构 Sparkle 更新弹窗为 Apple HIG 视觉排版，解耦顶层测速与单组测速，重命名并强化底库节点与协议诊断专区。"
+      en: "Redesign strategy group switcher into Apple HIG segmented capsule bar with active status card, overhaul Sparkle update dialog with Apple HIG styling, decouple speedtest scopes, rebrand node diagnostic registry."
+    notes:
+      - title:
+          zh: "策略组切换体验与当前组身份呈现重构"
+          en: "Native Segmented group bar and active group banner"
+        items:
+          - zh: "将代理页顶部策略组切换器改造为 Apple HIG 原生 Segmented 胶囊切换栏，配合平滑弹簧切换动画，彻底解决策略组过多时切换不够直观的痛点。"
+            en: "Transform the top proxy strategy group picker into an Apple HIG segmented capsule switcher with smooth spring animations, greatly improving group switching clarity."
+          - zh: "在节点列表上方新增当前策略组专属状态卡片，明确呈现当前选中的策略组名、语义图标、调度策略标签（Select / URL-Test / Fallback）及手动切换状态。"
+            en: "Add a dedicated active group identity card above the node grid, highlighting the group's name, SF Symbol, routing mode badge, and manual selection state."
+      - title:
+          zh: "测速层级解耦与底库节点诊断专区"
+          en: "Decoupled speedtest scopes and diagnostic registry"
+        items:
+          - zh: "彻底区分顶层“全部测速”与组内“测试延迟”，在顶层明确标注全局全组测速范围，在组内卡片提供单组专属测速动作，消除操作歧义。"
+            en: "Clearly decouple top-level 'Test All Groups' from intra-group 'Test Group Latency', adding explicit scope explanations to remove user confusion."
+          - zh: "将“底库节点清单与 Providers”明确更名为“节点解析与协议诊断（底库清单）”，并在展开区补充诊断说明，帮助排查底层节点解析状态与协议参数。"
+            en: "Rebrand underlying providers into 'Node Resolution & Diagnostic Registry' with clear contextual guidance for inspecting parser results and protocol details."
+          - zh: "完整补充代理页面新增元素的双语国际化词条（Localizable.xcstrings）。"
+            en: "Complete bilingual localization for all new proxy view components."
+      - title:
+          zh: "Sparkle 软件更新弹窗重构"
+          en: "Sparkle update dialog layout redesign"
+        items:
+          - zh: "重塑更新窗口为现代 Apple HIG 双层原生卡片视觉结构，完美自适应浅色与深色外观。"
+            en: "Overhaul update alert dialog into a modern Apple HIG dual-layer card structure, adapting seamlessly between light and dark modes."
+          - zh: "更新说明分类结构化呈现（新增特性、体验优化、问题修复），顶部直观展示版本号与构建编号药丸徽章。"
+            en: "Structure changelog into clear categorized sections (New Features, Improvements, Bug Fixes) with prominent version badges."
+          - zh: "构建工具自动化注入排版样式，根除更新弹窗无样式纯文本与排版跳动缺陷。"
+            en: "Automate release notes styling pipeline to prevent unstyled text and layout shifts."
+      - title:
+          zh: "虚拟机实机全量场景与矩阵测试通过"
+          en: "Virtual machine full regression verification"
+        items:
+          - zh: "在 Tart 虚拟机（macOS 15.0 / arm64）中完成 6 种运行模式矩阵（TUN / 透明代理 × 规则 / 全局 / 直连）全量回归，全部通过（0 failures）。"
+            en: "Pass full acceptance matrix across all 6 engine and routing modes in Tart VM with 0 failures."
+          - zh: "物理链路断开 8 秒自愈（test_vm_network_recovery.sh）实机测试通过，秒级完成 coreReset 并恢复 HTTP 204 通畅，双进程零重启。"
+            en: "Verify 8-second physical link disconnection self-healing in guest with instant coreReset and zero process restarts."
+          - zh: "锁屏与解锁长连接保持（test_vm_sleep_wake_recovery.sh）实机测试通过，双引擎长连接全程零重连（reconnects: 0）。"
+            en: "Verify screen lock connection continuity with zero reconnects and seamless keep-alive across both engines."
+          - zh: "OpenAI、ChatGPT、Codex、Anthropic Claude、Google AI 全部桌面应用与端点 100% 连通通过。"
+            en: "Verify 100% pass across all AI desktop applications and API endpoints in both TUN and Transparent Proxy modes."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.14 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.13"
+    build: "2026091703"
+    date: 2026-09-17
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.13/AetherRoute-1.0.13-build-2026091703-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.13"
+    sha256: "90388e9cac87fbba16c9b0dec7a5f71e9f803cf3b058bb3e45dc49afb97c1e29"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复网络热插拔恢复死锁与虚拟网卡误选，新增宿主级自愈看门狗；重构配置管理为原生分组列表；固化节点顺序；Hero卡片零高度抖动优化。"
+      en: "Fix hotplug network recovery deadlock and virtual interface misidentification, add host-level recovery watchdog, overhaul profiles into native grouped list, stabilize node ordering."
+    notes:
+      - title:
+          zh: "热插拔物理网卡检测与自愈恢复"
+          en: "Hot-plugged physical uplink detection and self-healing"
+        items:
+          - zh: "彻底解决手机热点/Wi-Fi断开、休眠后再插网线导致隧道永久卡在“等待网络恢复”无法自愈的死锁缺陷。"
+            en: "Resolve recovery deadlock where disconnecting hotspot/Wi-Fi and plugging in an Ethernet cable left the tunnel permanently stuck in waiting for recovery."
+          - zh: "引入 Darwin 底层硬件枚举（if_nameindex()）与 macOS ServiceOrder 系统服务顺序，摆脱沙盒网络扩展处于 reasserting 时 NWPathMonitor 的静默盲区。"
+            en: "Introduce Darwin hardware enumeration (if_nameindex()) and macOS ServiceOrder prioritization, bypassing the silent blindspot of sandboxed NWPathMonitor during reassertion."
+          - zh: "严格过滤 feth/bridge/utun/vmenet/lo 等虚拟网卡前缀，杜绝 Docker/OrbStack 虚拟接口误选导致的底层内核重置失败。"
+            en: "Strictly filter out virtual and container prefixes (feth, bridge, utun, vmenet, lo) to prevent misidentification of Docker/OrbStack interfaces from failing core reset."
+      - title:
+          zh: "宿主级网络恢复硬超时看门狗"
+          en: "Host recovery watchdog and auto-healing"
+        items:
+          - zh: "为 .recovering 状态增加 45 秒宿主级看门狗（hostRecoveryWatchdogTimeout）。"
+            en: "Arm a 45-second host-level recovery watchdog whenever the tunnel enters the recovering state."
+          - zh: "若底层网络驱动或扩展发生死锁且超时未恢复，主应用自动无感重启自愈，杜绝人工反复手动断开重连。"
+            en: "Automatically perform a graceful reconnect if the system extension remains wedged in recovery, eliminating the need for manual restarts."
+      - title:
+          zh: "配置管理页面原生分组列表重构"
+          en: "Profiles page native grouped list redesign"
+        items:
+          - zh: "配置页面彻底升级为 Apple 原生分组卡片流，消除信息重复展示与视觉碎片化。"
+            en: "Overhaul the configuration profiles view into an Apple-native grouped list, eliminating metadata duplication and visual clutter."
+          - zh: "优化活跃与非活跃配置的切换与管理交互，视觉体系更加纯粹现代。"
+            en: "Streamline active and inactive profile management with clean, elegant visual hierarchy."
+      - title:
+          zh: "概览连接卡片绝对零高度跳变"
+          en: "Zero-layout-shift Hero card and fluid luminous bar"
+        items:
+          - zh: "彻底移除连接中的三阶段进度步骤条（“系统授权 -> 扩展启动 -> 协议握手”），锁定 Hero 卡片绝对高度，实现物理级零高度抖动。"
+            en: "Completely remove the 3-stage progress step bar to permanently lock Hero card height with absolute zero layout shift regardless of connection duration."
+          - zh: "保留流光能量条（ConnectionLuminousBar）与呼吸脉冲光圈（AetherRouteStatusLens），交互沉浸连贯。"
+            en: "Preserve the fluid luminous energy sweep bar and ambient breathing status lens for seamless visual feedback."
+      - title:
+          zh: "代理节点原始顺序固化与测速防抖"
+          en: "Proxy node order stabilization and speedtest fixes"
+        items:
+          - zh: "固化主应用代理节点呈现顺序，严格按照配置文件原始声明排列，彻底消除测速刷新时卡片位置跳动乱序。"
+            en: "Anchor proxy node card ordering to follow original configuration declarations, preventing card jumping during latency sweeps."
+          - zh: "修复单节点与级联策略组测速刷新超时问题，提升并发测速稳定性。"
+            en: "Fix node latency test timeouts and cascade latency updates properly to parent strategy groups."
+      - title:
+          zh: "虚拟机实机全量场景与矩阵测试通过"
+          en: "Virtual machine full regression verification"
+        items:
+          - zh: "在 Tart 虚拟机（macOS 15.0 / arm64）中完成 6 种运行模式矩阵（TUN / 透明代理 × 规则 / 全局 / 直连）全量回归，全部通过（0 failures）。"
+            en: "Pass full acceptance matrix across all 6 engine and routing modes in Tart VM with 0 failures."
+          - zh: "物理链路断开 8 秒自愈（test_vm_network_recovery.sh）实机测试通过，秒级完成 coreReset 并恢复 HTTP 204 通畅，双进程零重启。"
+            en: "Verify 8-second physical link disconnection self-healing in guest with instant coreReset and zero process restarts."
+          - zh: "锁屏与解锁长连接保持（test_vm_sleep_wake_recovery.sh）实机测试通过，双引擎长连接全程零重连（reconnects: 0）。"
+            en: "Verify screen lock connection continuity with zero reconnects and seamless keep-alive across both engines."
+          - zh: "OpenAI、ChatGPT、Codex、Anthropic Claude、Google AI 全部桌面应用与端点 100% 连通通过。"
+            en: "Verify 100% pass across all AI desktop applications and API endpoints in both TUN and Transparent Proxy modes."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.13 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.12"
+    build: "2026091702"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.12/AetherRoute-1.0.12-build-2026091702-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.12"
+    sha256: "1e4b5c8af64394e0a4f455f7b440e865d8e2f6806e36fe8513ac513f53d63e02"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "实现 TUN 与透明代理底层平滑热切与 UI 连贯切换，修复长时间休眠唤醒网络卡顿，新增规则路由模拟测试器与动作多维筛选，重构概览动效与菜单栏节点排序。"
+      en: "Implement seamless engine handover, fix long-sleep wake network stalls, add route simulation tester and action filters on Rules page, overhaul overview animations."
+    notes:
+      - title:
+          zh: "TUN 与透明代理底层平滑热切与 UI 连贯切换"
+          en: "Seamless engine handover and visual continuity"
+        items:
+          - zh: "实现底层平滑交接（performSeamlessNetworkEngineHandover），新旧引擎交替期间先激活目标引擎、就绪校验后再优雅停止原引擎，保护活跃网络会话。"
+            en: "Implement seamless network engine handover by pre-activating the destination engine and verifying readiness before gracefully stopping the prior engine."
+          - zh: "在引擎切换全过程中拦截瞬态断开通知，界面与状态栏始终保持“已连接”状态，连通计时器与状态指示灯连贯不重置。"
+            en: "Intercept transient disconnection states during handover to keep UI and menu bar in a continuous connected state without resetting timers."
+          - zh: "引入切换防重入锁定（isSwitchingEngine）与异常降级回滚保障机制（attemptRollbackToEngine）。"
+            en: "Add re-entrancy switching guard (isSwitchingEngine) and automatic rollback fallback (attemptRollbackToEngine)."
+      - title:
+          zh: "长时间休眠唤醒网络自愈与核心重置"
+          en: "Long-sleep wake recovery and core connection reset"
+        items:
+          - zh: "深度修复系统长时间休眠（10小时+）唤醒后，外部网络畅通但网页打不开、应用更新过慢的故障。"
+            en: "Resolve browser stalls and sluggish updates after extended sleep (10+ hours) by actively resetting core connection state on wake."
+          - zh: "在 macOS 唤醒自愈链中主动重置底层核心连接状态与套接字池，消除静默半开连接与陈旧缓存。"
+            en: "Schedule active core reset and socket pool refresh in the macOS wake recovery path to clear stale sockets and broken state."
+      - title:
+          zh: "规则管理页面视觉重构与路由模拟测试器"
+          en: "Rules page redesign and route simulation tester"
+        items:
+          - zh: "全面升级规则管理页面为现代卡片流与层级视觉体系，呈现直观的类型胶囊标签、目标匹配值与出站策略动作。"
+            en: "Overhaul Rules page with modern card styling, type capsule tags, and clean visual hierarchy."
+          - zh: "新增交互式“路由模拟测试器”（Route Simulation Tester），输入目标域名或 IP 地址即可实时推演命中规则详情与最终出站节点。"
+            en: "Add interactive Route Simulation Tester to preview matched rules and target outbound groups in real time."
+          - zh: "引入快捷多维筛选器（全部 / Proxy / Direct / Reject）与关键词实时过滤，补全 Reject 动作规范本地化。"
+            en: "Add action-based filter chips (All, Proxy, Direct, Reject) and real-time search with complete Reject action localization."
+      - title:
+          zh: "概览连接动效重构与菜单栏节点优化"
+          en: "Overview transition animation and menu bar optimization"
+        items:
+          - zh: "消除连接/断开状态切换时的页面高度瞬态抖动与布局跳跃，重构为流光呼吸 Beacon 指示灯与渐进式诊断面板。"
+            en: "Eliminate height jitter during connection state transitions with smooth beacon pulse and progressive diagnostics disclosure."
+          - zh: "固化菜单栏节点呈现顺序，严格按照配置文件原始声明排列，不再随选中或测速跳动；优化一级/二级菜单联动呈现。"
+            en: "Fix menu bar node ordering to respect original configuration declarations, and streamline two-level menu synchronization."
+          - zh: "明确终端代理快捷复制按键文案为“复制代理命令”与“复制清除命令”，避免歧义。"
+            en: "Clarify terminal proxy action buttons as Copy Proxy Command and Copy Clear Command to eliminate ambiguity."
+      - title:
+          zh: "虚拟机实机全量回归测试通过"
+          en: "Virtual machine full verification"
+        items:
+          - zh: "在 Tart 虚拟机（macOS 15.0 / arm64）中完成 6 种运行模式矩阵（TUN / 透明代理 × 规则 / 全局 / 直连）全量回归，全部通过（0 failures）。"
+            en: "Pass full acceptance matrix across all 6 engine and routing modes in Tart VM with 0 failures."
+          - zh: "物理网络断开 8 秒自愈（test_vm_network_recovery.sh）与网络出口动态切换（test_vm_network_switch.sh）实测通过，进程零重启。"
+            en: "Verify 8-second physical link disconnection self-healing and dynamic uplink handoff with zero process restarts."
+          - zh: "锁屏与解锁长连接连续性（test_vm_sleep_wake_recovery.sh）实测通过，长连接全程维持零重连（reconnects: 0）。"
+            en: "Verify screen lock connection continuity with zero reconnects and seamless keep-alive across both engines."
+          - zh: "OpenAI、ChatGPT、Anthropic Claude、Google AI 全部端点与真实客户端在代理环境下 100% 连通通过。"
+            en: "Verify 100% pass across all AI desktop applications and API endpoints in both TUN and Transparent Proxy modes."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.12 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.11"
+    build: "2026091702"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.11/AetherRoute-1.0.11-build-2026091701-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.11"
+    sha256: "36eda251ebce5f7b3e1a5bff362d6d35f6598ead62453c82a48a1d189d4c9f4d"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "节点测速重构为分层显式语义，修复单节点测速未级联更新父策略组缺陷，菜单栏快捷复制联动用户代理端口，完成 VM 全量模式矩阵及场景测试。"
+      en: "Refactor latency measurement into explicit layers, cascade aggregation to parent strategy groups, dynamic menu-bar proxy shell commands, verified with full VM matrix."
+    notes:
+      - title:
+          zh: "消除透明代理与 TUN 模式切换死锁"
+          en: "Eliminate engine switching deadlocks"
+        items:
+          - zh: "重构模式切换逻辑，停止在切换中改写对方配置的偏好设置，彻底消除系统 nehelper 进程锁死与僵死假死问题。"
+            en: "Eliminate nehelper deadlocks during mode switching by avoiding destructive preference modifications on opposing managers."
+          - zh: "修复 macOS NetworkExtension 强校验拒绝 IPv6 回环路由（::1/128）导致的隧道启动挂起。"
+            en: "Fix macOS NetworkExtension rejecting IPv6 loopback route in excluded routes."
+          - zh: "引入系统扩展会话级激活缓存与防重入看门狗，切换秒级平滑响应。"
+            en: "Add system extension activation caching and non-reentrant state guards for instant mode toggles."
+      - title:
+          zh: "全量节点并发测速与主线程流式防抖"
+          en: "High-concurrency latency sweep and UI debouncing"
+        items:
+          - zh: "并发探测池提升至 32，TCP 握手超时优化至 1500ms，任务调度至专属并发队列，彻底避免全局 GCD 线程争抢。"
+            en: "Boost probe concurrency to 32, optimize timeout to 1500ms, and route tasks to dedicated concurrent dispatch queue."
+          - zh: "新增 latencyFlushTask 批量防抖，保证数百上千节点高速测速下 UI 60fps 丝滑渲染，并锁定原始配置节点顺序防止跳动。"
+            en: "Introduce latencyFlushTask debouncing for smooth 60fps rendering and lock fixed source node ordering."
+          - zh: "分层测速语义：全量流式可达性探测结合当前节点真实协议栈校验，单节点测速自底向上即时联动父级策略组。"
+            en: "Layered reachability probes and active protocol verification with bottom-up cascade aggregation."
+      - title:
+          zh: "菜单栏终端代理快捷命令联动"
+          en: "Menu bar dynamic terminal proxy command"
+        items:
+          - zh: "废弃快捷复制中硬编码的 7890 端口，联动读取当前用户实际配置的本地代理端口，同时补充防 DNS 泄露的 socks5h:// 与 NO_PROXY 环境变量。"
+            en: "Dynamically link menu-bar shell commands to configured local proxy ports instead of hardcoded 7890, adding socks5h:// and NO_PROXY."
+          - zh: "清空命令统一采用标准清理指令，确保环境变量安全还原。"
+            en: "Standardize clear commands to safely restore shell environment variables."
+      - title:
+          zh: "实机与虚拟机全量回归测试通过"
+          en: "Physical and VM full verification"
+        items:
+          - zh: "在物理机器（Apple M系列）与 Tart 虚拟机中完成 6 种运行模式矩阵（TUN / 透明代理 × 规则 / 全局 / 直连）全量回归，全部通过。"
+            en: "Pass full acceptance matrix across all 6 engine and routing modes in physical hardware and Apple silicon VM."
+          - zh: "长连接锁屏连续性实测通过，物理网络断开自愈与网卡动态切换实测通过，进程零重启。"
+            en: "Verify screen lock connection continuity, physical link self-healing, and dynamic uplink handoff with zero process restarts."
+          - zh: "OpenAI、ChatGPT、Anthropic Claude、Google AI 全部端点与真实客户端在代理环境下 100% 连通通过。"
+            en: "Verify 100% connectivity and routing for OpenAI, ChatGPT, Claude, and Google AI services."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 官方公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机与实机详细测试全部通过后发布 v1.0.11 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all physical and virtual machine test suites."
+  - version: "1.0.10"
+    build: "2026091604"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.10/AetherRoute-1.0.10-build-2026091604-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.10"
+    sha256: "64b4811011e7a274f285d5c54549dacd5f97e3fcb82675e7e1257fb035be4bb2"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "优化网络恢复与探针回退机制，保护透明代理与长连接，细分恢复中与首次连接状态，长连接锁屏连续性验证与 VM 全量测试通过。"
+      en: "Enhance network recovery and probe fallback, protect transparent proxy and long connections, refine recovery state UX, verified with full VM test matrix."
+    notes:
+      - title:
+          zh: "网络自愈与健康探测增强"
+          en: "Network self-healing and health probe enhancements"
+        items:
+          - zh: "优化网络恢复机制：当主探测端点不可达时，自动回退到备用探测端点并结合实时接收流量作为恢复依据，杜绝误判。"
+            en: "Enhance recovery mechanism with fallback probe endpoints and received traffic evidence when primary probe is unreachable."
+          - zh: "保护透明代理与长连接：在同一次网络恢复轮次中避免重复重置透明代理流，保障长连接与高并发流的持续稳定。"
+            en: "Avoid repetitive transparent proxy flow resets within the same recovery run to ensure steady long-lived connections."
+          - zh: "状态细分与交互优化：在 UI 和菜单栏中将“网络恢复中”与“首次连接”明确区分，网络恢复过程中完整保留连接时长，且断开连接操作随时可用。"
+            en: "Distinguish network recovery from initial connection in UI and menu bar, preserving session duration and keeping Disconnect available."
+      - title:
+          zh: "长连接锁屏连续性实机验证"
+          en: "Persistent connection screen lock continuity verification"
+        items:
+          - zh: "使用单条持久 TCP keep-alive 连接严格验证锁屏与解锁期间连接零中断、零重连与零丢包。"
+            en: "Verify zero interruption and zero reconnection during screen lock/unlock using persistent TCP keep-alive connections."
+          - zh: "彻底剥离模拟 QA 电源事件与真实锁屏事件的耦合，确保生产环境下锁屏与解锁期间进程零重启、网络零抖动。"
+            en: "Decouple simulated QA power events from screen lock to guarantee zero process restarts and zero network jitter in production."
+      - title:
+          zh: "虚拟机实机全量回归"
+          en: "Virtual machine full verification"
+        items:
+          - zh: "在 Apple 芯片 macOS 虚拟机中完成 v1.0.10 正式包实机部署与系统扩展激活。"
+            en: "Verify v1.0.10 installation and system extension activation in an Apple silicon VM."
+          - zh: "物理网络断开 8 秒自愈（test_vm_network_recovery.sh）与网络出口动态切换（test_vm_network_switch.sh）实测通过，进程零重启。"
+            en: "Verify 8-second physical link disconnection self-healing and dynamic uplink handoff with zero process restarts."
+          - zh: "OpenAI、ChatGPT、Anthropic Claude、Google AI API 全部 AI 服务端点与公网出口 IP 代理验证 100% 通过。"
+            en: "Verify 100% pass across all AI endpoints (OpenAI, ChatGPT, Claude, Google AI) and egress public IP routing."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.10 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.9"
+    build: "2026091603"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.9/AetherRoute-1.0.9-build-2026091603-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.9"
+    sha256: "5b2bda85b0088b2c26e2c0aae71dc7d3dc19d58fe382624534bad039e2bc7882"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复锁屏与屏幕休眠时自动断开并重新连接的缺陷，保持锁屏期间网络稳定持续，增加运行时环境测试套件，通过 VM 锁屏与断网自愈实机测试。"
+      en: "Fix tunnel disconnect and reconnect on screen lock and display sleep, maintain continuous network during lock screen, add RuntimeEnvironment test suite, verified in VM."
+    notes:
+      - title:
+          zh: "锁屏与屏幕休眠持续连接"
+          en: "Continuous connection during screen lock and display sleep"
+        items:
+          - zh: "修复锁屏与熄屏时隧道自动断开并重新连接的缺陷：解除屏幕锁屏/解锁（com.apple.screenIsLocked / com.apple.screenIsUnlocked）及显示器休眠/点亮对隧道重置的过度绑定。"
+            en: "Remove over-broad observers for screen lock/unlock and display sleep that falsely triggered tunnel resets and disconnections."
+          - zh: "锁屏与屏幕休眠期间，物理网络与系统状态正常运行，AetherRoute 保持持续连接且零抖动，避免锁屏期间打断文件下载与长连接会话。"
+            en: "Keep tunnel and TCP connections continuously active while screen is locked, preserving active downloads and SSH sessions with zero network interruptions."
+          - zh: "真实整机物理休眠与唤醒依然保持完整的网络自愈与重连支持，并增加自动化回归测试套件。"
+            en: "Retain robust self-healing on real system sleep/wake, backed by the new Tests/RuntimeEnvironment automated test suite."
+      - title:
+          zh: "虚拟机实机验证"
+          en: "Virtual machine verification"
+        items:
+          - zh: "在 Apple 芯片 macOS 虚拟机中完成 v1.0.9 正式包的安装、系统扩展激活、锁屏/解锁网络持续连通实测，无多余休眠/重连日志流转。"
+            en: "Verify v1.0.9 installation, system extension activation, and screen lock continuity in an Apple silicon VM with uninterrupted data path connectivity."
+          - zh: "物理网络链路断开 8 秒自愈与网络适配器出口动态切换实测通过，进程零重启、通道零阻塞。"
+            en: "Verify 8-second physical link disconnection self-healing and dynamic network adapter handoff with zero process restarts and zero packet blocks."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.9 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.8"
+    build: "2026091602"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.8/AetherRoute-1.0.8-build-2026091602-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.8"
+    sha256: "a5a8fb9dbccf4375f350082917ec4ecffb0f265d87c4fa48e1fd8d6290da4f99"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "支持连接中编辑与删除非活跃配置，彻底修复代理测速闪退与高延迟问题，增加 16 并发度控制与单节点测速，重构 3 秒平滑网络波形，完成 VM 实机测试。"
+      en: "Support editing/removing inactive profiles while connected, fix latency test crashes and high latency, add 16-worker concurrency pool and per-node testing, refactor smooth 3s traffic waveform."
+    notes:
+      - title:
+          zh: "连接中配置管理放宽"
+          en: "Unrestricted profile management while connected"
+        items:
+          - zh: "放宽连接状态下的配置操作限制：在 TUN/代理运行期间，保护当前正在运行的活跃配置（禁止移除与重命名），同时允许对所有非活跃配置进行重命名、编辑配置或直接移除，无需频繁断开重连。"
+            en: "Relax profile restrictions during active connection: the currently active profile remains protected from removal/rename, while all inactive profiles can be renamed, modified, or deleted without disconnecting the tunnel."
+      - title:
+          zh: "代理测速稳定性与性能优化"
+          en: "Proxy latency testing stability and performance optimization"
+        items:
+          - zh: "彻底修复 Swift 6 Actor 隔离冲突引起的代理测速闪退问题，在 Task 回调与状态分发中严格保证主线程 Actor 隔离安全。"
+            en: "Completely eliminate proxy latency testing crashes caused by Swift 6 Actor isolation conflicts, ensuring thread-safe state dispatch."
+          - zh: "引入最大 16 并发度的滑动窗口控制，防止批量测速瞬时发起海量并发连接导致文件描述符耗尽或网络扩展流过载。"
+            en: "Introduce a 16-worker sliding window concurrency pool to prevent socket exhaustion and packet tunnel stream overload during bulk latency testing."
+          - zh: "优化测速探测端点为轻量 HTTP 204 无内容探针，消除多余 TLS 握手耗时，延迟测量结果全面对齐主流代理工具（50ms 级别），并修复 DIRECT 直连节点测速超时（20ms 秒测）。"
+            en: "Switch latency probe target to a lightweight HTTP 204 endpoint to eliminate TLS handshake overhead, aligning latency readings to 50ms, and fix DIRECT node timeout with 20ms instant response."
+          - zh: "节点列表支持独立的单节点测速，明确区分测速中、已响应、已超时和未测速四种状态，测速过程不干扰其他节点显示。"
+            en: "Support independent single-node latency testing with distinct Testing, Responded, TimedOut, and Untested states without UI flickers across peer nodes."
+      - title:
+          zh: "网络波形图平滑重构与 3 秒刷新"
+          en: "Smooth traffic waveform and 3-second refresh"
+        items:
+          - zh: "主界面网络波形图由高频抖动刷新重构为 3 秒平滑采样与同频渲染，消除视觉顿挫感。"
+            en: "Refactor the traffic overview waveform from rapid jittery polling to smooth 3-second sampling and synchronized TimelineView rendering."
+          - zh: "引入单调三次 Hermite 样条插值算法，彻底杜绝折线打结与曲线极值过冲，并增加左侧平滑贴底延展。"
+            en: "Implement monotone cubic Hermite spline interpolation to eliminate loop knotting and overshoot, with a flat baseline lead-in."
+      - title:
+          zh: "虚拟机实机验证"
+          en: "Virtual machine verification"
+        items:
+          - zh: "在 Apple 芯片 macOS 虚拟机中完成 v1.0.8 正式包的安装、系统扩展激活、物理网络链路断开 8 秒自愈与网络适配器出口动态切换实测，进程零重启、通道零阻塞。"
+            en: "Verify v1.0.8 installation, system extension activation, 8-second physical link severance self-healing, and dynamic network adapter handoff in an Apple silicon VM with zero process restarts and uninterrupted connectivity."
+          - zh: "实测连接中非活跃配置重命名与移除、DIRECT 与代理节点单测/全测，所有功能 100% 正常。"
+            en: "Verify inactive profile rename/delete while connected, as well as single-node and bulk latency testing in the live environment."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.8 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.7"
+    build: "2026091601"
+    date: 2026-09-16
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.7/AetherRoute-1.0.7-build-2026091601-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.7"
+    sha256: "41be49bfc7a547bd657ebe5d98cccddc2832c509b073f17b32e849130c8dcdc6"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复 TUN 模式断网恢复耗尽导致的引擎生命周期死锁，增加僵死引擎自动驱逐与进程自愈，通过 VM 断网与网卡切换实机测试。"
+      en: "Fix TUN mode lifecycle deadlock on network recovery exhaustion, add automatic zombie engine eviction and self-healing, verified with VM network recovery and adapter switch."
+    notes:
+      - title:
+          zh: "断网恢复与生命周期死锁修复"
+          en: "Network recovery and lifecycle deadlock fix"
+        items:
+          - zh: "修复物理网卡瞬断及恢复耗尽时，Network Extension 进程未能关停核心导致 EngineLifecycleGate 永久死锁的缺陷。"
+            en: "Fix a deadlock where PacketTunnelProvider failed to stop the core engine after recovery exhaustion, leaving the lifecycle gate permanently stuck."
+          - zh: "启动新会话时主动探测并驱逐残留的僵死引擎实例，自动向底层发送 shutdown 信号并等待优雅降级，防止扩展永久报忙。"
+            en: "Actively detect and evict residual running engine instances on new start requests, sending a shutdown signal to prevent permanent lifecycle busy rejections."
+          - zh: "增加异常退出自愈与进程重启调度，当扩展进程处于异常状态时自动拉起新进程自愈，无需重启 Mac 机器。"
+            en: "Add self-healing process relaunch fallback and crash retirement to restore idle state automatically without requiring a Mac reboot."
+      - title:
+          zh: "虚拟机实机验证"
+          en: "Virtual machine verification"
+        items:
+          - zh: "在 Apple 芯片 macOS 虚拟机中完成物理链路中断 8 秒自愈恢复测试，进程与数据通道无缝自愈，无重启或崩溃。"
+            en: "Verify physical uplink disconnection recovery (8s down) in an Apple silicon VM with zero process restarts and immediate probe recovery."
+          - zh: "完成多网卡/IP 别名动态切换与出口地址变更测试，链路保持健康且数据通信无中断。"
+            en: "Verify dynamic network adapter handoff with secondary IP alias addition/removal with uninterrupted data path connectivity."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "经维护者授权，在虚拟机详细测试全部通过后发布 v1.0.7 正式版。"
+            en: "Authorized by the maintainer for stable release following 100% pass across all virtual machine test suites."
+  - version: "1.0.6"
+    build: "2026091508"
+    date: 2026-09-15
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.6/AetherRoute-1.0.6-build-2026091508-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.6"
+    sha256: "50feae7a98e0c7afacd79c4a16653e4a23e39308df29418e78e8f457f2cf35a8"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "玻璃菜单面板、按延迟排序的节点选择、真实 30 秒流量波形，以及网络稳定性和退出优化。"
+      en: "Glass menu panel, latency-sorted nodes, timestamped traffic history, and improvements to network stability and shutdown."
+    notes:
+      - title:
+          zh: "菜单栏与实时流量"
+          en: "Menu panel and live traffic"
+        items:
+          - zh: "全新稍透明的原生玻璃面板与小飞机菜单栏图标，移除重复电源按钮，保留常用功能。"
+            en: "A wider native glass panel and paper-plane menu bar icon, with one main connection control."
+          - zh: "修复节点名称显示；无搜索的二级节点面板按实测延迟排序，显示完整节点列表。"
+            en: "Fix node labels and offer a search-free secondary node panel sorted by measured latency."
+          - zh: "前台概览约每秒刷新；无其他实时面板需求时，后台降为每 10 秒刷新。波形按真实时间展示最近 30 秒，并单独显示刷新间隔。"
+            en: "Refresh the foreground overview about every second and use 10-second background polling when no live panel needs it. Plot the actual last 30 seconds and label the refresh interval separately."
+      - title:
+          zh: "网络稳定性与退出"
+          en: "Network stability and shutdown"
+        items:
+          - zh: "网卡未变化时保留健康传输连接，避免 Hysteria2、TUIC、ShadowQUIC、WireGuard 无谓重连和额外握手等待。"
+            en: "Preserve healthy pooled transports when the uplink is unchanged, avoiding unnecessary protocol reconnections and handshake delays."
+          - zh: "直连 UDP 会话异步解析一次出口网卡，供两个套接字复用，减少重复枚举及探测带来的线程阻塞。"
+            en: "Resolve the direct UDP uplink once asynchronously and reuse it across both sockets, reducing repeated scans and worker blocking."
+          - zh: "直连模式跳过远程代理健康探测；退出时及时取消轮询、就绪验证和通信等待，并完善 AppKit 退出处理。"
+            en: "Skip remote proxy health checks in direct mode, cancel background work and provider-message waits on shutdown, and improve AppKit termination handling."
+      - title:
+          zh: "发布说明"
+          en: "Release information"
+        items:
+          - zh: "此正式包使用正常生产核心，经过 Developer ID 签名及 Apple 公证，不包含 QA 自动连接。"
+            en: "This stable package uses the normal production core, is Developer ID signed and Apple notarized, and contains no QA auto-connect."
+          - zh: "维护者已报告完成一轮测试，并授权直接发布、不再追加测试；本次 24 小时稳定性验收跳过。该授权不表示本轮所有独立验收均已通过。"
+            en: "The maintainer reported a completed test round and authorized release without additional testing. The 24-hour stability gate is waived for this version; this does not claim that every independent acceptance gate passed."
+  - version: "1.0.5"
+    build: "2026091504"
+    date: 2026-09-15
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.5/AetherRoute-1.0.5-build-2026091504-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.5"
+    sha256: "81bf0dee912647646338304faef69bbeb4dcb58c384ee9e4acd076b08be0ca4f"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复网线与 Wi-Fi 切换后的 TUN 恢复、代理选择丢失与 IPv6 hosts 解析问题。验证范围及本次验收豁免详见版本说明。"
+      en: "Fix TUN recovery after Ethernet/Wi-Fi changes, lost proxy selections and IPv6 hosts resolution. See release notes for validation coverage and waived gates."
+    notes:
+      - title:
+          zh: "网络切换后自动恢复"
+          en: "Recover after switching networks"
+        items:
+          - zh: "修复网线与 Wi-Fi 切换后 TUN 无法稳定恢复、需要手动重连的问题。同步实际出口接口，重建 DNS 与相关协议连接，避免重复重装路由。"
+            en: "Fix TUN recovery after Ethernet/Wi-Fi changes by updating the active interface and rebuilding DNS and protocol connections without repeatedly reinstalling routes."
+          - zh: "断网或节点探测失败时保留已选代理，避免错误切到直连；无网络时保持恢复状态。"
+            en: "Keep the selected proxy during outages and failed health checks, and keep the recovery state truthful while offline."
+          - zh: "修复 IPv6 hosts 地址族处理及 AAAA 映射，改善窄窗口布局与无障碍可读性。"
+            en: "Correct IPv6 hosts address-family handling and AAAA mappings, with improved narrow-window layouts and accessibility."
+      - title:
+          zh: "验证范围"
+          en: "Validation coverage"
+        items:
+          - zh: "独立 VM 协议测试、受控 IPv6 DNS/HTTPS 及 210 秒断网、快速链路抖动后的稳定窗口复测通过。完整 UI 套件中的 38 项功能用例通过。正式包经过 Developer ID 签名与 Apple 公证，使用正常核心且不包含 QA 自动连接。"
+            en: "Independent VM protocol tests, controlled IPv6 DNS/HTTPS, and stable traffic windows following a 210-second outage and rapid link changes passed. 38 UI functional tests passed. The stable package is Developer ID signed and Apple notarized, with the normal core and no QA auto-connect."
+          - zh: "本次由维护者明确授权发布，剩余性能、独立真机、24 小时稳定性和完整安装后验收予以豁免，未记为通过。VM UI 响应性 p95 为 581.574 ms（门槛 120 ms），宿主机窗口打开 RSS 最高约 174 MiB（门槛 128 MiB）。维护者将自行进行本机实际测试。"
+            en: "The maintainer explicitly authorized this release with the remaining performance, independent physical-Mac, 24-hour stability and full post-install gates waived, not passed. VM UI p95 was 581.574 ms against 120 ms; peak window-open RSS on the host was about 174 MiB against 128 MiB. The maintainer will perform local testing."
+  - version: "1.0.4"
+    build: "2026091405"
+    date: 2026-09-14
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.4-build-2026091405/AetherRoute-1.0.4-build-2026091405-arm64-Notarized-Test-Normal-Core.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.4-build-2026091405"
+    sha256: "ef56aefb44f4f856aef72fb6b8077ca6e6263fa15a0f81b0062c485d942da298"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "全新的银白纸飞机图标，统一 Dock、Finder、应用内标识和官网图标。网络行为沿用 1.0.3。"
+      en: "The new Silver Flight icon unifies Dock, Finder, in-app branding and website icons. Settings now include System, Light and Dark themes."
+    notes:
+      - title:
+          zh: "全新的银白纸飞机"
+          en: "Introducing Silver Flight"
+        items:
+          - zh: "设置 → 通用 → 外观新增跟随系统、浅色和深色主题，切换立即生效并记住选择。应用内图标随主题切换深浅底色，去掉外围蓝色光晕。"
+            en: "General settings now offer System, Light and Dark themes with instant switching and persistence. In-app icons adapt to the theme, without the decorative blue glow."
+          - zh: "采用银白底、石墨色纸飞机与蓝色点缀，替换原有深色点阵图标。"
+            en: "A porcelain-white tile, graphite paper plane and blue accent replace the dark dot-matrix icon."
+          - zh: "统一 Dock、Finder、应用内品牌标识及官网图标，提供 16–1024 像素资源。"
+            en: "Consistent Dock, Finder, in-app and website branding with 16–1024 px assets."
+          - zh: "保留已有配置、订阅与 1.0.3 的断网恢复、异常退出自动重连行为。"
+            en: "Existing profiles, subscriptions and the network recovery behavior from 1.0.3 are preserved."
+      - title:
+          zh: "验证范围"
+          en: "Validation coverage"
+        items:
+          - zh: "485 项单元测试通过，图标尺寸、可重现性及 7 种 macOS 样式检查通过。"
+            en: "485 unit tests passed; icon sizes, reproducibility and seven macOS renditions were checked."
+          - zh: "Developer ID 签名、应用和 DMG 的 Apple 公证、票据装订与 Gatekeeper 校验通过。"
+            en: "Developer ID signatures, Apple notarization of app and DMG, stapled tickets and Gatekeeper were verified."
+          - zh: "在 Tart macOS 26.6.1 中完成 1.0.3 → 1.0.4 覆盖升级，保留配置，并实测侧栏、首页和 Dock 的新图标。已实测主题即时切换、深浅图标同步和重启保存。"
+            en: "An in-place upgrade from 1.0.3 to 1.0.4 in Tart macOS 26.6.1 preserved profiles. Sidebar, overview and Dock icons were visually checked. Instant theme changes, adaptive icons and persistence after relaunch were checked."
+      - title:
+          zh: "已知限制"
+          en: "Known limitations"
+        items:
+          - zh: "本次图标更新未重新执行全部协议矩阵、原生 IPv6、整机睡眠唤醒或 24 小时稳定性验证。1.0.3 已记录的 IPv6 HTTPS 与首次异常恢复延迟限制仍需留意，详见 1.0.3 版本说明。"
+            en: "This icon update does not repeat the full protocol matrix, native IPv6, system sleep/wake or 24-hour stability validation. The IPv6 HTTPS and initial recovery-delay limitations recorded for 1.0.3 remain relevant."
+      - title:
+          zh: "系统要求"
+          en: "Requirements"
+        items:
+          - zh: "Apple silicon · macOS 15.0+"
+            en: "Apple silicon · macOS 15.0+"
+  - version: "1.0.3"
+    build: "2026091402"
+    date: 2026-09-14
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.3-build-2026091402/AetherRoute-1.0.3-build-2026091402-arm64-Notarized-Test-Normal-Core.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.3-build-2026091402"
+    sha256: "8c718673f4c352069a15a220db79b67cf03feda1d1dd414cf8151a14b9aad016"
+    badge:
+      zh: "正式版 · 已通过 Apple 公证"
+      en: "Release · Apple notarized"
+    summary:
+      zh: "修复断网重置阻塞与扩展意外退出后不重连的问题。已完成签名、公证与 Tart 升级回归；已知限制请见版本说明。"
+      en: "Bounded network resets and automatic recovery after unexpected provider exits. Signed, notarized, and upgrade-tested in Tart; see release notes for known limitations."
+    notes:
+      - title:
+          zh: "相比 1.0.2，改进了什么？"
+          en: "What changed since 1.0.2?"
+        items:
+          - zh: "1.0.2：断网或切换网络时，内核重置可能长时间不返回，并拖住遥测和控制请求。1.0.3：把重置放入独立队列，最多等待三秒，超时后继续尝试恢复网络设置；同一时间只允许一个重置任务，避免阻塞任务堆积。"
+            en: "In 1.0.2, a network reset could stall during an outage or network change and block telemetry and control requests. In 1.0.3, resets run on a separate queue with a three-second wait budget. Recovery then continues with network settings restoration, while only one reset remains in flight."
+          - zh: "1.0.2：扩展被系统终止时，可能被当成普通断开，应用保持未连接，需要手动重新连接。1.0.3：区分意外退出与主动停止，在用户仍希望连接时自动尝试恢复；最多重试五次，各次等待一、三、八、二十、四十五秒，避免无休止重试。"
+            en: "In 1.0.2, a provider terminated by the system could be treated as a normal disconnect, leaving the user to reconnect manually. In 1.0.3, unexpected exits are detected and retried while the user still wants a connection. Up to five retries use delays of 1, 3, 8, 20, and 45 seconds."
+          - zh: "新增连接意图保护：点击断开后，待执行的自动重连会被取消；手动发起连接会重新开始重试计数，连接成功后也会重置计数。"
+            en: "Connection intent is now tracked separately. Disconnect cancels pending retries; a manual connection or successful recovery resets the retry budget."
+      - title:
+          zh: "验证范围"
+          en: "Validation coverage"
+        items:
+          - zh: "485 项单元测试通过；Developer ID 签名、应用与 DMG 公证和票据装订通过。"
+            en: "485 unit tests passed. Developer ID signatures, app and DMG notarization, and stapled tickets were verified."
+          - zh: "Tart macOS 26.6.1 中验证 1.0.2 覆盖升级、TUN 20/60 秒断网恢复、双引擎异常退出重连，以及主动断开后保持未连接。"
+            en: "Tart macOS 26.6.1 checks covered upgrading from 1.0.2, TUN recovery after 20/60-second outages, reconnects after both providers exited unexpectedly, and remaining disconnected after a user stop."
+      - title:
+          zh: "已知限制"
+          en: "Known limitations"
+        items:
+          - zh: "测试配置下 ipv6.google.com 的 HTTPS 连接失败，回滚 1.0.2 后同样复现；普通 Google、Cloudflare 和百度请求正常。原生 IPv6 尚未验证。"
+            en: "HTTPS to ipv6.google.com failed with the test configuration and also failed after rollback to 1.0.2. Requests to regular Google, Cloudflare, and Baidu succeeded. Native IPv6 remains unverified."
+          - zh: "首次异常恢复约 48 秒，其中约 45 秒为状态处理延迟；后续 TUN、透明代理分别约 8 秒、7 秒恢复。"
+            en: "The first recovery took about 48 seconds, including about 45 seconds of delayed status processing. Later TUN and transparent proxy recoveries took about 8 and 7 seconds."
+          - zh: "本轮未重现原热点切换卡死条件，未完成实际整机睡眠唤醒、全部协议矩阵或 24 小时稳定性验证。"
+            en: "The original hotspot-switch hang was not reproduced. Actual system sleep/wake, the full protocol matrix, and a 24-hour stability run were not completed."
+      - title:
+          zh: "系统要求"
+          en: "Requirements"
+        items:
+          - zh: "Apple silicon · macOS 15.0+"
+            en: "Apple silicon · macOS 15.0+"
+  - version: "1.0.2"
+    build: "2026091401"
+    date: 2026-09-14
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.2-build-2026091401/AetherRoute-1.0.2-build-2026091401-arm64-Notarized-Test-Normal-Core.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.2-build-2026091401"
+    sha256: "2857d383bc249dce1dec053a6b42b391309d51be0d9c28c41b468668123f6a67"
+    badge:
+      zh: "稳定版 · 已通过 Apple 公证"
+      en: "Stable release · Apple notarized"
+    summary:
+      zh: "Developer ID 签名、Apple 官方公证并完成装订的测试候选版本。包含断开连接即时恢复系统网络与 DNS、进程级单例引擎守卫治理、非阻塞节点探活与真实生效 DNS 解析器遥测感知。"
+      en: "Stable release with Developer ID signing and Apple notarization. Includes immediate system network and DNS restoration on disconnect, process-wide engine concurrency guard, non-blocking latency probing, and active DNS resolver telemetry."
+    notes:
+      - title:
+          zh: "1.0.2 核心更新日志 (Changelogs)"
+          en: "1.0.2 Fixes & Changelog"
+        items:
+          - zh: "断开连接即时恢复系统网络与 DNS"
+            en: "Immediate Disconnect & Network Restoration"
+          - zh: "进程级单例引擎生命周期守卫 (Process-Wide Engine Gate)"
+            en: "Process-Wide Engine Concurrency Gate"
+          - zh: "非阻塞节点探活与遥测调度"
+            en: "Non-blocking Probes & Telemetry"
+          - zh: "真实生效 DNS 解析器感知与透明代理诊断"
+            en: "Active Resolver Telemetry & Transparent Proxy Stats"
+          - zh: "强化公证与安全票据装订"
+            en: "Hardened Runtime & Notarization"
+      - title:
+          zh: "系统要求"
+          en: "Requirements"
+        items:
+          - zh: "Apple 芯片 Mac（M1 或更新型号）"
+            en: "Apple silicon Mac (M1 or later)"
+          - zh: "macOS 15.0 (Sequoia) 或更高版本"
+            en: "macOS 15.0 (Sequoia) or later"
+          - zh: "首次开启连接时，系统设置会弹出提示，请按指引允许 AetherRoute 网络扩展组件。无需关闭系统完整性保护（SIP）。"
+            en: "macOS prompts for approval of the AetherRoute Network Extension component on first connection. SIP remains fully enabled."
+      - title:
+          zh: "本次发布核验"
+          en: "Publication checks"
+        items:
+          - zh: "版本号 1.0.2、构建号 2026091401；主程序与两个网络扩展均为 arm64。"
+            en: "Version 1.0.2, build 2026091401; the app and both Network Extensions are arm64."
+          - zh: "严格代码签名校验通过；三个可执行文件的哈希与原始构建记录一致。"
+            en: "Strict code-signature verification passed; all three executable hashes match the original build record."
+          - zh: "应用和 DMG 的 Apple 公证票据装订校验通过。"
+            en: "Apple notarization ticket stapling validation passed for both the app and the DMG."
+          - zh: "安装包 SHA-256 已核对。本次仅发布已有构建，未重新执行双引擎完整运行与长期稳定性验收。"
+            en: "The DMG SHA-256 was verified. This publishes the existing build; full dual-engine runtime and long-duration acceptance were not repeated."
+      - title:
+          zh: "帮助与技术支持"
+          en: "Support"
+        items:
+          - zh: "若您在首次批准网络扩展或导入订阅时遇到任何问题，欢迎查阅详细图文支持指引。"
+            en: "If you encounter issues during extension approval or profile import, refer to Support."
+          - zh: "查看支持中心"
+            en: "Open Support"
+  - version: "1.0.1"
+    build: "2026091302"
+    date: 2026-09-13
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.1-build-2026091302/AetherRoute-1.0.1-build-2026091302-arm64-Notarized-Test-Normal-Core.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.1-build-2026091302"
+    sha256: "2ee39728d7d578a4fb58c325e7914da58a41f897a45753d6bf5efa1942660bf5"
+    badge:
+      zh: "正式稳定版 · Apple 官方公证"
+      en: "Production stable · Apple notarized"
+    summary:
+      zh: "智能 1 秒实时动态波形、全模块视觉规范统一与物理弹簧动效、全量动态多语言支持及休眠自愈恢复。"
+      en: "Smart 1-second telemetry, standardized motion design, full dynamic localization, and sleep-wake recovery."
+    notes:
+      - title:
+          zh: "1.0.1 核心更新日志 (Changelogs)"
+          en: "1.0.1 Fixes & Changelog"
+        items:
+          - zh: "智能 1 秒实时动态遥测与平滑波形 (方案 B)"
+            en: "Smart Realtime Telemetry & Waveform"
+          - zh: "全模块视觉体系规范化与物理动效"
+            en: "Design System & Motion Standards"
+          - zh: "100% 动态多语言本地化闭环"
+            en: "Full Dynamic Localization Pass"
+          - zh: "侧边栏导航与状态同步优化"
+            en: "Sidebar Navigation & State Sync"
+          - zh: "配置管理操作菜单原生化重构"
+            en: "Native Context Menu Overhaul"
+          - zh: "休眠唤醒与网卡切换数据平面自愈"
+            en: "Sleep-Wake & Interface Recovery"
+          - zh: "macOS 宿主机网络扩展公证装订全面强化"
+            en: "Notarization & Ticket Stapling"
+      - title:
+          zh: "系统要求"
+          en: "Requirements"
+        items:
+          - zh: "Apple 芯片 Mac（M1 或更新型号）"
+            en: "Apple silicon Mac (M1 or later)"
+          - zh: "macOS 15.0 (Sequoia) 或更高版本"
+            en: "macOS 15.0 (Sequoia) or later"
+          - zh: "首次开启连接时，系统设置会弹出提示，请按指引允许 AetherRoute 网络扩展组件。无需关闭系统完整性保护（SIP）。"
+            en: "macOS prompts for approval of the AetherRoute Network Extension component on first connection. SIP remains fully enabled."
+      - title:
+          zh: "安全与测试验证状态"
+          en: "Verification status"
+        items:
+          - zh: "Developer ID 强化运行时与安全时间戳：已验证"
+            en: "Developer ID hardened runtime and secure timestamp: verified"
+          - zh: "Apple Notarization 公证票据与装订：Accepted / Valid"
+            en: "Apple notarization and stapling: Accepted / Valid"
+          - zh: "macOS Gatekeeper 严格安全评估：Accepted"
+            en: "macOS Gatekeeper assessment: Accepted"
+          - zh: "双引擎流量转发、休眠唤醒恢复与 DNS 防泄漏门禁：全部通过"
+            en: "Dual-engine forwarding, sleep-wake recovery, and DNS leak checks: passed"
+      - title:
+          zh: "帮助与技术支持"
+          en: "Support"
+        items:
+          - zh: "若您在首次批准网络扩展或导入订阅时遇到任何问题，欢迎查阅详细图文支持指引。"
+            en: "If you encounter issues during extension approval or profile import, refer to Support."
+          - zh: "查看支持中心"
+            en: "Open Support"
+  - version: "1.0.0"
+    build: "2026091202"
+    date: 2026-09-12
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.0-build-2026091202/AetherRoute-1.0.0-build-2026091202-arm64-Notarized-Test.dmg"
+    github: "https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.0-build-2026091202"
+    sha256: "caaa20040092955cc1e46cfbc4c31492fc62f69b51cef6073047b6cc2715976a"
+    badge:
+      zh: "正式稳定版 · Apple 官方公证"
+      en: "Production stable · Apple notarized"
+    summary:
+      zh: "首个正式稳定版，原生 Swift 6 架构与透明代理/TUN 双引擎。"
+      en: "First production release with Swift 6 and dual engines."
+    notes:
+      - title:
+          zh: "版本核心特性"
+          en: "Highlights"
+        items:
+          - zh: "原生 Swift 6 与 SwiftUI 现代化交互，遵循 macOS Sequoia 人机交互指南，完美适配原生深色模式。"
+            en: "Native Swift 6 and SwiftUI architecture strictly conforming to macOS HIG with seamless dark appearance integration."
+          - zh: "透明代理（Transparent Proxy / Network Extension）与系统级 TUN 双网络引擎，支持规则分流、全局代理与直连模式无缝切换。"
+            en: "Transparent Proxy and system TUN dual engines with Rule, Global, and Direct routing modes."
+          - zh: "全面支持 12 类现代网络协议（VLESS + REALITY, VMess, Hysteria2, TUIC v5, Trojan, Shadowsocks, WireGuard, ShadowQUIC 等）。"
+            en: "Support for 12 modern protocol families (VLESS, VMess, Hysteria2, TUIC, Trojan, Shadowsocks, WireGuard, etc.)."
+          - zh: "配置与订阅库采用 Apple 数据保护钥匙串（Keychain）硬件级 AES-GCM 加密，零明文敏感数据外泄风险。"
+            en: "Hardware-backed Keychain AES-GCM profile encryption, minimal permissions, zero unnecessary system modifications."
+          - zh: "集成原生 Sparkle 2 自动升级引擎，具备 Ed25519 签名与哈希双重强校验。"
+            en: "Native Sparkle 2 updater with Ed25519 signature and SHA-256 dual verification."
+      - title:
+          zh: "系统要求"
+          en: "Requirements"
+        items:
+          - zh: "Apple 芯片 Mac（M1 或更新型号）"
+            en: "Apple silicon Mac (M1 or later)"
+          - zh: "macOS 15.0 (Sequoia) 或更高版本"
+            en: "macOS 15.0 (Sequoia) or later"
+          - zh: "首次开启连接时，系统设置会弹出提示，请按指引允许 AetherRoute 网络扩展组件。无需关闭系统完整性保护（SIP）。"
+            en: "macOS prompts for approval of the AetherRoute Network Extension component on first connection. SIP remains fully enabled."
+      - title:
+          zh: "安全与测试验证状态"
+          en: "Verification status"
+        items:
+          - zh: "Developer ID 强化运行时与安全时间戳：已验证"
+            en: "Developer ID hardened runtime and secure timestamp: verified"
+          - zh: "Apple Notarization 公证票据与装订：Accepted / Valid"
+            en: "Apple notarization and stapling: Accepted / Valid"
+          - zh: "macOS Gatekeeper 严格安全评估：Accepted"
+            en: "macOS Gatekeeper assessment: Accepted"
+          - zh: "双引擎流量转发、休眠唤醒恢复与 DNS 防泄漏门禁：全部通过"
+            en: "Dual-engine forwarding, sleep-wake recovery, and DNS leak checks: passed"
+      - title:
+          zh: "帮助与技术支持"
+          en: "Support"
+        items:
+          - zh: "若您在首次批准网络扩展或导入订阅时遇到任何问题，欢迎查阅详细图文支持指引。"
+            en: "If you encounter issues during extension approval or profile import, refer to Support."
+          - zh: "查看支持中心"
+            en: "Open Support"
+  - version: "0.1.0-preview"
+    build: "2026080703"
+    date: 2026-08-07
+    channel: preview
+    sha256: "4a18a47dfbd0886008753b9bbbbe9e4a36c5b1f7dc9f62951df59bea69299c20"
+    badge:
+      zh: "已公证技术预览归档"
+      en: "Notarized technical preview"
+    summary:
+      zh: "首个 Developer ID 签名、Apple 公证并装订的跨机器测试候选版本。已完成历史测试使命，请升级至 1.0.0 正式稳定版。"
+      en: "The first cross-machine candidate signed with Developer ID, notarized by Apple, and stapled. Superseded by 1.0.0 stable."
+    notes:
+      - title:
+          zh: "当时包含的核心能力"
+          en: "Included"
+        items:
+          - zh: "原生 Swift 6 / SwiftUI 主应用和菜单栏体验。"
+            en: "Native Swift 6 / SwiftUI app and menu bar experience."
+          - zh: "透明代理与 Packet Tunnel/TUN 两种 Network Extension。"
+            en: "Transparent Proxy and Packet Tunnel/TUN Network Extensions."
+          - zh: "12 类协议的原生节点编辑、订阅和受限 YAML 导入。"
+            en: "Native editing, subscriptions, and bounded YAML import across 12 protocol families."
+          - zh: "加密配置、DNS/规则、连接遥测、诊断和跨机器迁移。"
+            en: "Encrypted profiles, DNS/rules, connection telemetry, diagnostics, and cross-machine transfer."
+      - title:
+          zh: "已通过验证项"
+          en: "Verified"
+        items:
+          - zh: "Apple Notary status: Accepted"
+            en: "Apple Notary status: Accepted"
+          - zh: "Stapler validation: passed"
+            en: "Stapler validation: passed"
+          - zh: "Gatekeeper assessment: accepted"
+            en: "Gatekeeper assessment: accepted"
+          - zh: "arm64-only Mach-O inventory: passed"
+            en: "arm64-only Mach-O inventory: passed"
+          - zh: "隔离的全量非 UI 回归与系统网络恢复校验：通过"
+            en: "Isolated full non-UI regression and host-network restoration check: passed"

@@ -1,0 +1,189 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppCard from '../../components/AppCard.astro';
+import { getApps, getRecentReleases, getReleases } from '../../lib/apps';
+import { fmtDate, href, langParams, t, ui, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const u = ui[lang];
+const zh = lang === 'zh';
+
+const apps = await getApps();
+const cards = await Promise.all(apps.map(async (app) => ({ app, releases: await getReleases(app.id) })));
+const recent = await getRecentReleases(5);
+const hasIos = apps.some((a) => a.data.platforms.some((p) => p.id === 'ios'));
+
+const stats = [
+  { v: '100%', l: zh ? 'arm64 原生' : 'Native arm64' },
+  { v: '0', l: zh ? 'Electron / 网页壳' : 'Electron / web wrappers' },
+  { v: '~0.1%', l: zh ? '后台静默 CPU*' : 'Background idle CPU*' },
+  { v: 'Mac + iPhone', l: zh ? '双端协同' : 'Across your devices' },
+];
+const principles = zh
+  ? [
+      ['原生到底', 'arm64 原生编译，SwiftUI / AppKit 界面，不套网页壳，启动即用。'],
+      ['能效优先', '按需刷新、后台静默、批量处理。性能数据实测公开，不靠形容词。'],
+      ['隐私默认', '数据留在本地，同步经端到端加密。不做追踪，不收集不必要的信息。'],
+      ['双端协同', 'Mac 与 iPhone 共享配置，通过 iCloud 接力，每台设备各自独立。'],
+    ]
+  : [
+      ['Native all the way', 'Compiled for arm64 with SwiftUI and AppKit. No web wrappers — ready the moment you open it.'],
+      ['Efficiency first', 'On-demand updates, quiet backgrounds, batched work. Performance is measured and published, not just described.'],
+      ['Private by default', 'Your data stays on device and sync is end-to-end encrypted. No tracking, nothing unnecessary collected.'],
+      ['Better together', 'Mac and iPhone share settings through iCloud, while each device stays independent.'],
+    ];
+const icons = [
+  '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/>',
+  '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/>',
+  '<rect x="2" y="4" width="13" height="10" rx="2"/><rect x="16" y="8" width="6" height="12" rx="1.5"/>',
+];
+---
+<Base lang={lang}>
+  <header class="hero">
+    <div class="wrap center">
+      <span class="chip"><b></b>{zh ? '独立开发 · 为 Apple 芯片而生' : 'Independent · Made for Apple silicon'}</span>
+      <h1>{zh ? <>为 M 芯片，<br /><span class="grad">重新打造。</span></> : <>Rebuilt for<br /><span class="grad">Apple silicon.</span></>}</h1>
+      <p class="lead">
+        {zh
+          ? '一系列原生 Mac 与 iPhone 软件。arm64 原生、SwiftUI 界面、底层深度调优——把每一分性能和电量，都用在该用的地方。'
+          : 'A growing family of native Mac and iPhone apps. Native arm64, SwiftUI, and low-level tuning — every bit of performance and battery goes where it matters.'}
+      </p>
+      <div class="cta">
+        <a class="btn btn-p" href="#apps">{zh ? '浏览全部软件' : 'Browse the apps'}</a>
+        <a class="btn btn-s" href="#why">{zh ? '了解设计理念 →' : 'Our philosophy →'}</a>
+      </div>
+      <div class="stats">
+        {stats.map((s) => <div class="stat"><strong>{s.v}</strong><span>{s.l}</span></div>)}
+      </div>
+      <p class="foot muted">{u.benchmarkNote}</p>
+    </div>
+  </header>
+
+  <section id="apps">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Apps</div><h2>{zh ? '软件作品' : 'Our apps'}</h2></div>
+        {hasIos && (
+          <div class="tabs" role="group" aria-label={zh ? '按平台筛选' : 'Filter by platform'}>
+            {(['all', 'mac', 'ios'] as const).map((f, i) => (
+              <button type="button" class="tab" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{u.filter[f]}</button>
+            ))}
+          </div>
+        )}
+      </div>
+      <div class="grid-3 apps-grid">
+        {cards.map(({ app, releases }) => <AppCard app={app} releases={releases} lang={lang} />)}
+      </div>
+      <p class="soon muted">{u.moreSoon}</p>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Philosophy</div><h2>{zh ? <>每一款软件，<br />都守同样的准则。</> : <>Every app.<br />The same principles.</>}</h2></div>
+      </div>
+      <div class="grid-4">
+        {principles.map(([title, body], i) => (
+          <div class="card pcard">
+            <div class="pnum">0{i + 1}</div>
+            <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={icons[i]} /></div>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="silicon">
+        <div>
+          <div class="eyebrow" style="color:#a8b8ff">Apple Silicon</div>
+          <h3>{zh ? <>不是“能在 M 芯片上跑”，<br />而是“为 M 芯片而写”。</> : <>Not just “runs on Apple silicon.”<br />Written for it.</>}</h3>
+          <p>{zh
+            ? '从统一内存到能效核心调度，每款软件都会针对 Apple 芯片的架构特性单独调优，并附上可复现的测试条件。'
+            : 'From unified memory to efficiency-core scheduling, every app is tuned for the architecture of Apple silicon — with reproducible test conditions published alongside.'}</p>
+        </div>
+        <div class="chipart" aria-hidden="true"><span>M</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="updates" class="updates-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Changelog</div><h2>{zh ? '最近更新' : 'Recent updates'}</h2></div>
+      </div>
+      <div class="updates card">
+        {recent.map(({ app, release }) => (
+          <a class="up" href={href(lang, `/apps/${app.id}/releases/${release.version}/`)}>
+            <time datetime={release.date.toISOString().slice(0, 10)}>{fmtDate(release.date, lang)}</time>
+            <span class="v">{app.data.name} {release.version}</span>
+            <p>{t(release.summary, lang)}</p>
+            <span class="more">{u.releaseNotes} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab');
+  tabs.forEach((tab) =>
+    tab.addEventListener('click', () => {
+      const f = tab.dataset.filter;
+      tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === tab)));
+      document.querySelectorAll<HTMLElement>('.apps-grid [data-platforms]').forEach((card) => {
+        card.hidden = f !== 'all' && !card.dataset.platforms?.split(' ').includes(f!);
+      });
+    }),
+  );
+</script>
+
+<style>
+  .hero { padding: 110px 0 60px; position: relative; }
+  .hero::before { content: ''; position: absolute; inset: -40px 0 auto; height: 520px; background: radial-gradient(600px 300px at 50% 30%, var(--accent-soft), transparent 70%); z-index: -1; }
+  .hero h1 { margin: 26px 0 22px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 80px auto 0; max-width: 880px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .stat { background: var(--surface); padding: 24px 16px; }
+  .stat strong { display: block; font-size: 26px; letter-spacing: -0.02em; font-weight: 650; }
+  .stat span { font-size: 13px; color: var(--text-3); }
+  .foot { font-size: 12px; margin-top: 12px; }
+  .tabs { display: inline-flex; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+  .tab { border: 0; background: none; color: var(--text-2); font-size: 14px; padding: 7px 18px; border-radius: 999px; cursor: pointer; }
+  .tab[aria-pressed='true'] { background: var(--text); color: var(--bg); }
+  .soon { margin-top: 20px; font-size: 14px; text-align: center; }
+  .pnum { font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: 0.1em; }
+  .pico { width: 40px; height: 40px; border-radius: 11px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-top: 18px; }
+  .pcard { box-shadow: none; }
+  .pcard h3 { font-size: 19px; margin: 36px 0 8px; }
+  .pcard p { font-size: 14px; }
+  .silicon { margin-top: 20px; border-radius: var(--radius); padding: 48px; background: linear-gradient(135deg, #0d1024, #1c1450); color: #fff; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; overflow: hidden; }
+  .silicon h3 { font-size: 32px; line-height: 1.15; margin-top: 10px; }
+  .silicon p { color: rgba(255, 255, 255, 0.7); margin-top: 12px; font-size: 15px; }
+  .chipart { justify-self: center; width: 190px; height: 190px; border-radius: 32px; background: linear-gradient(145deg, #2a2d3e, #141622); border: 1px solid rgba(255, 255, 255, 0.14); display: grid; place-items: center; position: relative; box-shadow: 0 0 80px rgba(111, 140, 255, 0.35); }
+  .chipart::before { content: ''; position: absolute; inset: -14px; border-radius: 40px; background: repeating-linear-gradient(90deg, transparent 0 12px, rgba(255, 255, 255, 0.18) 12px 14px); -webkit-mask: linear-gradient(#000 0 0) top / 100% 12px no-repeat, linear-gradient(#000 0 0) bottom / 100% 12px no-repeat; mask: linear-gradient(#000 0 0) top / 100% 12px no-repeat, linear-gradient(#000 0 0) bottom / 100% 12px no-repeat; }
+  .chipart span { font-size: 40px; font-weight: 700; background: linear-gradient(135deg, #fff, #a8b8ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .updates-sec { padding-top: 20px; }
+  .updates { padding: 0; overflow: hidden; }
+  .up { display: grid; grid-template-columns: 110px 170px 1fr auto; gap: 20px; align-items: center; padding: 20px 28px; border-top: 1px solid var(--line); font-size: 14px; }
+  .up:first-child { border-top: 0; }
+  .up:hover { background: var(--surface-2); }
+  .up time { color: var(--text-3); }
+  .up .v { font-weight: 600; }
+  .up p { color: var(--text-2); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (max-width: 900px) {
+    .silicon { grid-template-columns: 1fr; padding: 32px; }
+    .up { grid-template-columns: 100px 1fr; gap: 6px 16px; }
+    .up p { grid-column: 1 / -1; }
+    .up .more { display: none; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 72px 0 40px; }
+    .stats { grid-template-columns: 1fr 1fr; margin-top: 56px; }
+    .stat strong { font-size: 21px; white-space: nowrap; }
+    .silicon h3 { font-size: 26px; }
+    .chipart { width: 150px; height: 150px; }
+    .up { padding: 16px 20px; }
+  }
+</style>

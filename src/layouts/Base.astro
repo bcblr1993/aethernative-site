@@ -1,0 +1,132 @@
+---
+import '../styles/global.css';
+import BrandMark from '../components/BrandMark.astro';
+import { altHref, href, site, ui, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  /** 页面标题（会自动加上站点名） */
+  title?: string;
+  description?: string;
+  /** 分享预览图（绝对或站内路径） */
+  image?: string;
+  /** 导航中高亮的项 */
+  current?: 'apps' | 'about' | 'support';
+  /** 独立页面（如 404）：没有另一种语言的对应页，也不输出 canonical */
+  standalone?: boolean;
+}
+const { lang, title, description, image, current, standalone = false } = Astro.props;
+const u = ui[lang];
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${u.tagline}`;
+const desc = description ?? u.description;
+const path = Astro.url.pathname;
+const zhPath = standalone ? '/' : lang === 'zh' ? path : altHref(path, 'en');
+const enPath = standalone ? '/en/' : lang === 'en' ? path : altHref(path, 'zh');
+const canonical = new URL(path, Astro.site);
+const ogImage = new URL(image ?? '/og.png', Astro.site);
+const nav = [
+  { key: 'apps', label: u.nav.apps, to: href(lang, '/#apps') },
+  { key: 'why', label: u.nav.why, to: href(lang, '/#why') },
+  { key: 'updates', label: u.nav.updates, to: href(lang, '/#updates') },
+  { key: 'about', label: u.nav.about, to: href(lang, '/about/') },
+  { key: 'support', label: u.nav.support, to: href(lang, '/support/') },
+];
+---
+<!doctype html>
+<html lang={u.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    {standalone ? <meta name="robots" content="noindex" /> : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hreflang="zh-CN" href={new URL(zhPath, Astro.site)} />
+        <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+        <link rel="alternate" hreflang="x-default" href={new URL(zhPath, Astro.site)} />
+      </>
+    )}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#content">{u.skip}</a>
+    <nav class="nav" aria-label="Main">
+      <div class="wrap">
+        <a class="brand" href={href(lang)}><BrandMark />{site.name}</a>
+        <div class="links">
+          {nav.map((n) => <a href={n.to} aria-current={current === n.key ? 'page' : undefined}>{n.label}</a>)}
+        </div>
+        <div class="nav-r">
+          <a class="icon-btn" href={lang === 'zh' ? enPath : zhPath} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={u.switchLangLabel}>{u.switchLang}</a>
+          <button class="icon-btn" type="button" data-theme-toggle aria-label={u.theme}>◐</button>
+          <details class="menu">
+            <summary class="icon-btn" aria-label="Menu">☰</summary>
+            <div class="menu-panel">{nav.map((n) => <a href={n.to}>{n.label}</a>)}</div>
+          </details>
+        </div>
+      </div>
+    </nav>
+    <main id="content">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {site.name} · {u.madeBy}</span>
+        <div class="fl">
+          <a href={href(lang, '/privacy/')}>{u.privacy}</a>
+          <a href={href(lang, '/support/')}>{u.nav.support}</a>
+          <a href={href(lang, '/about/')}>{u.nav.about}</a>
+          <a href={site.github} rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const root = document.documentElement;
+      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+        const dark = root.dataset.theme !== 'dark';
+        if (dark) root.dataset.theme = 'dark';
+        else delete root.dataset.theme;
+        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (_) {}
+      });
+      // 点击菜单里的链接后收起手机菜单
+      document.querySelectorAll<HTMLAnchorElement>('.menu-panel a').forEach((a) =>
+        a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
+      );
+      // 复制 SHA-256
+      document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) =>
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+            const label = btn.textContent;
+            btn.textContent = btn.dataset.done ?? '✓';
+            setTimeout(() => (btn.textContent = label), 1500);
+          } catch (_) {}
+        }),
+      );
+    </script>
+    <style>
+      .menu { display: none; position: relative; }
+      .menu > summary { list-style: none; }
+      .menu > summary::-webkit-details-marker { display: none; }
+      .menu-panel { position: absolute; right: 0; top: 40px; min-width: 180px; padding: 8px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; }
+      .menu-panel a { padding: 10px 12px; border-radius: 10px; font-size: 15px; }
+      .menu-panel a:hover { background: var(--surface-2); }
+      @media (max-width: 640px) { .menu { display: block; } }
+    </style>
+  </body>
+</html>

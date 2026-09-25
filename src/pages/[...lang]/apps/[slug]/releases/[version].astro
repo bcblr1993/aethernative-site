@@ -1,0 +1,80 @@
+---
+import Base from '../../../../../layouts/Base.astro';
+import Checksum from '../../../../../components/Checksum.astro';
+import ReleaseMeta from '../../../../../components/ReleaseMeta.astro';
+import { getApps, getReleases, latestStable, type App, type Release } from '../../../../../lib/apps';
+import { href, langs, t, ui, type Lang } from '../../../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const apps = await getApps();
+  const out = [];
+  for (const app of apps) {
+    const releases = await getReleases(app.id);
+    const latest = latestStable(releases);
+    for (const [i, release] of releases.entries()) {
+      const older = releases.slice(i + 1).find((r) => r.download);
+      for (const lang of langs) {
+        out.push({
+          params: { lang: lang === 'zh' ? undefined : lang, slug: app.id, version: release.version },
+          props: { lang, app, release, older, isLatest: release === latest },
+        });
+      }
+    }
+  }
+  return out;
+}
+
+interface Props { lang: Lang; app: App; release: Release; older?: Release; isLatest: boolean }
+const { lang, app, release: r, older, isLatest } = Astro.props;
+const u = ui[lang];
+const zh = lang === 'zh';
+const base = href(lang, `/apps/${app.id}/`);
+const fileName = r.download ? decodeURIComponent(r.download.split('/').pop() ?? '') : undefined;
+const kind = r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta : isLatest ? u.latest : u.previous;
+---
+<Base lang={lang} title={`${app.data.name} ${r.version}`} description={t(r.summary, lang)} current="apps">
+  <div class="wrap">
+    <header class="page-hero">
+      <a class="crumb" href={`${base}releases/`}>{zh ? '← 全部版本' : '← All releases'}</a>
+      <p class="eyebrow tag">{kind}{r.badge && ` · ${t(r.badge, lang)}`}</p>
+      <h1>{app.data.name} {r.version}</h1>
+      <ReleaseMeta release={r} lang={lang} />
+      <p class="sum">{t(r.summary, lang)}</p>
+      <div class="cta">
+        {r.download && <a class="btn btn-p" href={r.download}>{u.download(r.version)} ↓</a>}
+        {r.github && <a class="btn btn-s" href={r.github} rel="noopener">{u.githubRelease} ↗</a>}
+        {older && <a class="btn btn-s" href={`${base}releases/${older.version}/`}>{zh ? `获取 ${older.version} 历史版本` : `Get ${older.version} previous release`}</a>}
+      </div>
+      {!r.download && <p class="note">{u.noDownload}</p>}
+    </header>
+
+    <article class="prose">
+      {r.notes.map((n) => (
+        <section>
+          <h2>{t(n.title, lang)}</h2>
+          <ul>{n.items.map((x) => <li>{t(x, lang)}</li>)}</ul>
+        </section>
+      ))}
+      {r.sha256 && (
+        <section>
+          <h2>{zh ? '下载与校验' : 'Download and verify'}</h2>
+          {fileName && <p class="mono file">{fileName}</p>}
+          <p>{u.sha}</p>
+          <Checksum value={r.sha256} lang={lang} />
+          {fileName && (
+            <p class="muted small">{zh ? '下载后可在“终端”中运行以下命令，确认输出与上面的值一致：' : 'After downloading, run this in Terminal and confirm the output matches:'}<br /><code>shasum -a 256 ~/Downloads/{fileName}</code></p>
+          )}
+        </section>
+      )}
+    </article>
+  </div>
+</Base>
+
+<style>
+  .tag { margin-top: 18px; }
+  .page-hero h1 { margin-top: 10px; }
+  .sum { margin-top: 14px; max-width: 780px; }
+  .file { color: var(--text); word-break: break-all; }
+  .small { font-size: 13px; margin-top: 14px; }
+  .small code { word-break: break-all; }
+</style>

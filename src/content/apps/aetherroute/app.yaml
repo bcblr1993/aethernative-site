@@ -1,0 +1,298 @@
+# AetherRoute 软件介绍（内容迁移自 aetherroute.pages.dev）
+# 双语字段写成 { zh, en }；文本里的 \n 会显示为换行。
+name: AetherRoute
+order: 1
+featured: true
+icon: ./media/mark-1024.png
+repo: https://github.com/bcblr1993/AetherRoute
+tech: [SwiftUI + Rust, iCloud Sync]
+
+tagline:
+  zh: 为 Mac 与 iPhone 精心设计的私密路由
+  en: Private routing, thoughtfully designed for Mac and iPhone
+summary:
+  zh: 原生、轻快的网络连接工具。12 类协议、透明代理与 TUN 双引擎，iCloud 加密同步配置。
+  en: A native, lightweight connection tool. 12 protocols, Transparent Proxy and TUN engines, and encrypted iCloud profile sync.
+
+platforms:
+  - id: mac
+    status: available
+    requirement: { zh: Apple 芯片 · macOS 15+, en: Apple silicon · macOS 15+ }
+  - id: ios
+    status: coming
+    requirement: { zh: 仅支持 iOS 26 及以上, en: Requires iOS 26 or later }
+
+cardStats:
+  - { value: ~210 MB, label: { zh: 整体内存, en: Total memory } }
+  - { value: 0.0–0.1%, label: { zh: 后台 CPU, en: Idle CPU } }
+  - { value: 10h+, label: { zh: 长跑无泄漏, en: Leak-free soak } }
+
+hero:
+  eyebrow: { zh: 为你的 Mac 和 iPhone，多想一点。, en: A little more thought. For your Mac and iPhone. }
+  title: { zh: "连接世界，\n轻松一点。", en: "A world of connections.\nMade simple." }
+  lead:
+    zh: "从桌面到掌心，原生、轻快的网络连接体验。\nMac 版专为 Apple M 系列芯片深度定制，追求极致性能与能效优化。"
+    en: "Native, effortless connections. From your desk to your pocket.\nPurpose-built for Apple M-series chips. Tuned for performance and efficiency."
+  requirements:
+    zh: Mac：Apple 芯片 / macOS 15+ · iPhone：仅支持 iOS 26 及以上 · 自备订阅或节点
+    en: "Mac: Apple silicon / macOS 15+ · iPhone: requires iOS 26 or later · Bring your own nodes"
+
+gallery:
+  - { label: { zh: 连接概览, en: Overview }, zh: ./media/overview-zh.png, en: ./media/overview-en.png }
+  - { label: { zh: 节点管理, en: Proxies }, zh: ./media/proxies-zh.png, en: ./media/proxies-en.png }
+  - { label: { zh: 实时连接, en: Connections }, zh: ./media/connections-zh.png, en: ./media/connections-en.png }
+  - { label: { zh: 主题设置, en: Appearance }, zh: ./media/settings-zh.png, en: ./media/settings-en.png }
+  - { label: { zh: 深色外观, en: Dark mode }, zh: ./media/dark-zh.png, en: ./media/dark-en.png }
+
+ios:
+  badge: { zh: 即将上架, en: Coming soon }
+  title: { zh: "熟悉的连接，\n即将随身。", en: "Familiar connections.\nComing to iPhone." }
+  lead:
+    zh: AetherRoute iPhone 版即将上架。仅支持 iOS 26 及以上版本，带来原生界面、轻快的连接体验与 Mac / iPhone 双端配置同步。部分功能仍在测试与优化中，准备好后，再与你见面。
+    en: AetherRoute for iPhone is coming soon. Requires iOS 26 or later, with a native interface, responsive connections and profile sync with Mac. Some features are still being tested and refined before release.
+  chips: [iOS 26+, SwiftUI + Rust, iCloud Sync]
+  image: ./media/ios-home-zh.png
+  status: { zh: 即将上架 · 敬请期待, en: Coming soon · Stay tuned }
+  requirements:
+    zh: "系统要求：仅支持 iOS 26 及以上版本，不支持更早版本。\n适用机型：iPhone 12 系列及后续机型，需升级至受支持的系统版本。"
+    en: "Requires iOS 26 or later. Earlier iOS versions are not supported.\niPhone 12 family and later, running a supported iOS version."
+  notice:
+    zh: 功能抢先看 · 以下为开发预览，部分功能仍在测试，最终以正式发布版本为准。
+    en: A first look · Features are in development and testing. Final availability will be confirmed at release.
+  features:
+    - kicker: 01 / NATIVE
+      title: { zh: 为新一代 iOS，原生而生。, en: Native to a new generation of iOS. }
+      body:
+        zh: 从 iOS 26 起步，采用 Swift 6 与 SwiftUI。连接状态、模式切换和节点选择，一眼清楚；支持系统深浅色与动态字体。
+        en: Built for iOS 26 with Swift 6 and SwiftUI. Clear connection status, routing modes and node selection, with system light and dark appearances and Dynamic Type.
+    - kicker: 02 / PERFORMANCE
+      title: { zh: 追求极致性能，也在意电量。, en: Performance in mind. Battery, too. }
+      body:
+        zh: 原生界面搭配 Rust 网络核心，批量处理隧道数据包。App 进入后台时暂停界面遥测轮询，减少不必要的刷新，把资源留给连接本身。
+        en: A native interface meets a Rust networking core with batched tunnel packet processing. UI telemetry polling pauses in the background to reduce unnecessary work.
+    - kicker: 03 / CONTROL
+      title: { zh: 专业能力，也能随手掌控。, en: Room for more control. }
+      body:
+        zh: 支持 12 类代理协议，提供规则、全局与直连模式。管理订阅、选择节点、查看实时流量，在手机上也能清晰完成。
+        en: 12 proxy protocols, with Rule, Global and Direct routing. Manage subscriptions, select nodes and inspect live traffic, all from your iPhone.
+  shotsTitle: { zh: 每一面，都很 iPhone。, en: Feels like iPhone. In every view. }
+  shotsNote: { zh: 开发中界面 · 演示数据, en: Development screenshots · Demo data · Chinese UI }
+  shots:
+    - { title: { zh: 节点管理, en: Your connections }, caption: { zh: 搜索、选择与排序，一目了然。, en: Search, select and sort at a glance. }, image: ./media/ios-nodes-zh.png }
+    - { title: { zh: 深色外观, en: After dark }, caption: { zh: 跟随系统外观，夜间也清晰。, en: A clear view that follows your system appearance. }, image: ./media/ios-dark-zh.png }
+    - { title: { zh: 随心设置, en: Make it yours }, caption: { zh: 分流与 DNS 选项，集中掌控。, en: Routing and DNS options, all in one place. }, image: ./media/ios-settings-zh.png }
+
+sync:
+  eyebrow: { zh: 同一 Apple 账户 · 配置加密同步 · 各设备独立连接, en: One Apple Account · Encrypted profile sync · Independent connections }
+  title: { zh: "一套配置，\n多台设备接着用。", en: "One setup.\nAcross your devices." }
+  lead:
+    zh: 从桌上的 Mac，到随身的 iPhone，再到另一台备用 iPhone：通过同一 Apple 账户的 iCloud，让订阅与节点随配置在多台设备间接续，不必逐台重复整理。iPhone 端同步仍在测试与完善，正式能力以上架版本为准。
+    en: From your Mac to your everyday iPhone and a spare iPhone, iCloud profile sync is designed to share subscriptions and nodes across devices using the same Apple Account. iPhone sync is still being tested and refined; final availability will be confirmed at release.
+  image: ./media/device-sync.svg
+  imageAlt: { zh: Mac 通过 iCloud 与多台 iPhone 同步加密配置, en: A Mac and multiple iPhones share encrypted profiles through iCloud }
+  points:
+    - { title: { zh: 配置随行，连接独立。, en: Shared profiles. Independent connections. }, body: { zh: 同步订阅与节点配置，每台设备独立控制连接，并保留自己的活动配置。, en: Sync subscription and node profiles while each device controls its own connection and keeps its active profile. } }
+    - { title: { zh: 加密后，再同步。, en: Encrypted before syncing. }, body: { zh: 配置使用 AES-256-GCM 加密，密钥通过 iCloud 钥匙串同步。, en: Profiles use AES-256-GCM encryption, with keys synchronized through iCloud Keychain. } }
+    - { title: { zh: 合并配置，保留本地选择。, en: Merge profiles. Keep your choice. }, body: { zh: 同步时合并已有配置；每台设备仍可保持自己的活动配置。, en: Existing profiles are merged, while each device can retain its own active profile. } }
+  note:
+    zh: 使用条件：每台设备安装支持同步的版本，登录同一 Apple 账户，开启「iCloud 密码与钥匙串」，并分别在 App 中启用 iCloud 同步。同步完成时间受 iCloud 与网络状态影响。
+    en: Requires compatible versions on every device, the same Apple Account, iCloud Passwords & Keychain, and sync enabled in each app. Sync timing depends on iCloud and network availability.
+
+experience:
+  eyebrow: { zh: 少一点折腾，多一点自在, en: Less friction. More freedom. }
+  title: { zh: 好用，体现在每一天。, en: Little things. Better every day. }
+  cards:
+    - { title: { zh: 熟悉的 Mac 体验, en: Feels right at home. }, body: { zh: "原生界面，清晰的连接状态。\n打开就知道，该从哪里开始。", en: "A native interface. A clear connection status.\nFind your way from the moment you open it." } }
+    - { title: { zh: 带上订阅，就能开始, en: Bring your connections. }, body: { zh: "导入订阅、配置或单个节点。\n已有的连接习惯，在这里继续。", en: "Import subscriptions, profiles, or individual nodes.\nKeep the setup that works for you." } }
+    - { title: { zh: 自己的网络，自己掌控, en: Your network. Your say. }, body: { zh: "选择节点，查看连接，调整规则。\n简单的界面，也容得下专业需求。", en: "Choose nodes, inspect connections, adjust rules.\nA simple interface with room to go deeper." } }
+
+protocols:
+  eyebrow: { zh: 现代协议与广泛兼容, en: Modern protocols & broad compatibility }
+  title: { zh: 熟悉的协议，都能用。, en: Your protocols. Right at home. }
+  lead: { zh: 支持 12 类代理协议，无需安装额外依赖。选择一种协议，展开查看兼容能力。, en: 12 proxy protocols, with no extra runtimes. Choose a protocol to explore its capabilities. }
+  items:
+    - name: VLESS
+      tag: VISION & REALITY
+      body: { zh: 支持 XTLS-Vision 流控与 REALITY 深度伪装，配合 uTLS 客户端指纹模拟，具备极致抗封锁能力。, en: Supports XTLS-Vision flow and REALITY masquerading with uTLS browser fingerprinting for resilient connectivity. }
+      chips: [XTLS-Vision, REALITY, uTLS, gRPC, WebSocket, H2]
+    - name: VMess
+      tag: CLASSIC & SECURE
+      body: { zh: 完整支持标准 VMess 协议与多种底层传输通道，提供完整的 TLS 加密支持与动态用户验证。, en: Standard VMess protocol over diverse transport layers with full TLS encryption and dynamic user authentication. }
+      chips: [TCP, WebSocket, gRPC, HTTP/2, TLS]
+    - name: Trojan
+      tag: STEALTH TLS
+      body: { zh: 模仿标准 HTTPS 流量特征，支持通过 WebSocket 与 gRPC 复用传输，高隐蔽性与极低握手延迟。, en: Masquerades as standard HTTPS traffic with optional WebSocket and gRPC multiplexing for high stealth. }
+      chips: [TLS 1.3, WebSocket, gRPC, Multiplex]
+    - name: Hysteria 2
+      tag: UDP & BBR
+      body: { zh: 基于定制 QUIC/UDP 协议与 BBR 拥塞控制算法，支持 Salamander 混淆与端口跳跃，在恶劣网络下大幅提速。, en: Customized QUIC/UDP architecture with BBR congestion control, Salamander obfuscation, and port hopping. }
+      chips: [QUIC, BBR, Salamander, Port Hopping]
+    - name: TUIC v5
+      tag: NATIVE QUIC
+      body: { zh: 基于标准 IETF QUIC 协议构建，具备极速 0-RTT 连接建立与原生多路复用能力，弱网环境抗丢包优异。, en: Built directly on IETF QUIC with 0-RTT handshakes and native multiplexing, offering superior packet-loss resistance. }
+      chips: [IETF QUIC, 0-RTT, Congestion Control]
+    - name: Shadowsocks
+      tag: SS2022 & AEAD
+      body: { zh: 全面兼容传统 AEAD 加密套件、Shadowsocks 2022 规范及 ShadowTLS v3 混淆，支持原生全双工 UDP 转发。, en: Covers classic AEAD ciphers, Shadowsocks 2022 standards, and ShadowTLS v3 with native full-duplex UDP relay. }
+      chips: [AEAD, SS 2022, ShadowTLS v3, UDP Relay]
+    - name: ShadowQUIC
+      tag: ANTI-CENSORSHIP
+      body: { zh: 深度结合 QUIC 传输特性与对称混淆加密，规避深度包检测 (DPI) 嗅探与阻断。, en: Combines QUIC transport with symmetric obfuscation to bypass deep packet inspection (DPI) and interference. }
+      chips: [QUIC Transport, Obfuscation, Anti-DPI]
+    - name: WireGuard
+      tag: FULL-MESH VPN
+      body: { zh: 高效现代加密 VPN 隧道，支持完整 IPv4 与 IPv6 双栈路由、自定义 MTU 以及 Pre-Shared Key (PSK) 增强安全。, en: Modern VPN tunnel supporting full IPv4/IPv6 dual-stack routing, custom MTU, and Pre-Shared Key (PSK) hardening. }
+      chips: [IPv4 / IPv6, Noise Protocol, PSK, Custom MTU]
+    - name: AnyTLS
+      tag: TLS RESILIENCE
+      body: { zh: 消除 TLS 握手特征与统计指纹，在受限网络环境下提供稳定的端到端加密代理通道。, en: Strips distinctive TLS handshake patterns and statistical fingerprints for stable end-to-end encrypted proxying. }
+      chips: [TLS Camouflage, Fingerprint Stripping]
+    - name: SSH Tunnel
+      tag: NATIVE CIPHER
+      body: { zh: 原生 SSH 动态安全转发隧道，支持内嵌 Ed25519 密钥认证、私钥密码短语与严格主机公钥指纹校验。, en: Native SSH proxy tunneling with embedded Ed25519 keys, passphrase support, and strict host key verification. }
+      chips: [Ed25519, Passphrase, Host Key Check]
+    - name: HTTP / HTTPS
+      tag: STANDARD CONNECT
+      body: { zh: 通用标准 HTTP CONNECT 与安全 HTTPS 代理支持，兼容企业内网网关、正向代理与自建基础设施。, en: Universal HTTP CONNECT and HTTPS forward proxy support, compatible with enterprise gateways and custom relays. }
+      chips: [HTTP CONNECT, HTTPS, Basic Auth]
+    - name: SOCKS5
+      tag: TCP & UDP ASSOCIATE
+      body: { zh: 标准通用 SOCKS5 代理实现，支持安全用户名密码凭据认证及全功能 UDP Associate 流量代理转发。, en: Standard SOCKS5 implementation with username/password authentication and full UDP Associate relay capabilities. }
+      chips: [RFC 1928, User / Pass, UDP Associate]
+  tools:
+    - { title: { zh: 原生可视化节点编辑器, en: Native visual node editor }, body: { zh: 无需手写易出错的 YAML 配置，12 类协议均配备原生 macOS 表单界面，参数即填即验。, en: Forget editing raw YAML. All 12 protocols feature native macOS forms with real-time validation. } }
+    - { title: { zh: 多格式订阅与链接兼容, en: Universal subscription import }, body: { zh: 兼容 Clash 规范 YAML 订阅、Base64 分享链接，并支持 aetherroute:// 网页安全一键导入。, en: "Compatible with Clash YAML profiles, Base64 share links, and safe aetherroute:// one-click imports." } }
+    - { title: { zh: 高强度加密配置归档, en: Encrypted backup archives }, body: { zh: 支持跨机器一键导出与导入 .aetherroute 归档，采用 PBKDF2 与 AES-256-GCM 密码安全保护。, en: Export and import .aetherroute archives across Macs, secured by PBKDF2 and AES-256-GCM encryption. } }
+
+features:
+  eyebrow: { zh: Mac 版 · 专为 Apple M 系列芯片, en: For Mac · Built for Apple M-series }
+  title: { zh: 用起来简单，细节不简单。, en: Simple to use. Thoughtful underneath. }
+  lead: { zh: 从连接方式到隐私保护，让每一个细节，更贴合你的 Mac。, en: "From the way you connect to the way you stay private, every detail belongs on your Mac." }
+  items:
+    - kicker: { zh: M 系列芯片 · 深度定制, en: Purpose-built for Apple M-series }
+      title: { zh: 原生到底，优化到细节。, en: Native at heart. Tuned in every detail. }
+      body:
+        zh: 专为 Apple M 系列芯片深度定制，以极致优化为目标。arm64 原生架构、SwiftUI 界面与 Rust 网络核心协同工作，从按需刷新到批量数据包处理，持续打磨响应速度、资源占用与能效表现。
+        en: Purpose-built for Apple M-series chips, with optimization at every layer. Native arm64, SwiftUI and a Rust networking core work together, with on-demand updates and batched packet processing to refine responsiveness, resource use and efficiency.
+      details:
+        - { zh: ARMv8 硬件加解密指令加速：原生调用 M 芯片内置 Cryptography Extensions（硬件 AES/SHA/NEON），线速数据包加解密在硬件流水线瞬间完成，不占 CPU 核心。, en: "ARMv8 hardware cryptography: directly invokes Apple silicon's on-chip Cryptography Extensions (hardware AES/SHA/NEON), offloading crypto to dedicated silicon without CPU penalty." }
+        - { zh: 统一内存（Unified Memory）零冗余架构：Swift 6 宿主与网络内核通过静态链接高效整合，消除跨进程 IPC 套接字/管道序列化与内存多重拷贝，总物理内存仅约 210MB（较传统减少 60%+）。, en: "Unified Memory zero-redundancy: Swift 6 host and Rust protocol engines are statically linked, eliminating IPC socket serialization and redundant buffer copying to maintain a lean ~210MB footprint." }
+        - { zh: E-Core 能效核与内核深度休眠：菜单栏面板收起时，100% 线程立即切入 mach_msg2_trap 内核深度休眠，定时器与多余唤醒归零，后台静默 CPU 仅 0.0% ~ 0.1%，冷感长续航。, en: "E-core & kernel sleep scheduling: 100% of threads enter mach_msg2_trap deep kernel sleep when collapsed, eliminating background timers for 0.0% ~ 0.1% idle CPU and all-day endurance." }
+        - { zh: NEPacketTunnelFlow 批量刷包优化：结合单例报文头与批量数据包写入（Coalesced Flush），减少 95% 以上系统内核上下文切换，大吞吐依然平稳丝滑。, en: "Batched packet flushing: coalesces tunnel packet writes with shared protocol headers via NEPacketTunnelFlow, slashing kernel context switches by over 95%." }
+    - kicker: { zh: 国内与 Apple 服务, en: Domestic & Apple services }
+      title: { zh: 熟悉的服务，顺畅直连, en: A direct route to familiar services }
+      body: { zh: 首创内存级无损优化引擎，不修改磁盘订阅文件，运行时自动注入国内高优先级直连规则与分流策略。, en: Lossless in-memory optimization engine injects domestic direct rules without mutating on-disk profiles. }
+      details:
+        - { zh: Apple CDN 线速直连：系统更新域名（swcdn.apple.com 等）智能避让 Fake-IP，解析国内 Anycast 真实 IP，实测 34.9 MB/s 满带宽下载。, en: "Apple CDN line-rate bypass: system updates resolve to authentic domestic Anycast IPs, verified at 34.9 MB/s line-rate." }
+        - { zh: 国内高速安全 DNS：国内主流域名全自动映射至低延迟阿里云公共 DNS（223.5.5.5），彻底杜绝海外解析污染与额外延迟。, en: "Fast domestic DNS: domestic domains resolve via Alibaba low-latency DNS (223.5.5.5), eliminating poison and lookup lag." }
+        - { zh: 零配置自适应：导入任何通用订阅，无需手动编写复杂的 Apple 规则或直连分流即可全自动生效。, en: "Zero configuration: works out of the box with any standard subscription without editing custom rules." }
+    - kicker: { zh: 双引擎原生架构, en: Dual-engine architecture }
+      title: { zh: 透明代理与 TUN 自由切换, en: Transparent Proxy & Direct TUN engines }
+      body: { zh: 同时内嵌两种截然不同的 macOS 原生网络扩展，适应从日常浏览到极客终端的全场景需求。, en: Embeds two distinct native macOS Network Extensions for seamless everyday browsing and deep terminal routing. }
+      details:
+        - { zh: 透明代理 (Transparent Proxy)：基于 App Proxy 纯用户空间运行，低开销高效流式分流，DNS 由本机托管，免改系统网络配置。, en: "Transparent Proxy: runs in user space via App Proxy for lightweight streaming without altering system DNS settings." }
+        - { zh: 数据包隧道 (Direct TUN)：虚拟网卡捕获系统全局所有 TCP/UDP 流量，内置 PacketFlow 协议栈与 Fake-IP，接管所有命令行工具。, en: "Direct TUN: virtual TUN interface captures all TCP/UDP traffic and command-line tools with built-in PacketFlow stack." }
+        - { zh: 平滑切换与网络自愈：支持两套引擎与规则/全局/直连模式之间无感平滑热切，宿主看门狗全程守护连接状态。, en: "Seamless handover: switch between engines and Rule/Global/Direct modes smoothly with background self-healing watchdogs." }
+    - kicker: { zh: 系统级深度融合, en: System integration }
+      title: { zh: 开机自启、低功耗与无感自愈, en: Launch at login, low power & auto-recovery }
+      body: { zh: 深入适配 macOS 现代后台服务规范与睡眠唤醒机制，让代理服务如同系统原生功能般自然存在。, en: Engineered around modern macOS background service standards and sleep-wake lifecycle events. }
+      details:
+        - { zh: 开机自启动管理：基于原生 ServiceManagement API，沙盒安全合规，系统开机后智能恢复用户前次连接意图。, en: "Launch at login: native ServiceManagement sandboxed service automatically restores previous connection intent on boot." }
+        - { zh: 低功耗按需刷新：菜单栏实时网速与波形仅在面板展开时高频绘制，折叠时零额外 CPU 与能耗消耗，全天候省电。, en: "On-demand telemetry: menu bar speeds and graphs pause when hidden, eliminating background CPU overhead." }
+        - { zh: 休眠防振荡与安全退出：锁屏与休眠平稳自愈，应用退出时安全切断保护，彻底防止网络残留阻断外网。, en: "Anti-oscillation & safe exit: smooth sleep-wake recovery, with clean fail-safe teardown on termination to prevent stalls." }
+    - kicker: { zh: 隐私与专业控制, en: Privacy & diagnostics }
+      title: { zh: 隐私安心，掌控随心, en: Your privacy. Your control. }
+      body: { zh: 坚守极高标准的隐私边界与安全底线，同时为开发者与网络工程师提供全方位诊断工具。, en: Strict privacy boundaries paired with deep observability tools for developers and network engineers. }
+      details:
+        - { zh: 硬件级 Keychain 保护：订阅地址与节点凭证全部经过 AES-GCM 高强度加密入库，磁盘永不存明文。, en: "Hardware-backed Keychain: credentials and subscription URLs encrypted with AES-GCM; zero plaintext on disk." }
+        - { zh: 零追踪零遥测：无任何外部打点、商业统计或第三方分析 SDK，免关 SIP，通过 Apple 官方双重公证。, en: "Zero telemetry: no tracking scripts, no SIP disabling required, officially notarized by Apple." }
+        - { zh: 规则模拟与分层测速：内置规则匹配模拟器，提供 TCP 连通探测与真实协议层握手的双重真实测速。, en: "Route simulator & real latency: inspect rule matching instantly with genuine protocol latency proofs." }
+
+benchmarks:
+  eyebrow: { zh: Mac 版实测 · 少一点占用，多一点从容, en: Mac benchmarks · Less overhead. More room. }
+  title: { zh: 安静运行，轻装连接。, en: Quietly running. Lightly connected. }
+  lead: { zh: 以下为 Mac 版后台占用、内存与持续运行数据。展开了解详细对比与测试条件；这些数值不代表 iOS 版性能。, en: Background activity, memory and sustained use measured on Mac. Explore the comparison and test conditions below. These figures do not describe iOS performance. }
+  stats:
+    - { value: 0.0% ~ 0.1%, label: { zh: 后台静默 CPU, en: Background idle CPU }, note: { zh: 100% 线程进入内核深度休眠，折叠面板零后台绘制与无用唤醒, en: 100% thread sleep via mach_msg2_trap; zero background redraws when collapsed } }
+    - { value: ~210 MB, label: { zh: 整体物理内存占用, en: Total memory footprint }, note: { zh: 宿主 UI (~90MB) + 核心扩展 (~120MB)，比 Electron 类节省 60%+, en: Host UI (~90MB) + Extension (~120MB); over 60% lighter than Electron apps } }
+    - { value: 0.7% ~ 1.7%, label: { zh: 数据面吞吐 CPU, en: Throughput data-plane CPU }, note: { zh: Rust 内核静态链接与批量刷包机制，数 GB 高速吞吐依然波澜不惊, en: Statically linked Rust core & batched packet flushing for line-rate efficiency } }
+    - { value: { zh: 10+ 小时, en: 10+ hrs }, label: { zh: 生产级时序长跑, en: 10-hour soak telemetry }, note: { zh: 300 轮高频采样验证，内存增长斜率仅 0.6MB/h，彻底消除泄漏, en: 300 strict cycles verified; slope < 1MB/h with zero resource or FD leaks } }
+  table:
+    columns:
+      - { zh: 评估维度, en: Benchmark metric }
+      - { zh: AetherRoute (原生), en: AetherRoute (Native) }
+      - Clash Verge (Rev)
+      - Surge Mac (v5)
+    rows:
+      - metric: { zh: 底层技术栈, en: Tech stack }
+        cells:
+          - { value: Swift 6 + SwiftUI + Rust, note: { zh: 纯血 Apple 原生架构，零 Web 容器, en: "Pure Swift 6 & Rust, zero Web runtimes" } }
+          - { value: Electron + Chromium + Go, note: { zh: Node.js 多进程与浏览器内核封装, en: Chromium browser & Node.js wrapper } }
+          - { value: AppKit / Swift + C / Rust, note: { zh: macOS 平台原生开发架构, en: Native macOS architecture } }
+      - metric: { zh: 系统架构与权限, en: System architecture }
+        cells:
+          - { value: { zh: 标准 Network Extension, en: Standard Network Extension }, note: { zh: 纯用户态安全沙盒，免关 SIP，无 Root 提权, en: "User-space Network Extension, no root helper" } }
+          - { value: { zh: Root Helper + 虚拟网卡, en: Root helper + virtual NIC }, note: { zh: 依赖外部特权辅助程序与独立后台守护进程, en: Privileged root helper & external daemon } }
+          - { value: { zh: 标准 Network Extension, en: Standard Network Extension }, note: { zh: 系统原生网络扩展, en: Native Network Extension } }
+      - metric: { zh: Apple 芯片与硬件加速, en: Apple silicon & hardware }
+        cells:
+          - { value: { zh: 纯 arm64 底层深度定制, en: Pure arm64, deeply tuned }, note: { zh: ARMv8 硬件指令加解密，统一内存零 IPC 冗余拷贝，E-Core 内核深睡, en: "ARMv8 hardware crypto instructions, Unified Memory zero-IPC, E-core deep sleep" } }
+          - { value: { zh: 通用跨平台封装, en: Generic cross-platform bundle }, note: { zh: 跨平台多架构通用打包，无 M 芯片专用指令调度，Chromium 进程内存冗余, en: "No M-chip hardware instruction tuning, IPC memory overhead" } }
+          - { value: { zh: 原生 macOS 良好调优, en: Well-tuned native macOS }, note: { zh: macOS 原生架构良好适配，高效调用 Apple 基础加速库, en: "Native macOS architecture, well tuned for Apple silicon" } }
+      - metric: { zh: UI 宿主后台静默 CPU, en: Host idle CPU }
+        cells:
+          - { value: 0.0% ~ 0.1%, note: { zh: 100% 线程深睡 (mach_msg2_trap), en: 100% thread sleep (mach_msg2_trap) } }
+          - { value: 5% ~ 15%, note: { zh: Chromium 渲染管线与定时器周期唤醒, en: Chromium pipeline & timer overhead } }
+          - { value: < 0.5% (0.0% ~ 0.2%), note: { zh: 极致休眠调度优化, en: Optimized deep sleep scheduling } }
+      - metric: { zh: 整体物理内存 Footprint, en: Total memory footprint }
+        cells:
+          - { value: { zh: 约 210 MB, en: ~210 MB }, note: { zh: UI 宿主 ~90MB，内核扩展 ~120MB, en: "UI ~90MB, data plane ~120MB" } }
+          - { value: 500 MB ~ 800 MB+, note: { zh: Chromium 多进程容器 + Go 运行时, en: Chromium multi-process + Go runtime } }
+          - { value: { zh: 约 110 MB ~ 170 MB, en: ~110 MB ~ 170 MB }, note: { zh: C/ObjC 极简内存布局, en: Compact C/ObjC memory layout } }
+      - metric: { zh: 数据面高吞吐 CPU, en: Throughput CPU }
+        cells:
+          - { value: 0.7% ~ 1.7%, note: { zh: 批量刷包机制减少 95% 线程上下文切换, en: Batched packet writes reduce 95% switches } }
+          - { value: 2.5% ~ 5.0%, note: { zh: Go 内存 GC 抖动与跨进程 IPC 损耗, en: Go GC overhead & IPC penalty } }
+          - { value: 0.5% ~ 1.2%, note: { zh: 深度优化 C 数据平面, en: Highly optimized C data plane } }
+      - metric: { zh: 长周期运行与内存控制, en: 10h soak & stability }
+        cells:
+          - { value: { zh: 斜率 0.6 MB/h (平直无泄漏), en: 0.6 MB/h slope (flat, no leaks) }, note: { zh: 300 轮采样实测，自愈看门狗全天候守护, en: "300-cycle soak tested, 0 leaks, auto-healing" } }
+          - { value: { zh: 偶有延迟释放, en: Occasional delayed release }, note: { zh: 受浏览器与 Go 垃圾回收时序影响, en: Subject to browser & Go GC cycles } }
+          - { value: { zh: 极高工业级稳定性, en: Industrial-grade stability }, note: { zh: 主动管理连接状态机, en: Active socket state-machine tracking } }
+  footnote:
+    zh: "* 测试数据源自真实 M 系列 Apple 芯片 Mac 硬件环境，AetherRoute 采集自 10 小时 300 轮（采样间隔 120 秒）生产级时序全维度监控日志与 Tart 虚拟机矩阵验证，对比客户端均在同等网络负载与测试基准下采样记录。"
+    en: "* Benchmark metrics gathered on Apple silicon Macs during a 10-hour, 300-cycle continuous production soak test and Tart VM matrix regressions under standardized network loads."
+
+faq:
+  eyebrow: { zh: 简单之外，也有深度, en: Simple on the surface. Capable within. }
+  title: { zh: "你需要的掌控，\n都在里面。", en: "All the control.\nRight where you need it." }
+  lead: { zh: "日常使用保持轻松。\n想多调一点，也有顺手的工具。", en: "Keep everyday connections effortless.\nFine-tune things when you want to." }
+  items:
+    - q: { zh: iOS 版什么时候可以下载？, en: When can I download the iOS app? }
+      a: { zh: iPhone 版即将上架，部分功能仍在测试与优化中，目前暂未开放公开下载。具体上架时间与下载方式将在官网公布，页面中的界面与功能为开发预览，以正式发布版本为准。, en: The iPhone app is coming soon. Some features are still being tested and refined, and public downloads are not yet available. Timing and download details will be announced here. Screenshots and features are development previews and may change before release. }
+    - q: { zh: Mac 与多台 iPhone 如何同步配置？, en: How do profiles sync across Mac and multiple iPhones? }
+      a: { zh: 在 Mac 和每台 iPhone 上登录同一 Apple 账户，开启「iCloud 密码与钥匙串」，并分别启用 App 内的 iCloud 同步。先从已有配置的设备上传，再在其他设备拉取并合并配置；各设备独立控制连接和活动配置。iPhone 端仍在测试，具体开放时间随正式版本公布。, en: "Sign in to the same Apple Account on your Mac and each iPhone, enable iCloud Passwords & Keychain, and turn on sync in each app. Upload existing profiles, then pull and merge them on other devices. Connections and active profiles remain independent. iPhone sync is still in testing; availability will be announced with the release." }
+    - q: { zh: 对比 Clash Verge、Surge 等主流客户端，AetherRoute 性能表现如何？, en: How does AetherRoute compare with Clash Verge and Surge in performance? }
+      a: { zh: 得益于纯血 Swift 6 + SwiftUI 原生架构与静态链接的 Rust 高性能协议引擎，AetherRoute 相比 Electron 类客户端（如 Clash Verge、Nyanpasu）减少了超过 60% 的内存消耗（总物理 Footprint 仅约 210MB 对比 500MB~800MB+），并彻底消除了 Chromium 后台定时器唤醒，后台静默 CPU 低至 0.0% ~ 0.1%（100% 线程进入 mach_msg2_trap 内核深睡）。在持续吞吐能效与系统扩展沙盒安全性上，完全比肩业内标杆 Surge Mac，且无需安装任何带有 Root 权限的第三方 Helper 守护进程。, en: "Thanks to pure Swift 6 and statically linked Rust protocol engines, AetherRoute consumes over 60% less memory than Electron apps like Clash Verge (around 210MB vs 500MB~800MB+) and eliminates Chromium background wakeups, achieving 0.0% ~ 0.1% background idle CPU via mach_msg2_trap. Its throughput efficiency and sandbox safety rival Surge Mac, without requiring privileged root helpers." }
+    - q: { zh: AetherRoute 专为 Apple 芯片（M 系列）做了哪些底层深度优化？, en: What low-level optimizations are tailored for Apple silicon? }
+      a: { zh: AetherRoute 采用纯 arm64 架构从源码编译，完全剥离任何 x86 兼容层，零 Rosetta 2 性能损耗与内存惩罚。底层深度利用 Apple Silicon 硬件特性：① 直接调用 ARMv8 Cryptography Extensions（硬件 AES 与 SHA 指令），在芯片硬件流水线中瞬间完成复杂节点加解密，释放 CPU 计算核心；② 依托 Apple 统一内存架构（Unified Memory），网络核心静态链接至扩展，根除跨进程 IPC 套接字/管道序列化与内存多重拷贝；③ 深度适配 macOS 异构能效核调度，折叠菜单栏时 100% 线程切入 mach_msg2_trap 内核级深睡，零无用定时器唤醒，实现全天候 0.0% ~ 0.1% 静默 CPU 与冷感超长电池续航；④ NEPacketTunnelFlow 批量单例刷包机制，大幅聚合虚拟网卡数据包下发，降低 95% 以上内核上下文切换。, en: "AetherRoute is built 100% natively as pure arm64 with zero Rosetta 2 translation overhead or memory penalty. It takes deep advantage of Apple silicon hardware: (1) harnesses ARMv8 Cryptography Extensions (hardware AES/SHA instructions) directly in silicon for line-rate encryption without CPU bottlenecks; (2) leverages Apple Unified Memory with static core linkage to eliminate IPC serialization and duplicate memory copying; (3) integrates with efficiency-core scheduling, placing 100% of threads into mach_msg2_trap deep kernel sleep when collapsed for 0.0% ~ 0.1% idle CPU and all-day battery life; (4) uses NEPacketTunnelFlow batched packet coalescing to cut kernel context switches by over 95%." }
+    - q: { zh: 灵活选择连接方式：透明代理与 TUN 有何区别？, en: "Connect your way: Transparent Proxy vs Direct TUN" }
+      a: { zh: 提供透明代理（App Proxy）与 Direct TUN 两种网络引擎，均支持规则、全局和直连模式。透明代理运行在用户态，开销更低，DNS 由系统直接托管；Direct TUN 创建虚拟网卡捕获整机全部 TCP/UDP 流量并配备 Fake-IP，适合需要全面接管终端命令行及各类后台服务的进阶场景。, en: "AetherRoute embeds Transparent Proxy (App Proxy) and Direct TUN engines, both supporting Rule, Global, and Direct modes. Transparent Proxy is lightweight and keeps macOS DNS authoritative; Direct TUN captures all TCP/UDP traffic and command-line tools with built-in Fake-IP." }
+    - q: { zh: 支持哪些代理协议与导入格式？, en: Supported protocols and import formats }
+      a: { zh: 客户端原生完整支持 12 类现代代理协议：VLESS（支持 XTLS-Vision、REALITY、uTLS）、VMess、Trojan、Hysteria 2、TUIC v5、Shadowsocks（含 SS2022 与 ShadowTLS v3）、ShadowQUIC、WireGuard、AnyTLS、SSH Tunnel、HTTP/HTTPS 与 SOCKS5。导入方面全面兼容 Clash 规范 YAML 订阅、Base64 节点分享链接、aetherroute:// 网页安全一键导入，并配备 12 协议原生可视化表单编辑器与 .aetherroute 加密备份归档。, en: "AetherRoute natively supports 12 modern protocols: VLESS (XTLS-Vision, REALITY, uTLS), VMess, Trojan, Hysteria 2, TUIC v5, Shadowsocks (SS2022, ShadowTLS v3), ShadowQUIC, WireGuard, AnyTLS, SSH Tunnel, HTTP/HTTPS, and SOCKS5. It supports Clash YAML subscriptions, Base64 share links, safe aetherroute:// URL imports, native visual editing, and encrypted .aetherroute backups." }
+    - q: { zh: 1.0.18 国内与 Apple 服务零配置加速是如何工作的？, en: How 1.0.18 zero-config domestic and Apple acceleration works }
+      a: { zh: 在 1.0.18 中引入了无损内存级优化引擎。它完全不修改或污染你磁盘上的原始订阅文件，而是在运行时自动注入国内高优先级直连规则与低延迟 DNS（223.5.5.5）。针对 swcdn.apple.com、updates.cdn-apple.com 等 Apple 关键系统更新域名，智能避让 Fake-IP 映射，直接解析至国内真实 Anycast IP，实测达到 34.9 MB/s 满物理带宽极速下载。, en: "1.0.18 introduces a lossless in-memory optimization engine. Without mutating on-disk profiles, it injects domestic direct rules and fast domestic DNS (223.5.5.5) at runtime. Critical Apple domains (swcdn.apple.com, etc.) bypass Fake-IP and resolve directly to authentic domestic Anycast IPs, verified at 34.9 MB/s line-rate throughput." }
+    - q: { zh: 开机自启、休眠唤醒与网络切换是否稳定？, en: "Launch at login, sleep-wake, and network switching stability" }
+      a: { zh: AetherRoute 采用原生 macOS ServiceManagement API 管理开机自启动，沙盒合规安全。系统具备智能连接状态记忆：系统开机或从休眠唤醒后，自动恢复之前的连接状态；遇到 Wi-Fi/网线切换时由底层网络监视器平稳重连并具备防振荡看门狗；在完全退出应用时提供安全切断保护，杜绝残留断网。, en: "AetherRoute uses native ServiceManagement APIs for sandboxed launch at login. It remembers user connection intent across reboot and sleep-wake, features anti-oscillation recovery during Wi-Fi/Ethernet handovers, and performs clean fail-safe teardown upon termination." }
+    - q: { zh: 看得清每一条连接与真实分层测速, en: See connections clearly with layered latency testing }
+      a: { zh: 提供隐私安全的实时连接看板，清晰展示当前活跃连接、上下行速率、累计传输字节与命中规则链路。节点测速采用显式双层语义：TCP 连通性快速并发扫描 + 真实协议层握手测速，真实反映节点可用性与延迟，绝不制造虚假数字。同时提供规则模拟测试器与终端代理环境命令快速复制。, en: "Inspect live connections, rates, transferred bytes, and matched rule chains. Latency testing uses explicit layered semantics: fast concurrent TCP reachability sweeps plus genuine protocol-level handshakes. Includes an interactive route simulator and terminal proxy export shortcuts." }
+    - q: { zh: 为什么不需要降低系统安全性或关闭 SIP？, en: Why Reduced Security and disabling SIP are not required }
+      a: { zh: AetherRoute 100% 构建于 Apple 官方公开的用户空间 Network Extension 架构之上，完全不需要内核扩展（kext），因此绝对不需要关闭系统完整性保护（SIP），也不需要在恢复模式降低系统安全性。软件已获得 Apple Developer ID 签名并由 Apple 官方双重公证（Notarized），安全合规。, en: "AetherRoute is built 100% on Apple's modern user-space Network Extension APIs. It requires no kernel extensions (kexts), no disabling of SIP, and no Reduced Security mode. It is Developer ID signed and Apple double-notarized for security compliance." }
+    - q: { zh: 第一次使用，需要准备什么？, en: What do I need to get started? }
+      a: { zh: 准备一台运行 macOS 15 或更高版本的 Apple 芯片 Mac，以及你自己的订阅或节点。安装后导入配置，按系统提示批准网络扩展，再连接。, en: "You need an Apple silicon Mac running macOS 15 or later and your own subscription or nodes. Install the app, import your profile, approve the Network Extension when prompted, and connect." }
+    - q: { zh: 软件免费吗？包含节点吗？, en: Is it free? Are servers included? }
+      a: { zh: 客户端免费使用，无需付费激活。软件不提供节点或订阅服务，需要自行准备。, en: The client is free to use without paid activation. Servers and subscription services are not included; bring your own. }
+
+cta:
+  title: { zh: 让连接，回归简单。, en: Make connecting simple again. }
+  note: { zh: Mac 正式版 · iPhone 版即将上架 · 自备订阅或节点, en: Mac available · iPhone coming soon · Bring your own nodes }

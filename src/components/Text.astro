@@ -1,0 +1,7 @@
+---
+/** 输出双语文本；文本中的换行会渲染为 <br>。 */
+import { t, type Lang, type Loc } from '../lib/i18n';
+interface Props { v: Loc | undefined; lang: Lang }
+const lines = t(Astro.props.v, Astro.props.lang).split('\n');
+---
+{lines.map((line, i) => <>{i > 0 && <br />}{line}</>)}

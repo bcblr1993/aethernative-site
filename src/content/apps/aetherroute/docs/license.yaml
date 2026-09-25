@@ -1,0 +1,23 @@
+title: { zh: 软件许可, en: Software License }
+heading: { zh: "清晰的边界，\n安心地使用。", en: "Clear boundaries.\nConfident use." }
+meta: { zh: 免费版条款 · 2026-09-06, en: Free edition terms · 2026-09-06 }
+lead:
+  zh: AetherRoute 首版免费使用，无需注册账号或付费激活。你需要自行提供订阅或节点；软件不提供代理服务。
+  en: The first edition of AetherRoute is free to use, with no account or paid activation. You provide your own subscriptions or nodes; the software does not provide proxy service.
+sections:
+  - heading: { zh: 许可授予, en: License grant }
+    body:
+      - zh: 作者编程不良人授予你一项可撤销、非独占、不可转让的许可，用于在你拥有或控制的 Apple 芯片 Mac 上安装和使用 AetherRoute 免费版。除适用开源许可证明确允许外，不得销售、出租、再许可或冒充官方分发。
+        en: BianChengBuLiangRen grants you a revocable, non-exclusive, non-transferable license to install and use the free edition of AetherRoute on Apple-silicon Macs you own or control. Except where an applicable open-source license expressly permits it, you may not sell, rent, sublicense, or impersonate the official distribution.
+  - heading: { zh: 合法合规使用, en: Lawful use }
+    body:
+      - zh: 你必须遵守所在地法律、网络服务条款和组织政策。不得使用软件侵害他人权利、绕过你无权绕过的访问控制或实施攻击。
+        en: You must follow applicable law, network-service terms, and organizational policy. Do not use the software to violate rights, bypass controls you are not authorized to bypass, or conduct attacks.
+  - heading: { zh: 预发布风险与免责, en: Pre-release risk }
+    body:
+      - zh: 标为 Beta 或技术预览的版本按“现状”提供，可能包含缺陷、连接中断或数据丢失风险，不适合关键生产环境。请备份配置并保留独立的网络恢复方式。在法律允许的最大范围内，作者不对间接、偶然或后果性损失承担责任。
+        en: Versions labeled as betas or technical previews are provided “as is” and may contain defects, connectivity interruption, or data-loss risk. They are not intended for critical production use. Back up profiles and retain an independent recovery path. To the maximum extent permitted by law, the author is not liable for indirect, incidental, or consequential damages.
+  - heading: { zh: 第三方开源组件, en: Third-party components }
+    body:
+      - zh: 应用中的第三方开源组件继续适用其各自许可证，完整清单可在应用“设置 → 开源许可”中查看。
+        en: Third-party open-source components remain governed by their respective licenses. The complete notices are available in Settings → Open Source Licenses.

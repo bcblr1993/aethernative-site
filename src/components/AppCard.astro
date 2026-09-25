@@ -1,0 +1,65 @@
+---
+/** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
+import { Image } from 'astro:assets';
+import PlatformBadges from './PlatformBadges.astro';
+import { latestStable, type App, type Release } from '../lib/apps';
+import { href, t, ui, type Lang } from '../lib/i18n';
+
+interface Props { app: App; releases: Release[]; lang: Lang }
+const { app, releases, lang } = Astro.props;
+const u = ui[lang];
+const d = app.data;
+const latest = latestStable(releases);
+const page = href(lang, `/apps/${app.id}/`);
+const shot = d.gallery[0];
+const platforms = d.platforms.map((p) => p.id).join(' ');
+---
+<article class:list={['card', 'app-card', { feat: d.featured }]} data-platforms={platforms}>
+  <div class="body">
+    <a href={page} class="app-icon" aria-hidden="true" tabindex="-1">
+      <Image src={d.icon} alt="" width={128} height={128} />
+    </a>
+    <PlatformBadges app={app} lang={lang} />
+    <h3><a href={page}>{d.name}</a></h3>
+    <p>{t(d.summary, lang)}</p>
+    {d.featured && d.cardStats.length > 0 && (
+      <div class="specs">
+        {d.cardStats.map((s) => <div><b>{t(s.value, lang)}</b>{t(s.label, lang)}</div>)}
+      </div>
+    )}
+    <div class="cta">
+      {latest?.download && (
+        <a class="btn btn-p" href={latest.download}>↓ {u.macDownload(latest.version)}</a>
+      )}
+      <a class="btn btn-s" href={page}>{u.learnMore} →</a>
+    </div>
+  </div>
+  {d.featured && shot && (
+    <a class="shot" href={page} tabindex="-1" aria-hidden="true">
+      <Image src={lang === 'en' && shot.en ? shot.en : shot.zh} alt="" widths={[640, 1100]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" />
+    </a>
+  )}
+</article>
+
+<style>
+  .app-card { display: flex; flex-direction: column; transition: transform 0.25s; }
+  .app-card:hover { transform: translateY(-3px); }
+  .app-card[hidden] { display: none; }
+  .app-card .badges { margin: 18px 0 12px; }
+  .app-card h3 a:hover { color: var(--accent); }
+  .app-card p { margin-top: 6px; }
+  .app-icon { display: block; margin-left: -6px; }
+  .feat { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 40px; align-items: center; }
+  .feat h3 { font-size: 34px; }
+  .specs { display: flex; gap: 22px; margin-top: 22px; font-size: 13px; color: var(--text-3); flex-wrap: wrap; }
+  .specs b { display: block; color: var(--text); font-size: 15px; }
+  .cta { margin-top: 26px; }
+  .shot { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14); }
+  @media (max-width: 900px) {
+    .feat { grid-template-columns: 1fr; padding: 28px; gap: 28px; }
+  }
+  @media (max-width: 640px) {
+    .feat { padding: 22px; }
+    .feat h3 { font-size: 28px; }
+  }
+</style>

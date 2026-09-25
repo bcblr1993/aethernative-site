@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import { href, langParams, site, t, ui, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const zh = lang === 'zh';
+---
+<Base lang={lang} title={ui[lang].nav.about} current="about">
+  <div class="wrap">
+    <header class="page-hero">
+      <p class="eyebrow">About</p>
+      <h1>{zh ? <>一个人，<br /><span class="grad">认真做原生软件。</span></> : <>One developer.<br /><span class="grad">Serious about native.</span></>}</h1>
+      <p class="lead">{zh
+        ? `${site.name} 是${t(site.author, lang)}的独立软件品牌，专注为 Apple 芯片的 Mac 与 iPhone 打造原生软件。`
+        : `${site.name} is the independent software label of ${t(site.author, lang)}, focused on native apps for Apple-silicon Macs and iPhone.`}</p>
+    </header>
+    <article class="prose">
+      <section>
+        <h2>{zh ? '为什么是“原生”' : 'Why “native”'}</h2>
+        <p>{zh
+          ? '很多软件能在 M 芯片上运行，但并不是为它设计的：套一层网页外壳、在后台不停唤醒、占用几百兆内存。我更想做的是反过来——从 arm64 编译、SwiftUI / AppKit 界面，到统一内存和能效核心调度，每一层都按 Apple 芯片的特性来写。'
+          : 'Plenty of software runs on Apple silicon without being designed for it: web wrappers, constant background wake-ups, hundreds of megabytes of memory. I want to do the opposite — from arm64 builds and SwiftUI/AppKit interfaces to unified memory and efficiency-core scheduling, every layer is written for how Apple silicon works.'}</p>
+      </section>
+      <section>
+        <h2>{zh ? '我的承诺' : 'What you can expect'}</h2>
+        <ul>
+          <li>{zh ? '性能数据实测公开，并写明测试条件，不只靠形容词。' : 'Performance is measured and published with test conditions — not just adjectives.'}</li>
+          <li>{zh ? '不接入广告和第三方行为分析，数据默认留在你的设备上。' : 'No ads or third-party behavioral analytics. Your data stays on your device by default.'}</li>
+          <li>{zh ? '每个安装包都经过 Apple 公证，并提供 SHA-256 校验值。' : 'Every installer is notarized by Apple and published with a SHA-256 checksum.'}</li>
+          <li>{zh ? '更新记录完整保留，历史版本随时可查。' : 'Full release history, with previous versions always documented.'}</li>
+        </ul>
+      </section>
+      <section>
+        <h2>{zh ? '联系我' : 'Get in touch'}</h2>
+        <p>{zh ? '问题反馈和功能建议，欢迎在对应软件的 GitHub 仓库提交 Issue。' : 'For bug reports and feature requests, please open an issue in the app’s GitHub repository.'}</p>
+        <p class="links">
+          <a href={href(lang, '/support/')}>{zh ? '支持与帮助 →' : 'Support & help →'}</a>
+          <a href={site.github} rel="noopener">GitHub ↗</a>
+        </p>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .page-hero .lead { margin-top: 8px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; }
+</style>

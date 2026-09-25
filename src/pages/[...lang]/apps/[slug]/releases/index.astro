@@ -1,0 +1,73 @@
+---
+import Base from '../../../../../layouts/Base.astro';
+import ReleaseMeta from '../../../../../components/ReleaseMeta.astro';
+import { getApps, getReleases, latestStable, type App, type Release } from '../../../../../lib/apps';
+import { href, langs, t, ui, type Lang } from '../../../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const apps = await getApps();
+  const out = [];
+  for (const app of apps) {
+    const releases = await getReleases(app.id);
+    if (!releases.length) continue;
+    for (const lang of langs) out.push({ params: { lang: lang === 'zh' ? undefined : lang, slug: app.id }, props: { lang, app, releases } });
+  }
+  return out;
+}
+
+const { lang, app, releases } = Astro.props as { lang: Lang; app: App; releases: Release[] };
+const u = ui[lang];
+const zh = lang === 'zh';
+const base = href(lang, `/apps/${app.id}/`);
+const latest = latestStable(releases);
+const groups = [
+  { title: zh ? '正式版' : 'Releases', items: releases.filter((r) => r.channel !== 'preview') },
+  { title: zh ? '历史技术预览' : 'Archived previews', items: releases.filter((r) => r.channel === 'preview') },
+].filter((g) => g.items.length);
+const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta : u.previous);
+---
+<Base lang={lang} title={`${app.data.name} ${u.releases}`} current="apps">
+  <div class="wrap">
+    <header class="page-hero">
+      <a class="crumb" href={base}>{u.backTo(app.data.name)}</a>
+      <h1>{zh ? <>每一次发布，<br /><span class="grad">都有据可查。</span></> : <>Every release.<br /><span class="grad">Clearly documented.</span></>}</h1>
+      <p>{zh
+        ? '正式版与历史预览版分开列出，提供发布时间、系统要求与 SHA-256 校验和。'
+        : 'Stable releases and archived previews are listed separately, with dates, requirements and SHA-256 checksums.'}</p>
+    </header>
+
+    {groups.map((g) => (
+      <section class="group">
+        <h2>{g.title}</h2>
+        <div class="list">
+          {g.items.map((r) => (
+            <article class:list={['card', 'rel', { latest: r === latest }]}>
+              <div class="rel-head">
+                <span class:list={['badge', { ok: r === latest, gray: r !== latest }]}>{pill(r)}</span>
+                <h3><a href={`${base}releases/${r.version}/`}>{app.data.name} {r.version}</a></h3>
+              </div>
+              <ReleaseMeta release={r} lang={lang} />
+              <p class="sum">{t(r.summary, lang)}</p>
+              <div class="acts">
+                {r === latest && r.download && <a class="btn btn-p btn-sm" href={r.download}>{u.download(r.version)}</a>}
+                <a class="more" href={`${base}releases/${r.version}/`}>{u.viewDetails} →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .group { padding: 20px 0 30px; }
+  .group h2 { font-size: 26px; margin-bottom: 18px; }
+  .list { display: grid; gap: 14px; }
+  .rel { box-shadow: none; padding: 24px 28px; }
+  .rel.latest { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--ok) 30%, var(--line)); }
+  .rel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .rel-head h3 a:hover { color: var(--accent); }
+  .sum { margin-top: 10px; }
+  .acts { display: flex; align-items: center; gap: 18px; margin-top: 16px; flex-wrap: wrap; }
+</style>

@@ -1,0 +1,9 @@
+---
+import { ui, type Lang } from '../lib/i18n';
+interface Props { value: string; lang: Lang }
+const { value, lang } = Astro.props;
+---
+<div class="checksum">
+  <span>{value}</span>
+  <button type="button" data-copy={value} data-done={ui[lang].copied}>{ui[lang].copy}</button>
+</div>

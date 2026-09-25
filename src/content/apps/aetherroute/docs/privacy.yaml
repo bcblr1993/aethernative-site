@@ -1,0 +1,26 @@
+title: { zh: 隐私政策, en: Privacy }
+heading: { zh: "你的流量，\n不是我们的数据。", en: "Your traffic is\nnot our data." }
+meta: { zh: 生效日期：2026-08-07 · 适用于 AetherRoute 客户端与官方网站, en: "Effective: 2026-08-07 · Applies to the AetherRoute app and website" }
+sections:
+  - heading: { zh: 官方网站与分发服务, en: Website }
+    body:
+      - zh: AetherRoute 官网不使用广告、分析脚本、指纹识别或营销 Cookie。服务器可能为安全和故障排查处理标准连接元数据，例如请求时间、IP 地址、路径、状态码和 User-Agent；当前静态站点已关闭访问日志。下载服务仅提供公开发布文件。
+        en: The AetherRoute website uses no advertising, analytics, fingerprinting, or marketing cookies. Infrastructure may process standard connection metadata for security and troubleshooting, such as time, IP address, path, status, and User-Agent; access logging is disabled on the current static site. The download service serves public release files only.
+  - heading: { zh: 客户端应用程序, en: Application }
+    body:
+      - zh: 应用不包含第三方广告或行为分析 SDK。配置和订阅地址保存在本机加密存储中。主动开启 iCloud 同步后，配置会以 AES-256-GCM 加密后写入你的 iCloud，密钥通过 iCloud 钥匙串在同一 Apple 账户的设备间同步。诊断报告仅在你主动导出时生成，并排除配置内容、订阅地址、凭据、流量地址和自由文本错误。
+        en: The app contains no third-party advertising or behavioral analytics SDK. Profiles and subscription URLs are kept in encrypted local storage. If you enable iCloud sync, profiles are encrypted with AES-256-GCM before being stored in your iCloud, with keys synchronized through iCloud Keychain across devices using the same Apple Account. Diagnostics are generated only when you export them and exclude profile content, subscription URLs, credentials, traffic addresses, and free-form errors.
+  - heading: { zh: 代理和订阅服务提供商, en: Proxy and subscription providers }
+    body:
+      - zh: 连接后，流量、DNS 查询和订阅更新会发送到你选择的服务商。这些独立服务可能看到你的 IP 地址和请求元数据；导入前请审查并信任服务商。
+        en: When connected, traffic, DNS queries, and subscription refreshes reach providers you select. Those independent services may observe your IP address and request metadata. Review and trust providers before importing them.
+  - heading: { zh: 授权与软件更新机制, en: Licensing and updates }
+    body:
+      - zh: 首版免费使用，不需要账号或付费激活，不向授权服务发送设备标识或激活请求。本版通过官网下载新 DMG 手动更新，不使用自动更新服务；网站提供安装包 SHA-256 供你核对。
+        en: The first edition is free, with no account or paid activation. It sends no device identifiers or activation requests to a licensing service. Updates are manual DMG downloads from this website, without an automatic update service. Published SHA-256 checksums let you verify installers.
+  - heading: { zh: 隐私联系渠道, en: Contact }
+    body:
+      - zh: 隐私问题请通过 GitHub Issues 联系作者编程不良人。
+        en: For privacy questions, use GitHub Issues to contact BianChengBuLiangRen.
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherRoute/issues" }
