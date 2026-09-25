@@ -155,3 +155,24 @@ export function upsertRelease(yamlText, entry, { fallbackSummary } = {}) {
   seq.items.splice(pos, 0, map);
   return { text: doc.toString({ lineWidth: 0 }), action: 'added', position: pos };
 }
+
+/**
+ * 校验“签名清单”（Sparkle SURequireSignedFeed）：文件末尾的
+ *   <!-- sparkle-signatures:\nedSignature: ...\nlength: N\n-->
+ * 签名覆盖文件前 N 字节。返回 { ok, reason }。
+ */
+export function verifySignedFeed(buf, publicKeyBase64) {
+  const text = buf.toString('utf8');
+  const m = text.match(/<!-- sparkle-signatures:\s*\n\s*edSignature:\s*(\S+)\s*\n\s*length:\s*(\d+)\s*\n\s*-->/);
+  if (!m) return { ok: false, reason: '清单没有 sparkle-signatures 签名' };
+  const length = Number(m[2]);
+  if (length > buf.length) return { ok: false, reason: `签名声明的长度 ${length} 超过文件大小 ${buf.length}` };
+  const ok = verifySparkleSignature(buf.subarray(0, length), m[1], publicKeyBase64);
+  return ok ? { ok } : { ok, reason: '清单签名与内容不匹配' };
+}
+
+/** 版本记录中的最新正式版（第一条 stable）。 */
+export function latestStableVersion(yamlText) {
+  const list = parse(yamlText)?.releases ?? [];
+  return list.find((r) => (r.channel ?? 'stable') === 'stable')?.version?.toString();
+}

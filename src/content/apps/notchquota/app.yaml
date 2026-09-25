@@ -1,0 +1,108 @@
+# NotchQuota 软件介绍（内容整理自 github.com/bcblr1993/NotchQuota 的 README 与 PRIVACY.md）
+name: NotchQuota
+order: 2
+repo: https://github.com/bcblr1993/NotchQuota
+minimumSystemVersion: "13.0"
+sparklePublicKey: gFoiXS+rSGkGXDFDZ4Bty0KZkcDSBmCNXwggh3hljak=
+# 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
+appcastMode: mirror
+icon: ./media/icon.png
+tech: [Swift / AppKit]
+
+tagline:
+  zh: 刘海旁的 AI 额度仪表
+  en: Your AI quotas, right by the notch
+summary:
+  zh: 轻量原生的 AI 额度工具。在 Codex、Claude、Antigravity 之间查看剩余额度和重置时间，支持灵动岛、菜单栏和侧边栏。
+  en: A lightweight native quota monitor. See remaining usage and reset times for Codex, Claude and Antigravity — in the notch, the menu bar or a floating sidebar.
+
+platforms:
+  - id: mac
+    status: available
+    requirement: { zh: Apple 芯片 · macOS 13+, en: Apple silicon · macOS 13+ }
+
+hero:
+  eyebrow: { zh: Codex · Claude · Antigravity, en: Codex · Claude · Antigravity }
+  title: { zh: "额度还剩多少，\n抬眼就知道。", en: "How much is left?\nJust glance up." }
+  lead:
+    zh: "在刘海、菜单栏或侧边栏查看 AI 订阅的剩余额度和重置时间。\n原生 Swift / AppKit，无 Electron、无后台浏览器。"
+    en: "Remaining quota and reset times for your AI subscriptions — in the notch, the menu bar or a sidebar.\nNative Swift and AppKit. No Electron, no background browser."
+  requirements:
+    zh: Apple 芯片 / macOS 13+ · 需要先在对应软件中登录订阅账号
+    en: "Apple silicon / macOS 13+ · Sign in to each service's own app first"
+notice:
+  zh: NotchQuota 是独立开发的非官方工具，与 OpenAI、Anthropic、Google 无关联。Codex、Claude、Antigravity 及相关标识归各自权利人所有。
+  en: NotchQuota is an independent, unofficial tool and is not affiliated with OpenAI, Anthropic or Google. Codex, Claude, Antigravity and related marks belong to their respective owners.
+
+showcase:
+  eyebrow: { zh: 实际界面, en: Real interface }
+  title: { zh: 三种显示方式，随你摆放。, en: Three ways to see it. Put it anywhere. }
+  lead:
+    zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
+    en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
+  note:
+    zh: 图片来自 v0.1.16 应用原生界面渲染，额度、账号名称和时间为演示数据。
+    en: Rendered from the native v0.1.16 interface. Quotas, account names and times are demo data.
+  items:
+    - title: { zh: 小幽灵提醒, en: Ghost reminders }
+      caption: { zh: 定时轮流查询一个账号，成功后冒出思考泡泡，约 5 秒后淡出。, en: Checks one account at a time and shows a thought bubble that fades after about five seconds. }
+      image: ./media/thought-floating.png
+    - title: { zh: 侧边栏详情, en: Sidebar details }
+      caption: { zh: 多账号一起看，悬停查看详情，点击固定；可跨屏自由摆放。, en: See every account at once. Hover for details, click to pin, and place it on any display. }
+      image: ./media/sidebar-detail.png
+    - title: { zh: 菜单栏面板, en: Menu bar panel }
+      caption: { zh: 一次显示一个账号的详细额度，点击头像循环切换。, en: One account at a time in full detail. Click the avatar to cycle. }
+      image: ./media/menu-single-detail.png
+    - title: { zh: 灵动岛展开, en: Notch details }
+      caption: { zh: 收起时只显示图标和百分比，展开后查看各周期数据。, en: Just an icon and a percentage when collapsed; every window when expanded. }
+      image: ./media/details.png
+    - title: { zh: Antigravity 多实例, en: Antigravity instances }
+      caption: { zh: 支持多个 Antigravity 实例与账号，使用自定义别名显示。, en: Multiple Antigravity instances and accounts, shown with your own aliases. }
+      image: ./media/multi-instance.png
+
+features:
+  eyebrow: { zh: 功能, en: Features }
+  title: { zh: 轻巧，但考虑周全。, en: Light, but thoughtful. }
+  lead: { zh: 只显示你关心的账号，数据不确定时明确标注，不猜测。, en: "Only the accounts you care about — and when data is uncertain, it says so instead of guessing." }
+  items:
+    - kicker: { zh: 多账号, en: Multiple accounts }
+      title: { zh: 勾选需要的账号，自选顺序, en: Pick your accounts, set the order }
+      body: { zh: 勾选需要显示的账号并拖动排序；未勾选的账号不查询额度。侧边栏排列、点击切换与自动轮换共用同一顺序。, en: Choose which accounts to show and drag to reorder. Unchecked accounts are never queried. The sidebar, click-to-switch and auto-rotation all share the same order. }
+      details:
+        - { zh: 额度颜色统一：高于 50% 绿色、20%–50% 黄色、低于 20% 红色；未知额度显示灰色，不当作 0%。, en: "Consistent colors: green above 50%, yellow 20–50%, red below 20%. Unknown quota is gray, never treated as 0%." }
+        - { zh: 查询失败时保留并标注旧数据，不把失败当成 0% 或 100%。, en: "When a refresh fails, the last data is kept and marked as stale — never shown as 0% or 100%." }
+        - { zh: 未提供的重置时间会明确标注，不自行推算。, en: Reset times that aren't provided are labeled as such rather than estimated. }
+    - kicker: { zh: 原生轻量, en: Native and light }
+      title: { zh: 原应用无需常驻, en: The original apps don't need to stay open }
+      body: { zh: 读取本机已有登录即可查询，不需要安装 Homebrew、Python、Node 或命令行工具。仍需有效授权和网络连接。, en: "Uses the sign-ins already on your Mac — no Homebrew, Python, Node or command-line tools required. A valid session and a network connection are still needed." }
+      details:
+        - { zh: 每 3 分钟刷新已勾选账号；同一账号至少间隔 30 秒，休眠时暂停新请求。, en: "Selected accounts refresh every 3 minutes, at most once per 30 seconds per account, and pause during sleep." }
+        - { zh: 自动轮换只读取缓存，不增加查询次数。, en: Auto-rotation only reads the cache and never adds requests. }
+        - { zh: 支持开机自动启动；退出后不保留后台进程。, en: Launch at login is supported. Nothing keeps running after you quit. }
+    - kicker: { zh: 随手收起, en: Out of the way }
+      title: { zh: 临时隐藏与多种收起外观, en: Temporary hiding and collapsed styles }
+      body: { zh: 可临时隐藏 15 分钟到 5 小时；侧边栏收起后可选原生胶囊、磨砂圆球、迷你仪表或小幽灵外观。, en: "Hide it for 15 minutes to 5 hours. When the sidebar collapses, choose a native capsule, frosted orb, mini gauge or the ghost." }
+      details:
+        - { zh: 静置时不播放循环动画；隐藏或休眠时停止动画。, en: "No looping animation at rest; animations stop while hidden or asleep." }
+        - { zh: 侧边栏的位置和所在屏幕会被记住，鼠标或焦点跨屏不会带走它。, en: The sidebar remembers its position and display; moving the pointer or focus to another screen won't drag it along. }
+    - kicker: { zh: 应用内更新, en: In-app updates }
+      title: { zh: 签名、公证，原生更新, en: Signed, notarized, updated natively }
+      body: { zh: 提供 Developer ID 签名并经 Apple 公证的 DMG；应用内使用 Sparkle 检查、下载、校验并安装更新，更新清单本身也经过签名校验。, en: "Ships as a Developer ID–signed, Apple-notarized DMG. Sparkle checks, downloads, verifies and installs updates in the app — and the update feed itself is signature-verified." }
+
+faq:
+  eyebrow: FAQ
+  title: { zh: 常见问题, en: Questions }
+  lead: { zh: 数据从哪里来、会不会上传，都在这里。, en: Where the data comes from, and what never leaves your Mac. }
+  items:
+    - q: { zh: 额度数据从哪里读取？, en: Where does the quota data come from? }
+      a: { zh: Codex 读取当前用户的 ~/.codex/auth.json 并查询 ChatGPT 订阅额度；Claude 读取 Claude 桌面版保存的登录会话；Antigravity 读取 Antigravity 2.x 的 macOS 钥匙串，并向对应的 Google 额度服务查询。, en: "Codex uses ~/.codex/auth.json and the ChatGPT subscription usage endpoint. Claude uses the Claude desktop app's signed-in session. Antigravity uses the Antigravity 2.x macOS Keychain item and the matching Google quota service." }
+    - q: { zh: 会上传我的数据吗？, en: Does it upload my data? }
+      a: { zh: 不会。NotchQuota 没有服务器、不做统计分析、不收集遥测。认证信息只在内存中使用，并通过 HTTPS 发往其所属服务，不保存到日志或偏好设置，也不修改原软件的登录文件。, en: "No. NotchQuota has no server, no analytics and no telemetry. Credentials are only used in memory and sent over HTTPS to the service they belong to. They are never written to logs or preferences, and the original apps' sign-in files are never modified." }
+    - q: { zh: 支持第三方 API 中转站的余额吗？, en: Does it support third-party API relay balances? }
+      a: { zh: 不支持。目前只适配订阅额度；仅使用第三方 API Key 时，无法查询官方订阅额度。, en: "No. Only subscription quotas are supported; a third-party API key alone can't be used to look up an official subscription." }
+    - q: { zh: 显示灰色或数据过期怎么办？, en: What if a quota shows gray or stale? }
+      a: { zh: 灰色表示暂时读不到数据，悬停或点击可查看原因。通常是登录失效、需要网页验证或网络问题，在原应用重新登录后即可恢复。这些额度接口并非全部是稳定的公开 API，如遇兼容问题请在 GitHub 反馈，不要上传凭据或 Cookie。, en: "Gray means the data couldn't be read — hover or click to see why. It's usually an expired sign-in, a web verification step or a network issue; signing in again in the original app fixes it. Some of these quota endpoints aren't stable public APIs, so please report compatibility issues on GitHub — without credentials or cookies." }
+
+cta:
+  title: { zh: 让额度，一目了然。, en: Your quotas, at a glance. }
+  note: { zh: Apple 芯片 · macOS 13+ · 签名并公证 · 应用内更新, en: Apple silicon · macOS 13+ · Signed & notarized · In-app updates }

@@ -1,0 +1,28 @@
+title: { zh: 使用帮助, en: Help }
+heading: { zh: "安装与使用，\n从这里开始。", en: "Install and use.\nStart here." }
+lead:
+  zh: 这是非官方工具，安装包不包含 Google Antigravity。使用前请先确认 Google 的条款。
+  en: "This is an unofficial tool and does not include Google Antigravity. Please review Google's terms before use."
+sections:
+  - heading: { zh: 安装, en: Install }
+    steps:
+      - { zh: 先从官方渠道安装 Apple 芯片版 Antigravity.app。, en: Install the official Apple silicon Antigravity.app first. }
+      - { zh: 下载管理器的 ZIP，解压后将“Antigravity 多开管理器.app”放入“应用程序”。, en: "Download the manager ZIP, unzip it and move “Antigravity 多开管理器.app” into Applications." }
+      - { zh: 打开管理器，点击“创建实例”，在打开的独立登录页中完成 Google 登录。, en: "Open the manager, click “Create Instance”, and complete Google sign-in in the dedicated page that opens." }
+    note: { zh: 从 0.2.1 升级到 0.3.0 或更高版本需要手动安装一次，之后可通过应用内更新升级。, en: "Upgrading from 0.2.1 to 0.3.0 or later requires one manual install; later versions update in-app." }
+  - heading: { zh: 升级全部副本, en: Upgrade all copies }
+    body:
+      - zh: 官方 Antigravity 更新后，点击“升级全部副本”。请先保存各副本中的工作；管理器会先验签并备份，再逐个替换程序。确认账号和项目正常之前，请保留备份。
+        en: "After the official Antigravity updates, click “Upgrade All Copies”. Save your work in each copy first; the manager verifies and backs up before replacing each app. Keep the backups until you've confirmed accounts and projects are fine."
+      - zh: 官方发布尚未适配的新版本时，管理器会停止创建和升级，需要等待管理器更新适配。
+        en: "If the official app moves to a version that hasn't been adapted yet, creating and upgrading pause until the manager is updated."
+  - heading: { zh: 条款与边界, en: Terms and boundaries }
+    body:
+      - zh: Google 当前条款限制复制或修改其软件。本工具只包含自有管理器代码，不附带也不分发 Google 程序；生成的副本仅在本机使用临时签名，请勿对外分发。
+        en: "Google's current terms restrict copying or modifying its software. This tool contains only its own code and does not include or distribute Google software. Generated copies are ad-hoc signed for local use only — do not distribute them."
+    links:
+      - { label: { zh: Google 服务条款 ↗, en: Google Terms of Service ↗ }, href: "https://policies.google.com/terms" }
+      - { label: { zh: Antigravity 条款 ↗, en: Antigravity Terms ↗ }, href: "https://antigravity.google/terms" }
+  - heading: { zh: 反馈问题, en: Report an issue }
+    links:
+      - { label: { zh: 在 GitHub 反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/antigravity-multiplexer/issues" }

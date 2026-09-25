@@ -1,0 +1,76 @@
+# ApexTerm 软件介绍（内容整理自 github.com/bcblr1993/ApexTerm 的 README，只保留源码中已实现的功能）
+name: ApexTerm
+order: 3
+repo: https://github.com/bcblr1993/ApexTerm
+minimumSystemVersion: "14.0"
+icon: ./media/icon.png
+tech: [Swift 6, SwiftUI]
+
+tagline:
+  zh: 原生的 SSH 终端与 SFTP 工作台
+  en: A native SSH terminal and SFTP workspace
+summary:
+  zh: 为 Apple 芯片打造的原生 SSH 运维工作台：终端、SFTP 联动与实时服务器监控放在同一个窗口里。
+  en: "A native SSH workspace for Apple silicon: terminal, linked SFTP and live server metrics in one window."
+
+platforms:
+  - id: mac
+    status: available
+    requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
+
+hero:
+  eyebrow: { zh: SSH · SFTP · 服务器监控, en: SSH · SFTP · Server metrics }
+  title: { zh: "远程运维，\n也可以很原生。", en: "Remote work,\nnatively done." }
+  lead:
+    zh: "终端、文件和服务器状态，放在同一个原生窗口里。\nSwift 6 与 SwiftUI 构建，专为 Apple 芯片优化。"
+    en: "Your terminal, files and server health in one native window.\nBuilt with Swift 6 and SwiftUI, tuned for Apple silicon."
+  requirements:
+    zh: Apple 芯片（M1 及更新）/ macOS 14+
+    en: Apple silicon (M1 or later) / macOS 14+
+
+features:
+  eyebrow: { zh: 功能, en: Features }
+  title: { zh: 常用的，都在一个窗口里。, en: Everything you reach for, in one window. }
+  lead:
+    zh: 把终端、文件管理和服务器监控这几件最常做的事，用原生的方式重新组合。
+    en: The things you do most — terminal, files and monitoring — brought together, natively.
+  items:
+    - kicker: { zh: 终端 + SFTP, en: Terminal + SFTP }
+      title: { zh: 终端与文件，上下联动, en: Terminal and files, linked }
+      body:
+        zh: 上方敲命令，下方管理远程文件。在终端里 cd 到某个目录，SFTP 视图会自动跟过去（OSC 7）。
+        en: Type commands above and manage remote files below. cd somewhere in the terminal and the SFTP view follows (OSC 7).
+      details:
+        - { zh: 支持从访达直接拖拽文件到窗口上传。, en: Drag files in from Finder to upload. }
+        - { zh: 支持中文输入法与完整的终端键盘输入。, en: Full terminal keyboard input with support for Chinese input methods. }
+    - kicker: { zh: 服务器监控, en: Server metrics }
+      title: { zh: 无需安装探针的实时监控, en: Live metrics without an agent }
+      body:
+        zh: 远程服务器不需要安装任何客户端，复用 SSH 通道采样 CPU、内存、网络与磁盘，用原生图表实时显示。
+        en: Nothing to install on the server. CPU, memory, network and disk are sampled over the existing SSH connection and charted natively.
+    - kicker: { zh: 安全, en: Security }
+      title: { zh: 凭据交给系统钥匙串, en: Credentials stay in the Keychain }
+      body:
+        zh: 密码与私钥保存在 macOS 钥匙串中，读取时可要求 Touch ID 验证。
+        en: Passwords and private keys live in the macOS Keychain, with optional Touch ID when they're used.
+    - kicker: { zh: 批量运维, en: Working at scale }
+      title: { zh: 多会话广播与关键词高亮, en: Broadcast input and keyword highlighting }
+      body:
+        zh: 一次输入，同步发送到选中的一组主机；按规则自动高亮 ERROR、FATAL 等关键词。
+        en: Type once and send it to a group of hosts. Rules highlight keywords such as ERROR and FATAL as output arrives.
+
+faq:
+  eyebrow: FAQ
+  title: { zh: 常见问题, en: Questions }
+  lead: { zh: 开源、免费，欢迎反馈。, en: Open source, free, and feedback is welcome. }
+  items:
+    - q: { zh: ApexTerm 免费吗？, en: Is ApexTerm free? }
+      a: { zh: 免费，并以 MIT 许可证开源。, en: Yes. It's free and open source under the MIT License. }
+    - q: { zh: 需要在服务器上安装什么吗？, en: Do I need to install anything on my servers? }
+      a: { zh: 不需要。服务器监控复用 SSH 连接读取系统信息，远端无需安装客户端或守护进程。, en: "No. Monitoring reads system information over the SSH connection; nothing needs to run on the server." }
+    - q: { zh: 我的密码和私钥存在哪里？, en: Where are my passwords and keys stored? }
+      a: { zh: 保存在本机的 macOS 钥匙串中，不会上传到任何服务器。, en: "In the macOS Keychain on your Mac. They're never uploaded anywhere." }
+
+cta:
+  title: { zh: 让远程运维，回到原生。, en: Bring remote work back to native. }
+  note: { zh: Apple 芯片 · macOS 14+ · MIT 开源, en: Apple silicon · macOS 14+ · MIT licensed }

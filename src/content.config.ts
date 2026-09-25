@@ -34,6 +34,11 @@ const apps = defineCollection({
       sparklePublicKey: z.string().regex(/^[A-Za-z0-9+/]{43}=$/).optional(),
       /** 软件仓库中 appcast.xml 的路径；Release 正文没写签名时从这里读取（默认 appcast.xml） */
       appcastPath: z.string().optional(),
+      /**
+       * 更新清单来源：generate（默认）由官网根据版本记录生成；
+       * mirror 原样转发软件自己签名的 appcast.xml（软件开启了 SURequireSignedFeed 时必须用这个）
+       */
+      appcastMode: z.enum(['generate', 'mirror']).default('generate'),
       platforms: z.array(
         z.object({
           id: z.enum(['mac', 'ios']),
@@ -45,6 +50,18 @@ const apps = defineCollection({
       ),
       cardStats: z.array(z.object({ value: L, label: L })).default([]),
       hero: z.object({ eyebrow: L, title: L, lead: L, requirements: L }),
+      /** 显著位置的声明（如“非官方工具”），显示在首屏下载按钮下方 */
+      notice: L.optional(),
+      /** 界面展示：按原始尺寸展示的界面小图（适合菜单栏、浮窗等局部截图） */
+      showcase: z
+        .object({
+          eyebrow: L,
+          title: L,
+          lead: L.optional(),
+          note: L.optional(),
+          items: z.array(z.object({ title: L, caption: L, image: image() })),
+        })
+        .optional(),
       gallery: z.array(shot).default([]),
       ios: z
         .object({
@@ -126,7 +143,8 @@ const releases = defineCollection({
         date: z.coerce.date(),
         channel: z.enum(['stable', 'beta', 'preview']).default('stable'),
         platform: z.enum(['mac', 'ios']).default('mac'),
-        requirement: L.default({ zh: 'Apple 芯片 · macOS 15.0+', en: 'Apple silicon · macOS 15.0+' }),
+        /** 系统要求；不写时使用 app.yaml 中对应平台的 requirement */
+        requirement: L.optional(),
         /** 安装包地址。大于 25MB 的文件放 GitHub Releases；小文件可放 public/downloads/ 并写 /downloads/xxx */
         download: z.string().optional(),
         github: z.url().optional(),

@@ -1,0 +1,31 @@
+title: { zh: 使用帮助, en: Help }
+heading: { zh: "安装与使用，\n从这里开始。", en: "Install and use.\nStart here." }
+lead:
+  zh: 请勿在反馈中公开凭据、Cookie 或完整认证文件。
+  en: Never post credentials, cookies or complete authentication files when reporting issues.
+sections:
+  - heading: { zh: 安装, en: Install }
+    steps:
+      - { zh: 下载 DMG，打开后将 NotchQuota 拖入“应用程序”。, en: "Download the DMG, open it and drag NotchQuota into Applications." }
+      - { zh: 从“应用程序”启动 NotchQuota。首次下载后系统可能显示正常的“从互联网下载”确认。, en: "Launch NotchQuota from Applications. macOS may show the usual “downloaded from the internet” confirmation the first time." }
+      - { zh: macOS 首次询问读取登录钥匙串时，按需允许。, en: "Allow Keychain access when macOS asks, as needed." }
+    note: { zh: 需要 Apple 芯片、macOS 13 或更新版本，并已在对应软件中登录订阅账号。无需安装 Homebrew、Python、Node 或命令行工具。, en: "Requires Apple silicon and macOS 13 or later, with each service already signed in. No Homebrew, Python, Node or command-line tools needed." }
+  - heading: { zh: 选择显示的账号, en: Choose which accounts to show }
+    body:
+      - zh: 右键菜单的“显示的应用”可勾选要显示的账号；只勾选一个时固定显示，未勾选的账号不显示、不查询额度。在“账号设置 → 调整账号顺序”中拖动排序。
+        en: "Use “Displayed apps” in the right-click menu to choose accounts. With one selected it stays fixed; unselected accounts are neither shown nor queried. Reorder them in Account Settings → Reorder Accounts."
+  - heading: { zh: 显示模式, en: Display modes }
+    body:
+      - zh: 右键 → 设置与更新，可在菜单栏模式、灵动岛模式和侧边栏模式之间切换；选择会跨重启保留。
+        en: "Right-click → Settings & Updates to switch between menu bar, notch and sidebar modes. Your choice persists across restarts."
+  - heading: { zh: 显示灰色怎么办, en: When a quota shows gray }
+    body:
+      - zh: 灰色表示暂时未能读取，悬停或点击数字可查看原因。通常在原应用中重新登录即可恢复；查询失败时会保留并标注旧数据。
+        en: "Gray means the data couldn't be read — hover or click the number to see why. Signing in again in the original app usually fixes it; the last data is kept and marked as stale meanwhile."
+  - heading: { zh: 开机启动与更新, en: Launch at login and updates }
+    body:
+      - zh: 右键勾选“开机自动启动”即可；显示“待系统允许”时，按菜单入口到系统设置中允许。应用默认每天检查一次更新，右键菜单可随时“检查更新”。
+        en: "Check “Launch at login” in the right-click menu; if it shows “Waiting for approval”, follow the menu link to System Settings. Updates are checked daily, and you can choose “Check for Updates” at any time."
+  - heading: { zh: 反馈问题, en: Report an issue }
+    links:
+      - { label: { zh: 在 GitHub 反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/NotchQuota/issues/new/choose" }

@@ -38,7 +38,7 @@ const kind = r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta
       <a class="crumb" href={`${base}releases/`}>{zh ? '← 全部版本' : '← All releases'}</a>
       <p class="eyebrow tag">{kind}{r.badge && ` · ${t(r.badge, lang)}`}</p>
       <h1>{app.data.name} {r.version}</h1>
-      <ReleaseMeta release={r} lang={lang} />
+      <ReleaseMeta release={r} app={app} lang={lang} />
       <p class="sum">{t(r.summary, lang)}</p>
       <div class="cta">
         {r.download && <a class="btn btn-p" href={r.download}>{u.download(r.version)} ↓</a>}

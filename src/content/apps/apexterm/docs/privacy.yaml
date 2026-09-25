@@ -1,0 +1,22 @@
+title: { zh: 隐私政策, en: Privacy }
+heading: { zh: "你的服务器，\n只由你连接。", en: "Your servers.\nOnly you connect." }
+meta: { zh: 适用于 ApexTerm 客户端, en: Applies to the ApexTerm app }
+lead:
+  zh: ApexTerm 不包含统计分析或遥测，不向开发者发送任何使用数据。
+  en: ApexTerm contains no analytics or telemetry and sends no usage data to the developer.
+sections:
+  - heading: { zh: 网络连接, en: Network connections }
+    body:
+      - zh: 应用只连接你自己添加的服务器（SSH 与 SFTP）。服务器监控复用同一个 SSH 连接读取系统信息，不会连接其他服务。
+        en: "The app only connects to servers you add (SSH and SFTP). Server monitoring reads system information over that same SSH connection and contacts no other service."
+  - heading: { zh: 凭据保存, en: Credentials }
+    body:
+      - zh: 密码与私钥保存在本机的 macOS 钥匙串中，读取时可要求 Touch ID 验证，不会上传到任何服务器。
+        en: "Passwords and private keys are stored in the macOS Keychain on your Mac, optionally protected by Touch ID, and are never uploaded anywhere."
+  - heading: { zh: 本地数据, en: Local data }
+    body:
+      - zh: 会话列表等设置保存在本机，由你自行管理。
+        en: Session lists and other settings are stored locally and managed by you.
+  - heading: { zh: 联系, en: Contact }
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/ApexTerm/issues" }

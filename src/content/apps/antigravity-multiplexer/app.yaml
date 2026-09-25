@@ -1,0 +1,85 @@
+# Antigravity 多开管理器软件介绍（内容整理自 github.com/bcblr1993/antigravity-multiplexer 的 README）
+# 注意：本工具与 Google 无关联，不包含也不分发 Google 程序。README 提示对外分发前需确认 Google 条款。
+name: Antigravity 多开管理器
+order: 4
+repo: https://github.com/bcblr1993/antigravity-multiplexer
+minimumSystemVersion: "13.0"
+sparklePublicKey: pMww3oxkkT9VcymetHFOUIF1thb/n+xjVMlxuFXVHsY=
+# 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
+appcastMode: mirror
+icon: ./media/icon.png
+tech: [SwiftUI]
+
+tagline:
+  zh: 在一台 Mac 上管理多个 Antigravity 实例
+  en: Manage multiple Antigravity instances on one Mac
+summary:
+  zh: 本机图形化管理器：创建独立的 Antigravity 实例，统一升级、备份和销毁。非官方工具，不包含 Google 程序。
+  en: A local manager for creating separate Antigravity instances and upgrading, backing up or removing them together. Unofficial; does not include Google software.
+
+platforms:
+  - id: mac
+    status: available
+    requirement: { zh: Apple 芯片 · macOS 13+, en: Apple silicon · macOS 13+ }
+
+hero:
+  eyebrow: { zh: 非官方 · 本机管理工具, en: Unofficial · Local manager }
+  title: { zh: "多个实例，\n各自独立。", en: "Many instances.\nEach on its own." }
+  lead:
+    zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级、备份与销毁，都在一个窗口里完成。"
+    en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade, back up and remove them from one window."
+  requirements:
+    zh: Apple 芯片 / macOS 13+ · 需已安装官方 Apple 芯片版 Antigravity
+    en: Apple silicon / macOS 13+ · Requires the official Apple silicon Antigravity app
+notice:
+  zh: 本工具是独立开发的非官方工具，与 Google 无关联，安装包不包含也不分发 Google Antigravity 程序。Google 的条款限制复制或修改其软件，使用前请自行确认 https://antigravity.google/terms 。Antigravity 及相关标识归 Google 所有。
+  en: "This is an independent, unofficial tool not affiliated with Google. It does not include or distribute Google Antigravity. Google's terms restrict copying or modifying its software — please review https://antigravity.google/terms before use. Antigravity and related marks belong to Google."
+
+features:
+  eyebrow: { zh: 功能, en: Features }
+  title: { zh: 实例管理，稳妥为先。, en: Instance management, safety first. }
+  lead:
+    zh: 每一步都先校验、先备份，再动手；只接受已适配、完整签名的官方原版作为来源。
+    en: Every step verifies and backs up first. Only adapted, fully signed official builds are accepted as the source.
+  items:
+    - kicker: { zh: 创建, en: Create }
+      title: { zh: 独立的新实例, en: Separate new instances }
+      body:
+        zh: 新实例拥有自己的 .gemini-N 目录、窗口缓存、日志、凭据标识、应用身份与登录回调；创建完成后打开独立登录页，由你在新窗口完成 Google 登录。
+        en: "Each new instance gets its own .gemini-N folder, window cache, logs, credential identifier, app identity and sign-in callback. A dedicated sign-in page opens and you complete Google sign-in yourself."
+    - kicker: { zh: 升级, en: Upgrade }
+      title: { zh: 一键升级全部副本, en: Upgrade every copy at once }
+      body:
+        zh: 以本机 /Applications 中的 Antigravity 为源，不从网络重新下载。先构建并验签全部新程序，再为每个副本备份旧程序和数据，最后逐个替换；账号目录与凭据标识保持不变。
+        en: "Uses the Antigravity app already in /Applications — nothing is downloaded. New builds are created and verified first, each copy's app and data are backed up, then copies are replaced one by one. Account folders and credential identifiers stay the same."
+      details:
+        - { zh: 已领先主实例的副本不会被降级。, en: Copies already ahead of the main instance are never downgraded. }
+        - { zh: 官方发布新版本后，需先适配验证；未验证的版本会被拒绝。, en: "New official versions must be adapted and verified first; unverified versions are refused." }
+    - kicker: { zh: 备份, en: Backups }
+      title: { zh: 按批次管理备份, en: Backups by batch }
+      body:
+        zh: 按升级批次查看备份时间、数量与占用空间，可在访达中查看，或手动选择批次删除；删除前会再次确认。
+        en: See each upgrade batch's time, archive count and size. Open it in Finder, or delete a batch manually after confirming.
+    - kicker: { zh: 销毁, en: Remove }
+      title: { zh: 明确确认后才删除, en: Removed only after explicit confirmation }
+      body:
+        zh: 销毁前会列出将删除的应用、账号资料、窗口数据和日志，必须输入完整实例名才能执行；主实例和其他副本不受影响。
+        en: "Before removal, the app, account data, window data and logs to be deleted are listed, and you must type the full instance name. The main instance and other copies are untouched."
+
+faq:
+  eyebrow: FAQ
+  title: { zh: 常见问题, en: Questions }
+  lead: { zh: 使用前请先了解这些。, en: Worth knowing before you start. }
+  items:
+    - q: { zh: 安装包里包含 Antigravity 吗？, en: Does the download include Antigravity? }
+      a: { zh: 不包含。管理器只包含自有代码；你需要先从官方渠道安装 Apple 芯片版 Antigravity。, en: "No. The manager only contains its own code; install the official Apple silicon Antigravity app first." }
+    - q: { zh: 生成的实例会自动更新吗？, en: Do the generated instances update themselves? }
+      a: { zh: 不会。生成的副本关闭了自动更新，统一通过管理器的"升级全部副本"执行。管理器自身可以通过应用内更新升级，不会改写副本或账号目录。, en: "No. Generated copies have automatic updates turned off and are upgraded together from the manager. The manager updates itself in-app without touching copies or account folders." }
+    - q: { zh: 生成的副本经过 Apple 公证吗？, en: Are the generated copies notarized? }
+      a: { zh: 管理器本身使用 Developer ID 签名并经 Apple 公证；生成的副本仅在本机使用临时签名，不是公开分发包，系统隐私权限可能需要为每个实例单独授权。, en: "The manager is Developer ID–signed and notarized by Apple. Generated copies are ad-hoc signed for local use only, are not distributable, and may each need their own privacy permissions." }
+    - q: { zh: 会保存我的账号凭据吗？, en: Does it store my credentials? }
+      a: { zh: 不会。管理器只保存实例的版本与登录验收状态，不保存账号凭据。, en: "No. It only records each instance's version and sign-in check status — never credentials." }
+
+cta:
+  title: { zh: 多开，也可以井井有条。, en: Multiple instances, neatly managed. }
+  note: { zh: Apple 芯片 · macOS 13+ · 非官方工具 · 应用内更新, en: Apple silicon · macOS 13+ · Unofficial · In-app updates }

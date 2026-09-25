@@ -1,12 +1,13 @@
 ---
-import type { Release } from '../lib/apps';
+import type { App, Release } from '../lib/apps';
 import { fmtDate, t, ui, type Lang } from '../lib/i18n';
-interface Props { release: Release; lang: Lang }
-const { release: r, lang } = Astro.props;
+interface Props { release: Release; app: App; lang: Lang }
+const { release: r, app, lang } = Astro.props;
+const requirement = r.requirement ?? app.data.platforms.find((p) => p.id === r.platform)?.requirement;
 ---
 <p class="rmeta">
   {r.build && <>{ui[lang].build} {r.build} · </>}
-  <time datetime={r.date.toISOString().slice(0, 10)}>{fmtDate(r.date, lang)}</time> · {t(r.requirement, lang)}
+  <time datetime={r.date.toISOString().slice(0, 10)}>{fmtDate(r.date, lang)}</time>{requirement && <> · {t(requirement, lang)}</>}
 </p>
 <style>
   .rmeta { color: var(--text-3); font-size: 14px; }

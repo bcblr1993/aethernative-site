@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Antigravity 多开管理器</title>
+        <item>
+            <title>0.3.3</title>
+            <pubDate>Wed, 23 Sep 2026 19:46:11 +0800</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>0.3.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[# v0.3.3
+
+## 新增
+
+- 每个 Antigravity 副本可在“…”菜单中选择“销毁实例”。确认页列出将清除的位置，并要求输入完整实例名称。
+- 销毁只处理选中的副本：应用、独立账号资料、窗口数据、日志、独立登录文件和管理清单；已有升级备份保留。
+
+## 保护
+
+- 主实例不可销毁；实例仍在运行、身份或路径不匹配、文件被其他实例引用、创建或升级正在进行时拒绝操作。
+- 销毁前先将目标移入专属暂存目录；转移失败会回滚，避免只移走部分数据。
+
+## 验证
+
+- 隔离目录测试覆盖旧副本、新副本、主实例保护、运行进程、符号链接、清单异常、共享凭据和操作锁。
+- Apple Silicon 构建与图形界面确认流程验证通过。
+
+永久销毁无法撤销。已有升级备份可在管理器中另行手动删除。Google Antigravity 程序不包含在安装包中。
+]]></description>
+            <enclosure url="https://github.com/bcblr1993/antigravity-multiplexer/releases/download/v0.3.3/Antigravity-Multiplexer-v0.3.3-macos-arm64.zip" length="2148396" type="application/octet-stream" sparkle:edSignature="8ybJ+10BYPrFF/I+movqqEkz3TH1KdgIX7qxHR4VSfE/+OxkrIdM1nAnzV3nX2B8nEEAj8jWnAdNV2gXJbYpDw=="></enclosure>
+        </item>
+    </channel>
+</rss><!-- sparkle-signatures:
+edSignature: RedZTMAzKXbZOmSkZBtMYLsQprZSHpQ6qB+9+6Fh0GRZviQkJAJo1snHGmqtycd1CR/c5DiXCCnH88hy9k+LAA==
+length: 2209
+-->

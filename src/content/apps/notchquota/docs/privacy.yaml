@@ -1,0 +1,32 @@
+# 整理自 github.com/bcblr1993/NotchQuota 的 PRIVACY.md
+title: { zh: 隐私政策, en: Privacy }
+heading: { zh: "你的额度，\n只留在你的 Mac 上。", en: "Your quotas stay\non your Mac." }
+meta: { zh: 适用于 NotchQuota 客户端, en: Applies to the NotchQuota app }
+lead:
+  zh: NotchQuota 没有服务器、不做统计分析、不收集遥测，不向开发者发送使用情况。
+  en: NotchQuota has no server, no analytics and no telemetry, and sends no usage information to the developer.
+sections:
+  - heading: { zh: 读取哪些登录信息, en: What sign-in data is read }
+    body:
+      - zh: 为读取额度，应用按需读取当前用户的 Codex 登录文件、Claude 桌面版的指定登录 Cookie、Claude Code 登录（桌面版不存在时），以及 Antigravity 登录钥匙串或你启用的独立实例登录文件。只查询 Claude 自己的 Cookie 数据库中与认证、组织选择相关的记录，不读取浏览器历史或其他网站的 Cookie。
+        en: "To read quotas, the app reads — only when needed — the current user's Codex sign-in file, specific Claude desktop sign-in cookies, the Claude Code sign-in (when the desktop app is absent), and the Antigravity Keychain item or the sign-in files of instances you enable. Only authentication- and organization-related records in Claude's own cookie database are read; browser history and other sites' cookies are never touched."
+  - heading: { zh: 凭据如何使用, en: How credentials are used }
+    body:
+      - zh: 认证信息只在内存中使用，通过 HTTPS 发往其所属服务；跨域重定向不携带凭据。Antigravity 额度地址只允许已知的 Google 服务，无法识别的新地址会报错，不会自动发送认证信息。
+        en: "Credentials are only used in memory and sent over HTTPS to the service they belong to; cross-origin redirects never carry them. Antigravity quota requests are limited to known Google services — an unrecognized endpoint causes an error rather than receiving credentials."
+      - zh: 应用不在项目、日志或偏好设置中保存令牌，也不修改原软件的登录文件。
+        en: Tokens are never stored in project files, logs or preferences, and the original apps' sign-in files are never modified.
+  - heading: { zh: 本地保存的内容, en: What is stored locally }
+    body:
+      - zh: 本地偏好包括应用与实例选择、手动指定的文件路径、你设置的别名、用于核对换号的 Google 账号标识，以及自动检查更新开关、上次检查时间等。Google 返回的账号名称和头像只缓存在进程内，退出后清空；头像请求不携带 OAuth 凭据。
+        en: "Local preferences include app and instance choices, manually selected file paths, aliases you set, the Google account identifier used to detect account changes, and update settings such as automatic checks and the last check time. Account names and avatars from Google are cached in memory only and cleared on quit; avatar requests never carry OAuth credentials."
+  - heading: { zh: 软件更新, en: Software updates }
+    body:
+      - zh: 应用默认每天通过 HTTPS 检查一次更新清单（由 aethernative.com 提供，托管于 Cloudflare；较早版本从 GitHub 获取），点击更新后从 GitHub 下载签名安装包。这些服务可能接收普通网络连接信息（如 IP 地址与请求头），不附带额度或账户凭据，也不启用 Sparkle 系统画像。可在菜单中关闭自动检查。
+        en: "By default the app checks the update feed over HTTPS once a day (served by aethernative.com on Cloudflare; earlier versions use GitHub) and downloads signed installers from GitHub when you choose to update. These services may receive ordinary connection information such as IP address and request headers — never quotas or credentials — and Sparkle system profiling is disabled. Automatic checks can be turned off in the menu."
+  - heading: { zh: 联系, en: Contact }
+    body:
+      - zh: 隐私问题请通过 GitHub Issues 联系。请不要上传凭据、Cookie 或完整认证文件。
+        en: For privacy questions, use GitHub Issues. Never upload credentials, cookies or complete authentication files.
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/NotchQuota/issues" }

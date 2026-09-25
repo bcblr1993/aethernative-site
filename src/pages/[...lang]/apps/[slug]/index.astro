@@ -1,5 +1,6 @@
 ---
 import { Image, getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
 import Text from '../../../../components/Text.astro';
 import Checksum from '../../../../components/Checksum.astro';
@@ -32,6 +33,14 @@ const ios = d.platforms.find((p) => p.id === 'ios');
 const iosLink = ios?.appStore ?? ios?.testFlight;
 const shotOf = (s: (typeof d.gallery)[number]) => (lang === 'en' && s.en ? s.en : s.zh);
 const zh = lang === 'zh';
+// 只链接实际存在的文档页（src/content/apps/<id>/docs/*.yaml）
+const docIds = new Set((await getCollection('docs')).map((x) => x.id));
+const hasDoc = (key: string) => docIds.has(`${app.id}/${key}`);
+const docLinks = [
+  { key: 'support', label: u.help },
+  { key: 'privacy', label: u.privacy },
+  { key: 'license', label: u.license },
+].filter((l) => hasDoc(l.key));
 // 分享预览图与“查看原图”链接需要独立生成的文件（只用 <Image> 引用的原图在构建时不会保留）
 const fulls = await Promise.all(d.gallery.map(async (s) => (await getImage({ src: shotOf(s), format: 'webp', quality: 90 })).src));
 const ogImage = d.gallery[0] ? (await getImage({ src: shotOf(d.gallery[0]), width: 1200, format: 'png' })).src : undefined;
@@ -51,7 +60,7 @@ const subnav = [
       <div class="sn-links">
         {subnav.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
         <a href={`${base}releases/`}>{u.releases}</a>
-        <a href={`${base}support/`}>{u.help}</a>
+        {hasDoc('support') && <a href={`${base}support/`}>{u.help}</a>}
       </div>
       {latest?.download && <a class="btn btn-p btn-sm" href={latest.download}>{u.download(latest.version)}</a>}
     </div>
@@ -70,10 +79,11 @@ const subnav = [
           : d.ios && <a class="btn btn-s" href="#ios">{zh ? 'iPhone 版预告' : 'iPhone preview'} ↓</a>)}
       </div>
       <p class="req muted"><Text v={d.hero.requirements} lang={lang} /></p>
+      {d.notice && <p class="notice"><Text v={d.notice} lang={lang} /></p>}
     </div>
 
-    {d.gallery.length > 0 && (
-      <div class="wrap">
+    <div class="wrap">
+      {d.gallery.length > 0 && (
         <div class="stage">
           <div class="stage-top">
             <span class="eyebrow">{d.name} for Mac</span>
@@ -94,17 +104,17 @@ const subnav = [
             </div>
           )}
         </div>
-        {latest && (
-          <div class="release-line">
+      )}
+      {latest && (
+          <div class:list={['release-line', { solo: d.gallery.length === 0 }]}>
             <PlatformBadges app={app} lang={lang} tech={false} />
             <span>{d.name} {latest.version} · <a class="more" href={`${base}releases/${latest.version}/`}>{u.releaseNotes}</a>
               {previous && <> · <a class="more" href={`${base}releases/${previous.version}/`}>{previous.version} {u.previous}</a></>}
             </span>
             {latest.sha256 && <div class="rl-sum"><span class="muted">{u.sha}</span><Checksum value={latest.sha256} lang={lang} /></div>}
           </div>
-        )}
-      </div>
-    )}
+      )}
+    </div>
   </header>
 
   {d.ios && (
@@ -176,6 +186,27 @@ const subnav = [
             <div class="card flat"><h3><Text v={c.title} lang={lang} /></h3><p class="mt-sm"><Text v={c.body} lang={lang} /></p></div>
           ))}
         </div>
+      </div>
+    </section>
+  )}
+
+  {d.showcase && (
+    <section id="showcase" class="showcase">
+      <div class="wrap">
+        <div class="sec-head"><div>
+          <div class="eyebrow"><Text v={d.showcase.eyebrow} lang={lang} /></div>
+          <h2><Text v={d.showcase.title} lang={lang} /></h2>
+          {d.showcase.lead && <p class="lead"><Text v={d.showcase.lead} lang={lang} /></p>}
+        </div></div>
+        <div class="sc-grid">
+          {d.showcase.items.map((x) => (
+            <figure class="card flat">
+              <div class="sc-img"><Image src={x.image} alt={t(x.title, lang)} width={Math.round(x.image.width / 2)} densities={[1, 2]} /></div>
+              <figcaption><b><Text v={x.title} lang={lang} /></b><Text v={x.caption} lang={lang} /></figcaption>
+            </figure>
+          ))}
+        </div>
+        {d.showcase.note && <p class="muted small mt-sm"><Text v={d.showcase.note} lang={lang} /></p>}
       </div>
     </section>
   )}
@@ -302,9 +333,7 @@ const subnav = [
         <p class="req muted"><Text v={d.cta.note} lang={lang} /></p>
         <nav class="doc-links" aria-label={d.name}>
           <a href={`${base}releases/`}>{u.releases}</a>
-          <a href={`${base}support/`}>{u.help}</a>
-          <a href={`${base}privacy/`}>{u.privacy}</a>
-          <a href={`${base}license/`}>{u.license}</a>
+          {docLinks.map((l) => <a href={`${base}${l.key}/`}>{l.label}</a>)}
           {d.repo && <a href={d.repo} rel="noopener">GitHub ↗</a>}
         </nav>
       </div>
@@ -346,6 +375,8 @@ const subnav = [
   .stage-tabs button { border: 1px solid var(--line); background: var(--surface-2); color: var(--text-2); border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
   .stage-tabs button[aria-pressed='true'] { background: var(--text); color: var(--bg); border-color: var(--text); }
   .release-line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 18px; font-size: 14px; color: var(--text-2); }
+  .release-line.solo { justify-content: center; margin-top: 36px; }
+  .release-line.solo .rl-sum { flex: 0 1 560px; }
   .rl-sum { display: flex; align-items: center; gap: 10px; flex: 1 1 420px; min-width: 0; }
   .rl-sum > .muted { white-space: nowrap; }
   .rl-sum .checksum { flex: 1; min-width: 0; }
@@ -385,6 +416,14 @@ const subnav = [
   .proto[open] summary span { color: var(--accent); }
   .proto p { margin: 14px 0 12px; font-size: 14px; }
 
+  .notice { max-width: 640px; margin: 22px auto 0; padding: 12px 18px; border-radius: 14px; background: var(--warn-soft); color: var(--text); font-size: 13px; text-align: left; }
+  .sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+  .sc-grid figure { padding: 22px; }
+  .sc-img { display: grid; place-items: center; min-height: 140px; padding: 16px; border-radius: 14px; background: linear-gradient(135deg, #e9ecf5, #dfe3ee); }
+  :global([data-theme='dark']) .sc-img { background: linear-gradient(135deg, #1b1d24, #23262f); }
+  .sc-img img { max-width: 100%; height: auto; }
+  .sc-grid figcaption { margin-top: 14px; font-size: 14px; color: var(--text-2); }
+  .sc-grid figcaption b { display: block; color: var(--text); font-size: 16px; margin-bottom: 2px; }
   .feats .wide { grid-column: 1 / -1; }
   .feats .fold { margin-top: 20px; }
   .feats .fold > summary { font-size: 14px; color: var(--accent); padding: 14px 0 4px; }

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 import {
   buildEntry, compareVersions, detectBuild, detectVersion, findInAppcast, parseSiteBlock,
-  parseSparkleLine, pickAsset, upsertRelease, verifySparkleSignature,
+  latestStableVersion, parseSparkleLine, pickAsset, upsertRelease, verifySignedFeed, verifySparkleSignature,
 } from './release-sync.mjs';
 
 const SIG = 'A'.repeat(86) + '==';
@@ -141,5 +141,26 @@ describe('upsertRelease', () => {
   it('文件为空时自动创建列表', () => {
     const { text } = upsertRelease('', entry({ summary: 's' }));
     expect(parse(text).releases).toHaveLength(1);
+  });
+});
+
+describe('verifySignedFeed / latestStableVersion', () => {
+  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const pub = Buffer.from(publicKey.export({ format: 'jwk' }).x, 'base64url').toString('base64');
+  const body = '<?xml version="1.0"?><rss><channel><item>…</item></channel></rss>';
+  const signed = (content, len = Buffer.byteLength(content)) =>
+    Buffer.from(`${content}<!-- sparkle-signatures:\nedSignature: ${sign(null, Buffer.from(content), privateKey).toString('base64')}\nlength: ${len}\n-->\n`);
+
+  it('签名覆盖签名注释之前的内容', () => expect(verifySignedFeed(signed(body), pub)).toEqual({ ok: true }));
+  it('内容被改动一个字节即失败', () => {
+    const buf = signed(body); buf[10] ^= 1;
+    expect(verifySignedFeed(buf, pub).ok).toBe(false);
+  });
+  it('没有签名或长度越界时给出原因', () => {
+    expect(verifySignedFeed(Buffer.from(body), pub).reason).toMatch(/没有 sparkle-signatures/);
+    expect(verifySignedFeed(signed(body, 99999), pub).reason).toMatch(/超过文件大小/);
+  });
+  it('找到第一条正式版', () => {
+    expect(latestStableVersion('releases:\n  - version: "2.0"\n    channel: beta\n  - version: "1.9"\n')).toBe('1.9');
   });
 });

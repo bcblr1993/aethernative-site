@@ -46,7 +46,7 @@ const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' 
                 <span class:list={['badge', { ok: r === latest, gray: r !== latest }]}>{pill(r)}</span>
                 <h3><a href={`${base}releases/${r.version}/`}>{app.data.name} {r.version}</a></h3>
               </div>
-              <ReleaseMeta release={r} lang={lang} />
+              <ReleaseMeta release={r} app={app} lang={lang} />
               <p class="sum">{t(r.summary, lang)}</p>
               <div class="acts">
                 {r === latest && r.download && <a class="btn btn-p btn-sm" href={r.download}>{u.download(r.version)}</a>}

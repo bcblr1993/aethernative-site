@@ -4,6 +4,9 @@
 // 用法：node scripts/sync-release.mjs --app <软件id> --tag <标签> [--dry-run]
 //   例：node scripts/sync-release.mjs --app aetherroute --tag v1.0.27
 //
+// 原样转发：app.yaml 设 appcastMode: mirror 时（软件开启了 SURequireSignedFeed），最新正式版 Release 附件里
+// 签好名的 appcast.xml 会校验后原样保存到 src/content/apps/<id>/appcast.xml，官网逐字节提供。
+//
 // 数据来源：
 //   - 版本号 / 日期 / 测试版标记 / 下载地址 / SHA-256：GitHub Release 与附件（附件的 digest）；
 //   - 简介、更新说明、Sparkle 签名：Release 正文里的隐藏区块 <!-- aethernative ... -->；
@@ -18,7 +21,7 @@ import { parseArgs } from 'node:util';
 import { parse } from 'yaml';
 import {
   buildEntry, detectBuild, detectVersion, findInAppcast, parseSiteBlock, parseSparkleLine,
-  pickAsset, upsertRelease, verifySparkleSignature,
+  latestStableVersion, pickAsset, upsertRelease, verifySignedFeed, verifySparkleSignature,
 } from './lib/release-sync.mjs';
 
 const { values: args } = parseArgs({
@@ -50,13 +53,26 @@ if (!repo) fail(`${args.app}/app.yaml 缺少 GitHub 仓库地址（repo）`);
 const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'aethernative-sync' };
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
+/** 带重试的 fetch：网络错误或 5xx 时最多重试 3 次（1s、3s、9s）。 */
+async function fetchRetry(url, init) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(url, init);
+      if (res.status < 500 || attempt >= 3) return res;
+    } catch (e) {
+      if (attempt >= 3) fail(`网络请求失败（已重试 3 次）：${url}：${e.cause?.code ?? e.message}`);
+    }
+    await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt));
+  }
+}
+
 async function gh(path) {
-  const res = await fetch(`https://api.github.com${path}`, { headers });
+  const res = await fetchRetry(`https://api.github.com${path}`, { headers });
   if (!res.ok) fail(`GitHub API ${path} 返回 ${res.status}：${(await res.text()).slice(0, 200)}`);
   return res.json();
 }
 async function download(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': headers['User-Agent'], ...(headers.Authorization && url.includes('api.github.com') && { Authorization: headers.Authorization }) } });
+  const res = await fetchRetry(url, { headers: { 'User-Agent': headers['User-Agent'], ...(headers.Authorization && url.includes('api.github.com') && { Authorization: headers.Authorization }) } });
   if (!res.ok) fail(`下载失败 ${res.status}：${url}`);
   return Buffer.from(await res.arrayBuffer());
 }
@@ -88,14 +104,25 @@ if (!sha256) {
   sha256 = createHash('sha256').update(data).digest('hex');
 }
 
-// Sparkle 签名：区块 > 仓库 appcast.xml
+// Release 附件里的 appcast.xml（NotchQuota 等“签名清单”软件每次发版都会附带）
 const version = detectVersion(release.tag_name, block);
+const feedAsset = release.assets.find((a) => a.name === 'appcast.xml');
+const feedBuf = feedAsset ? await download(feedAsset.browser_download_url) : null;
+
+// Sparkle 签名：区块 > Release 附件 appcast.xml > 仓库 appcast.xml
 let appcast = null;
 let sparkle = block?.sparkle ? (typeof block.sparkle === 'string' ? parseSparkleLine(block.sparkle) : block.sparkle) : null;
 if (block?.sparkle && !sparkle) fail('区块里的 sparkle 无法解析，请直接粘贴 sign_update 的输出：sparkle:edSignature="..." length="..."');
+if (!sparkle && feedBuf) {
+  appcast = findInAppcast(feedBuf.toString('utf8'), version);
+  if (appcast) {
+    sparkle = { edSignature: appcast.edSignature, length: appcast.length };
+    console.log(`→ 从 Release 附件 appcast.xml 读取到 ${version} 的 Sparkle 签名`);
+  }
+}
 if (!sparkle && app.sparklePublicKey) {
   const path = app.appcastPath ?? 'appcast.xml';
-  const res = await fetch(`https://raw.githubusercontent.com/${repo}/${encodeURIComponent(release.tag_name)}/${path}`, { headers: { 'User-Agent': headers['User-Agent'] } });
+  const res = await fetchRetry(`https://raw.githubusercontent.com/${repo}/${encodeURIComponent(release.tag_name)}/${path}`, { headers: { 'User-Agent': headers['User-Agent'] } });
   if (res.ok) {
     appcast = findInAppcast(await res.text(), version);
     if (appcast) {
@@ -133,6 +160,18 @@ try {
   fail(e.message);
 }
 
+// 原样转发模式：最新正式版的签名清单原样保存，官网直接提供（改动任何字节都会使清单签名失效）
+let mirrorWrite = null;
+if (app.appcastMode === 'mirror' && latestStableVersion(result.text) === entry.version && !feedBuf) {
+  warn(`${args.app} 使用原样转发模式，但最新正式版 ${release.tag_name} 没有附带 appcast.xml：官网上的更新清单保持不变`);
+} else if (app.appcastMode === 'mirror' && latestStableVersion(result.text) === entry.version) {
+  const check = verifySignedFeed(feedBuf, app.sparklePublicKey);
+  if (!check.ok) fail(`Release 附件 appcast.xml 校验失败：${check.reason}`);
+  if (!findInAppcast(feedBuf.toString('utf8'), entry.version)) fail(`Release 附件 appcast.xml 中没有 ${entry.version} 这个版本`);
+  console.log('→ 签名清单校验通过，将原样转发');
+  mirrorWrite = feedBuf;
+}
+
 const verb = { added: '新增', updated: `更新（${result.changed?.join('、')}）`, unchanged: '无变化' }[result.action];
 console.log(`\n${verb} ${app.name} ${entry.version}` +
   `（${entry.channel}${build ? `，build ${build}` : ''}${sparkle ? '，含 Sparkle 签名' : ''}）`);
@@ -142,4 +181,9 @@ if (args['dry-run']) {
 } else {
   await writeFile(releasesFile, result.text);
   console.log(`已写入 ${releasesFile.pathname.replace(ROOT.pathname, '')}`);
+  if (mirrorWrite) {
+    const feedFile = new URL('appcast.xml', appDir);
+    await writeFile(feedFile, mirrorWrite);
+    console.log(`已写入 ${feedFile.pathname.replace(ROOT.pathname, '')}（原样转发的签名清单）`);
+  }
 }
