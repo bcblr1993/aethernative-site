@@ -30,6 +30,10 @@ const apps = defineCollection({
       repo: z.url().optional(),
       /** Mac 版最低系统版本，写进 appcast 的 sparkle:minimumSystemVersion（单个版本可覆盖） */
       minimumSystemVersion: z.string().regex(/^\d+(\.\d+)*$/).optional(),
+      /** Sparkle 公钥（Info.plist 的 SUPublicEDKey）。同步发版时用它核对签名，防止写入错误签名 */
+      sparklePublicKey: z.string().regex(/^[A-Za-z0-9+/]{43}=$/).optional(),
+      /** 软件仓库中 appcast.xml 的路径；Release 正文没写签名时从这里读取（默认 appcast.xml） */
+      appcastPath: z.string().optional(),
       platforms: z.array(
         z.object({
           id: z.enum(['mac', 'ios']),

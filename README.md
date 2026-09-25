@@ -86,6 +86,55 @@ https://aethernative.com/apps/<id>/appcast.xml
 - 更新说明默认中文，另附英文（Sparkle 按系统语言显示），并链接到网站上的完整版本说明；
 - 签名格式、`build` 缺失等错误会在构建时直接报出来。
 
+### 发版自动同步（推荐）
+
+软件仓库装好 `aethernative-sync` 工作流后，**在 GitHub 发布 Release 就会自动同步到官网**，一般不用手改 `releases.yaml`：
+
+```
+软件仓库发布 Release ──通知──▶ 本仓库「同步软件版本」工作流
+                                 ├─ 读取 Release：版本、日期、测试版标记、安装包地址、SHA-256
+                                 ├─ 读取正文里的官网信息区块（简介、更新说明、Sparkle 签名）
+                                 ├─ 用 sparklePublicKey 下载安装包核对签名，不匹配则中止
+                                 ├─ 写入 releases.yaml → 完整构建校验 → 提交
+                                 └─ Cloudflare Pages 自动部署（网页 + appcast.xml）
+```
+
+**Release 正文里的官网信息区块**写在 HTML 注释里，GitHub 页面上不显示，正文其他内容（内部验收记录等）不会被同步：
+
+```markdown
+<!-- aethernative
+summary:
+  zh: 修复网络切换后偶发断连
+  en: Fixes occasional disconnects after network changes
+notes:                       # 可选，版本详情页的分段说明
+  - title: { zh: 修复, en: Fixes }
+    items:
+      - { zh: ..., en: ... }
+sparkle: sparkle:edSignature="..." length="24639275"   # 直接粘贴 sign_update 的输出
+# build: 2026100101          # 可选；识别不到构建号时再写
+# channel: beta              # 可选；默认按 Release 是否勾选 pre-release 判断
+-->
+```
+
+- 没写区块：仍会同步版本、下载地址和校验值，新版本简介暂用 Release 标题，Actions 里会有警告；之后编辑 Release 补上区块，会自动再同步一次。
+- 区块里没写签名：会读取软件仓库该标签下的 `appcast.xml`（`app.yaml` 的 `appcastPath`）。
+- 重新同步已有版本只会改动有变化的字段，手工补充的内容（如 `badge`）会保留。
+
+本地手动同步或补录历史版本：
+
+```bash
+GITHUB_TOKEN=$(gh auth token) node scripts/sync-release.mjs --app aetherroute --tag v1.0.27 --dry-run
+```
+
+也可以在 GitHub 本仓库的 Actions →「同步软件版本」→ Run workflow 里填软件 id 和标签运行。
+
+**给新软件仓库接入同步**：
+1. 复制 `templates/app-repo/.github/workflows/aethernative-sync.yml` 到软件仓库同名路径，把 `__APP_ID__` 改成软件 id；
+2. 在软件仓库 Settings → Secrets and variables → Actions 添加 `AETHERNATIVE_SITE_TOKEN`（见下方令牌说明）；
+3. 网站这边的 `app.yaml` 填好 `repo`；用 Sparkle 的再填 `sparklePublicKey`（Info.plist 的 `SUPublicEDKey`）。
+
+**令牌**：GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token。Repository access 选 *Only select repositories* → 只选 `aethernative-site`；Permissions → Repository permissions → **Contents: Read and write**；其余保持无权限。所有软件仓库共用这一个令牌，到期前在同一页面续期。
+
 ### 安装包放在哪里
 
 - **大于 25 MB**（DMG 基本都是）：放 **GitHub Releases**，`download` 填完整链接。Cloudflare Pages 单个文件上限是 25 MiB。

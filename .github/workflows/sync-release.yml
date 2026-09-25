@@ -1,0 +1,72 @@
+# 接收各软件仓库发来的“发布了新版本”通知，把 GitHub Release 同步进 releases.yaml。
+# 构建（含单元测试、文件大小与链接检查）通过后才提交；提交后 Cloudflare Pages 自动部署。
+#
+# 触发方式：
+#   1. 软件仓库的 aethernative-sync 工作流发送 repository_dispatch（event_type: app-release）；
+#   2. 在本仓库 Actions 页面手动运行，填软件 id 与标签（可用于补录历史版本或重新同步）。
+name: 同步软件版本
+
+on:
+  repository_dispatch:
+    types: [app-release]
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 软件 id（src/content/apps 下的目录名，如 aetherroute）
+        required: true
+      tag:
+        description: Release 标签（如 v1.0.27）
+        required: true
+
+permissions:
+  contents: write
+
+# 串行执行，避免同时发版时互相覆盖
+concurrency:
+  group: sync-release
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_ID: ${{ github.event.client_payload.app || inputs.app }}
+      TAG: ${{ github.event.client_payload.tag || inputs.tag }}
+    steps:
+      - name: 校验参数
+        run: |
+          printf '%s' "$APP_ID" | grep -Eq '^[a-z0-9][a-z0-9-]{0,63}$' || { echo "::error::软件 id 不合法：$APP_ID"; exit 1; }
+          printf '%s' "$TAG" | grep -Eq '^[A-Za-z0-9._+-]{1,100}$' || { echo "::error::标签不合法：$TAG"; exit 1; }
+          echo "同步 $APP_ID $TAG" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: 同步 Release
+        env:
+          # 读取软件仓库的 Release；软件仓库为私有时，在本仓库 Secrets 配置 APPS_READ_TOKEN
+          GITHUB_TOKEN: ${{ secrets.APPS_READ_TOKEN || github.token }}
+        run: node scripts/sync-release.mjs --app "$APP_ID" --tag "$TAG"
+
+      - name: 完整构建校验
+        run: npm run build
+
+      - name: 提交
+        run: |
+          if git diff --quiet; then
+            echo "版本记录没有变化，无需提交" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "aethernative-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/apps
+          git commit -m "同步 $APP_ID $TAG"
+          git push
+          echo "已提交，Cloudflare Pages 将自动部署" >> "$GITHUB_STEP_SUMMARY"
