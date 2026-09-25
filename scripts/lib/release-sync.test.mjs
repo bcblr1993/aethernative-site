@@ -10,7 +10,7 @@ const SIG = 'A'.repeat(86) + '==';
 
 describe('parseSiteBlock', () => {
   it('读取隐藏区块中的 YAML，忽略正文其他内容', () => {
-    const body = `# 内部验收记录\n路径 /Users/x、主机 100.64.0.3\n\n<!-- aethernative\nsummary:\n  zh: 修复若干问题\n  en: Bug fixes\nbuild: 42\n-->\n`;
+    const body = `# 内部验收记录\n路径 /path/to/build、主机 192.0.2.1\n\n<!-- aethernative\nsummary:\n  zh: 修复若干问题\n  en: Bug fixes\nbuild: 42\n-->\n`;
     expect(parseSiteBlock(body)).toEqual({ summary: { zh: '修复若干问题', en: 'Bug fixes' }, build: 42 });
   });
   it('没有区块返回 null', () => expect(parseSiteBlock('只是普通说明')).toBeNull());
