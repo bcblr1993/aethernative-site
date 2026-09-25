@@ -80,7 +80,9 @@ https://aethernative.com/apps/<id>/appcast.xml
       minimumSystemVersion: "15.0"   # 可选；不写则用 app.yaml 里的 minimumSystemVersion
 ```
 
-规则：
+**软件开启了 `SURequireSignedFeed`（要求更新清单本身带签名）时**，官网不能重新生成清单（签名只有发布者的私钥能做）。这类软件在 `app.yaml` 设 `appcastMode: mirror`：同步最新正式版时，把 Release 附件里已签名的 `appcast.xml` 用公钥校验后原样保存到 `src/content/apps/<id>/appcast.xml`，官网逐字节提供；构建后还会再次校验签名并比对字节，有任何改动都会构建失败。所以这类软件发版时**必须继续把签名的 `appcast.xml` 上传到 Release**。目前 NotchQuota、Antigravity 多开管理器使用这种模式。
+
+生成模式（默认）的规则：
 - 只收录填了 `sparkle` 的版本（没签名的版本 Sparkle 会拒绝安装，所以不会放进去）；
 - `channel: beta` 的版本带 `<sparkle:channel>beta</sparkle:channel>`，只推送给开启了测试版更新的用户；`preview` 不收录；
 - 更新说明默认中文，另附英文（Sparkle 按系统语言显示），并链接到网站上的完整版本说明；
