@@ -21,9 +21,11 @@ on:
 permissions:
   contents: write
 
-# 串行执行，避免同时发版时互相覆盖
+# 同一软件串行执行。不能用全局并发组：GitHub 每组只保留一个排队任务，
+# 多个软件同时发版时，后到的排队任务会顶掉先到的，导致漏同步。
+# 不同软件改的是各自目录，并行执行后在推送时 rebase 即可。
 concurrency:
-  group: sync-release
+  group: sync-release-${{ github.event.client_payload.app || inputs.app }}
   cancel-in-progress: false
 
 jobs:
@@ -68,5 +70,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/content/apps
           git commit -m "同步 $APP_ID $TAG"
-          git push
+          # 其他软件的同步可能先推送了，rebase 后重试
+          for i in 1 2 3 4 5; do
+            git push && break
+            [ "$i" = 5 ] && { echo "::error::推送失败"; exit 1; }
+            sleep $((i * 3))
+            git pull --rebase
+          done
           echo "已提交，Cloudflare Pages 将自动部署" >> "$GITHUB_STEP_SUMMARY"
