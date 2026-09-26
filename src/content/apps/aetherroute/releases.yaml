@@ -1,6 +1,53 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.29"
+    build: "2026092601"
+    date: 2026-09-26
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.29/AetherRoute-1.0.29-build-2026092601-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.29
+    sha256: 99d26847f0ee04c543f7483865a792ce1a107943e56d5fb874d7552056ebd3b2
+    sparkle:
+      edSignature: r51lIfgzW+ydwL7oKOZHo8eiaY/zYobXzT9aOjpNHcELtryUGshC4XGmRcwda7/5YEJ81kXeFkuAmSl/AgJJDw==
+      length: 25945260
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 支持 TUN Fake-IP 映射持久化与重启自愈恢复（加密认证缓存与 TLS ClientHello SNI 无损回退嗅探）；确立纯净正式包交付标准，彻底阻断测试说明文件；通过 Tart 虚拟机 6 维网络矩阵与物理 Mac mini 10.0+ Gbps 全量验证。
+      en: Persistent TUN Fake-IP mappings across provider and VM restarts with authenticated encrypted cache and TLS ClientHello SNI fallback recovery; established zero-test-note release packaging standard; verified across Tart VM 6-dimensional matrix and physical Apple Silicon Mac mini at 10.0+ Gbps throughput.
+    notes:
+      - title:
+          zh: 核心特性：TUN Fake-IP 映射持久化与重启自愈恢复
+          en: Persistent TUN Fake-IP Mappings & Restart Self-Healing
+        items:
+          - zh: 跨进程加密认证缓存：在应用沙盒内建立加密 Fake-IP 缓存，主应用向扩展安全传递密钥，进程重启或休眠唤醒后旧连接映射依然无损可用。
+            en: Authenticated encrypted Fake-IP cache in app sandbox with safe key delivery from main app, preserving active mappings across process restarts.
+          - zh: TLS ClientHello SNI 无损回退嗅探：在缓存建立前已分配 Fake-IP 的残留连接，通过无损嗅探 ClientHello 恢复目标主机名并安全重放，杜绝错误直连。
+            en: Lossless fallback recovery via TLS ClientHello SNI sniffing for legacy connections, recovering hostnames and replaying handshake safely.
+          - zh: 诊断透明化：Provider 状态监控中暴露 Fake-IP 映射命中率与反查异常指标。
+            en: Exposed Fake-IP mapping hit rates and reverse lookup diagnostic counters in provider status.
+      - title:
+          zh: 纯净正式包交付标准（零测试说明）
+          en: Pristine Release Delivery Standard (Zero Test Notes)
+        items:
+          - zh: 标准化发布打包门禁：package_release_dmg.sh 强制阻断测试说明文件，磁盘卷标统一为 AetherRoute 1.0.29，彻底消除测试残留。
+            en: package_release_dmg.sh strictly enforces zero test notes in release DMG, setting volume title to AetherRoute 1.0.29.
+      - title:
+          zh: 严苛真实硬件与虚拟机矩阵验证
+          en: Rigorous Physical Hardware & VM Matrix Verification
+        items:
+          - zh: Apple Silicon 物理 Mac mini 实测通过：10.0+ Gbps 满物理线速吞吐，10,000 个高频 UDP 数据报 0 丢包，所有安全与协议测试 100% 通过。
+            en: "Verified on physical Apple Silicon Mac mini: 10.0+ Gbps line-rate throughput, 0 packet loss across 10,000 UDP datagrams, 100% pass on all security and protocol gates."
+          - zh: Tart 虚拟机 6 维网络矩阵验证：TUN/透明代理 x 规则/全局/直连共 6 项模式矩阵 100% 验收通过，测试环境彻底清理干净。
+            en: Verified across all 6 engine/routing modes in Tart VM (aether-diag-1434) with 100% pass rate and clean environment cleanup.
+      - title:
+          zh: 安全合规与发布规范
+          en: Security Compliance & Release Standards
+        items:
+          - zh: 采用标准生产核心构建，通过 Apple Developer ID 签名与 Apple 官方双重公证（Stapled App + Stapled DMG），完全兼容 macOS 15+ Apple Silicon。
+            en: Built with standard production core, signed with Apple Developer ID, and double-notarized by Apple (App + DMG stapled), fully compatible with macOS 15+ Apple Silicon.
   - version: "1.0.28"
     build: "2026092501"
     date: 2026-09-25
