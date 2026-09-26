@@ -4,35 +4,26 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Antigravity 多开管理器</title>
         <item>
-            <title>0.3.3</title>
-            <pubDate>Wed, 23 Sep 2026 19:46:11 +0800</pubDate>
-            <sparkle:version>7</sparkle:version>
-            <sparkle:shortVersionString>0.3.3</sparkle:shortVersionString>
+            <title>0.3.4</title>
+            <pubDate>Sat, 26 Sep 2026 21:20:00 +0800</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>0.3.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.3
+            <description sparkle:format="markdown"><![CDATA[# v0.3.4
 
-## 新增
+主实例升级至 Antigravity 2.17.0 后，旧管理器会显示“版本待适配”并禁用副本升级。此版本增加 2.17.0 Apple Silicon 官方程序适配，恢复本地创建和批量升级。
 
-- 每个 Antigravity 副本可在“…”菜单中选择“销毁实例”。确认页列出将清除的位置，并要求输入完整实例名称。
-- 销毁只处理选中的副本：应用、独立账号资料、窗口数据、日志、独立登录文件和管理清单；已有升级备份保留。
+- 副本升级直接复制本机主实例，无需重新下载 Antigravity；保留独立实例名称、账号目录、登录文件和回调，并先备份程序与数据。
+- 界面与创建、升级组件共用同一份兼容性清单，避免支持版本不一致。
+- 仍检查官方签名、源文件哈希和补丁结构；未知版本或修改过的源程序会拒绝操作。
 
-## 保护
-
-- 主实例不可销毁；实例仍在运行、身份或路径不匹配、文件被其他实例引用、创建或升级正在进行时拒绝操作。
-- 销毁前先将目标移入专属暂存目录；转移失败会回滚，避免只移走部分数据。
-
-## 验证
-
-- 隔离目录测试覆盖旧副本、新副本、主实例保护、运行进程、符号链接、清单异常、共享凭据和操作锁。
-- Apple Silicon 构建与图形界面确认流程验证通过。
-
-永久销毁无法撤销。已有升级备份可在管理器中另行手动删除。Google Antigravity 程序不包含在安装包中。
+已验证六个现有副本的 2.17.0 构建及深度签名。实际已登录账号的跨版本保持需在执行升级后逐一确认。Google 程序不包含在安装包中。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/antigravity-multiplexer/releases/download/v0.3.3/Antigravity-Multiplexer-v0.3.3-macos-arm64.zip" length="2148396" type="application/octet-stream" sparkle:edSignature="8ybJ+10BYPrFF/I+movqqEkz3TH1KdgIX7qxHR4VSfE/+OxkrIdM1nAnzV3nX2B8nEEAj8jWnAdNV2gXJbYpDw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/antigravity-multiplexer/releases/download/v0.3.4/Antigravity-Multiplexer-v0.3.4-macos-arm64.zip" length="2146896" type="application/octet-stream" sparkle:edSignature="dGtiLGTngqoFsF/nTPHSVo1wuWNZBVlvz5Z63WEIcH5Fye++g9+m6O/D7KwcTSv9Bl3FwoElTZkKEaynpnRTBw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: RedZTMAzKXbZOmSkZBtMYLsQprZSHpQ6qB+9+6Fh0GRZviQkJAJo1snHGmqtycd1CR/c5DiXCCnH88hy9k+LAA==
-length: 2209
+edSignature: Ec6yuKE+gyCeTBBUQyQqhBHh9j8mj9QFGeQujA1yMR/yfqyWy1hK5ixkTeSJrZdLDuT1iEnzGuYdLH24QKGuCw==
+length: 2040
 -->
