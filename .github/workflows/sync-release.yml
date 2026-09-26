@@ -42,9 +42,9 @@ jobs:
           printf '%s' "$TAG" | grep -Eq '^[A-Za-z0-9._+-]{1,100}$' || { echo "::error::标签不合法：$TAG"; exit 1; }
           echo "同步 $APP_ID $TAG" >> "$GITHUB_STEP_SUMMARY"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
           cache: npm
