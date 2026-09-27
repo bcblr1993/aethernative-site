@@ -1,7 +1,7 @@
 # Antigravity 多开管理器软件介绍（内容整理自 github.com/bcblr1993/antigravity-multiplexer 的 README）
 # 注意：本工具与 Google 无关联，不包含也不分发 Google 程序。README 提示对外分发前需确认 Google 条款。
 name: Antigravity 多开管理器
-order: 4
+order: 5
 repo: https://github.com/bcblr1993/antigravity-multiplexer
 minimumSystemVersion: "13.0"
 sparklePublicKey: pMww3oxkkT9VcymetHFOUIF1thb/n+xjVMlxuFXVHsY=

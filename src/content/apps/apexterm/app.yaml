@@ -28,40 +28,6 @@ hero:
     zh: Apple 芯片（M1 及更新）/ macOS 14+
     en: Apple silicon (M1 or later) / macOS 14+
 
-gallery:
-  - label: { zh: 终端与 SFTP 工作台, en: Terminal and SFTP workspace }
-    zh: ./media/workspace-zh.png
-  - label: { zh: 服务器监控, en: Server monitoring }
-    zh: ./media/metrics-zh.png
-  - label: { zh: 会话配置, en: Session settings }
-    zh: ./media/session-zh.png
-
-showcase:
-  eyebrow: { zh: 界面与工作流, en: Interface and workflow }
-  title: { zh: 从连接主机，到管理文件。, en: From connecting hosts to managing files. }
-  lead:
-    zh: 在一个窗口里查看终端输出、浏览远程目录和展开服务器指标，减少日常运维中的来回切换。
-    en: Read terminal output, browse remote directories and expand server metrics in one window, with less switching during everyday work.
-  note:
-    zh: 配图来自 ApexTerm 原生界面；主机、文件与监控数值均为内置模拟数据，会话设置使用 example.com 示例域名。模拟会话仅展示布局，不代表真实连接状态或性能测试结果。英文页面沿用中文界面截图。
-    en: Captured from the native ApexTerm interface. Hosts, files and metrics are built-in mock data, and session settings use an example.com domain. The mock session illustrates the layout, not a real connection or benchmark. Screenshots show the Chinese interface.
-  items:
-    - title: { zh: 终端与文件放在一起, en: Terminal and files together }
-      caption:
-        zh: 上方查看终端，下方浏览 SFTP 目录；路径栏、文件筛选和上传入口就在手边，可按需要隐藏文件面板。
-        en: Terminal above, SFTP below. The path bar, file filter and upload controls are close at hand, and the file panel can be hidden when needed.
-      image: ./media/workspace-zh.png
-    - title: { zh: 一眼查看服务器状态, en: Server health at a glance }
-      caption:
-        zh: 顶部胶囊显示 CPU 与内存；点击展开 CPU、网络吞吐、磁盘使用和进程资源占用，Linux 服务器无需额外安装探针。
-        en: The top capsule shows CPU and memory. Expand it for CPU charts, network throughput, disk usage and process activity, without installing an agent on Linux servers.
-      image: ./media/metrics-zh.png
-    - title: { zh: 为主机整理连接信息, en: Organize each connection }
-      caption:
-        zh: 设置名称、主机、端口与认证方式，再用分组、标签和颜色整理会话；每台主机可单独启用监控和目录联动。
-        en: Set the name, host, port and authentication method, then organize sessions with groups, tags and colors. Monitoring and directory linking can be enabled per host.
-      image: ./media/session-zh.png
-
 features:
   eyebrow: { zh: 功能, en: Features }
   title: { zh: 常用的，都在一个窗口里。, en: Everything you reach for, in one window. }
@@ -92,19 +58,6 @@ features:
       body:
         zh: 一次输入，同步发送到选中的一组主机；按规则自动高亮 ERROR、FATAL 等关键词。
         en: Type once and send it to a group of hosts. Rules highlight keywords such as ERROR and FATAL as output arrives.
-
-experience:
-  eyebrow: { zh: 日常使用, en: Everyday use }
-  title: { zh: 一次连接，顺手完成常用操作。, en: Connect once, keep your workflow moving. }
-  cards:
-    - title: { zh: 整理与复用会话, en: Organize and reuse sessions }
-      body: { zh: 按名称、主机或标签搜索，导入 OpenSSH 配置；复制已有会话，减少重复填写。, en: Search by name, host or tag, import OpenSSH configuration and duplicate sessions to avoid entering the same details again. }
-    - title: { zh: 多标签与分屏, en: Tabs and split panes }
-      body: { zh: 在多个标签间切换，按需要水平或垂直分屏，同时对照不同终端输出。, en: Switch between tabs or split horizontally and vertically to compare terminal output side by side. }
-    - title: { zh: 传输记录可回看, en: Review your transfers }
-      body: { zh: 上传与下载集中显示在传输记录中，可按方向筛选并查看任务状态。, en: Uploads and downloads appear in one transfer history, with direction filters and task status. }
-    - title: { zh: 配置文件就地编辑, en: Edit remote files in place }
-      body: { zh: 从 SFTP 打开文本文件，在内置编辑器修改并保存回远端，适合小型脚本和配置文件。, en: Open text files from SFTP, edit in the built-in editor and save back to the server, ideal for small scripts and configuration files. }
 
 faq:
   eyebrow: FAQ

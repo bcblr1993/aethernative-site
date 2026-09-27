@@ -1,7 +1,6 @@
 # AetherSwitch 软件介绍
 name: AetherSwitch
 order: 4
-featured: true
 repo: https://github.com/bcblr1993/AetherSwitch
 minimumSystemVersion: "14.0"
 icon: ./media/icon.png
@@ -38,20 +37,6 @@ hero:
     zh: Apple 芯片（M1 及更新）/ macOS 14+
     en: Apple silicon (M1 or later) / macOS 14+
 
-gallery:
-  - label: { zh: 概览面板与核心快捷开关, en: Overview & Essential Toggles }
-    zh: ./media/overview-zh.png
-  - label: { zh: 五栏 Stats 原生状态栏, en: 5-Column Stats Menu Bar }
-    zh: ./media/menubar-zh.png
-  - label: { zh: CPU 核心负载与能效核分布, en: CPU Core Telemetry }
-    zh: ./media/cpu-zh.png
-  - label: { zh: Apple Silicon GPU 核心平滑监控, en: GPU Peak-Hold Smoothing }
-    zh: ./media/gpu-zh.png
-  - label: { zh: 内存分段占用与压力指示, en: RAM Segmentation & Pressure }
-    zh: ./media/ram-zh.png
-  - label: { zh: 磁盘 IO 吞吐与存储分布, en: Disk IO & Storage Breakdown }
-    zh: ./media/disk-zh.png
-
 showcase:
   eyebrow: { zh: 界面设计与交互体验, en: Interface and Experience }
   title: { zh: 抬眼即览系统脉搏，点按随心掌控。, en: System pulse at a glance, controls at your fingertips. }
@@ -64,13 +49,18 @@ showcase:
   items:
     - title: { zh: 5 栏等宽菜单栏，防抖对齐, en: 5-Column Monospaced Menu Bar }
       caption:
-        zh: CPU、GPU、RAM、SSD 与上下行网速独立分栏常驻，SF Pro Semibold 排版，告别数字跳变与文本截断。
-        en: Dedicated columns for CPU, GPU, RAM, SSD and network throughput. Monospaced SF Pro Semibold typography eliminates jitter and text truncation.
+        zh: CPU、GPU、RAM、SSD 与上下行网速独立分栏常驻，SF Pro 等宽排版，告别数字跳变与文本截断。
+        en: Dedicated columns for CPU, GPU, RAM, SSD and network throughput. Monospaced SF Pro typography eliminates jitter and text truncation.
       image: ./media/menubar-zh.png
-    - title: { zh: 概览面板与 4 大高频开关, en: Overview Panel & 4 Core Toggles }
+    - title: { zh: 4 大高频快捷开关，一触即发, en: 4 Essential Quick Toggles }
       caption:
-        zh: 保持常亮（原生电源断言）、隐藏桌面、显示隐藏文件、深色模式一键瞬切；搭配硬件监控四宫格与实时速率。
-        en: Keep screen awake, hide desktop icons, toggle dotfiles and switch dark appearance instantly, alongside 4 core hardware status cards.
+        zh: 保持常亮（原生电源断言）、隐藏桌面、显示隐藏文件、深色模式一键瞬切；告别终端命令与臃肿工具。
+        en: Keep screen awake, hide desktop icons, toggle dotfiles and switch dark appearance instantly — zero command-line hassles.
+      image: ./media/toggles-zh.png
+    - title: { zh: 概览四宫格与网络实时吞吐, en: Overview Dashboard & Network Bandwidth }
+      caption:
+        zh: CPU、GPU、RAM、SSD 核心指标四宫格一览无余；配合实时网络上下行速率曲线，秒级掌握系统状态。
+        en: 4-grid hardware dashboard for CPU, GPU, RAM and SSD paired with real-time bidirectional network throughput.
       image: ./media/overview-zh.png
     - title: { zh: CPU 深度监控与核心拓扑, en: CPU Deep Telemetry & Topology }
       caption:
@@ -82,16 +72,11 @@ showcase:
         zh: 搭载独创 Peak-Hold 衰减平滑滤波算法，告别瞬态 0% 跳变；实时呈现渲染器利用率与平铺器负载。
         en: Proprietary Peak-Hold decay smoothing eliminates discrete 0% dropouts on Apple Silicon unified architecture.
       image: ./media/gpu-zh.png
-    - title: { zh: RAM 内存分段占用与压力, en: RAM Segmentation & Pressure Ring }
+    - title: { zh: RAM 内存分段占用与压力指示, en: RAM Segmentation & Pressure Ring }
       caption:
         zh: Mach 内核内存压力指示、4 段内存彩色环（App / 联动 / 压缩 / 可用）及高占用进程排行榜。
         en: Native Mach kernel pressure gauge, 4-segment memory ring and real-time top memory consuming processes.
       image: ./media/ram-zh.png
-    - title: { zh: 磁盘 IO 吞吐与存储分布, en: Disk IO Throughput & Storage }
-      caption:
-        zh: 实时读写速率双向折线波形图，根盘容量占比与磁盘高占用进程一目了然。
-        en: Real-time read/write bidirectional bandwidth wave, root storage breakdown and active disk IO processes.
-      image: ./media/disk-zh.png
 
 features:
   eyebrow: { zh: 核心优势, en: Core Strengths }
