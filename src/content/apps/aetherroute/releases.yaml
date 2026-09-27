@@ -1,6 +1,55 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.30"
+    build: "2026092701"
+    date: 2026-09-27
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.30/AetherRoute-1.0.30-build-2026092701-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.30
+    sha256: 7dbcffaa9dd5249f4f3f482b64e83e46578f138b7f31de94b9624b6d5ded6e06
+    sparkle:
+      edSignature: NTjBWA/OIa7Gteji4hfc3H76/dmYkr/DSpQ0dyNdK5EZHlBzFeWVVdGQWGMnUNwKEBbEnY4O4a1Zsc7lO6hiBA==
+      length: 26031071
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: UI 视觉系统与极限排版全面重构，确保最小窗口与辅助大字号下底栏单行优雅对齐；新增 5 阶段网络连通性智能诊断引擎与排障建议；通过 44 场景 UI 视觉审查矩阵与 Apple Silicon 物理真机六维网络穿透矩阵 100% 验收。
+      en: Modernized UI visual system and robust layout constraints preventing text wrapping under minimum window widths and Expanded Text; introduced 5-stage automated connectivity diagnostic engine with actionable recommendations; verified across 44 UI visual review scenarios and 6-dimensional physical network penetration matrix with 100% pass.
+    notes:
+      - title:
+          zh: UI 视觉系统与极限无障碍排版
+          en: Modernized UI Visual System & Responsive Layout
+        items:
+          - zh: 侧边栏与导航美化：重构高对比度与圆角层次，提升深浅色模式下的辨识度与现代质感。
+            en: Enhanced sidebar navigation with refined selection highlights, border radii, and visual contrast across light and dark appearances.
+          - zh: 底栏单行防截断排版：优化最小窗口（960px 宽度）及系统大字号无障碍下的约束布局，确保版本号与设置按钮保持单行居中排版，杜绝文字折行。
+            en: Hardened footer layout constraints to keep version indicator and settings button strictly aligned on a single row under minimum window widths and Expanded Text sizes.
+          - zh: 双语本地化全面覆盖：补充所有新增组件、诊断状态与提示卡片的完整中英双语本地化翻译。
+            en: Expanded complete English and Simplified Chinese localizations across all new components, diagnostics cards, and status tags.
+      - title:
+          zh: 网络连通性 5 阶智能诊断引擎
+          en: 5-Stage Connectivity Diagnostic Engine
+        items:
+          - zh: 全链路状态探测：自动化测试核心初始化、节点配置、本地代理端口、数据面直连及外网穿透链路，提供毫秒级延迟监控。
+            en: Automated end-to-end probing across core initialization, proxy protocol verification, local ports, data path, and external reachability with millisecond latency metrics.
+          - zh: 智能排障建议卡片：根据综合诊断结果自动给出明确排障指引（全绿健康、代理受损、被墙拦截或网络离线）。
+            en: Intelligent verdict cards providing clear troubleshooting recommendations based on automated test outcomes.
+      - title:
+          zh: 严苛真实硬件与 44 场景 UI 视觉审查矩阵
+          en: Rigorous Physical Matrix & 44 UI Scenarios Acceptance
+        items:
+          - zh: Apple Silicon 物理 Mac mini 实测 100% 通过：TUN 及透明代理双引擎在 Rule/Global/Direct 6 维模式下全部一次性通过数据通道、DNS 与 API 穿透验收，并自动还原网络环境。
+            en: Verified 100% pass on physical Apple Silicon Mac mini across all 6 proxy engine and routing modes, followed by automated network baseline restoration.
+          - zh: UI 视觉自动化 44 场景矩阵全部通过：覆盖深浅色模式、中英语言、小窗口与大字号，无任何渲染截断或布局异常。
+            en: Passed all 44 UI automated visual review test cases without layout regressions.
+      - title:
+          zh: 安全合规与官方双重公证
+          en: Security Compliance & Apple Double Notarization
+        items:
+          - zh: 采用标准生产核心构建，通过 Apple Developer ID 签名与 Apple 官方双重公证（Stapled App + Stapled DMG），完全兼容 macOS 15+ Apple Silicon。
+            en: Built with standard production core, signed with Apple Developer ID, and double-notarized by Apple (App + DMG stapled), fully compatible with macOS 15+ Apple Silicon.
   - version: "1.0.29"
     build: "2026092601"
     date: 2026-09-26
