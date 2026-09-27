@@ -46,7 +46,7 @@ gallery:
 
 showcase:
   eyebrow: { zh: 真机运行, en: Running on a real Mac }
-  title: { zh: 原生界面，实际运行。, en: Native UI, captured in use. }
+  title: { zh: 原生界面，实际运行。, en: "Native UI, captured in use." }
   lead:
     zh: 来自 Apple 芯片 Mac 上的管理器 0.3.5，展示实例列表、创建确认与更新设置。
     en: Captured from manager 0.3.5 on an Apple silicon Mac, showing the instance list, creation confirmation and update settings.
@@ -58,10 +58,10 @@ showcase:
       caption: { zh: 在一个列表中查看主实例与副本版本，以及各自的运行状态。, en: See the original and copies together with their versions and running status. }
       image: ./media/instances-mac-v035.png
     - title: { zh: 创建前确认隔离信息, en: Review isolation before creation }
-      caption: { zh: 确认英文实例名称、独立数据目录与登录回调；创建前校验官方源程序。, en: Review the English instance name, separate data directory and callback before validating the official source app. }
+      caption: { zh: 确认英文实例名称、独立数据目录与登录回调；创建前校验官方源程序。, en: "Review the English instance name, separate data directory and callback before validating the official source app." }
       image: ./media/create-mac-v035.png
     - title: { zh: 管理器自动更新, en: Automatic manager updates }
-      caption: { zh: 管理器可自动检查、下载和安装更新，保留已有实例与账号数据。, en: The manager can check, download and install updates while preserving existing instances and account data. }
+      caption: { zh: 管理器可自动检查、下载和安装更新，保留已有实例与账号数据。, en: "The manager can check, download and install updates while preserving existing instances and account data." }
       image: ./media/updates-mac-v035.png
 
 features:
