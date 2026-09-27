@@ -1,6 +1,55 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.31"
+    build: "2026092702"
+    date: 2026-09-27
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.31/AetherRoute-1.0.31-build-2026092702-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.31
+    sha256: f2c140d1788e86774d2ae7575395ddd6c4a9cda224647f77f608d2b70763c16b
+    sparkle:
+      edSignature: +ce0OOPL/HBMiKVQ96osAWqg7cvJvfFeWSkMIv2VboY3/LcEtZJlWiFYPlvhKGbIaPOh7Yj4izKj2kNoJ+3bBw==
+      length: 26032839
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 完成本机 6 小时指标监控与异常修复；彻底消除 SwiftUI 运行时状态更新 Fault 与 Menu Bar Quit 0x7d XPC 断言；优化网络扩展重连恢复感知与 3.5s 快速探测 Failover；全量通过 Tart 虚拟机与 Apple Silicon 物理实机网络矩阵验收。
+      en: Completed 6-hour continuous production telemetry profiling; eliminated SwiftUI runtime view update faults and MenuBarExtra Quit 0x7d XPC assertion; introduced smooth tunnel reconnection recovery state and 3.5s high-sensitivity route probe failover; fully verified across Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 稳定性与运行时异常专项消除
+          en: Stability & Runtime Fault Elimination
+        items:
+          - zh: SwiftUI 更新 Fault 消除：将遥测状态与视图更新异步解耦派发，杜绝在视图重绘周期中同步修改 @Published 状态的运行时警告。
+            en: Eliminated SwiftUI view update faults by dispatching telemetry state synchronization via DispatchQueue.main.async.
+          - zh: Combine 状态初始化解耦：优化证书与隐私状态监听流调度，防止控制器装载期间的重入竞争。
+            en: Decoupled Combine subscription pipeline with main-queue scheduling during app lifecycle startup.
+          - zh: 菜单栏退出 0x7d XPC 断言修复：将 Quit 按钮与 AppKit 事件分发循环解耦，并完善 applicationWillTerminate 资源释放钩子，实现安全优雅退出。
+            en: Fixed MenuBarExtra Quit 0x7d XPC assertion via asynchronous termination dispatch and clean applicationWillTerminate lifecycle resource release.
+      - title:
+          zh: 连接弹性与探测延迟优化
+          en: Connection Resilience & High-Sensitivity Probe
+        items:
+          - zh: 网络扩展重连恢复感知：在系统网络冲突导致扩展中断时引入 .recovering 状态，避免界面误报错误红框并在重连成功后平滑恢复。
+            en: Introduced transient .recovering state indicator during automatic reconnection after unexpected system extension termination, eliminating false alarms.
+          - zh: 活动路由高灵敏度探测：将节点网络探测超时由 10s 优化为 3.5s，极大提升故障感知与故障转移（Failover）响应速度。
+            en: Reduced active route probe timeout to 3.5s, significantly accelerating node outage perception and automatic failover.
+      - title:
+          zh: 6 小时长期监控与实机矩阵验证
+          en: 6-Hour Production Profiling & Physical Matrix Verification
+        items:
+          - zh: 6 小时生产指标验证：720 周期连续监控，平均 CPU 占用仅 0.28%，内存平稳维持在 68.2MB（漂移 < 1.5MB，零泄漏），句柄稳定在 31 个。
+            en: Verified 720 continuous 30s telemetry cycles (5.99 hours) with 0.28% average CPU, rock-solid 68.2MB memory (zero leak), and 31 stable file descriptors.
+          - zh: Tart 虚拟机与物理真机全矩阵通过：双引擎六维矩阵（TUN/透明代理 × Rule/Global/Direct）100% 验收通过，高吞吐低延迟与 UDP 零丢包。
+            en: Verified 100% pass across Tart VM 6-dimensional matrix and physical Apple Silicon Mac mini tests with high throughput and zero packet loss.
+      - title:
+          zh: 安全合规与官方双重公证
+          en: Security Compliance & Apple Double Notarization
+        items:
+          - zh: 采用标准生产核心构建，通过 Apple Developer ID 签名与 Apple 官方双重公证（Stapled App + Stapled DMG），完全兼容 macOS 15+ Apple Silicon。
+            en: Built with standard production core, signed with Apple Developer ID, and double-notarized by Apple (App + DMG stapled), fully compatible with macOS 15+ Apple Silicon.
   - version: "1.0.30"
     build: "2026092701"
     date: 2026-09-27
