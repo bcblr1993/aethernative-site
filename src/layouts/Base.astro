@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import AuthMenu from '../components/AuthMenu.astro';
 import BrandMark from '../components/BrandMark.astro';
 import { altHref, href, site, ui, type Lang } from '../lib/i18n';
 
@@ -74,6 +75,7 @@ const nav = [
         <div class="nav-r">
           <a class="icon-btn" href={lang === 'zh' ? enPath : zhPath} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={u.switchLangLabel}>{u.switchLang}</a>
           <button class="icon-btn" type="button" data-theme-toggle aria-label={u.theme}>◐</button>
+          <AuthMenu lang={lang} />
           <details class="menu">
             <summary class="icon-btn" aria-label="Menu">☰</summary>
             <div class="menu-panel">{nav.map((n) => <a href={n.to}>{n.label}</a>)}</div>

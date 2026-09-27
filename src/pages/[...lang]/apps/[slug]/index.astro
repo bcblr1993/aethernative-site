@@ -334,6 +334,7 @@ const subnav = [
         <nav class="doc-links" aria-label={d.name}>
           <a href={`${base}releases/`}>{u.releases}</a>
           {docLinks.map((l) => <a href={`${base}${l.key}/`}>{l.label}</a>)}
+          <a href={`${href(lang, '/feedback/')}?app=${app.id}`}>{u.feedback.nav}</a>
           {d.repo && <a href={d.repo} rel="noopener">GitHub ↗</a>}
         </nav>
       </div>

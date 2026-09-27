@@ -1,0 +1,322 @@
+---
+// 意见反馈：/feedback/ 与 /en/feedback/。页面是静态的，登录状态、提交和“我的反馈”都由浏览器请求 /api/*。
+// 支持 ?app=<软件 id> 预选软件（详情页、支持页的反馈入口会带上）。
+import Base from '../../layouts/Base.astro';
+import LoginButtons from '../../components/LoginButtons.astro';
+import { getApps, getReleases, latestStable } from '../../lib/apps';
+import { href, langParams, ui, type Lang } from '../../lib/i18n';
+
+export const getStaticPaths = langParams;
+const { lang } = Astro.props as { lang: Lang };
+const u = ui[lang].feedback;
+const apps = await Promise.all(
+  (await getApps()).map(async (app) => ({
+    id: app.id,
+    name: app.data.name,
+    version: latestStable(await getReleases(app.id))?.version ?? '',
+  })),
+);
+const names = Object.fromEntries([...apps.map((a) => [a.id, a.name]), ['general', u.general]]);
+const categories = Object.entries(u.categories) as [string, string][];
+---
+<Base lang={lang} title={u.title} description={u.lead}>
+  <div class="wrap fb-wrap">
+    <header class="page-hero">
+      <p class="eyebrow">Feedback</p>
+      <h1>{u.title}</h1>
+      <p>{u.lead}</p>
+      <p class="hint">{u.publicHint} <a href={href(lang, '/support/')}>{ui[lang].nav.support} →</a></p>
+    </header>
+
+    <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-state="loading">
+      <noscript><p class="card">{u.noscript}</p></noscript>
+      <p class="muted state-loading">{u.loading}</p>
+
+      <section class="card signin state-out">
+        <h2>{u.signInTitle}</h2>
+        <p>{u.signInLead}</p>
+        <div class="providers"><LoginButtons lang={lang} /></div>
+      </section>
+
+      <form class="card form state-in" data-form novalidate>
+        <div class="row">
+          <label class="field">
+            <span>{u.app}</span>
+            <select name="appId" data-app>
+              {apps.map((a) => <option value={a.id} data-version={a.version}>{a.name}</option>)}
+              <option value="general" data-version="">{u.general}</option>
+            </select>
+          </label>
+          <fieldset class="field">
+            <legend>{u.category}</legend>
+            <div class="seg">
+              {categories.map(([value, label], i) => (
+                <label><input type="radio" name="category" value={value} checked={i === 0} /><span>{label}</span></label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+        <label class="field" data-field="title">
+          <span>{u.titleLabel}</span>
+          <input name="title" required maxlength="120" placeholder={u.titlePh} autocomplete="off" />
+        </label>
+        <label class="field" data-field="body">
+          <span>{u.body} <small class="count" data-count>0 / 5000</small></span>
+          <textarea name="body" required minlength="10" maxlength="5000" rows="7" placeholder={u.bodyPh}></textarea>
+        </label>
+        <div class="row">
+          <label class="field" data-field="appVersion">
+            <span>{u.appVersion} <small>{u.optional}</small></span>
+            <input name="appVersion" maxlength="40" autocomplete="off" data-version-input />
+          </label>
+          <label class="field" data-field="osVersion">
+            <span>{u.osVersion} <small>{u.optional}</small></span>
+            <input name="osVersion" maxlength="40" placeholder={u.osPh} autocomplete="off" />
+          </label>
+        </div>
+        <p class="fine">{u.secretHint}</p>
+        <div class="actions">
+          <button class="btn btn-p" type="submit" data-submit>{u.submit}</button>
+          <p class="msg" role="status" aria-live="polite" data-msg></p>
+        </div>
+      </form>
+
+      <section class="mine state-in">
+        <h2>{u.mine}</h2>
+        <p class="muted" data-list-msg>{u.loading}</p>
+        <ol class="list" data-list></ol>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { getMe, markSignedOut, onSignedOut } from '../../lib/auth-client';
+  import { fmtDate, ui, type Lang } from '../../lib/i18n';
+
+  type Item = {
+    id: string; appId: string; category: 'bug' | 'feature' | 'other'; title: string; body: string;
+    appVersion: string | null; osVersion: string | null; status: 'new' | 'triaged' | 'replied' | 'closed';
+    reply: string | null; createdAt: number;
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-fb]');
+  if (root) {
+    const lang = (root.dataset.lang as Lang) ?? 'zh';
+    const u = ui[lang].feedback;
+    const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
+    const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const form = $<HTMLFormElement>('[data-form]');
+    const appSel = $<HTMLSelectElement>('[data-app]');
+    const versionInput = $<HTMLInputElement>('[data-version-input]');
+    const body = form.elements.namedItem('body') as HTMLTextAreaElement;
+    const count = $('[data-count]');
+    const submit = $<HTMLButtonElement>('[data-submit]');
+    const msg = $('[data-msg]');
+    const list = $<HTMLOListElement>('[data-list]');
+    const listMsg = $('[data-list-msg]');
+
+    const setState = (s: 'loading' | 'out' | 'in') => (root.dataset.state = s);
+    const say = (text: string, kind: 'ok' | 'err' | '' = '') => {
+      msg.textContent = text;
+      msg.dataset.kind = kind;
+    };
+
+    // ?app= 预选软件；版本号占位提示用该软件的最新版本
+    const pre = new URLSearchParams(location.search).get('app');
+    if (pre && [...appSel.options].some((o) => o.value === pre)) appSel.value = pre;
+    const syncVersionHint = () => {
+      const v = appSel.selectedOptions[0]?.dataset.version;
+      versionInput.placeholder = v ? u.versionPh(v) : '';
+    };
+    syncVersionHint();
+    appSel.addEventListener('change', syncVersionHint);
+
+    const syncCount = () => (count.textContent = `${[...body.value].length} / 5000`);
+    body.addEventListener('input', syncCount);
+
+    // 所有用户内容都用 textContent 写入，不拼接 HTML
+    const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls: string, text?: string) => {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    };
+
+    function renderItem(f: Item, open = false) {
+      const li = el('li', '');
+      const d = el('details', 'item');
+      d.open = open;
+      const sum = el('summary', '');
+      const head = el('div', 'item-head');
+      head.append(el('strong', 'item-title', f.title), el('span', `status s-${f.status}`, u.status[f.status] ?? f.status));
+      const meta = [names[f.appId] ?? f.appId, u.categories[f.category] ?? f.category, fmtDate(new Date(f.createdAt), lang)].join(' · ');
+      sum.append(head, el('span', 'item-meta', meta));
+      d.append(sum);
+      const content = el('div', 'item-body');
+      content.append(el('p', 'text', f.body));
+      const ver = u.version(f.appVersion, f.osVersion);
+      if (ver) content.append(el('p', 'item-meta', ver));
+      if (f.reply) {
+        const r = el('div', 'reply');
+        r.append(el('strong', '', u.reply), el('p', 'text', f.reply));
+        content.append(r);
+      }
+      d.append(content);
+      li.append(d);
+      return li;
+    }
+
+    async function loadList() {
+      listMsg.textContent = u.loading;
+      listMsg.hidden = false;
+      const r = await fetch('/api/feedback/mine', { credentials: 'same-origin' }).catch(() => null);
+      if (r?.status === 401) return markSignedOut();
+      if (!r?.ok) return void (listMsg.textContent = u.loadFailed);
+      const { feedback } = (await r.json()) as { feedback: Item[] };
+      list.replaceChildren(...feedback.map((f) => renderItem(f, Boolean(f.reply))));
+      listMsg.textContent = u.empty;
+      listMsg.hidden = feedback.length > 0;
+    }
+
+    const fields = ['title', 'body', 'appVersion', 'osVersion'];
+    const markInvalid = (bad: string[]) => {
+      for (const name of fields) {
+        const input = form.elements.namedItem(name) as HTMLInputElement;
+        input.setAttribute('aria-invalid', String(bad.includes(name)));
+      }
+      const first = fields.find((f) => bad.includes(f));
+      if (first) (form.elements.namedItem(first) as HTMLInputElement).focus();
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      // 先在本地做一遍和服务器相同的基本检查，少一次往返
+      const bad = [];
+      if (!data.title.trim()) bad.push('title');
+      if ([...data.body.trim()].length < 10) bad.push('body');
+      markInvalid(bad);
+      if (bad.length) return say(u.invalid, 'err');
+
+      submit.disabled = true;
+      submit.textContent = u.submitting;
+      say('');
+      try {
+        const r = await fetch('/api/feedback', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (r.status === 201) {
+          const { feedback } = (await r.json()) as { feedback: Item };
+          form.reset();
+          appSel.value = data.appId;
+          syncVersionHint();
+          syncCount();
+          list.prepend(renderItem(feedback, true));
+          listMsg.hidden = true;
+          say(u.submitted, 'ok');
+        } else if (r.status === 400) {
+          const d = await r.json().catch(() => ({}));
+          markInvalid(d.fields ?? []);
+          say(u.invalid, 'err');
+        } else if (r.status === 429) {
+          say(u.rateLimited(Math.max(1, Math.ceil(Number(r.headers.get('Retry-After') ?? 60) / 60))), 'err');
+        } else if (r.status === 401) {
+          markSignedOut();
+          alert(u.signedOut);
+        } else {
+          say(ui[lang].auth.error, 'err');
+        }
+      } catch {
+        say(ui[lang].auth.error, 'err');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = u.submit;
+      }
+    });
+
+    onSignedOut(() => {
+      setState('out');
+      list.replaceChildren();
+    });
+
+    getMe().then((me) => {
+      if (!me) return setState('out');
+      setState('in');
+      loadList();
+    });
+  }
+</script>
+
+<style>
+  .fb-wrap { max-width: 780px; padding-bottom: 100px; }
+  .hint { font-size: 14px !important; margin-top: 10px; color: var(--text-3) !important; }
+  .hint a { color: var(--accent); }
+
+  /* 三种状态只显示对应的部分 */
+  [data-state='loading'] :is(.state-out, .state-in),
+  [data-state='out'] :is(.state-loading, .state-in),
+  [data-state='in'] :is(.state-loading, .state-out) { display: none; }
+
+  .signin { display: grid; gap: 10px; max-width: 420px; }
+  .signin h2 { font-size: 20px; }
+  .providers { display: grid; gap: 10px; margin-top: 8px; }
+
+  .form { display: grid; gap: 20px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .field { display: grid; gap: 8px; min-width: 0; border: 0; }
+  .field > span, .field > legend { font-size: 14px; font-weight: 600; }
+  /* legend 不参与 grid 的 gap，单独补上间距，与左侧 label 对齐 */
+  .field > legend { padding: 0; margin-bottom: 8px; }
+  .field small { font-weight: 400; color: var(--text-3); margin-left: 4px; }
+  .count { float: right; font-variant-numeric: tabular-nums; }
+  input:not([type='radio']), select, textarea {
+    width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2);
+    color: var(--text); font: inherit; font-size: 15px; transition: border-color 0.15s;
+  }
+  select { height: 44px; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%), linear-gradient(135deg, var(--text-3) 50%, transparent 50%); background-position: calc(100% - 20px) 19px, calc(100% - 15px) 19px; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; }
+  textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  [aria-invalid='true'] { border-color: #d93a3a !important; }
+  ::placeholder { color: var(--text-3); }
+
+  .seg { display: flex; padding: 3px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); height: 44px; }
+  .seg label { flex: 1; position: relative; }
+  .seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .seg span { display: grid; place-items: center; height: 100%; border-radius: 9px; font-size: 14px; color: var(--text-2); }
+  .seg input:checked + span { background: var(--surface); color: var(--text); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+  .seg input:focus-visible + span { outline: 2px solid var(--accent); }
+
+  .fine { font-size: 13px !important; color: var(--text-3) !important; }
+  .actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .actions .btn:disabled { opacity: 0.6; cursor: default; }
+  .msg { font-size: 14px !important; }
+  .msg[data-kind='ok'] { color: var(--ok) !important; }
+  .msg[data-kind='err'] { color: #d93a3a !important; }
+
+  .mine { margin-top: 56px; }
+  .mine h2 { font-size: 24px; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .list { list-style: none; display: grid; gap: 12px; }
+  .list :global(.item) { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+  .list :global(summary) { list-style: none; cursor: pointer; padding: 16px 20px; display: grid; gap: 4px; }
+  .list :global(summary::-webkit-details-marker) { display: none; }
+  .list :global(.item-head) { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; }
+  .list :global(.item-title) { font-size: 16px; overflow-wrap: anywhere; }
+  .list :global(.item-meta) { font-size: 13px; color: var(--text-3); }
+  .list :global(.item-body) { padding: 0 20px 18px; display: grid; gap: 12px; }
+  .list :global(.text) { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text-2); font-size: 15px; }
+  .list :global(.reply) { padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); display: grid; gap: 6px; }
+  .list :global(.reply strong) { font-size: 13px; color: var(--accent); }
+  .list :global(.reply .text) { color: var(--text); }
+  .list :global(.status) { flex: none; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--text-3); border: 1px solid var(--line); }
+  .list :global(.s-triaged) { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+  .list :global(.s-replied) { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); border-color: transparent; }
+
+  @media (max-width: 640px) {
+    .row { grid-template-columns: 1fr; }
+    .page-hero { padding-top: 48px; }
+  }
+</style>

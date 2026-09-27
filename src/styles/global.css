@@ -59,7 +59,7 @@ code, .mono { font-family: var(--mono); font-size: 0.92em; }
 .links { display: flex; gap: 26px; font-size: 14px; color: var(--text-2); }
 .links a:hover, .links a[aria-current='page'] { color: var(--text); }
 .nav-r { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.icon-btn { height: 30px; min-width: 30px; padding: 0 10px; border-radius: 15px; border: 1px solid var(--line); background: var(--surface); color: var(--text-2); font-size: 12px; cursor: pointer; display: grid; place-items: center; }
+.icon-btn { height: 30px; min-width: 30px; padding: 0 10px; white-space: nowrap; border-radius: 15px; border: 1px solid var(--line); background: var(--surface); color: var(--text-2); font-size: 12px; cursor: pointer; display: grid; place-items: center; }
 .icon-btn:hover { color: var(--text); }
 
 /* ---------- 通用排版 ---------- */
@@ -149,10 +149,18 @@ details.fold > .fold-body { padding: 0 0 20px; color: var(--text-2); font-size: 
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   .nav .wrap { gap: 16px; }
+  .nav-r { gap: 6px; }
+  .brand { font-size: 16px; }
   .links { display: none; }
   section { padding: 64px 0; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .page-hero { padding: 56px 0 24px; }
   .card { padding: 22px; }
   .cta .btn { flex: 1 1 auto; }
+}
+@media (max-width: 360px) {
+  .nav .wrap { gap: 8px; }
+  .nav-r { gap: 4px; }
+  .brand { gap: 8px; font-size: 15px; }
+  .icon-btn { padding: 0 8px; }
 }

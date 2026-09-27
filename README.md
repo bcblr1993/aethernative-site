@@ -162,6 +162,44 @@ lead: { zh: "第一行\n第二行", en: "Line one\nLine two" }   # \n 显示为�
 
 界面上固定的文字（导航、按钮等）在 `src/lib/i18n.ts` 里修改。
 
+## 用户登录（Google / GitHub）
+
+页面仍是静态的；只有 `/api/*` 由 `functions/` 下的 Pages Functions 处理（`public/_routes.json` 限定范围），数据存在 Cloudflare D1。
+
+```
+functions/_lib/          会话、OAuth、Cookie 等公共逻辑
+functions/api/auth/      /api/auth/:provider/login、/callback，/api/auth/logout
+functions/api/me.ts      GET 当前用户；DELETE 注销账号
+migrations/              D1 表结构（按文件名顺序执行）
+tests/functions/         接口测试（用 node:sqlite 模拟 D1，npm test 会一起运行）
+```
+
+- 会话 Cookie `__Host-sid` 为 HttpOnly，有效期 30 天，数据库只存其 SHA-256；`an_signed_in` 只是“可能已登录”的标记，页面据此决定是否请求 `/api/me`。
+- 不按邮箱自动合并 Google 与 GitHub 账号，同一个人用两种方式登录会是两个账号。
+- 写操作（退出、注销）校验 Origin 必须同源；登录后的跳转地址只允许站内路径。
+
+**首次上线配置：**
+
+1. 创建数据库，把输出的 `database_id` 填进 `wrangler.toml`，再执行表结构：
+   ```bash
+   npx wrangler d1 create aethernative
+   npm run db:migrate
+   ```
+2. Cloudflare 后台 → 本 Pages 项目 → Settings → Bindings：添加 D1，变量名 `DB`，选 `aethernative`（如果 `wrangler.toml` 已生效会自动带上）。
+3. **Google**：[Google Cloud Console](https://console.cloud.google.com/apis/credentials) → 创建 OAuth 客户端（Web 应用），已获授权的重定向 URI 填 `https://aethernative.com/api/auth/google/callback`；OAuth 同意屏幕填写首页、隐私政策 `https://aethernative.com/privacy/` 并验证域名。
+4. **GitHub**：Settings → Developer settings → OAuth Apps → New，Callback URL 填 `https://aethernative.com/api/auth/github/callback`。
+5. Pages 项目 → Settings → Variables and Secrets 添加（类型选 Secret）：`GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`、`GITHUB_CLIENT_ID`、`GITHUB_CLIENT_SECRET`。某个平台没配置时，它的登录接口返回 503，不影响另一个。
+
+**本地调试：** 复制 `.dev.vars.example` 为 `.dev.vars` 并填入**本地专用**的 OAuth App（回调地址用 `http://localhost:8788/...`），然后：
+
+```bash
+npm run dev:full   # 构建 → 本地 D1 建表 → http://localhost:8788
+```
+
+`npm run dev`（4321 端口）只有静态页面，没有 `/api`，登录按钮点了会 404，这是正常的。
+
+预览部署（`*.pages.dev`）的回调地址与 OAuth App 登记的不一致，登录会失败；需要时可以再建一套 OAuth App。
+
 ## 部署到 Cloudflare Pages
 
 1. 把 `site/` 推送到一个 GitHub 仓库。

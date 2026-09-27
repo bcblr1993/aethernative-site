@@ -1,0 +1,12 @@
+# Cloudflare Pages 配置：静态页面来自 dist/，/api/* 由 functions/ 处理（见 public/_routes.json）。
+# 密钥（GOOGLE_CLIENT_SECRET 等）不要写在这里：线上在 Pages 后台配置，本地写在 .dev.vars。
+name = "aethernative"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aethernative"
+# 执行 `npx wrangler d1 create aethernative` 后，把输出的 database_id 填到这里
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"

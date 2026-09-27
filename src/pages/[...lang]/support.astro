@@ -37,6 +37,7 @@ const docLinks = [
             <ul>
               {docLinks.filter((l) => docIds.has(`${app.id}/${l.key}`)).map((l) => <li><a href={`${base}${l.key}/`}>{l.label} →</a></li>)}
               <li><a href={`${base}releases/`}>{u.releases} →</a></li>
+              <li><a href={`${href(lang, '/feedback/')}?app=${app.id}`}>{u.feedback.nav} →</a></li>
               {app.data.repo && <li><a href={`${app.data.repo}/issues`} rel="noopener">GitHub Issues ↗</a></li>}
             </ul>
           </article>
@@ -47,8 +48,12 @@ const docLinks = [
     <section class="prose contact">
       <h2>{zh ? '联系方式' : 'Contact'}</h2>
       <p>{zh
-        ? '可复现的错误、兼容性问题和功能建议，请在对应软件的 GitHub 仓库提交 Issue。提交前请勿公开订阅地址、密码、私钥等敏感信息。'
-        : 'For reproducible bugs, compatibility issues and feature requests, open an issue in the app’s GitHub repository. Never post subscription URLs, passwords, private keys or other secrets.'}</p>
+        ? '使用中遇到问题或有功能建议，可以登录后提交反馈。反馈只有你和开发者能看到，处理进度和回复会显示在反馈页。'
+        : 'If something isn’t working or you have an idea, sign in and send feedback. Only you and the developer can see it, and progress and replies appear on the feedback page.'}</p>
+      <p><a class="btn btn-p btn-sm" href={href(lang, '/feedback/')}>{u.feedback.title} →</a></p>
+      <p>{zh
+        ? '也可以在对应软件的 GitHub 仓库公开提交 Issue，适合可复现的错误、兼容性问题和功能讨论。提交前请勿公开订阅地址、密码、私钥等敏感信息。'
+        : 'You can also open a public issue in the app’s GitHub repository — a good fit for reproducible bugs, compatibility issues and feature discussions. Never post subscription URLs, passwords, private keys or other secrets.'}</p>
       <p>{zh
         ? '安全漏洞请按对应仓库 SECURITY.md 中的私密流程报告，不要创建公开 Issue。'
         : 'Report security vulnerabilities privately using the process in each repository’s SECURITY.md — not in a public issue.'}</p>

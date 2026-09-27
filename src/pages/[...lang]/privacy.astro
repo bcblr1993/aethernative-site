@@ -13,20 +13,43 @@ const apps = await getApps();
     <header class="page-hero">
       <p class="eyebrow">Privacy</p>
       <h1>{zh ? '网站隐私说明' : 'Website privacy'}</h1>
-      <p class="muted">{zh ? `生效日期：2026-09-25 · 适用于 ${site.name} 官网` : `Effective: 2026-09-25 · Applies to the ${site.name} website`}</p>
+      <p class="muted">{zh ? `生效日期：2026-09-27 · 适用于 ${site.name} 官网` : `Effective: 2026-09-27 · Applies to the ${site.name} website`}</p>
     </header>
     <article class="prose">
       <section>
         <h2>{zh ? '不追踪' : 'No tracking'}</h2>
         <p>{zh
-          ? '本网站是静态网站，不使用广告、分析脚本、指纹识别或营销 Cookie，也不需要注册账号。'
-          : 'This is a static website. It uses no advertising, analytics scripts, fingerprinting or marketing cookies, and requires no account.'}</p>
+          ? '本网站不使用广告、分析脚本、指纹识别或营销 Cookie。浏览、下载软件都不需要账号；只有在你主动登录时，才会使用下文“账号与登录”中说明的 Cookie。'
+          : 'This website uses no advertising, analytics scripts, fingerprinting or marketing cookies. Browsing and downloading never require an account; the cookies described under “Accounts and sign-in” are used only if you choose to sign in.'}</p>
       </section>
       <section>
         <h2>{zh ? '托管与下载' : 'Hosting and downloads'}</h2>
         <p>{zh
           ? '网站由 Cloudflare Pages 托管。和所有网络服务一样，Cloudflare 可能为安全和故障排查处理标准连接信息，例如请求时间、IP 地址、访问路径和 User-Agent。安装包托管在 GitHub Releases，下载时适用 GitHub 的隐私政策。'
           : 'The site is hosted on Cloudflare Pages. Like any network service, Cloudflare may process standard connection metadata for security and troubleshooting, such as request time, IP address, path and User-Agent. Installers are hosted on GitHub Releases, where GitHub’s privacy policy applies to downloads.'}</p>
+      </section>
+      <section>
+        <h2>{zh ? '账号与登录' : 'Accounts and sign-in'}</h2>
+        <p>{zh
+          ? '登录是可选的，用于提交反馈等需要识别身份的功能。你可以使用 Google 或 GitHub 账号登录，我们不会获得你在这些平台的密码。'
+          : 'Signing in is optional and is used for features that need to know who you are, such as submitting feedback. You can sign in with Google or GitHub; we never receive your password for those services.'}</p>
+        <ul>
+          <li>{zh
+            ? '我们保存的信息：平台提供的用户 ID、昵称、头像地址、已验证的邮箱（如平台提供），以及账号创建和最近登录时间。'
+            : 'What we store: the user ID, display name, avatar URL and verified email address (if the provider shares one) from the provider, plus when your account was created and last used.'}</li>
+          <li>{zh
+            ? '登录状态：一个 30 天有效的会话 Cookie（HttpOnly，页面脚本无法读取；服务器只保存它的哈希值）和一个仅表示“已登录”的标记 Cookie，以及登录过程中 10 分钟有效的临时 Cookie。这些都是实现登录所必需的 Cookie，不用于追踪。'
+            : 'Sign-in state: a 30-day session cookie (HttpOnly, unreadable by page scripts; the server keeps only its hash), a “signed in” marker cookie with no personal data, and a temporary 10-minute cookie during sign-in. These are strictly necessary for sign-in and are not used for tracking.'}</li>
+          <li>{zh
+            ? '为了会话安全，我们会记录登录时浏览器的 User-Agent。头像图片直接从 Google 或 GitHub 加载。'
+            : 'For session security we record the browser User-Agent at sign-in. Avatar images load directly from Google or GitHub.'}</li>
+          <li>{zh
+            ? '反馈：你提交的软件、类型、标题、描述以及选填的软件和系统版本会与账号关联保存，只用于处理你的反馈，只有你和开发者能看到。'
+            : 'Feedback: the app, type, title, description and optional app and OS versions you submit are stored with your account, used only to handle your feedback, and visible only to you and the developer.'}</li>
+          <li>{zh
+            ? '数据存储在 Cloudflare D1 中，不会出售或分享给第三方。你可以随时在导航栏的账号菜单中“注销账号”，账号信息及你提交的全部内容会被立即永久删除。'
+            : 'Data is stored in Cloudflare D1 and is never sold or shared. You can delete your account at any time from the account menu in the navigation bar; your profile and everything you submitted are permanently deleted immediately.'}</li>
+        </ul>
       </section>
       <section>
         <h2>{zh ? '本地偏好' : 'Local preferences'}</h2>

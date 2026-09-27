@@ -1,6 +1,6 @@
 // 构建后检查（npm run build 会自动执行）：
 // 1. Cloudflare Pages 单个文件不能超过 25 MiB —— 大安装包请放 GitHub Releases；
-// 2. 所有页面里的站内链接（href / src / srcset）都必须指向实际存在的文件；
+// 2. 所有页面里的站内链接（href / src / srcset）都必须指向实际存在的文件（/api/ 接口除外）；
 // 3. 原样转发的签名清单（appcastMode: mirror）必须与源文件逐字节一致，且清单签名有效。
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -45,6 +45,8 @@ for (const page of pages) {
   ];
   for (const url of urls) {
     if (!url.startsWith('/') || url.startsWith('//')) continue;
+    // /api/* 由 Pages Functions 动态处理（见 public/_routes.json），dist 里没有对应文件
+    if (url.startsWith('/api/')) continue;
     links++;
     if (!resolves(url)) errors.push(`坏链接：${relative(DIST, page)} → ${url}`);
   }

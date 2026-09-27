@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "vitest run && astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
-    "check": "astro check",
+    "dev:full": "astro build && wrangler d1 migrations apply aethernative --local && wrangler pages dev --port 8788",
+    "db:migrate": "wrangler d1 migrations apply aethernative --remote",
+    "check": "astro check && tsc -p functions",
     "astro": "astro",
     "test": "vitest run"
   },
@@ -22,8 +24,10 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@cloudflare/workers-types": "^5.20260927.1",
     "typescript": "^6.0.3",
     "vitest": "^5.0.2",
+    "wrangler": "^4.141.0",
     "yaml": "^2.9.1"
   }
 }
