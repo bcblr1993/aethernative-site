@@ -7,6 +7,5 @@ compatibility_date = "2026-09-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "aethernative"
-# 执行 `npx wrangler d1 create aethernative` 后，把输出的 database_id 填到这里
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "ba223314-02b0-4c3b-84af-8ea55a650c16"
 migrations_dir = "migrations"
