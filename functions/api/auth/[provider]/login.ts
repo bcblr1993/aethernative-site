@@ -20,6 +20,11 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
   if (!isConfigured(provider, env)) return error(503, 'provider_not_configured');
 
   const url = new URL(request.url);
+  // OAuth 回调地址只登记了主域名：从 www 发起时先跳回主域名，会话 Cookie 也落在主域名上
+  if (url.hostname.startsWith('www.')) {
+    url.hostname = url.hostname.slice(4);
+    return redirect(url.toString());
+  }
   const pending: OAuthState = {
     provider,
     state: randomToken(),

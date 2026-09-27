@@ -33,14 +33,15 @@ async function getJson(fetcher: typeof fetch, url: string, token: string, extra:
 const clip = (s: unknown, n: number) => (typeof s === 'string' && s.trim() ? s.trim().slice(0, n) : null);
 const httpsUrl = (s: unknown) => (typeof s === 'string' && s.startsWith('https://') && s.length <= 1024 ? s : null);
 
+// 密钥两端去空白：在终端粘贴时容易带上空格或换行
 export const providers: Record<ProviderId, Provider> = {
   google: {
     authorizeUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
     tokenUrl: 'https://oauth2.googleapis.com/token',
     scope: 'openid email profile',
     extraParams: { prompt: 'select_account' },
-    clientId: (env) => env.GOOGLE_CLIENT_ID,
-    clientSecret: (env) => env.GOOGLE_CLIENT_SECRET,
+    clientId: (env) => env.GOOGLE_CLIENT_ID?.trim(),
+    clientSecret: (env) => env.GOOGLE_CLIENT_SECRET?.trim(),
     async fetchProfile(token, fetcher) {
       const u = await getJson(fetcher, 'https://openidconnect.googleapis.com/v1/userinfo', token);
       if (!u.sub) throw new Error('Google 用户信息缺少 sub');
@@ -53,8 +54,8 @@ export const providers: Record<ProviderId, Provider> = {
     tokenUrl: 'https://github.com/login/oauth/access_token',
     scope: 'read:user user:email',
     extraParams: { allow_signup: 'true' },
-    clientId: (env) => env.GITHUB_CLIENT_ID,
-    clientSecret: (env) => env.GITHUB_CLIENT_SECRET,
+    clientId: (env) => env.GITHUB_CLIENT_ID?.trim(),
+    clientSecret: (env) => env.GITHUB_CLIENT_SECRET?.trim(),
     async fetchProfile(token, fetcher) {
       const gh = { 'X-GitHub-Api-Version': '2022-11-28' };
       const u = await getJson(fetcher, 'https://api.github.com/user', token, gh);

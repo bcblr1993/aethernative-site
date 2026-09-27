@@ -70,6 +70,31 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllGlobals());
 
+describe('部署细节', () => {
+  it('从 www 发起登录时先跳回主域名，不写临时 Cookie', async () => {
+    const res: Response = await call(login, new Request('https://www.aethernative.com/api/auth/github/login?next=%2Ffeedback%2F'), { provider: 'github' });
+    expect(res.status).toBe(302);
+    expect(res.headers.get('Location')).toBe(`${ORIGIN}/api/auth/github/login?next=%2Ffeedback%2F`);
+    expect(res.headers.getSetCookie()).toEqual([]);
+  });
+
+  it('密钥两端的空白和换行会被去掉', async () => {
+    env.GITHUB_CLIENT_ID = ' hid\n';
+    env.GITHUB_CLIENT_SECRET = 'hsecret \n';
+    const calls = mockProviders();
+    const { auth, res2 } = await signIn('github');
+    expect(auth.searchParams.get('client_id')).toBe('hid');
+    expect(res2.headers.get('Location')).toBe('/feedback/');
+    expect(new URLSearchParams(calls[0].body).get('client_secret')).toBe('hsecret');
+  });
+
+  it('密钥只有空白时视为未配置', async () => {
+    env.GOOGLE_CLIENT_ID = '  ';
+    const res: Response = await call(login, new Request(`${ORIGIN}/api/auth/google/login`), { provider: 'google' });
+    expect(res.status).toBe(503);
+  });
+});
+
 describe('登录跳转', () => {
   it('带上 PKCE、state 和正确的回调地址', async () => {
     const res: Response = await call(login, new Request(`${ORIGIN}/api/auth/google/login?next=/en/support/`), { provider: 'google' });
