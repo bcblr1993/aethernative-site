@@ -1,0 +1,19 @@
+title: { zh: 使用帮助, en: Support & Help }
+heading: { zh: "安装与使用，\n即刻上手。", en: "Installation & Usage.\nGet started instantly." }
+sections:
+  - heading: { zh: 安装与启动, en: Installation }
+    steps:
+      - { zh: "从官网或 GitHub Releases 下载最新版本的 DMG 镜像或压缩包。", en: "Download the latest DMG image or archive from the official website or GitHub Releases." }
+      - { zh: "将 AetherSwitch 拖入“应用程序”文件夹（/Applications）。", en: "Drag AetherSwitch into your Applications folder." }
+      - { zh: "双击打开，应用将静默常驻在顶部菜单栏右上角，显示当前内存占比与实时上下行网速。", en: "Double-click to launch. The app sits quietly in your menu bar, displaying real-time RAM usage and network bandwidth." }
+    note: { zh: "需要 Apple 芯片（M1 及更新系列）和 macOS 14.0 或更高版本系统。", en: "Requires Apple silicon (M1 or later) and macOS 14.0 or newer." }
+  - heading: { zh: 快捷开关使用技巧, en: Tips for Quick Toggles }
+    body:
+      - zh: "点击菜单栏即可展开毛玻璃卡片，点击任意开关立即生效。其中「保持常亮」在 App 退出时会自动归还电源策略，不会导致系统意外无法休眠。"
+        en: "Click the menu bar item to reveal the glassmorphism panel. 'Keep Awake' automatically restores power policies upon exit to prevent unintended awake states."
+  - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
+    body:
+      - zh: "如遇到显示异常或希望提供建议，欢迎在 GitHub 提交 Issue。"
+        en: "If you encounter any glitches or have feature suggestions, feel free to open an issue on GitHub."
+    links:
+      - { label: { zh: 在 GitHub 提交反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/AetherSwitch/issues" }

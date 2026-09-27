@@ -1,0 +1,18 @@
+title: { zh: 隐私政策, en: Privacy Policy }
+heading: { zh: "你的设备，\n完全由你掌控。", en: "Your device.\nCompletely private." }
+meta: { zh: 适用于 AetherSwitch 客户端, en: Applies to AetherSwitch }
+lead:
+  zh: AetherSwitch 是一款 100% 离线运行的本地原生小工具，不包含任何数据埋点、统计分析或网络遥测。
+  en: AetherSwitch runs entirely offline on your Mac, containing zero analytics, tracking, or network telemetry.
+sections:
+  - heading: { zh: 硬件数据采集, en: Hardware Metrics }
+    body:
+      - zh: 所有 CPU、GPU、RAM、磁盘及网速数据均通过 macOS 本地 Mach 内核与 IOKit 接口在内存中瞬时计算显示，绝不进行本地持久化落盘，更不会向任何远程服务器回传。
+        en: All CPU, GPU, RAM, disk and network bandwidth rates are computed transiently in memory via macOS Mach kernel and IOKit APIs. Nothing is ever written to disk or sent to remote servers.
+  - heading: { zh: 系统开关控制, en: System Toggles }
+    body:
+      - zh: 快捷开关仅直接调用系统公开命令与原生 IOKit 接口（修改访达偏好或声明屏幕防休眠断言），不采集、不干预任何用户个人文件或浏览记录。
+        en: Toggles interact solely with public system APIs (Finder defaults and IOKit assertions). The app does not access, modify, or inspect any of your personal files or browsing history.
+  - heading: { zh: 问题与建议, en: Contact }
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherSwitch/issues" }

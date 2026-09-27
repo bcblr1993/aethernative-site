@@ -1,0 +1,60 @@
+# AetherSwitch 版本记录
+releases:
+  - version: "1.0.0"
+    build: "2026092701"
+    date: 2026-09-27
+    channel: stable
+    download: "/downloads/AetherSwitch-1.0.0-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.0.0"
+    sha256: "4508b06b921aafe8e65903ed97ab8775000923c735a3a577f678037fb09b7321"
+    badge:
+      zh: "正式稳定版 · Apple 开发者签名"
+      en: "Production stable · Apple Developer ID"
+    summary:
+      zh: "首个正式发布版本：专为 Apple 芯片打造的轻量级状态栏监控与核心快捷开关。纯 Swift 6 原生实现，零第三方依赖，通过 6 小时极限压力稳定性门禁。"
+      en: "First official production release: ultra-lightweight status bar monitor and essential quick toggles built exclusively for Apple silicon. 100% native Swift 6, zero external dependencies, verified by a 6-hour endurance stress test."
+    notes:
+      - title:
+          zh: "5 栏独立菜单栏状态监控 (1:1 对齐 Stats 体验)"
+          en: "5-Column Menu Bar System Monitor (Aligned with Stats)"
+        items:
+          - zh: "菜单栏支持五栏等宽对齐：CPU 整体负载、Apple Silicon GPU 核心负载、RAM 内存占比、SSD 存储使用量与双向上下行实时网速。"
+            en: "Five fixed columns in the menu bar: CPU overall load, Apple Silicon GPU core load, RAM percentage, SSD storage usage, and bi-directional real-time network throughput."
+          - zh: "采用原生 SF Pro Semibold 防抖排版与动态变色预警（正常青蓝、中载暖橙、高载高亮红），任何浅色/深色壁纸下均清晰可辨。"
+            en: "SF Pro Semibold monospaced layout with dynamic threshold alerts (cyan, amber, red), crystal clear against any light or dark wallpaper."
+      - title:
+          zh: "4 大高频系统瞬时开关"
+          en: "4 Essential Instant System Toggles"
+        items:
+          - zh: "保持屏幕常亮：基于原生 IOKit 电源断言（IOPMAssertion），无后台常驻脚本，应用退出即刻安全归还电源策略。"
+            en: "Keep Screen Awake: Driven by native IOKit power assertions (IOPMAssertion) with zero background scripts, safely releasing assertions upon app termination."
+          - zh: "隐藏桌面图标：一键隐去桌面杂乱图标，录屏、投屏演示清爽专注。"
+            en: "Hide Desktop Icons: Instantly conceal desktop files for clean screencasts, keynote presentations, and screen sharing."
+          - zh: "显示 Finder 隐藏文件：一键切换 . 开头的隐藏点文件，极简开发者工作流。"
+            en: "Toggle Hidden Files: Show and hide dotfiles in Finder with one click, streamlining developer workflows."
+          - zh: "深色模式切换：瞬时切换 macOS 全局深色与浅色外观。"
+            en: "Dark Appearance: Seamlessly toggle macOS system-wide Dark and Light appearance."
+      - title:
+          zh: "4 大硬件深度分段监控视图"
+          en: "4 In-Depth Hardware Telemetry Views"
+        items:
+          - zh: "CPU 深度视图：实时呈现多核心利用率拓扑、能效核 (E-Core) 与性能核 (P-Core) 负载柱状图、历史波动折线图及 1m/5m 负载均值。"
+            en: "CPU Telemetry: Real-time multi-core utilization topology, Efficiency/Performance core bars, rolling history wave, and 1m/5m load averages."
+          - zh: "GPU 核心监控：针对 Apple Silicon M 系列芯片硬件特性，搭载独创 Peak-Hold 衰减平滑滤波算法，彻底解决瞬态采样归零跳变；提供渲染器 (Renderer) 与平铺器 (Tiler) 负载及屏幕刷新率 (FPS)。"
+            en: "GPU Telemetry: Designed specifically for Apple Silicon M-series unified memory architecture, with proprietary Peak-Hold decay smoothing to eliminate 0% stutter; includes Renderer/Tiler loads and display refresh rate (FPS)."
+          - zh: "RAM 内存多维度分析：原生 Mach 内核内存压力指示、4 段内存占比环（App 内存 / 联动内存 / 压缩内存 / 可用内存）及高占用进程排行。"
+            en: "RAM Telemetry: Native Mach kernel memory pressure gauge, 4-segment memory ring (App, Wired, Compressed, Free), and top memory consumers."
+          - zh: "磁盘 IO 吞吐：实时读写速率双向历史波形图与根盘已用/剩余空间分布。"
+            en: "Disk IO Telemetry: Real-time read/write bidirectional bandwidth waveforms and root mount storage breakdown."
+      - title:
+          zh: "生产级品质与 6 小时极限稳定性门禁"
+          en: "Production Quality & 6-Hour Endurance Verification"
+        items:
+          - zh: "在真实 Apple Silicon 物理设备上完成连续 6 小时（720 个采样周期）极限无人值守监控。"
+            en: "Completed 6 hours of continuous unattended monitoring (720 cycles) on a physical Apple Silicon machine."
+          - zh: "0 崩溃、0 内存泄漏、0 界面卡顿（UI 交互响应时间持续 < 200ms）。"
+            en: "Zero crashes, zero memory leaks, zero UI hangs (latency consistently under 200ms)."
+          - zh: "智能自适应能耗调度：面板折叠时 GPU 与 CPU 多核采样深度休眠，后台 CPU 占用 ≤ 0.1%，空载常驻物理内存仅约 15MB。"
+            en: "Adaptive power scheduling: deep-sleep GPU and multi-core polling when collapsed, maintaining background CPU ≤ 0.1% and idle footprint ~15MB."
+          - zh: "官方 Apple Developer ID 签名与 Hardened Runtime 强化运行时安全校验。"
+            en: "Signed with official Apple Developer ID and fully verified under Hardened Runtime security policies."

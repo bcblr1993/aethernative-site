@@ -324,7 +324,7 @@ const subnav = [
     <section class="final">
       <div class="wrap center">
         <div class="final-icon"><Image src={d.icon} alt="" width={128} height={128} /></div>
-        <p class="eyebrow">{d.name} for Mac & iPhone</p>
+        <p class="eyebrow">{d.name} for {d.platforms.map((p) => p.id === 'mac' ? 'Mac' : 'iPhone').join(' & ')}</p>
         <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
         <div class="cta">
           {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
