@@ -1,7 +1,10 @@
 ---
 // 意见反馈：/feedback/ 与 /en/feedback/。页面是静态的，登录状态、提交和“我的反馈”都由浏览器请求 /api/*。
 // 支持 ?app=<软件 id> 预选软件（详情页、支持页的反馈入口会带上）。
+// 桌面端左右两栏（表单 / 我的反馈），窄屏改为顶部切换。
+import { getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import BrandMark from '../../components/BrandMark.astro';
 import LoginButtons from '../../components/LoginButtons.astro';
 import { getApps, getReleases, latestStable } from '../../lib/apps';
 import { href, langParams, ui, type Lang } from '../../lib/i18n';
@@ -14,88 +17,155 @@ const apps = await Promise.all(
     id: app.id,
     name: app.data.name,
     version: latestStable(await getReleases(app.id))?.version ?? '',
+    icon: (await getImage({ src: app.data.icon, width: 64, height: 64 })).src,
   })),
 );
 const names = Object.fromEntries([...apps.map((a) => [a.id, a.name]), ['general', u.general]]);
-const categories = Object.entries(u.categories) as [string, string][];
+const icons = Object.fromEntries(apps.map((a) => [a.id, a.icon]));
+const categories = Object.keys(u.categories) as (keyof typeof u.categories)[];
+
+// 图标都是静态 SVG，不含用户内容
+const svg = (d: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const catIcons = {
+  bug: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.2v.3"/>'),
+  feature: svg('<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>'),
+  other: svg('<path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.1A8 8 0 1 1 20 12z"/>'),
+};
+const perkIcons = [
+  svg('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+  catIcons.other,
+];
+const lock = svg('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>');
+const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/>');
 ---
 <Base lang={lang} title={u.title} description={u.lead}>
   <div class="wrap fb-wrap">
-    <header class="page-hero">
+    <header class="fb-hero">
       <p class="eyebrow">Feedback</p>
       <h1>{u.title}</h1>
-      <p>{u.lead}</p>
+      <p class="fb-lead">{u.lead}</p>
       <p class="hint">{u.publicHint} <a href={href(lang, '/support/')}>{ui[lang].nav.support} →</a></p>
     </header>
 
-    <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-state="loading">
+    <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-icons={JSON.stringify(icons)} data-state="loading">
       <noscript><p class="card">{u.noscript}</p></noscript>
-      <p class="muted state-loading">{u.loading}</p>
+      <template data-mark><BrandMark size={12} /></template>
+
+      <div class="skeleton state-loading" aria-busy="true" aria-label={u.loading}>
+        <div class="sk sk-main"></div>
+        <div class="sk sk-side"></div>
+      </div>
 
       <section class="card signin state-out">
-        <h2>{u.signInTitle}</h2>
-        <p>{u.signInLead}</p>
-        <div class="providers"><LoginButtons lang={lang} /></div>
+        <div class="signin-copy">
+          <h2>{u.signInTitle}</h2>
+          <ul class="perks">
+            {u.perks.map((p, i) => (
+              <li>
+                <span class="perk-ic" set:html={perkIcons[i]} />
+                <div><b>{p.title}</b><p>{p.text}</p></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="signin-panel">
+          <p>{u.signInLead}</p>
+          <div class="providers"><LoginButtons lang={lang} /></div>
+        </div>
       </section>
 
-      <form class="card form state-in" data-form novalidate>
-        <div class="row">
-          <label class="field">
-            <span>{u.app}</span>
-            <select name="appId" data-app>
-              {apps.map((a) => <option value={a.id} data-version={a.version}>{a.name}</option>)}
-              <option value="general" data-version="">{u.general}</option>
-            </select>
-          </label>
+      <div class="tabs state-in" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-tab="form">{u.tabForm}</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="mine">{u.mine}<span class="n" data-total hidden></span></button>
+      </div>
+
+      <div class="layout state-in" data-view="form">
+        <form class="card form" data-form novalidate>
+          <div class="field">
+            <label class="lbl" for="fb-app">{u.app}</label>
+            <div class="select">
+              <span class="sel-icon" data-sel-icon>
+                <img alt="" width="28" height="28" data-sel-img />
+                <BrandMark size={12} />
+              </span>
+              <select id="fb-app" name="appId" data-app>
+                {apps.map((a) => <option value={a.id} data-version={a.version} data-icon={a.icon}>{a.name}</option>)}
+                <option value="general" data-version="" data-icon="">{u.general}</option>
+              </select>
+            </div>
+          </div>
+
           <fieldset class="field">
-            <legend>{u.category}</legend>
-            <div class="seg">
-              {categories.map(([value, label], i) => (
-                <label><input type="radio" name="category" value={value} checked={i === 0} /><span>{label}</span></label>
+            <legend class="lbl">{u.category}</legend>
+            <div class="cats">
+              {categories.map((value, i) => (
+                <label class="cat">
+                  <input type="radio" name="category" value={value} checked={i === 0} />
+                  <span class="cat-card">
+                    <span class="cat-ic" set:html={catIcons[value]} />
+                    <b>{u.categories[value]}</b>
+                    <small>{u.categoryHints[value]}</small>
+                  </span>
+                </label>
               ))}
             </div>
           </fieldset>
-        </div>
-        <label class="field" data-field="title">
-          <span>{u.titleLabel}</span>
-          <input name="title" required maxlength="120" placeholder={u.titlePh} autocomplete="off" />
-        </label>
-        <label class="field" data-field="body">
-          <span>{u.body} <small class="count" data-count>0 / 5000</small></span>
-          <textarea name="body" required minlength="10" maxlength="5000" rows="7" placeholder={u.bodyPh}></textarea>
-        </label>
-        <div class="row">
-          <label class="field" data-field="appVersion">
-            <span>{u.appVersion} <small>{u.optional}</small></span>
-            <input name="appVersion" maxlength="40" autocomplete="off" data-version-input />
-          </label>
-          <label class="field" data-field="osVersion">
-            <span>{u.osVersion} <small>{u.optional}</small></span>
-            <input name="osVersion" maxlength="40" placeholder={u.osPh} autocomplete="off" />
-          </label>
-        </div>
-        <p class="fine">{u.secretHint}</p>
-        <div class="actions">
-          <button class="btn btn-p" type="submit" data-submit>{u.submit}</button>
-          <p class="msg" role="status" aria-live="polite" data-msg></p>
-        </div>
-      </form>
 
-      <section class="mine state-in">
-        <h2>{u.mine}</h2>
-        <p class="muted" data-list-msg>{u.loading}</p>
-        <ol class="list" data-list></ol>
-      </section>
+          <div class="field" data-field="title">
+            <label class="lbl" for="fb-title">{u.titleLabel}</label>
+            <input id="fb-title" name="title" required maxlength="120" placeholder={u.titlePh} autocomplete="off" />
+          </div>
+          <div class="field" data-field="body">
+            <label class="lbl" for="fb-body">{u.body} <small class="count" data-count>0 / 5000</small></label>
+            <textarea id="fb-body" name="body" required minlength="10" maxlength="5000" rows="7" placeholder={u.bodyPh[categories[0]]}></textarea>
+          </div>
+          <div class="row">
+            <div class="field" data-field="appVersion">
+              <label class="lbl" for="fb-appv">{u.appVersion} <small>{u.optional}</small></label>
+              <input id="fb-appv" name="appVersion" maxlength="40" autocomplete="off" data-version-input />
+            </div>
+            <div class="field" data-field="osVersion">
+              <label class="lbl" for="fb-osv">{u.osVersion} <small>{u.optional}</small></label>
+              <input id="fb-osv" name="osVersion" maxlength="40" placeholder={u.osPh} autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <p class="fine"><span set:html={lock} />{u.secretHint}</p>
+            <div class="send">
+              <p class="msg" role="status" aria-live="polite" data-msg></p>
+              <button class="btn btn-p" type="submit" data-submit>{u.submit}</button>
+            </div>
+          </div>
+        </form>
+
+        <aside class="mine" aria-labelledby="fb-mine">
+          <div class="mine-head">
+            <h2 id="fb-mine">{u.mine}</h2>
+            <span class="n" data-total hidden></span>
+          </div>
+          <p class="muted list-msg" data-list-msg>{u.loading}</p>
+          <div class="empty" data-empty hidden>
+            <span class="empty-ic" set:html={inbox} />
+            <b>{u.empty}</b>
+            <p>{u.emptyHint}</p>
+          </div>
+          <ol class="list" data-list></ol>
+        </aside>
+      </div>
     </div>
   </div>
 </Base>
 
 <script>
   import { getMe, markSignedOut, onSignedOut } from '../../lib/auth-client';
-  import { fmtDate, ui, type Lang } from '../../lib/i18n';
+  import { fmtAgo, fmtDate, ui, type Lang } from '../../lib/i18n';
 
+  type Category = 'bug' | 'feature' | 'other';
   type Item = {
-    id: string; appId: string; category: 'bug' | 'feature' | 'other'; title: string; body: string;
+    id: string; appId: string; category: Category; title: string; body: string;
     appVersion: string | null; osVersion: string | null; status: 'new' | 'triaged' | 'replied' | 'closed';
     reply: string | null; createdAt: number;
   };
@@ -105,16 +175,23 @@ const categories = Object.entries(u.categories) as [string, string][];
     const lang = (root.dataset.lang as Lang) ?? 'zh';
     const u = ui[lang].feedback;
     const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
+    const icons: Record<string, string> = JSON.parse(root.dataset.icons ?? '{}');
     const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
     const form = $<HTMLFormElement>('[data-form]');
     const appSel = $<HTMLSelectElement>('[data-app]');
+    const selIcon = $('[data-sel-icon]');
+    const selImg = $<HTMLImageElement>('[data-sel-img]');
     const versionInput = $<HTMLInputElement>('[data-version-input]');
     const body = form.elements.namedItem('body') as HTMLTextAreaElement;
     const count = $('[data-count]');
     const submit = $<HTMLButtonElement>('[data-submit]');
     const msg = $('[data-msg]');
+    const layout = $('.layout');
     const list = $<HTMLOListElement>('[data-list]');
     const listMsg = $('[data-list-msg]');
+    const empty = $('[data-empty]');
+    const totals = root.querySelectorAll<HTMLElement>('[data-total]');
+    const mark = $<HTMLTemplateElement>('[data-mark]');
 
     const setState = (s: 'loading' | 'out' | 'in') => (root.dataset.state = s);
     const say = (text: string, kind: 'ok' | 'err' | '' = '') => {
@@ -122,15 +199,35 @@ const categories = Object.entries(u.categories) as [string, string][];
       msg.dataset.kind = kind;
     };
 
-    // ?app= 预选软件；版本号占位提示用该软件的最新版本
+    // 窄屏的“提交 / 我的反馈”切换；桌面端两栏同时显示，切换条被 CSS 隐藏
+    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-tab]');
+    const show = (view: string) => {
+      layout.dataset.view = view;
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === view)));
+    };
+    tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab!)));
+
+    // ?app= 预选软件；选中软件的图标和版本号占位提示跟着变
     const pre = new URLSearchParams(location.search).get('app');
     if (pre && [...appSel.options].some((o) => o.value === pre)) appSel.value = pre;
-    const syncVersionHint = () => {
-      const v = appSel.selectedOptions[0]?.dataset.version;
+    const syncApp = () => {
+      const o = appSel.selectedOptions[0];
+      const v = o?.dataset.version;
       versionInput.placeholder = v ? u.versionPh(v) : '';
+      if (o?.dataset.icon) selImg.src = o.dataset.icon;
+      selIcon.classList.toggle('is-mark', !o?.dataset.icon);
     };
-    syncVersionHint();
-    appSel.addEventListener('change', syncVersionHint);
+    syncApp();
+    appSel.addEventListener('change', syncApp);
+
+    // 描述的占位提示随类型变化
+    const syncPh = () => {
+      const cat = (form.elements.namedItem('category') as RadioNodeList).value as Category;
+      body.placeholder = u.bodyPh[cat] ?? u.bodyPh.bug;
+    };
+    form.addEventListener('change', (e) => {
+      if ((e.target as HTMLInputElement).name === 'category') syncPh();
+    });
 
     const syncCount = () => (count.textContent = `${[...body.value].length} / 5000`);
     body.addEventListener('input', syncCount);
@@ -142,24 +239,56 @@ const categories = Object.entries(u.categories) as [string, string][];
       if (text !== undefined) e.textContent = text;
       return e;
     };
+    const brand = (cls: string) => {
+      const s = el('span', cls);
+      s.append(mark.content.cloneNode(true));
+      return s;
+    };
+    const appIcon = (appId: string) => {
+      if (!icons[appId]) return brand('item-icon');
+      const img = el('img', 'item-icon');
+      img.src = icons[appId];
+      img.alt = '';
+      img.width = img.height = 32;
+      img.loading = 'lazy';
+      return img;
+    };
+
+    let total = 0;
+    const setTotal = (n: number) => {
+      total = n;
+      totals.forEach((t) => {
+        t.textContent = String(n);
+        t.hidden = n === 0;
+      });
+      empty.hidden = n > 0;
+    };
 
     function renderItem(f: Item, open = false) {
       const li = el('li', '');
       const d = el('details', 'item');
       d.open = open;
       const sum = el('summary', '');
-      const head = el('div', 'item-head');
-      head.append(el('strong', 'item-title', f.title), el('span', `status s-${f.status}`, u.status[f.status] ?? f.status));
-      const meta = [names[f.appId] ?? f.appId, u.categories[f.category] ?? f.category, fmtDate(new Date(f.createdAt), lang)].join(' · ');
-      sum.append(head, el('span', 'item-meta', meta));
+      const main = el('div', 'item-main');
+      const meta = el('div', 'item-meta');
+      const status = el('span', `status s-${f.status}`, u.status[f.status] ?? f.status);
+      const time = el('time', '', fmtAgo(f.createdAt, Date.now(), lang));
+      time.dateTime = new Date(f.createdAt).toISOString();
+      time.title = fmtDate(new Date(f.createdAt), lang);
+      meta.append(status, el('span', '', `${names[f.appId] ?? f.appId} · ${u.categories[f.category] ?? f.category}`), time);
+      main.append(el('strong', 'item-title', f.title), meta);
+      sum.append(appIcon(f.appId), main);
       d.append(sum);
+
       const content = el('div', 'item-body');
       content.append(el('p', 'text', f.body));
       const ver = u.version(f.appVersion, f.osVersion);
-      if (ver) content.append(el('p', 'item-meta', ver));
+      if (ver) content.append(el('p', 'item-ver', ver));
       if (f.reply) {
         const r = el('div', 'reply');
-        r.append(el('strong', '', u.reply), el('p', 'text', f.reply));
+        const bubble = el('div', 'bubble');
+        bubble.append(el('strong', '', u.reply), el('p', 'text', f.reply));
+        r.append(brand('reply-avatar'), bubble);
         content.append(r);
       }
       d.append(content);
@@ -170,13 +299,14 @@ const categories = Object.entries(u.categories) as [string, string][];
     async function loadList() {
       listMsg.textContent = u.loading;
       listMsg.hidden = false;
+      empty.hidden = true;
       const r = await fetch('/api/feedback/mine', { credentials: 'same-origin' }).catch(() => null);
       if (r?.status === 401) return markSignedOut();
       if (!r?.ok) return void (listMsg.textContent = u.loadFailed);
       const { feedback } = (await r.json()) as { feedback: Item[] };
       list.replaceChildren(...feedback.map((f) => renderItem(f, Boolean(f.reply))));
-      listMsg.textContent = u.empty;
-      listMsg.hidden = feedback.length > 0;
+      listMsg.hidden = true;
+      setTotal(feedback.length);
     }
 
     const fields = ['title', 'body', 'appVersion', 'osVersion'];
@@ -213,10 +343,12 @@ const categories = Object.entries(u.categories) as [string, string][];
           const { feedback } = (await r.json()) as { feedback: Item };
           form.reset();
           appSel.value = data.appId;
-          syncVersionHint();
+          syncApp();
+          syncPh();
           syncCount();
           list.prepend(renderItem(feedback, true));
           listMsg.hidden = true;
+          setTotal(total + 1);
           say(u.submitted, 'ok');
         } else if (r.status === 400) {
           const d = await r.json().catch(() => ({}));
@@ -241,6 +373,7 @@ const categories = Object.entries(u.categories) as [string, string][];
     onSignedOut(() => {
       setState('out');
       list.replaceChildren();
+      setTotal(0);
     });
 
     getMe().then((me) => {
@@ -252,71 +385,165 @@ const categories = Object.entries(u.categories) as [string, string][];
 </script>
 
 <style>
-  .fb-wrap { max-width: 780px; padding-bottom: 100px; }
-  .hint { font-size: 14px !important; margin-top: 10px; color: var(--text-3) !important; }
-  .hint a { color: var(--accent); }
+  .fb-wrap { padding-bottom: 100px; --danger: #d93a3a; }
+
+  /* ---------- 顶部：比通用 page-hero 更紧凑，让表单出现在第一屏 ---------- */
+  .fb-hero { padding: 56px 0 32px; max-width: 720px; }
+  .fb-hero h1 { font-size: clamp(34px, 4.6vw, 48px); margin: 10px 0 12px; }
+  .fb-lead { color: var(--text-2); font-size: 17px; }
+  .hint { font-size: 14px; margin-top: 8px; color: var(--text-3); }
+  .hint a { color: var(--accent); white-space: nowrap; }
+  .hint a:hover { text-decoration: underline; }
 
   /* 三种状态只显示对应的部分 */
   [data-state='loading'] :is(.state-out, .state-in),
   [data-state='out'] :is(.state-loading, .state-in),
   [data-state='in'] :is(.state-loading, .state-out) { display: none; }
 
-  .signin { display: grid; gap: 10px; max-width: 420px; }
-  .signin h2 { font-size: 20px; }
-  .providers { display: grid; gap: 10px; margin-top: 8px; }
+  /* ---------- 加载骨架 ---------- */
+  .skeleton { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; }
+  .sk { border-radius: var(--radius); background: linear-gradient(90deg, var(--surface) 30%, var(--surface-2) 50%, var(--surface) 70%) 0 0 / 300% 100%; border: 1px solid var(--line); animation: sk 1.4s ease-in-out infinite; }
+  .sk-main { height: 520px; }
+  .sk-side { height: 260px; }
+  @keyframes sk { to { background-position: -150% 0; } }
 
-  .form { display: grid; gap: 20px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  /* ---------- 未登录 ---------- */
+  .signin { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; padding: 40px; align-items: center; }
+  .signin h2 { font-size: 26px; letter-spacing: -0.02em; }
+  .perks { list-style: none; display: grid; gap: 18px; margin-top: 24px; }
+  .perks li { display: flex; gap: 14px; align-items: flex-start; }
+  .perks b { font-size: 15px; }
+  .card .perks p { font-size: 14px; margin-top: 2px; }
+  .perk-ic { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+  .perk-ic :global(svg), .cat-ic :global(svg), .empty-ic :global(svg) { width: 20px; height: 20px; }
+  .signin-panel { display: grid; gap: 16px; padding: 28px; border-radius: 18px; background: var(--surface-2); border: 1px solid var(--line); }
+  .card .signin-panel p { font-size: 14px; text-align: center; }
+  .providers { display: grid; gap: 10px; }
+  .providers :global(.provider) { justify-content: center; min-height: 46px; font-size: 15px; }
+
+  /* ---------- 已登录：两栏 ---------- */
+  .tabs { display: none; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: start; }
+
+  .form { display: grid; gap: 22px; padding: 32px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .field { display: grid; gap: 8px; min-width: 0; border: 0; }
-  .field > span, .field > legend { font-size: 14px; font-weight: 600; }
-  /* legend 不参与 grid 的 gap，单独补上间距，与左侧 label 对齐 */
-  .field > legend { padding: 0; margin-bottom: 8px; }
-  .field small { font-weight: 400; color: var(--text-3); margin-left: 4px; }
-  .count { float: right; font-variant-numeric: tabular-nums; }
+  .lbl { font-size: 14px; font-weight: 600; }
+  /* legend 不参与 grid 的 gap，单独补上间距 */
+  legend.lbl { padding: 0; margin-bottom: 8px; }
+  .lbl small { font-weight: 400; color: var(--text-3); margin-left: 4px; }
+  .lbl .count { float: right; font-variant-numeric: tabular-nums; }
   input:not([type='radio']), select, textarea {
     width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2);
-    color: var(--text); font: inherit; font-size: 15px; transition: border-color 0.15s;
+    color: var(--text); font: inherit; font-size: 15px; transition: border-color 0.15s, box-shadow 0.15s;
   }
-  select { height: 44px; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%), linear-gradient(135deg, var(--text-3) 50%, transparent 50%); background-position: calc(100% - 20px) 19px, calc(100% - 15px) 19px; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; }
-  textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+  input:not([type='radio']) { height: 44px; }
+  textarea { resize: vertical; min-height: 160px; line-height: 1.6; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-  [aria-invalid='true'] { border-color: #d93a3a !important; }
+  [aria-invalid='true'] { border-color: var(--danger) !important; }
   ::placeholder { color: var(--text-3); }
 
-  .seg { display: flex; padding: 3px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); height: 44px; }
-  .seg label { flex: 1; position: relative; }
-  .seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-  .seg span { display: grid; place-items: center; height: 100%; border-radius: 9px; font-size: 14px; color: var(--text-2); }
-  .seg input:checked + span { background: var(--surface); color: var(--text); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-  .seg input:focus-visible + span { outline: 2px solid var(--accent); }
+  .select { position: relative; }
+  .select select {
+    height: 48px; appearance: none; padding-left: 52px; padding-right: 40px; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%), linear-gradient(135deg, var(--text-3) 50%, transparent 50%);
+    background-position: calc(100% - 22px) 21px, calc(100% - 17px) 21px; background-size: 5px 5px; background-repeat: no-repeat;
+  }
+  .sel-icon { position: absolute; left: 12px; top: 10px; width: 28px; height: 28px; pointer-events: none; }
+  .sel-icon img { width: 28px; height: 28px; border-radius: 7px; }
+  .sel-icon :global(.brand-mark), .sel-icon.is-mark img { display: none; }
+  .sel-icon.is-mark :global(.brand-mark) { display: grid; width: 28px; height: 28px; }
 
-  .fine { font-size: 13px !important; color: var(--text-3) !important; }
-  .actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .actions .btn:disabled { opacity: 0.6; cursor: default; }
-  .msg { font-size: 14px !important; }
-  .msg[data-kind='ok'] { color: var(--ok) !important; }
-  .msg[data-kind='err'] { color: #d93a3a !important; }
+  .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cat { position: relative; min-width: 0; }
+  .cat input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+  .cat-card {
+    display: grid; gap: 2px; height: 100%; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line);
+    background: var(--surface-2); transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  }
+  .cat-card b { font-size: 15px; margin-top: 8px; }
+  .cat-card small { font-size: 12.5px; color: var(--text-3); line-height: 1.4; }
+  .cat-ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: var(--surface); color: var(--text-2); border: 1px solid var(--line); transition: inherit; }
+  .cat:hover .cat-card { border-color: color-mix(in srgb, var(--text) 20%, transparent); }
+  .cat input:checked + .cat-card { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent); }
+  .cat input:checked + .cat-card .cat-ic { background: var(--accent); color: #fff; border-color: transparent; }
+  .cat input:focus-visible + .cat-card { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  .mine { margin-top: 56px; }
-  .mine h2 { font-size: 24px; letter-spacing: -0.02em; margin-bottom: 16px; }
-  .list { list-style: none; display: grid; gap: 12px; }
-  .list :global(.item) { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
-  .list :global(summary) { list-style: none; cursor: pointer; padding: 16px 20px; display: grid; gap: 4px; }
+  .actions { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid var(--line); }
+  .card .fine { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--text-3); flex: 1 1 240px; }
+  .fine :global(svg) { width: 15px; height: 15px; flex: none; margin-top: 2px; }
+  .send { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+  .send .btn { min-width: 132px; }
+  .send .btn:disabled { opacity: 0.6; cursor: default; }
+  .card .msg { font-size: 14px; }
+  .card .msg:empty { display: none; }
+  .card .msg[data-kind='ok'] { color: var(--ok); }
+  .card .msg[data-kind='err'] { color: var(--danger); }
+
+  /* ---------- 我的反馈 ---------- */
+  .mine { padding: 0; position: sticky; top: calc(var(--nav-h) + 20px); max-height: calc(100vh - var(--nav-h) - 40px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+  .mine-head { display: flex; align-items: center; gap: 10px; margin: 4px 0 14px; }
+  .mine-head h2 { font-size: 20px; letter-spacing: -0.02em; }
+  .n { font-size: 12px; font-weight: 600; min-width: 22px; height: 22px; padding: 0 7px; border-radius: 11px; display: inline-grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .n[hidden] { display: none; }
+  .list-msg { font-size: 14px; padding: 8px 0; }
+
+  .empty { display: grid; justify-items: center; gap: 6px; text-align: center; padding: 40px 24px; border-radius: 18px; border: 1px dashed color-mix(in srgb, var(--text) 16%, transparent); }
+  .empty[hidden] { display: none; }
+  .empty-ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); color: var(--text-3); margin-bottom: 6px; }
+  .empty b { font-size: 15px; }
+  .empty p { font-size: 13px; color: var(--text-3); max-width: 240px; }
+
+  .list { list-style: none; display: grid; gap: 10px; }
+  .list :global(.item) { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; transition: border-color 0.15s; }
+  .list :global(.item:hover) { border-color: color-mix(in srgb, var(--text) 16%, transparent); }
+  .list :global(summary) { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
   .list :global(summary::-webkit-details-marker) { display: none; }
-  .list :global(.item-head) { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; }
-  .list :global(.item-title) { font-size: 16px; overflow-wrap: anywhere; }
-  .list :global(.item-meta) { font-size: 13px; color: var(--text-3); }
-  .list :global(.item-body) { padding: 0 20px 18px; display: grid; gap: 12px; }
-  .list :global(.text) { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text-2); font-size: 15px; }
-  .list :global(.reply) { padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); display: grid; gap: 6px; }
-  .list :global(.reply strong) { font-size: 13px; color: var(--accent); }
-  .list :global(.reply .text) { color: var(--text); }
-  .list :global(.status) { flex: none; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--text-3); border: 1px solid var(--line); }
-  .list :global(.s-triaged) { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
-  .list :global(.s-replied) { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); border-color: transparent; }
+  .list :global(.item-icon) { flex: none; width: 32px; height: 32px; border-radius: 8px; }
+  .list :global(.item-icon .brand-mark), .list :global(.reply-avatar .brand-mark) { width: 100%; height: 100%; border-radius: inherit; }
+  .list :global(.item-main) { display: grid; gap: 4px; min-width: 0; flex: 1; }
+  .list :global(.item-title) { font-size: 15px; line-height: 1.4; overflow-wrap: anywhere; }
+  .list :global(.item-meta) { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 12.5px; color: var(--text-3); }
+  .list :global(.item-body) { padding: 0 16px 16px 60px; display: grid; gap: 10px; }
+  .list :global(.text) { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text-2); font-size: 14px; line-height: 1.6; }
+  .list :global(.item-ver) { font-size: 12.5px; color: var(--text-3); }
 
+  .list :global(.status) { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--c); --c: var(--accent); }
+  .list :global(.status::before) { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 18%, transparent); }
+  .list :global(.s-triaged) { --c: var(--warn); }
+  .list :global(.s-replied) { --c: var(--ok); }
+  .list :global(.s-closed) { --c: var(--text-3); }
+
+  .list :global(.reply) { display: flex; gap: 10px; align-items: flex-start; margin-top: 4px; }
+  .list :global(.reply-avatar) { flex: none; width: 26px; height: 26px; border-radius: 50%; }
+  .list :global(.bubble) { display: grid; gap: 4px; padding: 10px 14px; border-radius: 4px 14px 14px 14px; background: var(--accent-soft); min-width: 0; }
+  .list :global(.bubble strong) { font-size: 12.5px; color: var(--accent); }
+  .list :global(.bubble .text) { color: var(--text); }
+
+  /* ---------- 窄屏：单栏 + 顶部切换 ---------- */
+  @media (max-width: 960px) {
+    .layout, .skeleton { grid-template-columns: 1fr; }
+    .sk-side { display: none; }
+    .tabs { display: flex; padding: 3px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); margin-bottom: 16px; }
+    .tabs button { flex: 1; height: 38px; border: 0; border-radius: 9px; background: none; color: var(--text-2); font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+    .tabs button[aria-selected='true'] { background: var(--surface); color: var(--text); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+    .tabs .n { height: 20px; min-width: 20px; font-size: 11.5px; }
+    .layout[data-view='form'] .mine, .layout[data-view='mine'] .form { display: none; }
+    .mine { position: static; max-height: none; overflow: visible; }
+    .mine-head { display: none; }
+    .signin { grid-template-columns: 1fr; gap: 28px; }
+  }
   @media (max-width: 640px) {
+    .fb-hero { padding: 36px 0 24px; }
+    .form, .signin { padding: 22px; }
+    .signin-panel { padding: 20px; }
     .row { grid-template-columns: 1fr; }
-    .page-hero { padding-top: 48px; }
+    .cats { gap: 8px; }
+    .cat-card { padding: 12px; justify-items: center; text-align: center; }
+    .cat-card small { display: none; }
+    .cat-card b { margin-top: 6px; font-size: 14px; }
+    .send { width: 100%; flex-direction: column-reverse; align-items: stretch; }
+    .send .btn { width: 100%; }
+    .list :global(.item-body) { padding-left: 16px; }
   }
 </style>

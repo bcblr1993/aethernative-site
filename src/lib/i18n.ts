@@ -23,6 +23,20 @@ export const fmtDate = (d: Date, lang: Lang) =>
     ? `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`
     : d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 
+/**
+ * 相对时间：“刚刚 / 5 分钟前 / 3 天前”，超过 30 天或时间在未来时回落到日期。
+ * now 由调用方传入，便于测试。
+ */
+export function fmtAgo(ts: number, now: number, lang: Lang) {
+  const diff = now - ts;
+  if (diff < 0 || diff >= 30 * 86_400_000) return fmtDate(new Date(ts), lang);
+  if (diff < 60_000) return lang === 'zh' ? '刚刚' : 'just now';
+  const rtf = new Intl.RelativeTimeFormat(lang === 'zh' ? 'zh-CN' : 'en', { numeric: 'always' });
+  if (diff < 3_600_000) return rtf.format(-Math.floor(diff / 60_000), 'minute');
+  if (diff < 86_400_000) return rtf.format(-Math.floor(diff / 3_600_000), 'hour');
+  return rtf.format(-Math.floor(diff / 86_400_000), 'day');
+}
+
 export const site = {
   name: 'Aether Native',
   author: { zh: '编程不良人', en: 'BianChengBuLiangRen' },
@@ -99,14 +113,24 @@ export const ui = {
       noscript: '提交反馈需要启用 JavaScript。',
       signInTitle: '登录后提交反馈',
       signInLead: '登录只是为了让你能看到处理进度和回复，不需要另外注册。',
+      perks: [
+        { title: '仅你和开发者可见', text: '反馈不会公开，可以放心描述细节。' },
+        { title: '随时查看进度', text: '已收到、处理中、已回复，状态一目了然。' },
+        { title: '开发者直接回复', text: '回复会显示在这里，不需要来回发邮件。' },
+      ],
       app: '软件',
       general: '网站 / 其他',
       category: '类型',
       categories: { bug: '问题', feature: '建议', other: '其他' },
+      categoryHints: { bug: '有东西坏了或不符合预期', feature: '想要新功能或改进', other: '其他想说的' },
       titleLabel: '标题',
       titlePh: '一句话概括',
       body: '详细描述',
-      bodyPh: '发生了什么？怎样可以复现？你期望的结果是什么？',
+      bodyPh: {
+        bug: '发生了什么？怎样可以复现？你期望的结果是什么？',
+        feature: '你想做到什么？现在是怎么做的？希望怎样改进？',
+        other: '想说什么都可以。',
+      },
       appVersion: '软件版本',
       osVersion: '系统版本',
       optional: '选填',
@@ -121,6 +145,8 @@ export const ui = {
       signedOut: '登录已失效，请重新登录。',
       mine: '我的反馈',
       empty: '还没有提交过反馈。',
+      emptyHint: '提交后，处理进度和开发者的回复都会显示在这里。',
+      tabForm: '提交反馈',
       loadFailed: '加载失败，请刷新重试。',
       status: { new: '已收到', triaged: '处理中', replied: '已回复', closed: '已关闭' },
       reply: '开发者回复',
@@ -196,14 +222,24 @@ export const ui = {
       noscript: 'Submitting feedback requires JavaScript.',
       signInTitle: 'Sign in to send feedback',
       signInLead: 'Signing in lets you follow progress and read replies — no separate sign-up.',
+      perks: [
+        { title: 'Private to you and the developer', text: 'Nothing is public, so feel free to include details.' },
+        { title: 'Follow the progress', text: 'Received, in progress, replied — always know where it stands.' },
+        { title: 'Replies from the developer', text: 'Answers show up right here, no email back-and-forth.' },
+      ],
       app: 'App',
       general: 'Website / other',
       category: 'Type',
       categories: { bug: 'Problem', feature: 'Suggestion', other: 'Other' },
+      categoryHints: { bug: 'Something is broken or unexpected', feature: 'A new feature or improvement', other: 'Anything else' },
       titleLabel: 'Title',
       titlePh: 'Sum it up in one line',
       body: 'Details',
-      bodyPh: 'What happened? How can it be reproduced? What did you expect?',
+      bodyPh: {
+        bug: 'What happened? How can it be reproduced? What did you expect?',
+        feature: 'What are you trying to do? How do you do it today? What would make it better?',
+        other: 'Anything you’d like to say.',
+      },
       appVersion: 'App version',
       osVersion: 'OS version',
       optional: 'optional',
@@ -218,6 +254,8 @@ export const ui = {
       signedOut: 'Your session has expired. Please sign in again.',
       mine: 'My feedback',
       empty: 'You haven’t sent any feedback yet.',
+      emptyHint: 'Once you send some, progress and replies will show up here.',
+      tabForm: 'New feedback',
       loadFailed: 'Couldn’t load. Please refresh and try again.',
       status: { new: 'Received', triaged: 'In progress', replied: 'Replied', closed: 'Closed' },
       reply: 'Developer reply',
