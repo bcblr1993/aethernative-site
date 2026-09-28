@@ -1,8 +1,8 @@
-# Antigravity 多开管理器软件介绍（内容整理自 github.com/bcblr1993/antigravity-multiplexer 的 README）
+# Aether Antigravity Multiplexer 软件介绍（内容整理自 github.com/bcblr1993/aether-antigravity-multiplexer 的 README）
 # 注意：本工具与 Google 无关联，不包含也不分发 Google 程序。README 提示对外分发前需确认 Google 条款。
-name: Antigravity 多开管理器
+name: Aether Antigravity Multiplexer
 order: 5
-repo: https://github.com/bcblr1993/antigravity-multiplexer
+repo: https://github.com/bcblr1993/aether-antigravity-multiplexer
 minimumSystemVersion: "13.0"
 sparklePublicKey: pMww3oxkkT9VcymetHFOUIF1thb/n+xjVMlxuFXVHsY=
 # 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
@@ -14,8 +14,8 @@ tagline:
   zh: 在一台 Mac 上管理多个 Antigravity 实例
   en: Manage multiple Antigravity instances on one Mac
 summary:
-  zh: 本机图形化管理器：创建独立的 Antigravity 实例，统一升级、备份和销毁。非官方工具，不包含 Google 程序。
-  en: A local manager for creating separate Antigravity instances and upgrading, backing up or removing them together. Unofficial; does not include Google software.
+  zh: 本机图形化管理器：创建独立的 Antigravity 实例，统一升级、备份、清空工作空间和销毁。非官方工具，不包含 Google 程序。
+  en: A local manager for separate Antigravity instances, upgrades, backups, workspace clearing and removal. Unofficial; does not include Google software.
 
 platforms:
   - id: mac
@@ -26,8 +26,8 @@ hero:
   eyebrow: { zh: 非官方 · 本机管理工具, en: Unofficial · Local manager }
   title: { zh: "多个实例，\n各自独立。", en: "Many instances.\nEach on its own." }
   lead:
-    zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级、备份与销毁，都在一个窗口里完成。"
-    en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade, back up and remove them from one window."
+    zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级、备份、清空工作空间与销毁，都在一个窗口里完成。"
+    en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade, back up, clear a workspace and remove instances from one window."
   requirements:
     zh: Apple 芯片 / macOS 13+ · 需已安装官方 Apple 芯片版 Antigravity
     en: Apple silicon / macOS 13+ · Requires the official Apple silicon Antigravity app
@@ -89,6 +89,11 @@ features:
       body:
         zh: 按升级批次查看备份时间、数量与占用空间，可在访达中查看，或手动选择批次删除；删除前会再次确认。
         en: See each upgrade batch's time, archive count and size. Open it in Finder, or delete a batch manually after confirming.
+    - kicker: { zh: 清空, en: Clear }
+      title: { zh: 仅清空所选工作空间, en: Clear one workspace }
+      body:
+        zh: 副本退出后，可输入完整实例名确认永久清空对应 .gemini-N 目录内的全部数据；保留实例应用、其他资料目录与升级备份。
+        en: "After a copy quits, enter its full name to permanently clear all data inside its .gemini-N directory. The app, other data folders and upgrade backups remain."
     - kicker: { zh: 销毁, en: Remove }
       title: { zh: 明确确认后才删除, en: Removed only after explicit confirmation }
       body:

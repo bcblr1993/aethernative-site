@@ -1,6 +1,6 @@
 title: { zh: 隐私政策, en: Privacy }
 heading: { zh: "一切都在本机，\n不经过我们。", en: "Everything stays local.\nNothing passes through us." }
-meta: { zh: 适用于 Antigravity 多开管理器, en: Applies to Antigravity Multiplexer }
+meta: { zh: 适用于 Aether Antigravity Multiplexer, en: Applies to Aether Antigravity Multiplexer }
 lead:
   zh: 管理器在本机运行，不包含统计分析或遥测，不向开发者发送任何数据。
   en: The manager runs locally, contains no analytics or telemetry, and sends no data to the developer.
@@ -19,4 +19,4 @@ sections:
         en: "By default the manager checks the update feed over HTTPS once a day (served by aethernative.com on Cloudflare; earlier versions use GitHub) and downloads installers from GitHub. These services may receive ordinary connection information such as IP address and request headers. Automatic updates can be turned off from the gear menu."
   - heading: { zh: 联系, en: Contact }
     links:
-      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/antigravity-multiplexer/issues" }
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/aether-antigravity-multiplexer/issues" }
