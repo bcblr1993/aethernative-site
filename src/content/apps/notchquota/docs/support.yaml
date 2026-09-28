@@ -10,6 +10,10 @@ sections:
       - { zh: 从“应用程序”启动 AetherNotchQuota。首次下载后系统可能显示正常的“从互联网下载”确认。, en: "Launch AetherNotchQuota from Applications. macOS may show the usual “downloaded from the internet” confirmation the first time." }
       - { zh: macOS 首次询问读取登录钥匙串时，按需允许。, en: "Allow Keychain access when macOS asks, as needed." }
     note: { zh: 需要 Apple 芯片、macOS 13 或更新版本，并已在对应软件中登录订阅账号。无需安装 Homebrew、Python、Node 或命令行工具。, en: "Requires Apple silicon and macOS 13 or later, with each service already signed in. No Homebrew, Python, Node or command-line tools needed." }
+  - heading: { zh: 从 NotchQuota 旧版迁移, en: Migrate from an older NotchQuota }
+    body:
+      - zh: 0.1.17 及更早版本的应用仍指向旧 GitHub 仓库，无法通过应用内更新。请先退出旧应用，手动安装 AetherNotchQuota 0.1.18 或更新版本；确认新版正常运行后，可移除旧的 NotchQuota.app。账号和偏好会保留，曾开启登录时启动的用户请在新版中确认设置。
+        en: "Versions 0.1.17 and earlier still point to the retired GitHub repository and cannot update in-app. Quit the old app, install AetherNotchQuota 0.1.18 or later manually, and remove the old NotchQuota.app after the new app works. Accounts and preferences remain; verify Launch at Login if you previously enabled it."
   - heading: { zh: 选择显示的账号, en: Choose which accounts to show }
     body:
       - zh: 右键菜单的“显示的应用”可勾选要显示的账号；只勾选一个时固定显示，未勾选的账号不显示、不查询额度。在“账号设置 → 调整账号顺序”中拖动排序。
