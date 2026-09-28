@@ -59,7 +59,7 @@ const subnav = [
       <a class="sn-name" href="#top">{d.name}</a>
       <div class="sn-links">
         {subnav.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
-        <a href={`${base}releases/`}>{u.releases}</a>
+        {releases.length > 0 && <a href={`${base}releases/`}>{u.releases}</a>}
         {hasDoc('support') && <a href={`${base}support/`}>{u.help}</a>}
       </div>
       {latest?.download && <a class="btn btn-p btn-sm" href={latest.download}>{u.download(latest.version)}</a>}
@@ -328,11 +328,11 @@ const subnav = [
         <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
         <div class="cta">
           {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
-          <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>
+          {releases.length > 0 && <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>}
         </div>
         <p class="req muted"><Text v={d.cta.note} lang={lang} /></p>
         <nav class="doc-links" aria-label={d.name}>
-          <a href={`${base}releases/`}>{u.releases}</a>
+          {releases.length > 0 && <a href={`${base}releases/`}>{u.releases}</a>}
           {docLinks.map((l) => <a href={`${base}${l.key}/`}>{l.label}</a>)}
           <a href={`${href(lang, '/feedback/')}?app=${app.id}`}>{u.feedback.nav}</a>
           {d.repo && <a href={d.repo} rel="noopener">GitHub ↗</a>}

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { getApps } from '../../lib/apps';
+import { getApps, getReleases } from '../../lib/apps';
 import { href, langParams, t, ui, type Lang } from '../../lib/i18n';
 
 export const getStaticPaths = langParams;
@@ -10,6 +10,8 @@ const { lang } = Astro.props as { lang: Lang };
 const u = ui[lang];
 const zh = lang === 'zh';
 const apps = await getApps();
+// 发布记录页只为有版本的软件生成
+const hasReleases = new Set((await Promise.all(apps.map(async (a) => ((await getReleases(a.id)).length ? a.id : null)))).filter(Boolean));
 const docIds = new Set((await getCollection('docs')).map((d) => d.id));
 const docLinks = [
   { key: 'support', label: u.help },
@@ -36,7 +38,7 @@ const docLinks = [
             </div>
             <ul>
               {docLinks.filter((l) => docIds.has(`${app.id}/${l.key}`)).map((l) => <li><a href={`${base}${l.key}/`}>{l.label} →</a></li>)}
-              <li><a href={`${base}releases/`}>{u.releases} →</a></li>
+              {hasReleases.has(app.id) && <li><a href={`${base}releases/`}>{u.releases} →</a></li>}
               <li><a href={`${href(lang, '/feedback/')}?app=${app.id}`}>{u.feedback.nav} →</a></li>
               {app.data.repo && <li><a href={`${app.data.repo}/issues`} rel="noopener">GitHub Issues ↗</a></li>}
             </ul>

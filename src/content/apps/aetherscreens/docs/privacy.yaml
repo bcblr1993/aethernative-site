@@ -1,0 +1,18 @@
+title: { zh: 隐私政策, en: Privacy Policy }
+heading: { zh: "你的屏幕，\n只在你的设备间传输。", en: "Your screen travels\nonly between your devices." }
+meta: { zh: 适用于 AetherScreens 客户端, en: Applies to AetherScreens }
+lead:
+  zh: AetherScreens 不包含数据埋点、统计分析或遥测。画面与键鼠输入只在你的设备和被控 Mac 之间直接传输。
+  en: AetherScreens contains no analytics, tracking or telemetry. Screen and input data travel directly between your device and the remote Mac.
+sections:
+  - heading: { zh: 本机保存的数据, en: Data Stored on Your Device }
+    list:
+      - { zh: 设备列表（名称、地址、端口、上次连接时间）保存在应用偏好设置中。, en: "The device list (name, address, port, last connection) is kept in the app’s preferences." }
+      - { zh: 设备密码保存在系统钥匙串中。, en: Device passwords are stored in the system Keychain. }
+      - { zh: 远端桌面缩略图保存在本机缓存目录，可随时由系统清理。, en: Remote desktop thumbnails are kept in the local cache folder and may be cleared by the system at any time. }
+  - heading: { zh: 网络连接, en: Network Connections }
+    body:
+      - zh: 应用只会连接你添加或在局域网中发现的 Mac；局域网发现使用 Bonjour，仅在本地网络内进行。
+        en: The app connects only to Macs you add or discover on your local network; discovery uses Bonjour and stays on your local network.
+      - zh: 只有在你填写 Tailscale API Token 并同步设备时，应用才会访问 api.tailscale.com 读取 Tailnet 设备列表。Token 只在本次运行期间保存在内存中，不会写入磁盘。
+        en: Only when you enter a Tailscale API token and sync devices does the app contact api.tailscale.com to read your Tailnet device list. The token stays in memory for that session and is not written to disk.
