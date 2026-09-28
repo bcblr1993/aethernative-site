@@ -50,7 +50,8 @@ const nav = [
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f5f5f7" />
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
@@ -61,7 +62,20 @@ const nav = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
-      try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (_) {}
+      // 默认跟随系统外观；用户点 ◐ 选了与系统不同的外观时记在 color-scheme 里，系统变化时实时更新
+      (() => {
+        const root = document.documentElement;
+        const mq = matchMedia('(prefers-color-scheme: dark)');
+        const saved = () => { try { return localStorage.getItem('color-scheme'); } catch (_) { return null; } };
+        const apply = () => {
+          const s = saved();
+          root.dataset.theme = s === 'dark' || s === 'light' ? s : mq.matches ? 'dark' : 'light';
+        };
+        apply();
+        mq.addEventListener('change', apply);
+        addEventListener('pageshow', (e) => e.persisted && apply()); // 前进/后退缓存恢复时，同步在其他页面做的选择
+        try { localStorage.removeItem('theme'); } catch (_) {}
+      })();
     </script>
   </head>
   <body>
@@ -100,10 +114,14 @@ const nav = [
     <script>
       const root = document.documentElement;
       document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
-        const dark = root.dataset.theme !== 'dark';
-        if (dark) root.dataset.theme = 'dark';
-        else delete root.dataset.theme;
-        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (_) {}
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        root.dataset.theme = next;
+        // 切回与系统一致的外观时清除记录，恢复跟随系统
+        try {
+          if (next === system) localStorage.removeItem('color-scheme');
+          else localStorage.setItem('color-scheme', next);
+        } catch (_) {}
       });
       // 点击菜单里的链接后收起手机菜单
       document.querySelectorAll<HTMLAnchorElement>('.menu-panel a').forEach((a) =>
