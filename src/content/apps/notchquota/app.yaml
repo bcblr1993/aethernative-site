@@ -1,7 +1,7 @@
-# NotchQuota 软件介绍（内容整理自 github.com/bcblr1993/NotchQuota 的 README 与 PRIVACY.md）
-name: NotchQuota
+# AetherNotchQuota 软件介绍（内容整理自 github.com/bcblr1993/AetherNotchQuota 的 README 与 PRIVACY.md）
+name: AetherNotchQuota
 order: 2
-repo: https://github.com/bcblr1993/NotchQuota
+repo: https://github.com/bcblr1993/AetherNotchQuota
 minimumSystemVersion: "13.0"
 sparklePublicKey: gFoiXS+rSGkGXDFDZ4Bty0KZkcDSBmCNXwggh3hljak=
 # 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
@@ -31,8 +31,8 @@ hero:
     zh: Apple 芯片 / macOS 13+ · 需要先在对应软件中登录订阅账号
     en: "Apple silicon / macOS 13+ · Sign in to each service's own app first"
 notice:
-  zh: NotchQuota 是独立开发的非官方工具，与 OpenAI、Anthropic、Google 无关联。Codex、Claude、Antigravity 及相关标识归各自权利人所有。
-  en: NotchQuota is an independent, unofficial tool and is not affiliated with OpenAI, Anthropic or Google. Codex, Claude, Antigravity and related marks belong to their respective owners.
+  zh: AetherNotchQuota 是独立开发的非官方工具，与 OpenAI、Anthropic、Google 无关联。Codex、Claude、Antigravity 及相关标识归各自权利人所有。
+  en: AetherNotchQuota is an independent, unofficial tool and is not affiliated with OpenAI, Anthropic or Google. Codex, Claude, Antigravity and related marks belong to their respective owners.
 
 showcase:
   eyebrow: { zh: 实际界面, en: Real interface }
@@ -97,7 +97,7 @@ faq:
     - q: { zh: 额度数据从哪里读取？, en: Where does the quota data come from? }
       a: { zh: Codex 读取当前用户的 ~/.codex/auth.json 并查询 ChatGPT 订阅额度；Claude 读取 Claude 桌面版保存的登录会话；Antigravity 读取 Antigravity 2.x 的 macOS 钥匙串，并向对应的 Google 额度服务查询。, en: "Codex uses ~/.codex/auth.json and the ChatGPT subscription usage endpoint. Claude uses the Claude desktop app's signed-in session. Antigravity uses the Antigravity 2.x macOS Keychain item and the matching Google quota service." }
     - q: { zh: 会上传我的数据吗？, en: Does it upload my data? }
-      a: { zh: 不会。NotchQuota 没有服务器、不做统计分析、不收集遥测。认证信息只在内存中使用，并通过 HTTPS 发往其所属服务，不保存到日志或偏好设置，也不修改原软件的登录文件。, en: "No. NotchQuota has no server, no analytics and no telemetry. Credentials are only used in memory and sent over HTTPS to the service they belong to. They are never written to logs or preferences, and the original apps' sign-in files are never modified." }
+      a: { zh: 不会。AetherNotchQuota 没有服务器、不做统计分析、不收集遥测。认证信息只在内存中使用，并通过 HTTPS 发往其所属服务，不保存到日志或偏好设置，也不修改原软件的登录文件。, en: "No. AetherNotchQuota has no server, no analytics and no telemetry. Credentials are only used in memory and sent over HTTPS to the service they belong to. They are never written to logs or preferences, and the original apps' sign-in files are never modified." }
     - q: { zh: 支持第三方 API 中转站的余额吗？, en: Does it support third-party API relay balances? }
       a: { zh: 不支持。目前只适配订阅额度；仅使用第三方 API Key 时，无法查询官方订阅额度。, en: "No. Only subscription quotas are supported; a third-party API key alone can't be used to look up an official subscription." }
     - q: { zh: 显示灰色或数据过期怎么办？, en: What if a quota shows gray or stale? }

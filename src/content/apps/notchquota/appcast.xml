@@ -2,18 +2,18 @@
 IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
 --><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <title>NotchQuota</title>
+        <title>AetherNotchQuota</title>
         <item>
-            <title>0.1.17</title>
-            <pubDate>Wed, 23 Sep 2026 21:21:58 +0800</pubDate>
-            <sparkle:version>0.1.17</sparkle:version>
-            <sparkle:shortVersionString>0.1.17</sparkle:shortVersionString>
+            <title>0.1.18</title>
+            <pubDate>Mon, 28 Sep 2026 10:04:35 +0800</pubDate>
+            <sparkle:version>0.1.18</sparkle:version>
+            <sparkle:shortVersionString>0.1.18</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/bcblr1993/NotchQuota/releases/download/v0.1.17/NotchQuota-0.1.17-macos-arm64.dmg" length="2371594" type="application/octet-stream" sparkle:edSignature="D3gDaeXqySUG2snd1PfWG00QpLXszKS9pptJzOAQmwAKp2XVn5IOqi4LMB2jZcxSzNaUvMofs35nWcvyayIJAA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.18/AetherNotchQuota-0.1.18-macos-arm64.dmg" length="2369619" type="application/octet-stream" sparkle:edSignature="CJ9zzqky3QZXh2o3cedIAK5Z70TkURcXrgjWtXFhXcGYpo7pnA51nkOlyIwrxP1XimeS+xggEJHZQOGP60k+Dg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: aU7ybhkrDQcAR2AMuOoD7GirZxhvWVuGnFbb2QOoEee5z4tPlRZi6VMhdG4KeZSgl50F6nNR8xocnVVQd/pvAw==
-length: 1148
+edSignature: xCEsqU84rt2hAW8gWO+OfdsEEssnNsNOsffZTuMdT9a3S9NhKfLB7N/GIHhxzY+NfC/u9wVVlipUww1YWptVAA==
+length: 1166
 -->

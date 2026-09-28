@@ -1,10 +1,10 @@
-# 整理自 github.com/bcblr1993/NotchQuota 的 PRIVACY.md
+# 整理自 github.com/bcblr1993/AetherNotchQuota 的 PRIVACY.md
 title: { zh: 隐私政策, en: Privacy }
 heading: { zh: "你的额度，\n只留在你的 Mac 上。", en: "Your quotas stay\non your Mac." }
-meta: { zh: 适用于 NotchQuota 客户端, en: Applies to the NotchQuota app }
+meta: { zh: 适用于 AetherNotchQuota 客户端, en: Applies to the AetherNotchQuota app }
 lead:
-  zh: NotchQuota 没有服务器、不做统计分析、不收集遥测，不向开发者发送使用情况。
-  en: NotchQuota has no server, no analytics and no telemetry, and sends no usage information to the developer.
+  zh: AetherNotchQuota 没有服务器、不做统计分析、不收集遥测，不向开发者发送使用情况。
+  en: AetherNotchQuota has no server, no analytics and no telemetry, and sends no usage information to the developer.
 sections:
   - heading: { zh: 读取哪些登录信息, en: What sign-in data is read }
     body:
@@ -29,4 +29,4 @@ sections:
       - zh: 隐私问题请通过 GitHub Issues 联系。请不要上传凭据、Cookie 或完整认证文件。
         en: For privacy questions, use GitHub Issues. Never upload credentials, cookies or complete authentication files.
     links:
-      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/NotchQuota/issues" }
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherNotchQuota/issues" }
