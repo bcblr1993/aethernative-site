@@ -16,3 +16,6 @@ sections:
         en: The app connects only to Macs you add or discover on your local network; discovery uses Bonjour and stays on your local network.
       - zh: 只有在你填写 Tailscale API Token 并同步设备时，应用才会访问 api.tailscale.com 读取 Tailnet 设备列表。Token 只在本次运行期间保存在内存中，不会写入磁盘。
         en: Only when you enter a Tailscale API token and sync devices does the app contact api.tailscale.com to read your Tailnet device list. The token stays in memory for that session and is not written to disk.
+  - heading: { zh: 问题与建议, en: Contact }
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherScreens/issues" }

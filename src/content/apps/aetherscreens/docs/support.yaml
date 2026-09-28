@@ -12,3 +12,9 @@ sections:
       - { zh: "也可以手动添加设备，填写 Mac 的局域网地址或 Tailscale 的 100.x.y.z 地址，端口默认为 5900。", en: "Or add a device manually with its LAN address or Tailscale 100.x.y.z address; the default port is 5900." }
       - { zh: "首次连接时输入上一步设置的屏幕共享密码，可选择保存到钥匙串。", en: "Enter the Screen Sharing password on first connection and optionally save it to the Keychain." }
     note: { zh: 连接失败时，可在应用的诊断日志中查看握手与认证过程。, en: If a connection fails, the in-app diagnostic log shows the handshake and authentication steps. }
+  - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
+    body:
+      - zh: 如遇到连接问题或希望提供建议，欢迎在 GitHub 提交 Issue，并附上应用内诊断日志。
+        en: If you run into connection problems or have suggestions, open an issue on GitHub and include the in-app diagnostic log.
+    links:
+      - { label: { zh: 在 GitHub 提交反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/AetherScreens/issues" }

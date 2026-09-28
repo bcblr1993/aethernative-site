@@ -1,8 +1,7 @@
 # AetherScreens 软件介绍
-# 仓库目前为私有，官网暂不填写 repo（公开链接会 404）；仓库公开或首次发版前补上：
-# repo: https://github.com/bcblr1993/AetherScreens
 name: AetherScreens
 order: 6
+repo: https://github.com/bcblr1993/AetherScreens
 icon: ./media/icon.png
 minimumSystemVersion: "14.0"
 tech: [Swift, SwiftUI, Metal, Network.framework, RFB 3.8]
