@@ -1,6 +1,53 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.32"
+    build: "2026092801"
+    date: 2026-09-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.32/AetherRoute-1.0.32-build-2026092801-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.32
+    sha256: 2fc9b2be694e53396bd0b5313dbfed8ecc7fa65daeeb1640587a4930edb3fa26
+    sparkle:
+      edSignature: TKnvkx1TOm9n4AgDozSicdwLqRgf9fZayeZ31kvTt2TQ5FhAbo4sSrEsZ5jZ5HuB9gRg80UQ7QMBNPdtSYCsAw==
+      length: 24737346
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 解决连接空闲 60s 导致 Claude 等客户端断连的根因；优化长连接 Keep-Alive 复用；消除 Tracked Stream 析构竞态 Panic；修复 TUN 模式配置重载 Fake-IP 缓存丢失；新增数据面 30 秒采样遥测；全量通过 Tart 虚拟机与 Apple Silicon 实机矩阵验收。
+      en: Resolved root cause of idle 60s disconnect affecting clients like Claude; optimized persistent connection keep-alive reuse; eliminated tracked stream destruction race panic; fixed Fake-IP cache loss on TUN reload; added packet tunnel 30s data-plane telemetry sampling; verified 100% across Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 连接生命周期与长连接复用重构
+          en: Connection Lifecycle & Idle Keep-Alive Reuse
+        items:
+          - zh: 空闲 Keep-Alive 复用支持：TUN 与本地 HTTP/SOCKS 入站保持长连接开启，规避客户端连接池复用时遭遇 ECONNRESET，保障 Claude Desktop / Claude Code 等长会话工具稳定。
+            en: Preserved persistent idle connections for TUN and HTTP/SOCKS local inbounds, preventing ECONNRESET when pooling clients reuse connections.
+          - zh: Tracked Stream 关闭竞态消除：修复连接关闭后轮询通知引发的潜在异常，提高高并发连接回收安全性。
+            en: Eliminated race condition on tracked connection teardown notification.
+      - title:
+          zh: 核心路由与扩展稳定性演进
+          en: Core Routing & Extension Stability
+        items:
+          - zh: TUN 模式热重载 Fake-IP 继承：修复动态重载配置或规则时 Fake-IP 缓存密钥长度校验失败导致的连接假死问题。
+            en: Ensured reload snapshots inherit Fake-IP cache keys, preventing broken states during TUN profile or rule reloading.
+          - zh: 网络扩展日志级别显式透传：主程序通过启动快照向 root 权限运行的网络扩展精准透传诊断日志级别。
+            en: Explicitly relayed diagnostic log levels to root-privileged Network System Extensions via launch snapshots.
+      - title:
+          zh: 低开销遥测与质量门禁
+          en: Low-Overhead Telemetry & Release Gates
+        items:
+          - zh: 数据面 30 秒周期采样：Packet Tunnel 扩展在诊断模式下每 30 秒记录连接、流量、错误、Fake-IP 映射与句柄占用等关键指标。
+            en: Introduced 30s non-intrusive data-plane sampling telemetry in packet tunnel extension.
+          - zh: 空闲复用门禁集成：新增 50 秒空闲复用测试门禁，全量集成至虚拟机六维矩阵与实机测试流。
+            en: Added automated 50-second idle keep-alive reuse release gate in both VM matrix and physical machine suites.
+      - title:
+          zh: 安全合规与官方双重公证
+          en: Security Compliance & Apple Double Notarization
+        items:
+          - zh: 采用标准生产核心构建，通过 Apple Developer ID 签名与 Apple 官方双重公证（Stapled App + Stapled DMG），完全兼容 macOS 15+ Apple Silicon。
+            en: Built with standard production core, signed with Apple Developer ID, and double-notarized by Apple (App + DMG stapled), fully compatible with macOS 15+ Apple Silicon.
   - version: "1.0.31"
     build: "2026092702"
     date: 2026-09-27
