@@ -4,24 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.3.6</title>
-            <pubDate>Mon, 28 Sep 2026 09:55:23 +0800</pubDate>
-            <sparkle:version>10</sparkle:version>
-            <sparkle:shortVersionString>0.3.6</sparkle:shortVersionString>
+            <title>0.3.7</title>
+            <pubDate>Mon, 28 Sep 2026 15:02:01 +0800</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>0.3.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.6
+            <description sparkle:format="markdown"><![CDATA[# v0.3.7
 
-- 管理器更名为 Aether Antigravity Multiplexer，保持 Bundle ID、Sparkle 公钥及官网更新源不变，现有安装可继续在线升级。
-- 副本菜单新增“清空工作空间”：仅在未运行时执行，要求输入完整实例名；只清空对应 `~/.gemini-N` 中的全部内容，保留目录、应用、其他资料、独立登录文件和升级备份。此操作不可撤销，也不等同于退出账号。
-- 清空前复核应用身份、目录、清单和进程，并与创建、升级、销毁共享操作锁；异常时尽力回滚。
+- 修复关闭主窗口后，应用仍在后台运行，点击程序坞图标或应用菜单却不显示窗口的问题。主界面现在是单窗口：关闭窗口会退出管理器，下次点击图标可正常重新打开。
+- “文件”菜单新增“显示主窗口”（⌘0），可把已有主窗口带到前台。
 
-Google Antigravity 程序不包含在安装包中。
+本次更新不修改 Antigravity 实例、账号资料或升级备份。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.6/Aether-Antigravity-Multiplexer-v0.3.6-macos-arm64.zip" length="2165216" type="application/octet-stream" sparkle:edSignature="Q02jqv7ldOM7k3gyNaIdPDBpjSCDoHyp61jNyhIHmb7u9i9liOJi5c3BokhclFfloGSXylUVF2fScgP4VUWzCQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.7/Aether-Antigravity-Multiplexer-v0.3.7-macos-arm64.zip" length="2170681" type="application/octet-stream" sparkle:edSignature="WO4g2sMRvTB59kt+Ts8Q3z7vKvLzcRAfECCgW1+t4e3gIrhRNaCe1PPufXg3zYW+jrAA+YOK69AjPG5RnVW4AA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 8O36HXOizeqbosqkccNud4IqRyMVB99gV3DGRiPmiWgHAFpwsvPIIn6KQhtHpVQ64Ewxn57HW2bODzEiODVMCQ==
-length: 1911
+edSignature: yYjkPxVjzbwSkc2raGAtfx91OY+OkhDkbhYn0PXZuUEwpMiGuhLoyLgXXtLOPSzI9PfPxHq27F9IImGjYn35Cg==
+length: 1689
 -->
