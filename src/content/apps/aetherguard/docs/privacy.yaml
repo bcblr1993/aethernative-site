@@ -1,0 +1,42 @@
+title: { zh: 隐私政策, en: Privacy Policy }
+heading: { zh: "你的数据，\n只在你的设备和你的 iCloud 里。", en: "Your data stays on your devices\nand in your own iCloud." }
+meta: { zh: 适用于 AetherGuard Mac 版与 iPhone 版 · 更新于 2026 年 9 月, en: Applies to AetherGuard for Mac and iPhone · Updated September 2026 }
+lead:
+  zh: AetherGuard 没有自己的服务器，不需要注册账号，不包含任何统计、广告或追踪 SDK。开发者无法看到你的密码、照片或使用记录。
+  en: AetherGuard has no servers of its own, requires no account, and contains no analytics, advertising or tracking SDKs. The developer cannot see your password, photos or activity.
+sections:
+  - heading: { zh: 登录密码, en: Login password }
+    body:
+      - zh: 自动解锁需要你的 Mac 登录密码。密码先经系统验证，再保存在这台 Mac 的登录钥匙串中，只在自动解锁时读取，不会上传到 iCloud 或任何地方。你可以随时在设置里删除。
+        en: Auto-unlock needs your Mac login password. It is verified by the system, then stored in this Mac's login keychain and read only when unlocking. It is never uploaded to iCloud or anywhere else, and you can delete it in Settings at any time.
+  - heading: { zh: 蓝牙与配对, en: Bluetooth and pairing }
+    body:
+      - zh: iPhone 与 Mac 之间通过蓝牙直接通信，内容只有一次性随机数、信号强度和签名。iPhone 的签名私钥在安全芯片（Secure Enclave）中生成，无法导出；Mac 只保存配对设备的公钥。
+        en: Your iPhone and Mac talk directly over Bluetooth, exchanging only one-time nonces, signal strength and signatures. The iPhone's signing key is generated in the Secure Enclave and cannot be exported; the Mac stores only the paired device's public key.
+  - heading: { zh: 摄像头与抓拍照片, en: Camera and photos }
+    body:
+      - zh: 只有在警戒状态下检测到有人操作 Mac 时才会拍照。照片先保存在这台 Mac 本地；如果 20 秒内你用 Touch ID 确认了本人，或者手机回到身边，照片会被立即删除。
+        en: Photos are taken only when someone uses your Mac while guard is on. They are stored locally on the Mac first; if you confirm it's you with Touch ID within 20 seconds, or your phone comes back, the photo is deleted immediately.
+      - zh: 未被撤销的事件会连同照片、Mac 名称、触发原因和时间一起上传到你自己 iCloud 账户的私有数据库（CloudKit），用于推送到你的 iPhone。私有数据库只有你的 Apple ID 可以访问，开发者无法读取。
+        en: Events that are not cancelled are uploaded — with the photos, Mac name, trigger and time — to the private database (CloudKit) of your own iCloud account, so they can be delivered to your iPhone. Only your Apple ID can access the private database; the developer cannot read it.
+      - zh: 在 Mac 的「抓拍记录」里删除会移除本机照片；在 iPhone 的「报警记录」里删除会同时删除 iCloud 中的记录和照片。
+        en: Deleting from Photo History on the Mac removes the local photos; deleting from Alert History on the iPhone also removes the record and photos from iCloud.
+  - heading: { zh: 远程指令, en: Remote commands }
+    body:
+      - zh: iPhone 上的 [立即锁定] / [是我本人] 以签名指令的形式写入同一个 iCloud 私有数据库，Mac 验证签名并执行后即删除。
+        en: "[Lock now] and [It's me] on your iPhone are written as signed commands to the same iCloud private database. The Mac verifies the signature, carries it out, and deletes the command."
+  - heading: { zh: 日志, en: Logs }
+    body:
+      - zh: 两端会在本机记录连接和距离判定的调试日志，便于排查问题。日志只保存在本机，只有你主动导出时才会离开设备。
+        en: Both apps keep a local debug log of connections and distance decisions for troubleshooting. It stays on the device unless you export it yourself.
+  - heading: { zh: 检查更新, en: Update checks }
+    body:
+      - zh: Mac 版通过开源的 Sparkle 组件每天检查一次更新，只会请求本站的更新清单（aethernative.com），不发送任何设备或使用信息。可以在设置里关闭自动检查。
+        en: The Mac app uses the open-source Sparkle framework to check for updates once a day. It only requests the update feed on this site (aethernative.com) and sends no device or usage information. You can turn automatic checks off in Settings.
+  - heading: { zh: 删除全部数据, en: Deleting everything }
+    body:
+      - zh: 在两端解除配对并删除 App，即可移除本地数据和钥匙串中的密码；iCloud 中的记录可以在 iPhone 的「报警记录」里删除，或在「系统设置 → Apple 账户 → iCloud → 管理」中删除 AetherGuard 的数据。
+        en: "Unpair on both devices and delete the apps to remove local data and the keychain password. iCloud records can be deleted from Alert History on the iPhone, or under System Settings → Apple Account → iCloud → Manage."
+  - heading: { zh: 问题与建议, en: Contact }
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/chenpingan529/NearGuard/issues" }
