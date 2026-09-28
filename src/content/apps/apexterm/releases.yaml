@@ -1,2 +1,124 @@
 # ApexTerm 版本记录
-releases: [ { version: "1.4.0", date: 2026-09-28, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.4.0/ApexTerm-v1.4.0-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.4.0, sha256: 9e48da2325c8a8e2b55b49034520352fb5d492d721d61f40bd57411b80e9c7bf, summary: { zh: ApexTerm v1.4.0 — macOS 原生工作区与 SFTP 快速代码编辑器, en: ApexTerm v1.4.0 — macOS 原生工作区与 SFTP 快速代码编辑器 } }, { version: "1.3.0", date: 2026-09-26, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.3.0/ApexTerm-v1.3.0-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.3.0, sha256: 7698255f74f7cbebc04d75a21b43821ffc7d68e718e6375bade49c7e8ddbc627, summary: { zh: ApexTerm v1.3.0 — 全局主题与终端配色, en: ApexTerm v1.3.0 — 全局主题与终端配色 } }, { version: "1.2.4", date: 2026-09-26, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.2.4/ApexTerm-v1.2.4-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.2.4, sha256: 13bd4b79c891cd007f0f77e986e4b4753bca94dcf38cafbecec6452dee6f27f6, summary: { zh: 修复分屏模式下原终端黑屏无内容及切换后无法输入缺陷，完善即刻重水化渲染机制与双向系统焦点联动。, en: Fix split pane blank screen and input loss with immediate buffer rehydration and bidirectional focus coordination. } }, { version: "1.0.4", date: 2026-09-25, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.4/ApexTerm-v1.0.4-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.4, sha256: 1d2664bd5ad0d2417531f0143637395d42c7a139eabbf328e07ad2609b3e230b, summary: { zh: "ApexTerm v1.0.4 - Full Terminal Keyboard Input, IME Support & Auto Focus Fix", en: "ApexTerm v1.0.4 - Full Terminal Keyboard Input, IME Support & Auto Focus Fix" } }, { version: "1.0.3", date: 2026-09-25, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.3/ApexTerm-v1.0.3-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.3, sha256: be08d7736f3014283abb7a248537aae47892c66c9c5b5b5dee9373e9ca95027b, summary: { zh: "ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync & SFTP Drag-and-Drop", en: "ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync & SFTP Drag-and-Drop" } }, { version: "1.0.2", date: 2026-09-25, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.2/ApexTerm-v1.0.2-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.2, sha256: e28b8fbdb71aca70f33fed0736ee52d259c10493006b4f44017f3b4886946034, summary: { zh: ApexTerm v1.0.2 (Chinese IME & Password Auth & 120Hz Smooth), en: ApexTerm v1.0.2 (Chinese IME & Password Auth & 120Hz Smooth) } }, { version: "1.0.1", date: 2026-09-25, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.1/ApexTerm-v1.0.1-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.1, sha256: b6bb573df00c1ff195e7b32c6def69bccaab418a8c1f983da1d3c393baddaed6, summary: { zh: ApexTerm v1.0.1 (Apple Silicon Native), en: ApexTerm v1.0.1 (Apple Silicon Native) } }, { version: "1.0.0", date: 2026-09-24, channel: stable, download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.0/ApexTerm-v1.0.0-macos-arm64.dmg, github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.0, sha256: 54d57ee7b5990ac26ea9dee3d7fe8cbc00f3d7e36a34f960d2d1c82c14a18ee7, summary: { zh: ApexTerm v1.0.0 (Apple Silicon Native), en: ApexTerm v1.0.0 (Apple Silicon Native) } } ]
+releases:
+  - version: "1.4.0"
+    build: "2026092801"
+    date: 2026-09-28
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.4.0/ApexTerm-v1.4.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.4.0
+    sha256: 9e48da2325c8a8e2b55b49034520352fb5d492d721d61f40bd57411b80e9c7bf
+    summary:
+      zh: ApexTerm v1.4.0 — macOS 原生工作区、SFTP 快速代码编辑器、Finder 双向拖拽、Swift Charts 监控趋势与中文输入深度优化。
+      en: ApexTerm v1.4.0 — macOS native workspace, SFTP quick editor, bidirectional Finder drag-and-drop, Swift Charts telemetry trends & IME improvements.
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    notes:
+      - title:
+          zh: 新增特性 (Features)
+          en: Features
+        items:
+          - zh: macOS 原生工作区与 SFTP 快速代码编辑器：内嵌轻量原生编辑器 (QuickEditor)，支持语法行号、快捷键保存 (⌘S)、重载、未保存变动警告与就地查找。
+            en: "Native macOS workspace & SFTP Quick Editor: Built-in code editor supporting line numbers, ⌘S save, reload, unsaved changes alert, and in-place search."
+          - zh: Finder 访达双向拖拽：支持从访达向内拖拽上传文件，以及从 SFTP 视图向外直接拖拽下载文件至访达。
+            en: "Bidirectional Finder drag-and-drop: Drag files from Finder into the window to upload, and drag files out of SFTP view directly into Finder to download."
+          - zh: 原生中文输入法 (IME) 全链路体验优化：重构输入法组合态 (Marked Text) 优先级调度，按下 Escape 优先撤回未确认拼音，避免向远端 Shell 发送异常控制符；引入 CJK 字体度量回退，对齐终端网格。
+            en: "Native Chinese IME enhancement: Refactored Marked Text composition scheduling, Escape cancels unconfirmed pinyin without sending control codes, and improved CJK font alignment."
+          - zh: Swift Charts 监控历史折线图与多维状态胶囊：直观呈现近 60 秒 CPU 与内存时序趋势，细化数据过期、断线保留历史及实时指标等多维状态徽标。
+            en: "Swift Charts 60-second telemetry trend & status capsules: Visualizes CPU and memory time-series history with clear indicators for live, stale, and disconnected states."
+      - title:
+          zh: 体验优化 (Improvements)
+          en: Improvements
+        items:
+          - zh: 异步流式监控采集：SSH 探针采集改用非阻塞异步流读取 stdout，彻底避免高吞吐数据流导致管道死锁阻塞。
+            en: "Streaming async telemetry: Monitor probe reads stdout asynchronously to prevent pipe deadlocks under heavy throughput."
+          - zh: 进程树优雅清理机制：连接取消或会话关闭时主动递归终止 sshpass 及其派生的子进程，杜绝后台残留僵尸进程。
+            en: "Graceful process tree cleanup: Recursively terminates sshpass and derived child SSH processes to prevent orphaned background tasks."
+          - zh: 12 款全局主题无缝适配：全局主题完整覆盖设置面板、快捷键帮助、关于页面、传输中心及新建会话等所有弹窗。
+            en: "Comprehensive theme styling: All 12 built-in themes now apply consistently across settings, shortcuts sheets, and modals."
+      - title:
+          zh: 问题修复 (Bug Fixes)
+          en: Bug Fixes
+        items:
+          - zh: 修复在会话断开或重新连接时未清理监控差分基线导致的使用率跳变缺陷。
+            en: "Fixed metric spikes on disconnect or reconnect by resetting delta calculation baselines."
+          - zh: 修复监控关闭状态下详情抽屉依然展示历史最新实时指标的逻辑漏洞。
+            en: "Fixed detail drawer continuing to show stale live metrics when server monitoring is turned off."
+          - zh: 修复快捷键帮助窗口在特定主题下因视口高度受限导致首屏顶部被裁切的问题，补齐无障碍识别标签。
+            en: "Fixed shortcuts sheet top clipping under constrained viewport heights with improved accessibility."
+      - title:
+          zh: 质量门禁与性能对比 (Verification & Benchmarks)
+          en: Verification & Benchmarks
+        items:
+          - zh: 全量自动化测试用例与 Tart 虚拟机真实链路集成验收 100% 绿色通过，0 failures。
+            en: "100% pass rate across automated tests and real Tart VM integration test suite with 0 failures."
+          - zh: 8 大优化性能基准大幅超越门禁要求：RingBuffer 写入吞吐达 1,852,000+ 行/秒 (187 MB/秒)，ANSI TrueColor 解析达 415,000+ spans/秒，键入延迟 ≤ 5.3 μs。
+            en: "RingBuffer throughput exceeds 1.85M lines/s (187 MB/s), ANSI TrueColor parsing exceeds 415K spans/s, key latency ≤ 5.3 μs."
+          - zh: 经过 Apple Developer ID 官方签名、Hardened Runtime 运行时加固及静态安全扫描，官方公证票据已装订 (Stapled)。
+            en: "Officially signed with Apple Developer ID, hardened runtime enabled, and successfully notarized and stapled by Apple."
+  - version: 1.3.0
+    date: 2026-09-26
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.3.0/ApexTerm-v1.3.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.3.0
+    sha256: 7698255f74f7cbebc04d75a21b43821ffc7d68e718e6375bade49c7e8ddbc627
+    summary:
+      zh: ApexTerm v1.3.0 — 全局主题与终端配色
+      en: ApexTerm v1.3.0 — 全局主题与终端配色
+  - version: 1.2.4
+    date: 2026-09-26
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.2.4/ApexTerm-v1.2.4-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.2.4
+    sha256: 13bd4b79c891cd007f0f77e986e4b4753bca94dcf38cafbecec6452dee6f27f6
+    summary:
+      zh: 修复分屏模式下原终端黑屏无内容及切换后无法输入缺陷，完善即刻重水化渲染机制与双向系统焦点联动。
+      en: Fix split pane blank screen and input loss with immediate buffer rehydration
+        and bidirectional focus coordination.
+  - version: 1.0.4
+    date: 2026-09-25
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.4/ApexTerm-v1.0.4-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.4
+    sha256: 1d2664bd5ad0d2417531f0143637395d42c7a139eabbf328e07ad2609b3e230b
+    summary:
+      zh: ApexTerm v1.0.4 - Full Terminal Keyboard Input, IME Support & Auto Focus Fix
+      en: ApexTerm v1.0.4 - Full Terminal Keyboard Input, IME Support & Auto Focus Fix
+  - version: 1.0.3
+    date: 2026-09-25
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.3/ApexTerm-v1.0.3-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.3
+    sha256: be08d7736f3014283abb7a248537aae47892c66c9c5b5b5dee9373e9ca95027b
+    summary:
+      zh: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync
+        & SFTP Drag-and-Drop
+      en: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync
+        & SFTP Drag-and-Drop
+  - version: 1.0.2
+    date: 2026-09-25
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.2/ApexTerm-v1.0.2-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.2
+    sha256: e28b8fbdb71aca70f33fed0736ee52d259c10493006b4f44017f3b4886946034
+    summary:
+      zh: ApexTerm v1.0.2 (Chinese IME & Password Auth & 120Hz Smooth)
+      en: ApexTerm v1.0.2 (Chinese IME & Password Auth & 120Hz Smooth)
+  - version: 1.0.1
+    date: 2026-09-25
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.1/ApexTerm-v1.0.1-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.1
+    sha256: b6bb573df00c1ff195e7b32c6def69bccaab418a8c1f983da1d3c393baddaed6
+    summary:
+      zh: ApexTerm v1.0.1 (Apple Silicon Native)
+      en: ApexTerm v1.0.1 (Apple Silicon Native)
+  - version: 1.0.0
+    date: 2026-09-24
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.0.0/ApexTerm-v1.0.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.0
+    sha256: 54d57ee7b5990ac26ea9dee3d7fe8cbc00f3d7e36a34f960d2d1c82c14a18ee7
+    summary:
+      zh: ApexTerm v1.0.0 (Apple Silicon Native)
+      en: ApexTerm v1.0.0 (Apple Silicon Native)

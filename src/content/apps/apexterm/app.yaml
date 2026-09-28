@@ -41,13 +41,16 @@ features:
         zh: 上方敲命令，下方管理远程文件。在终端里 cd 到某个目录，SFTP 视图会自动跟过去（OSC 7）。
         en: Type commands above and manage remote files below. cd somewhere in the terminal and the SFTP view follows (OSC 7).
       details:
-        - { zh: 支持从访达直接拖拽文件到窗口上传。, en: Drag files in from Finder to upload. }
-        - { zh: 支持中文输入法与完整的终端键盘输入。, en: Full terminal keyboard input with support for Chinese input methods. }
+        - { zh: 内嵌快速代码编辑器，支持语法行号与 ⌘S 就地保存。, en: Built-in Quick Editor with line numbers and ⌘S in-place save. }
+        - { zh: 支持与访达（Finder）原生双向拖拽传输文件。, en: Bidirectional drag-and-drop with macOS Finder. }
+        - { zh: 原生中文拼音输入法优化，Escape 智能撤回，中文字符严谨对齐。, en: Native Chinese IME optimization with intelligent Escape cancellation. }
     - kicker: { zh: 服务器监控, en: Server metrics }
       title: { zh: 无需安装探针的实时监控, en: Live metrics without an agent }
       body:
         zh: 远程服务器不需要安装任何客户端，复用 SSH 通道采样 CPU、内存、网络与磁盘，用原生图表实时显示。
         en: Nothing to install on the server. CPU, memory, network and disk are sampled over the existing SSH connection and charted natively.
+      details:
+        - { zh: 集成 Swift Charts 历史时序折线图，直观掌握近 60 秒 CPU 与内存趋势。, en: Swift Charts telemetry trends for 60-second CPU and memory history. }
     - kicker: { zh: 安全, en: Security }
       title: { zh: 凭据交给系统钥匙串, en: Credentials stay in the Keychain }
       body:
