@@ -38,31 +38,36 @@ notice:
 
 gallery:
   - label: { zh: 真机实例列表, en: Instance list on Mac }
-    zh: ./media/instances-mac-v035.png
+    zh: ./media/instances-mac-v036.jpeg
   - label: { zh: 创建独立实例, en: Create an independent instance }
-    zh: ./media/create-mac-v035.png
+    zh: ./media/create-mac-v036.jpeg
   - label: { zh: 管理器在线更新, en: In-app manager updates }
-    zh: ./media/updates-mac-v035.png
+    zh: ./media/updates-mac-v036.jpeg
+  - label: { zh: 清空工作空间确认, en: Clear workspace confirmation }
+    zh: ./media/clear-workspace-mac-v036.jpeg
 
 showcase:
   eyebrow: { zh: 真机运行, en: Running on a real Mac }
   title: { zh: 原生界面，实际运行。, en: "Native UI, captured in use." }
   lead:
-    zh: 来自 Apple 芯片 Mac 上的管理器 0.3.5，展示实例列表、创建确认与更新设置。
-    en: Captured from manager 0.3.5 on an Apple silicon Mac, showing the instance list, creation confirmation and update settings.
+    zh: 来自 Apple 芯片 Mac 上的管理器 0.3.6，展示实例列表、创建确认、更新设置与工作空间清空确认。
+    en: Captured from manager 0.3.6 on an Apple silicon Mac, showing the instance list, creation confirmation, update settings and workspace clearing confirmation.
   note:
     zh: 图片仅展示管理器窗口；不包含账号、邮箱、登录凭据、个人文件路径或操作日志。图中路径为应用通用目录，英文页面沿用中文界面截图。
     en: Only the manager windows are shown. No accounts, email addresses, credentials, personal file paths or operation logs appear. Paths shown are generic application directories. Screenshots show the Chinese UI.
   items:
     - title: { zh: 实例版本与运行状态, en: Versions and running status }
       caption: { zh: 在一个列表中查看主实例与副本版本，以及各自的运行状态。, en: See the original and copies together with their versions and running status. }
-      image: ./media/instances-mac-v035.png
+      image: ./media/instances-mac-v036.jpeg
     - title: { zh: 创建前确认隔离信息, en: Review isolation before creation }
       caption: { zh: 确认英文实例名称、独立数据目录与登录回调；创建前校验官方源程序。, en: "Review the English instance name, separate data directory and callback before validating the official source app." }
-      image: ./media/create-mac-v035.png
+      image: ./media/create-mac-v036.jpeg
     - title: { zh: 管理器自动更新, en: Automatic manager updates }
       caption: { zh: 管理器可自动检查、下载和安装更新，保留已有实例与账号数据。, en: "The manager can check, download and install updates while preserving existing instances and account data." }
-      image: ./media/updates-mac-v035.png
+      image: ./media/updates-mac-v036.jpeg
+    - title: { zh: 清空前确认范围, en: Confirm before clearing }
+      caption: { zh: 仅对停止的副本开放，明确显示清空范围并要求输入完整实例名称。, en: "Available only for stopped copies, with a clear scope and full-name confirmation." }
+      image: ./media/clear-workspace-mac-v036.jpeg
 
 features:
   eyebrow: { zh: 功能, en: Features }
