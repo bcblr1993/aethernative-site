@@ -1,5 +1,15 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.0.1"
+    build: "2026092801"
+    date: 2026-09-27
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.0.1/AetherSwitch-1.0.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.0.1
+    sha256: 74ec3ec8401bffebbcdfadc3cb9600823d1b1ab026c769692fc141be2d636629
+    summary:
+      zh: 修正 CPU、内存、GPU 与网络读数，磁盘速率改用物理设备计数器；面板和开关改为原生控件，并改善更新反馈。
+      en: Corrected CPU, memory, GPU and network readings, replaced simulated disk rates with physical-device counters, and improved native controls and update feedback.
   - version: "1.0.0"
     build: "2026092701"
     date: 2026-09-27
