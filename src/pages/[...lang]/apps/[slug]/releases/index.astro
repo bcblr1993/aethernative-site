@@ -8,8 +8,8 @@ export async function getStaticPaths() {
   const apps = await getApps();
   const out = [];
   for (const app of apps) {
+    // 还没有版本的软件也生成此页（显示空状态），详情页与支持页的“版本记录”链接始终有效
     const releases = await getReleases(app.id);
-    if (!releases.length) continue;
     for (const lang of langs) out.push({ params: { lang: lang === 'zh' ? undefined : lang, slug: app.id }, props: { lang, app, releases } });
   }
   return out;
@@ -35,6 +35,12 @@ const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' 
         ? '正式版与历史预览版分开列出，提供发布时间、系统要求与 SHA-256 校验和。'
         : 'Stable releases and archived previews are listed separately, with dates, requirements and SHA-256 checksums.'}</p>
     </header>
+
+    {!groups.length && (
+      <section class="group">
+        <p class="empty">{zh ? '尚未发布正式版本，首个版本发布后会列在这里。' : 'No releases yet. The first release will be listed here.'}</p>
+      </section>
+    )}
 
     {groups.map((g) => (
       <section class="group">
@@ -69,5 +75,6 @@ const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' 
   .rel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
   .rel-head h3 a:hover { color: var(--accent); }
   .sum { margin-top: 10px; }
+  .empty { color: var(--text-2); }
   .acts { display: flex; align-items: center; gap: 18px; margin-top: 16px; flex-wrap: wrap; }
 </style>

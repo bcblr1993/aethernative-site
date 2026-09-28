@@ -1,0 +1,31 @@
+title: { zh: 使用帮助, en: Support & Help }
+heading: { zh: "五分钟，\n完成配对。", en: "Paired and ready\nin five minutes." }
+sections:
+  - heading: { zh: 安装, en: Installation }
+    steps:
+      - { zh: "在本页下载 Mac 安装包（DMG），把 AetherGuard 拖进「应用程序」。", en: "Download the Mac installer (DMG) from this page and drag AetherGuard into Applications." }
+      - { zh: "在 iPhone 上通过 TestFlight 安装 AetherGuard。", en: "Install AetherGuard on your iPhone via TestFlight." }
+      - { zh: "确认 Mac 和 iPhone 登录的是同一个 Apple ID，并已打开 iCloud。", en: "Make sure the Mac and iPhone are signed in to the same Apple ID with iCloud turned on." }
+    note: { zh: "需要 macOS 26 和 iOS 26 或更高版本。", en: "Requires macOS 26 and iOS 26 or later." }
+  - heading: { zh: 首次设置, en: First-time setup }
+    steps:
+      - { zh: "打开 Mac 版，设置向导会逐项检查权限：蓝牙、辅助功能（用于输入密码解锁）、摄像头、通知和 iCloud。", en: "Open the Mac app. The setup assistant walks through each permission: Bluetooth, Accessibility (to type your password), Camera, Notifications and iCloud." }
+      - { zh: "在向导或菜单栏 AetherGuard →「配对新 iPhone…」显示二维码，用 iPhone 上的 AetherGuard 或系统相机扫描。", en: "Show the QR code from the assistant or from the menu bar (AetherGuard → Pair New iPhone…), then scan it with the AetherGuard iPhone app or the Camera app." }
+      - { zh: "在设置里输入 Mac 登录密码，开启自动解锁。", en: "Enter your Mac login password in Settings to turn on auto-unlock." }
+      - { zh: "把 iPhone 放在平时坐在 Mac 前的位置，点「在当前位置校准」。", en: "Put your iPhone where it usually is when you sit at the Mac and click Calibrate Here." }
+  - heading: { zh: 常见问题排查, en: Troubleshooting }
+    list:
+      - { zh: "回到座位不解锁：检查辅助功能权限是否仍然开启；自动解锁失败一次后会暂停，重新保存登录密码即可恢复。", en: "Doesn't unlock when you return: check that Accessibility access is still granted. After a failed unlock, auto-unlock pauses until you save your password again." }
+      - { zh: "离开很远才锁屏，或坐着也锁屏：在座位上重新校准；也可以在设置里调整离开后的等待时间。", en: "Locks too late, or locks while you're sitting there: recalibrate at your seat, or adjust the delay in Settings." }
+      - { zh: "手机收不到报警：确认 iPhone 已允许 AetherGuard 通知，两台设备登录同一个 Apple ID 且网络正常。", en: "No alerts on your phone: allow notifications for AetherGuard on the iPhone, and make sure both devices use the same Apple ID and are online." }
+      - { zh: "iPhone 重启后要先解锁一次，蓝牙连接才会恢复。", en: "After restarting your iPhone, unlock it once before the Bluetooth connection resumes." }
+  - heading: { zh: 更新, en: Updates }
+    body:
+      - zh: "Mac 版会自动检查更新，也可以在菜单栏 AetherGuard →「检查更新…」手动检查。iPhone 版通过 TestFlight 更新。"
+        en: "The Mac app checks for updates automatically, or choose AetherGuard → Check for Updates… in the menu bar. The iPhone app updates through TestFlight."
+  - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
+    body:
+      - zh: "提交问题时请附上两端的版本号（Mac 菜单底部、iPhone「关于」），以及调试窗口导出的日志。"
+        en: "When reporting a problem, include both app versions (bottom of the Mac menu, About on the iPhone) and the log exported from the debug window."
+    links:
+      - { label: { zh: 在 GitHub 提交反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/chenpingan529/NearGuard/issues" }
