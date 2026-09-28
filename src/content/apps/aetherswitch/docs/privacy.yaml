@@ -2,8 +2,8 @@ title: { zh: 隐私政策, en: Privacy Policy }
 heading: { zh: "你的设备，\n完全由你掌控。", en: "Your device.\nCompletely private." }
 meta: { zh: 适用于 AetherSwitch 客户端, en: Applies to AetherSwitch }
 lead:
-  zh: AetherSwitch 是一款 100% 离线运行的本地原生小工具，不包含任何数据埋点、统计分析或网络遥测。
-  en: AetherSwitch runs entirely offline on your Mac, containing zero analytics, tracking, or network telemetry.
+  zh: AetherSwitch 在本机采集并显示系统指标，不包含数据埋点、统计分析或指标遥测。只有主动检查或下载更新时才会访问 GitHub。
+  en: AetherSwitch collects and displays system metrics locally, without analytics or metric telemetry. It contacts GitHub only when you check for or download updates.
 sections:
   - heading: { zh: 硬件数据采集, en: Hardware Metrics }
     body:
@@ -13,6 +13,10 @@ sections:
     body:
       - zh: 快捷开关仅直接调用系统公开命令与原生 IOKit 接口（修改访达偏好或声明屏幕防休眠断言），不采集、不干预任何用户个人文件或浏览记录。
         en: Toggles interact solely with public system APIs (Finder defaults and IOKit assertions). The app does not access, modify, or inspect any of your personal files or browsing history.
+  - heading: { zh: 更新检查, en: Update Checks }
+    body:
+      - zh: 点击“检查更新”时，应用会读取 GitHub Release 信息；选择下载更新后，再从对应的 GitHub 发布地址获取安装包。系统指标不会随请求上传。
+        en: Clicking Check for Updates reads GitHub Release information. If you choose to download an update, the installer comes from the corresponding GitHub release. System metrics are not uploaded.
   - heading: { zh: 问题与建议, en: Contact }
     links:
       - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherSwitch/issues" }
