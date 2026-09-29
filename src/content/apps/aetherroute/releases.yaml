@@ -1,6 +1,43 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.33"
+    build: "2026092901"
+    date: 2026-09-29
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.33/AetherRoute-1.0.33-build-2026092901-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.33
+    sha256: a8d33b87f04ded84b38762094322cbf4d773165d176de6e4db41f452de3b265d
+    sparkle:
+      edSignature: kNNkfgfKKIPvgbUY+OiXocDeWLGsOpb1xBs8EYVi9RRT8NIiudUE5TnJU57qbq15zFEtoz/4uPsCOYg1f1bSBw==
+      length: 26043348
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复透明代理模式下 Chrome 等自带 DNS 解析的应用因 DNS 污染无法访问 Google 等网站的问题；新增透明代理 SNI 目标恢复发版门禁；通过 Tart 虚拟机六维矩阵与 Apple Silicon 实机验收。
+      en: Fixed transparent-proxy mode sending apps with their own DNS resolver, such as Chrome, to poisoned addresses so sites like Google would not load; added a transparent-proxy SNI recovery release gate; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 透明代理路由修复
+          en: Transparent Proxy Routing Fix
+        items:
+          - zh: 透明代理对仅携带 IP 的 HTTPS 连接读取 TLS SNI，按域名匹配规则并转发，Chrome 在 DNS 污染环境下可正常访问 Google、YouTube 等网站。
+            en: Transparent-proxy HTTPS flows that carry only an IP are now routed by the TLS SNI hostname, so Chrome reaches Google, YouTube and other sites despite poisoned DNS.
+          - zh: 读不到 ClientHello 时在 500 ms 内退回按 IP 转发；TUN 模式行为不变。
+            en: Flows without a readable ClientHello fall back to the IP within 500 ms; TUN mode is unchanged.
+      - title:
+          zh: 质量门禁
+          en: Release Gates
+        items:
+          - zh: 新增透明代理 SNI 目标恢复门禁，纳入虚拟机矩阵；虚拟机矩阵与真机门禁并行执行。
+            en: Added a transparent-proxy SNI recovery gate to the VM matrix; the VM matrix and physical gate now run in parallel.
+      - title:
+          zh: 安全合规与官方公证
+          en: Security Compliance & Apple Notarization
+        items:
+          - zh: 采用标准生产核心构建，Developer ID 签名并经 Apple 公证（App + DMG 装订），支持 macOS 15+ Apple Silicon。
+            en: Built with the standard production core, Developer ID signed and Apple notarized (App + DMG stapled), for macOS 15+ on Apple Silicon.
   - version: "1.0.32"
     build: "2026092801"
     date: 2026-09-28
