@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.4.1"
+    date: 2026-09-29
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.4.1/ApexTerm-v1.4.1-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.4.1
+    sha256: c8c185ead224d70d46895407b017c8644744cf49b4b89a8b19037b7fd3c81434
+    summary:
+      zh: ApexTerm v1.4.1 — Vim 全屏绘制修复
+      en: ApexTerm v1.4.1 — Vim 全屏绘制修复
   - version: "1.4.0"
     build: "2026092801"
     date: 2026-09-28
@@ -73,8 +82,7 @@ releases:
     sha256: 13bd4b79c891cd007f0f77e986e4b4753bca94dcf38cafbecec6452dee6f27f6
     summary:
       zh: 修复分屏模式下原终端黑屏无内容及切换后无法输入缺陷，完善即刻重水化渲染机制与双向系统焦点联动。
-      en: Fix split pane blank screen and input loss with immediate buffer rehydration
-        and bidirectional focus coordination.
+      en: Fix split pane blank screen and input loss with immediate buffer rehydration and bidirectional focus coordination.
   - version: 1.0.4
     date: 2026-09-25
     channel: stable
@@ -91,10 +99,8 @@ releases:
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.0.3
     sha256: be08d7736f3014283abb7a248537aae47892c66c9c5b5b5dee9373e9ca95027b
     summary:
-      zh: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync
-        & SFTP Drag-and-Drop
-      en: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync
-        & SFTP Drag-and-Drop
+      zh: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync & SFTP Drag-and-Drop
+      en: ApexTerm v1.0.3 - Public Linux Server Support, Real-Time PTY, Directory Sync & SFTP Drag-and-Drop
   - version: 1.0.2
     date: 2026-09-25
     channel: stable
