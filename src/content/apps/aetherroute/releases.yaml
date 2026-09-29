@@ -1,6 +1,43 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.34"
+    build: "2026092902"
+    date: 2026-09-29
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.34/AetherRoute-1.0.34-build-2026092902-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.34
+    sha256: 6ebb2ae98ea3288112c46c79537b005df01f9494b622274b907f56d31d6a6adc
+    sparkle:
+      edSignature: XgmdSu4kN8K2h1wgpoHqN2FbKii0cHypILhEoTqG49q8QmPYlh7uQUvxU6bLYVE7XpObyib2spNnPM3r/neeCA==
+      length: 24737546
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复经 VLESS Vision 节点上传大请求时连接被断开的问题，解决 Claude Desktop / Claude Code 长会话反复 ECONNRESET；新增大请求上传发版门禁；通过 Tart 虚拟机六维矩阵与 Apple Silicon 实机验收。
+      en: Fixed large uploads breaking the connection through VLESS Vision nodes, which made long Claude Desktop / Claude Code sessions fail with ECONNRESET; added a large-upload release gate; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: VLESS Vision 上传修复
+          en: VLESS Vision Upload Fix
+        items:
+          - zh: 修复 Vision 帧长度溢出：客户端快速上传超过约 1 MB 时连接不再被服务器断开，Claude 长会话等大请求恢复正常。
+            en: "Fixed a Vision frame-length overflow: fast uploads over about 1 MB no longer get the connection dropped by the server, so large requests such as long Claude sessions work again."
+          - zh: Hysteria2 节点经实测不受该问题影响。
+            en: Hysteria2 nodes were measured and are not affected.
+      - title:
+          zh: 质量门禁
+          en: Release Gates
+        items:
+          - zh: 新增 2 MiB 大请求上传门禁，覆盖虚拟机矩阵全部组合与物理真机 TUN / 透明代理两种模式。
+            en: Added a 2 MiB large-upload gate covering every VM matrix combination and both TUN and transparent-proxy modes on physical hardware.
+      - title:
+          zh: 安全合规与官方公证
+          en: Security Compliance & Apple Notarization
+        items:
+          - zh: 采用标准生产核心构建，Developer ID 签名并经 Apple 公证（App + DMG 装订），支持 macOS 15+ Apple Silicon。
+            en: Built with the standard production core, Developer ID signed and Apple notarized (App + DMG stapled), for macOS 15+ on Apple Silicon.
   - version: "1.0.33"
     build: "2026092901"
     date: 2026-09-29
