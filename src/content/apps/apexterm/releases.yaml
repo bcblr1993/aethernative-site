@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.4.3"
+    date: 2026-09-29
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.4.3/ApexTerm-v1.4.3-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.4.3
+    sha256: 8c30fe859f5aa8db9f819bad16dde55c2282cf2364c96818094279114745153e
+    summary:
+      zh: ApexTerm v1.4.3
+      en: ApexTerm v1.4.3
   - version: "1.4.2"
     date: 2026-09-29
     channel: stable
