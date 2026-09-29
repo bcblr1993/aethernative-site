@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.4.2"
+    date: 2026-09-29
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.4.2/ApexTerm-v1.4.2-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.4.2
+    sha256: 0990ee70f2a76b502250de41e0c4df4b7d39530564b00d3d9db4a3fd1aa23d13
+    summary:
+      zh: ApexTerm v1.4.2 — 终端自动滚动修复
+      en: ApexTerm v1.4.2 — 终端自动滚动修复
   - version: "1.4.1"
     date: 2026-09-29
     channel: stable
