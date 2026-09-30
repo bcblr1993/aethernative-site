@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.5.3"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.3/ApexTerm-v1.5.3-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.3
+    sha256: 37c147a4b1919463846fdba6adda5eaf3f19f116e6960724891cd92995813926
+    summary:
+      zh: v1.5.3 - 终端顶部首行视口遮挡缺陷彻底修复版
+      en: v1.5.3 - 终端顶部首行视口遮挡缺陷彻底修复版
   - version: "1.5.2"
     build: "2026093002"
     date: 2026-09-30
