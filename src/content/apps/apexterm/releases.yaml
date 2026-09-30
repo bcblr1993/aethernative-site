@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.5.2"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.2/ApexTerm-v1.5.2-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.2
+    sha256: b36285d29708dc3a5afb3c9bb07f648c36b92db72a55c3f5ef616d4fb55e01dd
+    summary:
+      zh: ApexTerm v1.5.2 — 全维度测试矩阵、SFTP体验与终端边距优化
+      en: ApexTerm v1.5.2 — 全维度测试矩阵、SFTP体验与终端边距优化
   - version: "1.4.3"
     date: 2026-09-29
     channel: stable
