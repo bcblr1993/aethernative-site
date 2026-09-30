@@ -1,5 +1,33 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.3.0"
+    build: "2026100101"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.3.0/AetherSwitch-1.3.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.3.0
+    sha256: c5c8d22957c535f196a47522cd27a50e30755e3a7720bc350d591ee8345aa156
+    sparkle:
+      edSignature: 8ad2NZRCFUX7NfSN1TGL4gUkbbbGu0yD9RbKwTNamYAua0pLm8g/2nZ07yHPZkTd9sPAyx8Cqgt/QtBN6ND+Bg==
+      length: 1920149
+    summary:
+      zh: 加入在线更新：点击检查更新即可下载安装并自动重启，更新经签名校验。
+      en: "In-app updates: check for updates, download and install, then relaunch automatically, with signature-verified updates."
+    notes:
+      - title:
+          zh: 在线更新
+          en: In-app updates
+        items:
+          - zh: 点击「检查更新」发现新版本后按提示下载，安装完成自动重启，无需手动覆盖安装。
+            en: Check for updates, download and install, and the app relaunches automatically; no manual replacement needed.
+          - zh: 更新清单与更新包均经过签名校验，默认每天静默检查一次，可在右键菜单关闭。
+            en: The feed and archive are both signature-verified; a silent daily check is on by default and can be turned off from the right-click menu.
+      - title:
+          zh: 升级说明
+          en: Upgrade note
+        items:
+          - zh: 1.3.0 之前的版本不含在线更新，需要手动安装 1.3.0 一次。
+            en: Versions before 1.3.0 have no in-app updates; install 1.3.0 manually once.
   - version: "1.2.0"
     build: "2026093007"
     date: 2026-09-30
