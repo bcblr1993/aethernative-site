@@ -1,6 +1,51 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.36"
+    build: "2026093003"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.36/AetherRoute-1.0.36-build-2026093003-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.36
+    sha256: 6c5fcb0f8712dc74c7b3bf2e3cb09e15fba111cfa538716f4e6306bb2af65ed5
+    sparkle:
+      edSignature: i0gEGmg+h8i9XZsDIipQ72UTzymh1UtxwQCnm9aUWDLBLcfEOKSx9NKdMQj3of1MkyxiILqO51EGMwzDNgZqDw==
+      length: 24821769
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 界面全面重做：控制中心式菜单栏面板（含版本号与新版本提示）、⇧⌘P 命令面板、设置合并为 4 个分页、自动策略组显示实际节点；网络引擎与扩展与 1.0.35 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机全量验收。
+      en: "A redesigned interface: a Control Center–style menu bar panel with version and update alerts, a ⇧⌘P command palette, Settings consolidated into four tabs, and automatic groups showing the node in use. The network engine and extensions are unchanged from 1.0.35; verified across the Tart VM matrix and physical Apple Silicon hardware."
+    notes:
+      - title:
+          zh: 全新界面
+          en: Redesigned Interface
+        items:
+          - zh: 菜单栏面板按控制中心样式重做，底部显示版本号，有新版本时出现提示标签并在菜单栏图标上显示蓝点。
+            en: "The menu bar panel follows Control Center: status and a large switch on top, the exit node in the middle, modes below; it shows the current version and flags new releases, with a blue dot on the menu bar icon."
+          - zh: 新增 ⇧⌘P 命令面板，键盘即可连接、切换模式与引擎、测速、切换节点与跳转页面。
+            en: A new ⇧⌘P command palette connects, switches modes and engines, tests latency, changes nodes and jumps between pages from the keyboard.
+          - zh: 设置由 9 个分页合并为 4 个：通用、网络、隐私与诊断、关于。
+            en: "Settings consolidated from nine tabs into four: General, Network, Privacy & Diagnostics, and About."
+          - zh: url-test 等自动策略组直接显示正在使用的节点。
+            en: Automatic groups such as url-test show the node they are actually using.
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 修复窄窗口下连接页被顶出窗口、代理页节点列表截断，以及中文界面多处按钮与弹窗显示英文。
+            en: Fixed the Connections page overflowing narrow windows, the truncated Proxies node list, and buttons and sheets showing English in the Chinese interface.
+          - zh: 窗口可见但不在前台时流量按 10 秒刷新，不再停在旧值。
+            en: Traffic now refreshes every 10 seconds while the window is visible behind other apps instead of freezing.
+      - title:
+          zh: 严苛全量测试与真机验证
+          en: Rigorous Full-Matrix & Physical Validation
+        items:
+          - zh: 通过 Tart 虚拟机 6 维网络矩阵（TUN/透明代理 × 规则/全局/直连）及物理 Mac mini 双模式实机门禁（大上传、空闲复用、SNI 恢复全部通过）。
+            en: Passed all 6 dimensions of the Tart VM matrix (TUN/Transparent x Rule/Global/Direct) and physical Mac mini dual-engine on-device verification (large upload, idle reuse, and SNI recovery all passing).
+          - zh: 采用标准生产核心构建，Developer ID 签名并经 Apple 公证（App + DMG 装订），支持 macOS 15+ Apple Silicon。
+            en: Built with the standard production core, Developer ID signed and Apple notarized (App + DMG stapled), for macOS 15+ on Apple Silicon.
   - version: "1.0.35"
     build: "2026092903"
     date: 2026-09-29
