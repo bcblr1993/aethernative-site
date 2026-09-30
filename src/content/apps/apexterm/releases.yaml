@@ -1,14 +1,43 @@
 # ApexTerm 版本记录
 releases:
   - version: "1.5.5"
+    build: "2026093005"
     date: 2026-09-30
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.5/ApexTerm-v1.5.5-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.5
     sha256: 17a357fdd82d759882a24a1f48bccbedad26f6adda11ce2c31f77af910a354e7
     summary:
-      zh: v1.5.5 - 全屏幕尺寸动态同步与 Vim 光标精确定位修复版
-      en: v1.5.5 - 全屏幕尺寸动态同步与 Vim 光标精确定位修复版
+      zh: ApexTerm v1.5.5 — 彻底修复全屏状态下终端与 Vim 尺寸不同步、sshpass 子进程 SIGWINCH 阻断与 Vim 光标脱节至窗口底部严重缺陷。
+      en: ApexTerm v1.5.5 — Resolved fullscreen PTY dimension desync, sshpass SIGWINCH propagation blockage and Vim cursor displacement bugs.
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    notes:
+      - title:
+          zh: 问题修复 (Bug Fixes)
+          en: Bug Fixes
+        items:
+          - zh: 彻底解决全屏幕状态下终端/Vim 仅能显示一部分及尺寸不同步缺陷。修复 sshpass 密码中继时未向子进程 /usr/bin/ssh 传递 SIGWINCH 导致的 30 行锁死问题，主动向后代进程群广播窗口信号。
+            en: Fixed fullscreen terminal desync by actively broadcasting SIGWINCH signals to child /usr/bin/ssh processes across sshpass helper boundaries.
+          - zh: 重构终端尺寸防抖与窗口全屏生命周期监听。监听 NSWindow 全屏切换通知，结合 tile() 与 viewDidEndLiveResize() 实现全屏即时广播校准，杜绝防抖任务竞态丢弃。
+            en: Overhauled debounce lifecycle with immediate fullscreen window notification listeners, tile() layout overrides and viewDidEndLiveResize() hooks.
+          - zh: 彻底修复 Vim 模式下光标不可见与脱节至窗口底部黑屏盲区的缺陷。通过 VT 引擎 2D 坐标映射精准定位当前行与列，完整支持 DECTCEM (\e[?25h/l) 光标显隐控制。
+            en: Fixed invisible and displaced cursor in Vim by implementing 2D grid coordinate tracking and DECTCEM (\e[?25h/l) cursor visibility modes.
+          - zh: 优化块状光标（Block Cursor）半透明渲染，确保光标覆盖下的代码字符清晰可见。
+            en: Enhanced block cursor rendering with adaptive translucency to preserve character readability underneath.
+      - title:
+          zh: 质量门禁与性能对比 (Verification & Benchmarks)
+          en: Verification & Benchmarks
+        items:
+          - zh: 测试套件扩充至 12 项 Vim 与全屏专项测试 (VimAndScreenModeTests)，全量覆盖 2D 光标跟踪、DECTCEM 显隐、全屏广播及滚动区域隔离。
+            en: Expanded Vim test suite to 12 dedicated tests covering 2D cursor mapping, DECTCEM toggle, fullscreen broadcast and margin protection.
+          - zh: 经由真实 macos27 虚拟机全量验证通过，35 个测试套件（235+ 用例）100% 绿灯。
+            en: 100% pass rate across 35 test suites (235+ cases) verified against live macos27 VM.
+          - zh: "8 项 Release 生产级性能基准全部大幅超越要求：RingBuffer 写入吞吐达 1,933,000+ 行/秒 (195 MB/秒)，ANSI TrueColor 解析达 431,000+ spans/秒，键入延迟 ≤ 5.46 μs。"
+            en: "All 8 production benchmarks exceeded targets: RingBuffer throughput 1.93M+ lines/s (195 MB/s), ANSI TrueColor parsing 431K+ spans/s, key latency ≤ 5.46 μs."
+          - zh: 经过 Apple Developer ID 官方签名、Hardened Runtime 运行时加固及静态安全扫描，官方公证票据已装订 (Stapled)。
+            en: Officially signed with Apple Developer ID, hardened runtime enabled, and successfully notarized and stapled by Apple.
   - version: "1.5.4"
     build: "2026093004"
     date: 2026-09-30
