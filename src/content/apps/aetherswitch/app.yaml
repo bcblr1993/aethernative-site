@@ -47,10 +47,10 @@ showcase:
     zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样；左侧为浅色外观，右侧为深色外观。
     en: Rendered from AetherSwitch's native views with live local readings; light appearance on the left, dark on the right.
   items:
-    - title: { zh: 5 栏等宽菜单栏，防抖对齐, en: 5-Column Monospaced Menu Bar }
+    - title: { zh: 按需显示的菜单栏指标, en: Menu Bar Metrics You Choose }
       caption:
-        zh: CPU、GPU、RAM、SSD 与上下行网速分栏常驻，数字等宽排版；常态跟随系统文字色，负载偏高时才变色提醒。
-        en: CPU, GPU, RAM, SSD and network rates stay in aligned columns with monospaced digits; values follow the system text color and only change color under heavy load.
+        zh: CPU、GPU、RAM、SSD 与上下行网速分栏显示，数字按利用率分 4 档变色；在各详情页即可开关对应指标，状态栏宽度随之收缩。
+        en: CPU, GPU, RAM, SSD and network rates in aligned columns, colored in four load tiers; toggle each metric from its detail view and the status item shrinks to fit.
       image: ./media/menubar-zh.png
     - title: { zh: 4 大高频快捷开关，一触即发, en: 4 Essential Quick Toggles }
       caption:
@@ -105,7 +105,8 @@ features:
         zh: 菜单栏展示 CPU、GPU、RAM、SSD 占比与双向网速，点击后打开适配浅色与深色外观的原生面板。
         en: The menu bar shows CPU, GPU, RAM, SSD and both network rates; clicking opens a native popover for light and dark appearances.
       details:
-        - { zh: "负载阈值提醒：常态跟随系统文字色，70% 以上橙色、85% 以上红色，任何壁纸下都清晰可辨。", en: "Load thresholds: values follow the system text color, turning orange above 70% and red above 85%, legible on any wallpaper." }
+        - { zh: "数字按利用率 4 档变色：低于 50% 绿色、50–70% 黄色、70–85% 橙色、85% 以上红色，浅色与深色菜单栏分别调校色值。", en: "Values change color in four tiers: green below 50%, yellow 50–70%, orange 70–85% and red above 85%, tuned separately for light and dark menu bars." }
+        - { zh: 在 CPU、GPU、内存、磁盘与网络详情页可单独选择是否在菜单栏显示，全部关闭时只保留图标入口。, en: Choose which metrics appear in the menu bar from each detail view; with all of them off, only the icon remains. }
         - { zh: 纯原生系统字体排版，杜绝数字跳动与截断省略号问题。, en: Native system font alignment prevents numeric jitter and truncation ellipsis. }
     - kicker: { zh: 智能能耗调度, en: Adaptive Power Management }
       title: { zh: 折叠深度休眠，后台 CPU 占用 ≤ 0.1%, en: "Deep sleep when collapsed, idle CPU ≤ 0.1%" }
