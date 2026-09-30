@@ -1,5 +1,35 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.2.0"
+    build: "2026093007"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.2.0/AetherSwitch-1.2.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.2.0
+    sha256: 3ee0449ae35bbfb6f4ac47bbb2992446e3c66d07e781fa6a093e31509a7ed39e
+    summary:
+      zh: 在详情页选择菜单栏显示的指标，数字按利用率 4 档变色，并修复面板文字看不清。
+      en: Choose which metrics appear in the menu bar, see values colored in four load tiers, and read panel text clearly again.
+    notes:
+      - title:
+          zh: 新功能
+          en: New
+        items:
+          - zh: 各详情页可开关对应指标是否显示在菜单栏，宽度随之收缩。
+            en: Toggle each metric in the menu bar from its detail view; the status item shrinks to fit.
+          - zh: 数字、进度条与环形图按利用率 4 档变色：绿、黄、橙、红。
+            en: Values
+            bars and rings change color in four load tiers: green
+            yellow: null
+            orange and red.: null
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 修复面板次要文字在毛玻璃背景上看不清。
+            en: Fix faint secondary text on the translucent panel.
+          - zh: 底部「检查更新」栏不再随页面跳动。
+            en: The Check for Updates bar no longer jumps between views.
   - version: "1.1.1"
     build: "2026093006"
     date: 2026-09-30
