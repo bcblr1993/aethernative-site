@@ -1,5 +1,30 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.1.1"
+    build: "2026093006"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.1.1/AetherSwitch-1.1.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.1.1
+    sha256: 4c08f26b135540776aad67c504a4b0b57c786dc4dbfaea98a1eccbc50647a6e6
+    summary:
+      zh: 弹出面板内存峰值由约 49 MB 降至约 28 MB，界面保持不变。
+      en: Popover peak memory drops from about 49 MB to about 28 MB, with an unchanged interface.
+    notes:
+      - title:
+          zh: 性能
+          en: Performance
+        items:
+          - zh: 详情页改为 CPU 位图绘制，不再建立额外的 GPU 渲染资源。
+            en: Detail views draw into CPU bitmaps instead of allocating extra GPU rendering resources.
+          - zh: 切页内存峰值约 28 MB，概览页常驻约 25 MB。
+            en: About 28 MB peak when switching views and about 25 MB on the overview.
+      - title:
+          zh: 质量
+          en: Quality
+        items:
+          - zh: 新增原生渲染测试，签名并公证的安装包通过内存与后台 CPU 验收。
+            en: New native rendering tests; signed and notarized packages pass the memory and background CPU gates.
   - version: "1.1.0"
     build: "2026093005"
     date: 2026-09-30
