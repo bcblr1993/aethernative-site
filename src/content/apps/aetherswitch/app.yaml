@@ -3,8 +3,11 @@ name: AetherSwitch
 order: 4
 repo: https://github.com/bcblr1993/AetherSwitch
 minimumSystemVersion: "14.0"
+sparklePublicKey: Ks+dYalMGrthBEP6rSTv8Cjs9Um5R9a5VO6cXH6tDq0=
+# 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
+appcastMode: mirror
 icon: ./media/icon.png
-tech: [Swift 6, AppKit, Mach, IOKit]
+tech: [Swift 6, AppKit, Mach, IOKit, Sparkle]
 
 tagline:
   zh: 极轻量 macOS 状态监控与高频快捷开关
@@ -149,7 +152,9 @@ faq:
     - q: { zh: 为什么 Apple Silicon 上的 GPU 监控不再频繁跳 0%？, en: Why does the GPU monitor no longer jump down to 0%? }
       a: { zh: AetherSwitch 展示系统 IOAccelerator 提供的瞬时读数，不人为抬高或延长峰值。轻量任务可能在采样间隔之间完成，此时读数为 0% 是正常现象。, en: AetherSwitch displays instantaneous readings from IOAccelerator without extending peaks. Short tasks may finish between samples, so an occasional 0% reading is expected. }
     - q: { zh: 会收集或上传我的任何隐私数据吗？, en: Does it collect or upload any personal data? }
-      a: { zh: 系统指标只在本机采集和展示，不上传遥测。主动检查或下载更新时，应用会连接 GitHub Release 服务；指标数据不会随请求发送。, en: System metrics are collected and displayed locally without telemetry. Checking for or downloading updates connects to GitHub Releases; metrics are not sent with those requests. }
+      a: { zh: 系统指标只在本机采集和展示，不上传遥测。应用每天会访问一次官网获取已签名的更新清单（可在右键菜单关闭“自动检查更新”），清单请求不包含系统指标或个人信息；下载更新时才会从 GitHub Release 获取安装包。, en: System metrics are collected and displayed locally without telemetry. Once a day the app fetches a signed update feed from our website (you can turn off Automatic Update Checks in the right-click menu); the request carries no metrics or personal data, and the installer is downloaded from GitHub Releases only when you update. }
+    - q: { zh: 如何更新 AetherSwitch？需要手动下载覆盖吗？, en: How do I update AetherSwitch? Do I need to download and replace it manually? }
+      a: { zh: 不需要。点击面板底部的“检查更新”（或右键菜单中的“检查更新”），发现新版本后按提示下载，安装完成会自动重新启动。更新包和更新清单都经过签名校验。1.3.0 之前的版本不含在线更新，需要手动安装 1.3.0 一次。, en: No. Click Check for Updates at the bottom of the panel (or in the right-click menu); when a new version is found, follow the prompts to download it and the app restarts automatically after installing. Both the update archive and the feed are signature-verified. Versions before 1.3.0 have no in-app updates, so install 1.3.0 manually once. }
 
 cta:
   title: { zh: 告别臃肿，体验极致纯粹的 Mac 状态控制。, en: Eliminate the bloat. Experience pure native Mac control. }

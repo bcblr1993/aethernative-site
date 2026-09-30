@@ -2,8 +2,8 @@ title: { zh: 隐私政策, en: Privacy Policy }
 heading: { zh: "你的设备，\n完全由你掌控。", en: "Your device.\nCompletely private." }
 meta: { zh: 适用于 AetherSwitch 客户端, en: Applies to AetherSwitch }
 lead:
-  zh: AetherSwitch 在本机采集并显示系统指标，不包含数据埋点、统计分析或指标遥测。只有主动检查或下载更新时才会访问 GitHub。
-  en: AetherSwitch collects and displays system metrics locally, without analytics or metric telemetry. It contacts GitHub only when you check for or download updates.
+  zh: AetherSwitch 在本机采集并显示系统指标，不包含数据埋点、统计分析或指标遥测。应用只会访问官网获取更新清单，并在你更新时从 GitHub 下载安装包。
+  en: AetherSwitch collects and displays system metrics locally, without analytics or metric telemetry. It only contacts our website for the update feed, and GitHub when you download an update.
 sections:
   - heading: { zh: 硬件数据采集, en: Hardware Metrics }
     body:
@@ -15,8 +15,10 @@ sections:
         en: Toggles interact solely with public system APIs (Finder defaults and IOKit assertions). The app does not access, modify, or inspect any of your personal files or browsing history.
   - heading: { zh: 更新检查, en: Update Checks }
     body:
-      - zh: 点击“检查更新”时，应用会读取 GitHub Release 信息；选择下载更新后，再从对应的 GitHub 发布地址获取安装包。系统指标不会随请求上传。
-        en: Clicking Check for Updates reads GitHub Release information. If you choose to download an update, the installer comes from the corresponding GitHub release. System metrics are not uploaded.
+      - zh: 应用使用 Sparkle 做在线更新，默认每天在后台访问一次 https://aethernative.com 获取已签名的更新清单，你也可以随时在右键菜单关闭“自动检查更新”。请求不附带系统指标、硬件信息或个人信息（已关闭系统信息上报）。
+        en: The app uses Sparkle for in-app updates. By default it fetches a signed update feed from https://aethernative.com once a day in the background; you can turn off Automatic Update Checks from the right-click menu at any time. Requests carry no metrics, hardware profile or personal data (system profiling is disabled).
+      - zh: 只有当你选择更新时，才会从对应的 GitHub Release 下载安装包；更新清单和安装包都带有签名，校验失败的更新不会被安装。
+        en: The installer is downloaded from the matching GitHub release only when you choose to update. Both the feed and the archive are signed, and updates that fail verification are never installed.
   - heading: { zh: 问题与建议, en: Contact }
     links:
       - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherSwitch/issues" }
