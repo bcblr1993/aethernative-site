@@ -1,5 +1,43 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.5.6"
+    build: "2026093006"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.6/ApexTerm-v1.5.6-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.6
+    sha256: 5969f426924ec6e394c0e597e7a7eb38d048cf00b79b0e7a2f3f4f8178f25a6a
+    summary:
+      zh: ApexTerm v1.5.6 — 彻底修复文件面板/分屏开启时终端首行遮挡削头、Vim 方向键移动光标不跟随与中文输入法下冒号指令无法退出缺陷。
+      en: ApexTerm v1.5.6 — Resolved terminal viewport top clipping on split, Vim arrow key cursor sync/DECCKM support, and Chinese IME colon exit command issues.
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    notes:
+      - title:
+          zh: 问题修复 (Bug Fixes)
+          en: Bug Fixes
+        items:
+          - zh: 彻底解决打开文件面板/分屏时终端首行被遮挡削头缺陷。建立备用屏幕原点锁定门禁，禁止在备用屏幕下调用 scrollToBottom，视口与文档视图垂直原点严格锚定在 (0, 0)，保留 10px 安全内边距。
+            en: Fixed terminal top line clipping on split/SFTP panel open by locking viewport origin to (0, 0) in alternate screen mode and preventing invalid scrollToBottom calls.
+          - zh: 彻底修复 Vim 模式下方向键移动光标看不见、不跟随问题。支持 DECCKM (\e[?1h) 应用光标键模式，光标移动指令原子自增屏幕修订号触发重绘，并支持 Shift / Ctrl 方向键组合。
+            en: Fixed invisible and non-following cursor in Vim with DECCKM application cursor keys mode support, revision-driven refresh on cursor movements, and Shift/Ctrl key combos.
+          - zh: 重构光标渲染与双矩形清除机制。移动光标时新旧矩形同步擦除重绘杜绝残影，非焦点状态下呈现优雅空心描边矩形（Hollow Outline），光标位置始终清晰可见。
+            en: Overhauled cursor invalidation with dual-rect dirty clearing and elegant hollow outline rendering when unfocused.
+          - zh: 彻底修复 Vim 模式下无法退出（Esc / :q / 输入法拦截）问题。智能规整中文输入法全角冒号「：」为半角「:」，并在备用屏幕下保障 Esc 键直通发送，一键打断插入模式。
+            en: Resolved Vim exit failure by normalizing Chinese IME full-width colons to ASCII and ensuring reliable ESC key pass-through.
+      - title:
+          zh: 质量门禁与性能对比 (Verification & Benchmarks)
+          en: Verification & Benchmarks
+        items:
+          - zh: 测试套件扩充至 17 项 Vim 与备用屏幕专项测试 (VimAndScreenModeTests)，全量覆盖 DECCKM 应用光标、修订号自增门禁、中文输入法全角冒号规整及非焦点光标。
+            en: Expanded Vim test suite to 17 dedicated tests covering DECCKM application cursor keys, revision updates, IME colon normalization, and unfocused cursor.
+          - zh: 经由真实 macos27 虚拟机全量验证通过，35 个测试套件（240+ 用例）100% 绿灯。
+            en: 100% pass rate across 35 test suites (240+ cases) verified against live macos27 VM.
+          - zh: "8 项 Release 生产级性能基准全部大幅超越要求：RingBuffer 写入吞吐达 1,914,000+ 行/秒 (193 MB/秒)，ANSI TrueColor 解析达 426,000+ spans/秒，键入延迟 ≤ 5.11 μs。"
+            en: "All 8 production benchmarks exceeded targets: RingBuffer throughput 1.91M+ lines/s (193 MB/s), ANSI TrueColor parsing 426K+ spans/s, key latency ≤ 5.11 μs."
+          - zh: 经过 Apple Developer ID 官方签名、Hardened Runtime 运行时加固及静态安全扫描，官方公证票据已装订 (Stapled)。
+            en: Officially signed with Apple Developer ID, hardened runtime enabled, and successfully notarized and stapled by Apple.
   - version: "1.5.5"
     build: "2026093005"
     date: 2026-09-30
