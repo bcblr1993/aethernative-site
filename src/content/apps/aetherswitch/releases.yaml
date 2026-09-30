@@ -1,5 +1,32 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.0.2"
+    build: "2026093004"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.0.2/AetherSwitch-1.0.2-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.0.2
+    sha256: 66c64ac6b674b559ba248fa944f8c08bbe16d9f434a956d72b78b8000445aaf6
+    summary:
+      zh: 原生状态面板更紧凑，菜单栏即时刷新，并优化详情页内存占用。
+      en: Compact native status panels, immediate menu bar refresh, and lower detail-panel memory use.
+    notes:
+      - title:
+          zh: 界面与交互
+          en: Interface and interaction
+        items:
+          - zh: 彩色概览卡片与完整的系统指标详情，支持浅色与深色外观。
+            en: Colorful overview cards and complete system details in light and dark appearances.
+          - zh: 修复菜单栏读数延迟与样式刷新问题。
+            en: Fix delayed menu bar readings and style refresh.
+      - title:
+          zh: 性能与分发
+          en: Performance and distribution
+        items:
+          - zh: 复用图形缓冲并优化原生文字绘制，通过 50 MB 内存峰值验收。
+            en: Reuse graphics buffers and optimize native text drawing to pass the 50 MB peak memory gate.
+          - zh: 提供已签名并公证的 Apple Silicon 安装包及 SHA-256 校验清单。
+            en: Signed and notarized Apple Silicon packages with SHA-256 checksums.
   - version: "1.0.1"
     build: "2026092801"
     date: 2026-09-27
