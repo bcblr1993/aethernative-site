@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.5.5"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.5/ApexTerm-v1.5.5-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.5
+    sha256: 17a357fdd82d759882a24a1f48bccbedad26f6adda11ce2c31f77af910a354e7
+    summary:
+      zh: v1.5.5 - 全屏幕尺寸动态同步与 Vim 光标精确定位修复版
+      en: v1.5.5 - 全屏幕尺寸动态同步与 Vim 光标精确定位修复版
   - version: "1.5.4"
     build: "2026093004"
     date: 2026-09-30
