@@ -1,5 +1,37 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.1.0"
+    build: "2026093005"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.1.0/AetherSwitch-1.1.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.1.0
+    sha256: 2df7e95b41ad0a1ef4543af72decfd4499a0f42e23c31570aabcccdd45356cad
+    summary:
+      zh: 全新叠放滑杆图标与统一配色，菜单栏任何壁纸下都清晰可读。
+      en: A new stacked-slider icon and unified colors, with a menu bar that stays legible on any wallpaper.
+    notes:
+      - title:
+          zh: 界面与品牌
+          en: Interface and brand
+        items:
+          - zh: 全新 App 图标，菜单栏与面板使用同一图形。
+            en: A new app icon shared by the menu bar and the panel.
+          - zh: 统一 70% / 85% 负载阈值，常态跟随系统文字色，修复内存卡片始终为红色。
+            en: Unified 70% / 85% load thresholds with neutral normal values; the memory card is no longer always red.
+          - zh: 系统图标、半透明卡片与等宽数字，速率统一显示单位。
+            en: System symbols
+            translucent cards and monospaced digits: null
+            with consistent rate units.: null
+      - title:
+          zh: 体验与质量
+          en: Experience and quality
+        items:
+          - zh: 「关于」改为面板内页面，提供官网、GitHub 与反馈入口。
+            en: An in-panel About page with website
+            GitHub and feedback links.: null
+          - zh: 签名并公证的 Apple Silicon 安装包，通过 50 MB 内存峰值与后台 CPU 验收。
+            en: Signed and notarized Apple Silicon packages that pass the 50 MB peak memory and background CPU gates.
   - version: "1.0.2"
     build: "2026093004"
     date: 2026-09-30
