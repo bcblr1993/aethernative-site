@@ -1,6 +1,47 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.0.37"
+    build: "2026093005"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.0.37/AetherRoute-1.0.37-build-2026093005-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.0.37
+    sha256: 3c05ddc2b1aea314afbc1464a65fa5ad6cc560d18bfd9e07e17c4a53de2ec988
+    sparkle:
+      edSignature: 1dQyh7ODDWpoK2h17uiqKB7lLss7PYOlIbjQmFzEaok4WcsZ8QdRacmOwR5jbNpiJAHNUa0lJ9F6/WK6842vCg==
+      length: 24527856
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 新增首次启动网络权限引导，一次完成透明代理与 TUN 的系统授权；设置窗口、时长、延迟配色与多处界面细节统一，正式版不再显示为测试版本；网络引擎与扩展与 1.0.36 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机全量验收。
+      en: Adds a first-run network setup that grants both the transparent proxy and TUN system permissions at once, unifies Settings, durations, latency colours and other interface details, and stops labelling official releases as beta. The network engine and extensions are unchanged from 1.0.36; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 首次启动网络权限引导
+          en: First-Run Network Setup
+        items:
+          - zh: 首次打开时一次性开启两个网络扩展并允许配置，之后连接或切换引擎不再被系统弹窗打断；老用户升级不受影响。
+            en: Both network extensions and their configurations are granted once on first launch, so connecting or switching engines never stops for a system prompt; existing installs are not affected.
+          - zh: 权限被收回时，概览提供“重新设置权限”，打开同一引导页面。
+            en: If a permission is withdrawn, Overview offers Set Up Permissions Again, which opens the same page.
+      - title:
+          zh: 界面一致性修复
+          en: Interface Consistency Fixes
+        items:
+          - zh: 设置窗口四个分页统一为同一表单样式，侧栏与主窗口一致；配置与 DNS 页宽度与其他页面一致，DNS 控件不再溢出。
+            en: Settings uses one form style across all four tabs with a sidebar matching the main window; Profiles and DNS match the other pages' width and the DNS control no longer overflows.
+          - zh: 时长格式、延迟配色、新版本提示统一并更易读；正式版“关于”不再显示为测试版本。
+            en: Durations, latency colours and the update pill are unified and easier to read; About no longer labels official releases as beta.
+      - title:
+          zh: 严苛全量测试与真机验证
+          en: Rigorous Full-Matrix & Physical Validation
+        items:
+          - zh: 通过 Tart 虚拟机 6 维网络矩阵（TUN/透明代理 × 规则/全局/直连）及物理 Mac mini 双模式实机门禁（大上传、空闲复用、SNI 恢复全部通过）。
+            en: Passed all 6 dimensions of the Tart VM matrix (TUN/Transparent x Rule/Global/Direct) and physical Mac mini dual-engine on-device verification (large upload, idle reuse, and SNI recovery all passing).
+          - zh: 采用标准生产核心构建，Developer ID 签名并经 Apple 公证（App + DMG 装订），支持 macOS 15+ Apple Silicon。
+            en: Built with the standard production core, Developer ID signed and Apple notarized (App + DMG stapled), for macOS 15+ on Apple Silicon.
   - version: "1.0.36"
     build: "2026093003"
     date: 2026-09-30
