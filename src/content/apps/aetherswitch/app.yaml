@@ -4,15 +4,15 @@ order: 4
 repo: https://github.com/bcblr1993/AetherSwitch
 minimumSystemVersion: "14.0"
 icon: ./media/icon.png
-tech: [Swift 6, SwiftUI, Mach, IOKit, AppKit]
+tech: [Swift 6, AppKit, Mach, IOKit]
 
 tagline:
   zh: 极轻量 macOS 状态监控与高频快捷开关
   en: Ultra-lightweight macOS status monitor & essential quick toggles
 
 summary:
-  zh: "为 Apple 芯片量身打造的极简原生工具：五栏独立 Stats 状态栏与实时上下行网速抬头可见，常亮、隐藏桌面等 4 大开关一触即发，空载常驻物理内存仅约 15MB。"
-  en: "A featherweight native companion engineered exclusively for Apple silicon: 5-column menu bar monitor and live bandwidth at a glance, plus 4 essential toggles in ~15MB memory."
+  zh: "Apple 芯片 Mac 的原生状态栏工具：一眼查看 CPU、GPU、内存、磁盘和双向网速，点开面板查看详情并使用 4 个常用系统开关。"
+  en: "A native menu bar utility for Apple silicon Macs: glance at CPU, GPU, memory, storage and network rates, then open detailed views and four system toggles."
 
 platforms:
   - id: mac
@@ -20,7 +20,7 @@ platforms:
     requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
 
 cardStats:
-  - value: "< 15 MB"
+  - value: "≈ 15 MB"
     label: { zh: 空载驻留内存, en: Idle Footprint }
   - value: "≤ 0.1%"
     label: { zh: 后台 CPU 占用, en: Background CPU }
@@ -31,8 +31,8 @@ hero:
   eyebrow: { zh: 极简 · 零依赖 · 极致低耗, en: Minimal · Zero Dependencies · Ultra-Low Overhead }
   title: { zh: "告别臃肿堆叠，\n只需你真正用的功能。", en: "Say goodbye to bloat.\nOnly the features you actually use." }
   lead:
-    zh: "空载常驻内存 < 15MB，体积仅 1MB。\n一台 Mac 仅需一个 AetherSwitch，即可全面替代 Stats 与 One Switch 臃肿组合。"
-    en: "Under 15MB idle RAM footprint and only 1MB bundle size.\nReplace heavy multi-app monitor stacks with a single native Swift utility."
+    zh: "折叠面板时，本机实测物理内存约 15 MB。\n原生菜单栏读数、五类详情和高频开关集中在一个轻巧工具中。"
+    en: "The collapsed app used about 15 MB of physical memory in a local test.\nNative menu bar readings, five detail views and everyday toggles live in one compact utility."
   requirements:
     zh: Apple 芯片（M1 及更新）/ macOS 14+
     en: Apple silicon (M1 or later) / macOS 14+
@@ -44,13 +44,13 @@ showcase:
     zh: 告别臃肿后台常驻，将高频快捷开关与全方位硬件监控汇聚于纯净原生下拉面板。
     en: Strip away bloated background daemons. Essential quick toggles and comprehensive hardware telemetry in one native glassmorphism panel.
   note:
-    zh: 截图采集自 AetherSwitch 原生运行界面，各项监控数据由系统 Mach 内核与 IOKit 原生实时采样。
-    en: Captured directly from the running AetherSwitch native interface, sampled in real time via Darwin Mach kernel and IOKit.
+    zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样；左侧为浅色外观，右侧为深色外观。
+    en: Rendered from AetherSwitch's native views with live local readings; light appearance on the left, dark on the right.
   items:
     - title: { zh: 5 栏等宽菜单栏，防抖对齐, en: 5-Column Monospaced Menu Bar }
       caption:
-        zh: CPU、GPU、RAM、SSD 与上下行网速独立分栏常驻，SF Pro 等宽排版，告别数字跳变与文本截断。
-        en: Dedicated columns for CPU, GPU, RAM, SSD and network throughput. Monospaced SF Pro typography eliminates jitter and text truncation.
+        zh: CPU、GPU、RAM、SSD 与上下行网速分栏常驻，数字等宽排版；常态跟随系统文字色，负载偏高时才变色提醒。
+        en: CPU, GPU, RAM, SSD and network rates stay in aligned columns with monospaced digits; values follow the system text color and only change color under heavy load.
       image: ./media/menubar-zh.png
     - title: { zh: 4 大高频快捷开关，一触即发, en: 4 Essential Quick Toggles }
       caption:
@@ -59,31 +59,36 @@ showcase:
       image: ./media/toggles-zh.png
     - title: { zh: 概览四宫格与网络实时吞吐, en: Overview Dashboard & Network Bandwidth }
       caption:
-        zh: CPU、GPU、RAM、SSD 核心指标四宫格一览无余；配合实时网络上下行速率曲线，秒级掌握系统状态。
-        en: 4-grid hardware dashboard for CPU, GPU, RAM and SSD paired with real-time bidirectional network throughput.
+        zh: CPU、GPU、RAM、SSD 四宫格与实时上下行速率集中在概览页。
+        en: The overview brings CPU, GPU, RAM and SSD cards together with live upload and download rates.
       image: ./media/overview-zh.png
-    - title: { zh: CPU 深度监控与核心拓扑, en: CPU Deep Telemetry & Topology }
+    - title: { zh: CPU 利用率与历史, en: CPU Usage & History }
       caption:
-        zh: 实时呈现能效核 (E-Core) 与性能核 (P-Core) 柱状图、多核拓扑与负载历史折线波形。
-        en: Real-time Efficiency/Performance core bars, multi-core utilization topology and rolling historical wave.
+        zh: 查看用户、系统、空闲及能效/性能核心利用率，配有实时历史曲线和系统负载均值。
+        en: Inspect user, system, idle and efficiency/performance core usage with a live history chart and load averages.
       image: ./media/cpu-zh.png
-    - title: { zh: Apple Silicon GPU 核心监测, en: Apple Silicon GPU Peak-Hold Smoothing }
+    - title: { zh: Apple 芯片 GPU 利用率, en: Apple Silicon GPU Usage }
       caption:
-        zh: 搭载独创 Peak-Hold 衰减平滑滤波算法，告别瞬态 0% 跳变；实时呈现渲染器利用率与平铺器负载。
-        en: Proprietary Peak-Hold decay smoothing eliminates discrete 0% dropouts on Apple Silicon unified architecture.
+        zh: 直接显示系统提供的 GPU、渲染器和 Tiler 瞬时利用率；不可用时明确标注。
+        en: Displays the system-provided GPU, renderer and Tiler utilization readings, with clear unavailable states.
       image: ./media/gpu-zh.png
     - title: { zh: RAM 内存分段占用与压力指示, en: RAM Segmentation & Pressure Ring }
       caption:
-        zh: Mach 内核内存压力指示、4 段内存彩色环（App / 联动 / 压缩 / 可用）及高占用进程排行榜。
-        en: Native Mach kernel pressure gauge, 4-segment memory ring and real-time top memory consuming processes.
+        zh: 展示已用、应用、联结、压缩和可用内存，以及系统内存压力等级与历史曲线。
+        en: Shows used, app, wired, compressed and available memory, plus the system pressure level and usage history.
       image: ./media/ram-zh.png
+    - title: { zh: 磁盘容量与读写速率, en: Disk Capacity & Throughput }
+      caption:
+        zh: 显示物理磁盘读写速率与历史曲线，以及 APFS 共享容器的已用与可用空间。
+        en: Shows physical disk read and write rates with history, plus used and free space in the shared APFS container.
+      image: ./media/disk-zh.png
 
 features:
   eyebrow: { zh: 核心优势, en: Core Strengths }
-  title: { zh: 原生纯粹，每一行代码都为性能而生。, en: Purely native. Every line crafted for performance. }
+  title: { zh: 原生监控与快捷控制，集中在菜单栏。, en: Native monitoring and controls in the menu bar. }
   lead:
-    zh: 砍掉一切花哨无用的图表和臃肿后台，用纯原生系统底座带来毫秒级交互体验。
-    en: Stripped of bloated background services and redundant layers. Pure system-level Mach and IOKit calls for sub-millisecond responsiveness.
+    zh: 使用 macOS 原生系统接口采样，并在弹出面板中提供各指标的历史曲线与细分信息。
+    en: Samples through native macOS APIs and presents history charts and detailed readings in the popover.
   items:
     - kicker: { zh: 4 大快捷开关, en: 4 Instant Toggles }
       title: { zh: 解决高频痛点，一触即发, en: Tackle daily friction with a single click }
@@ -97,10 +102,10 @@ features:
     - kicker: { zh: 5 栏 Stats 菜单栏, en: 5-Column Stats Menubar }
       title: { zh: 等宽防抖排版，抬头即知系统脉搏, en: Monospaced layout, glanceable system health }
       body:
-        zh: 菜单栏常驻展示 CPU、GPU、RAM、SSD 占比与双向上下行实时网速，无缝融入 macOS Sequoia 视觉风格。
-        en: Menubar displays CPU, GPU, RAM, SSD and bi-directional network speed, seamlessly blending with macOS Sequoia design.
+        zh: 菜单栏展示 CPU、GPU、RAM、SSD 占比与双向网速，点击后打开适配浅色与深色外观的原生面板。
+        en: The menu bar shows CPU, GPU, RAM, SSD and both network rates; clicking opens a native popover for light and dark appearances.
       details:
-        - { zh: "动态变色阈值预警：正常低载青蓝、中载活力暖橙、高载高亮警示红，任何壁纸下均清晰可辨。", en: "Dynamic color thresholds: cyan for normal, amber for moderate, and vivid red for heavy loads." }
+        - { zh: "负载阈值提醒：常态跟随系统文字色，70% 以上橙色、85% 以上红色，任何壁纸下都清晰可辨。", en: "Load thresholds: values follow the system text color, turning orange above 70% and red above 85%, legible on any wallpaper." }
         - { zh: 纯原生系统字体排版，杜绝数字跳动与截断省略号问题。, en: Native system font alignment prevents numeric jitter and truncation ellipsis. }
     - kicker: { zh: 智能能耗调度, en: Adaptive Power Management }
       title: { zh: 折叠深度休眠，后台 CPU 占用 ≤ 0.1%, en: "Deep sleep when collapsed, idle CPU ≤ 0.1%" }
@@ -108,28 +113,28 @@ features:
         zh: 独创自适应采样调度机制，在面板收起时彻底停止 GPU 与 CPU 多核轮询，杜绝任何不必要的电池消耗。
         en: Proprietary adaptive scheduler puts GPU and multi-core polling to sleep when collapsed, eliminating background battery drain.
       details:
-        - { zh: "通过 6 小时极限无人值守监控：720 个周期 0 崩溃、0 内存泄漏、0 界面卡顿。", en: "Verified by 6-hour unattended stress test: 720 cycles with zero crashes, zero leaks, zero hangs." }
+        - { zh: 本机折叠状态连续监测了 CPU 时间、物理内存和主线程响应，详情面板另行逐页验收。, en: Local collapsed-state checks measure CPU time, physical memory and main-thread response; detail views are checked separately. }
         - { zh: 纯原生 Swift 6 编译，零外部二进制依赖，空载常驻物理内存仅约 15MB。, en: Compiled with pure Swift 6 and zero external libraries, running in ~15MB idle physical memory. }
 
 benchmarks:
   eyebrow: { zh: 实测数据, en: Benchmarks }
-  title: { zh: 6 小时无人值守极限压力验证。, en: Verified by 6-hour endurance stress test. }
+  title: { zh: 在真实 Mac 上检查资源占用。, en: Resource usage measured on a real Mac. }
   lead:
-    zh: 在真实 Apple Silicon 物理设备（M 系列芯片）上执行连续 6 小时 720 个采样周期高频监控实测。
-    en: Continuous 6-hour monitoring across 720 sampling cycles executed on a physical Apple Silicon machine.
+    zh: 折叠面板在本机持续采样并检查主线程响应；详情面板在本机及另一台 Apple 芯片 Mac 上逐页测试。
+    en: The collapsed app was sampled locally with responsiveness checks, and detail views were exercised on two Apple silicon Macs.
   stats:
     - value: "≤ 0.1%"
       label: { zh: 后台空载 CPU, en: Background CPU }
       note: { zh: 折叠面板时彻底休眠 GPU 与多核采样, en: Deep sleep when collapsed }
-    - value: "< 15 MB"
+    - value: "≈ 15 MB"
       label: { zh: 空载常驻物理内存, en: Idle Physical Footprint }
-      note: { zh: 极致纯净架构，绝无内存泄漏, en: Lightweight with zero memory leak }
-    - value: "6 小时"
-      label: { zh: 连续极限监控通过, en: Continuous Stress Test Passed }
-      note: { zh: 720 个周期 0 崩溃 0 卡顿, en: 720 cycles, 0 crashes, 0 hangs }
-    - value: "< 200 ms"
-      label: { zh: 交互响应延迟, en: UI Latency }
-      note: { zh: 点击菜单栏瞬时唤起面板, en: Instant popover presentation }
+      note: { zh: 本机折叠状态实测值, en: Measured locally with the popover closed }
+    - value: "5 类"
+      label: { zh: 详情面板, en: Detail Views }
+      note: { zh: CPU、GPU、内存、磁盘与网络, en: CPU, GPU, memory, disk and network }
+    - value: "0"
+      label: { zh: 外部运行依赖, en: External Runtime Dependencies }
+      note: { zh: 使用 Swift 与 macOS 系统框架, en: Built with Swift and macOS frameworks }
 
 faq:
   eyebrow: FAQ
@@ -137,13 +142,13 @@ faq:
   lead: { zh: 关于 AetherSwitch 的常见问题与设计细节。, en: Answers to common questions about AetherSwitch. }
   items:
     - q: { zh: AetherSwitch 与 Stats / One Switch 有什么不同？, en: How does AetherSwitch differ from Stats and One Switch? }
-      a: { zh: Stats 功能强大但代码库庞大、后台采样较重；One Switch 是闭源商业软件且包含大量日常无需的功能。AetherSwitch 将最常用的 4 大高频开关与核心 5 栏硬件监控完美融合成一个不到 1MB 的纯原生 App，空载内存仅 15MB，后台 CPU ≤ 0.1%。, en: Stats is versatile but heavy, while One Switch is a paid app with many toggles you rarely need. AetherSwitch combines the top 4 essential toggles and 5-column hardware monitoring into a 1MB native utility with under 15MB RAM and ≤0.1% background CPU. }
+      a: { zh: AetherSwitch 将五类硬件指标、独立详情页和四个常用系统开关放在同一个原生菜单栏工具里。Stats 提供更多监控与配置能力，可按需求选择。, en: AetherSwitch combines five hardware metrics, their detail views and four common system toggles in one native menu bar app. Stats offers broader monitoring and configuration options. }
     - q: { zh: 保持常亮（Keep Awake）会导致系统意外不休眠吗？, en: Does Keep Awake cause unintended battery drain or sleep failure? }
       a: { zh: 不会。AetherSwitch 采用系统底层原生 IOKit 电源断言（IOPMAssertionCreateWithName），关闭开关或直接退出 App 时操作系统会立即自动释放断言，绝不会残留任何后台脚本或阻碍系统正常休眠。, en: No. AetherSwitch uses native IOKit power assertions. Toggling off or quitting the app immediately releases the assertion, preventing orphaned scripts or sleep blockage. }
     - q: { zh: 为什么 Apple Silicon 上的 GPU 监控不再频繁跳 0%？, en: Why does the GPU monitor no longer jump down to 0%? }
-      a: { zh: Apple 统一内存架构下，轻量任务的 GPU 占用往往极其短暂，常规瞬态采样很容易恰好抓到 0%。AetherSwitch 搭载独创的 Peak-Hold 衰减平滑滤波算法，既能捕捉瞬时峰值，又能平滑回落，呈现真实流畅的图形负载。, en: On Apple Silicon unified memory, GPU activity from lightweight tasks is brief and instantaneous, causing discrete samplers to record 0%. AetherSwitch employs proprietary Peak-Hold decay filtering to capture peaks while smoothly decaying, reflecting realistic workloads. }
+      a: { zh: AetherSwitch 展示系统 IOAccelerator 提供的瞬时读数，不人为抬高或延长峰值。轻量任务可能在采样间隔之间完成，此时读数为 0% 是正常现象。, en: AetherSwitch displays instantaneous readings from IOAccelerator without extending peaks. Short tasks may finish between samples, so an occasional 0% reading is expected. }
     - q: { zh: 会收集或上传我的任何隐私数据吗？, en: Does it collect or upload any personal data? }
-      a: { zh: 绝不收集。AetherSwitch 100% 离线运行，无任何服务器、无数据分析埋点、无远程遥测。所有监控数据均通过系统公开内核接口在内存中瞬时计算展示，不落盘、不回传。, en: Absolutely not. AetherSwitch runs 100% offline with no servers, no analytics, and no telemetry. All metrics are computed transiently in memory via public kernel APIs. }
+      a: { zh: 系统指标只在本机采集和展示，不上传遥测。主动检查或下载更新时，应用会连接 GitHub Release 服务；指标数据不会随请求发送。, en: System metrics are collected and displayed locally without telemetry. Checking for or downloading updates connects to GitHub Releases; metrics are not sent with those requests. }
 
 cta:
   title: { zh: 告别臃肿，体验极致纯粹的 Mac 状态控制。, en: Eliminate the bloat. Experience pure native Mac control. }
