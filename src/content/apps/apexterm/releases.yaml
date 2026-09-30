@@ -1,5 +1,43 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.5.4"
+    build: "2026093004"
+    date: 2026-09-30
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.5.4/ApexTerm-v1.5.4-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.5.4
+    sha256: 742513770a12107edb1736dd503678240835fb964384e202739df3d7abbee19f
+    summary:
+      zh: ApexTerm v1.5.4 — 彻底修复 Vim 全屏应用底部显示不全、DECSTBM 滚屏冲毁状态栏与括号化粘贴缩进倍增缺陷，全维度测试矩阵闭环。
+      en: ApexTerm v1.5.4 — Fixed Vim full-screen bottom clipping, DECSTBM scrolling status line overwrite and bracketed paste indentation bugs.
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    notes:
+      - title:
+          zh: 问题修复 (Bug Fixes)
+          en: Bug Fixes
+        items:
+          - zh: 彻底根除 Vim / 全屏交互应用底部显示不全问题。修复异步握手期间终端尺寸未同步至 PTY 导致的 35 行锁死缺陷，建立连接时即时应用并同步双向 PTY 窗口尺寸。
+            en: Fixed Vim full-screen bottom clipping by eliminating PTY resize loss during async SSH handshake and ensuring two-way PTY dimension synchronization.
+          - zh: 全面实现 DECSTBM 顶底滚动区域保护与 S/T 滚屏、P/@/X 字符增删指令，确保 Vim 等文本编辑器滚动时光标与行内容限制在可视编辑区内，杜绝冲毁底部状态栏。
+            en: Fully implemented DECSTBM scroll margins and VT scroll/edit operations (S, T, P, @, X), isolating scroll effects to preserve Vim status line.
+          - zh: 支持 DEC 复合私有模式解析与括号化粘贴（Bracketed Paste Mode \e[?2004h），优化剪贴板多行文本传递，彻底杜绝 YAML 和代码粘贴时的缩进自动累加与阶梯排版错位。
+            en: Supported composite DEC private modes and bracketed paste (\e[?2004h), eliminating stair-stepping indentation bugs when pasting multiline code or YAML.
+          - zh: 备用屏幕模式下锁定垂直视口原点为零位，并将触控板/鼠标滚轮映射为上下方向键平滑翻页，对齐原生 macOS 终端体验。
+            en: Locked alternate-screen viewport origin to zero and mapped trackpad/wheel scrolls to arrow keys for native macOS terminal scrolling.
+      - title:
+          zh: 质量门禁与性能对比 (Verification & Benchmarks)
+          en: Verification & Benchmarks
+        items:
+          - zh: 新增 9 大 Vim 与备用屏幕专项测试用例 (VimAndScreenModeTests)，全量覆盖备用屏幕切换、滚动区域保护、代码缩进及按键映射。
+            en: Added 9 dedicated Vim & alternate-screen test cases covering DECSTBM margins, bracketed paste indentation and scroll wheel translation.
+          - zh: 经由真实 macos27 虚拟机全量验证通过，35 个测试套件（230+ 用例）100% 绿灯。
+            en: 100% pass rate across 35 test suites (230+ cases) verified against live macos27 VM.
+          - zh: "8 项 Release 生产级性能基准全部大幅超越要求：RingBuffer 写入吞吐达 1,890,000+ 行/秒 (191 MB/秒)，ANSI TrueColor 解析达 421,000+ spans/秒，键入延迟 ≤ 5.19 μs。"
+            en: "All 8 production benchmarks exceeded targets: RingBuffer throughput 1.89M+ lines/s (191 MB/s), ANSI TrueColor parsing 421K+ spans/s, key latency ≤ 5.19 μs."
+          - zh: 经过 Apple Developer ID 官方签名、Hardened Runtime 运行时加固及静态安全扫描，官方公证票据已装订 (Stapled)。
+            en: Officially signed with Apple Developer ID, hardened runtime enabled, and successfully notarized and stapled by Apple.
   - version: "1.5.3"
     build: "2026093003"
     date: 2026-09-30
