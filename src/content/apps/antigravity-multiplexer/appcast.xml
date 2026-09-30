@@ -4,23 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.3.7</title>
-            <pubDate>Mon, 28 Sep 2026 15:02:01 +0800</pubDate>
-            <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>0.3.7</sparkle:shortVersionString>
+            <title>0.3.8</title>
+            <pubDate>Wed, 30 Sep 2026 15:53:47 +0800</pubDate>
+            <sparkle:version>12</sparkle:version>
+            <sparkle:shortVersionString>0.3.8</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.7
+            <description sparkle:format="markdown"><![CDATA[# v0.3.8
 
-- 修复关闭主窗口后，应用仍在后台运行，点击程序坞图标或应用菜单却不显示窗口的问题。主界面现在是单窗口：关闭窗口会退出管理器，下次点击图标可正常重新打开。
-- “文件”菜单新增“显示主窗口”（⌘0），可把已有主窗口带到前台。
+- 适配本机官方 Antigravity 2.18.1 Apple Silicon 版本，恢复创建实例和从主实例升级副本的入口。
+- 继续严格校验官方签名、程序哈希和适配位置；未知或变动的版本仍会拒绝处理。
 
-本次更新不修改 Antigravity 实例、账号资料或升级备份。
+升级副本时会从本机主实例复制并验证新程序，为旧程序和账号数据创建备份。此管理器更新本身不会自动关闭或升级现有副本。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.7/Aether-Antigravity-Multiplexer-v0.3.7-macos-arm64.zip" length="2170681" type="application/octet-stream" sparkle:edSignature="WO4g2sMRvTB59kt+Ts8Q3z7vKvLzcRAfECCgW1+t4e3gIrhRNaCe1PPufXg3zYW+jrAA+YOK69AjPG5RnVW4AA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.8/Aether-Antigravity-Multiplexer-v0.3.8-macos-arm64.zip" length="2170747" type="application/octet-stream" sparkle:edSignature="+gMa2xXCbYPQuvflMUjRcSLU2N/0ATpmY63lPX560IzJ0I+Mfp+XXk6/hXqhnL7fgFHzLk3AwIJ5fQCnxB0/CQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: yYjkPxVjzbwSkc2raGAtfx91OY+OkhDkbhYn0PXZuUEwpMiGuhLoyLgXXtLOPSzI9PfPxHq27F9IImGjYn35Cg==
-length: 1689
+edSignature: w9sWEiVVZU5Gd59vYfJckRw8bvWwH2retA/sAavz8i6D1VUqWbh/TpVGD4UiBeCDUN176vZcp4GiR+jWGoMdAQ==
+length: 1694
 -->
