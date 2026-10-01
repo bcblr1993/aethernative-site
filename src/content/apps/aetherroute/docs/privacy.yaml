@@ -1,6 +1,6 @@
 title: { zh: 隐私政策, en: Privacy }
 heading: { zh: "你的流量，\n不是我们的数据。", en: "Your traffic is\nnot our data." }
-meta: { zh: 生效日期：2026-08-07 · 适用于 AetherRoute 客户端与官方网站, en: "Effective: 2026-08-07 · Applies to the AetherRoute app and website" }
+meta: { zh: 生效日期：2026-10-01 · 适用于 AetherRoute 客户端与官方网站, en: "Effective: 2026-10-01 · Applies to the AetherRoute app and website" }
 sections:
   - heading: { zh: 官方网站与分发服务, en: Website }
     body:
@@ -8,16 +8,22 @@ sections:
         en: The AetherRoute website uses no advertising, analytics, fingerprinting, or marketing cookies. Infrastructure may process standard connection metadata for security and troubleshooting, such as time, IP address, path, status, and User-Agent; access logging is disabled on the current static site. The download service serves public release files only.
   - heading: { zh: 客户端应用程序, en: Application }
     body:
-      - zh: 应用不包含第三方广告或行为分析 SDK。配置和订阅地址保存在本机加密存储中。主动开启 iCloud 同步后，配置会以 AES-256-GCM 加密后写入你的 iCloud，密钥通过 iCloud 钥匙串在同一 Apple 账户的设备间同步。诊断报告仅在你主动导出时生成，并排除配置内容、订阅地址、凭据、流量地址和自由文本错误。
-        en: The app contains no third-party advertising or behavioral analytics SDK. Profiles and subscription URLs are kept in encrypted local storage. If you enable iCloud sync, profiles are encrypted with AES-256-GCM before being stored in your iCloud, with keys synchronized through iCloud Keychain across devices using the same Apple Account. Diagnostics are generated only when you export them and exclude profile content, subscription URLs, credentials, traffic addresses, and free-form errors.
+      - zh: 应用不包含第三方广告或行为分析 SDK。配置和订阅地址保存在本机加密存储中。主动开启 iCloud 同步后，配置会以 AES-256-GCM 加密后写入你的 iCloud，密钥保存在钥匙串并用于跨设备同步；旧版兼容恢复机制可能在 iCloud 键值存储中留下原始同步主密钥。当前 iPhone 版本不再上传原始密钥，在验证旧配置且成功保存钥匙串后请求移除旧密钥记录；这不能撤销旧版本已上传的数据，也不保证 Apple 的保留副本已清除。应用在本地处理连接诊断和流量统计，开发者不收集或上传浏览历史、DNS 查询或访问目的地。开发者不出售用户数据，不将其用于广告，也不与分析服务商分享。诊断分享由你主动发起。iPhone 版分享的摘要包含应用版本、系统版本、VPN 状态、配置的路由模式和最近会话累计字节，不包含配置内容、订阅地址、节点名称、凭据、访问地址或自由文本错误；收件人或分享服务由你选择。
+        en: The app contains no third-party advertising or behavioral analytics SDK. Profiles and subscription URLs are kept in encrypted local storage. If you enable iCloud sync, profiles are encrypted with AES-256-GCM before being stored in your iCloud, Keys are stored in Keychain for cross-device synchronization. Older compatibility recovery versions may have left a raw synchronization key in iCloud key-value storage. The current iPhone version no longer uploads raw keys and requests removal of the legacy key record after authenticating the old catalog and saving its key in Keychain. This cannot revoke past uploads or guarantee removal of copies retained by Apple. The app processes connection diagnostics and traffic statistics locally. The developer does not collect or upload browsing history, DNS queries, or connection destinations, sell user data, use it for advertising, or share it with analytics providers. Diagnostic sharing is initiated by you. The iPhone summary includes app and system versions, VPN state, configured routing mode, and latest-session byte totals. It excludes profile content, subscription URLs, node names, credentials, browsing addresses, and free-form errors. You choose the recipient or sharing service.
   - heading: { zh: 代理和订阅服务提供商, en: Proxy and subscription providers }
     body:
       - zh: 连接后，流量、DNS 查询和订阅更新会发送到你选择的服务商。这些独立服务可能看到你的 IP 地址和请求元数据；导入前请审查并信任服务商。
         en: When connected, traffic, DNS queries, and subscription refreshes reach providers you select. Those independent services may observe your IP address and request metadata. Review and trust providers before importing them.
+  - heading: { zh: DNS 服务与本地缓存, en: DNS services and local cache }
+    body:
+      - zh: iPhone 版默认沿用你导入的订阅 DNS；未提供 DNS 配置时，引擎默认使用 114.114.114.114 与 8.8.8.8。开启加密 DNS 预设后，主上游查询发送至 Cloudflare（DoH）与 Quad9（DoT）。订阅中的引导解析、私有域名策略和代理域名解析仍可能使用各自配置的服务及传输方式，因此该选项不代表所有 DNS 查询均加密。DNS 服务商会收到为解析所需的域名查询及连接元数据。
+        en: On iPhone, DNS follows your imported subscription by default. When DNS configuration is absent, the engine defaults to 114.114.114.114 and 8.8.8.8. Enabling the encrypted DNS preset sends main-upstream queries to Cloudflare (DoH) and Quad9 (DoT). Subscription bootstrap, private-domain policies, and proxy-host resolvers may retain their configured services and transports, so this option does not mean every DNS query is encrypted. DNS providers receive domain queries and connection metadata needed for resolution.
+      - zh: iPhone 版在设备上保存加密的 Fake-IP 地址映射缓存，用于重连后兼容设备已缓存的合成地址。清理引擎 DNS 响应缓存不会清理 iOS 系统缓存，也不会删除这些地址映射。删除订阅配置或卸载应用后，Apple 钥匙串及已同步至 iCloud 的数据可能继续存在；关闭同步或卸载应用不保证删除已同步的云端副本。
+        en: The iPhone app stores encrypted Fake-IP address mappings locally to keep cached synthetic addresses compatible after reconnecting. Flushing the engine DNS response cache does not clear the iOS system cache or remove those mappings. Apple Keychain entries and data already synchronized to iCloud may persist after deleting profiles or uninstalling the app. Disabling sync or uninstalling the app does not guarantee deletion of existing cloud copies.
   - heading: { zh: 授权与软件更新机制, en: Licensing and updates }
     body:
-      - zh: 首版免费使用，不需要账号或付费激活，不向授权服务发送设备标识或激活请求。本版通过官网下载新 DMG 手动更新，不使用自动更新服务；网站提供安装包 SHA-256 供你核对。
-        en: The first edition is free, with no account or paid activation. It sends no device identifiers or activation requests to a licensing service. Updates are manual DMG downloads from this website, without an automatic update service. Published SHA-256 checksums let you verify installers.
+      - zh: 首版免费使用，不需要账号或付费激活，不向授权服务发送设备标识或激活请求。Mac 版通过官网下载新 DMG 手动更新，网站提供安装包 SHA-256 供你核对。对于通过 TestFlight 或 App Store 获取的 iPhone 版本，安装和更新由 Apple 分发服务处理，其隐私实践适用 Apple 的政策。
+        en: The first edition is free, with no account or paid activation. It sends no device identifiers or activation requests to a licensing service. Mac updates use manual DMG downloads from this website, with published SHA-256 checksums to verify installers. For iPhone versions obtained through TestFlight or the App Store, Apple handles installation and updates under its own privacy policies.
   - heading: { zh: 隐私联系渠道, en: Contact }
     body:
       - zh: 隐私问题请通过 GitHub Issues 联系作者编程不良人。
