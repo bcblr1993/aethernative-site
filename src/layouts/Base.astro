@@ -65,6 +65,7 @@ const nav = [
       // 默认跟随系统外观；用户点 ◐ 选了与系统不同的外观时记在 color-scheme 里，系统变化时实时更新
       (() => {
         const root = document.documentElement;
+        root.classList.add('js'); // 有脚本时才启用"滚动浮现"的初始隐藏，避免无脚本时内容不可见
         const mq = matchMedia('(prefers-color-scheme: dark)');
         const saved = () => { try { return localStorage.getItem('color-scheme'); } catch (_) { return null; } };
         const apply = () => {

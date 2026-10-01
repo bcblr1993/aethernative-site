@@ -18,7 +18,14 @@ const appId = ({ entry }: { entry: string }) => entry.split('/')[0];
 const apps = defineCollection({
   loader: glob({ pattern: '*/app.yaml', base, generateId: appId }),
   schema: ({ image }) => {
-    const shot = z.object({ label: L, zh: image(), en: image().optional() });
+    // 截图：zh 必填；en、深色版（zhDark / enDark）可选。有深色版时图集显示浅色/深色开关。
+    const shot = z.object({
+      label: L,
+      zh: image(),
+      en: image().optional(),
+      zhDark: image().optional(),
+      enDark: image().optional(),
+    });
     return z.object({
       name: z.string(),
       order: z.number().default(100),

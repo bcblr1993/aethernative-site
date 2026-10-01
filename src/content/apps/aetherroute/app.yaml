@@ -40,11 +40,14 @@ hero:
     en: "Mac: Apple silicon / macOS 15+ · iPhone: requires iOS 26 or later · Bring your own nodes"
 
 gallery:
-  - { label: { zh: 连接概览, en: Overview }, zh: ./media/overview-zh.png, en: ./media/overview-en.png }
-  - { label: { zh: 节点管理, en: Proxies }, zh: ./media/proxies-zh.png, en: ./media/proxies-en.png }
-  - { label: { zh: 实时连接, en: Connections }, zh: ./media/connections-zh.png, en: ./media/connections-en.png }
-  - { label: { zh: 主题设置, en: Appearance }, zh: ./media/settings-zh.png, en: ./media/settings-en.png }
-  - { label: { zh: 深色外观, en: Dark mode }, zh: ./media/dark-zh.png, en: ./media/dark-en.png }
+  - { label: { zh: 连接概览, en: Overview }, zh: ./media/mac/overview-zh-light.png, en: ./media/mac/overview-en-light.png, zhDark: ./media/mac/overview-zh-dark.png, enDark: ./media/mac/overview-en-dark.png }
+  - { label: { zh: 节点管理, en: Proxies }, zh: ./media/mac/proxies-zh-light.png, en: ./media/mac/proxies-en-light.png, zhDark: ./media/mac/proxies-zh-dark.png, enDark: ./media/mac/proxies-en-dark.png }
+  - { label: { zh: 实时连接, en: Connections }, zh: ./media/mac/connections-zh-light.png, en: ./media/mac/connections-en-light.png, zhDark: ./media/mac/connections-zh-dark.png, enDark: ./media/mac/connections-en-dark.png }
+  - { label: { zh: 配置管理, en: Profiles }, zh: ./media/mac/profiles-zh-light.png, en: ./media/mac/profiles-en-light.png, zhDark: ./media/mac/profiles-zh-dark.png, enDark: ./media/mac/profiles-en-dark.png }
+  - { label: { zh: 规则分流, en: Rules }, zh: ./media/mac/rules-zh-light.png, en: ./media/mac/rules-en-light.png, zhDark: ./media/mac/rules-zh-dark.png, enDark: ./media/mac/rules-en-dark.png }
+  - { label: { zh: DNS, en: DNS }, zh: ./media/mac/dns-zh-light.png, en: ./media/mac/dns-en-light.png, zhDark: ./media/mac/dns-zh-dark.png, enDark: ./media/mac/dns-en-dark.png }
+  - { label: { zh: 菜单栏, en: Menu bar }, zh: ./media/mac/panel-zh-light.png, en: ./media/mac/panel-en-light.png, zhDark: ./media/mac/panel-zh-dark.png, enDark: ./media/mac/panel-en-dark.png }
+  - { label: { zh: 设置, en: Settings }, zh: ./media/mac/settings-zh-light.png, en: ./media/mac/settings-en-light.png, zhDark: ./media/mac/settings-zh-dark.png, enDark: ./media/mac/settings-en-dark.png }
 
 ios:
   badge: { zh: 即将上架, en: Coming soon }

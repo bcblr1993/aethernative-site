@@ -31,7 +31,14 @@ const latest = latestStable(releases);
 const previous = latest ? releases.slice(releases.indexOf(latest) + 1).find((r) => r.download) : undefined;
 const ios = d.platforms.find((p) => p.id === 'ios');
 const iosLink = ios?.appStore ?? ios?.testFlight;
-const shotOf = (s: (typeof d.gallery)[number]) => (lang === 'en' && s.en ? s.en : s.zh);
+type Shot = (typeof d.gallery)[number];
+const shotOf = (s: Shot) => (lang === 'en' && s.en ? s.en : s.zh);
+// 深色版截图：英文页优先 enDark，没有时用 zhDark；都没有时该画面只有浅色
+const darkOf = (s: Shot) => (lang === 'en' && s.enDark ? s.enDark : s.zhDark);
+const hasDark = d.gallery.length > 0 && d.gallery.every((s) => darkOf(s));
+// 截图按真实大小的比例显示：最宽的窗口铺满画面区，较小的窗口（设置、菜单栏面板）相应缩小
+const widest = Math.max(...d.gallery.map((s) => shotOf(s).width), 1);
+const shotWidth = (s: Shot) => Math.max(45, Math.round((shotOf(s).width / widest) * 1000) / 10);
 const zh = lang === 'zh';
 // 只链接实际存在的文档页（src/content/apps/<id>/docs/*.yaml）
 const docIds = new Set((await getCollection('docs')).map((x) => x.id));
@@ -43,6 +50,9 @@ const docLinks = [
 ].filter((l) => hasDoc(l.key));
 // 分享预览图与“查看原图”链接需要独立生成的文件（只用 <Image> 引用的原图在构建时不会保留）
 const fulls = await Promise.all(d.gallery.map(async (s) => (await getImage({ src: shotOf(s), format: 'webp', quality: 90 })).src));
+const fullsDark = hasDark
+  ? await Promise.all(d.gallery.map(async (s) => (await getImage({ src: darkOf(s)!, format: 'webp', quality: 90 })).src))
+  : [];
 const ogImage = d.gallery[0] ? (await getImage({ src: shotOf(d.gallery[0]), width: 1200, format: 'png' })).src : undefined;
 
 const subnav = [
@@ -84,20 +94,34 @@ const subnav = [
 
     <div class="wrap">
       {d.gallery.length > 0 && (
-        <div class="stage">
+        <div class="stage" data-reveal data-has-dark={hasDark ? 'true' : undefined} data-look="light">
+          <div class="stage-glow" aria-hidden="true"></div>
           <div class="stage-top">
             <span class="eyebrow">{d.name} for Mac</span>
-            <a class="more" id="stage-full" href={fulls[0]} target="_blank" rel="noopener">{u.openFull}</a>
+            <div class="stage-tools">
+              {hasDark && (
+                <div class="seg look-seg" role="group" aria-label={u.look}>
+                  <span class="seg-pill" aria-hidden="true"></span>
+                  <button type="button" data-look-btn="light" aria-pressed="true">{u.lookLight}</button>
+                  <button type="button" data-look-btn="dark" aria-pressed="false">{u.lookDark}</button>
+                </div>
+              )}
+              <a class="more" id="stage-full" href={fulls[0]} target="_blank" rel="noopener">{u.openFull}</a>
+            </div>
           </div>
           <div class="stage-shots">
             {d.gallery.map((s, i) => (
-              <figure data-shot={i} hidden={i > 0}>
-                <Image src={shotOf(s)} alt={`${d.name} — ${t(s.label, lang)}`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading={i === 0 ? 'eager' : 'lazy'} data-full={fulls[i]} />
+              <figure data-shot={i} data-active={i === 0 ? 'true' : undefined} data-seen={i === 0 ? 'true' : undefined} style={`--w: ${shotWidth(s)}%`}>
+                <Image class="layer layer-light" src={shotOf(s)} alt={`${d.name} — ${t(s.label, lang)}`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading={i === 0 ? 'eager' : 'lazy'} data-full={fulls[i]} />
+                {hasDark && (
+                  <Image class="layer layer-dark" src={darkOf(s)!} alt={`${d.name} — ${t(s.label, lang)} (${u.lookDark})`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading="lazy" data-full={fullsDark[i]} />
+                )}
               </figure>
             ))}
           </div>
           {d.gallery.length > 1 && (
-            <div class="stage-tabs" role="group" aria-label={u.screenshots}>
+            <div class="seg stage-tabs" role="group" aria-label={u.screenshots}>
+              <span class="seg-pill" aria-hidden="true"><i class="seg-progress"></i></span>
               {d.gallery.map((s, i) => (
                 <button type="button" data-target={i} aria-pressed={i === 0 ? 'true' : 'false'}>{t(s.label, lang)}</button>
               ))}
@@ -118,7 +142,7 @@ const subnav = [
   </header>
 
   {d.ios && (
-    <section id="ios" class="ios">
+    <section data-reveal id="ios" class="ios">
       <div class="wrap">
         <div class="ios-hero card">
           <div>
@@ -159,7 +183,7 @@ const subnav = [
   )}
 
   {d.sync && (
-    <section id="sync" class="sync">
+    <section data-reveal id="sync" class="sync">
       <div class="wrap">
         <div class="center">
           <div class="eyebrow"><Text v={d.sync.eyebrow} lang={lang} /></div>
@@ -178,7 +202,7 @@ const subnav = [
   )}
 
   {d.experience && (
-    <section class="experience">
+    <section data-reveal class="experience">
       <div class="wrap">
         <div class="sec-head"><div><div class="eyebrow"><Text v={d.experience.eyebrow} lang={lang} /></div><h2><Text v={d.experience.title} lang={lang} /></h2></div></div>
         <div class="grid-3">
@@ -191,7 +215,7 @@ const subnav = [
   )}
 
   {d.showcase && (
-    <section id="showcase" class="showcase">
+    <section data-reveal id="showcase" class="showcase">
       <div class="wrap">
         <div class="sec-head"><div>
           <div class="eyebrow"><Text v={d.showcase.eyebrow} lang={lang} /></div>
@@ -212,7 +236,7 @@ const subnav = [
   )}
 
   {d.protocols && (
-    <section id="protocols">
+    <section data-reveal id="protocols">
       <div class="wrap">
         <div class="sec-head"><div>
           <div class="eyebrow"><Text v={d.protocols.eyebrow} lang={lang} /></div>
@@ -240,7 +264,7 @@ const subnav = [
   )}
 
   {d.features && (
-    <section id="features">
+    <section data-reveal id="features">
       <div class="wrap">
         <div class="sec-head"><div>
           <div class="eyebrow"><Text v={d.features.eyebrow} lang={lang} /></div>
@@ -267,7 +291,7 @@ const subnav = [
   )}
 
   {d.benchmarks && (
-    <section id="benchmarks">
+    <section data-reveal id="benchmarks">
       <div class="wrap">
         <div class="sec-head"><div>
           <div class="eyebrow"><Text v={d.benchmarks.eyebrow} lang={lang} /></div>
@@ -303,7 +327,7 @@ const subnav = [
   )}
 
   {d.faq && (
-    <section id="faq">
+    <section data-reveal id="faq">
       <div class="wrap faq">
         <div>
           <div class="eyebrow"><Text v={d.faq.eyebrow} lang={lang} /></div>
@@ -321,7 +345,7 @@ const subnav = [
   )}
 
   {d.cta && (
-    <section class="final">
+    <section data-reveal class="final">
       <div class="wrap center">
         <div class="final-icon"><Image src={d.icon} alt="" width={128} height={128} /></div>
         <p class="eyebrow">{d.name} for {d.platforms.map((p) => p.id === 'mac' ? 'Mac' : 'iPhone').join(' & ')}</p>
@@ -343,18 +367,173 @@ const subnav = [
 </Base>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.stage-tabs button');
+  // ---------- 图集：画面切换、浅色/深色、自动轮播、指针光晕与倾斜 ----------
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const root = document.documentElement;
+  const stage = document.querySelector<HTMLElement>('.stage');
   const full = document.getElementById('stage-full') as HTMLAnchorElement | null;
-  buttons.forEach((btn) =>
-    btn.addEventListener('click', () => {
-      const i = btn.dataset.target;
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      document.querySelectorAll<HTMLElement>('[data-shot]').forEach((f) => {
-        f.hidden = f.dataset.shot !== i;
-        if (!f.hidden && full) full.href = f.querySelector('img')?.dataset.full ?? full.href;
-      });
+  const figures = Array.from(document.querySelectorAll<HTMLElement>('.stage-shots figure'));
+  const tabs = document.querySelector<HTMLElement>('.stage-tabs');
+  const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.stage-tabs button'));
+  const lookButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-look-btn]'));
+  let current = 0;
+
+  // 分段控件的滑块：移动到被按下的按钮下方
+  const placePill = (group: Element | null, btn: HTMLElement | undefined) => {
+    const pill = group?.querySelector<HTMLElement>('.seg-pill');
+    if (!pill || !btn) return;
+    pill.style.width = `${btn.offsetWidth}px`;
+    pill.style.transform = `translateX(${btn.offsetLeft}px)`;
+    pill.style.height = `${btn.offsetHeight}px`;
+    pill.style.top = `${btn.offsetTop}px`;
+  };
+  const syncFull = () => {
+    if (!full || !stage) return;
+    const look = stage.dataset.look === 'dark' ? '.layer-dark' : '.layer-light';
+    const img = figures[current]?.querySelector<HTMLImageElement>(look) ?? figures[current]?.querySelector('img');
+    if (img?.dataset.full) full.href = img.dataset.full;
+  };
+
+  const show = (i: number) => {
+    if (i === current || !figures[i]) return;
+    figures[i].dataset.seen = 'true';
+    // 先让新画面以透明状态参与布局（强制一次样式计算），再切到可见，保证淡入过渡生效
+    void figures[i].offsetWidth;
+    figures.forEach((f, k) => (k === i ? (f.dataset.active = 'true') : delete f.dataset.active));
+    current = i;
+    tabButtons.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+    placePill(tabs, tabButtons[i]);
+    syncFull();
+    // 只横向滚动标签栏让当前项居中；不用 scrollIntoView，以免自动轮播时把整页拽走
+    const btn = tabButtons[i];
+    if (tabs && btn && tabs.scrollWidth > tabs.clientWidth) {
+      tabs.scrollTo({ left: btn.offsetLeft - (tabs.clientWidth - btn.offsetWidth) / 2, behavior: reduce.matches ? 'auto' : 'smooth' });
+    }
+  };
+
+  // 浅色/深色：默认跟随网站外观；在图集里手动选过后以手动为准，直到网站外观再次变化
+  let manualLook: string | null = null;
+  const setLook = (look: string) => {
+    if (!stage || !stage.dataset.hasDark) return;
+    if (look === 'dark') stage.dataset.darkLoaded = 'true';
+    stage.dataset.look = look;
+    lookButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lookBtn === look)));
+    placePill(lookButtons[0]?.parentElement ?? null, lookButtons.find((b) => b.dataset.lookBtn === look));
+    syncFull();
+  };
+  lookButtons.forEach((b) =>
+    b.addEventListener('click', () => {
+      manualLook = b.dataset.lookBtn ?? 'light';
+      setLook(manualLook);
+      stopAutoplay();
     }),
   );
+  new MutationObserver(() => {
+    manualLook = null;
+    setLook(root.dataset.theme === 'dark' ? 'dark' : 'light');
+  }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  setLook(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  // 自动轮播：进入视口后每 6 秒换一个画面；悬停、聚焦或任何点击后停止
+  const interval = 6000;
+  let timer = 0;
+  let stopped = reduce.matches || figures.length < 2;
+  const progress = document.querySelector<HTMLElement>('.seg-progress');
+  const restartProgress = () => {
+    if (!progress) return;
+    progress.style.animation = 'none';
+    void progress.offsetWidth;
+    progress.style.animation = `seg-progress ${interval}ms linear forwards`;
+  };
+  const tick = () => {
+    show((current + 1) % figures.length);
+    restartProgress();
+  };
+  const startAutoplay = () => {
+    if (stopped || timer) return;
+    restartProgress();
+    timer = window.setInterval(tick, interval);
+  };
+  const pauseAutoplay = () => {
+    window.clearInterval(timer);
+    timer = 0;
+    if (progress) progress.style.animation = 'none';
+  };
+  function stopAutoplay() {
+    stopped = true;
+    pauseAutoplay();
+    stage?.classList.add('autoplay-off');
+  }
+  tabButtons.forEach((b) =>
+    b.addEventListener('click', () => {
+      stopAutoplay();
+      show(Number(b.dataset.target));
+    }),
+  );
+  stage?.addEventListener('pointerenter', pauseAutoplay);
+  stage?.addEventListener('pointerleave', startAutoplay);
+  stage?.addEventListener('focusin', stopAutoplay);
+  tabs?.addEventListener('keydown', (e) => {
+    const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!k) return;
+    e.preventDefault();
+    const next = (current + k + figures.length) % figures.length;
+    show(next);
+    tabButtons[next]?.focus();
+  });
+  if (stage && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => (entry.isIntersecting ? startAutoplay() : pauseAutoplay()), { threshold: 0.4 }).observe(stage);
+  }
+
+  // 指针光晕与轻微 3D 倾斜（仅精确指针、未开启减少动态效果）
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const shots = document.querySelector<HTMLElement>('.stage-shots');
+  if (stage && shots && finePointer.matches && !reduce.matches) {
+    let frame = 0;
+    stage.addEventListener('pointermove', (e) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        stage.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
+        stage.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
+        shots.style.setProperty('--rx', `${((0.5 - y) * 4).toFixed(2)}deg`);
+        shots.style.setProperty('--ry', `${((x - 0.5) * 6).toFixed(2)}deg`);
+      });
+    });
+    stage.addEventListener('pointerleave', () => {
+      shots.style.setProperty('--rx', '0deg');
+      shots.style.setProperty('--ry', '0deg');
+    });
+  }
+
+  const layoutPills = () => {
+    placePill(tabs, tabButtons[current]);
+    const look = stage?.dataset.look ?? 'light';
+    placePill(lookButtons[0]?.parentElement ?? null, lookButtons.find((b) => b.dataset.lookBtn === look));
+  };
+  layoutPills();
+  addEventListener('resize', layoutPills);
+  document.fonts?.ready.then(layoutPills);
+  requestAnimationFrame(() => stage?.classList.add('pills-ready'));
+
+  // ---------- 滚动浮现：区块进入视口时依次淡入上浮 ----------
+  const revealed = document.querySelectorAll<HTMLElement>('[data-reveal]');
+  if (!reduce.matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('is-in');
+          io.unobserve(en.target);
+        }),
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+    );
+    revealed.forEach((el) => io.observe(el));
+  } else {
+    revealed.forEach((el) => el.classList.add('is-in'));
+  }
 </script>
 
 <style>
@@ -369,12 +548,87 @@ const subnav = [
   .hero-icon { width: 112px; height: 112px; margin: 0 auto 14px; }
   .hero h1 { margin: 14px 0 18px; }
   .req { font-size: 13px; margin-top: 18px; }
-  .stage { margin-top: 56px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px; }
-  .stage-top { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 14px; }
-  .stage-shots figure { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
-  .stage-tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-  .stage-tabs button { border: 1px solid var(--line); background: var(--surface-2); color: var(--text-2); border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
-  .stage-tabs button[aria-pressed='true'] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  /* ---------- 图集舞台 ---------- */
+  .stage { position: relative; margin-top: 56px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px; isolation: isolate; }
+  /* 舞台背后缓慢流动的彩色光晕 */
+  .stage-glow { position: absolute; inset: -12% -6% auto; height: 70%; z-index: -1; pointer-events: none; filter: blur(70px); opacity: 0.55;
+    background: radial-gradient(40% 60% at 25% 40%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%),
+                radial-gradient(35% 55% at 75% 30%, color-mix(in srgb, var(--accent-2) 50%, transparent), transparent 70%),
+                radial-gradient(30% 50% at 55% 70%, rgba(45, 212, 191, 0.35), transparent 70%); }
+  .stage-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 6px 14px; }
+  .stage-tools { display: flex; align-items: center; gap: 16px; }
+
+  /* 画面区：桌面般的渐变底，窗口截图带投影悬浮其上；随指针产生光晕与轻微倾斜 */
+  .stage-shots { position: relative; aspect-ratio: 1145 / 700; border-radius: 18px; overflow: hidden; perspective: 1600px;
+    background: radial-gradient(120% 90% at 15% 0%, #dbe6ff, transparent 60%), radial-gradient(110% 90% at 100% 100%, #f0dcff, transparent 60%), linear-gradient(160deg, #eef2fb, #e7e9f3); }
+  .stage[data-look='dark'] .stage-shots {
+    background: radial-gradient(120% 90% at 15% 0%, #1d2a55, transparent 60%), radial-gradient(110% 90% at 100% 100%, #3a1d55, transparent 60%), linear-gradient(160deg, #0d1020, #08080d); }
+  .stage-shots::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s;
+    background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.18), transparent 60%); }
+  .stage:hover .stage-shots::after { opacity: 1; }
+  .stage-shots figure { position: absolute; inset: 0; display: none; place-items: center; padding: 3.2% 3.6%;
+    opacity: 0; transform: scale(0.965) translateY(10px); filter: blur(6px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s; }
+  .stage-shots figure[data-seen] { display: grid; }
+  .stage-shots figure[data-active] { opacity: 1; transform: none; filter: none; z-index: 1; }
+  .stage-shots figure > :global(img) { grid-area: 1 / 1; width: var(--w, 100%); max-height: 100%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 18px 40px rgba(15, 23, 42, 0.28)) drop-shadow(0 2px 6px rgba(15, 23, 42, 0.18));
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease; }
+  .stage-shots { --rx: 0deg; --ry: 0deg; }
+  .stage-shots figure > :global(.layer-dark) { display: none; opacity: 0; }
+  .stage[data-dark-loaded] .stage-shots figure > :global(.layer-dark) { display: block; }
+  .stage[data-look='dark'] .stage-shots figure > :global(.layer-dark) { opacity: 1; }
+  .stage[data-look='dark'] .stage-shots figure > :global(.layer-light) { opacity: 0; }
+
+  /* 分段控件：带滑块的胶囊（画面标签与浅色/深色开关共用） */
+  .seg { position: relative; display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); }
+  .seg button { position: relative; z-index: 1; border: 0; background: none; color: var(--text-2); border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: color 0.3s; }
+  .seg button:hover { color: var(--text); }
+  .seg button[aria-pressed='true'] { color: var(--bg); }
+  .seg-pill { position: absolute; left: 0; top: 3px; height: calc(100% - 6px); border-radius: 999px; background: var(--text); overflow: hidden; }
+  .stage.pills-ready .seg-pill { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .seg-progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: color-mix(in srgb, var(--bg) 70%, transparent); }
+  .stage.autoplay-off .seg-progress { display: none; }
+  @keyframes seg-progress { from { width: 0; } to { width: 100%; } }
+  .look-seg button { padding: 4px 12px; font-size: 12px; }
+  .stage-tabs { display: flex; width: max-content; max-width: 100%; margin: 16px auto 0; overflow-x: auto; scrollbar-width: none; }
+  .stage-tabs::-webkit-scrollbar { display: none; }
+
+  /* ---------- 首屏入场：图标弹入后轻轻漂浮，标题与按钮依次上浮 ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-icon { animation: icon-in 1s cubic-bezier(0.22, 1, 0.36, 1) both, icon-float 6s ease-in-out 1s infinite; }
+    .hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .req { animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .hero .eyebrow { animation-delay: 0.12s; }
+    .hero h1 { animation-delay: 0.2s; }
+    .hero .lead { animation-delay: 0.3s; }
+    .hero .cta { animation-delay: 0.4s; }
+    .hero .req { animation-delay: 0.48s; }
+    .stage-glow { animation: glow-drift 18s ease-in-out infinite alternate; }
+    :global(html.js) [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(32px); }
+    [data-reveal] { transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+    :global(html.js) [data-reveal]:not(.is-in) :global(.grid-3) > :global(*) { opacity: 0; transform: translateY(24px); }
+    [data-reveal] :global(.grid-3) > :global(*) { transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+    [data-reveal] :global(.grid-3) > :global(*:nth-child(2)) { transition-delay: 0.08s; }
+    [data-reveal] :global(.grid-3) > :global(*:nth-child(3)) { transition-delay: 0.16s; }
+    [data-reveal] :global(.grid-3) > :global(*:nth-child(4)) { transition-delay: 0.24s; }
+    [data-reveal] :global(.grid-3) > :global(*:nth-child(5)) { transition-delay: 0.32s; }
+    [data-reveal] :global(.grid-3) > :global(*:nth-child(6)) { transition-delay: 0.4s; }
+  }
+  @keyframes icon-in { from { opacity: 0; transform: scale(0.6) translateY(16px); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+  @keyframes icon-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes glow-drift { from { transform: translate3d(-3%, 0, 0) scale(1); } to { transform: translate3d(3%, 4%, 0) scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) {
+    .stage-shots figure, .stage-shots figure > :global(img) { transition: none; transform: none; filter: none; }
+    .stage-shots figure > :global(img) { filter: drop-shadow(0 18px 40px rgba(15, 23, 42, 0.28)); }
+  }
+  @media (max-width: 640px) {
+    .stage { padding: 12px; border-radius: 22px; }
+    .stage-top { flex-wrap: wrap; }
+    .stage-shots { aspect-ratio: 1145 / 760; }
+    .stage-shots figure { padding: 2.5%; }
+    .stage-tabs { justify-content: flex-start; }
+  }
   .release-line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 18px; font-size: 14px; color: var(--text-2); }
   .release-line.solo { justify-content: center; margin-top: 36px; }
   .release-line.solo .rl-sum { flex: 0 1 560px; }
