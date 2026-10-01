@@ -1,6 +1,47 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.0"
+    build: "2026100102"
+    date: 2026-10-01
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.0/AetherRoute-1.1.0-build-2026100102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.0
+    sha256: 2dc0a35912e837dd6ed2ec8d70caa7b4a88e8e244cd31b9d26f0b93c2c5e4d67
+    sparkle:
+      edSignature: DKITEKsPiGjJXej4nPolJTRCH+6ygVeoudSKEMmiG/QK4TD27arFG6Qc5K4NMMXS20h4KfSqxZ7Aw5GDkZBoAA==
+      length: 26191554
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 全应用改为 macOS 26 液态玻璃设计，跟随系统的液态玻璃与减少透明度设置；概览、代理、DNS、配置、规则与菜单栏面板全部重做，更简洁顺手；大数据量页面渲染最快提速一倍以上。网络引擎与扩展与 1.0.38 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机全量验收。
+      en: A full redesign in macOS 26 Liquid Glass that follows the system's Liquid Glass and Reduce Transparency settings; Overview, Proxies, DNS, Profiles, Rules and the menu bar panel are rebuilt to be simpler, and large lists render up to twice as fast. The network engine and extensions are unchanged from 1.0.38; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 液态玻璃设计
+          en: Liquid Glass Design
+        items:
+          - zh: 侧边栏、卡片、按钮与分段控件采用系统液态玻璃，跟随“系统设置 › 外观”中的液态玻璃与减少透明度设置。
+            en: The sidebar, cards, buttons and segmented controls use the system's Liquid Glass and follow the Liquid Glass and Reduce Transparency settings in System Settings › Appearance.
+          - zh: 页面像系统设置一样：大标题、分组卡片、每项带彩色图标。
+            en: "Pages read like System Settings: a large title, grouped cards and a colour icon for every item."
+      - title:
+          zh: 重做的页面
+          en: Rebuilt Pages
+        items:
+          - zh: 概览用盾牌徽章与 VPN 式开关一眼看清状态，实时流量与线路信息集中展示；菜单栏面板同步改版。
+            en: Overview shows the state at a glance with a shield badge and a VPN-style switch, with live traffic and route details grouped below; the menu bar panel matches.
+          - zh: 代理只保留选节点与测速；DNS 一张概要卡；配置用一个“添加”菜单；规则页首就能测试网址或 IP。
+            en: Proxies keeps only choosing and testing nodes; DNS is one summary card; Profiles has a single Add menu; Rules tests a website or IP right at the top.
+      - title:
+          zh: 更快更稳
+          en: Faster and Sturdier
+        items:
+          - zh: 连接页 2000 条连接渲染从 760 毫秒降到约 310 毫秒，大配置的配置页也明显更快。
+            en: Connections with 2,000 flows render in about 310 ms instead of 760 ms, and Profiles with large profiles is noticeably faster.
+          - zh: 通过 Tart 虚拟机 6 维网络矩阵与物理 Mac mini 双模式实机门禁（大上传、空闲复用、SNI 恢复全部通过），Developer ID 签名并经 Apple 公证。
+            en: Passed the Tart VM 6-dimension network matrix and dual-engine on-device checks on a physical Mac mini (large upload, idle reuse and SNI recovery all passing); Developer ID signed and Apple notarized.
   - version: "1.0.38"
     build: "2026093006"
     date: 2026-09-30
