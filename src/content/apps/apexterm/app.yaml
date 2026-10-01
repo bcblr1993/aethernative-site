@@ -30,19 +30,20 @@ hero:
 
 features:
   eyebrow: { zh: 功能, en: Features }
-  title: { zh: 常用的，都在一个窗口里。, en: Everything you reach for, in one window. }
+  title: { zh: 常用的，都在一个窗口里。, en: "Everything you reach for, in one window." }
   lead:
     zh: 把终端、文件管理和服务器监控这几件最常做的事，用原生的方式重新组合。
     en: The things you do most — terminal, files and monitoring — brought together, natively.
   items:
     - kicker: { zh: 终端 + SFTP, en: Terminal + SFTP }
-      title: { zh: 终端与文件，上下联动, en: Terminal and files, linked }
+      title: { zh: 终端与文件，上下联动, en: "Terminal and files, linked" }
       body:
         zh: 上方敲命令，下方管理远程文件。在终端里 cd 到某个目录，SFTP 视图会自动跟过去（OSC 7）。
         en: Type commands above and manage remote files below. cd somewhere in the terminal and the SFTP view follows (OSC 7).
       details:
         - { zh: 内嵌快速代码编辑器，支持语法行号与 ⌘S 就地保存。, en: Built-in Quick Editor with line numbers and ⌘S in-place save. }
         - { zh: 支持与访达（Finder）原生双向拖拽传输文件。, en: Bidirectional drag-and-drop with macOS Finder. }
+        - { zh: 路径栏一键复制当前目录，操作失败可查看完整错误原因。, en: Copy the current directory from the path bar and inspect full operation errors. }
         - { zh: 原生中文拼音输入法优化，Escape 智能撤回，中文字符严谨对齐。, en: Native Chinese IME optimization with intelligent Escape cancellation. }
     - kicker: { zh: 服务器监控, en: Server metrics }
       title: { zh: 无需安装探针的实时监控, en: Live metrics without an agent }
@@ -54,25 +55,54 @@ features:
     - kicker: { zh: 安全, en: Security }
       title: { zh: 凭据交给系统钥匙串, en: Credentials stay in the Keychain }
       body:
-        zh: 密码与私钥保存在 macOS 钥匙串中，读取时可要求 Touch ID 验证。
-        en: Passwords and private keys live in the macOS Keychain, with optional Touch ID when they're used.
+        zh: 密码与私钥口令保存在 macOS 钥匙串中，可选 Touch ID 验证。私钥文件保留在你选择的本机路径。
+        en: Passwords and key passphrases use the macOS Keychain with optional Touch ID. Private key files remain at the local paths you choose.
     - kicker: { zh: 批量运维, en: Working at scale }
       title: { zh: 多会话广播与关键词高亮, en: Broadcast input and keyword highlighting }
       body:
         zh: 一次输入，同步发送到选中的一组主机；按规则自动高亮 ERROR、FATAL 等关键词。
         en: Type once and send it to a group of hosts. Rules highlight keywords such as ERROR and FATAL as output arrives.
 
+gallery:
+  - label: { zh: 深色工作台 · 演示数据, en: Dark workspace · Demo data }
+    zh: ./media/workspace-dark-v1.6.0.jpg
+  - label: { zh: 浅色工作台 · 演示数据, en: Light workspace · Demo data }
+    zh: ./media/workspace-light-v1.6.0.jpg
+  - label: { zh: 远程编辑器 · 演示配置, en: Remote editor · Demo configuration }
+    zh: ./media/editor-v1.6.0.jpg
+
+experience:
+  eyebrow: { zh: v1.6.0 体验更新, en: New in v1.6.0 }
+  title: { zh: 编辑、复制更顺手。, en: "Edit, copy and switch with ease." }
+  cards:
+    - title: { zh: 复制当前路径, en: Copy the current path }
+      body:
+        zh: 路径框旁一键复制当前浏览目录。路径联动开关、刷新和传输记录仍在手边。
+        en: Copy the current directory beside the path field. Linked browsing, refresh and transfer records stay within reach.
+    - title: { zh: Vim 与中文对齐, en: Vim and Unicode alignment }
+      body:
+        zh: 修复光标、方向键、中文粘贴和窗口尺寸同步。中文、Emoji 与字号变化时的网格对齐得到改进。
+        en: Fixes for the cursor, arrow keys, Chinese paste and terminal resizing, with improved CJK and emoji alignment across font sizes.
+    - title: { zh: 更清晰的文件操作, en: Clearer file operations }
+      body:
+        zh: 深浅主题下的选中行更易读。创建被拒绝时说明权限原因，点击提示可查看完整远端错误。
+        en: Readable selected rows in light and dark themes. Creation failures explain permission issues and expose the full remote error on click.
+
+notice:
+  zh: 页面截图来自新版真实界面，服务器、命令输出和配置均为演示数据。
+  en: Screenshots show the current interface with demo servers, command output and configuration.
+
 faq:
   eyebrow: FAQ
   title: { zh: 常见问题, en: Questions }
-  lead: { zh: 开源、免费，欢迎反馈。, en: Open source, free, and feedback is welcome. }
+  lead: { zh: 开源、免费，欢迎反馈。, en: "Open source, free, and feedback is welcome." }
   items:
     - q: { zh: ApexTerm 免费吗？, en: Is ApexTerm free? }
       a: { zh: 免费，并以 MIT 许可证开源。, en: Yes. It's free and open source under the MIT License. }
     - q: { zh: 需要在服务器上安装什么吗？, en: Do I need to install anything on my servers? }
       a: { zh: 不需要。服务器监控复用 SSH 连接读取系统信息，远端无需安装客户端或守护进程。, en: "No. Monitoring reads system information over the SSH connection; nothing needs to run on the server." }
     - q: { zh: 我的密码和私钥存在哪里？, en: Where are my passwords and keys stored? }
-      a: { zh: 保存在本机的 macOS 钥匙串中，不会上传到任何服务器。, en: "In the macOS Keychain on your Mac. They're never uploaded anywhere." }
+      a: { zh: "密码和私钥口令保存在本机钥匙串；私钥文件留在你选择的本机路径，SSH 认证不上传私钥。", en: "Passwords and key passphrases use the local Keychain. Private key files stay at your chosen local paths and are not uploaded during SSH authentication." }
 
 cta:
   title: { zh: 让远程运维，回到原生。, en: Bring remote work back to native. }
