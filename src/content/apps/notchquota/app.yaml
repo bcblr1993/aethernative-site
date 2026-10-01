@@ -41,12 +41,21 @@ showcase:
     zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
     en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
   note:
-    zh: 图片来自 v0.1.16 应用原生界面渲染，额度、账号名称和时间为演示数据。
-    en: Rendered from the native v0.1.16 interface. Quotas, account names and times are demo data.
+    zh: 角色外观来自 v0.1.19，其余图片来自 v0.1.16 应用原生界面渲染，额度、账号名称和时间为演示数据。
+    en: Character styles rendered from v0.1.19; other interfaces from v0.1.16. Quotas, account names and times are demo data.
   items:
     - title: { zh: 小幽灵提醒, en: Ghost reminders }
       caption: { zh: 定时轮流查询一个账号，成功后冒出思考泡泡，约 5 秒后淡出。, en: Checks one account at a time and shows a thought bubble that fades after about five seconds. }
       image: ./media/thought-floating.png
+    - title: { zh: 奶油小兔, en: Cream bunny }
+      caption: { zh: 新增粉耳奶油小兔，可拖动、贴边并展示思考泡泡。, en: A new cream bunny with pink ears. Drag it, dock it, and see quota thought bubbles. }
+      image: ./media/style-bunny-floating.png
+    - title: { zh: 蜂蜜小熊, en: Honey bear }
+      caption: { zh: 暖色蜂蜜小熊，收起时轻弹眨眼一次，静置停止动画。, en: A warm honey bear with a short return hop and blink. No looping animation at rest. }
+      image: ./media/style-bear-floating.png
+    - title: { zh: 云朵团子, en: Cloud companion }
+      caption: { zh: 淡紫云朵与小星星，保留额度恢复提醒。, en: A lilac cloud with a tiny star and quota recovery reminders. }
+      image: ./media/style-cloud-floating.png
     - title: { zh: 侧边栏详情, en: Sidebar details }
       caption: { zh: 多账号一起看，悬停查看详情，点击固定；可跨屏自由摆放。, en: See every account at once. Hover for details, click to pin, and place it on any display. }
       image: ./media/sidebar-detail.png
@@ -81,7 +90,7 @@ features:
         - { zh: 支持开机自动启动；退出后不保留后台进程。, en: Launch at login is supported. Nothing keeps running after you quit. }
     - kicker: { zh: 随手收起, en: Out of the way }
       title: { zh: 临时隐藏与多种收起外观, en: Temporary hiding and collapsed styles }
-      body: { zh: 可临时隐藏 15 分钟到 5 小时；侧边栏收起后可选原生胶囊、磨砂圆球、迷你仪表或小幽灵外观。, en: "Hide it for 15 minutes to 5 hours. When the sidebar collapses, choose a native capsule, frosted orb, mini gauge or the ghost." }
+      body: { zh: 可临时隐藏 15 分钟到 5 小时；侧边栏收起后可选原生胶囊、磨砂圆球、迷你仪表、小幽灵、奶油小兔、蜂蜜小熊或云朵团子。, en: "Hide it for 15 minutes to 5 hours. When the sidebar collapses, choose a native capsule, frosted orb, mini gauge, ghost, cream bunny, honey bear or cloud." }
       details:
         - { zh: 静置时不播放循环动画；隐藏或休眠时停止动画。, en: "No looping animation at rest; animations stop while hidden or asleep." }
         - { zh: 侧边栏的位置和所在屏幕会被记住，鼠标或焦点跨屏不会带走它。, en: The sidebar remembers its position and display; moving the pointer or focus to another screen won't drag it along. }
