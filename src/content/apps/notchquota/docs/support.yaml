@@ -1,8 +1,8 @@
 title: { zh: 使用帮助, en: Help }
 heading: { zh: "安装与使用，\n从这里开始。", en: "Install and use.\nStart here." }
 lead:
-  zh: 请勿在反馈中公开凭据、Cookie 或完整认证文件。
-  en: Never post credentials, cookies or complete authentication files when reporting issues.
+  zh: 从登录、安装到选择账号与卡通伙伴，按自己的习惯完成设置。
+  en: Set up sign-ins, install the app, and choose the accounts and cartoon companion that suit you.
 sections:
   - heading: { zh: 安装, en: Install }
     steps:
@@ -22,6 +22,24 @@ sections:
     body:
       - zh: 右键 → 设置与更新，可在菜单栏模式、灵动岛模式和侧边栏模式之间切换；选择会跨重启保留。
         en: "Right-click → Settings & Updates to switch between menu bar, notch and sidebar modes. Your choice persists across restarts."
+  - heading: { zh: 卡通伙伴与提醒, en: Characters and reminders }
+    body:
+      - zh: 切换到侧边栏模式，在“设置与更新 → 收起外观”选择八种角色之一。拖动到任意显示器自由摆放，靠近左、右边缘吸附；移入角色立即展开账号面板。
+        en: "Choose sidebar mode, then Settings & Updates → Collapsed Appearance for one of eight characters. Drag it to any display, dock it to either edge, and hover to open your accounts."
+      - zh: 每 10 分钟按账号顺序尝试一次思考提醒，先查询，失败、过期或未知额度跳过；成功后泡泡约 5 秒淡出。监测到 5 小时或每周额度恢复至 100% 时，会出现短暂庆祝提醒。
+        en: "Thought reminders try accounts in order every 10 minutes, refreshing first and skipping failed, stale or unknown results. A successful bubble fades after about 5 seconds. A short celebration appears when a five-hour or weekly quota is observed recovering to 100%."
+  - heading: { zh: 临时隐藏与恢复, en: Hide temporarily and restore }
+    body:
+      - zh: 右键“临时隐藏”，选择 15 分钟、1 小时、3 小时或 5 小时。隐藏后可通过菜单栏的恢复入口立即显示；隐藏期间不弹出角色提醒。
+        en: "Right-click → Hide Temporarily and choose 15 minutes, 1 hour, 3 hours or 5 hours. Show it immediately from the menu bar recovery entry. Character reminders pause while hidden."
+  - heading: { zh: Antigravity 多实例, en: Multiple Antigravity instances }
+    body:
+      - zh: 在“账号设置”重新扫描实例，或手动添加受支持的应用与登录文件；再到“显示的应用”勾选启用。可设置别名，并在“调整账号顺序”中拖动排列。账号身份变化时需重新确认。
+        en: "Rescan in Account Settings or manually add a supported app and sign-in file, then enable it in Displayed Apps. Set an alias and drag in Reorder Accounts to set the order. Confirm again if the account identity changes."
+  - heading: { zh: 刷新与轮换, en: Refresh and rotation }
+    body:
+      - zh: 正常运行每 3 分钟刷新已选账号；灵动岛与菜单栏每分钟自动轮换只读缓存，可以关闭。侧边栏固定排列，不执行每分钟轮换。服务未提供的重置时间不会推算。
+        en: "Selected accounts refresh every 3 minutes in normal use. Optional one-minute rotation in notch and menu bar modes reads the cache; the sidebar keeps a fixed order. Missing reset times are not estimated."
   - heading: { zh: 显示灰色怎么办, en: When a quota shows gray }
     body:
       - zh: 灰色表示暂时未能读取，悬停或点击数字可查看原因。通常在原应用中重新登录即可恢复；查询失败时会保留并标注旧数据。
@@ -31,5 +49,7 @@ sections:
       - zh: 右键勾选“开机自动启动”即可；显示“待系统允许”时，按菜单入口到系统设置中允许。应用默认每天检查一次更新，右键菜单可随时“检查更新”。
         en: "Check “Launch at login” in the right-click menu; if it shows “Waiting for approval”, follow the menu link to System Settings. Updates are checked daily, and you can choose “Check for Updates” at any time."
   - heading: { zh: 反馈问题, en: Report an issue }
+    body:
+      - { zh: 请说明系统版本、软件版本、显示模式和复现步骤；不要公开凭据、Cookie 或完整认证文件。, en: "Include your macOS and app versions, display mode and reproduction steps. Never post credentials, cookies or complete sign-in files." }
     links:
       - { label: { zh: 在 GitHub 反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/AetherNotchQuota/issues/new/choose" }
