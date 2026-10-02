@@ -1,6 +1,47 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.1"
+    build: "2026100201"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.1/AetherRoute-1.1.1-build-2026100201-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.1
+    sha256: 86f629ef747fbb2617e54801f8af06cb46295ee43e437713af2d5df92edeb378
+    sparkle:
+      edSignature: y8bE09lggjwb1BU/xHhIKj5ep65PhqjaXZBDtkLwJj2R7lYfhrkqHeVnIsIJuH/gSxnTJ046oN98mPE9qRr7DA==
+      length: 26239107
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 设置与所有表单弹窗改为和主窗口一致的液态玻璃设计，隐私页重写为简明的“默认私密”，菜单栏面板底栏加入等宽的“全部测速”；修复英文界面引擎控件溢出、连接表窄窗口遮挡与多项辅助功能问题。网络引擎与扩展与 1.1.0 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机全量验收。
+      en: Settings and every form sheet now share the main window's Liquid Glass design, the privacy page is rewritten as a short “Private by default”, and the menu bar panel gains an equal-width “Test all”; fixes the English engine control overflow, the Connections table at narrow widths and several accessibility issues. The network engine and extensions are unchanged from 1.1.0; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 一致的液态玻璃
+          en: Consistent Liquid Glass
+        items:
+          - zh: 设置四页与节点编辑器、连接详情弹窗使用主窗口的大标题与分组玻璃卡片。
+            en: All four Settings panes, the node editor and connection details use the main window's large title and grouped glass cards.
+          - zh: 次要文字在玻璃上保持至少 4.5:1 的对比度，浅色与深色外观均清晰。
+            en: Secondary text keeps at least 4.5:1 contrast on glass in both light and dark appearances.
+      - title:
+          zh: 隐私与菜单栏
+          en: Privacy and Menu Bar
+        items:
+          - zh: 隐私页重写为四条要点与数据去向说明，首次安装与设置中显示同一页面。
+            en: The privacy page is rewritten as four short facts and where your data goes, shown both at first launch and in Settings.
+          - zh: 菜单栏面板底栏：“打开 AetherRoute”与“全部测速”等宽并排，有更新时单独提示。
+            en: "Menu bar panel footer: “Open AetherRoute” and “Test all” side by side at equal width, with its own row when an update is available."
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 英文界面网络引擎控件不再超出卡片或压住说明；连接表在最窄窗口下完整显示。
+            en: The English engine control no longer overflows its card or covers its hint; the Connections table fits at the narrowest window.
+          - zh: 设置开关带有名称且整行可点；页面辅助功能标识不再被覆盖。
+            en: Settings switches carry their names and the whole row toggles; page accessibility identifiers are no longer overridden.
   - version: "1.1.0"
     build: "2026100102"
     date: 2026-10-01
