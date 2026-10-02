@@ -1,0 +1,43 @@
+---
+/** 公告详情：内容来自 src/content/news/<id>.yaml。推送点开后通过 Universal Link 打开 App 内的同一条。 */
+import Base from '../../../layouts/Base.astro';
+import Text from '../../../components/Text.astro';
+import { getApps, getNews, type News } from '../../../lib/apps';
+import { fmtDate, href, langs, t, ui, type Lang } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const news = await getNews();
+  return news.flatMap((n) => langs.map((lang) => ({ params: { lang: lang === 'zh' ? undefined : lang, id: n.id }, props: { lang, n } })));
+}
+
+const { lang, n } = Astro.props as { lang: Lang; n: News };
+const u = ui[lang];
+const d = n.data;
+const apps = (await getApps()).filter((a) => d.apps.includes(a.id));
+const link = (h: string) => (h.startsWith('/') && !h.startsWith('//') ? href(lang, h) : h);
+---
+<Base lang={lang} title={t(d.title, lang)} description={t(d.summary, lang)} current="news">
+  <div class="wrap">
+    <header class="page-hero">
+      <a class="crumb" href={href(lang, '/news/')}>← {u.news.title}</a>
+      <p class="eyebrow tag">{u.news.announcement}</p>
+      <h1><Text v={d.title} lang={lang} /></h1>
+      <p class="muted">
+        <time datetime={d.date.toISOString().slice(0, 10)}>{fmtDate(d.date, lang)}</time>
+        {apps.map((a) => <> · <a href={href(lang, `/apps/${a.id}/`)}>{a.data.name}</a></>)}
+      </p>
+      <p class="sum"><Text v={d.summary} lang={lang} /></p>
+    </header>
+    <article class="prose">
+      {d.body.map((p) => <p><Text v={p} lang={lang} /></p>)}
+      {d.links.length > 0 && (
+        <p class="links">{d.links.map((l) => <a href={link(l.href)} rel={/^https?:/.test(l.href) ? 'noopener' : undefined}>{t(l.label, lang)} →</a>)}</p>
+      )}
+    </article>
+  </div>
+</Base>
+
+<style>
+  .sum { margin-top: 14px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; }
+</style>

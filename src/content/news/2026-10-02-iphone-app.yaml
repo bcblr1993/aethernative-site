@@ -1,0 +1,18 @@
+# 官方动态。文件名就是 id，发布后不要改名（推送服务用它去重）。字段说明见 src/content.config.ts
+date: 2026-10-02
+title:
+  zh: Aether Native iPhone App 开发中
+  en: The Aether Native iPhone app is in development
+summary:
+  zh: 官方动态、新版本推送与问题反馈，很快可以在 iPhone 上直接查看。
+  en: Official news, release notifications and feedback — coming soon to iPhone.
+body:
+  - zh: 为了让你第一时间知道各款软件的更新，我正在开发 Aether Native 的 iPhone App。
+    en: To let you know about updates the moment they ship, I’m building an iPhone app for Aether Native.
+  - zh: "上架后你可以：\n· 按软件订阅新版本推送，正式版和测试版分开设置\n· 查看每个版本的完整更新说明\n· 直接在 App 里提交问题与建议，并收到回复提醒"
+    en: "Once it launches you’ll be able to:\n· Subscribe to release notifications per app, for stable and beta builds separately\n· Read the full notes for every release\n· Send problems and suggestions from the app and get notified when I reply"
+  - zh: 在此之前，反馈仍然可以通过网站提交。
+    en: Until then, you can keep sending feedback through the website.
+links:
+  - { label: { zh: 提交反馈, en: Send feedback }, href: /feedback/ }
+push: false

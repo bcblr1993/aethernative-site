@@ -112,6 +112,7 @@ const icons = [
     <div class="wrap">
       <div class="sec-head">
         <div><div class="eyebrow">Changelog</div><h2>{zh ? '最近更新' : 'Recent updates'}</h2></div>
+        <a class="more" href={href(lang, '/news/')}>{u.news.all} →</a>
       </div>
       <div class="updates card">
         {recent.map(({ app, release }) => (

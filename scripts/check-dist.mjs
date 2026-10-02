@@ -1,7 +1,8 @@
 // 构建后检查（npm run build 会自动执行）：
 // 1. Cloudflare Pages 单个文件不能超过 25 MiB —— 大安装包请放 GitHub Releases；
 // 2. 所有页面里的站内链接（href / src / srcset）都必须指向实际存在的文件（/api/ 接口除外）；
-// 3. 原样转发的签名清单（appcastMode: mirror）必须与源文件逐字节一致，且清单签名有效。
+// 3. 原样转发的签名清单（appcastMode: mirror）必须与源文件逐字节一致，且清单签名有效；
+// 4. App 读取的 JSON（feed.json、apps.json、apps/<id>/app.json）能解析，id 不重复，其中指向本站的地址都存在。
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -70,9 +71,42 @@ for (const id of await readdir(APPS)) {
   feeds++;
 }
 
+// App 数据接口
+const SITE = 'https://aethernative.com';
+let jsonUrls = 0;
+const readJson = async (rel) => {
+  const file = join(DIST, rel);
+  if (!existsSync(file)) { errors.push(`缺少 ${rel}`); return null; }
+  try { return JSON.parse(await readFile(file, 'utf8')); } catch (e) { errors.push(`${rel} 不是合法 JSON：${e.message}`); return null; }
+};
+/** 递归找出所有以本站域名开头的字符串，检查对应文件存在 */
+const checkUrls = (rel, v) => {
+  if (typeof v === 'string') {
+    if (!v.startsWith(SITE + '/')) return;
+    jsonUrls++;
+    if (!resolves(v.slice(SITE.length))) errors.push(`${rel} 中的地址不存在：${v}`);
+  } else if (v && typeof v === 'object') for (const x of Object.values(v)) checkUrls(rel, x);
+};
+const feed = await readJson('feed.json');
+if (feed) {
+  const ids = feed.items.map((i) => i.id);
+  const dup = ids.filter((id, i) => ids.indexOf(id) !== i);
+  if (dup.length) errors.push(`feed.json 中 id 重复：${dup.join(', ')}`);
+  checkUrls('feed.json', feed);
+}
+const list = await readJson('apps.json');
+if (list) {
+  checkUrls('apps.json', list);
+  for (const a of list.apps) {
+    const detail = await readJson(`apps/${a.id}/app.json`);
+    if (detail) checkUrls(`apps/${a.id}/app.json`, detail);
+  }
+}
+
 if (errors.length) {
   console.error(`\n✗ 构建检查未通过（${errors.length} 个问题）：\n  ` + [...new Set(errors)].join('\n  '));
   process.exit(1);
 }
 console.log(`✓ 构建检查通过：${files} 个文件均小于 25 MiB，${pages.length} 个页面中的 ${links} 个站内链接全部有效` +
-  (feeds ? `，${feeds} 个签名清单校验通过` : ''));
+  (feeds ? `，${feeds} 个签名清单校验通过` : '') +
+  `，App 数据接口中的 ${jsonUrls} 个本站地址全部有效`);

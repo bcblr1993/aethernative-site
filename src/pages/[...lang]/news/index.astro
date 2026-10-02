@@ -1,0 +1,51 @@
+---
+/** 官方动态：公告 + 各软件版本（与 /feed.json、iPhone App 首页内容一致），置顶的排在最前。 */
+import Base from '../../../layouts/Base.astro';
+import { buildFeed, type FeedItem } from '../../../lib/feed';
+import { getAppInputs, getNewsInputs } from '../../../lib/feed-data';
+import { fmtDate, langParams, ui, type Lang } from '../../../lib/i18n';
+
+export const getStaticPaths = langParams;
+
+const { lang } = Astro.props as { lang: Lang };
+const u = ui[lang];
+const apps = await getAppInputs();
+const names = new Map(apps.map((a) => [a.id, a.name]));
+const { items } = buildFeed({ site: Astro.site!, apps, news: await getNewsInputs() });
+const sorted = [...items.filter((i) => i.pinned), ...items.filter((i) => !i.pinned)];
+const path = (i: FeedItem) => new URL(i.url[lang]).pathname;
+const kind = (i: FeedItem) =>
+  i.kind === 'news' ? u.news.announcement : i.release?.channel === 'beta' ? u.beta : u.news.release;
+---
+<Base lang={lang} title={u.news.title} description={u.news.lead} current="news">
+  <div class="wrap">
+    <header class="page-hero">
+      <h1>{u.news.title}</h1>
+      <p>{u.news.lead}</p>
+    </header>
+    <div class="list">
+      {sorted.map((i) => (
+        <a class:list={['card', 'item', { pinned: i.pinned }]} href={path(i)}>
+          <p class="meta">
+            <span class:list={['badge', i.kind === 'news' ? 'ok' : 'gray']}>{i.pinned ? `${u.news.pinned} · ` : ''}{kind(i)}</span>
+            <time datetime={i.date.slice(0, 10)}>{fmtDate(new Date(i.date), lang)}</time>
+            {i.kind === 'news' && i.appIds.length > 0 && <span>{i.appIds.map((id) => names.get(id)).join(' · ')}</span>}
+          </p>
+          <h2>{i.title[lang]}</h2>
+          {/* 同步时 Release 正文没写简介会用标题代替，相同时不重复显示 */}
+          {i.summary[lang] !== i.title[lang] && <p class="sum">{i.summary[lang]}</p>}
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .list { display: grid; gap: 14px; padding-bottom: 40px; }
+  .item { display: block; box-shadow: none; padding: 22px 28px; }
+  .item:hover h2 { color: var(--accent); }
+  .item.pinned { box-shadow: var(--shadow); }
+  .meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; color: var(--text-3); font-size: 14px; }
+  .item h2 { font-size: 20px; margin: 10px 0 6px; }
+  .sum { color: var(--text-2); }
+</style>

@@ -31,3 +31,11 @@ export async function getRecentReleases(limit = 5) {
 
 /** 版本在 URL 中使用的片段，例如 1.0.27、0.1.0-preview。 */
 export const versionSlug = (r: Release) => r.version;
+
+export type News = CollectionEntry<'news'>;
+
+/** 已发布的官方动态（不含草稿），按时间倒序。 */
+export async function getNews() {
+  const all = await getCollection('news', (n) => !n.data.draft);
+  return all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id));
+}

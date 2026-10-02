@@ -199,4 +199,30 @@ const docs = defineCollection({
   }),
 });
 
-export const collections = { apps, releases, docs };
+/**
+ * 官方动态：src/content/news/<id>.yaml，文件名就是 id（会出现在网址 /news/<id>/ 和推送去重键里，发布后不要改名）。
+ * 同时显示在网站“动态”页和 iPhone App 里；push: true 时由推送服务推送给订阅的设备。
+ */
+const news = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/news' }),
+  schema: z.object({
+    /** 发布时间；只写日期即可，同一天有多条时可写完整时间（如 2026-10-02T09:00:00+08:00） */
+    date: z.coerce.date(),
+    title: L,
+    /** 列表与推送正文里显示的一句话 */
+    summary: L,
+    /** 正文段落；\n 显示为换行 */
+    body: z.array(L).default([]),
+    links: z.array(z.object({ label: L, href: z.string() })).default([]),
+    /** 关联的软件 id（可选），App 里按软件订阅推送时使用 */
+    apps: z.array(z.string()).default([]),
+    /** 置顶 */
+    pinned: z.boolean().default(false),
+    /** 是否推送；更正、补充说明之类的条目可以设为 false */
+    push: z.boolean().default(true),
+    /** 草稿：不生成页面、不进入动态、不推送 */
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { apps, releases, docs, news };

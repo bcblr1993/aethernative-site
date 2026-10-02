@@ -8,7 +8,7 @@ npm run dev      # 本地开发：http://localhost:4321
 npm run build    # 构建到 dist/，并自动检查文件大小与站内链接
 npm run preview  # 预览构建结果
 npm run check    # TypeScript / 模板类型检查
-npm test         # 单元测试（appcast 生成逻辑）
+npm test         # 单元测试（网站 + push-service）
 ```
 
 ## 目录结构
@@ -161,6 +161,36 @@ lead: { zh: "第一行\n第二行", en: "Line one\nLine two" }   # \n 显示为�
 ```
 
 界面上固定的文字（导航、按钮等）在 `src/lib/i18n.ts` 里修改。
+
+### 发布官方动态
+
+在 `src/content/news/` 新建一个 YAML 文件，**文件名就是 id**（例如 `2026-10-15-notchquota-ios.yaml`，只用小写字母、数字和连字符），发布后不要改名：
+
+```yaml
+date: 2026-10-15
+title: { zh: 标题, en: Title }
+summary: { zh: 一句话（列表和推送里显示）, en: One line }
+body:                          # 正文段落，\n 为换行
+  - { zh: ..., en: ... }
+links:                         # 可选；站内路径会自动区分中英文
+  - { label: { zh: 提交反馈, en: Send feedback }, href: /feedback/ }
+apps: [notchquota]             # 可选：关联的软件
+pinned: false                  # 置顶
+push: true                     # 是否推送到 iPhone App（默认 true）
+draft: false                   # 草稿不会发布
+```
+
+公告会出现在网站的 `/news/`、`/news/<id>/` 和 iPhone App 的“动态”里。
+
+### App 数据接口
+
+iPhone App 与推送服务读取构建时生成的静态 JSON：`/feed.json`（动态）、`/apps.json`（软件列表）、`/apps/<id>/app.json`（软件详情）。
+字段与兼容规则见 [docs/api.md](docs/api.md)，`npm run build` 会检查它们能解析、id 不重复、其中的本站地址都存在。
+改动 `src/lib/feed.ts` 后，在 iOS 仓库运行 `scripts/update-fixtures.sh` 更新测试数据。
+
+## 推送服务
+
+`push-service/` 运行在自有服务器上，负责发送 APNs 推送，见 [push-service/README.md](push-service/README.md)。
 
 ## 用户登录（Google / GitHub）
 

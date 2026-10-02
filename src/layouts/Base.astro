@@ -12,7 +12,7 @@ interface Props {
   /** 分享预览图（绝对或站内路径） */
   image?: string;
   /** 导航中高亮的项 */
-  current?: 'apps' | 'about' | 'support';
+  current?: 'apps' | 'news' | 'about' | 'support';
   /** 独立页面（如 404）：没有另一种语言的对应页，也不输出 canonical */
   standalone?: boolean;
 }
@@ -28,7 +28,7 @@ const ogImage = new URL(image ?? '/og.png', Astro.site);
 const nav = [
   { key: 'apps', label: u.nav.apps, to: href(lang, '/#apps') },
   { key: 'why', label: u.nav.why, to: href(lang, '/#why') },
-  { key: 'updates', label: u.nav.updates, to: href(lang, '/#updates') },
+  { key: 'news', label: u.nav.news, to: href(lang, '/news/') },
   { key: 'about', label: u.nav.about, to: href(lang, '/about/') },
   { key: 'support', label: u.nav.support, to: href(lang, '/support/') },
 ];
