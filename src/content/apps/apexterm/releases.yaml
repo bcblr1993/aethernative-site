@@ -1,5 +1,45 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.6.0"
+    build: "2026100204"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.6.0/ApexTerm-v1.6.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.6.0
+    sha256: 394a33c26ba07d418f67b2544c622c4431842aac6f6577919cc491f8957a1463
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复 Vim 光标、方向键与中文粘贴，改善窗口对齐，新增复制当前路径。
+      en: Fixes Vim cursor, arrow keys and Unicode paste, improves window alignment, and adds Copy Current Path.
+    notes:
+      - title:
+          zh: 新增与体验优化
+          en: Features and improvements
+        items:
+          - zh: 路径栏一键复制当前浏览目录；终端鼠标跟踪、标签切换及字号快捷键。
+            en: Copy the current directory from the path bar; terminal mouse tracking, tab switching and font size shortcuts.
+          - zh: 优化终端刷新、历史淘汰和窗口排版；改善深浅主题文件选中行的可读性。
+            en: Improves terminal refresh, history pruning, window layout and selected file readability in light and dark themes.
+      - title:
+          zh: 问题修复
+          en: Bug fixes
+        items:
+          - zh: 修复 Vim 光标、方向键、中文复制粘贴、跨包 UTF-8、中文与 Emoji 对齐，以及 PTY 窗口尺寸同步。
+            en: Fixes Vim cursor, arrow keys, Unicode paste, split UTF-8 packets, CJK and emoji alignment, and PTY resize synchronization.
+          - zh: 修复 SFTP 特殊字符路径、IPv6 和文件时间解析；创建失败可查看完整权限错误。
+            en: Fixes SFTP special-character paths, IPv6 and file timestamps; creation failures expose full permission error details.
+          - zh: 缩小 SFTP 视图类型推断范围，兼容 Xcode 26 构建。
+            en: Reduces SFTP view type-checking complexity for Xcode 26 compatibility.
+      - title:
+          zh: 发布验证
+          en: Release verification
+        items:
+          - zh: 通过真实 Tart SSH/SFTP、350 项 Swift 测试与 8 项优化基准；完整 UI 复测按用户要求留待后续版本。
+            en: Verified with live Tart SSH/SFTP, 350 Swift tests and all eight optimized benchmarks; full UI revalidation is deferred to a later release at the user’s request.
+          - zh: Developer ID 签名、运行时加固、安全扫描；应用与 DMG 均通过 Apple 公证并装订票据。
+            en: Developer ID signed, hardened and security scanned; both the app and DMG are Apple notarized and stapled.
   - version: "1.5.6"
     build: "2026093006"
     date: 2026-09-30
