@@ -1,6 +1,37 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.2"
+    build: "2026100202"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.2/AetherRoute-1.1.2-build-2026100202-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.2
+    sha256: 094518670fbe3b3963a25f2cb8d6b1eeb433a6f8256116016fcc8881361cd08c
+    sparkle:
+      edSignature: BPvMU47Uvv9rHJIt16KaBbRAcK5lrQaG6oiSDtN9mIOol+MwsGisfF1TRGhAB/eI2BPUdOv5BmlEEsxdBxMSAg==
+      length: 26294708
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复连接时从菜单栏面板退出会一直卡住、之后无法再退出的问题；主菜单“复制终端代理导出命令”改为使用你设置的端口，并只在本地代理开启时可用。网络引擎与扩展与 1.1.1 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机验收。
+      en: Fixes quitting from the menu bar panel while connected, which hung and then ignored every later quit; the main menu's Copy Terminal Export Command now uses your local proxy ports and is available only when the local proxy is on. The network engine and extensions are unchanged from 1.1.1; verified across the Tart VM matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 退出
+          en: Quit
+        items:
+          - zh: 连接状态下从菜单栏面板选择“退出”会正常断开并退出，不再卡在等待退出。
+            en: Quitting from the menu bar panel while connected now disconnects and exits instead of hanging.
+      - title:
+          zh: 复制代理命令
+          en: Copy Proxy Command
+        items:
+          - zh: 主菜单、菜单栏面板与设置复制同一条命令，使用你设置的端口与 socks5h，并包含 NO_PROXY。
+            en: The main menu, menu bar panel and Settings copy the same command, with your ports, socks5h and NO_PROXY.
+          - zh: 本地代理未开启或不是 TUN 引擎时不可复制，并说明原因。
+            en: Copying is unavailable, with the reason shown, unless TUN is the engine and the local proxy is on.
   - version: "1.1.1"
     build: "2026100201"
     date: 2026-10-02
