@@ -1,6 +1,41 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.3"
+    build: "2026100301"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.3/AetherRoute-1.1.3-build-2026100301-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.3
+    sha256: 0dd6bc6ab7acc5e4dcf9e94c5430eb43b318dfa8eab8bba37d78360124614813
+    sparkle:
+      edSignature: 9Jb4GYCtKGezOhHQ43fj/GjenjnNTLADcN3viyeE3V515UCNJra37RUhp8g/rrifP0SgPku0AluIpDjMBcUnAw==
+      length: 26275771
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 维护版本：修复在 macOS 27 上从零编译网络引擎失败的问题，网络扩展的兜底分支不再可能崩溃，并为纯 HTTP 代理节点新增自动化测试。网络引擎与路由行为与 1.1.2 相同，通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机验收。
+      en: "A maintenance release: clean builds of the network engine work again on macOS 27, the network extensions can no longer crash on an unexpected control message, and plain HTTP proxy nodes gain an automated test. The engine and routing are unchanged from 1.1.2; verified across the Tart VM matrix and physical Apple Silicon hardware."
+    notes:
+      - title:
+          zh: 稳定性
+          en: Stability
+        items:
+          - zh: TUN 与透明代理扩展收到意外的控制消息时返回错误，不再终止扩展进程。
+            en: The TUN and transparent proxy extensions answer an unexpected control message with an error instead of stopping.
+      - title:
+          zh: HTTP 节点
+          en: HTTP Nodes
+        items:
+          - zh: 纯 HTTP 代理节点在 TUN 与透明代理模式下均已复验可用，并新增离线自动化测试防止回归。
+            en: Plain HTTP proxy nodes were re-verified in TUN and transparent proxy mode, and an offline automated test now guards them.
+      - title:
+          zh: 构建
+          en: Build
+        items:
+          - zh: 修复 macOS 27 上从干净目录编译网络引擎失败的问题；发布产物仍以 macOS 14 为最低版本。
+            en: Fixes clean builds of the network engine on macOS 27; shipped binaries still target macOS 14.
   - version: "1.1.2"
     build: "2026100202"
     date: 2026-10-02
