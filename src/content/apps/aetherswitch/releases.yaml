@@ -1,5 +1,33 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.5.0"
+    build: "2026100205"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.5.0/AetherSwitch-1.5.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.5.0
+    sha256: c5f3411a650419d93b038b79c693dce55d446710060f302ff6998f67dfbce7e6
+    sparkle:
+      edSignature: MIMVLtYWKhilTBZInp7T7dTDyBMnSA8pAMvx2ltLYYhvbH1vN+KAs/a4lzoFwtUkngsRTAiBMyAiq/Bseev0Bw==
+      length: 1980565
+    summary:
+      zh: 同步调节内置屏与外接屏亮度，并在重启后恢复常亮状态。
+      en: Adjust built-in and external display brightness together and restore the keep-awake setting after relaunch.
+    notes:
+      - title:
+          zh: 同步屏幕亮度
+          en: Synchronized brightness
+        items:
+          - zh: 一个原生滑条控制内置屏与支持 DDC/CI 的外接显示器，并读回校验硬件亮度。
+            en: One native slider controls the built-in display and compatible DDC/CI monitors with hardware readback verification.
+          - zh: 快速拖动合并请求，显示器连接变化重新识别，后台不轮询。
+            en: Coalesces rapid slider changes and rediscovers displays after connection changes without background polling.
+      - title:
+          zh: 记住上次状态
+          en: Remember the last setting
+        items:
+          - zh: 保持常亮记住开启或关闭，重新启动应用时恢复；配合开机自启动可在机器重启并登录后恢复。
+            en: Remembers whether keep-awake is enabled and restores it on launch including after login when launch at login is enabled.
   - version: "1.4.0"
     build: "2026100204"
     date: 2026-10-02
