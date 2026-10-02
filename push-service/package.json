@@ -1,0 +1,10 @@
+{
+  "name": "aethernative-push-service",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "send-test": "node scripts/send-test.ts"
+  }
+}

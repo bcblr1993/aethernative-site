@@ -11,9 +11,9 @@
     "preview": "astro preview",
     "dev:full": "astro build && wrangler d1 migrations apply aethernative --local && wrangler pages dev --port 8788",
     "db:migrate": "wrangler d1 migrations apply aethernative --remote",
-    "check": "astro check && tsc -p functions",
+    "check": "astro check && tsc -p functions && tsc -p push-service",
     "astro": "astro",
-    "test": "vitest run"
+    "test": "vitest run && npm --prefix push-service test"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

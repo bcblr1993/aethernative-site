@@ -1,0 +1,18 @@
+{
+  // 只用于类型检查（npm run check），运行时由 Node 直接执行 .ts（类型擦除），没有编译步骤
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"],
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "scripts", "test"]
+}
