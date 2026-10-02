@@ -41,8 +41,8 @@ showcase:
     zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
     en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
   note:
-    zh: 角色外观来自 v0.1.21 应用实际渲染，其余图片来自 v0.1.16 原生界面，额度、账号名称和时间为演示数据。
-    en: Character styles rendered from v0.1.21; other interfaces from v0.1.16. Quotas, account names and times are demo data.
+    zh: 图片来自本次 0.1.21 发布对应的原生界面渲染，额度、账号名称和时间为演示数据。
+    en: Native interface renders for the 0.1.21 release. Quotas, account names and times are demo data.
   items:
     - title: { zh: 八种卡通伙伴, en: Eight cartoon companions }
       caption: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫、企鹅，可在收起外观中随时切换。, en: "Ghost, bunny, bear, cloud, cat, fox, panda and penguin. Switch anytime in collapsed appearance settings." }
