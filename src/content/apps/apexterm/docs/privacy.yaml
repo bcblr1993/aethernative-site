@@ -7,16 +7,16 @@ lead:
 sections:
   - heading: { zh: 网络连接, en: Network connections }
     body:
-      - zh: 应用只连接你自己添加的服务器（SSH 与 SFTP）。服务器监控复用同一个 SSH 连接读取系统信息，不会连接其他服务。
-        en: "The app only connects to servers you add (SSH and SFTP). Server monitoring reads system information over that same SSH connection and contacts no other service."
+      - zh: 终端、SFTP 和系统监控连接由你选择的 SSH 服务器。官网下载渠道可访问 GitHub 检查和下载更新；商店渠道通过 App Store 获取更新。你打开官网、帮助或反馈链接时，浏览器会连接相应网站。
+        en: "Terminal sessions, SFTP, and monitoring connect to SSH servers you choose. Direct downloads may contact GitHub to check for and download updates; the App Store edition uses the App Store. Opening website, help, or feedback links connects your browser to the corresponding website."
   - heading: { zh: 凭据保存, en: Credentials }
     body:
-      - zh: 密码与私钥保存在本机的 macOS 钥匙串中，读取时可要求 Touch ID 验证，不会上传到任何服务器。
-        en: "Passwords and private keys are stored in the macOS Keychain on your Mac, optionally protected by Touch ID, and are never uploaded anywhere."
+      - zh: 保存的 SSH 密码和私钥口令位于本机 macOS 钥匙串。指定私钥保留在你选择的本地文件中，应用保存该文件路径，商店渠道还保存系统授权书签；应用不向开发者上传这些信息。SSH 认证可能把密码通过加密连接发送给你选择的服务器；私钥认证由 OpenSSH 使用本地私钥签名。
+        en: "Saved SSH passwords and private-key passphrases are stored in the macOS Keychain. A selected private key remains in your local file; the app stores its path, and the App Store edition also stores a system authorization bookmark. This information is not uploaded to the developer. Password authentication may send the password over an encrypted connection to your chosen server; OpenSSH uses the local private key to sign key authentication."
   - heading: { zh: 本地数据, en: Local data }
     body:
-      - zh: 会话列表等设置保存在本机，由你自行管理。
-        en: Session lists and other settings are stored locally and managed by you.
+      - zh: 会话配置、文件授权书签和应用设置保存在本机。终端数据与文件操作在本机及你选择的服务器之间传输；拖拽下载会暂存文件以交给 Finder。你可以管理本地会话及自行导入、导出或下载的文件。
+        en: Session configuration, file authorization bookmarks, and settings are stored locally. Terminal data and file operations are transferred between your Mac and the servers you choose; drag downloads temporarily stage files for Finder. You manage local sessions and any files you import, export, or download.
   - heading: { zh: 联系, en: Contact }
     links:
       - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/ApexTerm/issues" }
