@@ -1,5 +1,27 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.4.0"
+    build: "2026100204"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.4.0/AetherSwitch-1.4.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.4.0
+    sha256: 9cecb575c8be00a8870c60d85e2d9c303b3e491e9e2fabf46e818e4587f13021
+    sparkle:
+      edSignature: Kr65QPReV3oIBCp7/nKDKfSfPWa3tz604gJO63442zQXvveJDXWwKieKgL9ZLeq2gdNOPnIJWA/N7bQzBhF8CQ==
+      length: 1938069
+    summary:
+      zh: 新增原生开机自启动选项，支持系统状态同步与审批提示。
+      en: Add native launch at login with system status synchronization and approval guidance.
+    notes:
+      - title:
+          zh: 新功能
+          en: Features
+        items:
+          - zh: 面板与右键菜单均可开启或关闭开机自启动，默认关闭。
+            en: Enable or disable launch at login from the panel or menu bar context menu; off by default.
+          - zh: 同步系统登录项状态并显示审批与失败提示。
+            en: Reflect system login item status with approval guidance and error feedback.
   - version: "1.3.1"
     build: "2026100102"
     date: 2026-09-30
