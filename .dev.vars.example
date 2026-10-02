@@ -5,3 +5,5 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
+# 推送服务令牌（本地联调 push-service 时才需要）：openssl rand -hex 32
+PUSH_SERVICE_TOKEN=

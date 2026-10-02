@@ -2,11 +2,18 @@ services:
   push:
     build: .
     image: aethernative-push
+    restart: unless-stopped
     env_file: .env
     environment:
       APNS_KEY_FILE: /run/secrets/apns_key
     secrets: [apns_key]
+    volumes:
+      # 推送记录（去重依据）。删除后会重新建立基线，不会补推旧内容
+      - ./data:/data
     # 只有出站连接（APNs、aethernative.com），不需要映射端口
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
 
 secrets:
   apns_key:

@@ -17,8 +17,8 @@ class Stmt {
     return { results: this.db.prepare(this.sql).all(...(this.args as any[])) as T[], success: true };
   }
   async run() {
-    this.exec();
-    return { success: true };
+    const r = this.exec();
+    return { success: true, meta: { changes: Number(r.changes) } };
   }
   exec() {
     return this.db.prepare(this.sql).run(...(this.args as any[]));

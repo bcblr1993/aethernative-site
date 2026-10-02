@@ -6,7 +6,22 @@
 - 只有出站连接（APNs、aethernative.com），不需要开放端口；
 - `.p8` 密钥只放在服务器上，通过 Docker secrets 挂载，不进镜像和仓库。
 
-> 当前是 P0 阶段：只有发送器（`src/apns.ts`）和测试脚本。常驻服务（轮询 `feed.json`、推送队列）在 P2 加入。
+## 工作方式
+
+```
+每 2 分钟：GET /feed.json（带 ETag，未变化时 304）
+  → 选出未推送过、7 天以内、push 为 true 的条目（技术预览不推送）
+  → GET /api/admin/push-targets 分页查询订阅了该条目的设备
+  → 按设备语言生成中文 / 英文通知，并发发送（默认 20 路）
+  → POST /api/admin/push-report 回报失效 token（网站删除对应设备）与心跳
+  → 记为已推送（data/state.db）
+```
+
+- **首次启动**只把当前已有的条目记为已推送，不发送——不会把历史内容推给所有人。
+- **中途失败**（网站或 APNs 暂时不可用）：已完成的页不重复，下一轮从未完成的页继续。整页都因密钥错误、APNs 故障等整体性原因失败时，该条目不会被记为已推送。
+- **重复送达**：同一条目使用相同的 `apns-collapse-id`，即使重发，设备上也只保留一条通知。
+- **健康检查**：最近一次成功轮询超过 10 分钟，容器变为 `unhealthy`（`docker ps` 可见）。
+- 删除 `data/` 等于重新开始：会重新建立基线，不会补推旧内容。
 
 ## 准备 Apple 侧配置
 
@@ -21,11 +36,23 @@
 ```bash
 git clone https://github.com/bcblr1993/aethernative-site.git
 cd aethernative-site/push-service
-cp .env.example .env               # 填 APNS_KEY_ID、APNS_TEAM_ID
-mkdir -p secrets && cp /path/to/AuthKey_XXXXXXXXXX.p8 secrets/AuthKey.p8
-sudo chown 1000:1000 secrets/AuthKey.p8 && chmod 400 secrets/AuthKey.p8   # 容器内以 node 用户（uid 1000）运行
-docker compose build
+cp .env.example .env               # 填 APNS_KEY_ID、APNS_TEAM_ID、PUSH_SERVICE_TOKEN
+mkdir -p secrets data && cp /path/to/AuthKey_XXXXXXXXXX.p8 secrets/AuthKey.p8
+# 容器内以 node 用户（uid 1000）运行，需要能读密钥、写 data/
+sudo chown 1000:1000 secrets/AuthKey.p8 data && chmod 400 secrets/AuthKey.p8
+docker compose up -d --build
+docker compose logs -f             # 首次启动应看到“首次运行：已有 N 条记为已推送”
 ```
+
+`PUSH_SERVICE_TOKEN` 必须与 Cloudflare Pages 中的同名变量一致：
+
+```bash
+# 在网站仓库目录：生成令牌写入 push-service/.env，并设置为 Pages 加密变量（令牌不会显示在终端）
+printf 'PUSH_SERVICE_TOKEN=%s\n' "$(openssl rand -hex 32)" >> push-service/.env
+grep '^PUSH_SERVICE_TOKEN=' push-service/.env | cut -d= -f2 | npx wrangler pages secret put PUSH_SERVICE_TOKEN --project-name aethernative
+```
+
+更新：`git pull && docker compose up -d --build`。
 
 ## 发一条测试推送
 
@@ -34,6 +61,8 @@ docker compose build
 ```bash
 docker compose run --rm push scripts/send-test.ts <device token> --env sandbox
 ```
+
+（`docker compose run` 会临时启动一个新容器执行脚本，不影响正在运行的服务。）
 
 - Xcode 直接安装的调试包用 `--env sandbox`；TestFlight / App Store 安装的用 `production`（默认）。App 页面上会显示当前环境。
 - 失败时脚本会给出原因和提示，常见的有：

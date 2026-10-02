@@ -5,4 +5,6 @@ export interface Env {
   GOOGLE_CLIENT_SECRET?: string;
   GITHUB_CLIENT_ID?: string;
   GITHUB_CLIENT_SECRET?: string;
+  /** 推送服务调用 /api/admin/push-* 的令牌（至少 32 字符），与服务器 push-service/.env 中的值相同 */
+  PUSH_SERVICE_TOKEN?: string;
 }
