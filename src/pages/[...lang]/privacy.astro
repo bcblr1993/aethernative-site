@@ -13,7 +13,7 @@ const apps = await getApps();
     <header class="page-hero">
       <p class="eyebrow">Privacy</p>
       <h1>{zh ? '网站隐私说明' : 'Website privacy'}</h1>
-      <p class="muted">{zh ? `生效日期：2026-10-02 · 适用于 ${site.name} 官网与 iPhone App` : `Effective: 2026-10-02 · Applies to the ${site.name} website and iPhone app`}</p>
+      <p class="muted">{zh ? `生效日期：2026-10-03 · 适用于 ${site.name} 官网与 iPhone App` : `Effective: 2026-10-03 · Applies to the ${site.name} website and iPhone app`}</p>
     </header>
     <article class="prose">
       <section>
@@ -31,8 +31,8 @@ const apps = await getApps();
       <section>
         <h2>{zh ? '账号与登录' : 'Accounts and sign-in'}</h2>
         <p>{zh
-          ? '登录是可选的，用于提交反馈等需要识别身份的功能。你可以使用 Google 或 GitHub 账号登录，我们不会获得你在这些平台的密码。'
-          : 'Signing in is optional and is used for features that need to know who you are, such as submitting feedback. You can sign in with Google or GitHub; we never receive your password for those services.'}</p>
+          ? '登录是可选的，用于提交反馈等需要识别身份的功能。网站支持 Google 和 GitHub 账号登录，iPhone App 另外支持“通过 Apple 登录”。我们不会获得你在这些平台的密码。'
+          : 'Signing in is optional and is used for features that need to know who you are, such as submitting feedback. The website supports Google and GitHub; the iPhone app also supports Sign in with Apple. We never receive your password for those services.'}</p>
         <ul>
           <li>{zh
             ? '我们保存的信息：平台提供的用户 ID、昵称、头像地址、已验证的邮箱（如平台提供），以及账号创建和最近登录时间。'
@@ -49,6 +49,12 @@ const apps = await getApps();
           <li>{zh
             ? '数据存储在 Cloudflare D1 中，不会出售或分享给第三方。你可以随时在导航栏的账号菜单中“注销账号”，账号信息及你提交的全部内容会被立即永久删除。'
             : 'Data is stored in Cloudflare D1 and is never sold or shared. You can delete your account at any time from the account menu in the navigation bar; your profile and everything you submitted are permanently deleted immediately.'}</li>
+          <li>{zh
+            ? 'iPhone App：登录后的会话令牌保存在设备钥匙串中，90 天未使用即失效。使用 Apple 登录时，Apple 可能只提供一个转发邮箱（隐藏真实邮箱）；为了在你注销账号时撤销本 App 的 Apple 授权，我们会加密保存 Apple 返回的授权令牌，注销时调用 Apple 的撤销接口并删除。你也可以在 App 的“我的”页面注销账号。'
+            : 'iPhone app: your session token is kept in the device Keychain and expires after 90 days of inactivity. With Sign in with Apple, Apple may provide only a relay address that hides your real email. To revoke the app’s Apple authorization when you delete your account, we store the authorization token returned by Apple in encrypted form; on deletion we call Apple’s revocation API and delete it. You can also delete your account from the Me tab in the app.'}</li>
+          <li>{zh
+            ? '登录 App 后，开启了通知的设备会与账号关联，用于在开发者回复你的反馈时通知你；退出登录或注销账号时解除关联。'
+            : 'After you sign in to the app, a device with notifications enabled is linked to your account so you can be notified when the developer replies to your feedback; the link is removed when you sign out or delete your account.'}</li>
         </ul>
       </section>
       <section>

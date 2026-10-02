@@ -7,3 +7,10 @@ GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 # 推送服务令牌（本地联调 push-service 时才需要）：openssl rand -hex 32
 PUSH_SERVICE_TOKEN=
+# 用 Apple 登录（iPhone App；本地联调时才需要）
+APPLE_TEAM_ID=
+APPLE_SIWA_KEY_ID=
+# .p8 文件的完整内容（含 BEGIN / END 行），换行写成 \n
+APPLE_SIWA_KEY=
+# openssl rand -base64 32
+APPLE_TOKEN_KEY=

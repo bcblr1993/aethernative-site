@@ -2,10 +2,11 @@
 import type { Env } from '../../_lib/env';
 import { insertFeedback, LIMITS, publicFeedback, rateLimited, validateFeedback } from '../../_lib/feedback';
 import { error, isSameOrigin, json } from '../../_lib/http';
-import { getSessionUser } from '../../_lib/session';
+import { getSessionUser, hasBearer } from '../../_lib/session';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!isSameOrigin(request)) return error(403, 'bad_origin');
+  // App 使用 Bearer 凭证，没有 CSRF 风险；网页 Cookie 请求仍要求同源
+  if (!hasBearer(request) && !isSameOrigin(request)) return error(403, 'bad_origin');
   // 只接受 JSON：跨站的普通表单无法发送这种类型，多一层 CSRF 防护
   if (!request.headers.get('Content-Type')?.toLowerCase().startsWith('application/json')) return error(415, 'unsupported_media_type');
 

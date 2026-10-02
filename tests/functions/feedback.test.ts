@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { LIMITS, validateFeedback } from '../../functions/_lib/feedback';
 import { onRequestPost as submit } from '../../functions/api/feedback/index';
 import { onRequestGet as mine } from '../../functions/api/feedback/mine';
-import { onRequestDelete as deleteMe } from '../../functions/api/me';
+import { onRequestDelete as deleteMe } from '../../functions/api/me/index';
 import { createSession, upsertUser } from '../../functions/_lib/session';
 import { createD1 } from './d1';
 

@@ -49,7 +49,7 @@ const u = ui[lang].auth;
     const out = $<HTMLDetailsElement>('[data-auth-out]');
     const inn = $<HTMLDetailsElement>('[data-auth-in]');
     const toast = $<HTMLParagraphElement>('[data-toast]');
-    const providerName: Record<string, string> = { google: 'Google', github: 'GitHub' };
+    const providerName: Record<string, string> = { google: 'Google', github: 'GitHub', apple: 'Apple' };
 
     const say = (msg: string) => {
       toast.textContent = msg;

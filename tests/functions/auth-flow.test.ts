@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { onRequestGet as callback } from '../../functions/api/auth/[provider]/callback';
 import { onRequestGet as login } from '../../functions/api/auth/[provider]/login';
 import { onRequestPost as logout } from '../../functions/api/auth/logout';
-import { onRequestDelete as deleteMe, onRequestGet as me } from '../../functions/api/me';
+import { onRequestDelete as deleteMe, onRequestGet as me } from '../../functions/api/me/index';
 import { createD1 } from './d1';
 
 const ORIGIN = 'https://aethernative.com';

@@ -146,3 +146,46 @@ iPhone App 与推送服务读取的静态 JSON，由 `npm run build` 根据内�
 
 `{ "invalidTokens": ["…"], "status": { …本轮统计… } }` → 删除这些 token 对应的设备（APNs 判定失效），记录心跳到 `push_status`。
 响应：`{ "removed": n, "ignored": n }`。
+
+---
+
+# App 登录与账号（iPhone App 调用）
+
+登录成功后得到 App 令牌，之后的请求带 `Authorization: Bearer <令牌>`。令牌 90 天有效，剩余不足 30 天时使用即自动续期；
+网页 Cookie 会话与 App 令牌互不通用。带 Bearer 的请求不受 CSRF 影响，不要求 `Origin`。
+
+登录成功的响应（三种方式相同）：
+
+```jsonc
+{ "token": "…", "expiresAt": 1790000000000, "user": { "id", "name", "email", "avatarUrl", "providers": ["apple"] } }
+```
+
+## `POST /api/auth/apple` — 用 Apple 登录
+
+```jsonc
+{
+  "identityToken": "…",        // ASAuthorizationAppleIDCredential.identityToken
+  "authorizationCode": "…",    // .authorizationCode（服务器换取 refresh token，注销时撤销授权）
+  "nonce": "…",                // 原始随机数；发起登录时交给 Apple 的是它的 SHA-256（十六进制）
+  "name": { "givenName": "…", "familyName": "…" }   // 可选，Apple 只在首次授权时提供
+}
+```
+
+错误：`400`、`401 invalid_token`、`502 apple_exchange_failed`、`503 apple_not_configured`。
+
+## Google / GitHub（ASWebAuthenticationSession）
+
+1. App 生成 PKCE verifier（43–128 字符）与 challenge（`base64url(SHA256(verifier))`），打开
+   `/api/auth/<google|github>/login?app=1&challenge=<challenge>`；
+2. 授权完成后网站跳转到 `aethernative://auth/callback?code=<一次性 code>`（取消：`?error=cancelled`，失败：`?error=failed`）；
+3. `POST /api/auth/app/exchange` `{ "code", "verifier" }` → 登录成功响应。code 2 分钟内有效，只能使用一次。
+
+## 账号
+
+| 接口 | 说明 |
+|---|---|
+| `GET /api/me` | 当前用户 |
+| `DELETE /api/me` | 注销账号：撤销 Apple 授权、解除设备关联、删除账号与全部反馈 |
+| `POST /api/auth/logout` | 删除当前会话；可带 `{ "deviceId", "deviceSecret" }` 同时解除这台设备与账号的关联 |
+| `POST /api/me/devices` | `{ "deviceId", "deviceSecret" }` 把推送设备关联到账号（用于“反馈有新回复”推送）。设备密钥错误 403，设备未注册 404 |
+| `POST /api/feedback`、`GET /api/feedback/mine` | 提交 / 查看反馈，同网页 |

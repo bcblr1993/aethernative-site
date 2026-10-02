@@ -1,7 +1,10 @@
 // Google / GitHub OAuth 2.0（授权码 + PKCE）。只申请读取基本资料和邮箱的权限。
 import type { Env } from './env';
 
-export type ProviderId = 'google' | 'github';
+/** 网页授权（OAuth）登录：网站与 App 都可用 */
+export type OAuthProviderId = 'google' | 'github';
+/** 全部登录方式；Apple 只在 iPhone App 中使用原生流程（见 apple.ts） */
+export type ProviderId = OAuthProviderId | 'apple';
 
 export interface Profile {
   provider: ProviderId;
@@ -34,7 +37,7 @@ const clip = (s: unknown, n: number) => (typeof s === 'string' && s.trim() ? s.t
 const httpsUrl = (s: unknown) => (typeof s === 'string' && s.startsWith('https://') && s.length <= 1024 ? s : null);
 
 // 密钥两端去空白：在终端粘贴时容易带上空格或换行
-export const providers: Record<ProviderId, Provider> = {
+export const providers: Record<OAuthProviderId, Provider> = {
   google: {
     authorizeUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
     tokenUrl: 'https://oauth2.googleapis.com/token',
@@ -74,13 +77,13 @@ export const providers: Record<ProviderId, Provider> = {
   },
 };
 
-export const isProvider = (p: unknown): p is ProviderId => p === 'google' || p === 'github';
+export const isProvider = (p: unknown): p is OAuthProviderId => p === 'google' || p === 'github';
 
-export const isConfigured = (id: ProviderId, env: Env) => Boolean(providers[id].clientId(env) && providers[id].clientSecret(env));
+export const isConfigured = (id: OAuthProviderId, env: Env) => Boolean(providers[id].clientId(env) && providers[id].clientSecret(env));
 
-export const callbackUrl = (origin: string, id: ProviderId) => `${origin}/api/auth/${id}/callback`;
+export const callbackUrl = (origin: string, id: OAuthProviderId) => `${origin}/api/auth/${id}/callback`;
 
-export function authorizeUrl(id: ProviderId, env: Env, opts: { redirectUri: string; state: string; codeChallenge: string }) {
+export function authorizeUrl(id: OAuthProviderId, env: Env, opts: { redirectUri: string; state: string; codeChallenge: string }) {
   const p = providers[id];
   const url = new URL(p.authorizeUrl);
   const params: Record<string, string> = {
@@ -99,7 +102,7 @@ export function authorizeUrl(id: ProviderId, env: Env, opts: { redirectUri: stri
 
 /** 用授权码换 access token，再读取用户资料。 */
 export async function exchangeAndFetchProfile(
-  id: ProviderId,
+  id: OAuthProviderId,
   env: Env,
   opts: { code: string; redirectUri: string; codeVerifier: string },
   fetcher: typeof fetch = fetch,

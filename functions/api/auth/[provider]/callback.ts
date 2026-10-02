@@ -1,4 +1,5 @@
 // GET /api/auth/:provider/callback —— 校验 state，换取用户资料，建立会话后跳回原页面。
+import { appRedirect, issueAuthCode, PKCE_CHALLENGE } from '../../../_lib/app-auth';
 import { safeEqual } from '../../../_lib/crypto';
 import type { Env } from '../../../_lib/env';
 import { clearCookie, error, parseCookies, redirect, safeNext, withAuthFlag } from '../../../_lib/http';
@@ -28,13 +29,18 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
   // 无论成功与否，临时状态都只能用一次
   const clearPending = clearCookie(OAUTH_COOKIE);
 
+  // App 内登录：结果通过 aethernative://auth/callback 交给 App，不建立网页会话
+  const app = pending?.app && PKCE_CHALLENGE.test(pending.app) ? pending.app : null;
+  const fail = (flag: 'login-failed' | 'login-cancelled') =>
+    redirect(app ? appRedirect({ error: flag === 'login-cancelled' ? 'cancelled' : 'failed' }) : withAuthFlag(next, flag), [clearPending]);
+
   // 用户在授权页点了“取消”
-  if (url.searchParams.get('error')) return redirect(withAuthFlag(next, 'login-cancelled'), [clearPending]);
+  if (url.searchParams.get('error')) return fail('login-cancelled');
 
   const code = url.searchParams.get('code');
   const state = url.searchParams.get('state');
   if (!pending || !code || !state || pending.provider !== provider || !safeEqual(state, pending.state)) {
-    return redirect(withAuthFlag(next, 'login-failed'), [clearPending]);
+    return fail('login-failed');
   }
 
   try {
@@ -44,10 +50,11 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
       codeVerifier: pending.verifier,
     });
     const user = await upsertUser(env.DB, profile);
+    if (app) return redirect(appRedirect({ code: await issueAuthCode(env.DB, user.id, app) }), [clearPending]);
     const cookies = await createSession(env.DB, user.id, request.headers.get('User-Agent'));
     return redirect(next, [clearPending, ...cookies]);
   } catch (e) {
     console.error('OAuth 回调失败', provider, e instanceof Error ? e.message : e);
-    return redirect(withAuthFlag(next, 'login-failed'), [clearPending]);
+    return fail('login-failed');
   }
 };
