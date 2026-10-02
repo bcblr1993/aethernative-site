@@ -1,5 +1,35 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.5.1"
+    build: "2026100301"
+    date: 2026-10-02
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.5.1/AetherSwitch-1.5.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.5.1
+    sha256: 77e87f7034000dc414d0f010f4d8765eb8a5f57ab300333ed95e41760217762d
+    sparkle:
+      edSignature: I/KtVX+mxfD+rczIZWE2moC8HGfTQGL09gr+cj4uBEy7brrcjR086Q2gcnEyZZ0m9SZtRn8KksfTCV2ao0ctBg==
+      length: 1994901
+    summary:
+      zh: 修复外接屏 0% 画面全黑与调高恢复，明确标注软件全黑。
+      en: Fix external display blackout at zero brightness and reliable recovery with clear software blackout labeling.
+    notes:
+      - title:
+          zh: 最低档画面全黑
+          en: Blackout at zero brightness
+        items:
+          - zh: 在最低硬件亮度上使用系统 Gamma 曲线使画面全黑，调高滑条恢复画面。
+            en: Uses system gamma curves to black out the image at minimum hardware brightness and restores the image when brightness increases.
+          - zh: 面板明确标注软件全黑；外屏背光仍可能亮着，不代表关机或进入待机。
+            en: Clearly labels software blackout which does not power off the external display or its backlight.
+      - title:
+          zh: 恢复与清理
+          en: Recovery and cleanup
+        items:
+          - zh: 从全黑恢复时重连唯一匹配的 DDC 接口，并对临时通信失败有限重试。
+            en: Reopens the uniquely matched DDC connection after blackout and retries transient communication failures a bounded number of times.
+          - zh: 正常退出恢复每屏原色彩曲线，保留其他软件或系统的新曲线并防止晚到操作再次全黑。
+            en: Restores original per-display color curves on normal exit and preserves newer system or application curves while preventing late operations from blacking out displays again.
   - version: "1.5.0"
     build: "2026100205"
     date: 2026-10-02
