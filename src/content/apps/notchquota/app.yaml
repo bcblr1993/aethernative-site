@@ -51,7 +51,7 @@ showcase:
       caption: { zh: 定时轮流查询一个账号，成功后冒出思考泡泡，约 5 秒后淡出。, en: Checks one account at a time and shows a thought bubble that fades after about five seconds. }
       image: ./media/thought-floating.png
     - title: { zh: 奶油小兔, en: Cream bunny }
-      caption: { zh: 新增粉耳奶油小兔，可拖动、贴边并展示思考泡泡。, en: A new cream bunny with pink ears. Drag it, dock it, and see quota thought bubbles. }
+      caption: { zh: 新增粉耳奶油小兔，可拖动、贴边并展示思考泡泡。, en: "A cream bunny with pink ears. Drag it, dock it, and see quota thought bubbles." }
       image: ./media/style-bunny-floating.png
     - title: { zh: 蜂蜜小熊, en: Honey bear }
       caption: { zh: 暖色蜂蜜小熊，收起时轻弹眨眼一次，静置停止动画。, en: A warm honey bear with a short return hop and blink. No looping animation at rest. }
@@ -72,7 +72,7 @@ showcase:
       caption: { zh: 冰蓝色身体、奶油肚皮和橙色小脚，静置不循环播放动画。, en: "Ice-blue feathers, a cream belly and orange feet. No looping animation at rest." }
       image: ./media/style-penguin-floating.png
     - title: { zh: 侧边栏详情, en: Sidebar details }
-      caption: { zh: 多账号一起看，悬停查看详情，点击固定；可跨屏自由摆放。, en: See every account at once. Hover for details, click to pin, and place it on any display. }
+      caption: { zh: 多账号一起看，悬停查看详情，点击固定；可跨屏自由摆放。, en: "See every account at once. Hover for details, click to pin, and place it on any display." }
       image: ./media/sidebar-detail.png
     - title: { zh: 菜单栏面板, en: Menu bar panel }
       caption: { zh: 一次显示一个账号的详细额度，点击头像循环切换。, en: One account at a time in full detail. Click the avatar to cycle. }
