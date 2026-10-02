@@ -85,6 +85,9 @@ export const ui = {
     explore: '了解细节',
     screenshots: '真实软件界面',
     openFull: '查看原图 ↗',
+    look: '截图外观',
+    lookLight: '浅色',
+    lookDark: '深色',
     backTo: (n: string) => `← 返回 ${n}`,
     auth: {
       signIn: '登录',
@@ -194,6 +197,9 @@ export const ui = {
     explore: 'Explore the details',
     screenshots: 'Real app screenshots',
     openFull: 'View full size ↗',
+    look: 'Screenshot appearance',
+    lookLight: 'Light',
+    lookDark: 'Dark',
     backTo: (n: string) => `← Back to ${n}`,
     auth: {
       signIn: 'Sign in',
