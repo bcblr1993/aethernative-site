@@ -1,5 +1,29 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.6.1"
+    build: "2026100306"
+    date: 2026-10-03
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.6.1/AetherSwitch-1.6.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.6.1
+    sha256: a85a973ace8c7807335db2c8e96c39440b27cb4e9af37bf40752d1acc77c97bb
+    sparkle:
+      edSignature: gUmaTWodU3iyRtdpFRtwfkkUSVN+o3hDptCNuVfvB8W2wqRHwjUjMcmPPEgwV6HmsmALgYPrra/U94xAtpVuBA==
+      length: 2543784
+    summary:
+      zh: 修复连续拖动时亮度停顿，内屏使用系统平滑过渡，外屏持续跟随。
+      en: Smooth native brightness and continuous external-display following during slider drags.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 内屏使用 macOS 原生平滑亮度接口，消除等待外屏操作的停顿。
+            en: Use native macOS brightness transitions without waiting for external-display operations.
+          - zh: 外屏持续跟随最新目标，逐步调整硬件亮度并平滑进入和退出全黑。
+            en: Continuously follow the latest target with gradual hardware adjustment and smooth software dimming.
+          - zh: 外屏过渡期间及时同步系统亮度变化，Gamma 完成后校准硬件亮度。
+            en: Synchronize system brightness during external transitions and verify hardware brightness after Gamma changes.
   - version: "1.6.0"
     build: "2026100305"
     date: 2026-10-03

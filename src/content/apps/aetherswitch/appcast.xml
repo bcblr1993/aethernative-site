@@ -4,16 +4,16 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>AetherSwitch</title>
         <item>
-            <title>1.6.0</title>
-            <pubDate>Sat, 03 Oct 2026 20:14:11 +0800</pubDate>
-            <sparkle:version>2026100305</sparkle:version>
-            <sparkle:shortVersionString>1.6.0</sparkle:shortVersionString>
+            <title>1.6.1</title>
+            <pubDate>Sat, 03 Oct 2026 21:13:10 +0800</pubDate>
+            <sparkle:version>2026100306</sparkle:version>
+            <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/bcblr1993/AetherSwitch/releases/download/v1.6.0/AetherSwitch-1.6.0-arm64.dmg" length="2500457" type="application/octet-stream" sparkle:edSignature="yr8/1HtAyNkYsw+E4P1CR15wJ2WJ1ZBbPWcIZjX6/3FJ6pHvPS9qq+lmn0hhWNzjScAto044Y5c2opJaHMlmDg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/AetherSwitch/releases/download/v1.6.1/AetherSwitch-1.6.1-arm64.dmg" length="2543784" type="application/octet-stream" sparkle:edSignature="gUmaTWodU3iyRtdpFRtwfkkUSVN+o3hDptCNuVfvB8W2wqRHwjUjMcmPPEgwV6HmsmALgYPrra/U94xAtpVuBA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: A1QAqhWsjgaTauE3y5Hlet5wLSuvcpb6VTACw06Z6HOU3srxiqTXbDfS08d9cFTo2UjQqDw8vFmJB1t4NJvPCg==
+edSignature: 6HtB2fKC05RoPO4N+/N+Zn4sr9k1UDhb1SawBoG2RrK9n+JpkTwne6XWagm5sSLHFXXc6wjG6VGKTOFSKXRxCg==
 length: 1148
 -->
