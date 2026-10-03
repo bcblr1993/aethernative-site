@@ -1,6 +1,35 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.4"
+    build: "2026100303"
+    date: 2026-10-03
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.4/AetherRoute-1.1.4-build-2026100303-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.4
+    sha256: de0bcf350f56a788951c93c2e7601682b6b56e740975e7b471838a4c6c6e3266
+    sparkle:
+      edSignature: H9TRPoNtqcak2whNljQeaj1TNE0IALKCkqKy1oKnNJzmsj4acyR5uxYD00RNS6tPKf2Q6f5bwO8lVAQ/HSu5Dg==
+      length: 26294981
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复代理页策略组点击无反应、通常只能打开第一个组的问题；菜单栏面板的流量图改为与概览一致，下载与上传共用刻度。网络引擎与扩展与 1.1.3 相同，通过 Tart 虚拟机六维矩阵、Mac mini 全套 UI 测试与 Apple Silicon 物理真机验收。
+      en: Fixes proxy groups that ignored clicks, so often only the first group could be opened; the menu bar panel's traffic graph now matches Overview, with download and upload on one scale. The engine and extensions are unchanged from 1.1.3; verified across the Tart VM matrix, the full UI suite and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 代理
+          en: Proxies
+        items:
+          - zh: 每个策略组（包括自动选择组）都能正常点击打开，宽窄窗口均可。
+            en: Every proxy group, including automatic ones, opens when clicked, in wide and narrow windows.
+      - title:
+          zh: 菜单栏
+          en: Menu Bar
+        items:
+          - zh: 流量图与概览一致：下载与上传同一张图、共用刻度、同样的图例颜色。
+            en: "The traffic graph matches Overview: download and upload in one graph on one scale, with the same legend colours."
   - version: "1.1.3"
     build: "2026100301"
     date: 2026-10-02
