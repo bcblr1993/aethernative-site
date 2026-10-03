@@ -1,5 +1,31 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.6.0"
+    build: "2026100305"
+    date: 2026-10-03
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.6.0/AetherSwitch-1.6.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.6.0
+    sha256: 5a6b3d7998fefc2ac989f5fef363b338abd749e476ae0e28c8e4ab3c72ff1003
+    sparkle:
+      edSignature: yr8/1HtAyNkYsw+E4P1CR15wJ2WJ1ZBbPWcIZjX6/3FJ6pHvPS9qq+lmn0hhWNzjScAto044Y5c2opJaHMlmDg==
+      length: 2500457
+    summary:
+      zh: 平滑淡出与恢复屏幕亮度，改进多屏同步，并保护 LG 背光兼容性。
+      en: Smooth brightness fades and recovery, reliable multi-display sync, and guarded LG backlight compatibility.
+    notes:
+      - title:
+          zh: 亮度控制
+          en: Brightness control
+        items:
+          - zh: 内屏与外屏共用短暂渐变，新拖动可中断旧动画。
+            en: Native brightness and external Gamma share a short interruptible fade.
+          - zh: 外屏硬件最低亮度以下继续调暗，0% 软件全黑。
+            en: Continuous Gamma dimming below the hardware minimum with software blackout at zero.
+          - zh: 修复快速拖动、刷新与连续系统通知导致的多屏不同步。
+            en: Fix synchronization during rapid slider changes and repeated system notifications.
+          - zh: 新增默认关闭的背光关闭选项，LG HDR 4K 兼容型号保留软件全黑。
+            en: Add an opt-in backlight option while keeping software blackout for affected LG HDR 4K models.
   - version: "1.5.2"
     build: "2026100302"
     date: 2026-10-03
