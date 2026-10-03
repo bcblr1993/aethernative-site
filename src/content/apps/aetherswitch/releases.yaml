@@ -1,5 +1,29 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.5.2"
+    build: "2026100302"
+    date: 2026-10-03
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.5.2/AetherSwitch-1.5.2-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.5.2
+    sha256: f4bfbc11c72bc0b99adc4271467234c87188a250018c04195969893c217fc168
+    sparkle:
+      edSignature: qXuCat5DxFQ+DTGwDue7gkSZnS4sCWrdnUA06MrfsK3HuErEyw1cGB8UlScmFhB+e5nFXDBk7g8vLbqBr6xZAw==
+      length: 2017429
+    summary:
+      zh: 修复系统亮度、软件滑条与外接显示器不同步的问题
+      en: Fix synchronization between macOS brightness, the app slider, and external displays
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: Mac 亮度键和系统亮度滑条的变化自动同步软件读数及外接屏，面板关闭时仍可同步
+            en: Mac brightness keys and system slider changes update the app and supported external displays even with the panel closed
+          - zh: 通过系统通知合并变化，无后台轮询，避免回写源屏幕与反馈循环
+            en: System notifications coalesce changes without background polling or source-display feedback loops
+          - zh: 系统亮度恢复时解除外屏软件全黑，屏幕连接变化及唤醒后重新识别接口
+            en: Native brightness recovery restores external software blackout and connections are rediscovered on display changes and wake
   - version: "1.5.1"
     build: "2026100301"
     date: 2026-10-02
