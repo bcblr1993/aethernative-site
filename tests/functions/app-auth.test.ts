@@ -362,3 +362,31 @@ describe('设备关联与注销账号', () => {
     expect(spy).toHaveBeenCalled();
   });
 });
+
+describe('修改昵称', () => {
+  const patch = (body: unknown, headers: Record<string, string>) =>
+    new Request(`${ORIGIN}/api/me`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(body) });
+
+  it('清理空白与控制字符；之后再登录不被平台名字覆盖', async () => {
+    mockFetch();
+    const token = ((await (await appleSignIn({ name: { givenName: 'Tim', familyName: 'Cook' } })).json()) as any).token;
+    const { onRequestPatch } = await import('../../functions/api/me/index');
+    const res = await call(onRequestPatch, patch({ name: '  小\u0007明   同学 ' }, bearer(token)));
+    expect(res.status).toBe(200);
+    expect(((await res.json()) as any).user.name).toBe('小 明 同学');
+    // 再次用 Apple 登录（带姓名）也保留自定义昵称
+    const again = await appleSignIn({ name: { givenName: 'Tim', familyName: 'Cook' } });
+    expect(((await again.json()) as any).user.name).toBe('小 明 同学');
+  });
+
+  it('长度 1–40；未登录 401；网页 Cookie 请求要求同源', async () => {
+    mockFetch();
+    const token = ((await (await appleSignIn()).json()) as any).token;
+    const { onRequestPatch } = await import('../../functions/api/me/index');
+    expect((await call(onRequestPatch, patch({ name: '   ' }, bearer(token)))).status).toBe(400);
+    expect((await call(onRequestPatch, patch({ name: '字'.repeat(41) }, bearer(token)))).status).toBe(400);
+    expect((await call(onRequestPatch, patch({ name: '字'.repeat(40) }, bearer(token)))).status).toBe(200);
+    expect((await call(onRequestPatch, patch({ name: 'x' }, {}))).status).toBe(403);
+    expect((await call(onRequestPatch, patch({ name: 'x' }, bearer('z'.repeat(43))))).status).toBe(401);
+  });
+});

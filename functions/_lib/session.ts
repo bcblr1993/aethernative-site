@@ -36,7 +36,8 @@ export async function upsertUser(db: D1Database, p: Profile, now = Date.now()): 
 
   if (found) {
     await db.batch([
-      db.prepare('UPDATE users SET name = ?, email = ?, avatar_url = ?, last_login_at = ? WHERE id = ?')
+      // 用户自己改过昵称时保留，不用平台提供的名字覆盖
+      db.prepare('UPDATE users SET name = CASE WHEN name_custom = 1 THEN name ELSE ? END, email = ?, avatar_url = ?, last_login_at = ? WHERE id = ?')
         .bind(p.name, p.email, p.avatarUrl, now, found.user_id),
       db.prepare('UPDATE identities SET email = ? WHERE provider = ? AND provider_user_id = ?').bind(p.email, p.provider, p.id),
     ]);
@@ -154,3 +155,18 @@ export const publicUser = (u: User, providers: ProviderId[]) => ({
   avatarUrl: u.avatar_url,
   providers,
 });
+
+export const NAME_MAX = 40;
+
+/** 校验昵称：去掉控制字符与首尾空白、合并连续空格，长度 1–40 个字符（码点）。不合法返回 null。 */
+export function cleanName(v: unknown): string | null {
+  if (typeof v !== 'string') return null;
+  const s = v.replace(/[\u0000-\u001f\u007f\u200b-\u200f\u2028-\u202e\u2060-\u206f\ufeff]/g, ' ').replace(/\s+/g, ' ').trim();
+  const n = [...s].length;
+  return n >= 1 && n <= NAME_MAX ? s : null;
+}
+
+export async function updateName(db: D1Database, userId: string, name: string) {
+  await db.prepare('UPDATE users SET name = ?, name_custom = 1 WHERE id = ?').bind(name, userId).run();
+  return (await getUser(db, userId))!;
+}

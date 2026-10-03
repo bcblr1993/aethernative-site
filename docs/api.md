@@ -185,6 +185,7 @@ iPhone App 与推送服务读取的静态 JSON，由 `npm run build` 根据内�
 | 接口 | 说明 |
 |---|---|
 | `GET /api/me` | 当前用户 |
+| `PATCH /api/me` | `{ "name" }` 修改昵称（1–40 个字符）；之后再登录不再用平台提供的名字覆盖 |
 | `DELETE /api/me` | 注销账号：撤销 Apple 授权、解除设备关联、删除账号与全部反馈 |
 | `POST /api/auth/logout` | 删除当前会话；可带 `{ "deviceId", "deviceSecret" }` 同时解除这台设备与账号的关联 |
 | `POST /api/me/devices` | `{ "deviceId", "deviceSecret" }` 把推送设备关联到账号（用于“反馈有新回复”推送）。设备密钥错误 403，设备未注册 404 |

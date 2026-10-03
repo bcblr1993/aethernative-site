@@ -1,8 +1,9 @@
-// GET /api/me —— 当前登录用户；DELETE /api/me —— 注销账号并删除全部数据。
+// GET /api/me —— 当前登录用户；PATCH /api/me —— 修改昵称 { name }；DELETE /api/me —— 注销账号并删除全部数据。
 import type { Env } from '../../_lib/env';
 import { appleConfig, decryptToken, revokeToken } from '../../_lib/apple';
 import { error, isSameOrigin, json } from '../../_lib/http';
-import { clearSessionCookies, deleteUser, getProviders, getSessionUser, hasBearer, publicUser } from '../../_lib/session';
+import { readJson } from '../../_lib/push-auth';
+import { cleanName, clearSessionCookies, deleteUser, getProviders, getSessionUser, hasBearer, publicUser, updateName } from '../../_lib/session';
 
 const signedOut = () => {
   // 顺带清掉“可能已登录”标记，页面之后就不会再请求本接口
@@ -15,6 +16,18 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const user = await getSessionUser(env.DB, request);
   if (!user) return signedOut();
   return json({ user: publicUser(user, await getProviders(env.DB, user.id)) });
+};
+
+export const onRequestPatch: PagesFunction<Env> = async ({ request, env }) => {
+  if (!hasBearer(request) && !isSameOrigin(request)) return error(403, 'bad_origin');
+  const user = await getSessionUser(env.DB, request);
+  if (!user) return signedOut();
+  const body = await readJson(request, 2 * 1024);
+  if (!body.ok) return body.response;
+  const name = cleanName((body.value as Record<string, unknown> | null)?.name);
+  if (!name) return json({ error: 'invalid', fields: ['name'] }, 400);
+  const updated = await updateName(env.DB, user.id, name);
+  return json({ user: publicUser(updated, await getProviders(env.DB, user.id)) });
 };
 
 export const onRequestDelete: PagesFunction<Env> = async ({ request, env }) => {
