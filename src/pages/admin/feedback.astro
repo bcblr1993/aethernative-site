@@ -1,0 +1,179 @@
+---
+/**
+ * 管理后台：查看全部反馈、修改状态、回复（只有 users.is_admin = 1 的账号能用，接口会再校验）。
+ * 回复后提交者在网站与 App 的“我的反馈”里看到，App 开启了通知的设备会收到推送。
+ * 不进入站点地图、不被搜索引擎收录；页面是静态的，数据由浏览器请求 /api/admin/feedback。
+ */
+import Base from '../../layouts/Base.astro';
+import { getApps } from '../../lib/apps';
+
+const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]));
+---
+<Base lang="zh" title="反馈管理" standalone>
+  <div class="wrap admin" data-apps={JSON.stringify({ ...apps, general: '网站 / 其他' })}>
+    <header class="page-hero">
+      <h1>反馈管理</h1>
+      <p class="muted" data-hint>正在加载…</p>
+    </header>
+
+    <div class="toolbar" hidden data-toolbar>
+      <div class="tabs" role="tablist">
+        <button class="tab" data-status="" aria-pressed="true">全部</button>
+        <button class="tab" data-status="new" aria-pressed="false">已收到</button>
+        <button class="tab" data-status="triaged" aria-pressed="false">处理中</button>
+        <button class="tab" data-status="replied" aria-pressed="false">已回复</button>
+        <button class="tab" data-status="closed" aria-pressed="false">已关闭</button>
+      </div>
+    </div>
+
+    <div class="list" data-list></div>
+    <p class="more-wrap"><button class="btn btn-s" hidden data-more>加载更多</button></p>
+    <noscript><p>需要启用 JavaScript。</p></noscript>
+  </div>
+
+  <template data-item>
+    <article class="card item">
+      <div class="meta">
+        <span class="badge" data-k="status"></span>
+        <span data-k="app"></span>
+        <span data-k="category"></span>
+        <time data-k="time"></time>
+      </div>
+      <h2 data-k="title"></h2>
+      <p class="who" data-k="who"></p>
+      <p class="ver" data-k="ver"></p>
+      <pre class="body" data-k="body"></pre>
+      <label class="reply-label">回复（提交者可见；内容有变化时会推送给 App 用户）
+        <textarea rows="4" maxlength="5000" data-k="reply"></textarea>
+      </label>
+      <div class="acts">
+        <select data-k="select">
+          <option value="new">已收到</option>
+          <option value="triaged">处理中</option>
+          <option value="replied">已回复</option>
+          <option value="closed">已关闭</option>
+        </select>
+        <button class="btn btn-p btn-sm" data-k="save">保存</button>
+        <span class="saved" data-k="saved" role="status"></span>
+      </div>
+    </article>
+  </template>
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.admin')!;
+  const apps: Record<string, string> = JSON.parse(root.dataset.apps!);
+  const hint = root.querySelector<HTMLElement>('[data-hint]')!;
+  const list = root.querySelector<HTMLElement>('[data-list]')!;
+  const more = root.querySelector<HTMLButtonElement>('[data-more]')!;
+  const tpl = document.querySelector<HTMLTemplateElement>('[data-item]')!;
+  const STATUS: Record<string, string> = { new: '已收到', triaged: '处理中', replied: '已回复', closed: '已关闭' };
+  const CATEGORY: Record<string, string> = { bug: '问题', feature: '建议', other: '其他' };
+
+  interface Item {
+    id: string; appId: string; category: string; title: string; body: string;
+    appVersion: string | null; osVersion: string | null; status: string; reply: string | null;
+    createdAt: number; user: { name: string; email: string | null };
+  }
+
+  let status = '';
+  let next: number | null = null;
+
+  async function load(append = false) {
+    const q = new URLSearchParams();
+    if (status) q.set('status', status);
+    if (append && next) q.set('before', String(next));
+    const res = await fetch(`/api/admin/feedback?${q}`, { credentials: 'same-origin' });
+    if (res.status === 401) { hint.textContent = '请先在网站上登录管理员账号（导航栏右上角“登录”）。'; return; }
+    if (res.status === 403) { hint.textContent = '当前账号不是管理员。'; return; }
+    if (!res.ok) { hint.textContent = '加载失败，请刷新重试。'; return; }
+    const data = (await res.json()) as { feedback: Item[]; next: number | null };
+    root.querySelector<HTMLElement>('[data-toolbar]')!.hidden = false;
+    if (!append) list.replaceChildren();
+    data.feedback.forEach((f) => list.append(render(f)));
+    next = data.next;
+    more.hidden = !next;
+    hint.textContent = list.children.length ? `共 ${list.children.length} 条${next ? '（还有更多）' : ''}` : '没有反馈。';
+  }
+
+  /** 用户提交的内容一律用 textContent，不拼接 HTML */
+  function render(f: Item) {
+    const el = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement;
+    const k = <T extends HTMLElement = HTMLElement>(name: string) => el.querySelector<T>(`[data-k="${name}"]`)!;
+    const badge = k('status');
+    const paint = (s: string) => { badge.textContent = STATUS[s] ?? s; badge.className = `badge ${s === 'replied' ? 'ok' : 'gray'}`; };
+    paint(f.status);
+    k('app').textContent = apps[f.appId] ?? f.appId;
+    k('category').textContent = CATEGORY[f.category] ?? f.category;
+    k('time').textContent = new Date(f.createdAt).toLocaleString('zh-CN', { hour12: false });
+    k('title').textContent = f.title;
+    k('who').textContent = `${f.user.name}${f.user.email ? ` · ${f.user.email}` : ''}`;
+    k('ver').textContent = [f.appVersion && `软件 ${f.appVersion}`, f.osVersion].filter(Boolean).join(' · ');
+    k('body').textContent = f.body;
+    const reply = k<HTMLTextAreaElement>('reply');
+    reply.value = f.reply ?? '';
+    const select = k<HTMLSelectElement>('select');
+    select.value = f.status;
+    const saved = k('saved');
+    const save = k<HTMLButtonElement>('save');
+
+    save.addEventListener('click', async () => {
+      save.disabled = true;
+      saved.textContent = '保存中…';
+      // 只发送有变化的字段：没手动改状态时，回复后由服务器自动设为“已回复”
+      const body: Record<string, unknown> = {};
+      if (select.value !== f.status) body.status = select.value;
+      if (reply.value.trim() !== (f.reply ?? '')) body.reply = reply.value;
+      if (!Object.keys(body).length) { saved.textContent = '没有修改'; save.disabled = false; return; }
+      try {
+        const res = await fetch(`/api/admin/feedback/${encodeURIComponent(f.id)}`, {
+          method: 'PATCH',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        const r = (await res.json()) as { feedback: Item; notified: boolean };
+        f.reply = r.feedback.reply;
+        f.status = r.feedback.status;
+        select.value = f.status;
+        paint(f.status);
+        saved.textContent = r.notified ? '已保存，已排队推送给用户的 App' : '已保存';
+      } catch (e) {
+        saved.textContent = `保存失败（${(e as Error).message}）`;
+      } finally {
+        save.disabled = false;
+      }
+    });
+    return el;
+  }
+
+  root.querySelectorAll<HTMLButtonElement>('.tab').forEach((tab) =>
+    tab.addEventListener('click', () => {
+      status = tab.dataset.status ?? '';
+      root.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-pressed', String(t === tab)));
+      load();
+    }),
+  );
+  more.addEventListener('click', () => load(true));
+  load();
+</script>
+
+<style>
+  .toolbar { margin-bottom: 18px; }
+  .tabs { display: inline-flex; flex-wrap: wrap; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+  .tab { border: 0; background: none; color: var(--text-2); font-size: 14px; padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+  .tab[aria-pressed='true'] { background: var(--text); color: var(--bg); }
+  .list { display: grid; gap: 14px; }
+  .item { box-shadow: none; padding: 22px 26px; }
+  .meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; color: var(--text-3); font-size: 13px; }
+  .item h2 { font-size: 19px; margin: 10px 0 4px; overflow-wrap: anywhere; }
+  .who, .ver { color: var(--text-3); font-size: 13px; }
+  .body { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 15px; margin: 12px 0; color: var(--text); background: none; padding: 0; }
+  .reply-label { display: grid; gap: 6px; font-size: 13px; color: var(--text-2); }
+  .reply-label textarea { width: 100%; font: inherit; font-size: 15px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--text); resize: vertical; }
+  .acts { display: flex; gap: 12px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+  .acts select { font: inherit; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+  .saved { font-size: 13px; color: var(--text-3); }
+  .more-wrap { text-align: center; padding: 20px 0 40px; }
+</style>

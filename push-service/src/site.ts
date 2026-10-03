@@ -8,6 +8,15 @@ export interface Target {
   locale: Locale;
 }
 
+/** 待发推送任务（网站 /api/admin/push-outbox/claim 返回） */
+export interface OutboxJob {
+  id: string;
+  kind: string;
+  route: { kind: string; id: string };
+  alert: Record<Locale, { title: string; body: string }>;
+  targets: Target[];
+}
+
 export interface Feed {
   version: number;
   items: FeedItem[];
@@ -42,6 +51,23 @@ export class SiteClient {
     const r = await this.#fetch(`/api/admin/push-targets?${p}`, { headers: this.#auth() });
     if (!r.ok) throw new Error(`查询推送目标失败：HTTP ${r.status}`);
     return (await r.json()) as { targets: Target[]; next: string | null };
+  }
+
+  /** 领取待发任务（管理员回复反馈等），领取后 5 分钟内需确认，否则会被重新领取。 */
+  async claimOutbox(): Promise<OutboxJob[]> {
+    const r = await this.#fetch('/api/admin/push-outbox/claim', { method: 'POST', headers: { ...this.#auth(), 'Content-Type': 'application/json' }, body: '{}' });
+    if (!r.ok) throw new Error(`领取推送任务失败：HTTP ${r.status}`);
+    return ((await r.json()) as { jobs: OutboxJob[] }).jobs;
+  }
+
+  async ackOutbox(ids: string[], invalidTokens: string[]) {
+    const r = await this.#fetch('/api/admin/push-outbox/ack', {
+      method: 'POST',
+      headers: { ...this.#auth(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids, invalidTokens }),
+    });
+    if (!r.ok) throw new Error(`确认推送任务失败：HTTP ${r.status}`);
+    return (await r.json()) as { acked: number; removed: number };
   }
 
   async report(invalidTokens: string[], status: object) {

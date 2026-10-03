@@ -34,6 +34,8 @@ interface FakeSite {
   reports: { invalidTokens: string[]; status: any }[];
   targetQueries: string[];
   feedRequests: { ifNoneMatch?: string; status: number }[];
+  jobs: object[];
+  acks: { ids: string[]; invalidTokens: string[] }[];
 }
 
 let site: FakeSite;
@@ -58,7 +60,7 @@ const apns = {
 const worker = () => new Worker({ site: client, apns, state, now: () => NOW, log: () => {} });
 
 beforeEach(async () => {
-  site = { items: [], targets: [], pageSize: 500, failTargetsAt: null, failReport: false, reports: [], targetQueries: [], feedRequests: [] };
+  site = { items: [], targets: [], pageSize: 500, failTargetsAt: null, failReport: false, reports: [], targetQueries: [], feedRequests: [], jobs: [], acks: [] };
   sends = [];
   invalid = new Set();
   apnsDown = false;
@@ -83,6 +85,21 @@ beforeEach(async () => {
       const next = start + site.pageSize < site.targets.length ? String(start + site.pageSize) : null;
       res.writeHead(200, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ targets: page, next }));
+    }
+    if (url.pathname === '/api/admin/push-outbox/claim') {
+      const jobs = site.jobs;
+      site.jobs = [];
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ jobs }));
+    }
+    if (url.pathname === '/api/admin/push-outbox/ack') {
+      let body = '';
+      req.on('data', (c) => (body += c)).on('end', () => {
+        const r = JSON.parse(body);
+        site.acks.push(r);
+        res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify({ acked: r.ids.length, removed: r.invalidTokens.length }));
+      });
+      return;
     }
     if (url.pathname === '/api/admin/push-report') {
       if (site.failReport) return res.writeHead(503).end();
@@ -265,4 +282,46 @@ test('isSystemicFailure 分类', () => {
   assert.equal(f(400, 'BadDeviceToken', true), false);
   assert.equal(f(0, 'PayloadTooLarge'), false);
   assert.equal(isSystemicFailure({ ok: true, status: 200, invalidToken: false }), false);
+});
+
+// ---------- 推送队列（反馈回复） ----------
+
+const job = (id: string, targets: { token: string; env: string; locale: string }[]) => ({
+  id,
+  kind: 'feedback_reply',
+  route: { kind: 'feedback', id: `fb-${id}` },
+  alert: { zh: { title: '你的反馈有新回复', body: '订阅更新失败' }, en: { title: 'New reply to your feedback', body: '订阅更新失败' } },
+  targets,
+});
+
+test('队列：按设备语言发送反馈回复，确认任务并回报失效 token', async () => {
+  site.jobs = [job('j1', [
+    { token: tok(1), env: 'production', locale: 'zh' },
+    { token: tok(2), env: 'sandbox', locale: 'en' },
+  ])];
+  invalid.add(tok(2));
+  const r = await worker().outboxRound();
+  assert.deepEqual(r, { jobs: 1, sent: 1, failed: 1, retry: 0 });
+  const byToken = Object.fromEntries(sends.map((s) => [s.token, s]));
+  assert.equal(byToken[tok(1)]!.payload.aps.alert.title, '你的反馈有新回复');
+  assert.equal(byToken[tok(2)]!.payload.aps.alert.title, 'New reply to your feedback');
+  assert.deepEqual(byToken[tok(1)]!.payload.route, { kind: 'feedback', id: 'fb-j1' });
+  assert.equal(byToken[tok(1)]!.payload.aps['thread-id'], 'feedback');
+  assert.equal(byToken[tok(1)]!.o.collapseId, 'feedback:fb-j1');
+  assert.equal(byToken[tok(2)]!.o.env, 'sandbox');
+  assert.deepEqual(site.acks, [{ ids: ['j1'], invalidTokens: [tok(2)] }]);
+});
+
+test('队列：整体性失败（密钥错误等）不确认，等租约过期重试；没有设备的任务直接确认', async () => {
+  apnsDown = true;
+  site.jobs = [job('down', [{ token: tok(1), env: 'production', locale: 'zh' }]), job('empty', [])];
+  const r = await worker().outboxRound();
+  assert.equal(r.retry, 1);
+  assert.deepEqual(site.acks, [{ ids: ['empty'], invalidTokens: [] }]);
+});
+
+test('队列：没有任务时不发确认请求', async () => {
+  const r = await worker().outboxRound();
+  assert.deepEqual(r, { jobs: 0, sent: 0, failed: 0, retry: 0 });
+  assert.deepEqual(site.acks, []);
 });

@@ -38,6 +38,8 @@ export interface ServiceConfig {
   serviceToken: string;
   dataDir: string;
   pollSeconds: number;
+  /** 检查待发队列（反馈回复等）的间隔 */
+  outboxSeconds: number;
   concurrency: number;
 }
 
@@ -60,6 +62,7 @@ export function loadServiceConfig(env = process.env): ServiceConfig {
     serviceToken,
     dataDir: env.DATA_DIR?.trim() || '/data',
     pollSeconds: int(env, 'POLL_INTERVAL_SECONDS', 120, 30, 3600),
+    outboxSeconds: int(env, 'OUTBOX_INTERVAL_SECONDS', 30, 10, 600),
     concurrency: int(env, 'CONCURRENCY', 20, 1, 200),
   };
 }

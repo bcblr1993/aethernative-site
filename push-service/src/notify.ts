@@ -77,3 +77,11 @@ export function payload(item: FeedItem, locale: Locale) {
     route,
   };
 }
+
+/** 队列任务的通知内容（反馈回复等）：文案由网站生成，按设备语言选择。 */
+export function outboxPayload(job: { route: { kind: string; id: string }; alert: Record<Locale, { title: string; body: string }> }, locale: Locale) {
+  return {
+    aps: { alert: job.alert[locale] ?? job.alert.en, sound: 'default', 'thread-id': job.route.kind },
+    route: job.route,
+  };
+}

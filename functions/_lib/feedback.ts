@@ -139,3 +139,67 @@ export const publicFeedback = (r: FeedbackRow) => ({
   createdAt: r.created_at,
   updatedAt: r.updated_at,
 });
+
+// ---------- 管理员 ----------
+
+export const STATUSES = ['new', 'triaged', 'replied', 'closed'] as const;
+export type Status = (typeof STATUSES)[number];
+export const REPLY_MAX = 5000;
+const ADMIN_PAGE = 100;
+
+export interface AdminFeedbackRow extends FeedbackRow {
+  user_id: string;
+  user_name: string;
+  user_email: string | null;
+}
+
+/** 管理员查看全部反馈（最新在前），可按状态筛选；before 为上一页最后一条的 created_at。 */
+export async function listAllFeedback(db: D1Database, opts: { status?: Status; before?: number } = {}) {
+  const where = ['1 = 1'];
+  const args: unknown[] = [];
+  if (opts.status) { where.push('f.status = ?'); args.push(opts.status); }
+  if (opts.before) { where.push('f.created_at < ?'); args.push(opts.before); }
+  const { results } = await db
+    .prepare(
+      `SELECT ${COLUMNS.split(', ').map((c) => 'f.' + c).join(', ')}, f.user_id, u.name AS user_name, u.email AS user_email
+         FROM feedback f JOIN users u ON u.id = f.user_id
+        WHERE ${where.join(' AND ')} ORDER BY f.created_at DESC LIMIT ?`,
+    )
+    .bind(...args, ADMIN_PAGE)
+    .all<AdminFeedbackRow>();
+  return { rows: results, next: results.length === ADMIN_PAGE ? results.at(-1)!.created_at : null };
+}
+
+export const adminFeedback = (r: AdminFeedbackRow) => ({ ...publicFeedback(r), user: { name: r.user_name, email: r.user_email } });
+
+export type AdminUpdate = { status?: Status; reply?: string | null };
+
+export function validateAdminUpdate(raw: unknown): { ok: true; value: AdminUpdate } | { ok: false } {
+  const o = (raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}) as Record<string, unknown>;
+  const out: AdminUpdate = {};
+  if (o.status !== undefined) {
+    if (!STATUSES.includes(o.status as Status)) return { ok: false };
+    out.status = o.status as Status;
+  }
+  if (o.reply !== undefined) {
+    if (o.reply !== null && typeof o.reply !== 'string') return { ok: false };
+    const r = typeof o.reply === 'string' ? o.reply.replace(/\r\n?/g, '\n').trim() : '';
+    if ([...r].length > REPLY_MAX) return { ok: false };
+    out.reply = r || null;
+  }
+  if (out.status === undefined && out.reply === undefined) return { ok: false };
+  return { ok: true, value: out };
+}
+
+/**
+ * 更新反馈。回复内容有变化且不为空时：未指定状态则自动设为“已回复”，并返回 replied = true（调用方据此排推送）。
+ */
+export async function updateFeedbackAdmin(db: D1Database, id: string, u: AdminUpdate, now = Date.now()) {
+  const cur = await db.prepare(`SELECT ${COLUMNS}, user_id FROM feedback WHERE id = ?`).bind(id).first<FeedbackRow & { user_id: string }>();
+  if (!cur) return null;
+  const reply = u.reply === undefined ? cur.admin_reply : u.reply;
+  const replied = u.reply !== undefined && u.reply !== null && u.reply !== cur.admin_reply;
+  const status = u.status ?? (replied ? 'replied' : cur.status);
+  await db.prepare('UPDATE feedback SET status = ?, admin_reply = ?, updated_at = ? WHERE id = ?').bind(status, reply, now, id).run();
+  return { row: { ...cur, status, admin_reply: reply, updated_at: now }, replied };
+}

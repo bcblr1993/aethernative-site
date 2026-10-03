@@ -190,3 +190,23 @@ iPhone App 与推送服务读取的静态 JSON，由 `npm run build` 根据内�
 | `POST /api/auth/logout` | 删除当前会话；可带 `{ "deviceId", "deviceSecret" }` 同时解除这台设备与账号的关联 |
 | `POST /api/me/devices` | `{ "deviceId", "deviceSecret" }` 把推送设备关联到账号（用于“反馈有新回复”推送）。设备密钥错误 403，设备未注册 404 |
 | `POST /api/feedback`、`GET /api/feedback/mine` | 提交 / 查看反馈，同网页 |
+
+---
+
+# 管理后台（管理员账号，`users.is_admin = 1`）
+
+页面：`/admin/feedback/`（不进入站点地图、不被搜索引擎收录）。写操作要求同源 Cookie 或 Bearer。
+
+| 接口 | 说明 |
+|---|---|
+| `GET /api/admin/feedback?status=&before=` | 全部反馈（最新在前，每页 100 条），含提交者昵称与邮箱；`before` 为上一页返回的 `next` |
+| `PATCH /api/admin/feedback/:id` | `{ "status"?, "reply"? }`。回复内容有变化且未指定状态时自动设为 `replied`；提交者有关联设备时排一条推送。响应 `{ feedback, notified }` |
+
+# 待发推送队列（push-service 调用，`PUSH_SERVICE_TOKEN`）
+
+| 接口 | 说明 |
+|---|---|
+| `POST /api/admin/push-outbox/claim` | 领取最多 50 个任务：`{ jobs: [{ id, kind, route: { kind: "feedback", id }, alert: { zh: { title, body }, en: … }, targets: [{ token, env, locale }] }] }`。领取后 5 分钟内未确认会被重新领取，最多尝试 5 次 |
+| `POST /api/admin/push-outbox/ack` | `{ ids: [...], invalidTokens?: [...] }` 确认已发送并删除失效 token |
+
+通知的 `route` 为 `{ "kind": "feedback", "id": "<反馈 id>" }` 时，App 打开“我的反馈”中的对应详情。

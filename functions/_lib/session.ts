@@ -1,6 +1,6 @@
 // 用户与会话的数据库操作。
 import { randomToken, sha256Hex } from './crypto';
-import { clearCookie, parseCookies, serializeCookie } from './http';
+import { clearCookie, error, parseCookies, serializeCookie } from './http';
 import type { Profile, ProviderId } from './oauth';
 
 /** 会话 Cookie：HttpOnly，脚本读不到。 */
@@ -140,6 +140,7 @@ export async function deleteUser(db: D1Database, userId: string) {
     // 设备本身保留（仍可接收公告与版本推送），只解除与账号的关联
     db.prepare('UPDATE devices SET user_id = NULL WHERE user_id = ?').bind(userId),
     db.prepare('DELETE FROM auth_codes WHERE user_id = ?').bind(userId),
+    db.prepare('DELETE FROM push_outbox WHERE user_id = ?').bind(userId),
     db.prepare('DELETE FROM sessions WHERE user_id = ?').bind(userId),
     db.prepare('DELETE FROM identities WHERE user_id = ?').bind(userId),
     db.prepare('DELETE FROM users WHERE id = ?').bind(userId),
@@ -169,4 +170,15 @@ export function cleanName(v: unknown): string | null {
 export async function updateName(db: D1Database, userId: string, name: string) {
   await db.prepare('UPDATE users SET name = ?, name_custom = 1 WHERE id = ?').bind(name, userId).run();
   return (await getUser(db, userId))!;
+}
+
+/**
+ * 管理员（users.is_admin = 1）。返回用户，或应直接返回的错误响应。
+ * 写操作仍要求同源（网页 Cookie）或 Bearer。
+ */
+export async function requireAdmin(db: D1Database, request: Request): Promise<{ user: User } | { response: Response }> {
+  const user = await getSessionUser(db, request);
+  if (!user) return { response: error(401, 'unauthenticated') };
+  if (user.is_admin !== 1) return { response: error(403, 'forbidden') };
+  return { user };
 }

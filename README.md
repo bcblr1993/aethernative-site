@@ -188,6 +188,15 @@ iPhone App 与推送服务读取构建时生成的静态 JSON：`/feed.json`（�
 字段与兼容规则见 [docs/api.md](docs/api.md)，`npm run build` 会检查它们能解析、id 不重复、其中的本站地址都存在。
 改动 `src/lib/feed.ts` 后，在 iOS 仓库运行 `scripts/update-fixtures.sh` 更新测试数据。
 
+## 反馈管理后台
+
+`/admin/feedback/`：查看全部反馈、修改状态、回复。回复后提交者在网站和 App 的“我的反馈”里看到，App 开启了通知的设备会收到“你的反馈有新回复”推送。
+只有管理员账号能用。先在网站上登录一次，再把该账号设为管理员：
+
+```bash
+npx wrangler d1 execute aethernative --remote --command "UPDATE users SET is_admin = 1 WHERE email = '你的邮箱'"
+```
+
 ## 推送服务
 
 `push-service/` 运行在自有服务器上，负责发送 APNs 推送，见 [push-service/README.md](push-service/README.md)。

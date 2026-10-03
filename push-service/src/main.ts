@@ -38,15 +38,25 @@ for (const sig of ['SIGTERM', 'SIGINT'] as const) {
   });
 }
 
-log(`推送服务启动：${config.siteUrl}，每 ${config.pollSeconds} 秒检查一次，Bundle ID ${config.apns.topic}`);
+log(`推送服务启动：${config.siteUrl}，新内容每 ${config.pollSeconds} 秒、推送队列每 ${config.outboxSeconds} 秒检查一次，Bundle ID ${config.apns.topic}`);
+let lastFeed = 0;
 while (!stop.signal.aborted) {
-  try {
-    await worker.round();
-  } catch (e) {
-    // 网站或 APNs 暂时不可用：记录后等下一轮（未完成的条目会继续）
-    log(`本轮失败：${describe(e)}`);
+  // 新版本 / 公告：间隔较长；推送队列（反馈回复）：间隔较短，回复后尽快送达
+  if (Date.now() - lastFeed >= config.pollSeconds * 1000) {
+    lastFeed = Date.now();
+    try {
+      await worker.round();
+    } catch (e) {
+      // 网站或 APNs 暂时不可用：记录后等下一轮（未完成的条目会继续）
+      log(`本轮失败：${describe(e)}`);
+    }
   }
-  await sleep(config.pollSeconds * 1000, undefined, { signal: stop.signal }).catch(() => {});
+  try {
+    await worker.outboxRound();
+  } catch (e) {
+    log(`推送队列处理失败：${describe(e)}`);
+  }
+  await sleep(config.outboxSeconds * 1000, undefined, { signal: stop.signal }).catch(() => {});
 }
 
 apns.close();

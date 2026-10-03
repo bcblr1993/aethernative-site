@@ -7,6 +7,8 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
+      // 管理后台不进入站点地图
+      filter: (page) => !page.includes('/admin/'),
       i18n: { defaultLocale: 'zh', locales: { zh: 'zh-CN', en: 'en' } },
     }),
   ],
