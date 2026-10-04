@@ -1,6 +1,37 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.7"
+    build: "2026100403"
+    date: 2026-10-04
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.7/AetherRoute-1.1.7-build-2026100403-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.7
+    sha256: b185e4405e3426cd2829893672cde0882483f4543803d744b557e5e0a99cfbfd
+    sparkle:
+      edSignature: 6Y3z3uigYR6DYemHHhyB7bdU8SWT6pO+RW8qaSiYI16BNnzezgSlwZwm+1iomQSbVnhaxvnkKr0gvrQnqYhdAw==
+      length: 26285471
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复 Shadowsocks UDP 重复发包与 SSH 节点空闲 5 秒断开；12 种协议互通测试全面加强（大数据、空闲复用、多包 UDP、证书校验）。全量通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机门禁。
+      en: Fixes duplicated Shadowsocks UDP packets and SSH-node connections dropping after 5 idle seconds; interoperability tests for all twelve protocols now cover bulk transfers, idle reuse, UDP bursts and certificate checks. Verified across the Tart VM 6-dimension matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 协议修复
+          en: Protocol Fixes
+        items:
+          - zh: Shadowsocks UDP 每个包只发送一次，不再重复送达；SS2022 服务端不再报 packet id not unique。
+            en: Shadowsocks sends each UDP packet once; Shadowsocks 2022 servers no longer report "packet id not unique".
+          - zh: SSH 节点的空闲连接不再 5 秒断开，改为每 30 秒保活。
+            en: Idle connections through SSH nodes no longer close after 5 seconds; a 30-second keepalive replaces the timeout.
+      - title:
+          zh: 更严格的协议测试
+          en: Stronger Protocol Testing
+        items:
+          - zh: 每种协议增加 2 MiB 双向传输、空闲复用、多包 UDP 与证书校验检查；新增 VMess/VLESS over TLS、TUIC QUIC 模式及多种传输下的 UDP。
+            en: Every protocol now runs 2 MiB transfers, idle reuse, UDP bursts and certificate checks; new cases cover VMess/VLESS over TLS, TUIC QUIC relay and UDP over more transports.
   - version: "1.1.6"
     build: "2026100402"
     date: 2026-10-04
