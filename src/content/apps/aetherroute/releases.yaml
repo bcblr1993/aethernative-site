@@ -1,6 +1,39 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.6"
+    build: "2026100402"
+    date: 2026-10-04
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.6/AetherRoute-1.1.6-build-2026100402-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.6
+    sha256: d0d59bc4196e7c6088de6f786f31217d6fa9e4ced0e80ff3b2a002f23ab227ec
+    sparkle:
+      edSignature: klX9t9urHw0IZyOgcdl1T7pD05bxIzsAGUZe2L0QcyntNCGmbwrMFerMTUyFrSP5loSD9TkJah1vMhZwaCAXAQ==
+      length: 26285465
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 规则资源连接期间每周自动检查更新，先比对上游校验值、没变化不重复下载；“下载并校验”在连接中也可使用，新数据下次连接生效。全量通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机门禁。
+      en: Rule resources now check for updates weekly while connected, comparing the upstream checksum first so unchanged data is never downloaded again; Download & Verify works while connected and applies on the next connection. Verified across the Tart VM 6-dimension matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 规则资源自动更新
+          en: Automatic Rule Resource Updates
+        items:
+          - zh: 连接期间每周检查 Country.mmdb 与 GeoSite.dat，失败按 1/6/24 小时退避重试，不影响当前连接。
+            en: Country.mmdb and GeoSite.dat are checked weekly while connected; failures retry after 1, 6 and 24 hours without touching the connection.
+          - zh: 先比对上游 SHA-256，未变化只记录检查时间，不重复下载。
+            en: The upstream SHA-256 is compared first; unchanged data only records the check and is not downloaded again.
+          - zh: “下载并校验”连接中可用，新数据下次连接生效；规则页新增自动检查更新开关与上次检查时间。
+            en: Download & Verify works while connected and applies on the next connection; the Rules page adds an automatic-update switch and the last check date.
+      - title:
+          zh: 更稳的过期保护
+          en: Safer Expiry Margin
+        items:
+          - zh: 自动更新从满 30 天提前到满 7 天开始，留出约三周重试余量；手动导入的文件不会被自动覆盖。
+            en: Automatic updates now start at 7 days instead of 30, leaving about three weeks for retries; files you imported are never replaced automatically.
   - version: "1.1.5"
     build: "2026100401"
     date: 2026-10-04
