@@ -1,6 +1,37 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.1.5"
+    build: "2026100401"
+    date: 2026-10-04
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.1.5/AetherRoute-1.1.5-build-2026100401-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.1.5
+    sha256: eeea60dca47737d89adf7e738152be4edb62964fb49576455ce314e760c34119
+    sparkle:
+      edSignature: 9YZ6mKJsExWJ8H3iK2iY9CeyuUOJ3cfyxtsP93SZMxm+u6vhtjV4umNtx/N2Jlf377nwW8i4nRtq/B6gTEuaDg==
+      length: 26295048
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复 iCloud 配置同步在空状态或首次运行时的致命崩溃；消除 Packet Tunnel 扩展网络重置并发竞态；补充出口合规豁免声明。全量通过 Tart 虚拟机六维矩阵与 Apple Silicon 物理真机门禁。
+      en: Fixes fatal crash in iCloud sync under empty/first-launch state; eliminates concurrency race in Packet Tunnel network recovery; adds export compliance exemption. Verified across Tart VM 6-dimension matrix and physical Apple Silicon hardware.
+    notes:
+      - title:
+          zh: 核心稳定性
+          en: Core Stability
+        items:
+          - zh: 修复 iCloud 同步首次启动或空配置时时间戳负数溢出崩溃。
+            en: Fixed fatal timestamp overflow crash in iCloud sync during first launch or empty state.
+          - zh: Packet Tunnel 扩展网络重置状态访问全程加锁，消除潜在并发竞态。
+            en: Secured network state recovery in Packet Tunnel provider under core lock against concurrency races.
+      - title:
+          zh: 合规与发布
+          en: Compliance & Distribution
+        items:
+          - zh: 补齐出口合规豁免元数据，流程更加严谨规范。
+            en: Declared export compliance exemption metadata for streamlined release compliance.
   - version: "1.1.4"
     build: "2026100303"
     date: 2026-10-03
