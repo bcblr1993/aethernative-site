@@ -1,5 +1,43 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.6.1"
+    build: "2026100401"
+    date: 2026-10-04
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.6.1/ApexTerm-v1.6.1-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.6.1
+    sha256: 758961c1c32e2ee5cef75b29d89043c03b272ffe91a91bb2284d8d2b0e7e0f69
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复 Vim 组合键，降低局部刷新开销，改善窄窗口下 SFTP 路径栏布局与焦点保持。
+      en: Fixes modified Vim keys, reduces partial refresh work, and improves the SFTP path bar and focus when resizing.
+    notes:
+      - title:
+          zh: 终端交互与刷新
+          en: Terminal input and rendering
+        items:
+          - zh: 方向键、导航键、Delete 和 F1…F12 保留 Shift、Option、Control 的完整组合；Vim 使用正确的 Alt 方向键序列。
+            en: Arrow, navigation, Delete and F1–F12 keys preserve Shift, Option and Control combinations; Vim receives proper Alt-arrow sequences.
+          - zh: 备用屏幕复用未变化行的渲染结果；字体、主题、视口和会话变化使缓存失效。
+            en: Alternate screens reuse unchanged rendered rows, with invalidation for font, theme, viewport and session changes.
+      - title:
+          zh: 窗口布局
+          en: Window layout
+        items:
+          - zh: SFTP 工具栏在完整文字、紧凑图标及两行布局之间自适应切换；路径框保留至少 240 点宽度。
+            en: The SFTP toolbar adapts between labeled actions, compact icons and two rows, keeping the path field at least 240 points wide.
+          - zh: 实际缩放窗口后继续保留路径草稿和键盘焦点，Escape 可恢复当前目录。
+            en: Window resizing preserves the path draft and keyboard focus; Escape restores the current directory.
+      - title:
+          zh: 发布验证
+          en: Release verification
+        items:
+          - zh: 357 项 Swift 测试、75 项脚本测试、8 项优化基准和 macos27 完整 44 项 UI 验收通过，0 失败、0 跳过。
+            en: Passed 357 Swift tests, 75 script tests, eight optimized benchmarks and all 44 macos27 UI tests, with no failures or skips.
+          - zh: Developer ID 签名、运行时加固、安全扫描；应用与 DMG 均通过 Apple 公证并装订票据。
+            en: Developer ID signed, hardened and security scanned; both the app and DMG are Apple notarized and stapled.
   - version: "1.6.0"
     build: "2026100204"
     date: 2026-10-02
