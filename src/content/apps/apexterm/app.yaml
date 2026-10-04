@@ -65,28 +65,30 @@ features:
 
 gallery:
   - label: { zh: 深色工作台 · 演示数据, en: Dark workspace · Demo data }
-    zh: ./media/workspace-dark-v1.6.0.jpg
+    zh: ./media/workspace-dark-v1.6.1.jpg
   - label: { zh: 浅色工作台 · 演示数据, en: Light workspace · Demo data }
-    zh: ./media/workspace-light-v1.6.0.jpg
+    zh: ./media/workspace-light-v1.6.1.jpg
   - label: { zh: 远程编辑器 · 演示配置, en: Remote editor · Demo configuration }
-    zh: ./media/editor-v1.6.0.jpg
+    zh: ./media/editor-v1.6.1.jpg
+  - label: { zh: 窄窗口文件工具栏 · 演示数据, en: Compact file toolbar · Demo data }
+    zh: ./media/compact-toolbar-v1.6.1.jpg
 
 experience:
-  eyebrow: { zh: v1.6.0 体验更新, en: New in v1.6.0 }
-  title: { zh: 编辑、复制更顺手。, en: "Edit, copy and switch with ease." }
+  eyebrow: { zh: v1.6.1 体验更新, en: New in v1.6.1 }
+  title: { zh: 编辑与窗口缩放更顺手。, en: "Smoother editing and resizing." }
   cards:
-    - title: { zh: 复制当前路径, en: Copy the current path }
+    - title: { zh: 窄窗口路径栏, en: A path bar that adapts }
       body:
-        zh: 路径框旁一键复制当前浏览目录。路径联动开关、刷新和传输记录仍在手边。
-        en: Copy the current directory beside the path field. Linked browsing, refresh and transfer records stay within reach.
-    - title: { zh: Vim 与中文对齐, en: Vim and Unicode alignment }
+        zh: 工具栏按窗口宽度切换紧凑图标与两行布局，路径框保留空间，缩放后继续编辑原有草稿。
+        en: Compact actions and a two-row layout keep the path field usable. Continue editing the same draft after resizing.
+    - title: { zh: Vim 组合键, en: Modified keys in Vim }
       body:
-        zh: 修复光标、方向键、中文粘贴和窗口尺寸同步。中文、Emoji 与字号变化时的网格对齐得到改进。
-        en: Fixes for the cursor, arrow keys, Chinese paste and terminal resizing, with improved CJK and emoji alignment across font sizes.
-    - title: { zh: 更清晰的文件操作, en: Clearer file operations }
+        zh: 方向键、导航键和功能键保留 Shift、Option、Control 组合，改善 Vim 等终端编辑器的键盘操作。
+        en: Arrow, navigation and function keys preserve Shift, Option and Control combinations for terminal editors such as Vim.
+    - title: { zh: 减少重复刷新, en: Less repeated rendering }
       body:
-        zh: 深浅主题下的选中行更易读。创建被拒绝时说明权限原因，点击提示可查看完整远端错误。
-        en: Readable selected rows in light and dark themes. Creation failures explain permission issues and expose the full remote error on click.
+        zh: Vim 等备用屏幕复用未变化行的渲染结果，减少光标移动时的重复工作；字体、主题和窗口变化仍会重新渲染。
+        en: Alternate screens reuse unchanged rendered rows to reduce repeated work when moving the cursor, while font, theme and viewport changes refresh the cache.
 
 notice:
   zh: 页面截图来自新版真实界面，服务器、命令输出和配置均为演示数据。
