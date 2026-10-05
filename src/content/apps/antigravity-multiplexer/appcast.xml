@@ -4,23 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.3.10</title>
-            <pubDate>Mon, 05 Oct 2026 21:14:41 +0800</pubDate>
-            <sparkle:version>14</sparkle:version>
-            <sparkle:shortVersionString>0.3.10</sparkle:shortVersionString>
+            <title>0.3.11</title>
+            <pubDate>Mon, 05 Oct 2026 21:23:27 +0800</pubDate>
+            <sparkle:version>15</sparkle:version>
+            <sparkle:shortVersionString>0.3.11</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.10
+            <description sparkle:format="markdown"><![CDATA[# v0.3.11
 
-- 运行中的实例现在有清晰的“退出”按钮。macOS 上关闭窗口后应用仍可能在后台运行；请保存工作并退出实例，待状态变为“未运行”后再清空工作空间。
-- 清空前仍会检查主进程与后台 Helper，避免删除正在使用的数据。
+- 清空工作空间和销毁实例的确认框新增“复制实例名”按钮，方便准确粘贴到确认输入框。
+- 实例名称仍需由你主动粘贴并确认；复制操作不会清空数据。
 
 此管理器更新不会自动清空或修改任何实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.10/Aether-Antigravity-Multiplexer-v0.3.10-macos-arm64.zip" length="2177413" type="application/octet-stream" sparkle:edSignature="9Ugeyp60VLgjG8dh3fv4kd8pNMAjOxUvQ7ZXkO/RUx1wDmZ451Xt2vXFH+4g81Z6Xjd2P6R2Z4/i1CyOYa47BQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.11/Aether-Antigravity-Multiplexer-v0.3.11-macos-arm64.zip" length="2181423" type="application/octet-stream" sparkle:edSignature="tFV0EQKYtneIpZumXbJxi3nAPffwONXw9FttxjLCsDqNMyrprQpbA7r8fl9tM+CN8+YR4NsaI0CJPoxQBoxEBA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: yzoBuiWNI2NX+9w09tGp8W/biHs+3My8JZpEt9DC232vtL6H0lWmuttZsr3OgiXYQky1QUatmYy8lqnrz32mAg==
-length: 1657
+edSignature: S237Fsf+PJ4UA8Fu9GeEQ2VaSGFsaGoKT/l+ztlcFMrFVpBYsbNeVS+hixyMlyHzA1Ep57YHriZlRs3tPKsNBw==
+length: 1569
 -->
