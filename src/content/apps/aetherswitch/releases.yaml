@@ -1,5 +1,37 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.7.0"
+    build: "2026100501"
+    date: 2026-10-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.7.0/AetherSwitch-1.7.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.7.0
+    sha256: b3f13b2f2b11ac461f08842ea862f2681303a1511b8e9e0765028ee9acc95430
+    sparkle:
+      edSignature: liFNAdbxjc9vLf9SCN6TL9EeUW82Foe8XvUqvy92jxlYdiNhinSt4N95Eor6m1eyHnFQxrFFkKAYCc36OlRCCQ==
+      length: 2178709
+    summary:
+      zh: 对齐 Stats 四类监控详情，新增温度、实时频率、多屏帧率与磁盘健康信息。
+      en: Stats-style CPU, GPU, memory and disk panels with temperatures, live frequency, display FPS and disk health.
+    notes:
+      - title:
+          zh: 监控详情
+          en: Monitoring
+        items:
+          - zh: CPU 温度和实时频率、真实核心分组与主要进程。
+            en: CPU temperature and live frequency with native core groups and top processes.
+          - zh: GPU 分项利用率、多屏合计呈现帧率与神经引擎功率。
+            en: GPU utilization components with display presentation FPS and Neural Engine power.
+          - zh: 内存压力与分类、缓存和交换详情。
+            en: Memory pressure and breakdown with cache and swap details.
+          - zh: 多卷选择、物理设备读写与支持设备的 NVMe SMART 健康。
+            en: Volume selection with physical-device I/O and supported NVMe SMART health.
+      - title:
+          zh: 修复与体验
+          en: Fixes and experience
+        items:
+          - zh: 修正进程 CPU 计数与缺失指标处理，长详情支持滚动。
+            en: Correct process CPU accounting and unavailable readings with scrollable detail panels.
   - version: "1.6.1"
     build: "2026100306"
     date: 2026-10-03
