@@ -1,6 +1,41 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.2.0"
+    build: "2026100501"
+    date: 2026-10-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.2.0/AetherRoute-1.2.0-build-2026100501-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.2.0
+    sha256: d0ffbeca1db388df302091ac62857bc231239427d38d80e3a259e185853fb8fe
+    sparkle:
+      edSignature: RiopRNpXPoyFWNp2nDrVCnxtNDB7+zg7M8adUWn2EXEVDNXHgsTijJNdQaA+UKM0Ic0d0cyJOOvznTOMvah+AA==
+      length: 25010210
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 自签证书节点无需跳过校验：全部 TLS 协议支持证书指纹固定，Hysteria2 / TUIC 支持自定义 CA，与 mihomo 一致；证书配置有误时只影响该节点。全量通过协议互通门禁与 Apple Silicon 真机六维矩阵。
+      en: "Self-signed nodes no longer need skip-cert-verify: every TLS protocol honours a pinned certificate fingerprint and Hysteria2 / TUIC accept a custom CA, as in Mihomo; a bad certificate setting only affects its own node. Verified by the protocol interoperability gate and a six-way matrix on physical Apple Silicon."
+    notes:
+      - title:
+          zh: 证书兼容性
+          en: Certificate Compatibility
+        items:
+          - zh: VMess、VLESS、Trojan、AnyTLS、HTTP(S)、SOCKS5、Hysteria2、TUIC 支持证书指纹固定，握手签名始终验证。
+            en: VMess, VLESS, Trojan, AnyTLS, HTTP(S), SOCKS5, Hysteria2 and TUIC honour certificate pins; handshake signatures are always verified.
+          - zh: Hysteria2、TUIC 支持 ca / ca-str；导入配置时自动内联可读取的 CA 文件。
+            en: Hysteria2 and TUIC accept ca / ca-str; readable CA files are inlined when a profile is imported.
+          - zh: 指纹或 CA 有误时只让该节点拒绝连接并说明原因。
+            en: A bad pin or CA only makes its own node refuse to connect, with the reason.
+      - title:
+          zh: 体验与验证
+          en: Experience & Verification
+        items:
+          - zh: 手动添加节点新增证书指纹输入；Hysteria2 分享链接保留 pinSHA256；TUN 模式本地代理说明更清楚。
+            en: Manual nodes gain a certificate fingerprint field; Hysteria2 links keep pinSHA256; the TUN local proxy setting explains when it is needed.
+          - zh: 协议互通门禁新增指纹固定、自定义 CA 与错误指纹检查，并纳入每次发布。
+            en: The protocol interoperability gate now checks pinning, custom CAs and wrong pins, and runs for every release.
   - version: "1.1.7"
     build: "2026100403"
     date: 2026-10-04
