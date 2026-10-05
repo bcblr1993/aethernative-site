@@ -4,23 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.3.9</title>
-            <pubDate>Fri, 02 Oct 2026 06:51:04 +0800</pubDate>
-            <sparkle:version>13</sparkle:version>
-            <sparkle:shortVersionString>0.3.9</sparkle:shortVersionString>
+            <title>0.3.10</title>
+            <pubDate>Mon, 05 Oct 2026 21:14:41 +0800</pubDate>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>0.3.10</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.9
+            <description sparkle:format="markdown"><![CDATA[# v0.3.10
 
-- 适配本机官方 Antigravity 2.19.1 Apple Silicon 版本，恢复创建实例和从主实例升级副本的入口。
-- 继续严格校验官方签名、程序哈希和适配位置；未知或变动的版本仍会拒绝处理。
+- 运行中的实例现在有清晰的“退出”按钮。macOS 上关闭窗口后应用仍可能在后台运行；请保存工作并退出实例，待状态变为“未运行”后再清空工作空间。
+- 清空前仍会检查主进程与后台 Helper，避免删除正在使用的数据。
 
-升级副本时会从本机主实例复制并验证新程序，为旧程序和账号数据创建备份。此管理器更新本身不会自动关闭或升级现有副本。
+此管理器更新不会自动清空或修改任何实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.9/Aether-Antigravity-Multiplexer-v0.3.9-macos-arm64.zip" length="2170815" type="application/octet-stream" sparkle:edSignature="cM67J0zzP/qWxXpZfEDcLzZkzU20FWRd4p/juZw8AGMLASMhYt7J5c/9uWRqEN4MnLCNRUNN1NzRtVG40DRWAw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.10/Aether-Antigravity-Multiplexer-v0.3.10-macos-arm64.zip" length="2177413" type="application/octet-stream" sparkle:edSignature="9Ugeyp60VLgjG8dh3fv4kd8pNMAjOxUvQ7ZXkO/RUx1wDmZ451Xt2vXFH+4g81Z6Xjd2P6R2Z4/i1CyOYa47BQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: Q/Vpn1dXQUd/HHVpP2RByBice6KDtCVxd0bFSZmKr+3rGX8GwNzhy4vorNF0TICHPBsh2PHn1dJtmbTWyO5ADQ==
-length: 1694
+edSignature: yzoBuiWNI2NX+9w09tGp8W/biHs+3My8JZpEt9DC232vtL6H0lWmuttZsr3OgiXYQky1QUatmYy8lqnrz32mAg==
+length: 1657
 -->
