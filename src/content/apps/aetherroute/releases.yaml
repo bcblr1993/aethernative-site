@@ -1,6 +1,37 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.2.1"
+    build: "2026100502"
+    date: 2026-10-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.2.1/AetherRoute-1.2.1-build-2026100502-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.2.1
+    sha256: e712e86288e9753016723918851d4041307ec1db818dec48d371c780f6cff2e7
+    sparkle:
+      edSignature: 79o0mttIK+N0weF2jUrU4krK+mG8IHX3+ZbUR3JdJLtmiplEykzSiRTKqrvI3g0hqyw55Q76LQRckA/nJzmWCQ==
+      length: 26335936
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 订阅的已用流量与到期时间一目了然，快用完或快到期时提前提醒；可选系统通知，自动按服务商建议更新订阅。全量通过协议互通门禁与 Apple Silicon 真机六维矩阵。
+      en: See your subscription's remaining traffic and expiry at a glance, with warnings before either runs out, optional notifications and provider-suggested update schedules. Verified by the protocol interoperability gate and a six-way matrix on physical Apple Silicon.
+    notes:
+      - title:
+          zh: 订阅用量
+          en: Subscription Usage
+        items:
+          - zh: 配置页显示已用 / 总量、剩余流量与到期日。
+            en: Profiles show used and total traffic, what is left and the expiry date.
+          - zh: 剩余不足 10% 或 3 天内到期时在 App 与菜单栏提醒，可选系统通知。
+            en: Warnings in the app and menu bar when under 10% is left or the plan ends within three days, with optional notifications.
+      - title:
+          zh: 更聪明的更新
+          en: Smarter Updates
+        items:
+          - zh: 未自选间隔时按服务商建议的间隔自动更新订阅；新订阅采用服务商提供的名称。
+            en: Subscriptions follow the provider's suggested update interval until you choose one; new subscriptions take the provider's name.
   - version: "1.2.0"
     build: "2026100501"
     date: 2026-10-05
