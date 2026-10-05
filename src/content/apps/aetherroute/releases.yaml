@@ -1,6 +1,39 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.3.0"
+    build: "2026100602"
+    date: 2026-10-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.3.0/AetherRoute-1.3.0-build-2026100602-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.3.0
+    sha256: 187b11e3c2831dcfcb058b05d1acfc160a6977420c485c4d8a3ba57093513028
+    sparkle:
+      edSignature: hcppNquXIn3xYkxg1IzEj+XmXTGjfthn9kcW0rib/tcrVgsdAUPLXJLkoo3CyzJ5xWzp/A1LNvsTzoeapjBSAg==
+      length: 25166869
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 看清每条连接来自哪个应用，并按应用决定走代理、直连还是拒绝；兼容 Mihomo 进程规则。全量通过协议互通门禁与 Apple Silicon 真机六维矩阵。
+      en: See which app opened every connection and route each app through a proxy, directly or not at all; Mihomo process rules now work. Verified by the protocol interoperability gate and a six-way matrix on physical Apple Silicon.
+    notes:
+      - title:
+          zh: 来源应用
+          en: Source Apps
+        items:
+          - zh: 连接页显示每条连接的来源应用，可按应用分组、筛选。
+            en: The Connections page shows the app behind every connection, grouped or filtered by app.
+          - zh: 辅助进程归入所属应用，网页内容归入 Safari。
+            en: Helper processes count as their app; web content counts as Safari.
+      - title:
+          zh: 应用规则
+          en: Application Rules
+        items:
+          - zh: 为单个应用指定直连、代理组或拒绝，优先于其他所有规则。
+            en: Send one app direct, through a proxy group or nowhere, ahead of every other rule.
+          - zh: 支持配置中的 PROCESS-NAME、PROCESS-PATH 与 PROCESS-PATH-REGEX 规则。
+            en: Profile rules of type PROCESS-NAME, PROCESS-PATH and PROCESS-PATH-REGEX now work.
   - version: "1.2.1"
     build: "2026100502"
     date: 2026-10-05
