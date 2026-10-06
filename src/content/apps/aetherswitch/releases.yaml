@@ -1,5 +1,33 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.8.0"
+    build: "2026100601"
+    date: 2026-10-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.8.0/AetherSwitch-1.8.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.8.0
+    sha256: eb0d550b75bea37e5e64bc315c2ccdd65bdc28db3888061046326bb53347067f
+    sparkle:
+      edSignature: 2ZWZQA5bnKw7186nFRoBJKNdVYXP5jqpB35BfTZpZiqEZB6JVLDKQ3ehNCKObxe9Rj2Z1m+7YZGhNwOFUoUrDg==
+      length: 2215573
+    summary:
+      zh: 对齐 Stats 的菜单栏组件、利用率配色与外观设置。
+      en: Stats-style menu bar widgets, utilization colors, and appearance settings.
+    notes:
+      - title:
+          zh: 菜单栏外观
+          en: Menu bar appearance
+        items:
+          - zh: CPU、GPU、RAM、SSD 支持 Mini 数字、柱状图、饼图及利用率配色。
+            en: Mini values, bar charts, pie charts, and utilization colors for CPU, GPU, RAM, and SSD.
+          - zh: 新增带实时预览的设置窗口，支持标签、对齐、数字字体、间距和网络图标，并保存设置。
+            en: A live-preview settings window for labels, alignment, digit fonts, spacing, and network icons, with persistent preferences.
+      - title:
+          zh: 修复与优化
+          en: Fixes and improvements
+        items:
+          - zh: 修复 100% 读数裁切，对齐 Stats 内存压力配色，并在关闭设置窗口后释放资源。
+            en: Prevent clipped 100% values, align memory pressure colors with Stats, and release resources after closing settings.
   - version: "1.7.0"
     build: "2026100501"
     date: 2026-10-05
