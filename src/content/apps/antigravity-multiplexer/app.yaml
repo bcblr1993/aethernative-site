@@ -7,15 +7,15 @@ minimumSystemVersion: "13.0"
 sparklePublicKey: pMww3oxkkT9VcymetHFOUIF1thb/n+xjVMlxuFXVHsY=
 # 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
 appcastMode: mirror
-icon: ./media/icon.png
+icon: ./media/icon-v040.png
 tech: [SwiftUI]
 
 tagline:
-  zh: 在一台 Mac 上管理多个 Antigravity 实例
-  en: Manage multiple Antigravity instances on one Mac
+  zh: 原生 Mac 多开管理，外观跟随系统
+  en: Native Mac instance management that follows the system
 summary:
-  zh: 本机图形化管理器：创建独立的 Antigravity 实例，统一升级、备份、清空工作空间和销毁。非官方工具，不包含 Google 程序。
-  en: A local manager for separate Antigravity instances, upgrades, backups, workspace clearing and removal. Unofficial; does not include Google software.
+  zh: 在一台 Apple 芯片 Mac 上创建和管理独立 Antigravity 实例，统一升级、备份、清空工作空间和销毁。界面跟随系统外观与透明度设置。非官方工具，不包含 Google 程序。
+  en: Create and manage separate Antigravity instances on one Apple silicon Mac, with upgrades, backups, workspace clearing and removal. The interface follows system appearance and transparency settings. Unofficial; does not include Google software.
 
 platforms:
   - id: mac
@@ -26,8 +26,8 @@ hero:
   eyebrow: { zh: 非官方 · 本机管理工具, en: Unofficial · Local manager }
   title: { zh: "多个实例，\n各自独立。", en: "Many instances.\nEach on its own." }
   lead:
-    zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级、备份、清空工作空间与销毁，都在一个窗口里完成。"
-    en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade, back up, clear a workspace and remove instances from one window."
+    zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级和清理集中在一个随 macOS 浅深色与透明度设置变化的原生窗口里。"
+    en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade and clean up from a native window that adapts to macOS appearance and transparency settings."
   requirements:
     zh: Apple 芯片 / macOS 13+ · 需已安装官方 Apple 芯片版 Antigravity
     en: Apple silicon / macOS 13+ · Requires the official Apple silicon Antigravity app
@@ -38,36 +38,40 @@ notice:
 
 gallery:
   - label: { zh: 真机实例列表, en: Instance list on Mac }
-    zh: ./media/instances-mac-v036.jpeg
+    zh: ./media/instances-mac-v040-light.png
+    zhDark: ./media/instances-mac-v040-dark.png
   - label: { zh: 创建独立实例, en: Create an independent instance }
-    zh: ./media/create-mac-v036.jpeg
+    zh: ./media/create-mac-v040-light.png
+    zhDark: ./media/create-mac-v040-dark.png
   - label: { zh: 管理器在线更新, en: In-app manager updates }
-    zh: ./media/updates-mac-v036.jpeg
+    zh: ./media/updates-mac-v040-light.png
+    zhDark: ./media/updates-mac-v040-dark.png
   - label: { zh: 清空工作空间确认, en: Clear workspace confirmation }
-    zh: ./media/clear-workspace-mac-v036.jpeg
+    zh: ./media/clear-workspace-mac-v040-light.png
+    zhDark: ./media/clear-workspace-mac-v040-dark.png
 
 showcase:
   eyebrow: { zh: 真机运行, en: Running on a real Mac }
-  title: { zh: 原生界面，实际运行。, en: "Native UI, captured in use." }
+  title: { zh: 与 macOS 外观一致的原生界面。, en: "A native interface that fits macOS." }
   lead:
-    zh: 来自 Apple 芯片 Mac 上的管理器 0.3.6，展示实例列表、创建确认、更新设置与工作空间清空确认。
-    en: Captured from manager 0.3.6 on an Apple silicon Mac, showing the instance list, creation confirmation, update settings and workspace clearing confirmation.
+    zh: 来自 macOS 27 真机的管理器 0.4.0 界面，浅色与深色均有实例列表、创建确认、更新设置和工作空间清空确认截图；材质与控件遵从系统透明度设置。
+    en: Captured from manager 0.4.0 on a real macOS 27 Mac. Light and dark screenshots show the instance list, creation confirmation, update settings and workspace clearing confirmation. Materials and controls follow system transparency settings.
   note:
     zh: 图片仅展示管理器窗口；不包含账号、邮箱、登录凭据、个人文件路径或操作日志。图中路径为应用通用目录，英文页面沿用中文界面截图。
     en: Only the manager windows are shown. No accounts, email addresses, credentials, personal file paths or operation logs appear. Paths shown are generic application directories. Screenshots show the Chinese UI.
   items:
     - title: { zh: 实例版本与运行状态, en: Versions and running status }
       caption: { zh: 在一个列表中查看主实例与副本版本，以及各自的运行状态。, en: See the original and copies together with their versions and running status. }
-      image: ./media/instances-mac-v036.jpeg
+      image: ./media/instances-mac-v040-light.png
     - title: { zh: 创建前确认隔离信息, en: Review isolation before creation }
       caption: { zh: 确认英文实例名称、独立数据目录与登录回调；创建前校验官方源程序。, en: "Review the English instance name, separate data directory and callback before validating the official source app." }
-      image: ./media/create-mac-v036.jpeg
+      image: ./media/create-mac-v040-light.png
     - title: { zh: 管理器自动更新, en: Automatic manager updates }
       caption: { zh: 管理器可自动检查、下载和安装更新，保留已有实例与账号数据。, en: "The manager can check, download and install updates while preserving existing instances and account data." }
-      image: ./media/updates-mac-v036.jpeg
+      image: ./media/updates-mac-v040-light.png
     - title: { zh: 清空前确认范围, en: Confirm before clearing }
       caption: { zh: 仅对停止的副本开放，明确显示清空范围并要求输入完整实例名称。, en: "Available only for stopped copies, with a clear scope and full-name confirmation." }
-      image: ./media/clear-workspace-mac-v036.jpeg
+      image: ./media/clear-workspace-mac-v040-light.png
 
 features:
   eyebrow: { zh: 功能, en: Features }
@@ -76,6 +80,11 @@ features:
     zh: 每一步都先校验、先备份，再动手；只接受已适配、完整签名的官方原版作为来源。
     en: Every step verifies and backs up first. Only adapted, fully signed official builds are accepted as the source.
   items:
+    - kicker: { zh: 外观, en: Appearance }
+      title: { zh: 跟随 Mac 的显示设置, en: Follow your Mac display settings }
+      body:
+        zh: 窗口、卡片与按钮随系统浅色或深色外观变化；macOS 的 Liquid Glass 色调与“降低透明度”设置也会作用于原生控件和材质，无需在应用内重复配置。
+        en: "The window, cards and controls follow light or dark mode. macOS Liquid Glass tint and Reduce Transparency settings also affect native controls and materials, with no extra in-app preference."
     - kicker: { zh: 创建, en: Create }
       title: { zh: 独立的新实例, en: Separate new instances }
       body:
