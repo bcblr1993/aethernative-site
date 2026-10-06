@@ -145,10 +145,10 @@ benchmarks:
       note: { zh: 发布前覆盖各详情页与更新器, en: Checked across detail pages with the updater running }
     - value: "6 类"
       label: { zh: 详情面板, en: Detail Views }
-      note: { zh: CPU、GPU、内存、磁盘与网络, en: CPU, GPU, memory, disk and network }
-    - value: "0"
-      label: { zh: 外部运行依赖, en: External Runtime Dependencies }
-      note: { zh: 使用 Swift 与 macOS 系统框架, en: Built with Swift and macOS frameworks }
+      note: { zh: CPU、GPU、内存、磁盘、网络与电池, en: CPU, GPU, memory, disk, network and battery }
+    - value: "Swift 6"
+      label: { zh: 原生系统底座, en: Native System Frameworks }
+      note: { zh: 监控使用系统框架，在线更新使用 Sparkle, en: Native monitoring with Sparkle updates }
 
 faq:
   eyebrow: FAQ
