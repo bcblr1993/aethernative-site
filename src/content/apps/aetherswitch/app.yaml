@@ -135,7 +135,7 @@ benchmarks:
   title: { zh: 在真实 Mac 上检查资源占用。, en: Resource usage measured on a real Mac. }
   lead:
     zh: 折叠面板在本机持续采样并检查主线程响应；详情面板在本机及另一台 Apple 芯片 Mac 上逐页测试。
-    en: The collapsed app was sampled locally with responsiveness checks, and detail views were exercised on two Apple silicon Macs.
+    en: Release checks cover idle CPU and responsiveness, real detail popovers, the updater and peak physical footprint.
   stats:
     - value: "≤ 0.1%"
       label: { zh: 后台空载 CPU, en: Background CPU }
