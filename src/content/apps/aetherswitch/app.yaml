@@ -14,8 +14,8 @@ tagline:
   en: Ultra-lightweight macOS status monitor & essential quick toggles
 
 summary:
-  zh: "Apple 芯片 Mac 的原生状态栏工具：一眼查看 CPU、GPU、内存、磁盘和双向网速，点开面板查看详情并使用 4 个常用系统开关。"
-  en: "A native menu bar utility for Apple silicon Macs: glance at CPU, GPU, memory, storage and network rates, then open detailed views and four system toggles."
+  zh: "Apple 芯片 Mac 的原生状态栏工具：一眼查看 CPU、GPU、内存、磁盘和双向网速，点开面板查看进程、网络连接、电池等详情，使用 4 个系统开关与同步亮度控制。"
+  en: "A native menu bar utility for Apple silicon Macs: glance at CPU, GPU, memory, storage and network rates, with process, network and battery details, four system toggles and synchronized display brightness."
 
 platforms:
   - id: mac
@@ -23,19 +23,19 @@ platforms:
     requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
 
 cardStats:
-  - value: "≈ 15 MB"
-    label: { zh: 空载驻留内存, en: Idle Footprint }
+  - value: "≤ 50 MB"
+    label: { zh: 物理内存峰值门槛, en: Peak Footprint Gate }
   - value: "≤ 0.1%"
     label: { zh: 后台 CPU 占用, en: Background CPU }
-  - value: "0 依赖"
-    label: { zh: 纯原生系统底座, en: Zero Dependencies }
+  - value: "原生底座"
+    label: { zh: 纯原生系统底座, en: Native Frameworks }
 
 hero:
-  eyebrow: { zh: 极简 · 零依赖 · 极致低耗, en: Minimal · Zero Dependencies · Ultra-Low Overhead }
+  eyebrow: { zh: 极简 · 原生 · 低耗, en: Minimal · Native Frameworks · Ultra-Low Overhead }
   title: { zh: "告别臃肿堆叠，\n只需你真正用的功能。", en: "Say goodbye to bloat.\nOnly the features you actually use." }
   lead:
-    zh: "折叠面板时，本机实测物理内存约 15 MB。\n原生菜单栏读数、五类详情和高频开关集中在一个轻巧工具中。"
-    en: "The collapsed app used about 15 MB of physical memory in a local test.\nNative menu bar readings, five detail views and everyday toggles live in one compact utility."
+    zh: "按需采样，发布前逐页验证物理内存峰值 ≤ 50 MB。\n原生菜单栏读数、六类详情和高频开关集中在一个轻巧工具中。"
+    en: "On-demand sampling with a 50 MB peak-footprint release gate.\nNative menu bar readings, six detail views and everyday toggles live in one compact utility."
   requirements:
     zh: Apple 芯片（M1 及更新）/ macOS 14+
     en: Apple silicon (M1 or later) / macOS 14+
@@ -47,13 +47,13 @@ showcase:
     zh: 告别臃肿后台常驻，将高频快捷开关与全方位硬件监控汇聚于纯净原生下拉面板。
     en: Strip away bloated background daemons. Essential quick toggles and comprehensive hardware telemetry in one native glassmorphism panel.
   note:
-    zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样；左侧为浅色外观，右侧为深色外观。
-    en: Rendered from AetherSwitch's native views with live local readings; light appearance on the left, dark on the right.
+    zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样，网络地址已脱敏；左侧为浅色外观，右侧为深色外观。
+    en: Rendered from AetherSwitch's native views with live local readings and anonymized network addresses; light appearance on the left, dark on the right.
   items:
     - title: { zh: 按需显示的菜单栏指标, en: Menu Bar Metrics You Choose }
       caption:
-        zh: CPU、GPU、RAM、SSD 与上下行网速分栏显示，数字按利用率分 4 档变色；在各详情页即可开关对应指标，状态栏宽度随之收缩。
-        en: CPU, GPU, RAM, SSD and network rates in aligned columns, colored in four load tiers; toggle each metric from its detail view and the status item shrinks to fit.
+        zh: CPU、GPU、RAM、SSD 与上下行网速分栏显示，数字可按利用率或内存压力着色；在各详情页即可开关对应指标，状态栏宽度随之收缩。
+        en: CPU, GPU, RAM, SSD and network rates in aligned columns, with utilization or memory-pressure colors; toggle each metric from its detail view and the status item shrinks to fit.
       image: ./media/menubar-zh.png
     - title: { zh: 4 大高频快捷开关，一触即发, en: 4 Essential Quick Toggles }
       caption:
@@ -85,6 +85,16 @@ showcase:
         zh: 显示物理磁盘读写速率与历史曲线，以及 APFS 共享容器的已用与可用空间。
         en: Shows physical disk read and write rates with history, plus used and free space in the shared APFS container.
       image: ./media/disk-zh.png
+    - title: { zh: 网络接口与连接详情, en: Network Interface Details }
+      caption:
+        zh: 自动跟随主接口或手动选择，查看双向速率、IPv4、Wi-Fi 连接信息和本次监测累计流量。
+        en: Follow the primary interface or choose one, with rates, IPv4, Wi-Fi details and monitored transfer totals.
+      image: ./media/network-light.png
+    - title: { zh: 原生电池状态, en: Native Battery Status }
+      caption:
+        zh: 电量、充电状态、预计时间、最大容量与循环次数；慢速缓存，不支持时明确提示。
+        en: Charge, power state, estimated time, maximum capacity and cycles, with slow cached reads and explicit unavailable states.
+      image: ./media/battery-light.png
 
 features:
   eyebrow: { zh: 核心优势, en: Core Strengths }
@@ -112,33 +122,33 @@ features:
         - { zh: 在 CPU、GPU、内存、磁盘与网络详情页可单独选择是否在菜单栏显示，全部关闭时只保留图标入口。, en: Choose which metrics appear in the menu bar from each detail view; with all of them off, only the icon remains. }
         - { zh: 纯原生系统字体排版，杜绝数字跳动与截断省略号问题。, en: Native system font alignment prevents numeric jitter and truncation ellipsis. }
     - kicker: { zh: 智能能耗调度, en: Adaptive Power Management }
-      title: { zh: 折叠深度休眠，后台 CPU 占用 ≤ 0.1%, en: "Deep sleep when collapsed, idle CPU ≤ 0.1%" }
+      title: { zh: 折叠深度休眠，后台 CPU 占用 ≤ 0.1%, en: "Detail readers sleep; hidden metrics stop sampling, idle CPU ≤ 0.1%" }
       body:
         zh: 独创自适应采样调度机制，在面板收起时彻底停止 GPU 与 CPU 多核轮询，杜绝任何不必要的电池消耗。
         en: Proprietary adaptive scheduler puts GPU and multi-core polling to sleep when collapsed, eliminating background battery drain.
       details:
         - { zh: 本机折叠状态连续监测了 CPU 时间、物理内存和主线程响应，详情面板另行逐页验收。, en: Local collapsed-state checks measure CPU time, physical memory and main-thread response; detail views are checked separately. }
-        - { zh: 纯原生 Swift 6 编译，零外部二进制依赖，空载常驻物理内存仅约 15MB。, en: Compiled with pure Swift 6 and zero external libraries, running in ~15MB idle physical memory. }
+        - { zh: 纯原生 Swift 6 编译，零外部二进制依赖，物理内存峰值验收门槛仅约 15MB。, en: Compiled with pure Swift 6 and zero external libraries, running in ~15MB idle physical memory. }
 
 benchmarks:
   eyebrow: { zh: 实测数据, en: Benchmarks }
   title: { zh: 在真实 Mac 上检查资源占用。, en: Resource usage measured on a real Mac. }
   lead:
     zh: 折叠面板在本机持续采样并检查主线程响应；详情面板在本机及另一台 Apple 芯片 Mac 上逐页测试。
-    en: The collapsed app was sampled locally with responsiveness checks, and detail views were exercised on two Apple silicon Macs.
+    en: Release checks cover idle CPU and responsiveness, real detail popovers, the updater and peak physical footprint.
   stats:
     - value: "≤ 0.1%"
       label: { zh: 后台空载 CPU, en: Background CPU }
-      note: { zh: 折叠面板时彻底休眠 GPU 与多核采样, en: Deep sleep when collapsed }
-    - value: "≈ 15 MB"
-      label: { zh: 空载常驻物理内存, en: Idle Physical Footprint }
-      note: { zh: 本机折叠状态实测值, en: Measured locally with the popover closed }
-    - value: "5 类"
+      note: { zh: 折叠时停止高阶详情采样，隐藏指标停止读取, en: Detail readers sleep; hidden metrics stop sampling }
+    - value: "≤ 50 MB"
+      label: { zh: 物理内存峰值验收门槛, en: Peak Physical Footprint Gate }
+      note: { zh: 发布前覆盖各详情页与更新器, en: Checked across detail pages with the updater running }
+    - value: "6 类"
       label: { zh: 详情面板, en: Detail Views }
-      note: { zh: CPU、GPU、内存、磁盘与网络, en: CPU, GPU, memory, disk and network }
-    - value: "0"
-      label: { zh: 外部运行依赖, en: External Runtime Dependencies }
-      note: { zh: 使用 Swift 与 macOS 系统框架, en: Built with Swift and macOS frameworks }
+      note: { zh: CPU、GPU、内存、磁盘、网络与电池, en: CPU, GPU, memory, disk, network and battery }
+    - value: "Swift 6"
+      label: { zh: 原生系统底座, en: Native System Frameworks }
+      note: { zh: 监控使用系统框架，在线更新使用 Sparkle, en: Native monitoring with Sparkle updates }
 
 faq:
   eyebrow: FAQ
@@ -158,4 +168,4 @@ faq:
 
 cta:
   title: { zh: 告别臃肿，体验极致纯粹的 Mac 状态控制。, en: Eliminate the bloat. Experience pure native Mac control. }
-  note: { zh: 适用于 Apple 芯片 Mac · macOS 14.0+ · 纯原生 Swift 6 零依赖, en: For Apple silicon Mac · macOS 14.0+ · Native Swift 6 Zero Dependencies }
+  note: { zh: 适用于 Apple 芯片 Mac · macOS 14.0+ · Swift 6 原生底座 · Sparkle 更新, en: For Apple silicon Mac · macOS 14.0+ · Native Swift 6 · Sparkle Updates }
