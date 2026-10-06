@@ -4,23 +4,24 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.3.11</title>
-            <pubDate>Mon, 05 Oct 2026 21:23:27 +0800</pubDate>
-            <sparkle:version>15</sparkle:version>
-            <sparkle:shortVersionString>0.3.11</sparkle:shortVersionString>
+            <title>0.4.0</title>
+            <pubDate>Tue, 06 Oct 2026 12:01:32 +0800</pubDate>
+            <sparkle:version>16</sparkle:version>
+            <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.3.11
+            <description sparkle:format="markdown"><![CDATA[# v0.4.0
 
-- 清空工作空间和销毁实例的确认框新增“复制实例名”按钮，方便准确粘贴到确认输入框。
-- 实例名称仍需由你主动粘贴并确认；复制操作不会清空数据。
+- 管理器界面现随 macOS 的浅色、深色、Liquid Glass 色调与“降低透明度”设置变化。
+- 重新设计多开图标，采用叠放窗口与 Aether 标记，在 Dock 小尺寸下仍可辨认。
+- 主窗口操作区改为两行布局，避免窗口较窄时标题被挤成多行。
 
 此管理器更新不会自动清空或修改任何实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.3.11/Aether-Antigravity-Multiplexer-v0.3.11-macos-arm64.zip" length="2181423" type="application/octet-stream" sparkle:edSignature="tFV0EQKYtneIpZumXbJxi3nAPffwONXw9FttxjLCsDqNMyrprQpbA7r8fl9tM+CN8+YR4NsaI0CJPoxQBoxEBA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.4.0/Aether-Antigravity-Multiplexer-v0.4.0-macos-arm64.zip" length="2483756" type="application/octet-stream" sparkle:edSignature="7GYENpT9Vn9FxCzJDrI+E/8muaIGPO0ewbBPib67q3oCvclybXhVGGX2LL/sLpGuZbk7QZ9GhRNaEK6Uq4UeDw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: S237Fsf+PJ4UA8Fu9GeEQ2VaSGFsaGoKT/l+ztlcFMrFVpBYsbNeVS+hixyMlyHzA1Ep57YHriZlRs3tPKsNBw==
-length: 1569
+edSignature: brh7BKNXFqZCThGxMPlGwerxFDfGxKTSOt5Tho1hJV2GjEr5CVrK4Loj8290hd1sbyNA4Y+jDhsg58/kEkcQAA==
+length: 1658
 -->
