@@ -47,8 +47,8 @@ showcase:
     zh: 告别臃肿后台常驻，将高频快捷开关与全方位硬件监控汇聚于纯净原生下拉面板。
     en: Strip away bloated background daemons. Essential quick toggles and comprehensive hardware telemetry in one native glassmorphism panel.
   note:
-    zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样，网络地址已脱敏；左侧为浅色外观，右侧为深色外观。
-    en: Rendered from AetherSwitch's native views with live local readings and anonymized network addresses; light appearance on the left, dark on the right.
+    zh: 截图由 AetherSwitch 原生视图直接渲染，数据来自本机实时采样，网络地址已脱敏；图库包含浅色与深色外观。
+    en: Rendered from AetherSwitch's native views with live local readings and anonymized network addresses; the gallery includes light and dark appearances.
   items:
     - title: { zh: 按需显示的菜单栏指标, en: Menu Bar Metrics You Choose }
       caption:
@@ -134,7 +134,7 @@ benchmarks:
   eyebrow: { zh: 实测数据, en: Benchmarks }
   title: { zh: 在真实 Mac 上检查资源占用。, en: Resource usage measured on a real Mac. }
   lead:
-    zh: 折叠面板在本机持续采样并检查主线程响应；详情面板在本机及另一台 Apple 芯片 Mac 上逐页测试。
+    zh: 折叠面板在本机持续采样并检查主线程响应；详情面板在本机逐页检查物理内存峰值。
     en: Release checks cover idle CPU and responsiveness, real detail popovers, the updater and peak physical footprint.
   stats:
     - value: "≤ 0.1%"
