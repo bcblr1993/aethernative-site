@@ -1,5 +1,39 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.9.0"
+    build: "2026100604"
+    date: 2026-10-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.0/AetherSwitch-1.9.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.9.0
+    sha256: 04e663e07e7252af7fb5ed702b90f04b22740d06cbac04e1ed16a83e353313c4
+    sparkle:
+      edSignature: HDYW0V02YbaW2fd+hhyHDlvGlzhIOU5MI2SuOMws1LGJqdHw02NMXpGDoYKnsc6Gwzpt++655WVD0OPggPGTCw==
+      length: 1924245
+    summary:
+      zh: 新品牌图标、按需采样、网络接口详情与原生电池监控
+      en: New branding, demand-driven sampling, network interface details and native battery monitoring
+    notes:
+      - title:
+          zh: 新功能
+          en: Features
+        items:
+          - zh: S 形开关图标与菜单栏排序
+            en: S-shaped switch icon and menu bar ordering
+          - zh: 网络接口选择与监测累计流量
+            en: Interface selection and monitored traffic totals
+          - zh: 原生电池监控与充电详情
+            en: Native battery monitoring and charging details
+      - title:
+          zh: 性能与修复
+          en: Performance and fixes
+        items:
+          - zh: 根据可见指标与当前页面按需采样
+            en: Sample according to visible metrics and the current page
+          - zh: 缓存布局与慢变化读数减少重复重绘
+            en: Cache layout and slow-changing readings to reduce redraws
+          - zh: 唤醒后重建差分基线并修复电池页切换异常
+            en: Rebuild baselines after wake and fix battery page switching
   - version: "1.8.0"
     build: "2026100601"
     date: 2026-10-06
