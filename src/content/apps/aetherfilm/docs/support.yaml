@@ -1,0 +1,19 @@
+title: { zh: 使用帮助, en: Support & Help }
+heading: { zh: "添加你的影片，\n随时流畅播放。", en: "Add your media,\nenjoy seamless playback." }
+sections:
+  - heading: { zh: 导入本地视频, en: Import Local Media }
+    steps:
+      - { zh: "点击主界面工具栏的「导入视频」按钮（快捷键 ⌘O），选取要播放的视频文件。", en: "Click “Import Video” in the toolbar (shortcut ⌘O) and choose media files to play." }
+      - { zh: "也可以直接将视频文件从访达（Finder）拖入 AetherFilm 窗口。", en: "Or drag video files directly from Finder into the AetherFilm window." }
+      - { zh: "从列表移除视频仅删除媒体库索引记录，绝不会删除磁盘上的原文件。", en: "Removing an item from the list only cleans up library index and never deletes your disk file." }
+  - heading: { zh: 连接 SMB NAS, en: Connect to SMB NAS }
+    steps:
+      - { zh: "点击工具栏的「连接 SMB」按钮（快捷键 ⌘K），填写 NAS 的 IP 或主机名、共享文件夹名称。", en: "Click “Connect SMB” (shortcut ⌘K) and enter your NAS host/IP and share name." }
+      - { zh: "填写用户名和密码（可支持域和指定端口，默认端口 445）。", en: "Enter your username and password (domain and custom port 445 supported)." }
+      - { zh: "首次连接请在系统弹窗中允许「本地网络」权限。", en: "Allow local network permission when prompted by macOS/iOS on first connection." }
+  - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
+    body:
+      - zh: 如遇到播放异常、音轨/字幕无法识别或连接问题，欢迎在 GitHub 提交 Issue。
+        en: If you encounter playback issues, unreadable tracks, or connection errors, feel free to open an issue on GitHub.
+    links:
+      - { label: { zh: 在 GitHub 提交反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/AetherFilm/issues" }

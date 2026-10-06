@@ -1,0 +1,21 @@
+title: { zh: 隐私政策, en: Privacy Policy }
+heading: { zh: "你的视频，\n只在你的设备间传输。", en: "Your media stays\nstrictly between your devices." }
+meta: { zh: 适用于 AetherFilm 客户端, en: Applies to AetherFilm }
+lead:
+  zh: AetherFilm 严格遵守个人隐私保护原则。应用不包含任何数据埋点、广告网络、行为统计或云端账号体系。视频数据与凭据均在本地加密存储与流式传输。
+  en: AetherFilm strictly respects your privacy. The app contains no analytics, ads, tracking, or cloud account systems. Media data and credentials remain on your device and private network.
+sections:
+  - heading: { zh: 本机保存的数据, en: Data Stored on Your Device }
+    list:
+      - { zh: NAS 连接配置（服务器地址、端口、共享名、用户名与域）保存在本地媒体库配置中。, en: NAS connection details (host, port, share, username, domain) are stored in the local library configuration. }
+      - { zh: NAS 密码安全保存在系统钥匙串（Keychain）中，绝不记录到日志、磁盘普通文本或导出文件中。, en: NAS passwords are stored securely in the system Keychain and never written to logs or plain text. }
+      - { zh: 播放进度、接着看记录与已看标记保存在本地 Application Support 目录，不进行云端上传。, en: Playback progress, resume items, and watched state are saved locally and never uploaded. }
+  - heading: { zh: 网络连接与权限, en: Network Connections }
+    body:
+      - zh: 应用仅会直接连接你配置的局域网 SMB NAS 服务器；首次连接时系统会请求本地网络访问权限。
+        en: The app connects only to the local SMB NAS servers you configure; the system requests local network access on first use.
+      - zh: 本地回环流式服务器仅绑定 127.0.0.1 随机端口，仅供本机播放内核读取，不对局域网或外部网络暴露。
+        en: The local streaming server binds only to 127.0.0.1 on a random port for local playback and is never exposed externally.
+  - heading: { zh: 问题与建议, en: Contact }
+    links:
+      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/AetherFilm/issues" }

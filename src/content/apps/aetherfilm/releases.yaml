@@ -1,0 +1,35 @@
+# AetherFilm 版本记录
+releases:
+  - version: "0.1.0"
+    build: "1"
+    date: 2026-10-06
+    channel: stable
+    download: "https://github.com/bcblr1993/AetherFilm/releases/download/v0.1.0/AetherFilm-0.1.0-macos-arm64.dmg"
+    github: "https://github.com/bcblr1993/AetherFilm/releases/tag/v0.1.0"
+    sha256: "20b579a6c089828808149f2eb776aa7536d4eb8d7b62859326721e300a02f51f"
+    summary:
+      zh: "首个正式版本发布：本地与 SMB NAS 视频流式播放、多格式硬件解码与原生 Liquid Glass 界面。"
+      en: "First public release: local and SMB NAS range streaming, multi-format hardware decoding and native Liquid Glass interface."
+    notes:
+      - title:
+          zh: "核心特性"
+          en: "Core Features"
+        items:
+          - zh: "支持本地文件拖拽与安全访问书签持久化。"
+            en: "Local file drag-and-drop with security-scoped bookmark persistence."
+          - zh: "支持 SMB2/SMB3 NAS 连接、Keychain 凭据加密与范围请求边下边播。"
+            en: "SMB2/SMB3 NAS connections with Keychain encryption and range streaming."
+          - zh: "MP4、MOV、MKV、AVI 常见容器格式与 H.264 / HEVC 硬件加速解码。"
+            en: "MP4, MOV, MKV and AVI containers with H.264 and HEVC hardware acceleration."
+          - zh: "多音轨切换与外挂/内嵌 SRT、ASS、VTT 字幕支持及延迟调节。"
+            en: "Multiple audio tracks, embedded/external SRT, ASS, VTT subtitles and timing adjustments."
+          - zh: "断点进度保存、续播列表与接近片尾自动标记已看。"
+            en: "Persistent playback progress, resume list and auto-watched state near completion."
+      - title:
+          zh: "设计与平台支持"
+          en: "Design & Platform"
+        items:
+          - zh: "专为 Apple Silicon 设计，macOS 与 iOS 原生 Liquid Glass 质感控制。"
+            en: "Designed for Apple Silicon with native Liquid Glass controls on macOS and iOS."
+          - zh: "完整适配浅色/深色外观、减少透明度（Reduce Transparency）与 VoiceOver。"
+            en: "Full support for Light/Dark appearance, Reduce Transparency, and VoiceOver."
