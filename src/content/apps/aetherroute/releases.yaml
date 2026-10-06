@@ -1,6 +1,39 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.3.1"
+    build: "2026100603"
+    date: 2026-10-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.3.1/AetherRoute-1.3.1-build-2026100603-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.3.1
+    sha256: ff5efb9918ba6d6f235ef2901ef53859c1c613c7ae98425d27ee35b28b036798
+    sparkle:
+      edSignature: vMrf/Aivu6JTSVix6/NoXx2jpBumDwhfD4iogre6nqLWzJ01CQTv5MZ2j0hmBItcwWsNbL+NYUHnSJh71lwFCg==
+      length: 25328241
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 新增规则提供者外部规则集管理与动态编译注入；集成 15MB Jetsam 安全条数预算；支持 iCloud 多端漫游同步。全量通过 Apple Silicon 物理真机六维矩阵验证。
+      en: Added Rule Provider management with dynamic compilation; strict 15MB Jetsam rule budgets; automatic iCloud multi-device roaming sync. Fully verified across the six-way matrix on physical Apple Silicon.
+    notes:
+      - title:
+          zh: 规则提供者
+          en: Rule Providers
+        items:
+          - zh: 支持订阅外部规则集（domain、ipcidr、classical 格式），支持自定义分流目标与自动更新。
+            en: Subscribe to external rule sets (domain, ipcidr, classical) with custom targets and auto-updates.
+          - zh: 连接与切换时动态编译注入分流链路，保持精准优先级排序。
+            en: Dynamic compilation and injection into routing chains on connection and profile switch.
+      - title:
+          zh: 稳定性与多端同步
+          en: Stability & Sync
+        items:
+          - zh: 内置条数安全预算（单集最多 2,500 条、总计最多 8,000 条），严格防护 15MB 内存红线。
+            en: Enforced safety rule budgets (2,500 per provider, 8,000 total) strictly protecting the 15MB Jetsam boundary.
+          - zh: 规则集配置与启用状态通过 iCloud 跨设备自动漫游同步。
+            en: Automatic cross-device sync for rule provider configurations and toggle states via iCloud.
   - version: "1.3.0"
     build: "2026100602"
     date: 2026-10-05
