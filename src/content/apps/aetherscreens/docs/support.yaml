@@ -4,13 +4,13 @@ sections:
   - heading: { zh: 设置被控的 Mac, en: Set Up the Remote Mac }
     steps:
       - { zh: "打开「系统设置 → 通用 → 共享」，开启「屏幕共享」。", en: "Open System Settings → General → Sharing and turn on Screen Sharing." }
-      - { zh: "点击屏幕共享旁的 ⓘ，开启「VNC 使用者可以使用密码控制屏幕」并设置密码。", en: "Click ⓘ next to Screen Sharing, enable “VNC viewers may control screen with password” and set a password." }
+      - { zh: "点击屏幕共享旁的 ⓘ，允许你的 Mac 用户访问。使用该用户名与账号密码连接；如需 VNC 密码连接，可单独开启「VNC 使用者可以使用密码控制屏幕」。", en: "Click ⓘ next to Screen Sharing and allow your Mac user. Connect with that username and account password; optionally enable “VNC viewers may control screen with password” for VNC authentication." }
       - { zh: "如需在外网连接，在这台 Mac 上安装并登录 Tailscale。", en: "To connect from outside your network, install and sign in to Tailscale on this Mac." }
   - heading: { zh: 添加并连接设备, en: Add and Connect }
     steps:
       - { zh: "局域网内的 Mac 会出现在「Nearby」分组中，点按即可连接。", en: "Macs on your LAN appear under Nearby; tap one to connect." }
       - { zh: "也可以手动添加设备，填写 Mac 的局域网地址或 Tailscale 的 100.x.y.z 地址，端口默认为 5900。", en: "Or add a device manually with its LAN address or Tailscale 100.x.y.z address; the default port is 5900." }
-      - { zh: "首次连接时输入上一步设置的屏幕共享密码，可选择保存到钥匙串。", en: "Enter the Screen Sharing password on first connection and optionally save it to the Keychain." }
+      - { zh: "使用 Mac 账号时填写用户名与账号密码；使用 VNC 密码时留空用户名。可选择把密码保存到钥匙串。", en: "Enter your Mac username and account password for account authentication, or leave Username empty for a VNC password. Optionally save the password to the Keychain." }
     note: { zh: 连接失败时，可在应用的诊断日志中查看握手与认证过程。, en: If a connection fails, the in-app diagnostic log shows the handshake and authentication steps. }
   - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
     body:

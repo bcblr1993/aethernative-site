@@ -12,6 +12,8 @@ sections:
       - { zh: 远端桌面缩略图保存在本机缓存目录，可随时由系统清理。, en: Remote desktop thumbnails are kept in the local cache folder and may be cleared by the system at any time. }
   - heading: { zh: 网络连接, en: Network Connections }
     body:
+      - zh: 应用本身不加密局域网 VNC 画面与输入流量。请在可信局域网中使用；外部网络连接请通过两端的 Tailscale 加密隧道进行。
+        en: The app does not encrypt LAN VNC screen and input traffic itself. Use a trusted local network, or Tailscale on both devices for encrypted connections over external networks.
       - zh: 应用只会连接你添加或在局域网中发现的 Mac；局域网发现使用 Bonjour，仅在本地网络内进行。
         en: The app connects only to Macs you add or discover on your local network; discovery uses Bonjour and stays on your local network.
       - zh: 只有在你填写 Tailscale API Token 并同步设备时，应用才会访问 api.tailscale.com 读取 Tailnet 设备列表。Token 只在本次运行期间保存在内存中，不会写入磁盘。

@@ -2,7 +2,7 @@
 name: AetherScreens
 order: 6
 repo: https://github.com/bcblr1993/AetherScreens
-icon: ./media/icon.png
+icon: ./media/icon-v2.png
 minimumSystemVersion: "14.0"
 tech: [Swift, SwiftUI, Metal, Network.framework, RFB 3.8]
 
@@ -16,15 +16,15 @@ summary:
 
 platforms:
   - id: mac
-    status: dev
+    status: available
     requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
   - id: ios
     status: dev
     requirement: { zh: iPhone / iPad · iOS 17+, en: iPhone / iPad · iOS 17+ }
 
 cardStats:
-  - value: "0 依赖"
-    label: { zh: 纯 Swift 实现, en: Pure Swift }
+  - value: "Swift"
+    label: { zh: 原生协议实现, en: Native protocol }
   - value: "Metal"
     label: { zh: GPU 画面渲染, en: GPU Rendering }
   - value: "iOS + Mac"
@@ -41,8 +41,8 @@ hero:
     en: "Client: Apple silicon Mac (macOS 14+) or iPhone / iPad (iOS 17+) · Remote: a Mac with Screen Sharing on"
 
 notice:
-  zh: 开发中，暂未提供下载。目前需要在被控 Mac 的屏幕共享设置里开启「VNC 使用者可以使用密码控制屏幕」。
-  en: In development; no download yet. The remote Mac currently needs “VNC viewers may control screen with password” enabled in Screen Sharing settings.
+  zh: macOS 首版现已提供下载；iPhone / iPad 暂需通过 Xcode 安装。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
+  en: The first macOS release is available; iPhone / iPad currently require an Xcode installation. Connect with a Mac account, or separately enable a VNC password in Screen Sharing settings.
 
 features:
   eyebrow: { zh: 功能, en: Features }
@@ -60,13 +60,13 @@ features:
         - { zh: 支持向睡眠中的 Mac 发送网络唤醒（Wake-on-LAN）数据包。, en: Sends Wake-on-LAN packets to sleeping Macs. }
         - { zh: 设备密码保存在系统钥匙串中。, en: Device passwords are stored in the system Keychain. }
     - kicker: { zh: 画面, en: Display }
-      title: { zh: Metal 渲染，双击切换缩放, en: Metal rendering with double-tap zoom }
+      title: { zh: Metal 渲染与缩放平移, en: Metal rendering with zoom and pan }
       body:
-        zh: 远端画面直接上传为 GPU 纹理渲染；双击在「适合屏幕」与「原始像素」之间切换。
-        en: Remote frames are uploaded straight to GPU textures; double-tap switches between fit-to-screen and actual pixels.
+        zh: 远端画面直接上传为 GPU 纹理渲染；iPhone / iPad 支持双指缩放与本地平移；Mac 提供适合窗口、实际尺寸、缩放和平移菜单。
+        en: Remote frames are uploaded straight to GPU textures; pinch zoom and local pan on iPhone and iPad; Mac offers fit, actual size, zoom and pan controls.
       details:
-        - { zh: 可选的性能面板显示帧率、延迟与带宽。, en: An optional HUD shows frame rate, latency and bandwidth. }
-        - { zh: 支持 Zlib、CopyRect 与 Raw 编码。, en: Supports Zlib, CopyRect and Raw encodings. }
+        - { zh: 性能面板显示本地绘制帧率、带宽与测得的 TCP 往返延迟；尚未测得时显示为 —。, en: The HUD shows local draw rate, bandwidth and measured TCP round-trip time; unmeasured latency is shown as —. }
+        - { zh: 支持 ZRLE、Zlib、CopyRect 与 Raw 编码。, en: Supports ZRLE, Zlib, CopyRect and Raw encodings. }
     - kicker: { zh: 输入, en: Input }
       title: { zh: 虚拟触控板与 Mac 快捷键工具栏, en: Virtual trackpad and Mac shortcut toolbar }
       body:
@@ -74,7 +74,7 @@ features:
         en: Tap, two-finger tap, long-press drag and two-finger scroll on iPhone and iPad; the toolbar adds sticky ⌘ ⌥ ⌃ ⇧ modifiers, F1–F12 and common system shortcuts.
       details:
         - { zh: 在 Mac 上直接透传物理键盘、修饰键和鼠标滚轮。, en: On the Mac, the physical keyboard, modifiers and scroll wheel pass straight through. }
-        - { zh: 可把本机剪贴板文字发送到远端 Mac。, en: Sends clipboard text to the remote Mac. }
+        - { zh: 可把本机剪贴板文字插入远端输入框；暂不支持双向剪贴板同步。, en: Inserts local clipboard text into the remote field; bidirectional clipboard sync is not supported. }
 
 faq:
   eyebrow: FAQ
@@ -82,12 +82,12 @@ faq:
   lead: { zh: 关于 AetherScreens 的常见问题。, en: Common questions about AetherScreens. }
   items:
     - q: { zh: 被控的 Mac 需要安装什么？, en: What do I install on the remote Mac? }
-      a: { zh: 不需要安装软件。在「系统设置 → 通用 → 共享」中打开「屏幕共享」，并在其选项里开启「VNC 使用者可以使用密码控制屏幕」、设置一个密码即可。, en: "Nothing. Turn on Screen Sharing in System Settings → General → Sharing, then enable “VNC viewers may control screen with password” and set a password." }
+      a: { zh: 不需要安装软件。在「系统设置 → 通用 → 共享」中打开「屏幕共享」，允许对应用户访问后，可用 Mac 用户名和账号密码连接；也可单独开启 VNC 密码，并在客户端留空用户名。, en: "Nothing. Turn on Screen Sharing in System Settings → General → Sharing, allow your Mac user, then connect with that username and account password. Alternatively, enable a VNC password and leave the client username empty." }
     - q: { zh: 在外面怎么连回家里的 Mac？, en: How do I reach my Mac from outside? }
       a: { zh: 让客户端设备和被控 Mac 登录同一个 Tailscale 网络，然后用 Mac 的 100.x.y.z 地址连接。连接经 Tailscale 端到端加密。, en: "Sign both devices in to the same Tailscale network and connect to the Mac’s 100.x.y.z address. The connection is end-to-end encrypted by Tailscale." }
     - q: { zh: 会上传我的数据吗？, en: Is any of my data uploaded? }
       a: { zh: 不会。画面与输入只在你的设备和被控 Mac 之间直接传输；只有在你填写 Tailscale API Token 并同步设备时，才会访问 Tailscale 官方接口。, en: No. Screen and input data travel directly between your device and the remote Mac. The Tailscale API is contacted only when you enter a token and sync devices. }
 
 cta:
-  title: { zh: 正在开发中，敬请期待。, en: In development. Stay tuned. }
+  title: { zh: 下载 AetherScreens for Mac。, en: Download AetherScreens for Mac. }
   note: { zh: Apple 芯片 Mac · macOS 14+ ／ iPhone、iPad · iOS 17+, en: Apple silicon Mac · macOS 14+ / iPhone, iPad · iOS 17+ }
