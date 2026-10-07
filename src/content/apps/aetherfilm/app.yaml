@@ -4,86 +4,153 @@ order: 7
 repo: https://github.com/bcblr1993/AetherFilm
 icon: ./media/icon.png
 minimumSystemVersion: "26.0"
-tech: [Swift 6, SwiftUI, Liquid Glass, VLCKit, AMSMB2]
-
+tech:
+  - Swift 6
+  - SwiftUI
+  - Liquid Glass
+  - VLCKit
+  - AMSMB2
 tagline:
   zh: 轻一点的私人影院，流式播放你的本地与 NAS 视频
   en: A native personal video player streaming your local and NAS media
-
 summary:
-  zh: "Apple 芯片 Mac 与 iPhone / iPad 原生轻量视频播放器：支持本地文件与 SMB NAS 范围流式播放，MP4 / MOV / MKV 硬件加速解码，多音轨与外挂字幕切换，播放进度记忆与极简 Liquid Glass 原生质感。"
-  en: "A lightweight native video player for Apple silicon Mac, iPhone and iPad: local files and SMB NAS range streaming, MP4 / MOV / MKV hardware decoding, audio & subtitle selection, resume progress and Liquid Glass design."
-
+  zh: 面向 Apple 芯片 Mac 的轻量私人视频播放器，支持本地文件与 SMB NAS 流式播放、H.264 / HEVC 硬件加速、多音轨与字幕切换、播放进度记忆。iPhone / iPad 版本正在验证中。
+  en: A lightweight personal video player for Apple silicon Mac, with local files and SMB NAS streaming, H.264 / HEVC hardware acceleration, audio and subtitle selection, and saved playback progress. The iPhone and iPad version is undergoing validation.
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 26.0+, en: Apple silicon · macOS 26.0+ }
+    requirement:
+      zh: Apple 芯片 · macOS 26.0+
+      en: Apple silicon · macOS 26.0+
   - id: ios
     status: dev
-    requirement: { zh: iPhone / iPad · iOS 26.0+, en: iPhone / iPad · iOS 26.0+ }
-
+    requirement:
+      zh: iPhone / iPad · iOS 26.0+
+      en: iPhone / iPad · iOS 26.0+
 cardStats:
-  - value: "SMB NAS"
-    label: { zh: 范围流式边下边播, en: Range Streaming }
-  - value: "Liquid Glass"
-    label: { zh: 原生质感设计, en: Native Design }
-  - value: "多格式硬解"
-    label: { zh: 硬件加速解码, en: Hardware Acceleration }
-
+  - value: SMB NAS
+    label:
+      zh: 范围流式边下边播
+      en: Range Streaming
+  - value: Liquid Glass
+    label:
+      zh: 原生质感设计
+      en: Native Design
+  - value: 多格式硬解
+    label:
+      zh: 硬件加速解码
+      en: Hardware Acceleration
 hero:
-  eyebrow: { zh: 私人影院 · SMB NAS · 原生体验, en: Personal Cinema · SMB NAS · Native Experience }
-  title: { zh: "轻一点的\n私人影院。", en: "Your personal cinema,\nlighter and native." }
+  eyebrow:
+    zh: 私人影院 · SMB NAS · 原生体验
+    en: Personal Cinema · SMB NAS · Native Experience
+  title:
+    zh: |-
+      轻一点的
+      私人影院。
+    en: |-
+      Your personal cinema,
+      lighter and native.
   lead:
-    zh: "添加自己的影片，快速找到内容，稳定流畅播放。\n告别臃肿转码与复杂库管理，本地文件与 NAS 共享边下边播。"
-    en: "Add your media, browse a compact library, and enjoy reliable playback.\nNo heavy transcoding or complicated media servers—stream directly from local disks and NAS shares."
+    zh: |-
+      添加自己的影片，浏览本地文件与 NAS 共享，接着上次的位置播放。
+      无需提前下载整部影片，也无需搭建媒体服务器。
+    en: |-
+      Browse your local files and NAS shares, then continue from your saved position.
+      Start streaming without downloading the entire film or setting up a media server.
   requirements:
     zh: Apple 芯片 Mac（macOS 26.0+）／ iPhone、iPad（iOS 26.0+）
     en: Apple silicon Mac (macOS 26.0+) / iPhone, iPad (iOS 26.0+)
-
 features:
-  eyebrow: { zh: 核心功能, en: Core Features }
-  title: { zh: 专注观影本质，流畅原生质感。, en: Focused on viewing, crafted for macOS and iOS. }
+  eyebrow:
+    zh: 核心功能
+    en: Core Features
+  title:
+    zh: 专注观影本质，原生轻量体验。
+    en: Focused on viewing, crafted for macOS and iOS.
   lead:
     zh: 原生 Swift 6 与 SwiftUI 打造，提供纯净低耗的私人播放体验。
     en: Built with native Swift 6 and SwiftUI for a lightweight and responsive experience.
   items:
-    - kicker: { zh: 片源, en: Sources }
-      title: { zh: 本地文件与 SMB NAS 共享, en: Local files & SMB NAS shares }
+    - kicker:
+        zh: 片源
+        en: Sources
+      title:
+        zh: 本地文件与 SMB NAS 共享
+        en: Local files & SMB NAS shares
       body:
         zh: 拖入本地视频或添加多个 SMB2/SMB3 连接，凭据安全存入系统钥匙串；采用范围流式播放，无需提前下载整部影片。
         en: Drag in local files or add SMB2/SMB3 connections with credentials secured in Keychain; range streaming starts playback without downloading full files.
       details:
-        - { zh: 本地保存播放进度，退出重开随时接着看。, en: Saves playback progress and resumes seamlessly across restarts. }
-        - { zh: 接近片尾自动标记已看，当前目录按自然顺序连播。, en: Automatically marks videos as watched near completion and continues in natural order. }
-    - kicker: { zh: 解码, en: Playback }
-      title: { zh: 多容器格式与硬件加速解码, en: Multi-format support & hardware decoding }
+        - zh: 本地保存播放进度，退出重开随时接着看。
+          en: Saves playback progress and resumes seamlessly across restarts.
+        - zh: 接近片尾自动标记已看，当前目录按自然顺序连播。
+          en: Automatically marks videos as watched near completion and continues in natural order.
+    - kicker:
+        zh: 解码
+        en: Playback
+      title:
+        zh: 多容器格式与硬件加速解码
+        en: Multi-format support & hardware decoding
       body:
-        zh: 广泛支持 MP4、MOV、MKV、AVI 等主流容器；充分调动 Apple Silicon 硬件加速解码 H.264 与 HEVC 影片。
-        en: Broad support for MP4, MOV, MKV and AVI containers with Apple Silicon hardware acceleration for H.264 and HEVC.
+        zh: 支持 MP4、MOV、MKV、AVI 常见容器，以及 H.264 / HEVC 硬件加速解码；具体播放能力以实测组合为准。
+        en: Supports common MP4, MOV, MKV and AVI containers with H.264 and HEVC hardware acceleration; playback support depends on the tested media combination.
       details:
-        - { zh: 多音轨即时切换，适应多语种片源与音频配置。, en: Switch between embedded audio tracks instantly. }
-        - { zh: 支持内嵌与外挂 SRT、ASS、VTT 字幕，提供时间轴延迟微调。, en: Supports embedded and external SRT, ASS, VTT subtitles with timing adjustments. }
-    - kicker: { zh: 设计, en: Design }
-      title: { zh: 原生 Liquid Glass 控制与无障碍支持, en: Liquid Glass controls & accessibility }
+        - zh: 多音轨即时切换，适应多语种片源与音频配置。
+          en: Switch between embedded audio tracks instantly.
+        - zh: 支持内嵌与外挂 SRT、ASS、VTT 字幕，提供字幕延迟调节。
+          en: Supports embedded and external SRT, ASS and VTT subtitles with timing adjustments.
+    - kicker:
+        zh: 设计
+        en: Design
+      title:
+        zh: 原生 Liquid Glass 控制与无障碍支持
+        en: Liquid Glass controls & accessibility
       body:
-        zh: 现代原生半透明质感，深度支持系统深浅色外观、减少透明度（Reduce Transparency）与 VoiceOver 屏幕朗读。
-        en: Modern translucent aesthetics with deep support for light/dark appearance, Reduce Transparency, and VoiceOver.
+        zh: 采用系统原生 Liquid Glass 控件，跟随浅色与深色外观，并提供减少透明度和辅助功能标签；完整 VoiceOver 体验仍在验证中。
+        en: Uses native Liquid Glass controls, follows light and dark appearance, and provides Reduce Transparency handling and accessibility labels. Full VoiceOver acceptance is still in progress.
       details:
-        - { zh: 完整的 Mac 键盘快捷键与触控手势控制。, en: Full keyboard shortcuts on Mac and intuitive touch gestures. }
-        - { zh: 严格保护隐私，零数据埋点、广告或云端账户要求。, en: Zero tracking, telemetry, ads, or account requirements. }
-
+        - zh: 完整的 Mac 键盘快捷键与触控手势控制。
+          en: Full keyboard shortcuts on Mac and intuitive touch gestures.
+        - zh: 零数据埋点、广告或云端账户要求。
+          en: No tracking, telemetry, ads or cloud account requirements.
 faq:
   eyebrow: FAQ
-  title: { zh: 常见问题, en: Questions }
-  lead: { zh: 关于 AetherFilm 的常见问题与解答。, en: Frequently asked questions about AetherFilm. }
+  title:
+    zh: 常见问题
+    en: Questions
+  lead:
+    zh: 关于 AetherFilm 的常见问题与解答。
+    en: Frequently asked questions about AetherFilm.
   items:
-    - q: { zh: AetherFilm 与 Infuse 有什么不同？, en: How does AetherFilm differ from Infuse? }
-      a: { zh: AetherFilm 专注于极简、轻量的纯原生播放与 SMB NAS 直连体验，不依赖复杂的在线媒体服务器或第三方账户体系，专注核心播放体验。, en: AetherFilm focuses on an ultra-lightweight, native playback and direct SMB streaming experience without requiring complex media servers or cloud accounts. }
-    - q: { zh: 从列表移除视频会删除 NAS 或本地的原文件吗？, en: Does removing a video delete the original file? }
-      a: { zh: 不会。AetherFilm 严格遵循只读原则，从 App 媒体库中移除视频或断开 NAS 连接绝不会修改或删除磁盘上的原始视频文件。, en: No. AetherFilm is strictly read-only; removing an entry from your library never deletes the original file from your disk or NAS. }
-    - q: { zh: 为什么目前仅支持 Apple 芯片和 macOS 26+？, en: Why does it require Apple Silicon and macOS 26+? }
-      a: { zh: AetherFilm 基于现代 Swift 6 严格并发与系统原生 Liquid Glass 交互组件打造，专注于 Apple Silicon 硬件解码与现代平台特性。, en: AetherFilm is built on Swift 6 strict concurrency and native Liquid Glass controls, taking full advantage of Apple Silicon hardware decoding and modern OS capabilities. }
-
+    - q:
+        zh: AetherFilm 与 Infuse 有什么不同？
+        en: How does AetherFilm differ from Infuse?
+      a:
+        zh: AetherFilm 专注于轻量的原生播放与 SMB NAS 直连，不要求在线媒体服务器或云端账户，首版聚焦本地与 NAS 日常观看。
+        en: AetherFilm focuses on lightweight native playback and direct SMB streaming. It does not require an online media server or cloud account, and its first release focuses on everyday local and NAS viewing.
+    - q:
+        zh: 从列表移除视频会删除原文件吗？
+        en: Does removing a video delete the original file?
+      a:
+        zh: 不会。移除媒体库条目或断开 NAS 连接不会删除本地磁盘或 NAS 上的原始视频文件。
+        en: No. Removing a library entry or disconnecting a NAS source does not delete the original video on your local disk or NAS.
+    - q:
+        zh: 当前可以下载哪个版本？
+        en: Which version can I download now?
+      a:
+        zh: macOS 当前公开版本为 v0.1.0，适用于 Apple 芯片 Mac 和 macOS 26.0 及以上。iPhone / iPad 版本尚未公开分发。
+        en: The current public macOS release is v0.1.0, for Apple silicon Macs running macOS 26.0 or later. The iPhone and iPad version is not publicly distributed yet.
+    - q:
+        zh: 新版图标和 NAS 优化什么时候提供？
+        en: When will the new icon and NAS improvements be available?
+      a:
+        zh: 官网已采用选定的蓝紫玻璃 A 新图标。v0.1.1 候选包含新图标、NAS 常用目录、上次目录与视频行恢复，以及自动连播开关，目前仍在测试和验收中，尚未公开下载。正式发布后会更新版本记录和下载入口。
+        en: The website now uses the selected blue and violet glass A icon. The v0.1.1 candidate includes this icon, NAS folder shortcuts, last-folder and video-row restoration, and an auto-play toggle. It is still under testing and acceptance and is not available for public download. Release notes and downloads will be updated after publication.
 cta:
-  title: { zh: 开启轻量顺畅的观影体验。, en: Start your lightweight native film journey. }
-  note: { zh: Apple 芯片 Mac · macOS 26.0+（iOS 同步验证中）, en: Apple silicon Mac · macOS 26.0+ (iOS testing alongside) }
+  title:
+    zh: 开启轻量顺畅的观影体验。
+    en: Start your lightweight native film journey.
+  note:
+    zh: Apple 芯片 Mac · macOS 26.0+（iOS 同步验证中）
+    en: Apple silicon Mac · macOS 26.0+ (iOS testing alongside)
