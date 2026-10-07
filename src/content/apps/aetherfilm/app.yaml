@@ -61,6 +61,9 @@ hero:
   requirements:
     zh: Apple 芯片 Mac（macOS 26.0+）／ iPhone、iPad（iOS 26.0+）
     en: Apple silicon Mac (macOS 26.0+) / iPhone, iPad (iOS 26.0+)
+notice:
+  zh: 当前可下载 macOS v0.1.0。v0.1.1 优化版正在验收，包含新图标与 NAS 浏览、连播改进；iPhone / iPad 版本尚未公开分发。
+  en: macOS v0.1.0 is available now. The v0.1.1 update is undergoing acceptance testing with the new icon and NAS browsing and auto-play improvements. The iPhone and iPad version is not publicly distributed yet.
 features:
   eyebrow:
     zh: 核心功能
@@ -145,8 +148,8 @@ faq:
         zh: 新版图标和 NAS 优化什么时候提供？
         en: When will the new icon and NAS improvements be available?
       a:
-        zh: 官网已采用选定的蓝紫玻璃 A 新图标。v0.1.1 候选包含新图标、NAS 常用目录、上次目录与视频行恢复，以及自动连播开关，目前仍在测试和验收中，尚未公开下载。正式发布后会更新版本记录和下载入口。
-        en: The website now uses the selected blue and violet glass A icon. The v0.1.1 candidate includes this icon, NAS folder shortcuts, last-folder and video-row restoration, and an auto-play toggle. It is still under testing and acceptance and is not available for public download. Release notes and downloads will be updated after publication.
+        zh: 官网已采用选定的蓝紫玻璃 A 新图标。v0.1.1 候选包含 NAS 常用目录、上次目录与视频行恢复、自动连播开关，以及播放跳转与暂停恢复优化。macOS 候选安装包已完成签名和公证，完整使用体验仍在验收，尚未公开下载；正式发布后会更新版本记录和下载入口。
+        en: The website uses the selected blue and violet glass A icon. The v0.1.1 candidate adds NAS folder shortcuts, last-folder and video-row restoration, an auto-play toggle, and improvements to seeking and resuming from pause. The macOS candidate has been signed and notarized, while full usage acceptance is still in progress. It is not available for public download; release notes and downloads will be updated after publication.
 cta:
   title:
     zh: 开启轻量顺畅的观影体验。
