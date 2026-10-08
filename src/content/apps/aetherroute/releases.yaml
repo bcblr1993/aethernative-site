@@ -1,6 +1,41 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.3.3"
+    build: "2026100802"
+    date: 2026-10-08
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.3.3/AetherRoute-1.3.3-build-2026100802-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.3.3
+    sha256: 6f98aa10629fbd9f8b5b2873e4ff4d4fe96766efd2bddf31f3e20d6b2978a6af
+    sparkle:
+      edSignature: aI+VQiMBUE8b/Q46knJ7iAlU6s7/Kokb+wv68ocoiPJPvHM1oCxvegJ6e4foKT3FjxrSokV+OHwzGkiJMkHLBA==
+      length: 25355204
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 全面收敛统一 macOS 原生视觉设计系统与 HIG 交互体验；统一行高阶梯、卡片内边距、弹窗底栏、行内按钮与状态提示。全量通过 Apple Silicon 物理真机验证与 Apple 官方公证。
+      en: Refined and standardized the macOS native design system and HIG interactions; unified row heights, card padding, sheet footers, inline controls, and status alerts. Fully verified on Apple Silicon and notarized by Apple.
+    notes:
+      - title:
+          zh: 设计系统与交互规范
+          en: Design System & HIG Alignment
+        items:
+          - zh: 收敛统一行高阶梯（52/44/40/36/60pt）与卡片内边距，移除各处硬编码尺寸。
+            en: Standardized row height tiers (52/44/40/36/60pt) and card padding, removing hardcoded dimensions.
+          - zh: 对齐 macOS 原生弹窗规范，Cancel 与 Primary 按钮统一靠右，单操作统一玻璃强调样式。
+            en: Aligned modal sheet footers with macOS standards; Cancel and Primary share trailing-edge layout.
+          - zh: 新增 AetherRowIconLabel、AetherInlineMessage 与标准开关样式，严格保障无障碍与对比度。
+            en: Introduced AetherRowIconLabel, AetherInlineMessage, and standardized toggles with WCAG compliance.
+      - title:
+          zh: 动效与国际化健壮性
+          en: Motion & Localization Robustness
+        items:
+          - zh: 统一使用 AetherCopyButton，严格适配系统减弱动态效果（Reduce Motion）。
+            en: Adopted AetherCopyButton with full respect for system Reduce Motion preferences.
+          - zh: 统一通过 AppLocalization 调度多语言，彻底消除应用内切换语言时的状态失步。
+            en: Unified strings under AppLocalization ensuring instantaneous in-app language switching.
   - version: "1.3.2"
     build: "2026100801"
     date: 2026-10-08
