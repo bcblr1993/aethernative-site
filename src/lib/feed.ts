@@ -67,7 +67,8 @@ export interface FeedItem {
   release?: { appId: string; version: string; build?: string; channel: 'stable' | 'beta'; platform: 'mac' | 'ios'; badge?: Bi };
 }
 
-export const releaseId = (appId: string, version: string) => `release:${appId}:${version}`;
+// Product renames must preserve notification deduplication ids for published releases.
+export const releaseId = (appId: string, version: string) => `release:${appId === 'aetherterm' ? 'apexterm' : appId}:${version}`;
 export const newsId = (id: string) => `news:${id}`;
 
 /** 新闻 id 来自文件名，只允许小写字母、数字和连字符，避免出现在网址和推送去重键里出问题。 */

@@ -1,0 +1,102 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { t, type Lang } from '../lib/i18n';
+import type { App } from '../lib/apps';
+type Gallery = NonNullable<App['data']['themeGallery']>;
+const { gallery, name, lang } = Astro.props as { gallery: Gallery; name: string; lang: Lang };
+const zh = lang === 'zh';
+const shotOf = (s: Gallery['themes'][number]['shots'][number]) => lang === 'en' && s.en ? s.en : s.zh;
+const widest = Math.max(...gallery.themes.flatMap((theme) => theme.shots.map((shot) => shotOf(shot).width)));
+const themes = await Promise.all(gallery.themes.map(async (theme) => ({
+  ...theme,
+  shots: await Promise.all(theme.shots.map(async (shot) => ({
+    ...shot,
+    full: (await getImage({ src: shotOf(shot), format: 'webp', quality: 90 })).src,
+  }))),
+})));
+---
+<div class="theme-gallery" data-theme-gallery>
+  <div class="tools">
+    <label class="theme-label">
+      <span>{zh ? '应用主题' : 'App theme'}</span>
+      <select data-app-theme aria-label={zh ? '选择应用主题' : 'Choose app theme'}>
+        {themes.map((theme) => <option value={theme.id}>{t(theme.name, lang)}</option>)}
+      </select>
+    </label>
+    <a data-theme-full class="more" href={themes[0].shots[0].full} target="_blank" rel="noopener">{zh ? '查看原图 ↗' : 'View full size ↗'}</a>
+  </div>
+  <div class="preview">
+    {themes.map((theme, themeIndex) => theme.shots.map((shot, shotIndex) => (
+      <figure data-app-look={theme.id} data-appearance={theme.appearance} data-view={shotIndex}
+        hidden={themeIndex !== 0 || shotIndex !== 0} style={`--w: ${shotOf(shot).width / widest * 100}%`}>
+        <Image src={shotOf(shot)} alt={`${name} · ${t(theme.name, lang)} · ${t(shot.label, lang)}`}
+          widths={[800, 1400, 2200]} sizes="(max-width: 1120px) 100vw, 1072px"
+          loading={themeIndex === 0 && shotIndex === 0 ? 'eager' : 'lazy'} data-full={shot.full} />
+      </figure>
+    )))}
+  </div>
+  <div class="view-tabs" role="group" aria-label={zh ? '查看应用界面' : 'View app screens'}>
+    {themes[0].shots.map((shot, index) => (
+      <button type="button" data-view-button={index} aria-pressed={index === 0 ? 'true' : 'false'}>{t(shot.label, lang)}</button>
+    ))}
+  </div>
+  <p class="caption"><span>{t(gallery.note, lang)}</span></p>
+  <p class="sr-only" data-theme-status aria-live="polite" aria-atomic="true"></p>
+</div>
+
+<script>
+  for (const gallery of document.querySelectorAll<HTMLElement>('[data-theme-gallery]')) {
+    const select = gallery.querySelector<HTMLSelectElement>('[data-app-theme]')!;
+    const full = gallery.querySelector<HTMLAnchorElement>('[data-theme-full]')!;
+    const figures = Array.from(gallery.querySelectorAll<HTMLElement>('figure'));
+    const buttons = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-view-button]'));
+    const status = gallery.querySelector<HTMLElement>('[data-theme-status]')!;
+    let view = '0';
+    const render = () => {
+      let active: HTMLImageElement | null = null;
+      for (const figure of figures) {
+        figure.hidden = figure.dataset.appLook !== select.value || figure.dataset.view !== view;
+        if (!figure.hidden) active = figure.querySelector('img');
+      }
+      if (active?.dataset.full) full.href = active.dataset.full;
+      status.textContent = active?.alt ?? '';
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.viewButton === view)));
+    };
+    // Remember the chosen app theme; website appearance remains independent.
+    try {
+      const saved = sessionStorage.getItem('aetherterm-preview-theme');
+      if (saved && Array.from(select.options).some((option) => option.value === saved)) select.value = saved;
+      else if (document.documentElement.dataset.theme === 'dark') {
+        const dark = figures.find((figure) => figure.dataset.appearance === 'dark');
+        if (dark?.dataset.appLook) select.value = dark.dataset.appLook;
+      }
+    } catch { /* Storage restrictions must not prevent previewing. */ }
+    select.addEventListener('change', () => {
+      render();
+      try { sessionStorage.setItem('aetherterm-preview-theme', select.value); } catch { /* Optional preference. */ }
+    });
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      view = button.dataset.viewButton ?? '0';
+      render();
+    }));
+    render();
+  }
+</script>
+
+<style>
+  .theme-gallery { margin: 32px auto 0; max-width: 1072px; }
+  .tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+  .theme-label { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  select { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; max-width: 100%; }
+  .preview { position: relative; aspect-ratio: 1145 / 760; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
+  figure { position: absolute; inset: 0; margin: 0; padding: 2.5%; display: grid; place-items: center; }
+  figure[hidden] { display: none; }
+  figure :global(img) { max-width: 100%; max-height: 100%; width: var(--w); height: auto; object-fit: contain; }
+  .view-tabs { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 16px 0; }
+  button { font: inherit; font-size: 14px; color: var(--text-2); padding: 8px 16px; border: 1px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; }
+  button[aria-pressed='true'] { color: var(--text); background: var(--surface); border-color: var(--line); }
+  select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .caption { text-align: center; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  @media (max-width: 540px) { .tools { flex-wrap: wrap; } .theme-label { flex-wrap: wrap; gap: 8px; } .preview { border-radius: 12px; } button { padding: 8px 10px; } }
+</style>

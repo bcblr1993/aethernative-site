@@ -27,6 +27,7 @@ import {
 const { values: args } = parseArgs({
   options: { app: { type: 'string' }, tag: { type: 'string' }, 'dry-run': { type: 'boolean', default: false } },
 });
+if (args.app === 'apexterm') args.app = 'aetherterm';
 if (!args.app || !args.tag) {
   console.error('用法：node scripts/sync-release.mjs --app <软件id> --tag <标签> [--dry-run]');
   process.exit(64);

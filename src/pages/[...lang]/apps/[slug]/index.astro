@@ -2,6 +2,7 @@
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
+import ThemeGallery from '../../../../components/ThemeGallery.astro';
 import Text from '../../../../components/Text.astro';
 import Checksum from '../../../../components/Checksum.astro';
 import PlatformBadges from '../../../../components/PlatformBadges.astro';
@@ -93,7 +94,8 @@ const subnav = [
     </div>
 
     <div class="wrap">
-      {d.gallery.length > 0 && (
+      {d.themeGallery && <ThemeGallery gallery={d.themeGallery} name={d.name} lang={lang} />}
+      {!d.themeGallery && d.gallery.length > 0 && (
         <div class="stage" data-reveal data-has-dark={hasDark ? 'true' : undefined} data-look="light">
           <div class="stage-glow" aria-hidden="true"></div>
           <div class="stage-top">

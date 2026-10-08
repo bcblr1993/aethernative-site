@@ -173,14 +173,18 @@ export async function findTargets(db: D1Database, q: TargetQuery, cursor = '', l
     q.kind === 'news'
       ? 'd.news = 1'
       : q.channel === 'stable'
-        ? 'd.all_apps = 1 OR EXISTS (SELECT 1 FROM device_apps a WHERE a.device_id = d.id AND a.app_id = ?2 AND a.stable = 1)'
-        : 'EXISTS (SELECT 1 FROM device_apps a WHERE a.device_id = d.id AND a.app_id = ?2 AND a.beta = 1)';
+        ? 'd.all_apps = 1 OR EXISTS (SELECT 1 FROM device_apps a WHERE a.device_id = d.id AND a.app_id IN (?2, ?4) AND a.stable = 1)'
+        : 'EXISTS (SELECT 1 FROM device_apps a WHERE a.device_id = d.id AND a.app_id IN (?2, ?4) AND a.beta = 1)';
   const stmt = db.prepare(
     `SELECT d.id, d.token, d.env, d.locale FROM devices d
       WHERE d.enabled = 1 AND d.id > ?1 AND (${where})
       ORDER BY d.id LIMIT ?3`,
   );
-  const { results } = await stmt.bind(cursor, q.kind === 'release' ? q.app : null, limit).all<Target & { id: string }>();
+  const alias = q.kind === 'release'
+    ? q.app === 'aetherterm' ? 'apexterm' : q.app === 'apexterm' ? 'aetherterm' : q.app
+    : null;
+  const bindings = q.kind === 'release' ? [cursor, q.app, limit, alias] : [cursor, null, limit];
+  const { results } = await stmt.bind(...bindings).all<Target & { id: string }>();
   return {
     targets: results.map(({ token, env, locale }) => ({ token, env, locale })),
     next: results.length === limit ? results.at(-1)!.id : null,

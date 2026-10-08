@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Release } from './apps';
-import { buildAppDetail, buildAppList, buildFeed, localUrls, type AppInput, type NewsInput } from './feed';
+import { buildAppDetail, buildAppList, buildFeed, localUrls, releaseId, type AppInput, type NewsInput } from './feed';
 
 const site = new URL('https://aethernative.com');
 
@@ -151,5 +151,13 @@ describe('buildAppList / buildAppDetail', () => {
     expect(d.docs).toEqual([
       { id: 'privacy', title: { zh: '隐私政策', en: 'Privacy' }, url: { zh: 'https://aethernative.com/apps/demo/privacy/', en: 'https://aethernative.com/en/apps/demo/privacy/' } },
     ]);
+  });
+});
+
+describe('产品改名的历史通知兼容', () => {
+  it('保留已发布版本的去重 id', () => {
+    expect(releaseId('aetherterm', '1.6.1')).toBe(releaseId('apexterm', '1.6.1'));
+    expect(releaseId('aetherterm', '1.6.2')).not.toBe(releaseId('aetherterm', '1.6.1'));
+    expect(releaseId('aetherroute', '1.3.0')).toBe('release:aetherroute:1.3.0');
   });
 });
