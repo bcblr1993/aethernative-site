@@ -6,8 +6,9 @@ const source = process.argv[2];
 if (!source) throw new Error('Usage: node scripts/import-aetherterm-screenshots.mjs <outputs/macos27/website>');
 const root = resolve(source);
 const manifest = JSON.parse(await readFile(join(root, 'manifest.json'), 'utf8'));
-if (manifest.vm !== 'macos27' || !String(manifest.systemVersion).startsWith('27.') || !manifest.demoData) {
-  throw new Error('Require real macos27 captures using demo data.');
+const remoteNative = manifest.captureMethod === 'remote-native' && String(manifest.model).startsWith('Mac');
+if ((manifest.vm !== 'macos27' && !remoteNative) || !String(manifest.systemVersion).startsWith('27.') || !manifest.demoData) {
+  throw new Error('Require macOS 27 native captures using demo data.');
 }
 const themes = [
   ['classic', { zh: '经典白色', en: 'Classic Light' }, 'light'],
@@ -32,8 +33,8 @@ for (const [id] of themes) for (const [page] of pages) {
 const configFile = new URL('app.yaml', directory);
 const app = parse(await readFile(configFile, 'utf8'));
 app.themeGallery = {
-  note: { zh: '12 种应用主题 · 真实界面 · 演示数据。应用主题预览与网站深浅色独立切换。',
-    en: '12 app themes · Real native views · Demo data. App preview themes are independent of website appearance.' },
+  note: { zh: '12 种应用主题 · macOS 27 原生窗口截图 · 演示数据。应用主题预览与网站深浅色独立切换。',
+    en: '12 app themes · Native macOS 27 window screenshots · Demo data. App preview themes are independent of website appearance.' },
   themes: themes.map(([id, name, appearance]) => ({ id, name, appearance,
     shots: pages.map(([page, label]) => ({ label, zh: `./media/${id}-${page}.png` })) })),
 };
