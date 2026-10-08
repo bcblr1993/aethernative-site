@@ -16,7 +16,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
 ---
 <article class:list={['card', 'app-card', { feat: d.featured }]} data-platforms={platforms}>
   <div class="body">
-    <a href={page} class="app-icon" aria-hidden="true" tabindex="-1">
+    <a href={page} class:list={['app-icon', { 'inset-icon': app.id === 'aetherfilm' }]} aria-hidden="true" tabindex="-1">
       <Image src={d.icon} alt="" width={128} height={128} />
     </a>
     <PlatformBadges app={app} lang={lang} />

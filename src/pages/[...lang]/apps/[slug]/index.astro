@@ -78,7 +78,7 @@ const subnav = [
 
   <header class="hero" id="top">
     <div class="wrap center">
-      <div class="hero-icon"><Image src={d.icon} alt={`${d.name} icon`} width={192} height={192} loading="eager" /></div>
+      <div class:list={['hero-icon', { 'inset-icon': app.id === 'aetherfilm' }]}><Image src={d.icon} alt={`${d.name} icon`} width={192} height={192} loading="eager" /></div>
       <p class="eyebrow"><Text v={d.hero.eyebrow} lang={lang} /></p>
       <h1><Text v={d.hero.title} lang={lang} /></h1>
       <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
