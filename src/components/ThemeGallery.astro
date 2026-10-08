@@ -25,7 +25,17 @@ const themes = await Promise.all(gallery.themes.map(async (theme) => ({
     </label>
     <a data-theme-full class="more" href={themes[0].shots[0].full} target="_blank" rel="noopener">{zh ? '查看原图 ↗' : 'View full size ↗'}</a>
   </div>
-  <div class="preview">
+  <div class="view-tabs" role="group" aria-label={zh ? '查看应用界面' : 'View app screens'}>
+    {themes[0].shots.map((shot, index) => (
+      <button type="button" data-view-button={index} aria-pressed={index === 0 ? 'true' : 'false'}>{t(shot.label, lang)}</button>
+    ))}
+  </div>
+  <div class="preview" data-preview aria-busy="false">
+    <p class="image-status" data-image-loading role="status" hidden>{zh ? '正在加载界面…' : 'Loading preview…'}</p>
+    <div class="image-status" data-image-error hidden>
+      <p role="alert">{zh ? '图片暂时无法加载' : 'Preview could not be loaded'}</p>
+      <button type="button" data-image-retry>{zh ? '重新加载' : 'Try again'}</button>
+    </div>
     {themes.map((theme, themeIndex) => theme.shots.map((shot, shotIndex) => (
       <figure data-app-look={theme.id} data-appearance={theme.appearance} data-view={shotIndex}
         hidden={themeIndex !== 0 || shotIndex !== 0} style={`--w: ${shotOf(shot).width / widest * 100}%`}>
@@ -34,11 +44,6 @@ const themes = await Promise.all(gallery.themes.map(async (theme) => ({
           loading={themeIndex === 0 && shotIndex === 0 ? 'eager' : 'lazy'} data-full={shot.full} />
       </figure>
     )))}
-  </div>
-  <div class="view-tabs" role="group" aria-label={zh ? '查看应用界面' : 'View app screens'}>
-    {themes[0].shots.map((shot, index) => (
-      <button type="button" data-view-button={index} aria-pressed={index === 0 ? 'true' : 'false'}>{t(shot.label, lang)}</button>
-    ))}
   </div>
   <p class="caption"><span>{t(gallery.note, lang)}</span></p>
   <p class="sr-only" data-theme-status aria-live="polite" aria-atomic="true"></p>
@@ -51,19 +56,46 @@ const themes = await Promise.all(gallery.themes.map(async (theme) => ({
     const figures = Array.from(gallery.querySelectorAll<HTMLElement>('figure'));
     const buttons = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-view-button]'));
     const status = gallery.querySelector<HTMLElement>('[data-theme-status]')!;
+    const preview = gallery.querySelector<HTMLElement>('[data-preview]')!;
+    const loading = gallery.querySelector<HTMLElement>('[data-image-loading]')!;
+    const error = gallery.querySelector<HTMLElement>('[data-image-error]')!;
+    const retry = gallery.querySelector<HTMLButtonElement>('[data-image-retry]')!;
+    let active: HTMLImageElement | null = null;
     let view = '0';
+    const updateImageState = () => {
+      const pending = !!active && !active.complete;
+      const failed = !!active && active.complete && active.naturalWidth === 0;
+      preview.setAttribute('aria-busy', String(pending));
+      loading.hidden = !pending;
+      error.hidden = !failed;
+    };
+    for (const image of gallery.querySelectorAll<HTMLImageElement>('figure img')) {
+      for (const event of ['load', 'error']) image.addEventListener(event, () => {
+        if (image === active) updateImageState();
+      });
+    }
+    retry.addEventListener('click', () => {
+      if (!active?.dataset.full) return;
+      // Retry the full-size asset independently of a failed responsive rendition.
+      active.removeAttribute('srcset');
+      active.src = active.dataset.full;
+      updateImageState();
+    });
     const render = () => {
-      let active: HTMLImageElement | null = null;
+      active = null;
       for (const figure of figures) {
         figure.hidden = figure.dataset.appLook !== select.value || figure.dataset.view !== view;
         if (!figure.hidden) active = figure.querySelector('img');
       }
       if (active?.dataset.full) full.href = active.dataset.full;
       status.textContent = active?.alt ?? '';
+      updateImageState();
       buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.viewButton === view)));
     };
     // Remember the chosen app theme; website appearance remains independent.
     try {
+      const savedView = sessionStorage.getItem('aetherterm-preview-view');
+      if (savedView && buttons.some((button) => button.dataset.viewButton === savedView)) view = savedView;
       const saved = sessionStorage.getItem('aetherterm-preview-theme');
       if (saved && Array.from(select.options).some((option) => option.value === saved)) select.value = saved;
       else if (document.documentElement.dataset.theme === 'dark') {
@@ -78,6 +110,7 @@ const themes = await Promise.all(gallery.themes.map(async (theme) => ({
     buttons.forEach((button) => button.addEventListener('click', () => {
       view = button.dataset.viewButton ?? '0';
       render();
+      try { sessionStorage.setItem('aetherterm-preview-view', view); } catch { /* Optional preference. */ }
     }));
     render();
   }
@@ -92,6 +125,10 @@ const themes = await Promise.all(gallery.themes.map(async (theme) => ({
   figure { position: absolute; inset: 0; margin: 0; padding: 2.5%; display: grid; place-items: center; }
   figure[hidden] { display: none; }
   figure :global(img) { max-width: 100%; max-height: 100%; width: var(--w); height: auto; object-fit: contain; }
+  .image-status { position: absolute; inset: 0; z-index: 1; display: grid; place-content: start center; gap: 12px; margin: 0; padding: 32px 16px; text-align: center; color: var(--text-2); background: var(--surface); font-size: 14px; }
+  .image-status[hidden] { display: none; }
+  .image-status p { margin: 0; }
+  .image-status button { border-color: var(--line); background: var(--surface); color: var(--text); }
   .view-tabs { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 16px 0; }
   button { font: inherit; font-size: 14px; color: var(--text-2); padding: 8px 16px; border: 1px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; }
   button[aria-pressed='true'] { color: var(--text); background: var(--surface); border-color: var(--line); }
