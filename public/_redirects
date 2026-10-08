@@ -1,0 +1,6 @@
+/apps/apexterm /apps/aetherterm/ 301
+/apps/apexterm/ /apps/aetherterm/ 301
+/apps/apexterm/* /apps/aetherterm/:splat 301
+/en/apps/apexterm /en/apps/aetherterm/ 301
+/en/apps/apexterm/ /en/apps/aetherterm/ 301
+/en/apps/apexterm/* /en/apps/aetherterm/:splat 301

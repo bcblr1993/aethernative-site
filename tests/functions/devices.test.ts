@@ -153,6 +153,15 @@ describe('推送目标', () => {
     expect(await tokensOf('kind=release&app=notchquota&channel=beta')).toEqual([tok(5)]);
   });
 
+  it('改名后保留旧订阅，兼容新旧 id，并避免同一设备重复匹配', async () => {
+    await register(6, { subscriptions: { news: false, allApps: false, apps: ['apexterm'], beta: ['apexterm'] } });
+    await register(7, { subscriptions: { news: false, allApps: false, apps: ['aetherterm', 'apexterm'], beta: ['aetherterm'] } });
+    for (const app of ['apexterm', 'aetherterm']) {
+      expect(await tokensOf(`kind=release&app=${app}&channel=stable`)).toEqual([tok(1), tok(5), tok(6), tok(7)]);
+      expect(await tokensOf(`kind=release&app=${app}&channel=beta`)).toEqual([tok(6), tok(7)]);
+    }
+  });
+
   it('返回 token、环境与语言，不返回设备 id', async () => {
     const { body } = await getTargets('kind=release&app=notchquota&channel=beta');
     expect(body).toEqual({ targets: [{ token: tok(5), env: 'sandbox', locale: 'en' }], next: null });

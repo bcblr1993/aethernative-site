@@ -70,6 +70,25 @@ const apps = defineCollection({
         })
         .optional(),
       gallery: z.array(shot).default([]),
+      /** Screenshots captured in the app's actual named themes, independently selectable. */
+      themeGallery: z.object({
+        note: L,
+        themes: z.array(z.object({
+          id: z.string().regex(/^[a-z0-9-]+$/),
+          name: L,
+          appearance: z.enum(['light', 'dark']),
+          shots: z.array(shot).min(1),
+        })).min(2),
+      }).superRefine((gallery, ctx) => {
+        const ids = gallery.themes.map((theme) => theme.id);
+        if (new Set(ids).size !== ids.length) ctx.addIssue({ code: 'custom', message: 'Theme ids must be unique' });
+        const labels = gallery.themes[0].shots.map((shot) => JSON.stringify(shot.label));
+        for (const theme of gallery.themes) {
+          if (theme.shots.length !== labels.length || theme.shots.some((shot, i) => JSON.stringify(shot.label) !== labels[i])) {
+            ctx.addIssue({ code: 'custom', message: 'Every theme must provide the same screens in the same order' });
+          }
+        }
+      }).optional(),
       ios: z
         .object({
           badge: L,

@@ -1,9 +1,9 @@
 title: { zh: 隐私政策, en: Privacy }
 heading: { zh: "你的服务器，\n只由你连接。", en: "Your servers.\nOnly you connect." }
-meta: { zh: 适用于 ApexTerm 客户端, en: Applies to the ApexTerm app }
+meta: { zh: 适用于 AetherTerm 客户端, en: Applies to the AetherTerm app }
 lead:
-  zh: ApexTerm 不包含统计分析或遥测，不向开发者发送任何使用数据。
-  en: ApexTerm contains no analytics or telemetry and sends no usage data to the developer.
+  zh: AetherTerm 不包含统计分析或遥测，不向开发者发送任何使用数据。
+  en: AetherTerm contains no analytics or telemetry and sends no usage data to the developer.
 sections:
   - heading: { zh: 网络连接, en: Network connections }
     body:

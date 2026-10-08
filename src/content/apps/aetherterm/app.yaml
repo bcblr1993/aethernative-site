@@ -1,5 +1,5 @@
-# ApexTerm 软件介绍（内容整理自 github.com/bcblr1993/ApexTerm 的 README，只保留源码中已实现的功能）
-name: ApexTerm
+# AetherTerm 软件介绍（内容整理自 github.com/bcblr1993/ApexTerm 的 README，只保留源码中已实现的功能）
+name: AetherTerm
 order: 3
 repo: https://github.com/bcblr1993/ApexTerm
 minimumSystemVersion: "14.0"
@@ -91,15 +91,17 @@ experience:
         en: Alternate screens reuse unchanged rendered rows to reduce repeated work when moving the cursor, while font, theme and viewport changes refresh the cache.
 
 notice:
-  zh: 页面截图来自新版真实界面，服务器、命令输出和配置均为演示数据。
-  en: Screenshots show the current interface with demo servers, command output and configuration.
+  zh: ApexTerm 现统一命名为 AetherTerm。截图为改名后的开发预览，使用演示数据；当前公开下载仍为 ApexTerm v1.6.1。
+  en: ApexTerm is now named AetherTerm. Screenshots preview the renamed development build with demo data; the current public download is still ApexTerm v1.6.1.
 
 faq:
   eyebrow: FAQ
   title: { zh: 常见问题, en: Questions }
   lead: { zh: 开源、免费，欢迎反馈。, en: "Open source, free, and feedback is welcome." }
   items:
-    - q: { zh: ApexTerm 免费吗？, en: Is ApexTerm free? }
+    - q: { zh: 改名会影响已有会话和密码吗？, en: Does the rename affect my sessions and passwords? }
+      a: { zh: 产品名称调整，原有会话、设置和钥匙串标识保持兼容。当前下载仍是历史名称的正式版本，改名后的安装包将在完成发布验证后提供。, en: The product name changes while existing session storage, preferences and Keychain identifiers stay compatible. The current download keeps its historical name; renamed installers will follow release verification. }
+    - q: { zh: AetherTerm 免费吗？, en: Is AetherTerm free? }
       a: { zh: 免费，并以 MIT 许可证开源。, en: Yes. It's free and open source under the MIT License. }
     - q: { zh: 需要在服务器上安装什么吗？, en: Do I need to install anything on my servers? }
       a: { zh: 不需要。服务器监控复用 SSH 连接读取系统信息，远端无需安装客户端或守护进程。, en: "No. Monitoring reads system information over the SSH connection; nothing needs to run on the server." }
