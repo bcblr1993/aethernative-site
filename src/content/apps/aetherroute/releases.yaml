@@ -1,6 +1,39 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.3.2"
+    build: "2026100801"
+    date: 2026-10-08
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.3.2/AetherRoute-1.3.2-build-2026100801-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.3.2
+    sha256: 21aaad7917fb9f64615d6157bf24a98245d2b89d3bfd9e23665b6e5a618815e2
+    sparkle:
+      edSignature: +NHSFm4hfce3qkknkzEwDl8vBsBSiCK3VdbXT8MIGjjCGcTQ897xt6WFBkXBkDuxUdrhBsXxw+EEctbTCRvHBQ==
+      length: 25263358
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复 Mac 开机冷启动未能按关机前意图自动恢复连接的缺陷；新增开机网络就绪退避重试机制；加固纯托盘自启生命周期。全量通过 Apple Silicon 物理真机验证与 Apple 官方公证。
+      en: Fixed proxy connection restoration across Mac reboots and login item startups; introduced progressive startup backoff retries; hardened tray-only lifecycle. Fully verified on Apple Silicon and notarized by Apple.
+    notes:
+      - title:
+          zh: 开机自启连接恢复
+          en: Startup Connection Restoration
+        items:
+          - zh: 解决系统关机前处于连接状态、开机自启后未能自动恢复连接的问题；严格对齐关机前连接/断开状态。
+            en: Reliably restores proxy connections on login item cold start according to the user's intent before shutdown.
+          - zh: 新增退避重试策略（1s, 2s, 3s, 5s, 8s），有效包容 Wi-Fi/DHCP 物理链路就绪延迟。
+            en: Added progressive backoff retry policy (1s, 2s, 3s, 5s, 8s) to accommodate Wi-Fi/DHCP link readiness.
+      - title:
+          zh: 生命周期与稳定性
+          en: Lifecycle & Stability
+        items:
+          - zh: 加固无前台窗口的纯菜单栏 Accessory 托盘模式下的进程宿主生命周期。
+            en: Hardened application delegate lifecycle hosting for accessory tray mode without open windows.
+          - zh: 退出与关机处理原子持久化连接意图，杜绝状态失真与多线程竞争。
+            en: Atomic intent persistence on shutdown ensuring consistent reconnection state.
   - version: "1.3.1"
     build: "2026100603"
     date: 2026-10-06
