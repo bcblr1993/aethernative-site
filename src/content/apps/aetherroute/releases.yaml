@@ -1,6 +1,35 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.4.1"
+    build: "2026100902"
+    date: 2026-10-09
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.1/AetherRoute-1.4.1-build-2026100902-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.4.1
+    sha256: 565d7a93001e6be3378d25d3b985c9404784616a54f9c242771112224b84a87d
+    sparkle:
+      edSignature: YV3JJahledNoLIeUrZuoJuymUefNJWPmvGJ5mhasvNcU+K1Ub9ZT3j9Zzv5EYXkVKkMAFMQzLwgThNdJa/f2AQ==
+      length: 26963698
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复透明代理测速期间新连接被卡住的问题；重启后自动连接更可靠；流量统计不再丢失历史。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: Fixes new connections stalling during latency tests in transparent proxy mode, makes reconnecting after a restart more reliable, and keeps traffic statistics history safe. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 透明代理模式下测速不再卡住整机的新连接。
+            en: Latency tests no longer hold up new connections in transparent proxy mode.
+          - zh: 重启后自动连接会等待网络就绪，最多坚持两分钟。
+            en: Reconnecting after a restart waits for the network, for up to two minutes.
+          - zh: 钥匙串暂时不可用时不再覆盖流量统计历史；断开前补记最后一分钟。
+            en: Traffic statistics history is no longer overwritten while the Keychain is unavailable; the last minute before a disconnect is counted.
+          - zh: 导入超限时提示具体限制；日志查看器筛选更流畅。
+            en: Import errors name the limit that was exceeded; the log viewer filters more smoothly.
   - version: "1.4.0"
     build: "2026100901"
     date: 2026-10-09
