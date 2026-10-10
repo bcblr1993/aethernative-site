@@ -26,31 +26,35 @@ const esc = (s: string) =>
 const cdata = (s: string) => `<![CDATA[${s.replace(/]]>/g, ']]]]><![CDATA[>')}]]>`;
 
 /**
- * Sparkle 在 WebView 里显示更新说明，没有任何默认样式。这里内联一套贴近 macOS
- * 原生发布说明的样式：系统字体与正文字号、自动深浅色、统一的左边距。
- * Sparkle 的说明区自带描边，所以分组不再画卡片与边框（框中框显得拥挤）；
- * 分组只用标题前的小圆点区分类别，配色取系统色：新功能蓝、修复绿、优化橙、其他灰。
- * 不加载任何外部资源（更新窗口可能离线打开）。
+ * Sparkle 在 WebView 里显示更新说明，没有任何默认样式。这里内联一套与 App
+ * 设计语言一致的样式：系统字体、自动深浅色；摘要作导语，左侧一条渐变细条；
+ * 每个分组标题前是一个渐变圆角图标块（同 App 侧边栏的图标块），按类别取
+ * 系统色：新功能蓝、修复绿、优化橙、其他灰。Sparkle 的说明区自带描边，所以
+ * 分组不再画卡片（框中框显得拥挤）。图标是内联 SVG，不加载任何外部资源
+ * （更新窗口可能离线打开）；HTML 结构不变，图标全部由 CSS 伪元素绘制。
  */
 const NOTES_STYLE = `<style>
-:root{color-scheme:light dark;--text:#1d1d1f;--sub:#6e6e73;--line:rgba(0,0,0,.1);
---feature:#007aff;--fix:#28a745;--improve:#f08a00;--other:#8e8e93}
-@media (prefers-color-scheme:dark){:root{--text:#f5f5f7;--sub:#a1a1a6;--line:rgba(255,255,255,.12);
---feature:#0a84ff;--fix:#32d74b;--improve:#ff9f0a;--other:#98989d}}
-body{margin:0;padding:12px 16px 14px;font:13px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
-.summary{margin:0 0 14px;color:var(--text)}
-.group{margin:0;padding:12px 0 0;border-top:1px solid var(--line)}
-.group+.group{margin-top:12px}
-.tag{display:flex;align-items:center;gap:7px;margin:0 0 6px;font-size:13px;font-weight:600;color:var(--text)}
-.tag::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
-.group ul{margin:0;padding:0 0 0 14px;list-style:none}
-.group li{position:relative;margin:0 0 4px;color:var(--text)}
+:root{color-scheme:light dark;--text:#1d1d1f;--sub:#6e6e73;
+--feature-a:#4aa8ff;--feature-b:#0a6cff;--fix-a:#5ad66f;--fix-b:#22a845;
+--improve-a:#ffbd4a;--improve-b:#ff8c00;--other-a:#aeaeb2;--other-b:#7c7c80}
+@media (prefers-color-scheme:dark){:root{--text:#f5f5f7;--sub:#a1a1a6}}
+body{margin:0;padding:14px 18px 16px;font:13px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+.summary{position:relative;margin:0 0 18px;padding:1px 0 1px 13px;font-size:14px;line-height:1.55;font-weight:500;letter-spacing:.005em}
+.summary::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:3px;border-radius:2px;background:linear-gradient(180deg,#4aa8ff,#30c6c0)}
+.group{margin:0 0 16px}
+.group:last-child{margin-bottom:0}
+.tag{position:relative;display:flex;align-items:center;min-height:22px;margin:0 0 7px;padding-left:31px;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--text)}
+.tag::before,.tag::after{content:"";position:absolute;left:0;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:6px}
+.tag::before{background:linear-gradient(160deg,var(--a),var(--b));box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08)}
+.tag::after{background:var(--glyph) center/15px 15px no-repeat}
+.group ul{margin:0;padding:0 0 0 31px;list-style:none}
+.group li{position:relative;margin:0 0 5px;color:var(--text)}
 .group li:last-child{margin-bottom:0}
-.group li::before{content:"";position:absolute;left:-11px;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--sub);opacity:.7}
-.feature{--accent:var(--feature)}
-.fix{--accent:var(--fix)}
-.improve{--accent:var(--improve)}
-.other{--accent:var(--other)}
+.group li::before{content:"";position:absolute;left:-14px;top:.66em;width:5px;height:5px;border-radius:50%;background:var(--a);opacity:.85}
+.feature{--a:var(--feature-a);--b:var(--feature-b);--glyph:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M11%203.5l1.7%205%205%201.7-5%201.7-1.7%205-1.7-5-5-1.7%205-1.7z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M18%2013.5l.8%202.2%202.2.8-2.2.8-.8%202.2-.8-2.2-2.2-.8%202.2-.8z%22%2F%3E%3C%2Fsvg%3E")}
+.fix{--a:var(--fix-a);--b:var(--fix-b);--glyph:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M6%2012.6l4%204L18.2%208%22%2F%3E%3C%2Fsvg%3E")}
+.improve{--a:var(--improve-a);--b:var(--improve-b);--glyph:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M13.2%202.8%205.6%2013.2h5.6l-.9%208%207.6-10.4h-5.6z%22%2F%3E%3C%2Fsvg%3E")}
+.other{--a:var(--other-a);--b:var(--other-b);--glyph:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%227.2%22%20r%3D%221.7%22%20fill%3D%22white%22%2F%3E%3Cpath%20stroke%3D%22white%22%20stroke-width%3D%222.8%22%20stroke-linecap%3D%22round%22%20d%3D%22M12%2011.2v6.4%22%2F%3E%3C%2Fsvg%3E")}
 </style>`;
 
 type NoteKind = 'feature' | 'fix' | 'improve' | 'other';
