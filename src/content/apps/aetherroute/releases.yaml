@@ -1,6 +1,41 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.5.0"
+    build: "2026101002"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.0/AetherRoute-1.5.0-build-2026101002-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.0
+    sha256: 3eac19bac738d1f24264c33ae1e184f11366bdef0d37a3f4d119e2298d385408
+    sparkle:
+      edSignature: /sygwD9AQDVSdK20t3pEii5sKVfPcL+/P/hc0gN43Pe67tTi03h3dI8YRrelvGCcH7f8I4mTxZOiSm8laJnQCg==
+      length: 25660601
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 首次启动授权改为三页引导式设计，权限状态一目了然。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: A redesigned three-page first-run guide makes every permission's status clear at a glance. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 新功能
+          en: New
+        items:
+          - zh: 全新首次启动引导：隐私承诺、网络权限、准备就绪三页。
+            en: "New first-run guide in three pages: privacy, network permissions, and all set."
+          - zh: 两个网络引擎各占一行，点「允许」即可授权，授权后显示绿色对勾。
+            en: "Each network engine has its own row: click Allow, and a green check appears once granted."
+          - zh: 准备就绪页汇总所有权限状态，一键开始使用。
+            en: The final page sums up every permission and starts AetherRoute in one click.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 小窗口下主按钮固定在底部，不会被挤出窗口。
+            en: In small windows the main button stays pinned at the bottom.
+          - zh: 重新授权窗口采用同样的新设计。
+            en: The re-authorization sheet uses the same new design.
   - version: "1.4.2"
     build: "2026101001"
     date: 2026-10-10
