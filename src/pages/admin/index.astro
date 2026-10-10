@@ -25,4 +25,4 @@ const recent = await getRecentReleases(6);
     document.querySelector<HTMLElement>('[data-private]')!.hidden=false;status.textContent='数据已更新。下载次数不代表独立用户或下载完成。';
   }).catch(()=>status.textContent='概览加载失败，请刷新重试。');
 </script>
-<style>.dashboard{padding-bottom:70px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.cards a{display:grid;gap:10px;padding:24px}.cards strong{font-size:36px}h2{margin-top:36px}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}time{color:var(--text-3)}@media(max-width:640px){.cards{grid-template-columns:1fr}}</style>
+<style>.dashboard{padding-bottom:70px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.cards[hidden]{display:none}.cards a{display:grid;gap:10px;padding:24px}.cards strong{font-size:36px}h2{margin-top:36px}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}time{color:var(--text-3)}@media(max-width:640px){.cards{grid-template-columns:1fr}}</style>
