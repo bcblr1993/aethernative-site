@@ -1,4 +1,5 @@
 ---
+import { downloadURL } from '../../../../../lib/download-url';
 import Base from '../../../../../layouts/Base.astro';
 import ReleaseMeta from '../../../../../components/ReleaseMeta.astro';
 import { getApps, getReleases, latestStable, type App, type Release } from '../../../../../lib/apps';
@@ -55,7 +56,7 @@ const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' 
               <ReleaseMeta release={r} app={app} lang={lang} />
               <p class="sum">{t(r.summary, lang)}</p>
               <div class="acts">
-                {r === latest && r.download && <a class="btn btn-p btn-sm" href={r.download}>{u.download(r.version)}</a>}
+                {r === latest && r.download && <a class="btn btn-p btn-sm" href={downloadURL(app.id, r.version)}>{u.download(r.version)}</a>}
                 <a class="more" href={`${base}releases/${r.version}/`}>{u.viewDetails} →</a>
               </div>
             </article>

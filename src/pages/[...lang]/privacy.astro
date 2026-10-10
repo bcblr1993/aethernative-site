@@ -25,8 +25,8 @@ const apps = await getApps();
       <section>
         <h2>{zh ? '托管与下载' : 'Hosting and downloads'}</h2>
         <p>{zh
-          ? '网站由 Cloudflare Pages 托管。和所有网络服务一样，Cloudflare 可能为安全和故障排查处理标准连接信息，例如请求时间、IP 地址、访问路径和 User-Agent。安装包托管在 GitHub Releases，下载时适用 GitHub 的隐私政策。'
-          : 'The site is hosted on Cloudflare Pages. Like any network service, Cloudflare may process standard connection metadata for security and troubleshooting, such as request time, IP address, path and User-Agent. Installers are hosted on GitHub Releases, where GitHub’s privacy policy applies to downloads.'}</p>
+          ? '网站由 Cloudflare Pages 托管。和所有网络服务一样，Cloudflare 可能为安全和故障排查处理标准连接信息，例如请求时间、IP 地址、访问路径和 User-Agent。为统计每日下载发起次数，官网下载入口按北京时间、软件和版本保存聚合计数，不保存访客 IP、User-Agent、Cookie 或账号信息。重复点击会重复计数；已知爬虫和预加载不计入，但无法保证排除所有自动请求。统计不代表文件下载完成，启用前的历史数据无法补回。安装包主要托管在 GitHub Releases，部分历史安装包由 Cloudflare Pages 提供。使用 GitHub 下载时适用其隐私政策。'
+          : 'The site is hosted on Cloudflare Pages. Like any network service, Cloudflare may process standard connection metadata for security and troubleshooting, such as request time, IP address, path and User-Agent. Website download links keep aggregate daily initiation counts by Beijing date, app and version, without storing visitor IP addresses, User-Agent strings, cookies or account information. Repeated clicks count again. Known crawlers and prefetches are excluded, but not all automated requests can be identified. These counts do not prove completed downloads; historical counts before activation are unavailable. Most installers are hosted on GitHub Releases, while some historical installers are served by Cloudflare Pages. GitHub’s privacy policy applies when downloading from GitHub.'}</p>
       </section>
       <section>
         <h2>{zh ? '账号与登录' : 'Accounts and sign-in'}</h2>

@@ -1,4 +1,5 @@
 ---
+import { downloadURL } from '../../../../../lib/download-url';
 import Base from '../../../../../layouts/Base.astro';
 import Checksum from '../../../../../components/Checksum.astro';
 import ReleaseMeta from '../../../../../components/ReleaseMeta.astro';
@@ -41,7 +42,7 @@ const kind = r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta
       <ReleaseMeta release={r} app={app} lang={lang} />
       <p class="sum">{t(r.summary, lang)}</p>
       <div class="cta">
-        {r.download && <a class="btn btn-p" href={r.download}>{u.download(r.version)} ↓</a>}
+        {r.download && <a class="btn btn-p" href={downloadURL(app.id, r.version)}>{u.download(r.version)} ↓</a>}
         {r.github && <a class="btn btn-s" href={r.github} rel="noopener">{u.githubRelease} ↗</a>}
         {older && <a class="btn btn-s" href={`${base}releases/${older.version}/`}>{zh ? `获取 ${older.version} 历史版本` : `Get ${older.version} previous release`}</a>}
       </div>

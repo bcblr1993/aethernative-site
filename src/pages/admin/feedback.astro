@@ -13,6 +13,7 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
   <div class="wrap admin" data-apps={JSON.stringify({ ...apps, general: '网站 / 其他' })}>
     <header class="page-hero">
       <h1>反馈管理</h1>
+      <a class="more" href="/admin/downloads/">每日下载统计 →</a>
       <p class="muted" data-hint>正在加载…</p>
     </header>
 

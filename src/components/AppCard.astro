@@ -1,4 +1,5 @@
 ---
+import { downloadURL } from '../lib/download-url';
 /** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
 import { Image } from 'astro:assets';
 import PlatformBadges from './PlatformBadges.astro';
@@ -29,7 +30,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
     )}
     <div class="cta">
       {latest?.download && (
-        <a class="btn btn-p" href={latest.download}>↓ {u.macDownload(latest.version)}</a>
+        <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
       )}
       <a class="btn btn-s" href={page}>{u.learnMore} →</a>
     </div>

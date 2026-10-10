@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getApps } from '../../lib/apps';
+const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
+---
+<Base lang="zh" title="每日下载统计" standalone>
+  <div class="wrap download-admin" data-apps={JSON.stringify(apps)}>
+    <header class="page-hero">
+      <p class="eyebrow">管理后台 · 北京时间</p>
+      <h1>每日下载统计</h1>
+      <p class="muted">记录官网下载按钮发起的安装包请求，重复点击会重复计数。已知爬虫和预加载不计入；不代表下载完成、独立用户或安装人数。直接从 GitHub、App Store 或应用内更新的下载不计入。</p>
+      <a class="more" href="/admin/feedback/">反馈管理 →</a>
+    </header>
+    <form class="filters" data-filters>
+      <label>软件<select name="app"><option value="">所有软件</option>{apps.map((app) => <option value={app.id}>{app.name}</option>)}</select></label>
+      <label>开始日期<input name="from" type="date" required /></label>
+      <label>结束日期<input name="to" type="date" required /></label>
+      <button class="btn btn-p btn-sm" type="submit">查询</button>
+      <button class="btn btn-s btn-sm" type="button" data-export disabled>导出 CSV</button>
+    </form>
+    <p class="muted small" data-period></p>
+    <p role="status" aria-live="polite" data-hint>正在加载…</p>
+    <section data-report hidden>
+      <div class="summary card"><span>所选日期内下载发起次数</span><strong data-total>0</strong><small data-start></small></div>
+      <div class="table-scroll"><table><caption class="sr-only">每日下载发起次数</caption><thead><tr><th scope="col">日期</th><th scope="col">下载发起次数</th></tr></thead><tbody data-days></tbody></table></div>
+      <h2>按软件汇总</h2>
+      <div class="table-scroll"><table><thead><tr><th scope="col">软件</th><th scope="col">下载发起次数</th></tr></thead><tbody data-app-totals></tbody></table></div>
+    </section>
+    <noscript><p>请启用 JavaScript，并登录管理员账号查看统计。</p></noscript>
+  </div>
+</Base>
+<script>
+  import { beijingDay } from '../../lib/download-report';
+  import { buildDownloadReport, downloadCSV, type DownloadStats, type AppName } from '../../lib/download-report';
+  const root = document.querySelector<HTMLElement>('.download-admin')!;
+  const apps: AppName[] = JSON.parse(root.dataset.apps!);
+  const form = root.querySelector<HTMLFormElement>('[data-filters]')!;
+  const from = form.elements.namedItem('from') as HTMLInputElement;
+  const to = form.elements.namedItem('to') as HTMLInputElement;
+  const app = form.elements.namedItem('app') as HTMLSelectElement;
+  const hint = root.querySelector<HTMLElement>('[data-hint]')!;
+  const report = root.querySelector<HTMLElement>('[data-report]')!;
+  const exportButton = root.querySelector<HTMLButtonElement>('[data-export]')!;
+  from.value = beijingDay(Date.now() - 29 * 86400_000);
+  to.value = to.max = from.max = beijingDay();
+  let csv = '';
+  let csvName = 'downloads.csv';
+  let controller: AbortController | undefined;
+
+  function tableRows(target: string, rows: (string | number)[][]) {
+    const body = root.querySelector<HTMLElement>(target)!;
+    body.replaceChildren(...rows.map((values) => {
+      const row = document.createElement('tr');
+      for (const value of values) { const cell = document.createElement('td'); cell.textContent = String(value); row.append(cell); }
+      return row;
+    }));
+  }
+  async function load() {
+    controller?.abort(); controller = new AbortController();
+    const active = controller;
+    report.hidden = true; exportButton.disabled = true; hint.textContent = '正在加载…';
+    try {
+      const query = new URLSearchParams({ from: from.value, to: to.value, app: app.value });
+      const response = await fetch(`/api/admin/downloads?${query}`, { credentials: 'same-origin', signal: active.signal });
+      if (response.status === 401) { hint.textContent = '请先通过导航栏登录管理员账号。'; return; }
+      if (response.status === 403) { hint.textContent = '当前账号不是管理员，无法查看统计。'; return; }
+      if (response.status === 400) { hint.textContent = '请选择有效日期：结束日期不能晚于今天，范围最多 366 天。'; return; }
+      if (!response.ok) throw new Error('load_failed');
+      const data = await response.json() as DownloadStats;
+      if (active.signal.aborted) return;
+      const summary = buildDownloadReport(data, apps);
+      root.querySelector<HTMLElement>('[data-total]')!.textContent = String(summary.total);
+      root.querySelector<HTMLElement>('[data-start]')!.textContent = data.startedAt
+        ? `统计启用时间：${new Date(data.startedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false })}；启用当天为部分数据。`
+        : '统计尚未启用。';
+      root.querySelector<HTMLElement>('[data-period]')!.textContent = `${data.from} 至 ${data.to} · Asia/Shanghai（UTC+8）`;
+      tableRows('[data-days]', summary.days.map((day) => [day.day, day.requests ?? '尚未统计']));
+      tableRows('[data-app-totals]', summary.apps.map((item) => [item.name, item.requests]));
+      hint.textContent = summary.total ? '已加载。今天的数据仍在累积。' : '所选日期暂无下载发起记录；启用前的历史数据无法补回。';
+      csv = downloadCSV(summary, data); csvName = `downloads-${data.from}-${data.to}.csv`; exportButton.disabled = false; report.hidden = false;
+    } catch {
+      if (!active.signal.aborted) hint.textContent = '统计加载失败，请稍后重新查询。';
+    }
+  }
+  form.addEventListener('submit', (event) => { event.preventDefault(); load(); });
+  exportButton.addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob(['\ufeff', csv], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a'); link.href = url; link.download = csvName;
+    link.click(); URL.revokeObjectURL(url);
+  });
+  load();
+</script>
+<style>
+  .download-admin { padding-bottom: 70px; }
+  .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; }
+  label { display: grid; gap: 6px; font-size: 13px; color: var(--text-2); }
+  select, input { font: inherit; color: var(--text); background: var(--surface); padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; min-height: 40px; }
+  [data-hint] { margin: 18px 0; }
+  .summary { display: grid; gap: 6px; padding: 20px 24px; box-shadow: none; margin: 20px 0; }
+  .summary strong { font-size: 36px; }
+  .summary small { color: var(--text-3); }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; margin: 18px 0 30px; }
+  table { width: 100%; border-collapse: collapse; }
+  table :global(th), table :global(td) { text-align: left; padding: 11px 18px; border-bottom: 1px solid var(--line); }
+  table :global(th) { background: var(--surface); font-size: 13px; }
+  table :global(th:last-child), table :global(td:last-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  table :global(tr:last-child td) { border-bottom: 0; }
+  h2 { font-size: 20px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  @media (max-width: 640px) { .filters label { width: 100%; } .filters input, .filters select { width: 100%; } }
+</style>

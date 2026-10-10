@@ -1,4 +1,5 @@
 ---
+import { downloadURL } from '../../../../lib/download-url';
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
@@ -73,7 +74,7 @@ const subnav = [
         {releases.length > 0 && <a href={`${base}releases/`}>{u.releases}</a>}
         {hasDoc('support') && <a href={`${base}support/`}>{u.help}</a>}
       </div>
-      {latest?.download && <a class="btn btn-p btn-sm" href={latest.download}>{u.download(latest.version)}</a>}
+      {latest?.download && <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)}>{u.download(latest.version)}</a>}
     </div>
   </div>
 
@@ -84,7 +85,7 @@ const subnav = [
       <h1><Text v={d.hero.title} lang={lang} /></h1>
       <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
       <div class="cta">
-        {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
+        {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>{u.macDownload(latest.version)} ↓</a>}
         {ios && (iosLink
           ? <a class="btn btn-s" href={iosLink}>iPhone ↗</a>
           : d.ios && <a class="btn btn-s" href="#ios">{zh ? 'iPhone 版预告' : 'iPhone preview'} ↓</a>)}
@@ -353,7 +354,7 @@ const subnav = [
         <p class="eyebrow">{d.name} for {d.platforms.map((p) => p.id === 'mac' ? 'Mac' : 'iPhone').join(' & ')}</p>
         <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
         <div class="cta">
-          {latest?.download && <a class="btn btn-p" href={latest.download}>{u.macDownload(latest.version)} ↓</a>}
+          {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>{u.macDownload(latest.version)} ↓</a>}
           {releases.length > 0 && <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>}
         </div>
         <p class="req muted"><Text v={d.cta.note} lang={lang} /></p>
