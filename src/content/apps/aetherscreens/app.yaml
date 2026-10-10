@@ -4,6 +4,7 @@ order: 6
 repo: https://github.com/bcblr1993/AetherScreens
 icon: ./media/icon-v2.png
 minimumSystemVersion: "14.0"
+sparklePublicKey: /e1Yixj71lecuhZw5idF9FCy1nCAk8rxqz6AroPNSgA=
 tech: [Swift, SwiftUI, Metal, Network.framework, RFB 3.8]
 
 tagline:
