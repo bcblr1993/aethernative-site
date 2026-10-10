@@ -1,6 +1,33 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.4.2"
+    build: "2026101001"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.2/AetherRoute-1.4.2-build-2026101001-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.4.2
+    sha256: dc52e0a36870ab9e5a904a68514c604d39c886f8d77f9c851d2db500133eb2f8
+    sparkle:
+      edSignature: n08adu26WAErPP5d+vkCan0FChsSROGdx1zxlxdAu6H96WZj2vTp8/AoTfy7cYh3p0JqKGlv/05gjon5brVwBg==
+      length: 25664720
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复最小窗口下连接列表与概览页的布局溢出；界面测试全部通过。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: Fixes layouts that overflowed the narrowest window in Connections and Overview; all UI tests pass. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 窗口缩到最小时，连接列表的六列不再超出表格。
+            en: At the narrowest window, the six Connections columns no longer run past the table.
+          - zh: 概览页模式设置在长文案下不再重叠或撑宽页面。
+            en: Overview mode rows no longer overlap or widen the page with long translations.
+          - zh: 修复 5 项界面测试，完整界面测试全部通过。
+            en: Five UI tests repaired; the full UI suite passes.
   - version: "1.4.1"
     build: "2026100902"
     date: 2026-10-09
