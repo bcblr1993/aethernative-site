@@ -1,27 +1,27 @@
 {
-  "checkedAt": "2026-10-10T09:31:04.547Z",
+  "checkedAt": "2026-10-10T17:23:42.591Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "1.4.2",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.2/AetherRoute-1.4.2-build-2026101001-arm64.dmg",
-      "sha256": "dc52e0a36870ab9e5a904a68514c604d39c886f8d77f9c851d2db500133eb2f8",
-      "length": 25664720,
-      "edSignature": "n08adu26WAErPP5d+vkCan0FChsSROGdx1zxlxdAu6H96WZj2vTp8/AoTfy7cYh3p0JqKGlv/05gjon5brVwBg==",
+      "version": "1.5.0",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.0/AetherRoute-1.5.0-build-2026101002-arm64.dmg",
+      "sha256": "3eac19bac738d1f24264c33ae1e184f11366bdef0d37a3f4d119e2298d385408",
+      "length": 25660601,
+      "edSignature": "/sygwD9AQDVSdK20t3pEii5sKVfPcL+/P/hc0gN43Pe67tTi03h3dI8YRrelvGCcH7f8I4mTxZOiSm8laJnQCg==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 25664720,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/0adffb87-488b-47ee-ab5e-db18acb28d83",
+          "bytes": 25660601,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/fd22f056-9013-4ef0-ba34-3f7be43da91c",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "dc52e0a36870ab9e5a904a68514c604d39c886f8d77f9c851d2db500133eb2f8",
+          "actual": "3eac19bac738d1f24264c33ae1e184f11366bdef0d37a3f4d119e2298d385408",
           "message": "SHA256 一致"
         },
         {
@@ -196,37 +196,39 @@
     {
       "id": "aetherscreens",
       "name": "AetherScreens",
-      "version": "1.0.0",
-      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.0.0/AetherScreens-macOS-AppleSilicon-v1.0.0.dmg",
-      "sha256": "98ff67cc194364db928b2510236adc43577e5ebf6e754d804dc84562bc659341",
+      "version": "1.1.0",
+      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.1.0/AetherScreens-macOS-AppleSilicon-v1.1.0.dmg",
+      "sha256": "85df54b81ca6f0c699c02cc1963fbd1d2e9d2c3c192384f4d9e1121ff26fb56c",
+      "length": 7999443,
+      "edSignature": "evZezDf57+fCMG2lFwS8aCAUzkZ0zatzOaHhoX5nNPXxFCP1/DK0L8gtdD2b/h5zhPoz5AoOXUnjJ/jfMZorAA==",
       "appcast": "/apps/aetherscreens/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3525514,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/61bb8025-78c2-469c-91c5-f0a76eda14ca",
+          "bytes": 7999443,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/4e11959e-4c46-4ef0-b12d-d4a805352f02",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "98ff67cc194364db928b2510236adc43577e5ebf6e754d804dc84562bc659341",
+          "actual": "85df54b81ca6f0c699c02cc1963fbd1d2e9d2c3c192384f4d9e1121ff26fb56c",
           "message": "SHA256 一致"
         },
         {
           "kind": "size",
-          "status": "skipped",
-          "message": "发布记录未提供文件大小"
+          "status": "ok",
+          "message": "文件大小一致"
         },
         {
           "kind": "appcast",
-          "status": "failed",
-          "message": "更新源与当前正式版不一致或缺少签名字段"
+          "status": "ok",
+          "message": "更新源版本、下载地址和大小一致，包含对应签名字段"
         }
       ],
-      "failures": 1,
-      "status": "suspect"
+      "failures": 0,
+      "status": "ok"
     },
     {
       "id": "aetherfilm",
