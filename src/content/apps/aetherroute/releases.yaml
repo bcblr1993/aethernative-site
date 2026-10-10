@@ -1,6 +1,41 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.5.1"
+    build: "2026101003"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.1/AetherRoute-1.5.1-build-2026101003-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.1
+    sha256: 993c40e5ee238bc62c931537f8c26bde9ea1048f668d8cbd5687f8e9f1371970
+    sparkle:
+      edSignature: 7yniGLXBFO/2hMvFqz7cEGxqN57EUWGYGuIftg5Q890VSnBmtuuELjfiZnBww0du/Y6SeyVK+RjWGUbHgWV9AA==
+      length: 26970415
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 切换页面不再卡顿，内存稳定在约 70 MB，长会话中按应用的流量统计不再缺漏，页面内容对齐 Liquid Glass 设计规范。
+      en: Page switching no longer stalls, memory stays around 70 MB, per-app traffic statistics stay complete in long sessions, and page content follows the Liquid Glass guidelines.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 修复开着主窗口时内存持续上涨到 200 MB 以上的问题，现稳定在约 70 MB。
+            en: Fixed memory growing past 200 MB while the window is open; it now stays around 70 MB.
+          - zh: 切换页面不再卡顿，最慢一次从 0.8 秒降到约 0.2 秒。
+            en: Switching pages no longer stalls; the slowest switch dropped from 0.8 s to about 0.2 s.
+          - zh: 长时间使用时，后出现的应用也能正确统计流量。
+            en: Apps that appear late in a long session now get their traffic counted.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 页面内容对齐 macOS 26 Liquid Glass 设计规范，卡片与按钮改用系统样式。
+            en: Page content follows the macOS 26 Liquid Glass guidelines, with system cards and buttons.
+          - zh: 更新说明采用新版式。
+            en: Update notes have a new layout.
   - version: "1.5.0"
     build: "2026101002"
     date: 2026-10-10
