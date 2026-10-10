@@ -42,8 +42,8 @@ hero:
     en: "Client: Apple silicon Mac (macOS 14+) or iPhone / iPad (iOS 17+) · Remote: a Mac with Screen Sharing on"
 
 notice:
-  zh: macOS 首版现已提供下载；iPhone / iPad 暂需通过 Xcode 安装。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
-  en: The first macOS release is available; iPhone / iPad currently require an Xcode installation. Connect with a Mac account, or separately enable a VNC password in Screen Sharing settings.
+  zh: macOS 1.1.0 现已提供下载；iPhone / iPad 暂需通过 Xcode 安装。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
+  en: macOS 1.1.0 is available; iPhone / iPad currently require an Xcode installation. Connect with a Mac account, or separately enable a VNC password in Screen Sharing settings.
 
 features:
   eyebrow: { zh: 功能, en: Features }
@@ -67,7 +67,7 @@ features:
         en: Remote frames are uploaded straight to GPU textures; pinch zoom and local pan on iPhone and iPad; Mac offers fit, actual size, zoom and pan controls.
       details:
         - { zh: 性能面板显示本地绘制帧率、带宽与测得的 TCP 往返延迟；尚未测得时显示为 —。, en: The HUD shows local draw rate, bandwidth and measured TCP round-trip time; unmeasured latency is shown as —. }
-        - { zh: 支持 ZRLE、Zlib、CopyRect 与 Raw 编码。, en: Supports ZRLE, Zlib, CopyRect and Raw encodings. }
+        - { zh: 支持 Tight、ZRLE、Zlib、CopyRect 与 Raw 编码；标准 RFB 会话可选自动压缩，服务器可能忽略画质提示。, en: Supports Tight, ZRLE, Zlib, CopyRect and Raw encodings. Standard RFB sessions offer optional automatic compression; servers may ignore quality hints. }
     - kicker: { zh: 输入, en: Input }
       title: { zh: 虚拟触控板与 Mac 快捷键工具栏, en: Virtual trackpad and Mac shortcut toolbar }
       body:
@@ -76,6 +76,14 @@ features:
       details:
         - { zh: 在 Mac 上直接透传物理键盘、修饰键和鼠标滚轮。, en: On the Mac, the physical keyboard, modifiers and scroll wheel pass straight through. }
         - { zh: 可把本机剪贴板文字插入远端输入框；暂不支持双向剪贴板同步。, en: Inserts local clipboard text into the remote field; bidirectional clipboard sync is not supported. }
+    - kicker: { zh: 更新, en: Updates }
+      title: { zh: 应用内下载与重启安装, en: Download and restart to install }
+      body:
+        zh: 在 Mac 的 AetherScreens 菜单中选择「检查更新…」，即可下载签名更新包并重启安装，默认由你手动发起。
+        en: Choose “Check for Updates…” in the Mac app menu to download a signed update and restart to install. Checks are started manually by default.
+      details:
+        - { zh: 1.0.0 需先手动安装一次 1.1.0，之后的版本可在应用内更新。, en: Install 1.1.0 manually once from 1.0.0; subsequent versions can be updated in the app. }
+        - { zh: 应用与 DMG 均通过 Apple 公证，更新包在安装前验证签名。, en: The app and DMG are Apple notarized, and update signatures are checked before installation. }
 
 faq:
   eyebrow: FAQ
@@ -87,7 +95,7 @@ faq:
     - q: { zh: 在外面怎么连回家里的 Mac？, en: How do I reach my Mac from outside? }
       a: { zh: 让客户端设备和被控 Mac 登录同一个 Tailscale 网络，然后用 Mac 的 100.x.y.z 地址连接。连接经 Tailscale 端到端加密。, en: "Sign both devices in to the same Tailscale network and connect to the Mac’s 100.x.y.z address. The connection is end-to-end encrypted by Tailscale." }
     - q: { zh: 会上传我的数据吗？, en: Is any of my data uploaded? }
-      a: { zh: 不会。画面与输入只在你的设备和被控 Mac 之间直接传输；只有在你填写 Tailscale API Token 并同步设备时，才会访问 Tailscale 官方接口。, en: No. Screen and input data travel directly between your device and the remote Mac. The Tailscale API is contacted only when you enter a token and sync devices. }
+      a: { zh: 不会上传远程画面与输入。检查更新时访问官网清单与 GitHub 安装包；填写 Tailscale API Token 并同步设备时访问 Tailscale 官方接口。, en: Remote screen and input data are not uploaded. Update checks contact the website feed and GitHub downloads; the Tailscale API is contacted when you enter a token and sync devices. }
 
 cta:
   title: { zh: 下载 AetherScreens for Mac。, en: Download AetherScreens for Mac. }
