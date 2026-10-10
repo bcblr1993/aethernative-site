@@ -2,6 +2,7 @@ export const beijingDay = (time = Date.now()) => new Date(time + 8 * 3600_000).t
 export interface AppName { id: string; name: string }
 export interface DownloadStats {
   from: string; to: string; app: string; startedAt: number | null;
+  versions?: { app_id: string; version: string; requests: number }[];
   rows: { day: string; app_id: string; requests: number }[];
 }
 export function buildDownloadReport(data: DownloadStats, names: AppName[]) {
@@ -21,6 +22,7 @@ export function buildDownloadReport(data: DownloadStats, names: AppName[]) {
     .map((item) => ({ ...item, requests: totals.get(item.id) ?? 0 }));
   // Preserve historical totals for software no longer listed in the catalog.
   for (const [id, requests] of totals) if (!apps.some((item) => item.id === id)) apps.push({ id, name: id, requests });
+  apps.sort((a, b) => b.requests - a.requests || a.name.localeCompare(b.name));
   return { days, apps, total: [...totals.values()].reduce((sum, count) => sum + count, 0) };
 }
 export function downloadCSV(report: ReturnType<typeof buildDownloadReport>, data: DownloadStats) {

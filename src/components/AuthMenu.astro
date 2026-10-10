@@ -29,6 +29,7 @@ const u = ui[lang].auth;
       <span class="fine" data-email></span>
       <span class="fine" data-via></span>
       <hr />
+      <a class="item" href="/admin/" data-admin hidden>{lang === 'zh' ? '管理后台' : 'Admin dashboard'}</a>
       <a class="item" href={href(lang, '/feedback/')}>{u.myFeedback}</a>
       <button type="button" class="item" data-logout>{u.signOut}</button>
       <button type="button" class="item danger" data-delete>{u.deleteAccount}</button>
@@ -78,6 +79,7 @@ const u = ui[lang].auth;
       out.hidden = true;
       out.open = false;
       inn.hidden = false;
+      $('[data-admin]').hidden = !me.isAdmin;
     };
 
     // 登录后回到当前页面（含查询参数）；页面里其他登录按钮（如反馈页）一并处理

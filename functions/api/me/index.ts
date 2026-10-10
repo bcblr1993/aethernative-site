@@ -15,7 +15,7 @@ const signedOut = () => {
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const user = await getSessionUser(env.DB, request);
   if (!user) return signedOut();
-  return json({ user: publicUser(user, await getProviders(env.DB, user.id)) });
+  return json({ user: { ...publicUser(user, await getProviders(env.DB, user.id)), isAdmin: user.is_admin === 1 } });
 };
 
 export const onRequestPatch: PagesFunction<Env> = async ({ request, env }) => {

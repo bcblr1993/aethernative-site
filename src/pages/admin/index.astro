@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminNav from '../../components/AdminNav.astro';
+import { getRecentReleases } from '../../lib/apps';
+const recent = await getRecentReleases(6);
+---
+<Base lang="zh" title="管理后台" standalone>
+  <div class="wrap dashboard"><AdminNav /><h1>管理后台</h1><p class="muted">下载、反馈与发布概览 · 北京时间</p>
+    <p data-status role="status">正在加载…</p>
+    <section class="cards" data-private hidden>
+      <a class="card" href="/admin/downloads/"><span>今日下载发起</span><strong data-today></strong></a>
+      <a class="card" href="/admin/downloads/"><span>近 7 天下载发起</span><strong data-week></strong></a>
+      <a class="card" href="/admin/feedback/"><span>待处理反馈</span><strong data-pending></strong></a>
+    </section>
+    <h2>最近发布</h2><ul>{recent.map(({app,release}) => <li><a href={`/apps/${app.id}/releases/${release.version}/`}>{app.data.name} · {release.version}</a><time>{release.date.toISOString().slice(0,10)}</time></li>)}</ul>
+    <p><a href="/admin/services/">查看下载和更新服务状态 →</a></p>
+  </div>
+</Base>
+<script>
+  const status = document.querySelector<HTMLElement>('[data-status]')!;
+  fetch('/api/admin/overview', {credentials:'same-origin'}).then(async r => {
+    if(!r.ok){status.textContent=r.status===401?'请先登录管理员账号。':r.status===403?'当前账号没有管理权限。':'概览加载失败，请刷新重试。';return;}
+    const d=await r.json();
+    for(const [key,value] of Object.entries({today:d.downloads.today,week:d.downloads.week,pending:d.feedback.pending})) document.querySelector<HTMLElement>(`[data-${key}]`)!.textContent=String(value);
+    document.querySelector<HTMLElement>('[data-private]')!.hidden=false;status.textContent='数据已更新。下载次数不代表独立用户或下载完成。';
+  }).catch(()=>status.textContent='概览加载失败，请刷新重试。');
+</script>
+<style>.dashboard{padding-bottom:70px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.cards a{display:grid;gap:10px;padding:24px}.cards strong{font-size:36px}h2{margin-top:36px}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}time{color:var(--text-3)}@media(max-width:640px){.cards{grid-template-columns:1fr}}</style>

@@ -2,6 +2,7 @@
 // 同一页面内只请求一次 /api/me；退出或注销后通过 an:signed-out 事件通知其他组件。
 
 export interface Me {
+  isAdmin?: boolean;
   id: string;
   name: string;
   email: string | null;

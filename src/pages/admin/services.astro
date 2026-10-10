@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminNav from '../../components/AdminNav.astro';
+---
+<Base lang="zh" title="服务检查" standalone><div class="wrap services"><AdminNav /><h1>下载与更新服务检查</h1>
+<p class="muted">每 6 小时检查各软件最新正式版安装包、SHA256、文件大小及更新源。失败会即时复测，连续两轮失败标记为持续异常；缺少发布校验信息会明确显示。</p>
+<p><a href="https://github.com/bcblr1993/aethernative-site/actions/workflows/service-health.yml" target="_blank" rel="noopener">在 GitHub 查看或手动运行检查 ↗</a></p>
+<p data-status role="status">正在加载…</p><section data-results></section></div></Base>
+<script>
+const status=document.querySelector<HTMLElement>('[data-status]')!;
+fetch('/api/admin/services',{credentials:'same-origin'}).then(async r=>{
+ if(!r.ok){status.textContent=r.status===401?'请先登录管理员账号。':r.status===403?'当前账号没有管理权限。':'尚无可用检查报告，请运行检查。';return;}
+ const {report,catalog}=await r.json();
+ const stale=Date.now()-Date.parse(report.checkedAt)>12*3600_000;
+ status.textContent=`最近检查：${new Date(report.checkedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})}${stale?' · 报告已过期，请重新检查':''}`;
+ const root=document.querySelector<HTMLElement>('[data-results]')!;
+ for(const app of catalog.apps){
+  const result=report.apps.find((a: {id:string;version:string;download:string;sha256?:string;length?:number;edSignature?:string})=>a.id===app.id && a.version===app.version && a.download===app.download && a.sha256===app.sha256 && a.length===app.length && a.edSignature===app.edSignature);
+  const article=document.createElement('article');article.className='card';
+  const title=document.createElement('h2');title.textContent=`${app.name} · ${app.version ?? '无安装包'}`;article.append(title);
+  const state=document.createElement('p');state.textContent=!result?'当前版本尚未检查':stale?'报告过期':({ok:'检查正常',suspect:'异常待复核',failed:'持续异常',skipped:'未提供独立安装包'} as Record<string,string>)[result.status];article.append(state);
+  for(const check of result?.checks ?? []){const p=document.createElement('p');p.textContent=`${check.status==='ok'?'✓':check.status==='failed'?'✕':'—'} ${check.message}`;article.append(p);}
+  root.append(article);
+ }
+}).catch(()=>status.textContent='报告加载失败，请刷新重试。');
+</script>
+<style>.services{padding-bottom:70px}section :global(article){padding:24px;margin:20px 0}section :global(h2){font-size:20px;margin-bottom:12px}section :global(p){margin:8px 0;font-size:14px}</style>
