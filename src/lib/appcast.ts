@@ -26,28 +26,31 @@ const esc = (s: string) =>
 const cdata = (s: string) => `<![CDATA[${s.replace(/]]>/g, ']]]]><![CDATA[>')}]]>`;
 
 /**
- * Sparkle 在 WebView 里显示更新说明，没有任何默认样式。这里内联一套与 macOS
- * 原生界面一致的样式：系统字体、自动深浅色、按分组着色的标签与卡片。
+ * Sparkle 在 WebView 里显示更新说明，没有任何默认样式。这里内联一套贴近 macOS
+ * 原生发布说明的样式：系统字体与正文字号、自动深浅色、统一的左边距。
+ * Sparkle 的说明区自带描边，所以分组不再画卡片与边框（框中框显得拥挤）；
+ * 分组只用标题前的小圆点区分类别，配色取系统色：新功能蓝、修复绿、优化橙、其他灰。
  * 不加载任何外部资源（更新窗口可能离线打开）。
  */
 const NOTES_STYLE = `<style>
-:root{color-scheme:light dark;--text:#1d1d1f;--sub:#6e6e73;--card:rgba(0,0,0,.035);--line:rgba(0,0,0,.08);
---feature:#0a64d6;--feature-bg:rgba(10,132,255,.12);--fix:#1a7f37;--fix-bg:rgba(52,199,89,.14);
---improve:#7a3ec2;--improve-bg:rgba(175,82,222,.13);--other:#6e6e73;--other-bg:rgba(142,142,147,.14)}
-@media (prefers-color-scheme:dark){:root{--text:#f5f5f7;--sub:#a1a1a6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.1);
---feature:#64a8ff;--feature-bg:rgba(10,132,255,.22);--fix:#5fd37a;--fix-bg:rgba(52,199,89,.2);
---improve:#c99bf2;--improve-bg:rgba(175,82,222,.22);--other:#a1a1a6;--other-bg:rgba(142,142,147,.2)}}
-body{margin:0;padding:2px 2px 8px;font:13px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
-.summary{margin:0 0 12px;font-size:13.5px;color:var(--text)}
-.group{margin:0 0 10px;padding:10px 14px 8px;background:var(--card);border:1px solid var(--line);border-radius:10px}
-.tag{display:inline-block;margin:0 0 6px;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.01em;color:var(--accent);background:var(--accent-bg)}
-.group ul{margin:0;padding:0;list-style:none}
-.group li{position:relative;margin:0 0 5px;padding-left:14px;color:var(--text)}
-.group li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-.feature{--accent:var(--feature);--accent-bg:var(--feature-bg)}
-.fix{--accent:var(--fix);--accent-bg:var(--fix-bg)}
-.improve{--accent:var(--improve);--accent-bg:var(--improve-bg)}
-.other{--accent:var(--other);--accent-bg:var(--other-bg)}
+:root{color-scheme:light dark;--text:#1d1d1f;--sub:#6e6e73;--line:rgba(0,0,0,.1);
+--feature:#007aff;--fix:#28a745;--improve:#f08a00;--other:#8e8e93}
+@media (prefers-color-scheme:dark){:root{--text:#f5f5f7;--sub:#a1a1a6;--line:rgba(255,255,255,.12);
+--feature:#0a84ff;--fix:#32d74b;--improve:#ff9f0a;--other:#98989d}}
+body{margin:0;padding:12px 16px 14px;font:13px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+.summary{margin:0 0 14px;color:var(--text)}
+.group{margin:0;padding:12px 0 0;border-top:1px solid var(--line)}
+.group+.group{margin-top:12px}
+.tag{display:flex;align-items:center;gap:7px;margin:0 0 6px;font-size:13px;font-weight:600;color:var(--text)}
+.tag::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.group ul{margin:0;padding:0 0 0 14px;list-style:none}
+.group li{position:relative;margin:0 0 4px;color:var(--text)}
+.group li:last-child{margin-bottom:0}
+.group li::before{content:"";position:absolute;left:-11px;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--sub);opacity:.7}
+.feature{--accent:var(--feature)}
+.fix{--accent:var(--fix)}
+.improve{--accent:var(--improve)}
+.other{--accent:var(--other)}
 </style>`;
 
 type NoteKind = 'feature' | 'fix' | 'improve' | 'other';
