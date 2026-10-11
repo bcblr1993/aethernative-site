@@ -1,27 +1,27 @@
 {
-  "checkedAt": "2026-10-11T05:58:06.238Z",
+  "checkedAt": "2026-10-11T13:03:00.630Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "1.5.2",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.2/AetherRoute-1.5.2-build-2026101101-arm64.dmg",
-      "sha256": "6ba79b83e524a16fdbc123e04e60a1b1b19edcb1aa8946e13f2db60bf41721ae",
-      "length": 26976491,
-      "edSignature": "ZR9QqUZlLRMwEleT1NzxikuOtK06LhN5PY3xz1zDGy8taI92+I2mFIy7Bl/5qIFdbWa1IltqjbQEplheY5TmDg==",
+      "version": "1.6.0",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.6.0/AetherRoute-1.6.0-build-2026101102-arm64.dmg",
+      "sha256": "b2c7a504f8b7a2291d58f07c018caa25cd65de538c3575653d4a99dcad5dd172",
+      "length": 27071473,
+      "edSignature": "lBCWdzRM2MUssVsGBQqYvv+sF5C9G62329sTXLM7jcKoot1IayeC/R5o9xokn89iolr8KH6JWntXj5uI/vcnDg==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 26976491,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/ede72be0-f0d0-4389-a457-5ba4f40f1be7",
+          "bytes": 27071473,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/07dbcfea-1437-41f5-ae30-e1b9b8a13a8c",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "6ba79b83e524a16fdbc123e04e60a1b1b19edcb1aa8946e13f2db60bf41721ae",
+          "actual": "b2c7a504f8b7a2291d58f07c018caa25cd65de538c3575653d4a99dcad5dd172",
           "message": "SHA256 一致"
         },
         {
