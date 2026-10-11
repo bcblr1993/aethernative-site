@@ -1,6 +1,43 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.6.0"
+    build: "2026101102"
+    date: 2026-10-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.6.0/AetherRoute-1.6.0-build-2026101102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.6.0
+    sha256: b2c7a504f8b7a2291d58f07c018caa25cd65de538c3575653d4a99dcad5dd172
+    sparkle:
+      edSignature: lBCWdzRM2MUssVsGBQqYvv+sF5C9G62329sTXLM7jcKoot1IayeC/R5o9xokn89iolr8KH6JWntXj5uI/vcnDg==
+      length: 27071473
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 新增节点故障转移：节点出问题时自动切换到可用节点，恢复后自动切回，卡住的连接会被立即关闭。
+      en: "Node failover: when a node stops answering, traffic moves to a working one and returns once it recovers, and stuck connections are closed right away."
+    notes:
+      - title:
+          zh: 新增
+          en: New
+        items:
+          - zh: 每个代理分组可选手动、自动最快或故障转移。
+            en: Each proxy group can use Manual, Fastest or Failover.
+          - zh: 故障转移优先使用首选节点，故障时切到最快可用节点，恢复后自动切回。
+            en: Failover uses your preferred node, moves to the fastest working one when it fails, and returns once it recovers.
+          - zh: 代理页显示首选与备用节点、切换原因和自动切换记录。
+            en: The Proxies page shows the preferred and backup nodes, why traffic moved, and the run's switches.
+          - zh: 可选的节点自动切换提醒，通知不含节点名。
+            en: Optional node switch alerts that never name a node.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 节点故障后关闭卡住的连接，应用立即改走新节点。
+            en: Connections stuck on a failed node are closed so apps move to the new node at once.
+          - zh: 切换前先复测确认，检查间隔缩短到 10 秒。
+            en: Failures are confirmed before switching, and routes are checked every 10 seconds.
   - version: "1.5.2"
     build: "2026101101"
     date: 2026-10-11
