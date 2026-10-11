@@ -1,6 +1,43 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.5.2"
+    build: "2026101101"
+    date: 2026-10-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.2/AetherRoute-1.5.2-build-2026101101-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.2
+    sha256: 6ba79b83e524a16fdbc123e04e60a1b1b19edcb1aa8946e13f2db60bf41721ae
+    sparkle:
+      edSignature: ZR9QqUZlLRMwEleT1NzxikuOtK06LhN5PY3xz1zDGy8taI92+I2mFIy7Bl/5qIFdbWa1IltqjbQEplheY5TmDg==
+      length: 26976491
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 页头与操作按钮重新设计，连接页更整洁，添加规则弹窗焕新，切页淡入，切页更快、内存更低。
+      en: Redesigned page headers and actions, a tidier Connections page, a new Add Rule sheet, page fade-ins, and faster page switching with less memory.
+    notes:
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 各页面的操作按钮与标题同行、分组排列，并与内容对齐。
+            en: Each page's actions sit on the title's line, grouped and aligned with the content.
+          - zh: 连接页按钮收为显示、暂停、更多三组，搜索框移到过滤条。
+            en: Connections groups its buttons into View, Pause and More, with search in the filter row.
+          - zh: 添加规则弹窗重新设计；切换页面时内容淡入。
+            en: The Add Rule sheet is redesigned, and pages fade in when switched.
+          - zh: 切页更快，内存从约 70 MB 降到约 61 MB。
+            en: Faster page switching; memory dropped from about 70 MB to about 61 MB.
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 小窗口下连接详情弹窗超出窗口的问题。
+            en: The connection details sheet no longer grows past a small window.
+          - zh: 窄窗口或放大字号时页面被撑高的问题。
+            en: Pages no longer grow taller than the window in narrow windows or with larger text.
   - version: "1.5.1"
     build: "2026101003"
     date: 2026-10-10
