@@ -1,6 +1,35 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.1"
+    build: "2026101204"
+    date: 2026-10-12
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.1/AetherRoute-1.7.1-build-2026101204-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.1
+    sha256: 425dea8b6bd901d31ef16e265b22684a618a25619685f0a184df1ced9646b0d2
+    sparkle:
+      edSignature: KCuGo2dFdfgL+EbpawJzAIhPngH+HksX2ctsmtNiyzf9z06UsXuwZWZy4OuZugprmJaA9zPsvmz1r6vQ8hmnAA==
+      length: 27362963
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 切换网卡后自动恢复：透明代理从 Wi-Fi 换到有线网卡不再断网；修复规则页闪退。
+      en: Traffic comes back on its own after switching network interfaces in transparent proxy mode, and the Rules page no longer crashes.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 透明代理从 Wi-Fi 换到有线网卡（或唤醒后换了网卡）后 1–2 秒内自动恢复，不再需要手动重连。
+            en: In transparent proxy mode, moving from Wi-Fi to wired Ethernet, or waking onto another interface, recovers within 1–2 seconds instead of needing a manual reconnect.
+          - zh: 自动恢复不成功时原地重建连接并保留节点选择；仍不通则自动重连一次。
+            en: If that is not enough, the connection is rebuilt in place with your node choices kept, then reconnected once if still down.
+          - zh: 恢复判断更准确，直连流量不再被误当作已恢复。
+            en: Recovery is judged more strictly; direct traffic no longer counts as recovered.
+          - zh: 修复打开规则页约半分钟后 App 可能闪退的问题。
+            en: Fixed a crash about half a minute after opening the Rules page.
   - version: "1.7.0"
     build: "2026101103"
     date: 2026-10-12
