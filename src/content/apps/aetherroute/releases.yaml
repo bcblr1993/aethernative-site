@@ -1,6 +1,45 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.0"
+    build: "2026101103"
+    date: 2026-10-12
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.0/AetherRoute-1.7.0-build-2026101103-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.0
+    sha256: 78309d6a589bd2872245bd0f72eb641c3277d25dc887dbc550844673b77517ef
+    sparkle:
+      edSignature: 1naRZy4BJWp3pjqyaTM8UPT9OIoUuaPzszZjEQHelhFUZIeBdi4z4Y2QYccTFtsNzPuS42P0RvcOuMgivO3SDw==
+      length: 27333859
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 不改订阅也能整理节点：按地区或关键词自动成组、隐藏提示条目；订阅更新后设置不再丢失；TUN 可与 Tailscale MagicDNS 共存。
+      en: "Customize profiles without editing them: groups by region or keyword, hidden notice entries, settings that survive subscription updates, and TUN alongside Tailscale MagicDNS."
+    notes:
+      - title:
+          zh: 新增
+          en: New
+        items:
+          - zh: 新建分组：按地区、关键词或手选节点自动成组，随订阅更新。
+            en: "New Group: members chosen by region, keyword or hand, kept up to date with the subscription."
+          - zh: 按地区一键生成分组，并放进主分组。
+            en: Groups by Region in one step, listed in the main group.
+          - zh: 隐藏“剩余流量”“到期”等提示类条目。
+            en: Hide notice entries such as remaining traffic or expiry.
+          - zh: 以上改动不修改订阅，订阅更新后依然有效。
+            en: None of it edits the subscription, and it survives updates.
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 订阅更新后节点选择、选择方式与 DNS 设置不再被重置。
+            en: Node choices, selection modes and DNS settings no longer reset after a subscription update.
+          - zh: TUN 模式与 Tailscale MagicDNS 同时开启时，网站可以正常打开。
+            en: Sites load in TUN mode with Tailscale MagicDNS turned on.
+          - zh: 透明代理不再接管 Tailscale 网段。
+            en: The transparent proxy leaves Tailscale addresses to Tailscale.
   - version: "1.6.0"
     build: "2026101102"
     date: 2026-10-11
