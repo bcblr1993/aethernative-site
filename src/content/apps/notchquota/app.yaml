@@ -13,8 +13,8 @@ tagline:
   zh: 你的 Mac 上的 AI 额度助手
   en: An AI quota companion for your Mac
 summary:
-  zh: 原生 macOS AI 订阅额度助手。查看 Codex、Claude、Antigravity 的剩余额度和重置时间，支持三种显示模式、多账号与九种绘本伙伴。
-  en: A native macOS companion for AI subscription quotas. Track Codex, Claude and Antigravity with three display modes, multiple accounts and nine storybook companions.
+  zh: 原生 macOS AI 订阅额度助手。查看 Codex、Claude、Antigravity 的剩余额度和重置时间，支持三种显示模式、多账号与九位小伙伴，熊猫首批支持喝水和听音乐动作。
+  en: A native macOS companion for AI subscription quotas. Track Codex, Claude and Antigravity with three display modes, multiple accounts and nine companions, with new drinking and headphone animations for the panda.
 
 platforms:
   - id: mac
@@ -41,11 +41,17 @@ showcase:
     zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
     en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
   note:
-    zh: 图片来自 0.1.24 正式应用的实际界面渲染，额度、账号名称和时间为演示数据。
-    en: Actual interface renders from the 0.1.24 app. Quotas, account names and times are demo data.
+    zh: 熊猫动作图片来自 0.1.26 实际播放画面，其他界面图来自 0.1.24。额度、账号名称和时间为演示数据。
+    en: Panda action captures are from 0.1.26; other interface renders are from 0.1.24. Quotas, account names and times are demo data.
   items:
-    - title: { zh: "九种绘本伙伴", en: "Nine storybook companions" }
-      caption: { zh: "九个小伙伴与九套专属提醒卡片，在“收起外观”中随时切换。", en: "Nine companions with matching reminder cards. Switch anytime in Collapsed Appearance." }
+    - title: { zh: "熊猫拿杯喝水 · 0.1.26", en: "Panda drinking · 0.1.26" }
+      caption: { zh: "选择糯米熊猫，拖出侧栏后单击互动、双击查看额度。首版包含喝水和听音乐两段动作。", en: "Select Mochi panda and drag it out of the sidebar. Click to play; double-click for quotas. This first release includes drinking and headphones." }
+      image: ./media/panda-drink-026.png
+    - title: { zh: "熊猫戴耳机听音乐", en: "Panda with headphones" }
+      caption: { zh: "熊猫会拿起耳机、戴好并轻轻摇摆；设置中可关闭自动日常，或手动选择动作。", en: "The panda lifts its headphones, puts them on and sways gently. Turn daily activities off or choose an action in settings." }
+      image: ./media/panda-music-026.png
+    - title: { zh: "伙伴家族 · 0.1.24 外观记录", en: "Companion family · 0.1.24 artwork" }
+      caption: { zh: "在“收起外观”中切换九位伙伴；本图记录旧版家族外观，0.1.26 熊猫已升级为上方立体造型。", en: "Switch nine companions in Collapsed Appearance. This earlier family image predates the new 0.1.26 panda shown above." }
       image: ./media/cartoon-collection-024.png
     - title: { zh: "奶油纸感提醒", en: "Cream-paper reminders" }
       caption: { zh: "提供商、剩余额度和重置时间一眼可见；鼠标移回正在退出的卡片时会保留提醒。", en: "See the provider, remaining quota and reset time at a glance. Moving back onto a fading card keeps it open." }
@@ -66,7 +72,7 @@ showcase:
       caption: { zh: "蓬松尾巴、奶油脸颊与枫糖橙卡片，提醒带一小段侧摇。", en: "A fluffy tail, cream cheeks and a maple-orange card with a short sway." }
       image: ./media/style-fox-floating-024.png
     - title: { zh: "糯米熊猫", en: "Mochi panda" }
-      caption: { zh: "抱着竹叶的小熊猫，搭配奶油白和竹叶绿。", en: "A panda holding bamboo, with cream and leaf-green colors." }
+      caption: { zh: "0.1.24 熊猫外观记录；当前 0.1.26 已升级为上方柔光立体造型。", en: "Previous 0.1.24 panda artwork; version 0.1.26 uses the softly lit character shown above." }
       image: ./media/style-panda-floating-024.png
     - title: { zh: "冰蓝企鹅", en: "Ice-blue penguin" }
       caption: { zh: "围着蓝围巾的小企鹅，搭配冰蓝雪花提醒。", en: "A penguin in a blue scarf, paired with ice-blue snowflake reminders." }
@@ -104,12 +110,12 @@ features:
         - { zh: 侧边栏靠近左右边缘时吸附；鼠标跨屏不会带走它，只有主动拖动才换屏。, en: "Dock the sidebar to either edge. Moving your pointer between displays does not move it; dragging does." }
     - kicker: { zh: 绘本伙伴, en: Storybook companions }
       title: { zh: 九种角色，一点小陪伴, en: Nine characters to keep you company }
-      body: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫、企鹅和小龟，拥有各自的绘本插画、主题配色与提醒纹样。移入展开账号面板，空闲时显示额度提醒卡片。, en: "Choose a ghost, bunny, bear, cloud, cat, fox, panda, penguin or turtle, each with storybook artwork, its own colors and reminder motifs. Hover to open your accounts; a themed card can show quota reminders while idle." }
+      body: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫、企鹅和小龟，各有造型、主题配色与提醒纹样；熊猫采用全新柔光立体造型。熊猫拖出后单击互动、双击展开；其他伙伴保持移入展开，空闲时可显示额度提醒卡片。, en: "Choose a ghost, bunny, bear, cloud, cat, fox, panda, penguin or turtle, each with its own artwork, colors and reminder motifs; the panda now has a softly lit dimensional design. For the floating panda, click to play and double-click for accounts. Other companions keep hover-to-open; themed quota reminders can appear while idle." }
       details:
         - { zh: 每 10 分钟按顺序尝试提醒一个账号，提醒前先查询；失败或旧数据跳过。, en: "Every 10 minutes, try one account at a time in order. Refresh before reminding and skip failed or stale results." }
         - { zh: 监测到 5 小时或每周额度恢复至 100% 时，随机播放一种短暂庆祝动画。, en: "When a five-hour or weekly quota is observed recovering to 100%, show a randomly chosen short celebration." }
         - { zh: 提醒采用短暂回弹、轻摇或漂入，尊重系统减少动态效果和低电量模式。, en: "Reminders use brief hops, sways or floating entrances and respect Reduce Motion and Low Power Mode." }
-        - { zh: 静置不播放循环动画；拖动、查看详情、临时隐藏与休眠时不弹出思考提醒。, en: "No looping animation at rest. Thought reminders pause during dragging, detail viewing, temporary hiding and sleep." }
+        - { zh: 熊猫日常动作之间保留约 35 秒安静间隔，可在设置中关闭；拖动、查看详情、临时隐藏与休眠时停止动作和提醒。, en: "Panda activities have quiet gaps of about 35 seconds and can be disabled. Motion and reminders pause while dragging, viewing details, hidden or asleep." }
     - kicker: { zh: 多账号, en: Multiple accounts }
       title: { zh: 只看你关心的账号, en: Show the accounts you care about }
       body: { zh: 支持 Antigravity 多实例，用头像、身份和别名区分。勾选需要的账号，拖动调整顺序；额外实例默认不启用。, en: "Identify Antigravity instances by avatar, identity and alias. Select your accounts and drag to reorder them; additional instances start disabled." }
