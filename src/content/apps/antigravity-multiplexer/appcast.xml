@@ -4,24 +4,25 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.4.1</title>
-            <pubDate>Mon, 12 Oct 2026 11:25:28 +0800</pubDate>
-            <sparkle:version>17</sparkle:version>
-            <sparkle:shortVersionString>0.4.1</sparkle:shortVersionString>
+            <title>0.4.2</title>
+            <pubDate>Mon, 12 Oct 2026 17:39:51 +0800</pubDate>
+            <sparkle:version>18</sparkle:version>
+            <sparkle:shortVersionString>0.4.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.4.1
+            <description sparkle:format="markdown"><![CDATA[# v0.4.2
 
-- 适配官方 Antigravity 2.22.0 Apple Silicon 主实例，支持创建独立实例及从主实例升级旧副本。
-- 继续严格校验官方签名、程序哈希和补丁位置；未知或变动的版本仍会拒绝处理。
-- 升级继续保留独立账号目录、凭据标识和回调协议，并在替换前备份程序与数据。
+- 新增指定副本升级入口，可单独选择副本从本机主实例升级。
+- 升级确认窗口直接显示当前版本到目标版本之间的官方完整更新日志，并提供中文重点摘要。
+- 修复升级确认窗口偶发显示待升级 0 个的问题。
+- 继续支持官方 Antigravity 2.22.0，升级前备份应用及数据，保留独立账号目录和凭据标识。
 
-此管理器更新不会自动升级副本或修改实例数据。
+官方原文需要联网；网络不可用时仍可查看已收录的中文摘要。管理器更新不会自动执行副本升级。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.4.1/Aether-Antigravity-Multiplexer-v0.4.1-macos-arm64.zip" length="2483771" type="application/octet-stream" sparkle:edSignature="V8ino7a7FLSMBRjLrZkLdaRJ3CKJ8iuhX+lwOb7Ud6zbjPfSo592aSOJ+VJ7mkjXgnRzlbQDP9FhIJC9XEPuCg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.4.2/Aether-Antigravity-Multiplexer-v0.4.2-macos-arm64.zip" length="2515343" type="application/octet-stream" sparkle:edSignature="LDTeIBetg50fsULhr1UY0sOEcIn2GeWiW9tqXEkDYzqUk7scTA0Ffm/Dar9ig/9us/DWjk8/mW8PNo1Uo/rcAA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: agpq2QW5sr6+hIDLrWlL+REVfWAKyi1m0MJdXWYGyL8Sm8QkMT6M73EOpj9FcI9okLJOSiGC6vBWfmanqM4LBw==
-length: 1697
+edSignature: SI08aYget55E0lFCc0z1zHEB3TUjvXl/FYEu22DOkEM7+uYCTSxaHSgiCY8zDvqL45LeZX2STI06zkp3f/SSAQ==
+length: 1817
 -->
