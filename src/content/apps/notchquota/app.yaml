@@ -13,8 +13,8 @@ tagline:
   zh: 你的 Mac 上的 AI 额度助手
   en: An AI quota companion for your Mac
 summary:
-  zh: 原生 macOS AI 订阅额度助手。查看 Codex、Claude、Antigravity 的剩余额度和重置时间，支持三种显示模式、多账号与八种卡通伙伴。
-  en: A native macOS companion for AI subscription quotas. Track Codex, Claude and Antigravity with three display modes, multiple accounts and eight cartoon companions.
+  zh: 原生 macOS AI 订阅额度助手。查看 Codex、Claude、Antigravity 的剩余额度和重置时间，支持三种显示模式、多账号与九种绘本伙伴。
+  en: A native macOS companion for AI subscription quotas. Track Codex, Claude and Antigravity with three display modes, multiple accounts and nine storybook companions.
 
 platforms:
   - id: mac
@@ -25,8 +25,8 @@ hero:
   eyebrow: { zh: Codex · Claude · Antigravity, en: Codex · Claude · Antigravity }
   title: { zh: "AI 额度，\n一眼就知道。", en: "Your AI quotas.\nAt a glance." }
   lead:
-    zh: "把 Codex、Claude、Antigravity 的订阅额度放在刘海、菜单栏或可拖动侧边栏。\n按自己的习惯选账号、调顺序、换上卡通伙伴。"
-    en: "Keep Codex, Claude and Antigravity quotas in the notch, menu bar or a draggable sidebar.\nChoose your accounts, set their order and pick a cartoon companion."
+    zh: "把 Codex、Claude、Antigravity 的订阅额度放在刘海、菜单栏或可拖动侧边栏。\n按自己的习惯选账号、调顺序、换上绘本伙伴。"
+    en: "Keep Codex, Claude and Antigravity quotas in the notch, menu bar or a draggable sidebar.\nChoose your accounts, set their order and pick a storybook companion."
   requirements:
     zh: Apple 芯片 / macOS 13+ · 需要先在对应软件中登录订阅账号
     en: "Apple silicon / macOS 13+ · Sign in to each service's own app first"
@@ -41,53 +41,59 @@ showcase:
     zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
     en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
   note:
-    zh: 图片来自本次 0.1.21 发布对应的原生界面渲染，额度、账号名称和时间为演示数据。
-    en: Native interface renders for the 0.1.21 release. Quotas, account names and times are demo data.
+    zh: 图片来自 0.1.24 正式应用的实际界面渲染，额度、账号名称和时间为演示数据。
+    en: Actual interface renders from the 0.1.24 app. Quotas, account names and times are demo data.
   items:
-    - title: { zh: 八种卡通伙伴, en: Eight cartoon companions }
-      caption: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫、企鹅，可在收起外观中随时切换。, en: "Ghost, bunny, bear, cloud, cat, fox, panda and penguin. Switch anytime in collapsed appearance settings." }
-      image: ./media/cartoon-collection-021.png
-    - title: { zh: 小幽灵提醒, en: Ghost reminders }
-      caption: { zh: 定时轮流查询一个账号，成功后冒出思考泡泡，约 5 秒后淡出。, en: Checks one account at a time and shows a thought bubble that fades after about five seconds. }
-      image: ./media/thought-floating.png
-    - title: { zh: 奶油小兔, en: Cream bunny }
-      caption: { zh: 新增粉耳奶油小兔，可拖动、贴边并展示思考泡泡。, en: "A cream bunny with pink ears. Drag it, dock it, and see quota thought bubbles." }
-      image: ./media/style-bunny-floating.png
-    - title: { zh: 蜂蜜小熊, en: Honey bear }
-      caption: { zh: 暖色蜂蜜小熊，收起时轻弹眨眼一次，静置停止动画。, en: A warm honey bear with a short return hop and blink. No looping animation at rest. }
-      image: ./media/style-bear-floating.png
-    - title: { zh: 云朵团子, en: Cloud companion }
-      caption: { zh: 淡紫云朵与小星星，保留额度恢复提醒。, en: A lilac cloud with a tiny star and quota recovery reminders. }
-      image: ./media/style-cloud-floating.png
-    - title: { zh: 橘子小猫, en: Orange tabby }
-      caption: { zh: 暖色条纹与卷尾巴，贴边时倾斜探出半个身体。, en: "Warm stripes and a curled tail. Leans out halfway when docked to the edge." }
-      image: ./media/style-cat-floating.png
-    - title: { zh: 枫糖小狐, en: Maple fox }
-      caption: { zh: 几何尖耳与奶油色脸颊，轮廓利落又俏皮。, en: "Geometric ears and cream cheeks give this fox a crisp, playful silhouette." }
-      image: ./media/style-fox-floating.png
-    - title: { zh: 糯米熊猫, en: Mochi panda }
-      caption: { zh: 黑白圆润轮廓，加一片薄荷绿小叶子。, en: "A soft monochrome panda with a mint-green leaf." }
-      image: ./media/style-panda-floating.png
-    - title: { zh: 冰蓝企鹅, en: Ice-blue penguin }
-      caption: { zh: 冰蓝色身体、奶油肚皮和橙色小脚，静置不循环播放动画。, en: "Ice-blue feathers, a cream belly and orange feet. No looping animation at rest." }
-      image: ./media/style-penguin-floating.png
-    - title: { zh: 侧边栏详情, en: Sidebar details }
-      caption: { zh: 多账号一起看，悬停查看详情，点击固定；可跨屏自由摆放。, en: "See every account at once. Hover for details, click to pin, and place it on any display." }
-      image: ./media/sidebar-detail.png
-    - title: { zh: 菜单栏面板, en: Menu bar panel }
-      caption: { zh: 一次显示一个账号的详细额度，点击头像循环切换。, en: One account at a time in full detail. Click the avatar to cycle. }
-      image: ./media/menu-single-detail.png
-    - title: { zh: 灵动岛展开, en: Notch details }
-      caption: { zh: 收起时只显示图标和百分比，展开后查看各周期数据。, en: Just an icon and a percentage when collapsed; every window when expanded. }
-      image: ./media/details.png
-    - title: { zh: Antigravity 多实例, en: Antigravity instances }
-      caption: { zh: 支持多个 Antigravity 实例与账号，使用自定义别名显示。, en: Multiple Antigravity instances and accounts, shown with your own aliases. }
-      image: ./media/multi-instance.png
+    - title: { zh: "九种绘本伙伴", en: "Nine storybook companions" }
+      caption: { zh: "九个小伙伴与九套专属提醒卡片，在“收起外观”中随时切换。", en: "Nine companions with matching reminder cards. Switch anytime in Collapsed Appearance." }
+      image: ./media/cartoon-collection-024.png
+    - title: { zh: "奶油纸感提醒", en: "Cream-paper reminders" }
+      caption: { zh: "提供商、剩余额度和重置时间一眼可见；鼠标移回正在退出的卡片时会保留提醒。", en: "See the provider, remaining quota and reset time at a glance. Moving back onto a fading card keeps it open." }
+      image: ./media/thought-floating-024.png
+    - title: { zh: "奶油小兔", en: "Cream bunny" }
+      caption: { zh: "柔软长耳与胡萝卜，搭配草莓粉花瓣卡片和轻跳回弹。", en: "Soft ears and a carrot, with strawberry-pink petals and a gentle hop." }
+      image: ./media/style-bunny-floating-024.png
+    - title: { zh: "蜂蜜小熊", en: "Honey bear" }
+      caption: { zh: "捧着蜂蜜罐的小熊，搭配蜂蜜金与蜂巢纹样。", en: "A little bear holding honey, with golden colors and honeycomb motifs." }
+      image: ./media/style-bear-floating-024.png
+    - title: { zh: "云朵团子", en: "Cloud companion" }
+      caption: { zh: "柔和天空蓝和云团纹样，提醒轻轻漂入。", en: "Soft sky blue and cloud motifs, with a gently floating entrance." }
+      image: ./media/style-cloud-floating-024.png
+    - title: { zh: "橘子小猫", en: "Orange tabby" }
+      caption: { zh: "水粉橘色毛发与奶油胸口，搭配蜜桃色爪印。", en: "Gouache-orange fur and a cream chest, paired with peach paw prints." }
+      image: ./media/style-cat-floating-024.png
+    - title: { zh: "枫糖小狐", en: "Maple fox" }
+      caption: { zh: "蓬松尾巴、奶油脸颊与枫糖橙卡片，提醒带一小段侧摇。", en: "A fluffy tail, cream cheeks and a maple-orange card with a short sway." }
+      image: ./media/style-fox-floating-024.png
+    - title: { zh: "糯米熊猫", en: "Mochi panda" }
+      caption: { zh: "抱着竹叶的小熊猫，搭配奶油白和竹叶绿。", en: "A panda holding bamboo, with cream and leaf-green colors." }
+      image: ./media/style-panda-floating-024.png
+    - title: { zh: "冰蓝企鹅", en: "Ice-blue penguin" }
+      caption: { zh: "围着蓝围巾的小企鹅，搭配冰蓝雪花提醒。", en: "A penguin in a blue scarf, paired with ice-blue snowflake reminders." }
+      image: ./media/style-penguin-floating-024.png
+    - title: { zh: "抹茶小龟", en: "Matcha turtle" }
+      caption: { zh: "抹茶色龟壳与六边形纹样，慢慢探出的温柔节奏。", en: "A matcha shell and hexagonal motifs, with a slower, gentle entrance." }
+      image: ./media/style-turtle-floating-024.png
+    - title: { zh: "小幽灵", en: "Little ghost" }
+      caption: { zh: "淡紫水粉笔触与星芒，轻盈漂入后保持安静。", en: "Lilac brushwork and stars, floating in briefly before settling." }
+      image: ./media/style-ghost-floating-024.png
+    - title: { zh: "侧边栏详情", en: "Sidebar details" }
+      caption: { zh: "多账号一起看，悬停查看详情、点击固定；背景跟随伙伴配色。", en: "See all accounts together. Hover for details or click to pin, with a background matching your companion." }
+      image: ./media/sidebar-detail-024.png
+    - title: { zh: "菜单栏面板", en: "Menu bar panel" }
+      caption: { zh: "一次显示一个账号的详细额度，点击头像循环切换。", en: "One account at a time in full detail. Click the avatar to cycle." }
+      image: ./media/menu-single-detail-024.png
+    - title: { zh: "灵动岛展开", en: "Notch details" }
+      caption: { zh: "收起时只显示图标和百分比，展开后查看各周期数据。", en: "Just an icon and a percentage when collapsed; every quota window when expanded." }
+      image: ./media/details-024.png
+    - title: { zh: "Antigravity 多实例", en: "Antigravity instances" }
+      caption: { zh: "支持多个 Antigravity 实例与账号，使用自定义别名显示。", en: "Multiple Antigravity instances and accounts, shown with your own aliases." }
+      image: ./media/multi-instance-024.png
 
 features:
   eyebrow: { zh: 日常使用, en: Everyday use }
   title: { zh: 按你的习惯，放在手边。, en: Make it part of your desktop. }
-  lead: { zh: 显示方式、账号顺序和卡通外观都由你选择。, en: "Choose the display mode, account order and character that suit you." }
+  lead: { zh: 显示方式、账号顺序和绘本外观都由你选择。, en: "Choose the display mode, account order and character that suit you." }
   items:
     - kicker: { zh: 三种模式, en: Three display modes }
       title: { zh: 刘海、菜单栏或侧边栏, en: "Notch, menu bar or sidebar" }
@@ -96,12 +102,13 @@ features:
         - { zh: 灵动岛详情在 15 秒无操作后收起；菜单栏点击头像切换账号。, en: "Notch details close after 15 seconds of inactivity. Click the avatar in the menu bar panel to switch accounts." }
         - { zh: 灵动岛和菜单栏可每分钟自动轮换；侧边栏按设定顺序固定排列。, en: "Optional one-minute rotation in notch and menu bar modes; the sidebar keeps accounts in your chosen order." }
         - { zh: 侧边栏靠近左右边缘时吸附；鼠标跨屏不会带走它，只有主动拖动才换屏。, en: "Dock the sidebar to either edge. Moving your pointer between displays does not move it; dragging does." }
-    - kicker: { zh: 卡通伙伴, en: Cartoon companions }
-      title: { zh: 八种角色，一点小陪伴, en: Eight characters to keep you company }
-      body: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫和企鹅，收起外观可随时切换。移入展开账号面板，空闲时冒出额度思考泡泡。, en: "Choose a ghost, bunny, bear, cloud, cat, fox, panda or penguin. Hover to open your accounts; a thought bubble can show quota reminders while idle." }
+    - kicker: { zh: 绘本伙伴, en: Storybook companions }
+      title: { zh: 九种角色，一点小陪伴, en: Nine characters to keep you company }
+      body: { zh: 小幽灵、小兔、小熊、云朵、小猫、小狐、熊猫、企鹅和小龟，拥有各自的绘本插画、主题配色与提醒纹样。移入展开账号面板，空闲时显示额度提醒卡片。, en: "Choose a ghost, bunny, bear, cloud, cat, fox, panda, penguin or turtle, each with storybook artwork, its own colors and reminder motifs. Hover to open your accounts; a themed card can show quota reminders while idle." }
       details:
         - { zh: 每 10 分钟按顺序尝试提醒一个账号，提醒前先查询；失败或旧数据跳过。, en: "Every 10 minutes, try one account at a time in order. Refresh before reminding and skip failed or stale results." }
         - { zh: 监测到 5 小时或每周额度恢复至 100% 时，随机播放一种短暂庆祝动画。, en: "When a five-hour or weekly quota is observed recovering to 100%, show a randomly chosen short celebration." }
+        - { zh: 提醒采用短暂回弹、轻摇或漂入，尊重系统减少动态效果和低电量模式。, en: "Reminders use brief hops, sways or floating entrances and respect Reduce Motion and Low Power Mode." }
         - { zh: 静置不播放循环动画；拖动、查看详情、临时隐藏与休眠时不弹出思考提醒。, en: "No looping animation at rest. Thought reminders pause during dragging, detail viewing, temporary hiding and sleep." }
     - kicker: { zh: 多账号, en: Multiple accounts }
       title: { zh: 只看你关心的账号, en: Show the accounts you care about }
