@@ -17,6 +17,11 @@ export async function getReleases(appId: string): Promise<Release[]> {
 /** 最新的正式版：第一条带下载地址的 stable 记录。 */
 export const latestStable = (rs: Release[]) => rs.find((r) => r.channel === 'stable' && r.download);
 
+/** Beta-only products need a download before their first stable release. Stable apps never opt in. */
+export const latestAppDownload = (app: App, rs: Release[]) => latestStable(rs)
+  ?? (app.data.platforms.some((p) => p.id === 'mac' && p.status === 'beta')
+    ? rs.find((r) => r.channel === 'beta' && r.platform === 'mac' && r.download) : undefined);
+
 /** 所有软件的最近更新，按日期倒序。 */
 export async function getRecentReleases(limit = 5) {
   const apps = await getApps();

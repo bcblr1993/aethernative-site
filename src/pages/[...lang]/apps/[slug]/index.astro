@@ -7,7 +7,7 @@ import ThemeGallery from '../../../../components/ThemeGallery.astro';
 import Text from '../../../../components/Text.astro';
 import Checksum from '../../../../components/Checksum.astro';
 import PlatformBadges from '../../../../components/PlatformBadges.astro';
-import { getApps, getReleases, latestStable, type App, type Release } from '../../../../lib/apps';
+import { getApps, getReleases, latestAppDownload, type App, type Release } from '../../../../lib/apps';
 import { href, langs, t, ui, type Lang } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
@@ -29,7 +29,7 @@ const { lang, app, releases } = Astro.props as { lang: Lang; app: App; releases:
 const u = ui[lang];
 const d = app.data;
 const base = href(lang, `/apps/${app.id}/`);
-const latest = latestStable(releases);
+const latest = latestAppDownload(app, releases);
 const previous = latest ? releases.slice(releases.indexOf(latest) + 1).find((r) => r.download) : undefined;
 const ios = d.platforms.find((p) => p.id === 'ios');
 const iosLink = ios?.appStore ?? ios?.testFlight;

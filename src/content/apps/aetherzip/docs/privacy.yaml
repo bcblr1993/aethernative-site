@@ -1,0 +1,14 @@
+title: { zh: 隐私说明, en: "Privacy" }
+heading: { zh: "你的文件，\n留在本机。", en: "Your files\nstay on your Mac." }
+lead: { zh: AetherZip 的归档处理在本机完成，不上传文件内容或密码，不包含遥测和广告。, en: "AetherZip processes archives locally, without uploading file contents or passwords, telemetry or advertising." }
+sections:
+  - heading: { zh: 本机数据, en: "Local data" }
+    list:
+      - { zh: 外观、分享偏好和最近使用的归档路径保存在系统偏好设置中。, en: "Appearance, sharing preferences and recent archive paths are stored in local preferences." }
+      - { zh: 只有主动选择记住密码时，密码才保存到系统钥匙串。读取时由 macOS 要求用户身份验证。, en: "Passwords are saved in the system Keychain only when you choose to remember them. macOS requests user authentication when retrieving them." }
+      - { zh: 压缩、浏览与解压可能创建临时文件，正常完成、取消或退出后会清理。, en: "Compression, browsing and extraction may create temporary files that are cleaned up after normal completion, cancellation or exit." }
+  - heading: { zh: 官网与反馈, en: "Website and feedback" }
+    body:
+      - { zh: 打开官网、下载新版或提交反馈时，由浏览器访问相应网站；适用网站自己的隐私政策。应用不会自动发送归档内容。, en: "Your browser accesses the relevant website when you open the site, download an update or send feedback; that site's privacy policy applies. The app does not automatically transmit archive contents." }
+    links:
+      - { label: { zh: 官网隐私政策, en: "Website privacy policy" }, href: /privacy/ }

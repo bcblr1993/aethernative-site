@@ -22,7 +22,8 @@ const zh = lang === 'zh';
 const base = href(lang, `/apps/${app.id}/`);
 const latest = latestStable(releases);
 const groups = [
-  { title: zh ? '正式版' : 'Releases', items: releases.filter((r) => r.channel !== 'preview') },
+  { title: zh ? '正式版' : 'Releases', items: releases.filter((r) => r.channel === 'stable') },
+  { title: zh ? '测试版' : 'Beta releases', items: releases.filter((r) => r.channel === 'beta') },
   { title: zh ? '历史技术预览' : 'Archived previews', items: releases.filter((r) => r.channel === 'preview') },
 ].filter((g) => g.items.length);
 const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta : u.previous);
@@ -33,8 +34,8 @@ const pill = (r: Release) => (r === latest ? u.latest : r.channel === 'preview' 
       <a class="crumb" href={base}>{u.backTo(app.data.name)}</a>
       <h1>{zh ? <>每一次发布，<br /><span class="grad">都有据可查。</span></> : <>Every release.<br /><span class="grad">Clearly documented.</span></>}</h1>
       <p>{zh
-        ? '正式版与历史预览版分开列出，提供发布时间、系统要求与 SHA-256 校验和。'
-        : 'Stable releases and archived previews are listed separately, with dates, requirements and SHA-256 checksums.'}</p>
+        ? '正式版、测试版与历史预览版分开列出，提供发布时间、系统要求与 SHA-256 校验和。'
+        : 'Stable releases, beta releases and archived previews are listed separately, with dates, requirements and SHA-256 checksums.'}</p>
     </header>
 
     {!groups.length && (

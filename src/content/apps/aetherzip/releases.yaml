@@ -1,0 +1,21 @@
+releases:
+  - version: "0.1.0-beta.1"
+    build: "2026101211"
+    date: 2026-10-12
+    channel: beta
+    platform: mac
+    download: https://github.com/bcblr1993/AetherZip/releases/download/v0.1.0-beta.1/AetherZip-0.1.0-beta.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherZip/releases/tag/v0.1.0-beta.1
+    sha256: 55e64dc07c52664b68ef2879d1025c349583ca1fbcd30eda729c630b69b8aac5
+    badge: { zh: Beta 1 · 已通过 Apple 公证, en: "Beta 1 · Apple notarized" }
+    summary: { zh: 首个公开测试版：原生压缩、加密、解压与 Finder 快速操作。, en: "First public beta: native compression, encryption, extraction and Finder actions." }
+    notes:
+      - title: { zh: 首版能力, en: "First-beta features" }
+        items:
+          - { zh: 创建 ZIP、7z 和 TAR 系列归档；解压 RAR/RAR5、Zstandard 等常用格式。, en: "Create ZIP, 7z and TAR archives; extract RAR/RAR5, Zstandard and other supported formats." }
+          - { zh: 支持 AES 加密、7z 文件名加密与分卷，默认过滤 Mac 附属文件。, en: "AES encryption, hidden filenames and split archives in 7z, with Mac metadata filtered by default." }
+          - { zh: 资源预算限制并行工作；正常取消与退出会等待临时文件清理。, en: "Resource budgets limit parallel work; normal cancellation and exit wait for temporary-file cleanup." }
+      - title: { zh: 当前限制, en: "Current limits" }
+        items:
+          - { zh: 仅支持 macOS 26+ 与 Apple 芯片，界面暂为中文；RAR 只读，ZIP 创建密码仅支持 ASCII。, en: "macOS 26+ and Apple silicon only, with a Chinese interface. RAR is read-only and ZIP creation requires ASCII passwords." }
+          - { zh: 暂无自动更新、归档内编辑、密码修改与损坏修复。8 GiB 真机体验验收仍待补充；Windows 7-Zip 双向加密、系统普通 ZIP 解压和 Linux GNU tar 四种 TAR 格式双向互通均已通过。, en: "Automatic updates, archive editing, password changes and damage repair are not included. Physical 8 GiB Mac acceptance remains pending; Windows 7-Zip encrypted round trips, native ZIP extraction and four Linux GNU tar formats passed both ways." }

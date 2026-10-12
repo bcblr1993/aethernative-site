@@ -3,14 +3,14 @@ import { downloadURL } from '../lib/download-url';
 /** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
 import { Image } from 'astro:assets';
 import PlatformBadges from './PlatformBadges.astro';
-import { latestStable, type App, type Release } from '../lib/apps';
+import { latestAppDownload, type App, type Release } from '../lib/apps';
 import { href, t, ui, type Lang } from '../lib/i18n';
 
 interface Props { app: App; releases: Release[]; lang: Lang }
 const { app, releases, lang } = Astro.props;
 const u = ui[lang];
 const d = app.data;
-const latest = latestStable(releases);
+const latest = latestAppDownload(app, releases);
 const page = href(lang, `/apps/${app.id}/`);
 const shot = d.gallery[0];
 const platforms = d.platforms.map((p) => p.id).join(' ');
