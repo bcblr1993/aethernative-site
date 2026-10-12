@@ -6,7 +6,7 @@ minimumSystemVersion: "13.0"
 sparklePublicKey: gFoiXS+rSGkGXDFDZ4Bty0KZkcDSBmCNXwggh3hljak=
 # 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
 appcastMode: mirror
-icon: ./media/icon.png
+icon: ./media/icon-025.png
 tech: [Swift / AppKit]
 
 tagline:
