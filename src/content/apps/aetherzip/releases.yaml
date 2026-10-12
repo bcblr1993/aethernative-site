@@ -1,12 +1,12 @@
 releases:
   - version: "0.1.0-beta.1"
-    build: "2026101211"
+    build: "2026101213"
     date: 2026-10-12
     channel: beta
     platform: mac
     download: https://github.com/bcblr1993/AetherZip/releases/download/v0.1.0-beta.1/AetherZip-0.1.0-beta.1-arm64.dmg
     github: https://github.com/bcblr1993/AetherZip/releases/tag/v0.1.0-beta.1
-    sha256: 55e64dc07c52664b68ef2879d1025c349583ca1fbcd30eda729c630b69b8aac5
+    sha256: 92eff256df0b110a1c8d2220e1405385b58d1a0b88c4c669ae21a6bd812e5f06
     badge: { zh: Beta 1 · 已通过 Apple 公证, en: "Beta 1 · Apple notarized" }
     summary: { zh: 首个公开测试版：原生压缩、加密、解压与 Finder 快速操作。, en: "First public beta: native compression, encryption, extraction and Finder actions." }
     notes:
