@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-13T14:21:51.220Z",
+  "checkedAt": "2026-10-13T22:53:44.295Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -182,24 +182,24 @@
     {
       "id": "antigravity-multiplexer",
       "name": "Aether Antigravity Multiplexer",
-      "version": "0.5.7",
-      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.7/Aether-Antigravity-Multiplexer-v0.5.7-macos-arm64.zip",
-      "sha256": "8a9c756b3aba38c9e4e9c19c4b276b836e693c7700564d09ae26ce57f6b4999c",
-      "length": 3107044,
-      "edSignature": "b2BxWJWOMUO/prOtnpXTP1xWF/ItUESPbqDXJVjQXnXVvTEiZElq4Zv6XZ8HjSpiv4bYeVK85AfL+RcpFB34Aw==",
+      "version": "0.5.9",
+      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.9/Aether-Antigravity-Multiplexer-v0.5.9-macos-arm64.zip",
+      "sha256": "1afdd96e93e62e7d59e936b436ed0907b5b8c39858c6a167451a12ad9703547c",
+      "length": 3115336,
+      "edSignature": "P0hWANvgk2Yl/D0RpO5nAftYy315q2/BgUR5yDg03MZGmkPD+4/EUVo8LFvKzWLeCnK58/LwgrD2A9J7IN98Cw==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3107044,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/d730860e-7882-4916-b4dc-c08c49b3f986",
+          "bytes": 3115336,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/07138ee3-6827-42bf-92e4-14773f18319c",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "8a9c756b3aba38c9e4e9c19c4b276b836e693c7700564d09ae26ce57f6b4999c",
+          "actual": "1afdd96e93e62e7d59e936b436ed0907b5b8c39858c6a167451a12ad9703547c",
           "message": "SHA256 一致"
         },
         {
