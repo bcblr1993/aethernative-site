@@ -1,4 +1,5 @@
 ---
+import { downloadURL } from '../lib/download-url';
 /** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
 import { Image } from 'astro:assets';
 import PlatformBadges from './PlatformBadges.astro';
@@ -16,7 +17,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
 ---
 <article class:list={['card', 'app-card', { feat: d.featured }]} data-platforms={platforms}>
   <div class="body">
-    <a href={page} class:list={['app-icon', { 'inset-icon': app.id === 'aetherfilm' }]} aria-hidden="true" tabindex="-1">
+    <a href={page} class:list={['app-icon', { 'inset-icon': ['aetherfilm', 'aetherscreens'].includes(app.id) }]} aria-hidden="true" tabindex="-1">
       <Image src={d.icon} alt="" width={128} height={128} />
     </a>
     <PlatformBadges app={app} lang={lang} />
@@ -29,7 +30,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
     )}
     <div class="cta">
       {latest?.download && (
-        <a class="btn btn-p" href={latest.download}>↓ {u.macDownload(latest.version)}</a>
+        <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
       )}
       <a class="btn btn-s" href={page}>{u.learnMore} →</a>
     </div>

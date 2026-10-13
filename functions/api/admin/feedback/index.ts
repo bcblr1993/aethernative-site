@@ -11,7 +11,12 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const status = p.get('status') || undefined;
   if (status && !STATUSES.includes(status as Status)) return error(400, 'invalid_query');
   const before = p.get('before') ? Number(p.get('before')) : undefined;
-  if (before !== undefined && !Number.isFinite(before)) return error(400, 'invalid_query');
-  const { rows, next } = await listAllFeedback(env.DB, { status: status as Status | undefined, before });
-  return json({ feedback: rows.map(adminFeedback), next });
+  if (before !== undefined && (!Number.isSafeInteger(before) || before < 0)) return error(400, 'invalid_query');
+  const beforeId = p.get('beforeId') || undefined;
+  if (beforeId && (before === undefined || !/^[a-zA-Z0-9-]{1,128}$/.test(beforeId))) return error(400, 'invalid_query');
+  const userId = p.get('user') || undefined;
+  const appId = p.get('app') || undefined;
+  if ((userId && userId.length > 128) || (appId && !/^[a-z0-9-]{1,40}$/.test(appId))) return error(400, 'invalid_query');
+  const { rows, next, nextId } = await listAllFeedback(env.DB, { status: status as Status | undefined, before, beforeId, userId, appId });
+  return json({ feedback: rows.map(adminFeedback), next, nextId });
 };

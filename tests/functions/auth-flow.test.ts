@@ -118,6 +118,18 @@ describe('登录跳转', () => {
 });
 
 describe('完整登录流程', () => {
+  it('禁用账号无法通过 OAuth 重新登录，旧 Cookie 也失效', async () => {
+    mockProviders();
+    const signed = await signIn('google');
+    env.DB.raw.prepare('UPDATE users SET disabled_at = ?, last_login_at = 123').run(Date.now());
+    const again = await signIn('google');
+    expect(again.res2.headers.get('Location')).toBe('/feedback/#login-failed');
+    expect(again.cookies['__Host-sid']).toBeUndefined();
+    expect(env.DB.raw.prepare('SELECT last_login_at FROM users').get().last_login_at).toBe(123);
+    expect(env.DB.raw.prepare('SELECT COUNT(*) n FROM sessions').get().n).toBe(1);
+    expect((await call(me, new Request(`${ORIGIN}/api/me`, { headers: { Cookie: cookieHeader(signed.cookies) } }))).status).toBe(401);
+  });
+
   it('Google：建用户、建会话、跳回原页面，/api/me 返回资料', async () => {
     const calls = mockProviders();
     const { res2, cookies } = await signIn('google', '/feedback/?app=aetherroute');

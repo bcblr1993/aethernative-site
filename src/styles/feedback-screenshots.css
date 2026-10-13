@@ -1,0 +1,17 @@
+.screenshot-upload { border: 1px dashed var(--line); border-radius: 14px; padding: 14px; min-width: 0; transition: border-color .15s, background .15s; }
+.screenshot-upload.is-dragging { border-color: var(--accent); background: var(--accent-soft); }
+.screenshot-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.screenshot-toolbar button { font: inherit; font-size: 13px; color: var(--text); background: var(--surface-2); border: 1px solid var(--line); border-radius: 9px; padding: 8px 12px; cursor: pointer; }
+.screenshot-toolbar button:disabled { opacity: .5; cursor: default; }
+.screenshot-toolbar span, .screenshot-hint, .screenshot-message { color: var(--text-3); font-size: 12px; }
+.screenshot-upload .screenshot-hint { margin-top: 10px; font-size: 12px; line-height: 1.6; }
+.screenshot-message:not(:empty) { margin-top: 8px; color: var(--danger, #d93a3a); }
+.screenshot-previews, .screenshot-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.screenshot-previews:not(:empty), .screenshot-gallery:not(:empty) { margin: 12px 0; }
+.screenshot-gallery { max-width: 460px; }
+.screenshot-tile { position: relative; min-width: 0; }
+.screenshot-tile a, .screenshot-gallery a { display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface-2); }
+.screenshot-tile img, .screenshot-gallery img { display: block; width: 100%; height: 88px; object-fit: contain; }
+.screenshot-remove { position: absolute; top: -7px; right: -5px; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 50%; background: var(--bg); color: var(--text); font-size: 20px; line-height: 1; cursor: pointer; }
+.screenshot-remove:disabled { opacity: .5; cursor: default; }
+.screenshot-upload :focus-visible, .screenshot-gallery a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

@@ -40,6 +40,7 @@ const docLinks = [
               {docLinks.filter((l) => docIds.has(`${app.id}/${l.key}`)).map((l) => <li><a href={`${base}${l.key}/`}>{l.label} →</a></li>)}
               {hasReleases.has(app.id) && <li><a href={`${base}releases/`}>{u.releases} →</a></li>}
               <li><a href={`${href(lang, '/feedback/')}?app=${app.id}`}>{u.feedback.nav} →</a></li>
+              {app.data.repo && <li><a href={app.data.repo} target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>}
               {app.data.repo && <li><a href={`${app.data.repo}/issues`} rel="noopener">GitHub Issues ↗</a></li>}
             </ul>
           </article>
@@ -64,12 +65,12 @@ const docLinks = [
 </Base>
 
 <style>
-  .app { display: grid; gap: 18px; }
+  .app { display: grid; gap: 18px; align-content: start; }
   .head { display: flex; gap: 16px; align-items: center; }
   .icon { width: 64px; height: 64px; flex: none; margin: -4px; }
   .head h2 { font-size: 22px; }
   .head p { font-size: 14px; }
-  ul { list-style: none; display: grid; gap: 2px; border-top: 1px solid var(--line); padding-top: 12px; }
+  ul { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 16px; border-top: 1px solid var(--line); padding-top: 12px; }
   ul a { display: block; padding: 8px 0; color: var(--accent); font-size: 15px; }
   ul a:hover { text-decoration: underline; }
   .contact { padding: 60px 0 0; }

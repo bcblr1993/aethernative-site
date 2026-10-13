@@ -22,6 +22,7 @@ export interface User {
   email: string | null;
   avatar_url: string | null;
   is_admin: number;
+  disabled_at: number | null;
 }
 
 /**
@@ -37,7 +38,7 @@ export async function upsertUser(db: D1Database, p: Profile, now = Date.now()): 
   if (found) {
     await db.batch([
       // 用户自己改过昵称时保留，不用平台提供的名字覆盖
-      db.prepare('UPDATE users SET name = CASE WHEN name_custom = 1 THEN name ELSE ? END, email = ?, avatar_url = ?, last_login_at = ? WHERE id = ?')
+      db.prepare('UPDATE users SET name = CASE WHEN name_custom = 1 THEN name ELSE ? END, email = ?, avatar_url = ?, last_login_at = CASE WHEN disabled_at IS NULL THEN ? ELSE last_login_at END WHERE id = ?')
         .bind(p.name, p.email, p.avatarUrl, now, found.user_id),
       db.prepare('UPDATE identities SET email = ? WHERE provider = ? AND provider_user_id = ?').bind(p.email, p.provider, p.id),
     ]);
@@ -56,7 +57,7 @@ export async function upsertUser(db: D1Database, p: Profile, now = Date.now()): 
 }
 
 export const getUser = (db: D1Database, id: string) =>
-  db.prepare('SELECT id, name, email, avatar_url, is_admin FROM users WHERE id = ?').bind(id).first<User>();
+  db.prepare('SELECT id, name, email, avatar_url, is_admin, disabled_at FROM users WHERE id = ?').bind(id).first<User>();
 
 export async function getProviders(db: D1Database, userId: string): Promise<ProviderId[]> {
   const { results } = await db.prepare('SELECT provider FROM identities WHERE user_id = ? ORDER BY created_at').bind(userId).all<{ provider: ProviderId }>();
@@ -109,9 +110,9 @@ export async function authenticate(db: D1Database, request: Request, now = Date.
   const tokenHash = await sha256Hex(token);
   const row = await db
     .prepare(
-      `SELECT u.id, u.name, u.email, u.avatar_url, u.is_admin, s.expires_at
+      `SELECT u.id, u.name, u.email, u.avatar_url, u.is_admin, u.disabled_at, s.expires_at
          FROM sessions s JOIN users u ON u.id = s.user_id
-        WHERE s.token_hash = ? AND s.expires_at > ? AND s.client = ?`,
+        WHERE s.token_hash = ? AND s.expires_at > ? AND s.client = ? AND u.disabled_at IS NULL`,
     )
     .bind(tokenHash, now, bearer ? 'ios' : 'web')
     .first<User & { expires_at: number }>();
@@ -136,6 +137,7 @@ export async function deleteSession(db: D1Database, request: Request) {
 /** 注销账号：删除用户及其全部反馈、身份与会话。显式逐表删除，不依赖外键级联是否开启。 */
 export async function deleteUser(db: D1Database, userId: string) {
   await db.batch([
+    db.prepare('DELETE FROM feedback_screenshots WHERE feedback_id IN (SELECT id FROM feedback WHERE user_id = ?)').bind(userId),
     db.prepare('DELETE FROM feedback WHERE user_id = ?').bind(userId),
     // 设备本身保留（仍可接收公告与版本推送），只解除与账号的关联
     db.prepare('UPDATE devices SET user_id = NULL WHERE user_id = ?').bind(userId),

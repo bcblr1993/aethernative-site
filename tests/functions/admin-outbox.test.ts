@@ -90,10 +90,27 @@ describe('管理员查看与回复', () => {
     const list = async (q = '') => ((await (await (listAdmin as any)({ request: new Request(`${ORIGIN}/api/admin/feedback${q}`, { headers: { Cookie: admin.cookie } }), env })).json()) as any);
     const all = await list();
     expect(all.feedback).toHaveLength(2);
-    expect(all.feedback[0].user).toEqual({ name: '用户alice', email: 'alice@example.com' });
+    expect(all.feedback[0].user).toMatchObject({ name: '用户alice', email: 'alice@example.com' });
     expect((await list('?status=closed')).feedback.map((f: any) => f.title)).toEqual(['第一条']);
     const bad = await (listAdmin as any)({ request: new Request(`${ORIGIN}/api/admin/feedback?status=spam`, { headers: { Cookie: admin.cookie } }), env });
     expect(bad.status).toBe(400);
+  });
+
+  it('相同毫秒的反馈分页不遗漏、不重复，最后一页不显示多余按钮', async () => {
+    const alice = await session('alice');
+    const admin = await session('boss', true);
+    const insert = env.DB.raw.prepare("INSERT INTO feedback (id, user_id, app_id, category, title, body, created_at, updated_at) VALUES (?, ?, 'general', 'other', '并发反馈', '正文', 123, 123)");
+    for (let i = 0; i < 105; i++) insert.run(`same-${i}`, alice.user.id);
+    const get = (query = '') => (listAdmin as any)({ request: new Request(`${ORIGIN}/api/admin/feedback${query}`, { headers: { Cookie: admin.cookie } }), env });
+    const first = await (await get()).json();
+    expect(first.feedback).toHaveLength(100);
+    const second = await (await get(`?before=${first.next}&beforeId=${first.nextId}`)).json();
+    expect(second.feedback).toHaveLength(5);
+    expect(second.next).toBeNull();
+    expect(second.nextId).toBeNull();
+    expect(new Set([...first.feedback, ...second.feedback].map((f: any) => f.id)).size).toBe(105);
+    expect((await get('?beforeId=only-id')).status).toBe(400);
+    expect((await get('?before=-1')).status).toBe(400);
   });
 
   it('回复后自动设为“已回复”，提交者在“我的反馈”中看到；有关联设备时排一条推送', async () => {

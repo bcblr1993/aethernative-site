@@ -9,6 +9,7 @@
  * - 技术预览（preview）不进入动态；
  * - id 一经发布不能改变：推送服务用它去重，改了会重复推送。
  */
+import { githubLinks } from './github';
 import type { Release } from './apps';
 import type { Loc } from './i18n';
 
@@ -36,6 +37,7 @@ export interface NewsInput {
 
 export interface AppInput {
   id: string;
+  repo?: string;
   name: string;
   order: number;
   featured: boolean;
@@ -157,6 +159,8 @@ function appSummary(site: URL, a: AppInput) {
   return {
     id: a.id,
     name: a.name,
+    repo: githubLinks(a.repo)?.repo,
+    issues: githubLinks(a.repo)?.issues,
     order: a.order,
     featured: a.featured,
     icon: abs(site, a.icon),

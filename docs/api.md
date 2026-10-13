@@ -191,15 +191,38 @@ iPhone App 与推送服务读取的静态 JSON，由 `npm run build` 根据内�
 | `POST /api/me/devices` | `{ "deviceId", "deviceSecret" }` 把推送设备关联到账号（用于“反馈有新回复”推送）。设备密钥错误 403，设备未注册 404 |
 | `POST /api/feedback`、`GET /api/feedback/mine` | 提交 / 查看反馈，同网页 |
 
+### 反馈截图与管理提醒
+
+`POST /api/feedback` 继续接受原有 JSON（纯文字反馈），也接受 `multipart/form-data`：文本字段与 JSON 相同，可重复附加 `screenshots` 文件字段，最多 3 张。接口接受 PNG、JPEG、WebP，每张最多 512 KiB，并核对文件签名。网页可选每张不超过 10 MiB 的原图，先在本地压缩、去掉原始元数据，再提交；失败时保留表单和截图供重试。
+
+提交结果、“我的反馈”和管理列表增加 `screenshots: [{ id, url }]`，旧反馈返回空数组。`GET /api/feedback/screenshots/:id` 仅允许提交者或管理员使用 Cookie / App Bearer 读取，未登录返回 401，无权限或图片不存在返回 404；响应禁止缓存。图片与正文在 D1 同一事务中保存，注销账号时一起清理。当前以小型附件保存于 D1，反馈量增长时需关注容量，后续可迁移到私有对象存储。
+
+部署前需应用 `migrations/0008_feedback_screenshots.sql`（仅增加列和表，无已有内容回填）。不需要新增存储绑定或生产依赖。
+
+管理员的 `GET /api/me` 响应中，`user.adminFeedback` 包含 `{ count, latestId }`，统计 `status = 'new'` 的待处理反馈；普通用户不返回此字段。网站登录后显示提醒卡片、账号角标和管理入口。同一浏览器标签页的会话中，相同待处理集合的提醒只出现一次，退出登录后重置；回到窗口或处理反馈后更新数量，不做后台轮询。“查看反馈”直达 `/admin/feedback/?status=new`。
+
 ---
 
 # 管理后台（管理员账号，`users.is_admin = 1`）
+
+统一导航：`/admin/users/` 用户管理、`/admin/feedback/` 反馈管理、`/admin/apps/` 软件与仓库、`/admin/downloads/` 下载统计。
+
+用户管理需先应用 `migrations/0009_user_management.sql`。新增 `users.disabled_at`，现有账号默认正常。管理员账号及当前账号不能被禁用或强制退出；本界面不修改管理员权限，也不删除用户。
+
+| 接口 | 说明 |
+|---|---|
+| `GET /api/admin/users?q=&status=&cursor=` | 昵称、邮箱或精确用户 ID 搜索；`status` 为 `active` / `disabled` / `admin` 或空。每页 50 人，`next` 作为下一页 `cursor`；返回账号资料、登录来源/时间、有效会话数、反馈数和账号总览，不返回身份凭据 |
+| `PATCH /api/admin/users/:id` | `{ "action": "disable" / "enable" / "revoke_sessions" }`。禁用/恢复账号或清除全部网页与 App 会话及待兑换登录 code；保留反馈。恢复后须重新登录。普通用户 403，受保护管理员 409 |
+
+禁用账号无法使用现有 Cookie / Bearer，OAuth 重新登录失败，App 登录返回 `account_disabled`。所有管理写操作要求同源 Cookie 或管理员 App Bearer。用户列表与图片等私有数据均不缓存。
+
+软件仓库以 `src/content/apps/<id>/app.yaml` 的 `repo` 为唯一配置，构建时要求有效 GitHub 仓库根地址。反馈页随软件选择切换仓库/Issues；后台可按用户与软件组合筛选反馈。`/apps.json` 与 `/apps/:id/app.json` 的软件信息新增可选 `repo`、`issues` 字段，保持现有版本号与其余字段兼容。
 
 页面：`/admin/feedback/`（不进入站点地图、不被搜索引擎收录）。写操作要求同源 Cookie 或 Bearer。
 
 | 接口 | 说明 |
 |---|---|
-| `GET /api/admin/feedback?status=&before=` | 全部反馈（最新在前，每页 100 条），含提交者昵称与邮箱；`before` 为上一页返回的 `next` |
+| `GET /api/admin/feedback?status=&before=&beforeId=&user=&app=` | 全部反馈（最新在前，每页 100 条），含提交者 ID、昵称与邮箱；可按用户 ID / 软件 ID 筛选；下一页同时传入返回的 `next` 与 `nextId`，分别作为 `before`、`beforeId`，避免同毫秒反馈遗漏。两者为 null 时已到末页；兼容仅传旧 `before` 的调用方 |
 | `PATCH /api/admin/feedback/:id` | `{ "status"?, "reply"? }`。回复内容有变化且未指定状态时自动设为 `replied`；提交者有关联设备时排一条推送。响应 `{ feedback, notified }` |
 
 # 待发推送队列（push-service 调用，`PUSH_SERVICE_TOKEN`）
