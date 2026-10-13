@@ -1,6 +1,342 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.2"
+    build: "2026101301"
+    date: 2026-10-13
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.2/AetherRoute-1.7.2-build-2026101301-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.2
+    sha256: cdddc4a973e1b9067fcdb8b9791d0d8ab5a44a247c42f34955b2a827c4d21ef1
+    sparkle:
+      edSignature: D/DKxQmi7R6CVB5DLyDikQBCiBwMxCeN9Ha3W99ejiQC289TqACsPGtWYX58H58ZahkC3lzc6xiHXXKzJzjxBQ==
+      length: 27371066
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 控制面防卡死看门狗与失联自愈，UDP 重置日志降噪与宿主关键诊断日志落盘。
+      en: Control-plane watchdog and self-healing for stalled provider communication, UDP peerReset log noise reduction, and host diagnostic log persistence.
+    notes:
+      - title:
+          zh: 修复与优化
+          en: Fixes & Improvements
+        items:
+          - zh: 控制面防卡死看门狗与失联自愈：宿主与扩展 IPC 出现极端阻塞或失联时由 15 秒看门狗与自动重连自愈策略恢复，避免客户端假死。
+            en: Added a 15-second watchdog and automatic self-healing reconnection for stalled control-plane IPC communication.
+          - zh: UDP 对端重置（code=2）日志降噪：精准识别短连接对端重置并降级为调试日志，消除 Console 噪点。
+            en: Reduced noise by demoting harmless UDP peerReset (code 2) errors to verbose logging.
+          - zh: 宿主 App 关键运维诊断日志落盘：失联自愈恢复、重连等关键运维事件同步落入 2MB 轮转日志（app.log）。
+            en: Critical host operational and self-healing events are now persisted to the 2MB rotating log (app.log).
+          - zh: 流量统计字段兼容性补全：补齐 DiagnosticCounter 上游与客户端双向计数分支。
+            en: Added missing upstream and client diagnostic counter cases for complete telemetry compatibility.
+  - version: "1.7.1"
+    build: "2026101204"
+    date: 2026-10-12
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.1/AetherRoute-1.7.1-build-2026101204-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.1
+    sha256: 425dea8b6bd901d31ef16e265b22684a618a25619685f0a184df1ced9646b0d2
+    sparkle:
+      edSignature: KCuGo2dFdfgL+EbpawJzAIhPngH+HksX2ctsmtNiyzf9z06UsXuwZWZy4OuZugprmJaA9zPsvmz1r6vQ8hmnAA==
+      length: 27362963
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 切换网卡后自动恢复：透明代理从 Wi-Fi 换到有线网卡不再断网；修复规则页闪退。
+      en: Traffic comes back on its own after switching network interfaces in transparent proxy mode, and the Rules page no longer crashes.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 透明代理从 Wi-Fi 换到有线网卡（或唤醒后换了网卡）后 1–2 秒内自动恢复，不再需要手动重连。
+            en: In transparent proxy mode, moving from Wi-Fi to wired Ethernet, or waking onto another interface, recovers within 1–2 seconds instead of needing a manual reconnect.
+          - zh: 自动恢复不成功时原地重建连接并保留节点选择；仍不通则自动重连一次。
+            en: If that is not enough, the connection is rebuilt in place with your node choices kept, then reconnected once if still down.
+          - zh: 恢复判断更准确，直连流量不再被误当作已恢复。
+            en: Recovery is judged more strictly; direct traffic no longer counts as recovered.
+          - zh: 修复打开规则页约半分钟后 App 可能闪退的问题。
+            en: Fixed a crash about half a minute after opening the Rules page.
+  - version: "1.7.0"
+    build: "2026101103"
+    date: 2026-10-12
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.0/AetherRoute-1.7.0-build-2026101103-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.0
+    sha256: 78309d6a589bd2872245bd0f72eb641c3277d25dc887dbc550844673b77517ef
+    sparkle:
+      edSignature: 1naRZy4BJWp3pjqyaTM8UPT9OIoUuaPzszZjEQHelhFUZIeBdi4z4Y2QYccTFtsNzPuS42P0RvcOuMgivO3SDw==
+      length: 27333859
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 不改订阅也能整理节点：按地区或关键词自动成组、隐藏提示条目；订阅更新后设置不再丢失；TUN 可与 Tailscale MagicDNS 共存。
+      en: "Customize profiles without editing them: groups by region or keyword, hidden notice entries, settings that survive subscription updates, and TUN alongside Tailscale MagicDNS."
+    notes:
+      - title:
+          zh: 新增
+          en: New
+        items:
+          - zh: 新建分组：按地区、关键词或手选节点自动成组，随订阅更新。
+            en: "New Group: members chosen by region, keyword or hand, kept up to date with the subscription."
+          - zh: 按地区一键生成分组，并放进主分组。
+            en: Groups by Region in one step, listed in the main group.
+          - zh: 隐藏“剩余流量”“到期”等提示类条目。
+            en: Hide notice entries such as remaining traffic or expiry.
+          - zh: 以上改动不修改订阅，订阅更新后依然有效。
+            en: None of it edits the subscription, and it survives updates.
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 订阅更新后节点选择、选择方式与 DNS 设置不再被重置。
+            en: Node choices, selection modes and DNS settings no longer reset after a subscription update.
+          - zh: TUN 模式与 Tailscale MagicDNS 同时开启时，网站可以正常打开。
+            en: Sites load in TUN mode with Tailscale MagicDNS turned on.
+          - zh: 透明代理不再接管 Tailscale 网段。
+            en: The transparent proxy leaves Tailscale addresses to Tailscale.
+  - version: "1.6.0"
+    build: "2026101102"
+    date: 2026-10-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.6.0/AetherRoute-1.6.0-build-2026101102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.6.0
+    sha256: b2c7a504f8b7a2291d58f07c018caa25cd65de538c3575653d4a99dcad5dd172
+    sparkle:
+      edSignature: lBCWdzRM2MUssVsGBQqYvv+sF5C9G62329sTXLM7jcKoot1IayeC/R5o9xokn89iolr8KH6JWntXj5uI/vcnDg==
+      length: 27071473
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 新增节点故障转移：节点出问题时自动切换到可用节点，恢复后自动切回，卡住的连接会被立即关闭。
+      en: "Node failover: when a node stops answering, traffic moves to a working one and returns once it recovers, and stuck connections are closed right away."
+    notes:
+      - title:
+          zh: 新增
+          en: New
+        items:
+          - zh: 每个代理分组可选手动、自动最快或故障转移。
+            en: Each proxy group can use Manual, Fastest or Failover.
+          - zh: 故障转移优先使用首选节点，故障时切到最快可用节点，恢复后自动切回。
+            en: Failover uses your preferred node, moves to the fastest working one when it fails, and returns once it recovers.
+          - zh: 代理页显示首选与备用节点、切换原因和自动切换记录。
+            en: The Proxies page shows the preferred and backup nodes, why traffic moved, and the run's switches.
+          - zh: 可选的节点自动切换提醒，通知不含节点名。
+            en: Optional node switch alerts that never name a node.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 节点故障后关闭卡住的连接，应用立即改走新节点。
+            en: Connections stuck on a failed node are closed so apps move to the new node at once.
+          - zh: 切换前先复测确认，检查间隔缩短到 10 秒。
+            en: Failures are confirmed before switching, and routes are checked every 10 seconds.
+  - version: "1.5.2"
+    build: "2026101101"
+    date: 2026-10-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.2/AetherRoute-1.5.2-build-2026101101-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.2
+    sha256: 6ba79b83e524a16fdbc123e04e60a1b1b19edcb1aa8946e13f2db60bf41721ae
+    sparkle:
+      edSignature: ZR9QqUZlLRMwEleT1NzxikuOtK06LhN5PY3xz1zDGy8taI92+I2mFIy7Bl/5qIFdbWa1IltqjbQEplheY5TmDg==
+      length: 26976491
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 页头与操作按钮重新设计，连接页更整洁，添加规则弹窗焕新，切页淡入，切页更快、内存更低。
+      en: Redesigned page headers and actions, a tidier Connections page, a new Add Rule sheet, page fade-ins, and faster page switching with less memory.
+    notes:
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 各页面的操作按钮与标题同行、分组排列，并与内容对齐。
+            en: Each page's actions sit on the title's line, grouped and aligned with the content.
+          - zh: 连接页按钮收为显示、暂停、更多三组，搜索框移到过滤条。
+            en: Connections groups its buttons into View, Pause and More, with search in the filter row.
+          - zh: 添加规则弹窗重新设计；切换页面时内容淡入。
+            en: The Add Rule sheet is redesigned, and pages fade in when switched.
+          - zh: 切页更快，内存从约 70 MB 降到约 61 MB。
+            en: Faster page switching; memory dropped from about 70 MB to about 61 MB.
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 小窗口下连接详情弹窗超出窗口的问题。
+            en: The connection details sheet no longer grows past a small window.
+          - zh: 窄窗口或放大字号时页面被撑高的问题。
+            en: Pages no longer grow taller than the window in narrow windows or with larger text.
+  - version: "1.5.1"
+    build: "2026101003"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.1/AetherRoute-1.5.1-build-2026101003-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.1
+    sha256: 993c40e5ee238bc62c931537f8c26bde9ea1048f668d8cbd5687f8e9f1371970
+    sparkle:
+      edSignature: 7yniGLXBFO/2hMvFqz7cEGxqN57EUWGYGuIftg5Q890VSnBmtuuELjfiZnBww0du/Y6SeyVK+RjWGUbHgWV9AA==
+      length: 26970415
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 切换页面不再卡顿，内存稳定在约 70 MB，长会话中按应用的流量统计不再缺漏，页面内容对齐 Liquid Glass 设计规范。
+      en: Page switching no longer stalls, memory stays around 70 MB, per-app traffic statistics stay complete in long sessions, and page content follows the Liquid Glass guidelines.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 修复开着主窗口时内存持续上涨到 200 MB 以上的问题，现稳定在约 70 MB。
+            en: Fixed memory growing past 200 MB while the window is open; it now stays around 70 MB.
+          - zh: 切换页面不再卡顿，最慢一次从 0.8 秒降到约 0.2 秒。
+            en: Switching pages no longer stalls; the slowest switch dropped from 0.8 s to about 0.2 s.
+          - zh: 长时间使用时，后出现的应用也能正确统计流量。
+            en: Apps that appear late in a long session now get their traffic counted.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 页面内容对齐 macOS 26 Liquid Glass 设计规范，卡片与按钮改用系统样式。
+            en: Page content follows the macOS 26 Liquid Glass guidelines, with system cards and buttons.
+          - zh: 更新说明采用新版式。
+            en: Update notes have a new layout.
+  - version: "1.5.0"
+    build: "2026101002"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.5.0/AetherRoute-1.5.0-build-2026101002-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.5.0
+    sha256: 3eac19bac738d1f24264c33ae1e184f11366bdef0d37a3f4d119e2298d385408
+    sparkle:
+      edSignature: /sygwD9AQDVSdK20t3pEii5sKVfPcL+/P/hc0gN43Pe67tTi03h3dI8YRrelvGCcH7f8I4mTxZOiSm8laJnQCg==
+      length: 25660601
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 首次启动授权改为三页引导式设计，权限状态一目了然。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: A redesigned three-page first-run guide makes every permission's status clear at a glance. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 新功能
+          en: New
+        items:
+          - zh: 全新首次启动引导：隐私承诺、网络权限、准备就绪三页。
+            en: "New first-run guide in three pages: privacy, network permissions, and all set."
+          - zh: 两个网络引擎各占一行，点「允许」即可授权，授权后显示绿色对勾。
+            en: "Each network engine has its own row: click Allow, and a green check appears once granted."
+          - zh: 准备就绪页汇总所有权限状态，一键开始使用。
+            en: The final page sums up every permission and starts AetherRoute in one click.
+      - title:
+          zh: 优化
+          en: Improvements
+        items:
+          - zh: 小窗口下主按钮固定在底部，不会被挤出窗口。
+            en: In small windows the main button stays pinned at the bottom.
+          - zh: 重新授权窗口采用同样的新设计。
+            en: The re-authorization sheet uses the same new design.
+  - version: "1.4.2"
+    build: "2026101001"
+    date: 2026-10-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.2/AetherRoute-1.4.2-build-2026101001-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.4.2
+    sha256: dc52e0a36870ab9e5a904a68514c604d39c886f8d77f9c851d2db500133eb2f8
+    sparkle:
+      edSignature: n08adu26WAErPP5d+vkCan0FChsSROGdx1zxlxdAu6H96WZj2vTp8/AoTfy7cYh3p0JqKGlv/05gjon5brVwBg==
+      length: 25664720
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复最小窗口下连接列表与概览页的布局溢出；界面测试全部通过。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: Fixes layouts that overflowed the narrowest window in Connections and Overview; all UI tests pass. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 窗口缩到最小时，连接列表的六列不再超出表格。
+            en: At the narrowest window, the six Connections columns no longer run past the table.
+          - zh: 概览页模式设置在长文案下不再重叠或撑宽页面。
+            en: Overview mode rows no longer overlap or widen the page with long translations.
+          - zh: 修复 5 项界面测试，完整界面测试全部通过。
+            en: Five UI tests repaired; the full UI suite passes.
+  - version: "1.4.1"
+    build: "2026100902"
+    date: 2026-10-09
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.1/AetherRoute-1.4.1-build-2026100902-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.4.1
+    sha256: 565d7a93001e6be3378d25d3b985c9404784616a54f9c242771112224b84a87d
+    sparkle:
+      edSignature: YV3JJahledNoLIeUrZuoJuymUefNJWPmvGJ5mhasvNcU+K1Ub9ZT3j9Zzv5EYXkVKkMAFMQzLwgThNdJa/f2AQ==
+      length: 26963698
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 修复透明代理测速期间新连接被卡住的问题；重启后自动连接更可靠；流量统计不再丢失历史。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: Fixes new connections stalling during latency tests in transparent proxy mode, makes reconnecting after a restart more reliable, and keeps traffic statistics history safe. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 透明代理模式下测速不再卡住整机的新连接。
+            en: Latency tests no longer hold up new connections in transparent proxy mode.
+          - zh: 重启后自动连接会等待网络就绪，最多坚持两分钟。
+            en: Reconnecting after a restart waits for the network, for up to two minutes.
+          - zh: 钥匙串暂时不可用时不再覆盖流量统计历史；断开前补记最后一分钟。
+            en: Traffic statistics history is no longer overwritten while the Keychain is unavailable; the last minute before a disconnect is counted.
+          - zh: 导入超限时提示具体限制；日志查看器筛选更流畅。
+            en: Import errors name the limit that was exceeded; the log viewer filters more smoothly.
+  - version: "1.4.0"
+    build: "2026100901"
+    date: 2026-10-09
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.4.0/AetherRoute-1.4.0-build-2026100901-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.4.0
+    sha256: ce7425468f8f79cc0a102d0e2c59289a39ded1ad66c2acbdc260b0370018f1ed
+    sparkle:
+      edSignature: U2aXqUpry3WIYe8wnm+Z1hq10Fpx59czvnQUnP1WHd6Xk4RupuhnCPlJ06OcixbWW1B3EUbPBGjFemt3+ymkAw==
+      length: 26843169
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 关闭连接无需断开代理；新增日志查看器、节点链接与二维码导入、本地加密流量统计；修复重启后不自动连接。全量通过虚拟机矩阵、Apple Silicon 真机验证与 Apple 官方公证。
+      en: Close connections without disconnecting; adds a log viewer, node link and QR code import, and encrypted local traffic statistics; fixes reconnecting after a restart. Fully verified in the VM matrix and on Apple Silicon, and notarized by Apple.
+    notes:
+      - title:
+          zh: 新功能
+          en: New Features
+        items:
+          - zh: 关闭单条、按应用或全部连接，代理保持运行；切换节点时自动关闭旧连接。
+            en: Close one connection, an app's connections or all of them while staying connected; switching nodes closes the old connections.
+          - zh: 日志查看器：查看应用与网络扩展日志，支持记录级别、筛选、搜索与复制，数据不离开本机。
+            en: Log viewer for the app and the network extension, with recording levels, filters, search and copy. Nothing leaves the Mac.
+          - zh: 导入节点链接：粘贴链接，或从图片、截图与屏幕上的二维码读取。
+            en: Import node links by pasting them or reading QR codes from images, screenshots or the screen.
+          - zh: 本地流量统计：按应用与出口节点查看，AES-256-GCM 加密存储，默认关闭。
+            en: Local traffic statistics by app and exit node, sealed with AES-256-GCM, off by default.
+      - title:
+          zh: 修复与优化
+          en: Fixes & Improvements
+        items:
+          - zh: 重启、关机或注销后重新登录时恢复之前的连接状态。
+            en: The connection is restored after a restart, shutdown or logout.
+          - zh: 快速切换页面不再卡顿；连接链路按规则目标组到节点的顺序显示。
+            en: Fast page switching no longer stutters; proxy chains read from the rule's group to the node.
+          - zh: 统计写入串行并在退出前完成；多行日志按时间完整排序。
+            en: Statistics writes are ordered and finished before quitting; multiline log records stay together in time order.
   - version: "1.3.3"
     build: "2026100802"
     date: 2026-10-08

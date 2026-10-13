@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { appcastReleases, buildAppcast } from './appcast';
+import { appcastReleases, buildAppcast, noteKind } from './appcast';
 import type { Release } from './apps';
 
 const SIG = 'A'.repeat(86) + '==';
@@ -68,15 +68,19 @@ describe('buildAppcast', () => {
 
   it('中英文说明分别输出，英文带 xml:lang', () => {
     const xml = build([rel({ notes: [{ title: { zh: '修复', en: 'Fixes' }, items: [{ zh: '甲', en: 'A' }] }] })]);
-    expect(xml).toMatch(/<description><!\[CDATA\[<p>中文摘要<\/p>\n<h3>修复<\/h3>\n<ul><li>甲<\/li><\/ul>\]\]><\/description>/);
-    expect(xml).toMatch(/<description xml:lang="en"><!\[CDATA\[<p>English summary<\/p>/);
+    const zh = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    const en = xml.match(/<description xml:lang="en"><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    expect(zh).toContain('<p class="summary">中文摘要</p>');
+    expect(zh).toContain('<section class="group fix"><h3 class="tag">修复</h3><ul><li>甲</li></ul></section>');
+    expect(en).toContain('<p class="summary">English summary</p>');
+    expect(en).toContain('<h3 class="tag">Fixes</h3>');
     expect(xml).toContain('<sparkle:fullReleaseNotesLink xml:lang="en">https://aethernative.com/en/apps/demo/releases/1.0.0/</sparkle:fullReleaseNotesLink>');
   });
 
   it('转义 HTML 特殊字符，并安全处理 CDATA 结束符', () => {
     const xml = build([rel({ summary: 'a < b & c ]]> d', download: 'https://x.test/a.dmg?x=1&y=2' })]);
     // 先做 HTML 转义，"]]>" 变成 "]]&gt;"，不会提前结束 CDATA
-    expect(xml).toContain('<p>a &lt; b &amp; c ]]&gt; d</p>');
+    expect(xml).toContain('<p class="summary">a &lt; b &amp; c ]]&gt; d</p>');
     const body = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
     expect(body).not.toContain(']]>');
     expect(xml).toContain('url="https://x.test/a.dmg?x=1&amp;y=2"');
@@ -86,5 +90,25 @@ describe('buildAppcast', () => {
     const xml = build([rel({ sparkle: undefined })]);
     expect(xml).not.toContain('<item>');
     expect(xml).toContain('</channel>');
+  });
+});
+
+describe('更新说明样式', () => {
+  it('内联样式，支持深色模式，不引用外部资源', () => {
+    const xml = build([rel({ notes: [{ title: { zh: '修复', en: 'Fixes' }, items: [{ zh: '甲', en: 'A' }] }] })]);
+    const zh = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    expect(zh.startsWith('<style>')).toBe(true);
+    expect(zh).toContain('prefers-color-scheme:dark');
+    expect(zh).not.toMatch(/https?:\/\//);
+    expect(zh).not.toMatch(/<script|<link|@import/i);
+  });
+
+  it('按分组标题选择配色', () => {
+    expect(noteKind({ zh: '新功能', en: 'New Features' })).toBe('feature');
+    expect(noteKind({ zh: '修复', en: 'Fixes' })).toBe('fix');
+    expect(noteKind({ zh: '修复与优化', en: 'Fixes & Improvements' })).toBe('fix');
+    expect(noteKind({ zh: '体验优化', en: 'Polish' })).toBe('improve');
+    expect(noteKind({ zh: '设计系统与交互规范', en: 'Design System & HIG Alignment' })).toBe('other');
+    expect(noteKind('Performance')).toBe('improve');
   });
 });

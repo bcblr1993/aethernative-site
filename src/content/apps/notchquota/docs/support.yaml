@@ -1,8 +1,8 @@
 title: { zh: 使用帮助, en: Help }
 heading: { zh: "安装与使用，\n从这里开始。", en: "Install and use.\nStart here." }
 lead:
-  zh: 从登录、安装到选择账号与卡通伙伴，按自己的习惯完成设置。
-  en: Set up sign-ins, install the app, and choose the accounts and cartoon companion that suit you.
+  zh: 从登录、安装到选择账号与绘本伙伴，按自己的习惯完成设置。
+  en: Set up sign-ins, install the app, and choose the accounts and storybook companion that suit you.
 sections:
   - heading: { zh: 安装, en: Install }
     steps:
@@ -22,12 +22,14 @@ sections:
     body:
       - zh: 右键 → 设置与更新，可在菜单栏模式、灵动岛模式和侧边栏模式之间切换；选择会跨重启保留。
         en: "Right-click → Settings & Updates to switch between menu bar, notch and sidebar modes. Your choice persists across restarts."
-  - heading: { zh: 卡通伙伴与提醒, en: Characters and reminders }
+  - heading: { zh: 绘本伙伴与提醒, en: Characters and reminders }
     body:
-      - zh: 切换到侧边栏模式，在“设置与更新 → 收起外观”选择八种角色之一。拖动到任意显示器自由摆放，靠近左、右边缘吸附；移入角色立即展开账号面板。
-        en: "Choose sidebar mode, then Settings & Updates → Collapsed Appearance for one of eight characters. Drag it to any display, dock it to either edge, and hover to open your accounts."
+      - zh: 切换到侧边栏模式，在“设置与更新 → 收起外观”选择九种绘本角色之一。拖动到任意显示器自由摆放，靠近左、右边缘吸附；移入角色立即展开账号面板。
+        en: "Choose sidebar mode, then Settings & Updates → Collapsed Appearance for one of nine storybook characters. Drag it to any display, dock it to either edge, and hover to open your accounts."
       - zh: 每 10 分钟按账号顺序尝试一次思考提醒，先查询，失败、过期或未知额度跳过；成功后泡泡约 5 秒淡出。监测到 5 小时或每周额度恢复至 100% 时，会出现短暂庆祝提醒。
         en: "Thought reminders try accounts in order every 10 minutes, refreshing first and skipping failed, stale or unknown results. A successful bubble fades after about 5 seconds. A short celebration appears when a five-hour or weekly quota is observed recovering to 100%."
+      - zh: 九个角色各有配色与装饰：竹叶、花瓣、枫叶、龟壳、星光、云朵、蜂巢、爪印和雪花。提醒退出时移回鼠标可以保留卡片；静置不循环播放动画，支持系统减少动态效果与低电量模式。
+        en: "Each character has its own colors and motifs: bamboo, petals, maple leaves, shells, stars, clouds, honeycomb, paw prints or snowflakes. Move back onto a fading reminder to keep it open. No looping animation at rest; Reduce Motion and Low Power Mode are respected."
   - heading: { zh: 临时隐藏与恢复, en: Hide temporarily and restore }
     body:
       - zh: 右键“临时隐藏”，选择 15 分钟、1 小时、3 小时或 5 小时。隐藏后可通过菜单栏的恢复入口立即显示；隐藏期间不弹出角色提醒。

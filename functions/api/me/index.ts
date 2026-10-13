@@ -18,6 +18,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   if (!user) return signedOut();
   return json({ user: {
     ...publicUser(user, await getProviders(env.DB, user.id)),
+    isAdmin: user.is_admin === 1,
     ...(user.is_admin === 1 ? { adminFeedback: await pendingFeedback(env.DB) } : {}),
   } });
 };

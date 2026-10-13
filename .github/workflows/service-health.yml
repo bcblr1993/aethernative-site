@@ -1,0 +1,42 @@
+name: Download and update service health
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: service-health
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npx astro build
+      - name: Check real packages and feeds
+        id: health
+        continue-on-error: true
+        run: node scripts/service-health.mjs
+      - name: Publish report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/service-health.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'chore: update service health report'
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
+          exit 1
+      - name: Fail on persistent service errors
+        if: steps.health.outcome == 'failure'
+        run: exit 1

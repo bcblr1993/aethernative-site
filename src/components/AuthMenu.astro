@@ -29,6 +29,7 @@ const u = ui[lang].auth;
       <span class="fine" data-email></span>
       <span class="fine" data-via></span>
       <hr />
+      <a class="item" href="/admin/" data-admin hidden>{lang === 'zh' ? '管理后台' : 'Admin dashboard'}</a>
       <a class="item" href={href(lang, '/feedback/')}>{u.myFeedback}</a>
       <a class="item" href="/admin/feedback/?status=new" data-admin-feedback hidden>{u.manageFeedback}</a>
       <a class="item" href="/admin/users/" data-admin-users hidden>{u.manageUsers}</a>
@@ -64,6 +65,7 @@ const u = ui[lang].auth;
     let activeUser = false;
     let refreshedAt = 0;
     const updateReminder = (me: Me) => {
+      $('[data-admin]').hidden = !me.isAdmin;
       reminderKey = `an:feedback-notice:${me.id}`;
       const pending = me.adminFeedback;
       const count = pending?.count ?? 0;
@@ -103,6 +105,7 @@ const u = ui[lang].auth;
     };
 
     const showSignedOut = () => {
+      $('[data-admin]').hidden = true;
       $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = true;
       activeUser = false;
       notice.hidden = badge.hidden = adminLink.hidden = true;
