@@ -4,31 +4,32 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.8</title>
-            <pubDate>Tue, 13 Oct 2026 22:25:22 +0800</pubDate>
-            <sparkle:version>29</sparkle:version>
-            <sparkle:shortVersionString>0.5.8</sparkle:shortVersionString>
+            <title>0.5.9</title>
+            <pubDate>Tue, 13 Oct 2026 22:56:30 +0800</pubDate>
+            <sparkle:version>30</sparkle:version>
+            <sparkle:shortVersionString>0.5.9</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.8
+            <description sparkle:format="markdown"><![CDATA[# v0.5.9
 
-- **修复输入框与弹窗内按回车导致窗口误切/最小化问题 (Fix Global Keyboard Monitor Interception)**：
-  - 修复「极速切换 (⌥Space)」浮窗在后台隐藏时未及时注销本地键盘监听、导致在主界面或编辑弹窗内按回车（Return）被误截获并强行唤起实例（导致管理器窗口被切走/收起到后台）的问题。
-  - 严格限制键盘监听器生效范围：仅当「极速切换」面板可见且处于激活态时才响应导航与回车操作，杜绝全局事件穿透。
-- **优化标签与备注编辑弹窗 (Edit Sheet Keyboard Ergonomics)**：
-  - 取消「保存备注与标签」按钮的普通回车默认绑定（`.defaultAction`），改为标准的 `⌘ + Enter` 快捷保存。
-  - 在「分类标签」或「项目别名」输入框中输入内容（及中文输入法确认）时按回车不再意外关闭弹窗。
-  - 「实例备注 / 备忘说明」多行文本框现已完全支持按回车自由换行。
-  - 支持按 `Esc` 快捷取消并退出编辑。
+- **深度审计与全面稳定性修复 (Comprehensive Stability & Bugfix Overhaul)**：
+  - **Dock 图标点击重开支持 (macOS Dock Icon Reopen)**：新增 `NSApplicationDelegate` 接管 `applicationShouldHandleReopen` 生命周期，点击 Dock 图标时平滑唤醒已关闭的主窗口，并优先维持已挂载模态弹窗的正确层级与焦点（避免破坏 Sheet 状态）。
+  - **单实例聚焦模式默认改为关闭 (Solo Focus Mode Disabled by Default)**：默认不再在激活某个实例时自动隐藏其他实例窗口，避免用户感觉「点击实例后其他窗口意外消失」的困扰，保持多窗口并列直观可视。
+  - **遥测与 CDP 扫描风暴防护 (Telemetry Scanning Thundering Herd Guard)**：为后台遥测和 WebSocket 抓帧添加并发互斥锁（`isScanningTelemetry`），杜绝因定时器触发叠加导致 `/bin/ps` 子进程和网络请求堆积卡顿。
+  - **全局热键签名严格过滤 (Carbon HotKey Signature Verification)**：严格限定仅响应本程序签名 `OSType(0x4147594D)` 的系统热键事件，防止第三方应用或系统按键事件被误吞或意外触发极速切换面板。
+  - **极速切换安全边界与按键防穿透 (Quick Switcher Index Safety)**：回车跳转增加严格边界夹紧机制（`0 ..< filteredInstances.count`），避免列表为空或快速键入时发生索引越界。
+  - **脚本执行管道 EOF 挂起修复 (Process Pipe EOF Hang Prevention)**：在子进程执行启动后立即关闭父进程端写管道句柄，彻底杜绝管道读取等待 EOF 造成的潜在永久卡死。
+  - **模态弹窗键盘交互规范化 (Modal Sheet Keyboard Ergonomics)**：
+    - 所有确认与管理弹窗（创建实例、升级备份、清空工作空间、永久销毁、备份管理、更新设置）均统一支持 `Esc` 快捷取消关闭。
+    - 实例标签与备注编辑弹窗支持 `⌘ + Enter` 保存，普通回车在多行备注编辑中自由换行，输入框内键入不会意外触发窗口关闭或最小化。
+  - **实例隐藏操作轻量化**：移除隐藏实例时多余的背景 CDP 抓帧与级联刷新任务，窗口收起更加轻量平滑。
 
 此管理器更新不会自动升级副本或修改实例数据。
-
-
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.8/Aether-Antigravity-Multiplexer-v0.5.8-macos-arm64.zip" length="3109593" type="application/octet-stream" sparkle:edSignature="TWzbaYPOdfUv8VMNXYZuz+TsU9brjNgokBibdNHas/2udzcPoJQy3KYVBMl3Jd5uVcpRy6JuNK+Ks93tk6v2Bg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.9/Aether-Antigravity-Multiplexer-v0.5.9-macos-arm64.zip" length="3115336" type="application/octet-stream" sparkle:edSignature="P0hWANvgk2Yl/D0RpO5nAftYy315q2/BgUR5yDg03MZGmkPD+4/EUVo8LFvKzWLeCnK58/LwgrD2A9J7IN98Cw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: /8jBJw9lv7U03ufUUUtivFgUdi/yIVUD1bz4mnH91nVzdSzC0SNsJVSt4PLD9+4WFHLIGkc/QBHlUR8RBVTtDw==
-length: 2403
+edSignature: sWCcMIwrn3IuIt12pnsCcE6yw2xdXKJ+7X56+LuKw7k7l0WITvRYHIPuVVDJdhmQ6JGFYjhJQeNscCbSkwSLCA==
+length: 3548
 -->
