@@ -1,6 +1,35 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.2"
+    build: "2026101301"
+    date: 2026-10-13
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.2/AetherRoute-1.7.2-build-2026101301-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.2
+    sha256: cdddc4a973e1b9067fcdb8b9791d0d8ab5a44a247c42f34955b2a827c4d21ef1
+    sparkle:
+      edSignature: D/DKxQmi7R6CVB5DLyDikQBCiBwMxCeN9Ha3W99ejiQC289TqACsPGtWYX58H58ZahkC3lzc6xiHXXKzJzjxBQ==
+      length: 27371066
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 控制面防卡死看门狗与失联自愈，UDP 重置日志降噪与宿主关键诊断日志落盘。
+      en: Control-plane watchdog and self-healing for stalled provider communication, UDP peerReset log noise reduction, and host diagnostic log persistence.
+    notes:
+      - title:
+          zh: 修复与优化
+          en: Fixes & Improvements
+        items:
+          - zh: 控制面防卡死看门狗与失联自愈：宿主与扩展 IPC 出现极端阻塞或失联时由 15 秒看门狗与自动重连自愈策略恢复，避免客户端假死。
+            en: Added a 15-second watchdog and automatic self-healing reconnection for stalled control-plane IPC communication.
+          - zh: UDP 对端重置（code=2）日志降噪：精准识别短连接对端重置并降级为调试日志，消除 Console 噪点。
+            en: Reduced noise by demoting harmless UDP peerReset (code 2) errors to verbose logging.
+          - zh: 宿主 App 关键运维诊断日志落盘：失联自愈恢复、重连等关键运维事件同步落入 2MB 轮转日志（app.log）。
+            en: Critical host operational and self-healing events are now persisted to the 2MB rotating log (app.log).
+          - zh: 流量统计字段兼容性补全：补齐 DiagnosticCounter 上游与客户端双向计数分支。
+            en: Added missing upstream and client diagnostic counter cases for complete telemetry compatibility.
   - version: "1.7.1"
     build: "2026101204"
     date: 2026-10-12
