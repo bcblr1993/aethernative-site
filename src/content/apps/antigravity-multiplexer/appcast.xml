@@ -4,28 +4,31 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.7</title>
-            <pubDate>Tue, 13 Oct 2026 22:09:59 +0800</pubDate>
-            <sparkle:version>28</sparkle:version>
-            <sparkle:shortVersionString>0.5.7</sparkle:shortVersionString>
+            <title>0.5.8</title>
+            <pubDate>Tue, 13 Oct 2026 22:25:22 +0800</pubDate>
+            <sparkle:version>29</sparkle:version>
+            <sparkle:shortVersionString>0.5.8</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.7
+            <description sparkle:format="markdown"><![CDATA[# v0.5.8
 
-- **修复关闭实例窗口误弹出极速切换面板问题 (Quick Switcher Fix)**：
-  - 修复点击 Antigravity 实例窗口红色关闭按钮（✕）收起窗口并自动切回监控墙时，后台误将「极速切换 (⌥Space)」浮窗激活并置顶居中弹出的交互问题。
-  - 规范面板窗口层级与生命周期管理，确保只有在用户显式按下全局快捷键（⌥Space）或点击监控墙顶栏「极速切换」按钮时才会召唤面板。
-- **稳定性与细节优化**：
-  - 优化主窗口与浮动面板的激活层级关系，切换与关闭实例更为流畅平稳。
-  - 继承 v0.5.6 实例分类标签、详细备忘录及三层工作空间磁盘占用深度监控功能。
+- **修复输入框与弹窗内按回车导致窗口误切/最小化问题 (Fix Global Keyboard Monitor Interception)**：
+  - 修复「极速切换 (⌥Space)」浮窗在后台隐藏时未及时注销本地键盘监听、导致在主界面或编辑弹窗内按回车（Return）被误截获并强行唤起实例（导致管理器窗口被切走/收起到后台）的问题。
+  - 严格限制键盘监听器生效范围：仅当「极速切换」面板可见且处于激活态时才响应导航与回车操作，杜绝全局事件穿透。
+- **优化标签与备注编辑弹窗 (Edit Sheet Keyboard Ergonomics)**：
+  - 取消「保存备注与标签」按钮的普通回车默认绑定（`.defaultAction`），改为标准的 `⌘ + Enter` 快捷保存。
+  - 在「分类标签」或「项目别名」输入框中输入内容（及中文输入法确认）时按回车不再意外关闭弹窗。
+  - 「实例备注 / 备忘说明」多行文本框现已完全支持按回车自由换行。
+  - 支持按 `Esc` 快捷取消并退出编辑。
 
 此管理器更新不会自动升级副本或修改实例数据。
 
+
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.7/Aether-Antigravity-Multiplexer-v0.5.7-macos-arm64.zip" length="3107044" type="application/octet-stream" sparkle:edSignature="b2BxWJWOMUO/prOtnpXTP1xWF/ItUESPbqDXJVjQXnXVvTEiZElq4Zv6XZ8HjSpiv4bYeVK85AfL+RcpFB34Aw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.8/Aether-Antigravity-Multiplexer-v0.5.8-macos-arm64.zip" length="3109593" type="application/octet-stream" sparkle:edSignature="TWzbaYPOdfUv8VMNXYZuz+TsU9brjNgokBibdNHas/2udzcPoJQy3KYVBMl3Jd5uVcpRy6JuNK+Ks93tk6v2Bg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: Cz7khMShXz3MAxDB4bAoRDtvdbAiRDPTwp2Xyo56QGVCHbfegeGWo5CmTNfXrffUjrFRhe1uBhECoW2nuT9bBw==
-length: 2080
+edSignature: /8jBJw9lv7U03ufUUUtivFgUdi/yIVUD1bz4mnH91nVzdSzC0SNsJVSt4PLD9+4WFHLIGkc/QBHlUR8RBVTtDw==
+length: 2403
 -->
