@@ -4,26 +4,25 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.1</title>
-            <pubDate>Tue, 13 Oct 2026 18:27:13 +0800</pubDate>
-            <sparkle:version>22</sparkle:version>
-            <sparkle:shortVersionString>0.5.1</sparkle:shortVersionString>
+            <title>0.5.2</title>
+            <pubDate>Tue, 13 Oct 2026 19:43:07 +0800</pubDate>
+            <sparkle:version>23</sparkle:version>
+            <sparkle:shortVersionString>0.5.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.1
+            <description sparkle:format="markdown"><![CDATA[# v0.5.2
 
-- 实例感知与具体动作精准解耦：消除多实例并发跑任务时由于通用兜底文案导致的“内容串台/重合”假象；精准提取最近执行工具、目标操作文件、命令名称与汇报标题（如整点报告标题、代码文件修改、命令编译），各实例状态完全独立呈现。
-- CDP 原生窗口标题深度融合：自动通过 DevTools 协议提取真实工程工作区（如 `AetherRoute`、`aether-antigravity-multiplexer`），彻底过滤会话 UUID、`scratch` 与内部临时路径。
-- 苹果原生一体化大卡片重构：彻底解决缩略图与下方药丸割裂问题，卡片整合为「顶部标题与标签栏 + 中间 16:10 视网膜实时预览 + 底部具体动作栏」标准容器；消除顶部多徽章挤压与文本截断。
-- 顶部控制栏极简降噪：将专注单窗口、悬浮返回胶囊、任务系统通知与后台托管说明收敛至右侧「选项与偏好」面板，工具栏层次分明。
-- 实例个性化备注与标签：支持自定义项目别名、项目标签与 7 色马卡龙色板；实时多进程 CPU 占用与内存物理常驻 (RSS) 监控。
+- 彻底修复打开实例出现双窗口且界面空白的严重问题：移除对 Electron 单页应用 (SPA) 具有破坏性的底层 DevTools 导航强制硬刷新 (`Page.navigate`)，保留并信任 Antigravity 原生会话恢复与上下文生命周期。
+- 窗口调度与唤起防抖机制：对于已在运行的实例，直接通过 macOS 原生应用层恢复/置顶窗口，避免触发 LaunchServices 二次窗口创建；增加多点手势与连击防抖，彻底消除重复唤起。
+- 修复监控墙卡片手势层级：区分卡片背景唤起与浮层「调出/收起」按钮响应，彻底杜绝手势冒泡冲突。
+- 实例感知与具体动作精准解耦：各实例状态、最近操作动作及工作区完全独立呈现。
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.1/Aether-Antigravity-Multiplexer-v0.5.1-macos-arm64.zip" length="2959249" type="application/octet-stream" sparkle:edSignature="LxqHH2BmsOM0mGXsCmAA51tPrR44QGDyS8yid7ouj2OhO8wPbdS9XxncFeYm8p8zYL41YSI6GQfK3dCttazyBw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.2/Aether-Antigravity-Multiplexer-v0.5.2-macos-arm64.zip" length="2957857" type="application/octet-stream" sparkle:edSignature="LIY1oLy8dWjTff4Dnm4ack5I1n7KskoqmzH+fy8Y02j854kn6+TJfh21ROFBVaarq3w8VC6cRN3zZTEZIXVJDA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: +BAc9aFWyY9Ko+005hZ/8J7KIax2NyPA7Pa/gY9tvDvBZMn09t63cqetR7w1GW1/f0NdkW45aQTbW64XJi1QBQ==
-length: 2511
+edSignature: I1uclsO6ewc8DUs0KJLT/mYkF/XXEjBlOrd1PU5nacW2o+11IJWZyMg4nlSxc6BviD31ha2unlWsqYKh3hngDw==
+length: 2109
 -->
