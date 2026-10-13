@@ -1,0 +1,23 @@
+releases:
+  - version: "0.1.1"
+    build: "2026101301"
+    date: 2026-10-13
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherNote/releases/download/v0.1.1/AetherNote-0.1.1-macos-arm64.dmg
+    github: https://github.com/bcblr1993/AetherNote/releases/tag/v0.1.1
+    sha256: 2de446c4162476e9ba0c6397d467be87e5ee19bcee124440cb4d48c954a49d04
+    badge: { zh: 已签名 · Apple 公证, en: "Signed · Apple notarized"  }
+    summary:
+      zh: 每一天都可以继续编辑：支持补记、修改和删除历史内容，兼容首版数据。
+      en: Every past day stays editable. Add, edit and delete historical entries while keeping existing journals compatible.
+    notes:
+      - title: { zh: 每天都可编辑, en: "Editable daily notes"  }
+        items:
+          - { zh: 今天和历史日期均支持追加、修改与删除；跨过午夜仍可继续编辑原来的日期。, en: "Today and past dates support additions, edits and deletion. Continue editing the same day across midnight."  }
+          - { zh: 旧版日记无需转换，修改保留原始创建时间和所属日期；未来日期到当天再开放。, en: "Existing journals need no conversion. Edits preserve the original creation time and date; future dates open when they arrive."  }
+          - { zh: 更新中英日三语提示、历史便签标记与周回顾说明。, en: "Updates Chinese, English and Japanese hints, historical note labels and weekly review copy."  }
+      - title: { zh: 安装与验证, en: "Installation and validation"  }
+        items:
+          - { zh: Apple 芯片 Mac · macOS 14+；应用与 DMG 均通过 Apple 公证。, en: "Apple silicon Mac on macOS 14 or later. Both app and DMG are Apple notarized."  }
+          - { zh: 更新时退出旧版，将新版拖入 Applications 替换，保留本地记录。, en: "Quit the old version and replace it in Applications. Your local journal is preserved."  }
