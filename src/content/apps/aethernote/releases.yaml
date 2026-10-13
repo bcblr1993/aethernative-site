@@ -1,4 +1,38 @@
 releases:
+  - version: 0.1.3
+    build: "2026101303"
+    date: 2026-10-13
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherNote/releases/download/v0.1.3/AetherNote-0.1.3-macos-arm64.dmg
+    github: https://github.com/bcblr1993/AetherNote/releases/tag/v0.1.3
+    sha256: 12504a8105065fd78c667f9bad1d952da8764278869cbd5c7c734f26f1b41d86
+    sparkle:
+      edSignature: QBRUhDITK2xfpgEA5AzgOlxd4XLv2VF03XyykhFx9IXYs+yzSieeVH62z/iUIV8QxDlPyNYw9LxVmUhsaY+lAA==
+      length: 3110724
+    badge:
+      zh: 已签名 · Apple 公证
+      en: Signed · Apple notarized
+    summary:
+      zh: 每天都可以有自己的颜色；无论翻到哪一周，都能一键回到本周。
+      en: Give each day its own color and return to this week in one click, wherever you have browsed.
+    notes:
+      - title:
+          zh: 每日配色
+          en: Colors for every day
+        items:
+          - zh: 默认自动分配协调、稳定的每日颜色，也可以选择八种预设、自定义颜色或重新随机。晾衣绳、编辑器和回顾保持一致。
+            en: Coordinated daily colors are assigned automatically and stay stable. Choose from eight presets, a custom color or a new random color across the clothesline, editor and review.
+          - zh: 自定义颜色支持实时预览，保存后重启仍保留，并包含在 JSON 备份中；兼容已有记录。
+            en: Preview custom colors before applying. Saved colors survive relaunch and are included in JSON backups, with existing journals preserved.
+      - title:
+          zh: 一键回到本周
+          en: Return to this week
+        items:
+          - zh: 晾衣绳与本周回顾增加清晰的“回到本周”按钮，浏览历史或未来日期后，一次点击回到当前周。
+            en: A visible This week button on the clothesline and weekly review returns you to the current week after browsing past or future dates.
+          - zh: 0.1.2 用户可在应用设置中检查更新，下载安装后重新启动；0.1.0 / 0.1.1 请手动安装本版一次。
+            en: Version 0.1.2 can check, download, install and relaunch from Settings. Versions 0.1.0 and 0.1.1 need one manual installation of this version.
   - version: 0.1.2
     build: "2026101302"
     date: 2026-10-13

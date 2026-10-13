@@ -16,8 +16,8 @@ sections:
       zh: 安装与打开
       en: Install and open
     steps:
-      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.2，本地记录保留。
-        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.2 manually once. Local notes are preserved.
+      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.3 或更新版本，本地记录保留。
+        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.3 or later manually once. Local notes are preserved.
       - zh: 点击菜单栏便签图标展开晾衣绳；也可以将鼠标移到屏幕顶部中央。固定按钮可以让晾衣绳保持显示。
         en: Click the menu bar note icon or move to the center of the top screen edge to reveal the line. Pin it to keep it visible.
       - zh: 使用 ⌃⌥N 记一行，⌃⌥L 展开或收起；快捷键冲突时仍可使用菜单栏入口。
@@ -45,6 +45,16 @@ sections:
         en: Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today.
       - zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。
         en: Drag sideways to reorder and vertically to spring back. Click Tidy or double-click the rope to restore date order. Settings include weekends, languages and materials.
+  - heading:
+      zh: 每日配色与回到本周
+      en: Daily colors and returning to this week
+    list:
+      - zh: 点开某一天，点击右上角“便签颜色”，选择八款预设或自定义颜色。自定义颜色先预览，再点击“应用”；支持六位 HEX 色值。
+        en: Open a day and click Note color. Choose one of eight presets or preview a custom color, then click Apply. Six-digit HEX values are supported.
+      - zh: 不选择颜色时自动配色，同周默认不重复。“换个随机颜色”会选择另一款预设并保存。拖动、切换周或重启都不会改变已保存的颜色，JSON 备份也包含配色。
+        en: Automatic colors are distinct within a week by default. Surprise me selects and saves a different preset. Rearranging, switching weeks and restarting preserve colors, and JSON backups include them.
+      - zh: 日期箭头旁和本周回顾里都有“回到本周”按钮，无论翻到过去还是未来，都能按当前系统日期一键返回，不影响内容或排列。
+        en: The clothesline and weekly review have a This week button. Return from any past or future week using the current system date without changing entries or their arrangement.
   - heading:
       zh: 每小时轻提醒
       en: Quiet hourly reminders

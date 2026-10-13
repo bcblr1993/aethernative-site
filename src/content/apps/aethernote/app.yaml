@@ -69,9 +69,16 @@ showcase:
     zh: 今天和过去的记录都可以继续编辑。周回顾按日期展开，方便阅读、复制与导出。
     en: Today's notes and past entries remain editable. The weekly review follows calendar order, ready to read, copy or export.
   note:
-    zh: 截图来自 macOS 27 上的 AetherNote 0.1.2，展示新版 Liquid Glass 原生界面，内容为演示数据。
-    en: Actual AetherNote 0.1.2 captures on macOS 27, showing the redesigned native Liquid Glass interface with demo entries. Screenshots show the Chinese interface.
+    zh: 截图来自 macOS 27 上的 AetherNote 0.1.3，展示每日配色与“回到本周”入口，内容为演示数据。
+    en: Actual AetherNote 0.1.3 captures on macOS 27, showing daily colors and the This week controls with demo entries. Screenshots show the Chinese interface.
   items:
+    - title:
+        zh: 给每一天，一点自己的颜色
+        en: A little color for every day
+      caption:
+        zh: 八款柔和预设与自定义颜色，先预览再应用；默认随机配色，重新打开也保留。
+        en: Eight soft presets and custom colors with a preview before applying. Automatic colors stay with each date across restarts.
+      image: ./media/daily-colors.png
     - title:
         zh: 随时补记与修改
         en: Add and edit anytime
@@ -120,8 +127,8 @@ features:
         zh: 拉一拉，再一键整理
         en: Give it a tug. Tidy with a click.
       body:
-        zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击整理按钮或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天。
-        en: Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click Tidy or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days.
+        zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击整理按钮或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天；翻到很远的日期，也能一键回到本周。
+        en: Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click Tidy or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days. Return from any distant date with the This week button.
     - kicker:
         zh: 语言与材质
         en: Appearance
@@ -129,8 +136,8 @@ features:
         zh: 玻璃、暖纸，或一张白纸
         en: Glass, warm paper, or a clean sheet
       body:
-        zh: 简体中文、English、日本語随时切换。macOS 26 与 27 使用原生玻璃，配合拖动回弹动画，较早系统使用磨砂材质；尊重减少动态效果与降低透明度设置。
-        en: Switch between Chinese, English and Japanese. macOS 26 and 27 use native glass with spring-driven drag interactions, and earlier systems use translucent material. Reduced motion and transparency settings are respected.
+        zh: 每天自动配一款柔和颜色，也能选择预设或自定义，颜色跟随日期保存。简体中文、English、日本語随时切换。macOS 26 与 27 使用原生玻璃，配合拖动回弹动画，较早系统使用磨砂材质；尊重减少动态效果与降低透明度设置。
+        en: Each day gets a soft automatic color, with presets and custom colors saved by date. Switch between Chinese, English and Japanese. macOS 26 and 27 use native glass with spring-driven drag interactions, and earlier systems use translucent material. Reduced motion and transparency settings are respected.
     - kicker:
         zh: 轻提醒
         en: A quiet reminder
@@ -174,8 +181,8 @@ faq:
         zh: 支持哪些 Mac？如何更新？
         en: Which Macs are supported, and how do I update?
       a:
-        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.2；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
-        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.2 manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
+        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.3 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
+        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.3 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
 cta:
   title:
     zh: 今天做过什么？先记一行。
