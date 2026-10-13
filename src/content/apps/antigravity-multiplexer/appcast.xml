@@ -4,25 +4,34 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.2</title>
-            <pubDate>Tue, 13 Oct 2026 19:43:07 +0800</pubDate>
-            <sparkle:version>23</sparkle:version>
-            <sparkle:shortVersionString>0.5.2</sparkle:shortVersionString>
+            <title>0.5.3</title>
+            <pubDate>Tue, 13 Oct 2026 20:26:04 +0800</pubDate>
+            <sparkle:version>24</sparkle:version>
+            <sparkle:shortVersionString>0.5.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.2
+            <description sparkle:format="markdown"><![CDATA[# v0.5.3
 
-- 彻底修复打开实例出现双窗口且界面空白的严重问题：移除对 Electron 单页应用 (SPA) 具有破坏性的底层 DevTools 导航强制硬刷新 (`Page.navigate`)，保留并信任 Antigravity 原生会话恢复与上下文生命周期。
-- 窗口调度与唤起防抖机制：对于已在运行的实例，直接通过 macOS 原生应用层恢复/置顶窗口，避免触发 LaunchServices 二次窗口创建；增加多点手势与连击防抖，彻底消除重复唤起。
-- 修复监控墙卡片手势层级：区分卡片背景唤起与浮层「调出/收起」按钮响应，彻底杜绝手势冒泡冲突。
-- 实例感知与具体动作精准解耦：各实例状态、最近操作动作及工作区完全独立呈现。
+- **Phase 1 演进落地：全局快捷键调度系统 (Carbon API)**：
+  - `⌥ + Space` (Option + 空格)：在任意 macOS 桌面或全屏空间呼出/隐藏 Spotlight/Raycast 级「极速切换」面板，零无障碍权限门槛，丝滑直达。
+  - `⌥ + 1` ~ `⌥ + 9`：全局实例直达与智能隐藏（Boss Key / Scratchpad 模式）。若目标实例正在前台，再次按下快捷键自动收起隐藏；若在后台或未启动，则立即调出至前台。
+- **主实例优先序与专属视觉标识**：
+  - 核心主实例（官方 Antigravity）严格置顶排在第一位（映射快捷键 `⌥ + 1`），永远保持在所有监控列表与极速切换面板最前端。
+  - 专属尊贵皇家紫（Electric Violet & Sapphire）渐变背景、`👑 MAIN 01` 星光徽章与发光外框标识，与各分身实例形成鲜明清晰的层级区分。
+- **极速切换悬浮面板 (Spotlight 级体验)**：
+  - 支持即时模糊拼音/英文检索（按名称、昵称、标签、工作区或序号）。
+  - 支持全键盘操作：`↑ / ↓` 切换选中项、`Return` 调出、`Esc` 退出。
+  - 浮窗内集成实例实时资源占用（CPU / 进程数）与动态任务状态指示灯。
+- **工作台工具栏与偏好设置整合**：
+  - 顶部导航栏新增「极速切换 (⌥Space)」一键直达入口。
+  - 偏好设置中提供全局快捷键开关与详细快捷键速查表。
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.2/Aether-Antigravity-Multiplexer-v0.5.2-macos-arm64.zip" length="2957857" type="application/octet-stream" sparkle:edSignature="LIY1oLy8dWjTff4Dnm4ack5I1n7KskoqmzH+fy8Y02j854kn6+TJfh21ROFBVaarq3w8VC6cRN3zZTEZIXVJDA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.3/Aether-Antigravity-Multiplexer-v0.5.3-macos-arm64.zip" length="3049986" type="application/octet-stream" sparkle:edSignature="J9mOY5ZO0Irz4ZIAnFv5Pd3w+Vx1W3qtMHuR233sGOP2hzNhITUTsCYX0M8wjZMndAlTJOg2+Jm1XdYhZHiBAw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: I1uclsO6ewc8DUs0KJLT/mYkF/XXEjBlOrd1PU5nacW2o+11IJWZyMg4nlSxc6BviD31ha2unlWsqYKh3hngDw==
-length: 2109
+edSignature: CCqIqDlxHzVELctHJcY3if+Yu621jzBLpL6/vVImDuiZLU/RmOlGTOdJ1WMLUC/AWXt5x6gS2bBx3Hamp/0SCw==
+length: 2780
 -->
