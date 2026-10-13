@@ -4,34 +4,28 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.6</title>
-            <pubDate>Tue, 13 Oct 2026 21:40:56 +0800</pubDate>
-            <sparkle:version>27</sparkle:version>
-            <sparkle:shortVersionString>0.5.6</sparkle:shortVersionString>
+            <title>0.5.7</title>
+            <pubDate>Tue, 13 Oct 2026 22:09:59 +0800</pubDate>
+            <sparkle:version>28</sparkle:version>
+            <sparkle:shortVersionString>0.5.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.6
+            <description sparkle:format="markdown"><![CDATA[# v0.5.7
 
-- **实例分类标签与详细备忘录 (Tags & Notes / Memo)**：
-  - 新增实例专属详细备注与备忘录（支持记录当前实例的开发目标、Git 分支、本地端口映射及专属环境配置）。
-  - 在多开监控墙（Grid 视图）底部胶囊与列表（List 视图）中直观呈现备注标识与摘要，鼠标悬停即可快速查阅完整备忘详情。
-  - 顶栏筛选工具栏新增「带标签/备注」快捷过滤器，一键定位已标注的业务实例。
-  - 重新设计编辑弹窗：支持预设标签快速填入、7 种高对比度主题色自选与实时效果预览。
-- **实例独立工作空间与数据磁盘占用深度分析 (Storage Footprint Monitoring)**：
-  - 深度统计并展示每个实例的多维磁盘占用：
-    1. 独立隔离工作空间目录（`~/.gemini` 或 `~/.gemini-N`，保存 Agent 任务、对话记忆与工程上下文）
-    2. 应用配置与缓存数据（`~/Library/Application Support/...`，包含 Electron 本地缓存与支持数据）
-    3. 应用程序包主体（`/Applications/...`，只读应用副本）
-  - 监控墙监视器底栏内嵌实时 `💾 容量` 标识，列表视图同步展示存储容量胶囊。
-  - 顶部控制台看板新增「工作空间总磁盘占用」卡片，全盘掌控所有实例所占用的存储总量。
-  - 实例操作菜单与编辑面板提供「在访达中定位独立工作空间」快捷入口，并支持一键重新统计。
+- **修复关闭实例窗口误弹出极速切换面板问题 (Quick Switcher Fix)**：
+  - 修复点击 Antigravity 实例窗口红色关闭按钮（✕）收起窗口并自动切回监控墙时，后台误将「极速切换 (⌥Space)」浮窗激活并置顶居中弹出的交互问题。
+  - 规范面板窗口层级与生命周期管理，确保只有在用户显式按下全局快捷键（⌥Space）或点击监控墙顶栏「极速切换」按钮时才会召唤面板。
+- **稳定性与细节优化**：
+  - 优化主窗口与浮动面板的激活层级关系，切换与关闭实例更为流畅平稳。
+  - 继承 v0.5.6 实例分类标签、详细备忘录及三层工作空间磁盘占用深度监控功能。
 
 此管理器更新不会自动升级副本或修改实例数据。
+
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.6/Aether-Antigravity-Multiplexer-v0.5.6-macos-arm64.zip" length="3107167" type="application/octet-stream" sparkle:edSignature="3fYDM9m3qj6vd2AZ4I21W6gGX8m4j6ITm3Y7Uv2jYM+MF6FiLXg4TUs7YmckpMFsTzhGngcGYwg//lOsDzl1Ag=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.7/Aether-Antigravity-Multiplexer-v0.5.7-macos-arm64.zip" length="3107044" type="application/octet-stream" sparkle:edSignature="b2BxWJWOMUO/prOtnpXTP1xWF/ItUESPbqDXJVjQXnXVvTEiZElq4Zv6XZ8HjSpiv4bYeVK85AfL+RcpFB34Aw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 9hYRqtTeZaliVFjKkID+rxj1tS+G5MMR41DeQ+gZM8lkpCW1zEt3hVbavXQ1CxR9PcPZuPzpyYNpp/L/QCunCg==
-length: 2826
+edSignature: Cz7khMShXz3MAxDB4bAoRDtvdbAiRDPTwp2Xyo56QGVCHbfegeGWo5CmTNfXrffUjrFRhe1uBhECoW2nuT9bBw==
+length: 2080
 -->
