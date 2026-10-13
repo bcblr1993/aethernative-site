@@ -4,25 +4,25 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.4.3</title>
-            <pubDate>Tue, 13 Oct 2026 14:02:00 +0800</pubDate>
-            <sparkle:version>19</sparkle:version>
-            <sparkle:shortVersionString>0.4.3</sparkle:shortVersionString>
+            <title>0.4.4</title>
+            <pubDate>Tue, 13 Oct 2026 14:23:09 +0800</pubDate>
+            <sparkle:version>20</sparkle:version>
+            <sparkle:shortVersionString>0.4.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.4.3
+            <description sparkle:format="markdown"><![CDATA[# v0.4.4
 
-- 适配官方 Antigravity 2.23.0 Apple Silicon 主实例，支持创建独立实例及从主实例升级旧副本。
-- 收录 Antigravity 2.23.0 中文重点更新摘要，升级确认窗口可同时查看官方完整更新日志与中文摘要。
-- 继续严格校验官方签名、程序哈希和补丁位置；未知或变动的版本仍会拒绝处理。
-- 升级继续保留独立账号目录、凭据标识和回调协议，并在替换前备份程序与数据。
+- 全新设计管理器界面：顶部融合三栏状态仪表盘与快捷工具栏，官方原版主实例独立置顶展示，副本支持按“全部 / 运行中 / 可升级”分段筛选。
+- 重构实例卡片排版与按钮样式：配备专属序号徽章、运行状态呼吸指示灯、等高元数据胶囊及悬停/按压弹性动画。
+- 新增底部实时操作抽屉：创建或升级副本时从底部平滑展开并自动滚动日志，支持一键收起或关闭。
+- 继续支持官方 Antigravity 2.23.0 Apple Silicon 主实例创建与升级。
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.4.3/Aether-Antigravity-Multiplexer-v0.4.3-macos-arm64.zip" length="2515692" type="application/octet-stream" sparkle:edSignature="SE67E+oLNQj6wfFWOXmhMLqC4JdV1Fiz6y7kMJ6pvf76SjRG6yum15OkXHPrsAulNmMNgOkSPW0bCfsK3rqXAA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.4.4/Aether-Antigravity-Multiplexer-v0.4.4-macos-arm64.zip" length="2688082" type="application/octet-stream" sparkle:edSignature="Hh+ovkGQUGHlRCYTnNhJLkiPN+8jqe6TyQCczxRzM3fx98CmvKPZgfAPLBR6s8ZjiQPJ902lpjwPMDnrHO4jBg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: ICLToYSEhkrVkzCIT5O+RNkOW+287qzpSZfGgkGvhuRGdJhc7nDLc0djlWlAOcXbVpGkXwRI0hD6jwRnfH/iDQ==
-length: 1828
+edSignature: eAHdVaB6g1csmm5StB5CBHL8hjMhbBPiovOmGcRPkOTfS95ELBGVj0hrn3iz1DfVyYd1822B3mfn789FnSEoAQ==
+length: 1923
 -->
