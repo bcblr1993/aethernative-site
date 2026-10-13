@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import CommunityCard from '../../components/CommunityCard.astro';
 import { getApps, getReleases } from '../../lib/apps';
 import { href, langParams, t, ui, type Lang } from '../../lib/i18n';
 
@@ -26,6 +27,8 @@ const docLinks = [
       <h1>{zh ? '需要帮助？' : 'How can we help?'}</h1>
       <p>{zh ? '选择你使用的软件，查看安装说明、常见问题与版本记录。' : 'Choose your app for setup guides, troubleshooting and release notes.'}</p>
     </header>
+
+    <CommunityCard lang={lang} />
 
     <div class="grid-2">
       {apps.map((app) => {

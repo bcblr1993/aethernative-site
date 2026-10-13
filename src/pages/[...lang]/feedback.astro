@@ -5,6 +5,7 @@
 import { getImage } from 'astro:assets';
 import '../../styles/feedback-screenshots.css';
 import Base from '../../layouts/Base.astro';
+import CommunityCard from '../../components/CommunityCard.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LoginButtons from '../../components/LoginButtons.astro';
 import { githubLinks } from '../../lib/github';
@@ -52,6 +53,8 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       <p class="fb-lead">{u.lead}</p>
       <p class="hint">{u.publicHint} <a href={href(lang, '/support/')}>{ui[lang].nav.support} →</a></p>
     </header>
+
+    <CommunityCard lang={lang} />
 
     <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-repos={JSON.stringify(repos)} data-icons={JSON.stringify(icons)} data-state="loading">
       <noscript><p class="card">{u.noscript}</p></noscript>

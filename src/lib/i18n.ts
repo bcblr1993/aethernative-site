@@ -41,6 +41,7 @@ export const site = {
   name: 'Aether Native',
   author: { zh: '编程不良人', en: 'BianChengBuLiangRen' },
   github: 'https://github.com/bcblr1993',
+  telegram: 'https://t.me/+duuB4ZxnQgdjNWVl',
 };
 
 export const ui = {
@@ -49,6 +50,12 @@ export const ui = {
     tagline: '为 Apple 芯片原生打造',
     description: '专为 Apple M 系列芯片深度优化的原生 Mac 与 iPhone 软件。',
     nav: { apps: '软件', why: '理念', news: '动态', about: '关于', support: '支持' },
+    community: {
+      nav: 'Telegram 交流群',
+      title: '一起聊聊 Aether Native',
+      description: '加入用户交流群，交流使用心得、提问和分享建议。需要跟进处理的问题，仍可在网站提交反馈。',
+      join: '加入 Telegram 群',
+    },
     switchLang: 'EN',
     switchLangLabel: 'Switch to English',
     theme: '切换深浅色',
@@ -186,6 +193,12 @@ export const ui = {
     tagline: 'Built natively for Apple silicon',
     description: 'Native Mac and iPhone apps, deeply optimized for Apple M-series chips.',
     nav: { apps: 'Apps', why: 'Philosophy', news: 'News', about: 'About', support: 'Support' },
+    community: {
+      nav: 'Telegram community',
+      title: 'Let’s talk Aether Native',
+      description: 'Join the community to share tips, ask questions and discuss ideas. For issues that need follow-up, you can still send feedback on the website.',
+      join: 'Join Telegram group',
+    },
     switchLang: '中文',
     switchLangLabel: '切换到中文',
     theme: 'Toggle appearance',
