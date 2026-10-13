@@ -6,13 +6,12 @@ const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
 ---
 <Base lang="zh" title="每日下载统计" standalone>
   <div class="wrap download-admin" data-apps={JSON.stringify(apps)}>
-    <AdminNav />
     <header class="page-hero">
       <p class="eyebrow">管理后台 · 北京时间</p>
       <h1>每日下载统计</h1>
       <p class="muted">记录官网下载按钮发起的安装包请求，重复点击会重复计数。已知爬虫和预加载不计入；不代表下载完成、独立用户或安装人数。直接从 GitHub、App Store 或应用内更新的下载不计入。</p>
-      <a class="more" href="/admin/feedback/">反馈管理 →</a>
     </header>
+    <AdminNav current="downloads" />
     <div class="presets">{[7,30,90].map(days => <button class="btn btn-s btn-sm" type="button" data-range={days}>近 {days} 天</button>)}</div>
     <form class="filters" data-filters>
       <label>软件<select name="app"><option value="">所有软件</option>{apps.map((app) => <option value={app.id}>{app.name}</option>)}</select></label>
@@ -36,6 +35,7 @@ const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
   </div>
 </Base>
 <script>
+  import { markSignedOut, onSignedOut } from '../../lib/auth-client';
   import { beijingDay } from '../../lib/download-report';
   import { buildDownloadReport, downloadCSV, type DownloadStats, type AppName } from '../../lib/download-report';
   const root = document.querySelector<HTMLElement>('.download-admin')!;
@@ -53,6 +53,21 @@ const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
   let csvName = 'downloads.csv';
   let controller: AbortController | undefined;
 
+  const clearReport = () => {
+    csv = '';
+    root.querySelector('[data-versions]')!.replaceChildren();
+    root.querySelector('[data-trend]')!.replaceChildren();
+    root.querySelector('[data-axis]')!.textContent = '';
+    report.hidden = true;
+    exportButton.disabled = true;
+    root.querySelector<HTMLElement>('[data-period]')!.textContent = '';
+    root.querySelector<HTMLElement>('[data-total]')!.textContent = '0';
+    root.querySelector<HTMLElement>('[data-start]')!.textContent = '';
+    root.querySelector('[data-days]')!.replaceChildren();
+    root.querySelector('[data-app-totals]')!.replaceChildren();
+  };
+  onSignedOut(() => { controller?.abort(); clearReport(); hint.textContent = '请先通过导航栏登录管理员账号。'; });
+
   function tableRows(target: string, rows: (string | number)[][]) {
     const body = root.querySelector<HTMLElement>(target)!;
     body.replaceChildren(...rows.map((values) => {
@@ -64,11 +79,11 @@ const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
   async function load() {
     controller?.abort(); controller = new AbortController();
     const active = controller;
-    report.hidden = true; exportButton.disabled = true; hint.textContent = '正在加载…';
+    clearReport(); hint.textContent = '正在加载…';
     try {
       const query = new URLSearchParams({ from: from.value, to: to.value, app: app.value });
       const response = await fetch(`/api/admin/downloads?${query}`, { credentials: 'same-origin', signal: active.signal });
-      if (response.status === 401) { hint.textContent = '请先通过导航栏登录管理员账号。'; return; }
+      if (response.status === 401) { markSignedOut(); hint.textContent = '请先通过导航栏登录管理员账号。'; return; }
       if (response.status === 403) { hint.textContent = '当前账号不是管理员，无法查看统计。'; return; }
       if (response.status === 400) { hint.textContent = '请选择有效日期：结束日期不能晚于今天，范围最多 366 天。'; return; }
       if (!response.ok) throw new Error('load_failed');
@@ -102,14 +117,16 @@ const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
   }));
   form.addEventListener('submit' , (event) => { event.preventDefault(); load(); });
   exportButton.addEventListener('click', () => {
+    if (!csv || exportButton.disabled) return;
     const url = URL.createObjectURL(new Blob(['\ufeff', csv], { type: 'text/csv;charset=utf-8' }));
     const link = document.createElement('a'); link.href = url; link.download = csvName;
-    link.click(); URL.revokeObjectURL(url);
+    link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
   load();
 </script>
 <style>
   .download-admin { padding-bottom: 70px; }
+  [data-report] { padding: 0; }
   .page-hero{padding:24px 0}.page-hero h1{font-size:36px}summary{cursor:pointer;padding:12px 0}
   .presets {display:flex;gap:10px;margin:20px 0}.trend{height:140px;display:flex;align-items:end;gap:3px;margin:20px 0;border-bottom:1px solid var(--line)}.trend :global(span){flex:1;background:var(--accent);border-radius:3px 3px 0 0}
   .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; }

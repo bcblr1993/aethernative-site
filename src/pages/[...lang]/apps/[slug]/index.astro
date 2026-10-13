@@ -82,7 +82,7 @@ const subnav = [
     <div class="wrap center">
       <div class:list={['hero-icon', { 'inset-icon': ['aetherfilm', 'aetherscreens'].includes(app.id) }]}><Image src={d.icon} alt={`${d.name} icon`} width={192} height={192} loading="eager" /></div>
       <p class="eyebrow"><Text v={d.hero.eyebrow} lang={lang} /></p>
-      <h1><Text v={d.hero.title} lang={lang} /></h1>
+      <h1>{t(d.hero.title, lang).split('\n').map((line) => <span class="hero-title-line">{line}</span>)}</h1>
       <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
       <div class="cta">
         {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>{u.macDownload(latest.version)} ↓</a>}
@@ -102,6 +102,7 @@ const subnav = [
           <div class="stage-top">
             <span class="eyebrow">{d.name} for Mac</span>
             <div class="stage-tools">
+              {d.gallery.length > 1 && <button class="icon-btn" type="button" data-autoplay aria-pressed="true">{zh ? '暂停轮播' : 'Pause slideshow'}</button>}
               {hasDark && (
                 <div class="seg look-seg" role="group" aria-label={u.look}>
                   <span class="seg-pill" aria-hidden="true"></span>
@@ -441,6 +442,17 @@ const subnav = [
   const interval = 6000;
   let timer = 0;
   let stopped = reduce.matches || figures.length < 2;
+  let inView = false;
+  let hovered = false;
+  const autoplayButton = document.querySelector<HTMLButtonElement>('[data-autoplay]');
+  const syncAutoplay = () => {
+    stage?.classList.toggle('autoplay-off', stopped);
+    if (!autoplayButton) return;
+    autoplayButton.setAttribute('aria-pressed', String(!stopped));
+    autoplayButton.textContent = root.lang.startsWith('zh')
+      ? stopped ? '播放轮播' : '暂停轮播'
+      : stopped ? 'Play slideshow' : 'Pause slideshow';
+  };
   const progress = document.querySelector<HTMLElement>('.seg-progress');
   const restartProgress = () => {
     if (!progress) return;
@@ -452,8 +464,8 @@ const subnav = [
     show((current + 1) % figures.length);
     restartProgress();
   };
-  const startAutoplay = () => {
-    if (stopped || timer) return;
+  const startAutoplay = (explicit = false) => {
+    if (stopped || timer || !inView || document.hidden || (!explicit && (hovered || stage?.contains(document.activeElement)))) return;
     restartProgress();
     timer = window.setInterval(tick, interval);
   };
@@ -465,27 +477,40 @@ const subnav = [
   function stopAutoplay() {
     stopped = true;
     pauseAutoplay();
-    stage?.classList.add('autoplay-off');
+    syncAutoplay();
   }
+  syncAutoplay();
+  autoplayButton?.addEventListener('click', () => {
+    stopped = !stopped;
+    syncAutoplay();
+    if (stopped) pauseAutoplay(); else startAutoplay(true);
+  });
+  document.addEventListener('visibilitychange', () => document.hidden ? pauseAutoplay() : startAutoplay());
+  reduce.addEventListener('change', () => { if (reduce.matches) stopAutoplay(); });
   tabButtons.forEach((b) =>
     b.addEventListener('click', () => {
       stopAutoplay();
       show(Number(b.dataset.target));
     }),
   );
-  stage?.addEventListener('pointerenter', pauseAutoplay);
-  stage?.addEventListener('pointerleave', startAutoplay);
-  stage?.addEventListener('focusin', stopAutoplay);
+  stage?.addEventListener('pointerenter', () => { hovered = true; pauseAutoplay(); });
+  stage?.addEventListener('pointerleave', () => { hovered = false; startAutoplay(); });
+  stage?.addEventListener('focusin', pauseAutoplay);
+  stage?.addEventListener('focusout', () => requestAnimationFrame(() => startAutoplay()));
   tabs?.addEventListener('keydown', (e) => {
     const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
     if (!k) return;
     e.preventDefault();
+    stopAutoplay();
     const next = (current + k + figures.length) % figures.length;
     show(next);
     tabButtons[next]?.focus();
   });
   if (stage && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => (entry.isIntersecting ? startAutoplay() : pauseAutoplay()), { threshold: 0.4 }).observe(stage);
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting && entry.intersectionRatio >= 0.4;
+      if (inView) startAutoplay(); else pauseAutoplay();
+    }, { threshold: 0.4 }).observe(stage);
   }
 
   // 指针光晕与轻微 3D 倾斜（仅精确指针、未开启减少动态效果）
@@ -540,7 +565,7 @@ const subnav = [
 </script>
 
 <style>
-  .subnav { position: sticky; top: var(--nav-h); z-index: 40; background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
+  .subnav { position: sticky; top: var(--nav-h); z-index: 40; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
   .subnav .wrap { display: flex; align-items: center; gap: 24px; height: 52px; }
   .sn-name { font-weight: 600; font-size: 18px; }
   .sn-links { display: flex; gap: 20px; margin-left: auto; font-size: 13px; color: var(--text-2); }
@@ -549,7 +574,8 @@ const subnav = [
 
   .hero { padding: 72px 0 40px; }
   .hero-icon { width: 112px; height: 112px; margin: 0 auto 14px; }
-  .hero h1 { margin: 14px 0 18px; }
+  .hero h1 { margin: 14px 0 18px; text-wrap: balance; }
+  .hero-title-line { display: block; text-wrap: balance; }
   .req { font-size: 13px; margin-top: 18px; }
   /* ---------- 图集舞台 ---------- */
   .stage { position: relative; margin-top: 56px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px; isolation: isolate; }
@@ -559,7 +585,7 @@ const subnav = [
                 radial-gradient(35% 55% at 75% 30%, color-mix(in srgb, var(--accent-2) 50%, transparent), transparent 70%),
                 radial-gradient(30% 50% at 55% 70%, rgba(45, 212, 191, 0.35), transparent 70%); }
   .stage-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 6px 14px; }
-  .stage-tools { display: flex; align-items: center; gap: 16px; }
+  .stage-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 
   /* 画面区：桌面般的渐变底，窗口截图带投影悬浮其上；随指针产生光晕与轻微倾斜 */
   .stage-shots { position: relative; aspect-ratio: 1145 / 700; border-radius: 18px; overflow: hidden; perspective: 1600px;
@@ -711,11 +737,13 @@ const subnav = [
 
   @media (max-width: 900px) {
     .sn-links { display: none; }
-    .subnav .btn { margin-left: auto; }
+    .subnav .btn { margin-left: auto; flex: none; white-space: nowrap; }
     .ios-hero { grid-template-columns: 1fr; padding: 32px; }
     .faq { grid-template-columns: 1fr; gap: 24px; }
   }
   @media (max-width: 640px) {
+    .sn-name { min-width: 0; font-size: 16px; line-height: 1.2; }
+    .subnav .wrap { gap: 12px; }
     .stage { padding: 10px; border-radius: 20px; margin-top: 40px; }
     .stage-top { padding: 4px 6px 10px; }
     .ios-hero { padding: 24px; }

@@ -1,4 +1,14 @@
-<nav aria-label="后台导航" class="admin-nav">
-  <a href="/admin/">概览</a><a href="/admin/downloads/">下载统计</a><a href="/admin/feedback/">反馈管理</a><a href="/admin/services/">服务检查</a>
+---
+interface Props { current?: 'users' | 'feedback' | 'apps' | 'downloads' | 'overview' | 'services' }
+const current = Astro.props.current ?? (Astro.url.pathname.split('/')[2] || 'overview');
+const items = [['overview', '概览'], ['feedback', '反馈管理'], ['users', '用户管理'], ['apps', '软件与仓库'], ['downloads', '下载统计'], ['services', '服务检查']];
+---
+<nav class="admin-nav" aria-label="管理后台">
+  {items.map(([id, title]) => <a href={id === 'overview' ? '/admin/' : `/admin/${id}/`} aria-current={id === current ? 'page' : undefined}>{title}</a>)}
 </nav>
-<style>.admin-nav{display:flex;flex-wrap:wrap;gap:18px;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:24px}.admin-nav a{font-size:14px;color:var(--accent)}</style>
+<style>
+  .admin-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0 28px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  a { padding: 8px 14px; border-radius: 10px; color: var(--text-2); font-size: 14px; }
+  a:hover { background: var(--surface-2); }
+  a[aria-current] { background: var(--text); color: var(--bg); }
+</style>

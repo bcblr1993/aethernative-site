@@ -1,5 +1,35 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.6.3"
+    build: "2026101301"
+    date: 2026-10-13
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.6.3/AetherTerm-v1.6.3-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.6.3
+    sha256: ffb8265daa821d48c3534a7de572dd767d5c365b47a181b7e7bb13ed96a4279e
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 统一官网、安装包和应用名称为 AetherTerm，修复旧安装路径更新后仍保留 ApexTerm 名称的问题。
+      en: Unifies the website, installer and app name as AetherTerm and fixes the legacy installation name during updates.
+    notes:
+      - title:
+          zh: 产品名称统一
+          en: Consistent product naming
+        items:
+          - zh: DMG、磁盘卷、应用程序、菜单和关于页面统一为 AetherTerm；已有会话与钥匙串保持兼容。
+            en: The DMG, disk volume, application, menus and About page use AetherTerm. Existing sessions and Keychain credentials stay compatible.
+          - zh: 首次从旧版更名建议使用 DMG 安装；历史自动更新器可能沿用 ApexTerm.app 路径。
+            en: Use the DMG for the first rename from older versions, whose updater may retain the ApexTerm.app path.
+      - title:
+          zh: 可靠更新与窗口恢复
+          en: Reliable updates and window reopening
+        items:
+          - zh: 新版更新器先复制完整安装包，失败时保留旧安装及回滚副本，并拒绝覆盖其他应用。
+            en: The new updater copies the complete package before replacing the app, preserves rollback copies and refuses to overwrite unrelated applications.
+          - zh: 关闭主窗口后可从“窗口 → 显示主窗口”或 ⇧⌘0 恢复，重复操作聚焦同一工作区。
+            en: Reopen the closed workspace with Window > Show Main Window or Shift-Command-0. Repeated actions focus the existing workspace.
   - version: "1.6.1"
     build: "2026100401"
     date: 2026-10-04

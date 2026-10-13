@@ -1,4 +1,5 @@
 // 用户反馈：字段校验、频率限制与数据库操作。
+import type { Screenshot } from './feedback-screenshots';
 
 export const CATEGORIES = ['bug', 'feature', 'other'] as const;
 export type Category = (typeof CATEGORIES)[number];
@@ -90,6 +91,7 @@ export async function rateLimited(db: D1Database, userId: string, now = Date.now
 }
 
 export interface FeedbackRow {
+  screenshot_ids: string;
   id: string;
   app_id: string;
   category: Category;
@@ -103,17 +105,21 @@ export interface FeedbackRow {
   updated_at: number;
 }
 
-const COLUMNS = 'id, app_id, category, title, body, app_version, os_version, status, admin_reply, created_at, updated_at';
+const COLUMNS = 'screenshot_ids, id, app_id, category, title, body, app_version, os_version, status, admin_reply, created_at, updated_at';
 
-export async function insertFeedback(db: D1Database, userId: string, f: FeedbackInput, now = Date.now()) {
+export async function insertFeedback(db: D1Database, userId: string, f: FeedbackInput, now = Date.now(), screenshots: Screenshot[] = []) {
   const id = crypto.randomUUID();
-  await db
+  const ids = screenshots.map(() => crypto.randomUUID());
+  await db.batch([db
     .prepare(
-      `INSERT INTO feedback (id, user_id, app_id, category, title, body, app_version, os_version, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO feedback (id, user_id, app_id, category, title, body, app_version, os_version, created_at, updated_at, screenshot_ids)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
-    .bind(id, userId, f.appId, f.category, f.title, f.body, f.appVersion, f.osVersion, now, now)
-    .run();
+    .bind(id, userId, f.appId, f.category, f.title, f.body, f.appVersion, f.osVersion, now, now, JSON.stringify(ids)),
+    ...screenshots.map((s, i) => db.prepare(
+      'INSERT INTO feedback_screenshots (id, feedback_id, mime, data) VALUES (?, ?, ?, ?)',
+    ).bind(ids[i], id, s.mime, s.data)),
+  ]);
   return (await db.prepare(`SELECT ${COLUMNS} FROM feedback WHERE id = ?`).bind(id).first<FeedbackRow>())!;
 }
 
@@ -128,6 +134,7 @@ export async function listFeedback(db: D1Database, userId: string) {
 /** 对外返回的字段（camelCase），不包含 user_id。 */
 export const publicFeedback = (r: FeedbackRow) => ({
   id: r.id,
+  screenshots: (JSON.parse(r.screenshot_ids ?? '[]') as string[]).map((id) => ({ id, url: `/api/feedback/screenshots/${id}` })),
   appId: r.app_id,
   category: r.category,
   title: r.title,
@@ -153,24 +160,42 @@ export interface AdminFeedbackRow extends FeedbackRow {
   user_email: string | null;
 }
 
-/** 管理员查看全部反馈（最新在前），可按状态筛选；before 为上一页最后一条的 created_at。 */
-export async function listAllFeedback(db: D1Database, opts: { status?: Status; before?: number } = {}) {
+/** before + beforeId 组成稳定游标，避免同一毫秒的反馈跨页丢失；兼容旧的时间戳参数。 */
+export async function listAllFeedback(db: D1Database, opts: { status?: Status; before?: number; beforeId?: string; userId?: string; appId?: string } = {}) {
   const where = ['1 = 1'];
   const args: unknown[] = [];
+  if (opts.userId) { where.push('f.user_id = ?'); args.push(opts.userId); }
+  if (opts.appId) { where.push('f.app_id = ?'); args.push(opts.appId); }
   if (opts.status) { where.push('f.status = ?'); args.push(opts.status); }
-  if (opts.before) { where.push('f.created_at < ?'); args.push(opts.before); }
+  if (opts.before !== undefined) {
+    if (opts.beforeId) {
+      where.push('(f.created_at < ? OR (f.created_at = ? AND f.id < ?))');
+      args.push(opts.before, opts.before, opts.beforeId);
+    } else { where.push('f.created_at < ?'); args.push(opts.before); }
+  }
   const { results } = await db
     .prepare(
       `SELECT ${COLUMNS.split(', ').map((c) => 'f.' + c).join(', ')}, f.user_id, u.name AS user_name, u.email AS user_email
          FROM feedback f JOIN users u ON u.id = f.user_id
-        WHERE ${where.join(' AND ')} ORDER BY f.created_at DESC LIMIT ?`,
+        WHERE ${where.join(' AND ')} ORDER BY f.created_at DESC, f.id DESC LIMIT ?`,
     )
-    .bind(...args, ADMIN_PAGE)
+    .bind(...args, ADMIN_PAGE + 1)
     .all<AdminFeedbackRow>();
-  return { rows: results, next: results.length === ADMIN_PAGE ? results.at(-1)!.created_at : null };
+  const rows = results.slice(0, ADMIN_PAGE);
+  const last = results.length > ADMIN_PAGE ? rows.at(-1)! : null;
+  return { rows, next: last?.created_at ?? null, nextId: last?.id ?? null };
 }
 
-export const adminFeedback = (r: AdminFeedbackRow) => ({ ...publicFeedback(r), user: { name: r.user_name, email: r.user_email } });
+export const adminFeedback = (r: AdminFeedbackRow) => ({ ...publicFeedback(r), user: { id: r.user_id, name: r.user_name, email: r.user_email } });
+
+/** 管理员登录提醒：只统计尚未进入处理流程的新反馈，不向普通用户暴露站点数据。 */
+export async function pendingFeedback(db: D1Database) {
+  const row = await db.prepare(
+    `SELECT COUNT(*) AS count, (SELECT id FROM feedback WHERE status = 'new' ORDER BY created_at DESC, id DESC LIMIT 1) AS latestId
+     FROM feedback WHERE status = 'new'`,
+  ).first<{ count: number; latestId: string | null }>();
+  return row ?? { count: 0, latestId: null };
+}
 
 export type AdminUpdate = { status?: Status; reply?: string | null };
 

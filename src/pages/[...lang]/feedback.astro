@@ -3,9 +3,11 @@
 // 支持 ?app=<软件 id> 预选软件（详情页、支持页的反馈入口会带上）。
 // 桌面端左右两栏（表单 / 我的反馈），窄屏改为顶部切换。
 import { getImage } from 'astro:assets';
+import '../../styles/feedback-screenshots.css';
 import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LoginButtons from '../../components/LoginButtons.astro';
+import { githubLinks } from '../../lib/github';
 import { getApps, getReleases, latestAppDownload } from '../../lib/apps';
 import { href, langParams, ui, type Lang } from '../../lib/i18n';
 
@@ -16,11 +18,13 @@ const apps = await Promise.all(
   (await getApps()).map(async (app) => ({
     id: app.id,
     name: app.data.name,
+    github: githubLinks(app.data.repo),
     version: latestAppDownload(app, await getReleases(app.id))?.version ?? '',
     icon: (await getImage({ src: app.data.icon, width: 64, height: 64 })).src,
   })),
 );
 const names = Object.fromEntries([...apps.map((a) => [a.id, a.name]), ['general', u.general]]);
+const repos = Object.fromEntries(apps.map((a) => [a.id, a.github]));
 const icons = Object.fromEntries(apps.map((a) => [a.id, a.icon]));
 const categories = Object.keys(u.categories) as (keyof typeof u.categories)[];
 
@@ -49,7 +53,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       <p class="hint">{u.publicHint} <a href={href(lang, '/support/')}>{ui[lang].nav.support} →</a></p>
     </header>
 
-    <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-icons={JSON.stringify(icons)} data-state="loading">
+    <div data-fb data-lang={lang} data-names={JSON.stringify(names)} data-repos={JSON.stringify(repos)} data-icons={JSON.stringify(icons)} data-state="loading">
       <noscript><p class="card">{u.noscript}</p></noscript>
       <template data-mark><BrandMark size={12} /></template>
 
@@ -97,6 +101,10 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
             </div>
           </div>
 
+          <div class="repo-links" data-repo-links hidden>
+            <a data-repo target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a data-issues target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>
+          </div>
           <fieldset class="field">
             <legend class="lbl">{u.category}</legend>
             <div class="cats">
@@ -120,6 +128,19 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
           <div class="field" data-field="body">
             <label class="lbl" for="fb-body">{u.body} <small class="count" data-count>0 / 5000</small></label>
             <textarea id="fb-body" name="body" required minlength="10" maxlength="5000" rows="7" placeholder={u.bodyPh[categories[0]]}></textarea>
+          </div>
+          <div class="field">
+            <span class="lbl" id="fb-screenshot-label">{u.screenshots.label} <small>{u.optional}</small></span>
+            <div class="screenshot-upload" data-screenshots role="group" aria-labelledby="fb-screenshot-label" aria-describedby="fb-screenshot-hint">
+              <div class="screenshot-toolbar">
+                <button type="button" data-screenshot-add>{u.screenshots.add}</button>
+                <span data-screenshot-count aria-live="polite">0 / 3</span>
+              </div>
+              <input type="file" accept="image/png,image/jpeg,image/webp" multiple hidden data-screenshot-input />
+              <div class="screenshot-previews" data-screenshot-previews></div>
+              <p class="screenshot-hint" id="fb-screenshot-hint">{u.screenshots.hint}</p>
+              <p class="screenshot-message" data-screenshot-message role="status" aria-live="polite"></p>
+            </div>
           </div>
           <div class="row">
             <div class="field" data-field="appVersion">
@@ -160,6 +181,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
 </Base>
 
 <script>
+  import { setupScreenshots, screenshotGallery, type ScreenshotLink } from '../../lib/feedback-screenshots';
   import { getMe, markSignedOut, onSignedOut } from '../../lib/auth-client';
   import { fmtAgo, fmtDate, ui, type Lang } from '../../lib/i18n';
 
@@ -167,7 +189,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
   type Item = {
     id: string; appId: string; category: Category; title: string; body: string;
     appVersion: string | null; osVersion: string | null; status: 'new' | 'triaged' | 'replied' | 'closed';
-    reply: string | null; createdAt: number;
+    reply: string | null; createdAt: number; screenshots?: ScreenshotLink[];
   };
 
   const root = document.querySelector<HTMLElement>('[data-fb]');
@@ -175,9 +197,11 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
     const lang = (root.dataset.lang as Lang) ?? 'zh';
     const u = ui[lang].feedback;
     const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
+    const repos: Record<string, { repo: string; issues: string }> = JSON.parse(root.dataset.repos ?? '{}');
     const icons: Record<string, string> = JSON.parse(root.dataset.icons ?? '{}');
     const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
     const form = $<HTMLFormElement>('[data-form]');
+    const screenshots = setupScreenshots($('[data-screenshots]'), u.screenshots);
     const appSel = $<HTMLSelectElement>('[data-app]');
     const selIcon = $('[data-sel-icon]');
     const selImg = $<HTMLImageElement>('[data-sel-img]');
@@ -216,6 +240,12 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       versionInput.placeholder = v ? u.versionPh(v) : '';
       if (o?.dataset.icon) selImg.src = o.dataset.icon;
       selIcon.classList.toggle('is-mark', !o?.dataset.icon);
+      const links = repos[appSel.value];
+      $('[data-repo-links]').hidden = !links;
+      if (links) {
+        $<HTMLAnchorElement>('[data-repo]').href = links.repo;
+        $<HTMLAnchorElement>('[data-issues]').href = links.issues;
+      }
     };
     syncApp();
     appSel.addEventListener('change', syncApp);
@@ -281,7 +311,14 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       d.append(sum);
 
       const content = el('div', 'item-body');
-      content.append(el('p', 'text', f.body));
+      content.append(el('p', 'text', f.body), screenshotGallery(f.screenshots, u.screenshots.view));
+      if (repos[f.appId]) {
+        const links = el('div', 'repo-links');
+        for (const [key, label] of [['repo', 'GitHub ↗'], ['issues', 'GitHub Issues ↗']] as const) {
+          const a = el('a', '', label); a.href = repos[f.appId][key]; a.target = '_blank'; a.rel = 'noopener noreferrer'; links.append(a);
+        }
+        content.append(links);
+      }
       const ver = u.version(f.appVersion, f.osVersion);
       if (ver) content.append(el('p', 'item-ver', ver));
       if (f.reply) {
@@ -321,6 +358,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (screenshots.busy) return;
       const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
       // 先在本地做一遍和服务器相同的基本检查，少一次往返
       const bad = [];
@@ -329,6 +367,9 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       markInvalid(bad);
       if (bad.length) return say(u.invalid, 'err');
 
+      const payload = new FormData(form);
+      screenshots.append(payload);
+      screenshots.lock(true);
       submit.disabled = true;
       submit.textContent = u.submitting;
       say('');
@@ -336,12 +377,12 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
         const r = await fetch('/api/feedback', {
           method: 'POST',
           credentials: 'same-origin',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+          body: payload,
         });
         if (r.status === 201) {
           const { feedback } = (await r.json()) as { feedback: Item };
           form.reset();
+          screenshots.clear();
           appSel.value = data.appId;
           syncApp();
           syncPh();
@@ -353,7 +394,11 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
         } else if (r.status === 400) {
           const d = await r.json().catch(() => ({}));
           markInvalid(d.fields ?? []);
+          if (d.fields?.includes('screenshots')) screenshots.error();
           say(u.invalid, 'err');
+        } else if (r.status === 413) {
+          screenshots.error();
+          say(u.screenshots.failed, 'err');
         } else if (r.status === 429) {
           say(u.rateLimited(Math.max(1, Math.ceil(Number(r.headers.get('Retry-After') ?? 60) / 60))), 'err');
         } else if (r.status === 401) {
@@ -365,12 +410,14 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       } catch {
         say(ui[lang].auth.error, 'err');
       } finally {
+        screenshots.lock(false);
         submit.disabled = false;
         submit.textContent = u.submit;
       }
     });
 
     onSignedOut(() => {
+      screenshots.clear();
       setState('out');
       list.replaceChildren();
       setTotal(0);
@@ -385,6 +432,8 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
 </script>
 
 <style>
+  .repo-links, :global(.item .repo-links) { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--accent); }
+  .repo-links[hidden] { display: none; }
   .fb-wrap { padding-bottom: 100px; --danger: #d93a3a; }
 
   /* ---------- 顶部：比通用 page-hero 更紧凑，让表单出现在第一屏 ---------- */

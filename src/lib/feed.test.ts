@@ -30,6 +30,13 @@ const app = (over: Partial<AppInput> = {}): AppInput => ({
   ...over,
 });
 
+it('软件列表和详情都返回对应的仓库与 Issues 链接', () => {
+  const input = app({ repo: 'https://github.com/bcblr1993/ApexTerm' });
+  const links = { repo: 'https://github.com/bcblr1993/ApexTerm', issues: 'https://github.com/bcblr1993/ApexTerm/issues' };
+  expect(buildAppList({ site, apps: [input] }).apps[0]).toMatchObject(links);
+  expect(buildAppDetail({ site, app: input }).app).toMatchObject(links);
+});
+
 const news = (over: Partial<NewsInput> = {}): NewsInput => ({
   id: 'hello',
   date: new Date('2026-09-24T00:00:00Z'),

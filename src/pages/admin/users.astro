@@ -1,0 +1,160 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminNav from '../../components/AdminNav.astro';
+---
+<Base lang="zh" title="用户管理" standalone>
+  <div class="wrap users-admin">
+    <header class="page-hero"><p class="eyebrow">管理后台</p><h1>用户管理</h1><p>查看注册账号、登录情况和反馈，管理账号访问权限。</p></header>
+    <AdminNav current="users" />
+    <p role="status" aria-live="polite" data-hint>正在加载…</p>
+    <section data-content hidden>
+      <div class="metrics"><div class="card"><span>注册用户</span><strong data-total>—</strong></div><div class="card"><span>管理员</span><strong data-admins>—</strong></div><div class="card"><span>已禁用</span><strong data-disabled>—</strong></div></div>
+      <form class="filters" data-filters>
+        <label>搜索用户<input type="search" name="q" maxlength="120" placeholder="昵称、邮箱或用户 ID" /></label>
+        <label>账号状态<select name="status"><option value="">全部用户</option><option value="active">正常</option><option value="disabled">已禁用</option><option value="admin">管理员</option></select></label>
+        <button class="btn btn-p btn-sm" type="submit">查询</button>
+      </form>
+      <p class="muted result-count" data-count></p>
+      <div class="users" data-users></div>
+      <button class="btn btn-s btn-sm load-more" data-more hidden>加载更多</button>
+    </section>
+    <noscript><p>请启用 JavaScript 并登录管理员账号。</p></noscript>
+  </div>
+  <template data-user-template>
+    <article class="card user">
+      <div class="user-heading"><div><h2 data-name></h2><p class="muted" data-email></p></div><span class="badge" data-role></span></div>
+      <p class="user-id" data-id></p>
+      <dl><div><dt>登录来源</dt><dd data-providers></dd></div><div><dt>注册时间</dt><dd data-created></dd></div><div><dt>最近登录</dt><dd data-last></dd></div><div><dt>有效会话</dt><dd data-sessions></dd></div></dl>
+      <div class="actions"><a data-feedback></a><button type="button" data-revoke>强制退出</button><button type="button" data-toggle></button></div>
+      <p class="action-message" role="status" data-action-message></p>
+    </article>
+  </template>
+</Base>
+<script>
+  import { markSignedOut, onSignedOut } from '../../lib/auth-client';
+  interface User { id: string; name: string; email: string | null; isAdmin: boolean; disabledAt: number | null; createdAt: number; lastLoginAt: number; providers: string[]; feedbackCount: number; sessions: number }
+  interface Result { users: User[]; currentUserId: string; total: number; next: string | null; summary: { total: number; admins: number; disabled: number } }
+  const root = document.querySelector<HTMLElement>('.users-admin')!;
+  const $ = <T extends HTMLElement>(selector: string) => root.querySelector<T>(selector)!;
+  const hint = $('[data-hint]');
+  const content = $('[data-content]');
+  const form = $<HTMLFormElement>('[data-filters]');
+  const users = $('[data-users]');
+  const more = $<HTMLButtonElement>('[data-more]');
+  const template = document.querySelector<HTMLTemplateElement>('[data-user-template]')!;
+  let next: string | null = null;
+  let controller: AbortController | null = null;
+  let query = new URLSearchParams();
+  const initial = new URLSearchParams(location.search).get('q');
+  if (initial) (form.elements.namedItem('q') as HTMLInputElement).value = initial;
+  const date = (value: number) => new Date(value).toLocaleString('zh-CN', { hour12: false });
+  const providerNames: Record<string, string> = { google: 'Google', github: 'GitHub', apple: 'Apple' };
+
+  function render(user: User, me: string) {
+    const item = template.content.firstElementChild!.cloneNode(true) as HTMLElement;
+    const k = <T extends HTMLElement>(name: string) => item.querySelector<T>(`[data-${name}]`)!;
+    k('name').textContent = user.name + (user.id === me ? '（当前账号）' : '');
+    k('email').textContent = user.email ?? '未提供邮箱';
+    k('id').textContent = user.id;
+    k('providers').textContent = user.providers.map((p) => providerNames[p] ?? p).join(' / ') || '—';
+    k('created').textContent = date(user.createdAt);
+    k('last').textContent = date(user.lastLoginAt);
+    const feedback = k<HTMLAnchorElement>('feedback');
+    feedback.href = `/admin/feedback/?user=${encodeURIComponent(user.id)}`;
+    feedback.textContent = `查看反馈（${user.feedbackCount}）`;
+    const revoke = k<HTMLButtonElement>('revoke');
+    const toggle = k<HTMLButtonElement>('toggle');
+    const paint = () => {
+      k('role').textContent = user.isAdmin ? '管理员' : user.disabledAt !== null ? '已禁用' : '正常';
+      k('role').className = `badge ${user.disabledAt !== null ? 'warn' : 'gray'}`;
+      k('sessions').textContent = String(user.sessions);
+      toggle.textContent = user.disabledAt !== null ? '恢复账号' : '禁用账号';
+      toggle.hidden = revoke.hidden = user.isAdmin || user.id === me;
+      toggle.disabled = revoke.disabled = false;
+    };
+    paint();
+    async function act(action: 'disable' | 'enable' | 'revoke_sessions') {
+      const text = action === 'disable' ? `禁用“${user.name}”？现有登录将退出，恢复前无法重新登录，反馈记录会保留。` : action === 'enable' ? `恢复“${user.name}”的账号？用户需重新登录。` : `让“${user.name}”在网页和 App 上全部退出登录？用户仍可重新登录。`;
+      if (!confirm(text)) return;
+      toggle.disabled = revoke.disabled = true;
+      k('action-message').textContent = '正在保存…';
+      try {
+        const response = await fetch(`/api/admin/users/${encodeURIComponent(user.id)}`, { method: 'PATCH', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }) });
+        if (response.status === 401) markSignedOut();
+        if (!response.ok) throw new Error(response.status === 409 ? '管理员账号受保护。' : response.status === 401 || response.status === 403 ? '登录失效或没有管理权限，请重新登录。' : '保存失败，请重试。');
+        const wasDisabled = user.disabledAt !== null;
+        if (action === 'disable') user.disabledAt ??= Date.now();
+        if (action === 'enable') user.disabledAt = null;
+        user.sessions = 0;
+        const delta = Number(user.disabledAt !== null) - Number(wasDisabled);
+        $('[data-disabled]').textContent = String(Number($('[data-disabled]').textContent) + delta);
+        k('action-message').textContent = action === 'disable' ? '账号已禁用，现有登录已退出。' : action === 'enable' ? '账号已恢复，可重新登录。' : '已退出所有现有登录。';
+      } catch (error) { k('action-message').textContent = (error as Error).message; }
+      finally { paint(); }
+    }
+    revoke.addEventListener('click', () => { void act('revoke_sessions'); });
+    toggle.addEventListener('click', () => { void act(user.disabledAt !== null ? 'enable' : 'disable'); });
+    return item;
+  }
+
+  async function load(append = false) {
+    controller?.abort();
+    const active = new AbortController(); controller = active;
+    more.disabled = true;
+    if (!append) { users.replaceChildren(); more.hidden = true; query = new URLSearchParams([...new FormData(form)] as [string, string][]); }
+    const params = new URLSearchParams(query);
+    if (append && next) params.set('cursor', next);
+    hint.textContent = '正在加载…';
+    try {
+      const response = await fetch(`/api/admin/users?${params}`, { credentials: 'same-origin', signal: active.signal });
+      if (response.status === 401 || response.status === 403) { if (response.status === 401) markSignedOut(); content.hidden = true; users.replaceChildren(); hint.textContent = '请登录管理员账号后查看用户管理。'; return; }
+      if (!response.ok) throw new Error();
+      const data = await response.json() as Result;
+      if (active.signal.aborted) return;
+      content.hidden = false;
+      $('[data-total]').textContent = String(data.summary.total);
+      $('[data-admins]').textContent = String(data.summary.admins);
+      $('[data-disabled]').textContent = String(data.summary.disabled);
+      data.users.forEach((user) => users.append(render(user, data.currentUserId)));
+      next = data.next; more.hidden = !next;
+      $('[data-count]').textContent = `已显示 ${users.children.length} / ${data.total} 位用户`;
+      hint.textContent = data.total ? '' : '没有符合条件的用户。';
+    } catch { if (!active.signal.aborted) hint.textContent = '加载失败，请重新查询或刷新页面。'; }
+    finally { if (!active.signal.aborted) more.disabled = false; }
+  }
+  form.addEventListener('submit', (event) => { event.preventDefault(); void load(); });
+  more.addEventListener('click', () => { void load(true); });
+  onSignedOut(() => { controller?.abort(); users.replaceChildren(); content.hidden = true; hint.textContent = '已退出登录。'; });
+  void load();
+</script>
+<style>
+  .users-admin { padding-bottom: 80px; }
+  .page-hero { padding-bottom: 0; }
+  [data-content] { padding: 0; }
+  [hidden] { display: none !important; }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+  .metrics .card { padding: 18px 22px; box-shadow: none; }
+  .metrics span { font-size: 13px; color: var(--text-3); }
+  .metrics strong { display: block; font-size: 28px; }
+  .filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 24px 0 12px; }
+  .filters label { display: grid; gap: 6px; font-size: 13px; }
+  .filters label:first-child { flex: 1; min-width: 180px; }
+  input, select { min-height: 40px; font: inherit; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); }
+  .result-count { font-size: 13px; margin-bottom: 14px; }
+  .users { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .user { padding: 22px; box-shadow: none; min-width: 0; }
+  .user-heading { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+  .user-heading h2 { font-size: 18px; overflow-wrap: anywhere; }
+  .user-heading p { font-size: 13px; overflow-wrap: anywhere; }
+  .user-id { color: var(--text-3); font: 11px var(--mono); overflow-wrap: anywhere; margin-top: 6px; }
+  dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; font-size: 13px; }
+  dt { color: var(--text-3); margin-bottom: 2px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; }
+  .actions a { color: var(--accent); }
+  .actions button { background: none; border: 0; cursor: pointer; color: var(--text-2); padding: 4px 0; }
+  .actions button:disabled { opacity: .5; }
+  .action-message { font-size: 12px; color: var(--text-3); }
+  .action-message:not(:empty) { margin-top: 10px; }
+  .load-more { margin: 24px auto; }
+  @media (max-width: 640px) { .users { grid-template-columns: 1fr; } .metrics .card { padding: 14px; } .user { padding: 18px; } }
+</style>

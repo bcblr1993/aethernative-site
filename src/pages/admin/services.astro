@@ -7,10 +7,13 @@ import AdminNav from '../../components/AdminNav.astro';
 <p><a href="https://github.com/bcblr1993/aethernative-site/actions/workflows/service-health.yml" target="_blank" rel="noopener">在 GitHub 查看或手动运行检查 ↗</a></p>
 <p data-status role="status">正在加载…</p><section data-results></section></div></Base>
 <script>
+import { markSignedOut, onSignedOut } from '../../lib/auth-client';
+const controller = new AbortController();
+onSignedOut(() => { controller.abort(); document.querySelector('[data-results]')!.replaceChildren(); status.textContent = '请先登录管理员账号。'; });
 const status=document.querySelector<HTMLElement>('[data-status]')!;
-fetch('/api/admin/services',{credentials:'same-origin'}).then(async r=>{
- if(!r.ok){status.textContent=r.status===401?'请先登录管理员账号。':r.status===403?'当前账号没有管理权限。':'尚无可用检查报告，请运行检查。';return;}
- const {report,catalog}=await r.json();
+fetch('/api/admin/services',{credentials:'same-origin',signal:controller.signal}).then(async r=>{
+ if(!r.ok){if(r.status===401)markSignedOut();status.textContent=r.status===401?'请先登录管理员账号。':r.status===403?'当前账号没有管理权限。':'尚无可用检查报告，请运行检查。';return;}
+ const {report,catalog}=await r.json();if(controller.signal.aborted)return;
  const stale=Date.now()-Date.parse(report.checkedAt)>12*3600_000;
  status.textContent=`最近检查：${new Date(report.checkedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})}${stale?' · 报告已过期，请重新检查':''}`;
  const root=document.querySelector<HTMLElement>('[data-results]')!;
@@ -22,6 +25,6 @@ fetch('/api/admin/services',{credentials:'same-origin'}).then(async r=>{
   for(const check of result?.checks ?? []){const p=document.createElement('p');p.textContent=`${check.status==='ok'?'✓':check.status==='failed'?'✕':'—'} ${check.message}`;article.append(p);}
   root.append(article);
  }
-}).catch(()=>status.textContent='报告加载失败，请刷新重试。');
+}).catch(()=>{if(!controller.signal.aborted)status.textContent='报告加载失败，请刷新重试。';});
 </script>
-<style>.services{padding-bottom:70px}section :global(article){padding:24px;margin:20px 0}section :global(h2){font-size:20px;margin-bottom:12px}section :global(p){margin:8px 0;font-size:14px}</style>
+<style>.services{padding-bottom:70px}section{padding:0}section :global(article){padding:24px;margin:20px 0}section :global(h2){font-size:20px;margin-bottom:12px}section :global(p){margin:8px 0;font-size:14px}</style>

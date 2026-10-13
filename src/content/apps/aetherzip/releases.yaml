@@ -1,7 +1,7 @@
 releases:
   - version: "0.1.0-beta.1"
     build: "2026101213"
-    date: 2026-10-12
+    date: 2026-10-13
     channel: beta
     platform: mac
     download: https://github.com/bcblr1993/AetherZip/releases/download/v0.1.0-beta.1/AetherZip-0.1.0-beta.1-arm64.dmg

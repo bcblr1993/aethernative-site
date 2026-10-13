@@ -1,6 +1,6 @@
 // iPhone App 登录的公共部分：回调地址、一次性 code、登录成功后的响应。
 import { pkceChallenge, randomToken, sha256Hex } from './crypto';
-import { json } from './http';
+import { error, json } from './http';
 import { createAppSession, getProviders, publicUser, type User } from './session';
 
 /** App 内网页登录完成后跳回 App 的地址（ASWebAuthenticationSession 拦截这个 scheme） */
@@ -36,6 +36,7 @@ export async function redeemAuthCode(db: D1Database, code: string, verifier: str
 
 /** 登录成功：新建 App 会话，返回令牌与用户资料。 */
 export async function signedInResponse(db: D1Database, user: User, userAgent: string | null) {
+  if (user.disabled_at !== null) return error(403, 'account_disabled');
   const { token, expiresAt } = await createAppSession(db, user.id, userAgent);
   return json({ token, expiresAt, user: publicUser(user, await getProviders(db, user.id)) });
 }

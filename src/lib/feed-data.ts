@@ -10,6 +10,7 @@ async function toAppInput(app: App, docs: Map<string, AppInput['docs']>): Promis
   return {
     id: app.id,
     name: app.data.name,
+    repo: app.data.repo,
     order: app.data.order,
     featured: app.data.featured,
     icon: icon.src,

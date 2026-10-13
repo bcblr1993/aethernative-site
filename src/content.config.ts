@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { githubLinks } from './lib/github';
 
 /**
  * 内容目录：src/content/apps/<软件 id>/
@@ -34,7 +35,7 @@ const apps = defineCollection({
       tagline: L,
       summary: L,
       tech: z.array(z.string()).default([]),
-      repo: z.url().optional(),
+      repo: z.url().refine((repo) => githubLinks(repo) !== null, '每款软件必须配置 GitHub 仓库地址'),
       /** Mac 版最低系统版本，写进 appcast 的 sparkle:minimumSystemVersion（单个版本可覆盖） */
       minimumSystemVersion: z.string().regex(/^\d+(\.\d+)*$/).optional(),
       /** Sparkle 公钥（Info.plist 的 SUPublicEDKey）。同步发版时用它核对签名，防止写入错误签名 */

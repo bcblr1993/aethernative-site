@@ -1,0 +1,16 @@
+title: { zh: 隐私政策, en: "Privacy Policy"  }
+heading: { zh: "你的记录，\n留在你的 Mac。", en: "Your notes stay\non your Mac." }
+meta: { zh: 适用于 AetherNote 0.1.1 · 2026 年 10 月 13 日, en: "Applies to AetherNote 0.1.1 · October 13, 2026"  }
+lead: { zh: AetherNote 无需账号，运行时不联网，不上传记录，不包含分析或遥测。, en: "AetherNote requires no account, makes no network connections during use, uploads no notes and includes no analytics or telemetry."  }
+sections:
+  - heading: { zh: 本地保存, en: "Local storage"  }
+    body:
+      - { zh: "正文、日期与显示顺序保存在 ~/Library/Application Support/AetherNote/journal.json。草稿和偏好分别保存在同目录的 drafts.json 与 preferences.json。", en: "Entries, dates and display order are stored in ~/Library/Application Support/AetherNote/journal.json. Drafts and preferences are stored separately as drafts.json and preferences.json in the same folder." }
+      - { zh: 本地文件与导出的备份由你管理，应用本身不加密文件。请妥善保管备份及这台 Mac 的访问权限。, en: "You control local files and exported backups. The app does not encrypt them. Keep backups and access to your Mac secure."  }
+  - heading: { zh: 提醒与导出, en: "Reminders and exports"  }
+    body:
+      - { zh: 提醒只使用菜单栏小标记，无需系统通知权限。复制、Markdown 导出和 JSON 备份仅在你操作时写入剪贴板或所选文件。, en: "Reminders use only a menu bar mark and need no notification permission. Copy, Markdown export and JSON backup write to your clipboard or chosen file only when you request them."  }
+      - { zh: 下载页面与 GitHub 属于外部网站；在浏览器访问时适用各网站的隐私政策。日记内容不会随下载请求发送。, en: "The download website and GitHub are external sites with their own privacy policies when visited in a browser. Journal contents are not sent with download requests."  }
+  - heading: { zh: 问题与建议, en: "Questions"  }
+    links:
+      - { label: GitHub Issues ↗, href: https://github.com/bcblr1993/AetherNote/issues }

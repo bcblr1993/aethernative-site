@@ -23,7 +23,7 @@ const u = ui[lang].auth;
   </details>
 
   <details class="pop" data-auth-in hidden>
-    <summary class="avatar" aria-label={u.account}><img alt="" referrerpolicy="no-referrer" data-avatar hidden /><span data-initial></span></summary>
+    <summary class="avatar" aria-label={u.account}><img alt="" referrerpolicy="no-referrer" data-avatar hidden /><span data-initial></span><b class="feedback-badge" data-feedback-badge hidden></b></summary>
     <div class="panel">
       <strong class="title" data-name></strong>
       <span class="fine" data-email></span>
@@ -31,16 +31,24 @@ const u = ui[lang].auth;
       <hr />
       <a class="item" href="/admin/" data-admin hidden>{lang === 'zh' ? '管理后台' : 'Admin dashboard'}</a>
       <a class="item" href={href(lang, '/feedback/')}>{u.myFeedback}</a>
+      <a class="item" href="/admin/feedback/?status=new" data-admin-feedback hidden>{u.manageFeedback}</a>
+      <a class="item" href="/admin/users/" data-admin-users hidden>{u.manageUsers}</a>
+      <a class="item" href="/admin/apps/" data-admin-apps hidden>{u.manageApps}</a>
       <button type="button" class="item" data-logout>{u.signOut}</button>
       <button type="button" class="item danger" data-delete>{u.deleteAccount}</button>
     </div>
   </details>
 
+  <aside class="feedback-notice" role="status" aria-live="polite" data-feedback-notice hidden>
+    <strong data-feedback-notice-text></strong>
+    <a href="/admin/feedback/?status=new">{u.viewFeedback} →</a>
+    <button type="button" data-feedback-dismiss aria-label={u.dismissFeedback}>×</button>
+  </aside>
   <p class="toast" role="status" aria-live="polite" data-toast hidden></p>
 </div>
 
 <script>
-  import { getMe, loginHref, markSignedOut, onSignedOut, type Me } from '../lib/auth-client';
+  import { getMe, loginHref, markSignedOut, maybeSignedIn, onSignedOut, type Me } from '../lib/auth-client';
   import { ui, type Lang } from '../lib/i18n';
 
   const root = document.querySelector<HTMLElement>('[data-auth]');
@@ -50,6 +58,44 @@ const u = ui[lang].auth;
     const out = $<HTMLDetailsElement>('[data-auth-out]');
     const inn = $<HTMLDetailsElement>('[data-auth-in]');
     const toast = $<HTMLParagraphElement>('[data-toast]');
+    const notice = $('[data-feedback-notice]');
+    const badge = $('[data-feedback-badge]');
+    const adminLink = $<HTMLAnchorElement>('[data-admin-feedback]');
+    let reminderKey = '';
+    let activeUser = false;
+    let refreshedAt = 0;
+    const updateReminder = (me: Me) => {
+      $('[data-admin]').hidden = !me.isAdmin;
+      reminderKey = `an:feedback-notice:${me.id}`;
+      const pending = me.adminFeedback;
+      const count = pending?.count ?? 0;
+      adminLink.hidden = !pending;
+      $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = !pending;
+      adminLink.textContent = count ? `${u.manageFeedback} · ${count}` : u.manageFeedback;
+      badge.hidden = count === 0;
+      badge.textContent = count > 99 ? '99+' : String(count);
+      inn.querySelector('summary')!.setAttribute('aria-label', count ? `${u.account} · ${u.newFeedback(count)}` : u.account);
+      if (!count || location.pathname.startsWith('/admin/feedback')) { notice.hidden = true; return; }
+      const signature = `${count}:${pending!.latestId}`;
+      let previous: string | null = null;
+      try { previous = sessionStorage.getItem(reminderKey); } catch { /* 存储不可用时仍显示提醒 */ }
+      if (previous === signature) return;
+      $('[data-feedback-notice-text]').textContent = u.newFeedback(count);
+      notice.hidden = false;
+      try { sessionStorage.setItem(reminderKey, signature); } catch { /* 提醒本身不依赖存储 */ }
+    };
+    $('[data-feedback-dismiss]').addEventListener('click', () => { notice.hidden = true; });
+    const refreshReminder = async (force = false) => {
+      if (activeUser && !maybeSignedIn()) { markSignedOut(); return; }
+      if (!activeUser || (!force && Date.now() - refreshedAt < 30_000)) return;
+      refreshedAt = Date.now();
+      const me = await getMe(true);
+      if (me) updateReminder(me);
+    };
+    // 回到网站及管理员处理完成时更新，无后台轮询。
+    window.addEventListener('focus', () => { void refreshReminder(); });
+    window.addEventListener('pageshow', (event) => { if (event.persisted) void refreshReminder(true); });
+    document.addEventListener('an:feedback-updated', () => { void refreshReminder(true); });
     const providerName: Record<string, string> = { google: 'Google', github: 'GitHub', apple: 'Apple' };
 
     const say = (msg: string) => {
@@ -59,12 +105,18 @@ const u = ui[lang].auth;
     };
 
     const showSignedOut = () => {
+      $('[data-admin]').hidden = true;
+      $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = true;
+      activeUser = false;
+      notice.hidden = badge.hidden = adminLink.hidden = true;
+      try { if (reminderKey) sessionStorage.removeItem(reminderKey); } catch { /* no-op */ }
       inn.hidden = true;
       inn.open = false;
       out.hidden = false;
     };
 
     const showSignedIn = (me: Me) => {
+      activeUser = true;
       // 一律用 textContent 写入，用户资料中的任何字符都不会被当作 HTML
       $('[data-name]').textContent = me.name;
       $('[data-email]').textContent = me.email ?? '';
@@ -79,7 +131,7 @@ const u = ui[lang].auth;
       out.hidden = true;
       out.open = false;
       inn.hidden = false;
-      $('[data-admin]').hidden = !me.isAdmin;
+      updateReminder(me);
     };
 
     // 登录后回到当前页面（含查询参数）；页面里其他登录按钮（如反馈页）一并处理
@@ -124,8 +176,8 @@ const u = ui[lang].auth;
   .auth { position: relative; }
   .pop > summary { list-style: none; cursor: pointer; }
   .pop > summary::-webkit-details-marker { display: none; }
-  .avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-size: 13px; font-weight: 600; }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; grid-area: 1 / 1; }
+  .avatar { position: relative; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-size: 13px; font-weight: 600; }
+  .avatar img { border-radius: 50%; width: 100%; height: 100%; object-fit: cover; grid-area: 1 / 1; }
   .avatar span { grid-area: 1 / 1; }
   .avatar img:not([hidden]) + span { visibility: hidden; }
   .panel { position: absolute; right: 0; top: 40px; width: min(300px, calc(100vw - 32px)); padding: 18px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; gap: 10px; z-index: 60; }
@@ -135,11 +187,15 @@ const u = ui[lang].auth;
   .fine a { color: var(--accent); }
   hr { border: 0; border-top: 1px solid var(--line); margin: 4px 0; }
   .item { display: block; text-align: left; padding: 8px 10px; margin: 0 -10px; border-radius: 10px; background: none; border: 0; font: inherit; font-size: 14px; color: var(--text); cursor: pointer; }
-  .item[hidden] { display: none; }
   .item:hover { background: var(--surface-2); }
   .danger { color: #d93a3a; }
   @media (max-width: 640px) {
     .panel { position: fixed; top: calc(var(--nav-h) + 6px); left: 16px; right: 16px; width: auto; }
   }
+  .feedback-badge { position: absolute; top: -6px; right: -10px; min-width: 18px; height: 18px; padding: 0 4px; display: grid; place-items: center; border-radius: 10px; background: #d93a3a; border: 2px solid var(--bg); color: white; font-size: 10px; line-height: 1; }
+  .feedback-notice { position: fixed; top: calc(var(--nav-h) + 12px); right: max(16px, calc((100vw - 1200px) / 2)); width: min(340px, calc(100vw - 32px)); padding: 18px 42px 18px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); z-index: 65; display: grid; gap: 8px; font-size: 14px; }
+  .feedback-notice a { color: var(--accent); font-weight: 600; }
+  .feedback-notice button { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; background: none; color: var(--text-3); font-size: 22px; cursor: pointer; }
+  .feedback-badge[hidden], .feedback-notice[hidden], [data-admin-feedback][hidden], [data-admin-users][hidden], [data-admin-apps][hidden] { display: none; }
   .toast { position: fixed; left: 50%; top: calc(var(--nav-h) + 12px); transform: translateX(-50%); padding: 10px 18px; border-radius: 14px; text-align: center; width: max-content; background: var(--text); color: var(--bg); font-size: 14px; box-shadow: var(--shadow); z-index: 70; max-width: calc(100vw - 32px); }
 </style>

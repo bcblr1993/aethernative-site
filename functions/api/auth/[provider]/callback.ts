@@ -50,6 +50,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
       codeVerifier: pending.verifier,
     });
     const user = await upsertUser(env.DB, profile);
+    if (user.disabled_at !== null) return fail('login-failed');
     if (app) return redirect(appRedirect({ code: await issueAuthCode(env.DB, user.id, app) }), [clearPending]);
     const cookies = await createSession(env.DB, user.id, request.headers.get('User-Agent'));
     return redirect(next, [clearPending, ...cookies]);

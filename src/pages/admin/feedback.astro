@@ -4,21 +4,29 @@
  * 回复后提交者在网站与 App 的“我的反馈”里看到，App 开启了通知的设备会收到推送。
  * 不进入站点地图、不被搜索引擎收录；页面是静态的，数据由浏览器请求 /api/admin/feedback。
  */
-import Base from '../../layouts/Base.astro';
+import '../../styles/feedback-screenshots.css';
 import AdminNav from '../../components/AdminNav.astro';
+import Base from '../../layouts/Base.astro';
+import { githubLinks } from '../../lib/github';
 import { getApps } from '../../lib/apps';
 
-const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]));
+const catalog = await getApps();
+const apps = Object.fromEntries(catalog.map((a) => [a.id, a.data.name]));
+const repos = Object.fromEntries(catalog.map((a) => [a.id, githubLinks(a.data.repo)]));
 ---
 <Base lang="zh" title="反馈管理" standalone>
-  <div class="wrap admin" data-apps={JSON.stringify({ ...apps, general: '网站 / 其他' })}>
+  <div class="wrap admin" data-repos={JSON.stringify(repos)} data-apps={JSON.stringify({ ...apps, general: '网站 / 其他' })}>
     <header class="page-hero">
-      <AdminNav /><h1>反馈管理</h1>
-      <a class="more" href="/admin/downloads/">每日下载统计 →</a>
+      <h1>反馈管理</h1>
       <p class="muted" data-hint>正在加载…</p>
     </header>
+    <AdminNav current="feedback" />
 
     <div class="toolbar" hidden data-toolbar>
+      <div class="filter-row">
+        <label>软件 <select data-app-filter><option value="">所有软件</option>{catalog.map((app) => <option value={app.id}>{app.data.name}</option>)}<option value="general">网站 / 其他</option></select></label>
+        <span data-user-filter hidden>正在查看指定用户的反馈 <a data-filter-user>用户资料</a> · <a href="/admin/feedback/">清除筛选</a></span>
+      </div>
       <div class="tabs" role="tablist">
         <button class="tab" data-status="" aria-pressed="true">全部</button>
         <button class="tab" data-status="new" aria-pressed="false">已收到</button>
@@ -42,9 +50,11 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
         <time data-k="time"></time>
       </div>
       <h2 data-k="title"></h2>
-      <p class="who" data-k="who"></p>
+      <a class="who" data-k="who"></a>
+      <div class="repo-links" data-k="repos"></div>
       <p class="ver" data-k="ver"></p>
       <pre class="body" data-k="body"></pre>
+      <div data-k="screenshots"></div>
       <label class="reply-label">回复（提交者可见；内容有变化时会推送给 App 用户）
         <textarea rows="4" maxlength="5000" data-k="reply"></textarea>
       </label>
@@ -63,7 +73,17 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
 </Base>
 
 <script>
+  import { markSignedOut, onSignedOut } from '../../lib/auth-client';
+  import { screenshotGallery, type ScreenshotLink } from '../../lib/feedback-screenshots';
+  import { ui } from '../../lib/i18n';
   const root = document.querySelector<HTMLElement>('.admin')!;
+  const repos: Record<string, { repo: string; issues: string }> = JSON.parse(root.dataset.repos!);
+  const appFilter = root.querySelector<HTMLSelectElement>('[data-app-filter]')!;
+  const params = new URLSearchParams(location.search);
+  const userFilter = params.get('user') ?? '';
+  if ([...appFilter.options].some((o) => o.value === params.get('app'))) appFilter.value = params.get('app')!;
+  root.querySelector<HTMLElement>('[data-user-filter]')!.hidden = !userFilter;
+  root.querySelector<HTMLAnchorElement>('[data-filter-user]')!.href = `/admin/users/?q=${encodeURIComponent(userFilter)}`;
   const apps: Record<string, string> = JSON.parse(root.dataset.apps!);
   const hint = root.querySelector<HTMLElement>('[data-hint]')!;
   const list = root.querySelector<HTMLElement>('[data-list]')!;
@@ -75,28 +95,52 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
   interface Item {
     id: string; appId: string; category: string; title: string; body: string;
     appVersion: string | null; osVersion: string | null; status: string; reply: string | null;
-    createdAt: number; user: { name: string; email: string | null };
+    screenshots?: ScreenshotLink[];
+    createdAt: number; user: { id: string; name: string; email: string | null };
   }
 
-  let status = '';
+  const initialStatus = new URLSearchParams(location.search).get('status') ?? '';
+  let status = Object.hasOwn(STATUS, initialStatus) ? initialStatus : '';
+  root.querySelectorAll<HTMLButtonElement>('.tab').forEach((tab) => tab.setAttribute('aria-pressed', String(tab.dataset.status === status)));
   let next: number | null = null;
+  let nextId: string | null = null;
 
+  let loading: AbortController | null = null;
   async function load(append = false) {
+    loading?.abort();
+    const active = new AbortController(); loading = active;
     const q = new URLSearchParams();
     if (status) q.set('status', status);
-    if (append && next) q.set('before', String(next));
-    const res = await fetch(`/api/admin/feedback?${q}`, { credentials: 'same-origin' });
-    if (res.status === 401) { hint.textContent = '请先在网站上登录管理员账号（导航栏右上角“登录”）。'; return; }
-    if (res.status === 403) { hint.textContent = '当前账号不是管理员。'; return; }
-    if (!res.ok) { hint.textContent = '加载失败，请刷新重试。'; return; }
-    const data = (await res.json()) as { feedback: Item[]; next: number | null };
-    root.querySelector<HTMLElement>('[data-toolbar]')!.hidden = false;
-    if (!append) list.replaceChildren();
-    data.feedback.forEach((f) => list.append(render(f)));
-    next = data.next;
-    more.hidden = !next;
-    hint.textContent = list.children.length ? `共 ${list.children.length} 条${next ? '（还有更多）' : ''}` : '没有反馈。';
+    if (userFilter) q.set('user', userFilter);
+    if (appFilter.value) q.set('app', appFilter.value);
+    if (append && next !== null) {
+      q.set('before', String(next));
+      if (nextId) q.set('beforeId', nextId);
+    }
+    more.disabled = true;
+    if (!append) { list.replaceChildren(); more.hidden = true; }
+    hint.textContent = '正在加载…';
+    try {
+      const res = await fetch(`/api/admin/feedback?${q}`, { credentials: 'same-origin', signal: active.signal });
+      if (res.status === 401 || res.status === 403) {
+        if (res.status === 401) markSignedOut();
+        list.replaceChildren();
+        root.querySelector<HTMLElement>('[data-toolbar]')!.hidden = true;
+        hint.textContent = '请登录管理员账号后查看反馈。'; return;
+      }
+      if (!res.ok) throw new Error();
+      const data = (await res.json()) as { feedback: Item[]; next: number | null; nextId: string | null };
+      if (active.signal.aborted) return;
+      root.querySelector<HTMLElement>('[data-toolbar]')!.hidden = false;
+      data.feedback.forEach((f) => list.append(render(f)));
+      next = data.next;
+      nextId = data.nextId;
+      more.hidden = next === null;
+      hint.textContent = list.children.length ? `共 ${list.children.length} 条${next ? '（还有更多）' : ''}` : '没有反馈。';
+    } catch { if (!active.signal.aborted) hint.textContent = '加载失败，请刷新重试。'; }
+    finally { if (!active.signal.aborted) more.disabled = false; }
   }
+  onSignedOut(() => { loading?.abort(); list.replaceChildren(); more.hidden = true; root.querySelector<HTMLElement>('[data-toolbar]')!.hidden = true; hint.textContent = '已退出登录。'; });
 
   /** 用户提交的内容一律用 textContent，不拼接 HTML */
   function render(f: Item) {
@@ -109,9 +153,16 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
     k('category').textContent = CATEGORY[f.category] ?? f.category;
     k('time').textContent = new Date(f.createdAt).toLocaleString('zh-CN', { hour12: false });
     k('title').textContent = f.title;
+    k<HTMLAnchorElement>('who').href = `/admin/users/?q=${encodeURIComponent(f.user.id)}`;
+    if (repos[f.appId]) {
+      for (const [key, label] of [['repo', 'GitHub ↗'], ['issues', 'GitHub Issues ↗']] as const) {
+        const a = document.createElement('a'); a.href = repos[f.appId][key]; a.textContent = label; a.target = '_blank'; a.rel = 'noopener noreferrer'; k('repos').append(a);
+      }
+    }
     k('who').textContent = `${f.user.name}${f.user.email ? ` · ${f.user.email}` : ''}`;
     k('ver').textContent = [f.appVersion && `软件 ${f.appVersion}`, f.osVersion].filter(Boolean).join(' · ');
     k('body').textContent = f.body;
+    k('screenshots').append(screenshotGallery(f.screenshots, ui.zh.feedback.screenshots.view));
     const reply = k<HTMLTextAreaElement>('reply');
     reply.value = f.reply ?? '';
     const select = k<HTMLSelectElement>('select');
@@ -134,12 +185,14 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
         });
+        if (res.status === 401) markSignedOut();
         if (!res.ok) throw new Error(String(res.status));
         const r = (await res.json()) as { feedback: Item; notified: boolean };
         f.reply = r.feedback.reply;
         f.status = r.feedback.status;
         select.value = f.status;
         paint(f.status);
+        document.dispatchEvent(new Event('an:feedback-updated'));
         saved.textContent = r.notified ? '已保存，已排队推送给用户的 App' : '已保存';
       } catch (e) {
         saved.textContent = `保存失败（${(e as Error).message}）`;
@@ -157,11 +210,19 @@ const apps = Object.fromEntries((await getApps()).map((a) => [a.id, a.data.name]
       load();
     }),
   );
+  appFilter.addEventListener('change', () => { void load(); });
   more.addEventListener('click', () => load(true));
   load();
 </script>
 
 <style>
+  [hidden] { display: none !important; }
+  .filter-row { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; font-size: 13px; }
+  .filter-row select { margin-left: 8px; font: inherit; padding: 8px 12px; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 10px; }
+  .filter-row a, .repo-links { color: var(--accent); }
+  .repo-links { display: flex; gap: 16px; font-size: 13px; margin-top: 8px; }
+  .who:hover { text-decoration: underline; }
+
   .toolbar { margin-bottom: 18px; }
   .tabs { display: inline-flex; flex-wrap: wrap; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
   .tab { border: 0; background: none; color: var(--text-2); font-size: 14px; padding: 7px 16px; border-radius: 999px; cursor: pointer; }

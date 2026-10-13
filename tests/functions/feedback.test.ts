@@ -3,7 +3,10 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { LIMITS, validateFeedback } from '../../functions/_lib/feedback';
 import { onRequestPost as submit } from '../../functions/api/feedback/index';
 import { onRequestGet as mine } from '../../functions/api/feedback/mine';
-import { onRequestDelete as deleteMe } from '../../functions/api/me/index';
+import { onRequestDelete as deleteMe, onRequestGet as me } from '../../functions/api/me/index';
+import { onRequestGet as screenshot } from '../../functions/api/feedback/screenshots/[id]';
+import { onRequestGet as adminList } from '../../functions/api/admin/feedback/index';
+import { SCREENSHOT_LIMITS } from '../../functions/_lib/feedback-screenshots';
 import { createSession, upsertUser } from '../../functions/_lib/session';
 import { createD1 } from './d1';
 
@@ -151,5 +154,115 @@ describe('安全与限制', () => {
     expect(res.status).toBe(204);
     const rows = env.DB.raw.prepare('SELECT user_id FROM feedback').all();
     expect(rows).toEqual([{ user_id: b.user.id }]);
+  });
+});
+
+// 一张实际可解码的 1×1 PNG。
+const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5WQAAAAASUVORK5CYII=', 'base64');
+function upload(cookie: string, images: Blob[] = [new Blob([png], { type: 'image/png' })]) {
+  const data = new FormData();
+  for (const [key, value] of Object.entries(valid)) data.set(key, value);
+  images.forEach((image) => data.append('screenshots', image, 'screenshot.png'));
+  return new Request(`${ORIGIN}/api/feedback`, { method: 'POST', headers: { Origin: ORIGIN, Cookie: cookie }, body: data });
+}
+const readImage = (id: string, cookie = '') => screenshot({
+  request: new Request(`${ORIGIN}/api/feedback/screenshots/${id}`, { headers: { Cookie: cookie } }), env, params: { id },
+} as any);
+
+describe('反馈截图', () => {
+  it('最多三张，列表只含地址；作者和管理员可读，匿名及其他用户不可读', async () => {
+    const owner = await session();
+    const other = await session('other');
+    const admin = await session('admin');
+    env.DB.raw.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(admin.user.id);
+    const images = Array.from({ length: 3 }, () => new Blob([png], { type: 'image/png' }));
+    const res = await call(submit, upload(owner.cookie, images));
+    expect(res.status).toBe(201);
+    const { feedback } = await res.json();
+    expect(feedback.screenshots).toHaveLength(3);
+    const id = feedback.screenshots[0].id;
+    const mineResponse = await (await call(mine, get(owner.cookie))).json();
+    expect(mineResponse.feedback[0].screenshots).toEqual(feedback.screenshots);
+    const adminResponse = await (await call(adminList, get(admin.cookie))).json();
+    expect(adminResponse.feedback[0].screenshots).toEqual(feedback.screenshots);
+    const image = await readImage(id, owner.cookie);
+    expect(image.status).toBe(200);
+    expect(image.headers.get('Content-Type')).toBe('image/png');
+    expect(image.headers.get('Cache-Control')).toContain('no-store');
+    expect(image.headers.get('X-Content-Type-Options')).toBe('nosniff');
+    expect(Buffer.from(await image.arrayBuffer())).toEqual(png);
+    expect((await readImage(id, admin.cookie)).status).toBe(200);
+    expect((await readImage(id, other.cookie)).status).toBe(404);
+    expect((await readImage(id)).status).toBe(401);
+    expect((await readImage('missing', owner.cookie)).status).toBe(404);
+  });
+
+  it('拒绝超过三张、超大、空白、伪造类型和 SVG；不残留反馈或附件', async () => {
+    const { cookie } = await session();
+    const image = new Blob([png], { type: 'image/png' });
+    for (const images of [
+      [image, image, image, image],
+      [new Blob([new Uint8Array(SCREENSHOT_LIMITS.bytes + 1)], { type: 'image/png' })],
+      [new Blob([], { type: 'image/png' })],
+      [new Blob(['not an image'], { type: 'image/png' })],
+      [new Blob([png], { type: 'image/jpeg' })],
+      [new Blob(['<svg/>'], { type: 'image/svg+xml' })],
+    ]) {
+      const res = await call(submit, upload(cookie, images));
+      expect(res.status).toBe(400);
+      expect(await res.json()).toEqual({ error: 'invalid', fields: ['screenshots'] });
+    }
+    expect(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback').get().n).toBe(0);
+    expect(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback_screenshots').get().n).toBe(0);
+  });
+
+  it('multipart 同样要求同源，缺少 Content-Length 的超大流仍被拒绝', async () => {
+    const { cookie } = await session();
+    const crossSite = upload(cookie);
+    crossSite.headers.set('Origin', 'https://evil.example');
+    expect((await call(submit, crossSite)).status).toBe(403);
+    const huge = upload(cookie, [new Blob([new Uint8Array(2 * 1024 * 1024)], { type: 'image/png' })]);
+    expect(huge.headers.has('Content-Length')).toBe(false);
+    expect((await call(submit, huge)).status).toBe(413);
+    expect(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback').get().n).toBe(0);
+  });
+
+  it('附件写入失败会回滚正文，文本提交继续兼容', async () => {
+    const { cookie } = await session();
+    env.DB.raw.exec("CREATE TRIGGER fail_image BEFORE INSERT ON feedback_screenshots BEGIN SELECT RAISE(ABORT, 'storage failure'); END");
+    await expect(call(submit, upload(cookie))).rejects.toThrow('storage failure');
+    expect(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback').get().n).toBe(0);
+    expect((await call(submit, upload(cookie, []))).status).toBe(201);
+    expect((await call(submit, post(valid, cookie))).status).toBe(201);
+  });
+
+  it('注销账号清除截图，同时保留其他账号的截图', async () => {
+    const a = await session();
+    const b = await session('b');
+    const { feedback } = await (await call(submit, upload(a.cookie))).json();
+    await call(submit, upload(b.cookie));
+    await call(deleteMe, new Request(`${ORIGIN}/api/me`, { method: 'DELETE', headers: { Origin: ORIGIN, Cookie: a.cookie } }));
+    expect(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback_screenshots').get().n).toBe(1);
+    expect((await readImage(feedback.screenshots[0].id, b.cookie)).status).toBe(404);
+  });
+});
+
+describe('管理员登录提醒', () => {
+  it('仅管理员得到新反馈数量，处理后减少，普通用户不暴露管理数据', async () => {
+    const owner = await session();
+    const admin = await session('admin');
+    env.DB.raw.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(admin.user.id);
+    const { feedback } = await (await call(submit, post(valid, owner.cookie))).json();
+    await call(submit, post(valid, owner.cookie));
+    const before = await (await call(me, get(admin.cookie))).json();
+    expect(before.user.adminFeedback.count).toBe(2);
+    expect(before.user.adminFeedback.latestId).toBeTruthy();
+    const ordinary = await (await call(me, get(owner.cookie))).json();
+    expect(ordinary.user).not.toHaveProperty('adminFeedback');
+    env.DB.raw.prepare("UPDATE feedback SET status = 'triaged' WHERE id = ?").run(feedback.id);
+    expect((await (await call(me, get(admin.cookie))).json()).user.adminFeedback.count).toBe(1);
+    env.DB.raw.prepare("UPDATE feedback SET status = 'closed'").run();
+    expect((await (await call(me, get(admin.cookie))).json()).user.adminFeedback).toEqual({ count: 0, latestId: null });
+    expect((await call(me, get(''))).status).toBe(401);
   });
 });
