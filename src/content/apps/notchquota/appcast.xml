@@ -4,16 +4,16 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>AetherNotchQuota</title>
         <item>
-            <title>0.1.26</title>
-            <pubDate>Mon, 12 Oct 2026 19:07:15 +0800</pubDate>
-            <sparkle:version>0.1.26</sparkle:version>
-            <sparkle:shortVersionString>0.1.26</sparkle:shortVersionString>
+            <title>0.1.27</title>
+            <pubDate>Tue, 13 Oct 2026 15:15:23 +0800</pubDate>
+            <sparkle:version>0.1.27</sparkle:version>
+            <sparkle:shortVersionString>0.1.27</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.26/AetherNotchQuota-0.1.26-macos-arm64.dmg" length="7757481" type="application/octet-stream" sparkle:edSignature="mhIsbfU6L8Nawz1f7z0aPEr91/9bmHevpqLYwCE9IbWCHnqpp2DAeEe0YEyO9yvXR/6EvvqJyX4Peben7D4mBw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.27/AetherNotchQuota-0.1.27-macos-arm64.dmg" length="13477814" type="application/octet-stream" sparkle:edSignature="0uyb7ci3qIuiCI0C7wB38zqaKNajwj4blcFW+KjArkswyAz9z86pq/NNy/f/KskPm7S28/YGjLtnZkiDnIZJBw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: B+pELVjIkD1ktI1GLLQFoDsNCXPrh7ku7apbzgoUtfmz1ZByVMtcsRuERdOUj+ZrLzeho5F4ZdolCd/D6DBiAA==
-length: 1166
+edSignature: asIUnje2pzmZJ1CL37ONYkF+5loqun9fZKR2eyMdayltXQs39KMOToNZMVixrVPWcNaT7YKp7EIon0H2u4CfDw==
+length: 1167
 -->
