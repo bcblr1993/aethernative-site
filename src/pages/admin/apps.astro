@@ -1,21 +1,20 @@
 ---
-import { Image } from 'astro:assets';
+import AppIcon from '../../components/AppIcon.astro';
 import Base from '../../layouts/Base.astro';
-import AdminNav from '../../components/AdminNav.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
 import { getApps } from '../../lib/apps';
 import { githubLinks } from '../../lib/github';
 const apps = await getApps();
 ---
 <Base lang="zh" title="软件与仓库" standalone>
   <div class="wrap app-admin">
-    <header class="page-hero"><p class="eyebrow">管理后台</p><h1>软件与仓库</h1><p>每款软件的官网、GitHub 仓库与反馈入口。</p></header>
-    <AdminNav current="apps" />
+    <AdminHeader title="软件与仓库" description="每款软件的官网、GitHub 仓库与反馈入口。" />
     <p data-hint role="status">正在加载…</p>
     <div class="apps" data-content hidden>
       {apps.map((app) => {
         const links = githubLinks(app.data.repo)!;
         return <article class="card">
-          <div class="heading"><Image src={app.data.icon} width={48} height={48} alt="" /><div><h2>{app.data.name}</h2><p>{app.id}</p></div></div>
+          <div class="heading"><AppIcon app={app} size={48} /><div><h2>{app.data.name}</h2><p>{app.id}</p></div></div>
           <a class="repo" href={links.repo} target="_blank" rel="noopener noreferrer">{links.repo.replace('https://github.com/', '')} ↗</a>
           <div class="links"><a href={`/apps/${app.id}/`}>软件主页</a><a href={links.issues} target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a><a href={`/admin/feedback/?app=${app.id}`}>查看反馈</a></div>
         </article>;

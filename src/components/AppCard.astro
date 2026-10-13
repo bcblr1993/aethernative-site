@@ -3,6 +3,7 @@ import { downloadURL } from '../lib/download-url';
 /** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
 import { Image } from 'astro:assets';
 import PlatformBadges from './PlatformBadges.astro';
+import AppIcon from './AppIcon.astro';
 import { latestAppDownload, type App, type Release } from '../lib/apps';
 import { href, t, ui, type Lang } from '../lib/i18n';
 
@@ -17,8 +18,8 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
 ---
 <article class:list={['card', 'app-card', { feat: d.featured }]} data-platforms={platforms}>
   <div class="body">
-    <a href={page} class:list={['app-icon', { 'inset-icon': ['aetherfilm', 'aetherscreens'].includes(app.id) }]} aria-hidden="true" tabindex="-1">
-      <Image src={d.icon} alt="" width={128} height={128} />
+    <a href={page} class="app-icon-link" aria-hidden="true" tabindex="-1">
+      <AppIcon app={app} />
     </a>
     <PlatformBadges app={app} lang={lang} />
     <h3><a href={page}>{d.name}</a></h3>
@@ -49,7 +50,9 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
   .app-card .badges { margin: 18px 0 12px; }
   .app-card h3 a:hover { color: var(--accent); }
   .app-card p { margin-top: 6px; }
-  .app-icon { display: block; margin-left: -6px; }
+  .app-icon-link { display: block; width: fit-content; margin-left: -6px; }
+  .body { display: flex; flex-direction: column; height: 100%; }
+  .body > .cta { margin-top: auto; padding-top: 26px; }
   .feat { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 40px; align-items: center; }
   .feat h3 { font-size: 34px; }
   .specs { display: flex; gap: 22px; margin-top: 22px; font-size: 13px; color: var(--text-3); flex-wrap: wrap; }

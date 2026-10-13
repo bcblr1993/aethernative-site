@@ -1,17 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
-import AdminNav from '../../components/AdminNav.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
 import { getApps } from '../../lib/apps';
 const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
 ---
 <Base lang="zh" title="每日下载统计" standalone>
   <div class="wrap download-admin" data-apps={JSON.stringify(apps)}>
-    <header class="page-hero">
-      <p class="eyebrow">管理后台 · 北京时间</p>
-      <h1>每日下载统计</h1>
-      <p class="muted">记录官网下载按钮发起的安装包请求，重复点击会重复计数。已知爬虫和预加载不计入；不代表下载完成、独立用户或安装人数。直接从 GitHub、App Store 或应用内更新的下载不计入。</p>
-    </header>
-    <AdminNav current="downloads" />
+    <AdminHeader title="每日下载统计" description="按北京时间统计官网下载请求。重复点击会重复计数；不代表下载完成、独立用户或安装人数。已知爬虫和预加载不计入；直接从 GitHub、App Store 或应用内更新的下载不计入。" />
     <div class="presets">{[7,30,90].map(days => <button class="btn btn-s btn-sm" type="button" data-range={days}>近 {days} 天</button>)}</div>
     <form class="filters" data-filters>
       <label>软件<select name="app"><option value="">所有软件</option>{apps.map((app) => <option value={app.id}>{app.name}</option>)}</select></label>

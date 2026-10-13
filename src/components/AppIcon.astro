@@ -1,0 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import type { App } from '../lib/apps';
+
+interface Props { app: App; size?: number; eager?: boolean }
+const { app, size = 64, eager = false } = Astro.props;
+---
+<span class="product-icon" data-app-icon={app.id} style={`--icon-size:${size}px;--icon-scale:${app.data.iconScale};--icon-radius:${app.data.iconMask ? '24%' : '0'}`}>
+  <Image src={app.data.icon} alt="" width={size * 2} height={size * 2} loading={eager ? 'eager' : 'lazy'} />
+</span>

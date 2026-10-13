@@ -2,6 +2,7 @@ name: AetherZip
 order: 8
 repo: https://github.com/bcblr1993/AetherZip
 icon: ./media/icon.png
+iconScale: 0.98
 minimumSystemVersion: "26.0"
 tech: [Swift, SwiftUI, AppKit, 7-Zip]
 tagline: { zh: 轻一点，安心一点。, en: "Pack light. Share with confidence." }

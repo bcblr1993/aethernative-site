@@ -8,6 +8,7 @@ sparklePublicKey: pMww3oxkkT9VcymetHFOUIF1thb/n+xjVMlxuFXVHsY=
 # 软件开启了 SURequireSignedFeed，更新清单必须原样转发软件自己签名的 appcast.xml
 appcastMode: mirror
 icon: ./media/icon-v040.png
+iconScale: 0.87
 tech: [SwiftUI]
 
 tagline:

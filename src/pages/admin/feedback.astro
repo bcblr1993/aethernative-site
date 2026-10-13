@@ -5,7 +5,7 @@
  * 不进入站点地图、不被搜索引擎收录；页面是静态的，数据由浏览器请求 /api/admin/feedback。
  */
 import '../../styles/feedback-screenshots.css';
-import AdminNav from '../../components/AdminNav.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
 import Base from '../../layouts/Base.astro';
 import { githubLinks } from '../../lib/github';
 import { getApps } from '../../lib/apps';
@@ -16,11 +16,8 @@ const repos = Object.fromEntries(catalog.map((a) => [a.id, githubLinks(a.data.re
 ---
 <Base lang="zh" title="反馈管理" standalone>
   <div class="wrap admin" data-repos={JSON.stringify(repos)} data-apps={JSON.stringify({ ...apps, general: '网站 / 其他' })}>
-    <header class="page-hero">
-      <h1>反馈管理</h1>
-      <p class="muted" data-hint>正在加载…</p>
-    </header>
-    <AdminNav current="feedback" />
+    <AdminHeader title="反馈管理" description="查看用户反馈、跟进处理进度并回复。" />
+    <p class="muted" data-hint role="status">正在加载…</p>
 
     <div class="toolbar" hidden data-toolbar>
       <div class="filter-row">

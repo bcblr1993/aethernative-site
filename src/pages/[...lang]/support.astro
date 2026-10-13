@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import AppIcon from '../../components/AppIcon.astro';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CommunityCard from '../../components/CommunityCard.astro';
@@ -36,7 +36,7 @@ const docLinks = [
         return (
           <article class="card app">
             <div class="head">
-              <div class="icon"><Image src={app.data.icon} alt="" width={96} height={96} /></div>
+              <div class="icon"><AppIcon app={app} /></div>
               <div><h2>{app.data.name}</h2><p>{t(app.data.tagline, lang)}</p></div>
             </div>
             <ul>

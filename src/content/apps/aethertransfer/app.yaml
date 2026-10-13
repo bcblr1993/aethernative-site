@@ -2,6 +2,7 @@ name: AetherTransfer
 order: 9
 repo: https://github.com/bcblr1993/AetherTransfer
 icon: ./media/icon.png
+iconScale: 0.85
 minimumSystemVersion: "26.0"
 tech: [Swift 6, SwiftUI, AppKit, Liquid Glass, libcurl, libssh2]
 tagline:

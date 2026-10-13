@@ -3,6 +3,8 @@ name: AetherFilm
 order: 7
 repo: https://github.com/bcblr1993/AetherFilm
 icon: ./media/icon.png
+iconScale: 0.8
+iconMask: true
 minimumSystemVersion: "26.0"
 tech:
   - Swift 6

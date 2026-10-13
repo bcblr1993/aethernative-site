@@ -1,11 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import AdminNav from '../../components/AdminNav.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
 ---
 <Base lang="zh" title="用户管理" standalone>
   <div class="wrap users-admin">
-    <header class="page-hero"><p class="eyebrow">管理后台</p><h1>用户管理</h1><p>查看注册账号、登录情况和反馈，管理账号访问权限。</p></header>
-    <AdminNav current="users" />
+    <AdminHeader title="用户管理" description="查看注册账号、登录情况和反馈，管理账号访问权限。" />
     <p role="status" aria-live="polite" data-hint>正在加载…</p>
     <section data-content hidden>
       <div class="metrics"><div class="card"><span>注册用户</span><strong data-total>—</strong></div><div class="card"><span>管理员</span><strong data-admins>—</strong></div><div class="card"><span>已禁用</span><strong data-disabled>—</strong></div></div>

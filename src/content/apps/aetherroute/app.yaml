@@ -4,6 +4,7 @@ name: AetherRoute
 order: 1
 featured: true
 icon: ./media/mark-1024.png
+iconScale: 1.04
 repo: https://github.com/bcblr1993/AetherRoute
 minimumSystemVersion: "15.0"
 sparklePublicKey: hVgNMayXzdIN2G5V0aeepQYjD2moJQ/ANUy14lqMtEM=

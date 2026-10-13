@@ -1,6 +1,7 @@
 name: AetherNote
 order: 4.5
 icon: ./media/icon.png
+iconScale: 0.91
 repo: https://github.com/bcblr1993/AetherNote
 minimumSystemVersion: "14.0"
 tech:

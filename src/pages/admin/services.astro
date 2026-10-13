@@ -1,9 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import AdminNav from '../../components/AdminNav.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
 ---
-<Base lang="zh" title="服务检查" standalone><div class="wrap services"><AdminNav /><h1>下载与更新服务检查</h1>
-<p class="muted">每 6 小时检查各软件最新正式版安装包、SHA256、文件大小及更新源。失败会即时复测，连续两轮失败标记为持续异常；缺少发布校验信息会明确显示。</p>
+<Base lang="zh" title="服务检查" standalone><div class="wrap services"><AdminHeader title="下载与更新服务检查" description="每 6 小时检查各软件最新正式版安装包、SHA256、文件大小及更新源。失败会即时复测，连续两轮失败标记为持续异常；缺少发布校验信息会明确显示。" />
 <p><a href="https://github.com/bcblr1993/aethernative-site/actions/workflows/service-health.yml" target="_blank" rel="noopener">在 GitHub 查看或手动运行检查 ↗</a></p>
 <p data-status role="status">正在加载…</p><section data-results></section></div></Base>
 <script>

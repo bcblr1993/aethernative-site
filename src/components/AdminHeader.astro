@@ -1,0 +1,17 @@
+---
+import AdminNav from './AdminNav.astro';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<header class="page-hero admin-hero">
+  <p class="eyebrow">管理后台</p>
+  <h1>{title}</h1>
+  <p class="admin-description">{description}</p>
+</header>
+<AdminNav />
+<style>
+  .admin-hero { padding: 56px 0 0; }
+  .admin-hero h1 { font-size: clamp(32px, 4.6vw, 48px); margin: 12px 0; }
+  .admin-description { max-width: 780px; font-size: 15px; line-height: 1.65; color: var(--text-2); }
+  @media (max-width: 640px) { .admin-hero { padding-top: 36px; } }
+</style>

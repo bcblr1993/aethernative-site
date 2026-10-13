@@ -3,6 +3,7 @@ import { downloadURL } from '../../../../lib/download-url';
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import ThemeGallery from '../../../../components/ThemeGallery.astro';
 import Text from '../../../../components/Text.astro';
 import Checksum from '../../../../components/Checksum.astro';
@@ -80,7 +81,7 @@ const subnav = [
 
   <header class="hero" id="top">
     <div class="wrap center">
-      <div class:list={['hero-icon', { 'inset-icon': ['aetherfilm', 'aetherscreens'].includes(app.id) }]}><Image src={d.icon} alt={`${d.name} icon`} width={192} height={192} loading="eager" /></div>
+      <div class="hero-icon"><AppIcon app={app} size={112} eager /></div>
       <p class="eyebrow"><Text v={d.hero.eyebrow} lang={lang} /></p>
       <h1>{t(d.hero.title, lang).split('\n').map((line) => <span class="hero-title-line">{line}</span>)}</h1>
       <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
@@ -351,7 +352,7 @@ const subnav = [
   {d.cta && (
     <section data-reveal class="final">
       <div class="wrap center">
-        <div class="final-icon"><Image src={d.icon} alt="" width={128} height={128} /></div>
+        <div class="final-icon"><AppIcon app={app} size={84} /></div>
         <p class="eyebrow">{d.name} for {d.platforms.map((p) => p.id === 'mac' ? 'Mac' : 'iPhone').join(' & ')}</p>
         <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
         <div class="cta">

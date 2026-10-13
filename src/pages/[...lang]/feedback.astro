@@ -22,11 +22,13 @@ const apps = await Promise.all(
     github: githubLinks(app.data.repo),
     version: latestAppDownload(app, await getReleases(app.id))?.version ?? '',
     icon: (await getImage({ src: app.data.icon, width: 64, height: 64 })).src,
+    iconScale: app.data.iconScale,
+    iconRadius: app.data.iconMask ? '24%' : '0',
   })),
 );
 const names = Object.fromEntries([...apps.map((a) => [a.id, a.name]), ['general', u.general]]);
 const repos = Object.fromEntries(apps.map((a) => [a.id, a.github]));
-const icons = Object.fromEntries(apps.map((a) => [a.id, a.icon]));
+const icons = Object.fromEntries(apps.map((a) => [a.id, { src: a.icon, scale: a.iconScale, radius: a.iconRadius }]));
 const categories = Object.keys(u.categories) as (keyof typeof u.categories)[];
 
 // 图标都是静态 SVG，不含用户内容
@@ -93,7 +95,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
           <div class="field">
             <label class="lbl" for="fb-app">{u.app}</label>
             <div class="select">
-              <span class="sel-icon" data-sel-icon>
+              <span class="sel-icon product-icon" data-sel-icon>
                 <img alt="" width="28" height="28" data-sel-img />
                 <BrandMark size={12} />
               </span>
@@ -201,7 +203,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
     const u = ui[lang].feedback;
     const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
     const repos: Record<string, { repo: string; issues: string }> = JSON.parse(root.dataset.repos ?? '{}');
-    const icons: Record<string, string> = JSON.parse(root.dataset.icons ?? '{}');
+    const icons: Record<string, { src: string; scale: number; radius: string }> = JSON.parse(root.dataset.icons ?? '{}');
     const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
     const form = $<HTMLFormElement>('[data-form]');
     const screenshots = setupScreenshots($('[data-screenshots]'), u.screenshots);
@@ -242,6 +244,9 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
       const v = o?.dataset.version;
       versionInput.placeholder = v ? u.versionPh(v) : '';
       if (o?.dataset.icon) selImg.src = o.dataset.icon;
+      const icon = icons[o?.value ?? ''];
+      selIcon.style.setProperty('--icon-scale', String(icon?.scale ?? 1));
+      selIcon.style.setProperty('--icon-radius', icon?.radius ?? '0');
       selIcon.classList.toggle('is-mark', !o?.dataset.icon);
       const links = repos[appSel.value];
       $('[data-repo-links]').hidden = !links;
@@ -279,12 +284,17 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
     };
     const appIcon = (appId: string) => {
       if (!icons[appId]) return brand('item-icon');
-      const img = el('img', 'item-icon');
-      img.src = icons[appId];
+      const icon = icons[appId];
+      const frame = el('span', 'item-icon product-icon');
+      frame.style.setProperty('--icon-scale', String(icon.scale));
+      frame.style.setProperty('--icon-radius', icon.radius);
+      const img = el('img', '');
+      img.src = icon.src;
       img.alt = '';
       img.width = img.height = 32;
       img.loading = 'lazy';
-      return img;
+      frame.append(img);
+      return frame;
     };
 
     let total = 0;
@@ -502,7 +512,7 @@ const inbox = svg('<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5
     background-position: calc(100% - 22px) 21px, calc(100% - 17px) 21px; background-size: 5px 5px; background-repeat: no-repeat;
   }
   .sel-icon { position: absolute; left: 12px; top: 10px; width: 28px; height: 28px; pointer-events: none; }
-  .sel-icon img { width: 28px; height: 28px; border-radius: 7px; }
+  .sel-icon img { width: 28px; height: 28px; }
   .sel-icon :global(.brand-mark), .sel-icon.is-mark img { display: none; }
   .sel-icon.is-mark :global(.brand-mark) { display: grid; width: 28px; height: 28px; }
 

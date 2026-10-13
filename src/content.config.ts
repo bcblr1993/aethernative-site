@@ -32,6 +32,9 @@ const apps = defineCollection({
       order: z.number().default(100),
       featured: z.boolean().default(false),
       icon: image(),
+      /** Normalize the visible artwork to the same optical size without altering the source. */
+      iconScale: z.number().min(0.5).max(1.2).default(1),
+      iconMask: z.boolean().default(false),
       tagline: L,
       summary: L,
       tech: z.array(z.string()).default([]),
