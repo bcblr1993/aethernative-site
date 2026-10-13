@@ -3,78 +3,184 @@ order: 4.5
 icon: ./media/icon.png
 repo: https://github.com/bcblr1993/AetherNote
 minimumSystemVersion: "14.0"
-tech: [SwiftUI, AppKit, MIT]
-tagline: { zh: 把做过的小事，挂在这一周。, en: "Hang the little things you did on your week."  }
+tech:
+  - SwiftUI
+  - AppKit
+  - MIT
+tagline:
+  zh: 把做过的小事，挂在这一周。
+  en: Hang the little things you did on your week.
 summary:
   zh: 一天一张便签，随手记一行。拖动晾衣绳上的小纸片，回看这一周；历史记录随时可编辑，每小时轻提醒只留在菜单栏。
   en: One note a day, one line at a time. Move notes along a playful clothesline and look back on your week. Edit past days anytime, with quiet hourly reminders in the menu bar.
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 14+, en: "Apple silicon · macOS 14+"  }
+    requirement:
+      zh: Apple 芯片 · macOS 14+
+      en: Apple silicon · macOS 14+
 cardStats:
   - value: "7"
-    label: { zh: 一周最多七张, en: "Notes per week"  }
+    label:
+      zh: 一周最多七张
+      en: Notes per week
   - value: "3"
-    label: { zh: 语言与材质, en: "Languages and materials"  }
+    label:
+      zh: 语言与材质
+      en: Languages and materials
   - value: "0"
-    label: { zh: 账号与云端上传, en: "Accounts or cloud uploads"  }
+    label:
+      zh: 账号与云端上传
+      en: Accounts or cloud uploads
 hero:
-  eyebrow: { zh: 原生 Mac 便签 · 免费开源, en: "Native Mac journal · Free and open source"  }
-  title: { zh: "做过的小事，\n也值得记住。", en: "Little things done.\nWorth remembering." }
+  eyebrow:
+    zh: 原生 Mac 便签 · 免费开源
+    en: Native Mac journal · Free and open source
+  title:
+    zh: |-
+      做过的小事，
+      也值得记住。
+    en: |-
+      Little things done.
+      Worth remembering.
   lead:
-    zh: "完成一个功能、读了几页书，或只是出去走走。\n随手写一行，挂在今天的便签上；想补充时，随时回到那一天。"
-    en: "A feature finished, a few pages read, or a walk outside.\nWrite a line on today's note. Come back to any day whenever you have more to add."
+    zh: |-
+      完成一个功能、读了几页书，或只是出去走走。
+      随手写一行，挂在今天的便签上；想补充时，随时回到那一天。
+    en: |-
+      A feature finished, a few pages read, or a walk outside.
+      Write a line on today's note. Come back to any day whenever you have more to add.
   requirements:
-    zh: Apple 芯片 · macOS 14+ · macOS 27 交互玻璃效果
-    en: Apple silicon · macOS 14+ · Interactive glass on macOS 27
+    zh: Apple 芯片 · macOS 14+ · macOS 27 原生玻璃与弹性动画
+    en: Apple silicon · macOS 14+ · Native glass and spring motion on macOS 27
 gallery:
-  - label: { zh: 一周的晾衣绳, en: "Your weekly clothesline"  }
+  - label:
+      zh: 一周的晾衣绳
+      en: Your weekly clothesline
     zh: ./media/clothesline.png
 showcase:
-  eyebrow: { zh: 原生界面, en: "Native interface"  }
-  title: { zh: 写下一行，再回看一周。, en: "Write a line. Look back on a week."  }
+  eyebrow:
+    zh: 原生界面
+    en: Native interface
+  title:
+    zh: 写下一行，再回看一周。
+    en: Write a line. Look back on a week.
   lead:
     zh: 今天和过去的记录都可以继续编辑。周回顾按日期展开，方便阅读、复制与导出。
     en: Today's notes and past entries remain editable. The weekly review follows calendar order, ready to read, copy or export.
   note:
-    zh: 截图来自 macOS 27 上的 AetherNote 0.1.1，展示 Liquid Glass 与暖色纸张，内容为演示数据。
-    en: Actual AetherNote 0.1.1 captures on macOS 27, showing Liquid Glass and warm paper with demo entries. Screenshots show the Chinese interface.
+    zh: 截图来自 macOS 27 上的 AetherNote 0.1.2，展示新版 Liquid Glass 原生界面，内容为演示数据。
+    en: Actual AetherNote 0.1.2 captures on macOS 27, showing the redesigned native Liquid Glass interface with demo entries. Screenshots show the Chinese interface.
   items:
-    - title: { zh: 随时补记与修改, en: "Add and edit anytime"  }
-      caption: { zh: 回车记一条，历史日期也能补充、修改和删除。, en: "Press Return to add an entry. Past days support additions, edits and deletion too."  }
+    - title:
+        zh: 随时补记与修改
+        en: Add and edit anytime
+      caption:
+        zh: 回车记一条，历史日期也能补充、修改和删除。
+        en: Press Return to add an entry. Past days support additions, edits and deletion too.
       image: ./media/editor.png
-    - title: { zh: 安静地读完这一周, en: "Read your week at your own pace"  }
-      caption: { zh: 日期与正文分栏，按真实日期排列，可复制整周或导出 Markdown。, en: "Dates and entries sit side by side in calendar order. Copy the week or export Markdown."  }
+    - title:
+        zh: 安静地读完这一周
+        en: Read your week at your own pace
+      caption:
+        zh: 七天导航、记录概览与按日分组，点一下即可回到当天继续编辑。
+        en: Navigate seven days, see entry counts and read daily groups. Jump straight back into any past day to keep writing.
       image: ./media/review.png
+    - title:
+        zh: 让记录更贴合你的习惯
+        en: Make this space yours
+      caption:
+        zh: 语言、材质、轻提醒和应用更新分区呈现，操作更清晰。
+        en: Clear sections for language, materials, quiet reminders and in-app updates.
+      image: ./media/settings.png
 features:
-  eyebrow: { zh: 每天一点点, en: "A little each day"  }
-  title: { zh: 记录很轻，翻看有趣。, en: "Easy to write. A pleasure to revisit."  }
-  lead: { zh: 不用建立任务清单，也不必写成长篇日记。把今天做过的事情留下来就好。, en: "No task list to maintain and no long diary to write. Just keep a few things you did today."  }
+  eyebrow:
+    zh: 每天一点点
+    en: A little each day
+  title:
+    zh: 记录很轻，翻看有趣。
+    en: Easy to write. A pleasure to revisit.
+  lead:
+    zh: 不用建立任务清单，也不必写成长篇日记。把今天做过的事情留下来就好。
+    en: No task list to maintain and no long diary to write. Just keep a few things you did today.
   items:
-    - kicker: { zh: 随手记录, en: "Write"  }
-      title: { zh: 一行一件事，哪天都能改, en: "One line per moment. Any past day is editable."  }
-      body: { zh: 回车追加，粘贴多行自动分条；未提交的草稿自动保存。昨天漏写的事情可以补上，原有记录可以修订，所属日期保持不变。, en: "Return adds an entry and pasted lines become separate entries. Unsubmitted drafts save automatically. Add something you missed yesterday or correct an entry while keeping its original date."  }
-    - kicker: { zh: 拖动与回弹, en: "Play"  }
-      title: { zh: 拉一拉，再一键整理, en: "Give it a tug. Tidy with a click."  }
-      body: { zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击整理按钮或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天。, en: "Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click Tidy or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days."  }
-    - kicker: { zh: 语言与材质, en: "Appearance"  }
-      title: { zh: 玻璃、暖纸，或一张白纸, en: "Glass, warm paper, or a clean sheet"  }
-      body: { zh: 简体中文、English、日本語随时切换。macOS 27 支持交互玻璃，macOS 26 使用原生玻璃，较早系统使用磨砂材质；尊重减少动态效果与降低透明度设置。, en: "Switch between Chinese, English and Japanese. macOS 27 offers interactive glass, macOS 26 uses native glass, and earlier systems use translucent material. Reduced motion and transparency settings are respected."  }
-    - kicker: { zh: 轻提醒, en: "A quiet reminder"  }
-      title: { zh: 一小时，一个小标记, en: "An hour later, just a small mark"  }
-      body: { zh: 一小时没有记录后，只在菜单栏留一个小标记。没有声音，不抢焦点，不自动弹窗。输入时延后，休眠后重新计时，也可以完全关闭。, en: "After an hour without recording, a small mark appears in the menu bar. No sound, focus changes or automatic windows. Reminders wait while you type, reset after sleep and can be turned off."  }
+    - kicker:
+        zh: 随手记录
+        en: Write
+      title:
+        zh: 一行一件事，哪天都能改
+        en: One line per moment. Any past day is editable.
+      body:
+        zh: 回车追加，粘贴多行自动分条；未提交的草稿自动保存。昨天漏写的事情可以补上，原有记录可以修订，所属日期保持不变。
+        en: Return adds an entry and pasted lines become separate entries. Unsubmitted drafts save automatically. Add something you missed yesterday or correct an entry while keeping its original date.
+    - kicker:
+        zh: 拖动与回弹
+        en: Play
+      title:
+        zh: 拉一拉，再一键整理
+        en: Give it a tug. Tidy with a click.
+      body:
+        zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击整理按钮或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天。
+        en: Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click Tidy or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days.
+    - kicker:
+        zh: 语言与材质
+        en: Appearance
+      title:
+        zh: 玻璃、暖纸，或一张白纸
+        en: Glass, warm paper, or a clean sheet
+      body:
+        zh: 简体中文、English、日本語随时切换。macOS 26 与 27 使用原生玻璃，配合拖动回弹动画，较早系统使用磨砂材质；尊重减少动态效果与降低透明度设置。
+        en: Switch between Chinese, English and Japanese. macOS 26 and 27 use native glass with spring-driven drag interactions, and earlier systems use translucent material. Reduced motion and transparency settings are respected.
+    - kicker:
+        zh: 轻提醒
+        en: A quiet reminder
+      title:
+        zh: 一小时，一个小标记
+        en: An hour later, just a small mark
+      body:
+        zh: 一小时没有记录后，只在菜单栏留一个小标记。没有声音，不抢焦点，不自动弹窗。输入时延后，休眠后重新计时，也可以完全关闭。
+        en: After an hour without recording, a small mark appears in the menu bar. No sound, focus changes or automatic windows. Reminders wait while you type, reset after sleep and can be turned off.
+    - kicker:
+        zh: 应用内更新
+        en: In-app updates
+      title:
+        zh: 检查、下载，再重新启动
+        en: Check, download, then relaunch
+      body:
+        zh: 在设置或菜单选择“检查更新”，查看新版后下载，完成签名验证再安装并重新启动。默认手动检查，不自动下载，不强制重启。
+        en: Choose Check for Updates in Settings or the menu, review the new version, download it, then install and relaunch after signature verification. Checks are manual, with no automatic downloads or forced restarts.
 faq:
   eyebrow: FAQ
-  title: { zh: 开始之前, en: "Before you start"  }
-  lead: { zh: 关于记录、数据和安装。, en: "Notes, data and installation."  }
+  title:
+    zh: 开始之前
+    en: Before you start
+  lead:
+    zh: 关于记录、数据和安装。
+    en: Notes, data and installation.
   items:
-    - q: { zh: 过了当天，还能修改吗？, en: "Can I edit a day after it ends?"  }
-      a: { zh: 可以。0.1.1 起，今天与历史日期都可以追加、修改和删除；旧版数据直接读取，无需转换。未来日期到当天再开始记录。, en: "Yes. From 0.1.1, today and all past days support adding, editing and deleting entries. Existing journals load without conversion. Future dates become available when that day arrives."  }
-    - q: { zh: 记录会上传吗？, en: "Are my notes uploaded?"  }
-      a: { zh: 不会。应用运行时不联网，无账号、云同步和使用统计。记录保存在这台 Mac，可以导出 Markdown 或 JSON 备份；应用本身不加密本地文件。, en: "No. The app makes no network connections and has no account, cloud sync or analytics. Entries stay on your Mac and can be exported as Markdown or JSON backups. The app does not encrypt local files."  }
-    - q: { zh: 支持哪些 Mac？如何更新？, en: "Which Macs are supported, and how do I update?"  }
-      a: { zh: 公开安装包支持 Apple 芯片 Mac 与 macOS 14+，经过 Developer ID 签名和 Apple 公证。下载 DMG 后拖入 Applications；后续版本需手动下载并替换应用，数据会保留。, en: "Public packages support Apple silicon Macs running macOS 14 or later and are Developer ID signed and Apple notarized. Drag the app from the DMG into Applications. Updates are manual downloads that replace the app while preserving your data."  }
+    - q:
+        zh: 过了当天，还能修改吗？
+        en: Can I edit a day after it ends?
+      a:
+        zh: 可以。0.1.1 起，今天与历史日期都可以追加、修改和删除；旧版数据直接读取，无需转换。未来日期到当天再开始记录。
+        en: Yes. From 0.1.1, today and all past days support adding, editing and deleting entries. Existing journals load without conversion. Future dates become available when that day arrives.
+    - q:
+        zh: 记录会上传吗？
+        en: Are my notes uploaded?
+      a:
+        zh: 日记、草稿和备份不会上传，内容保存在这台 Mac，无账号、云同步和使用统计。手动检查更新会连接官网，下载更新连接 GitHub；应用本身不加密本地文件。
+        en: Notes, drafts and backups are never uploaded. They stay on your Mac with no account, cloud sync or analytics. Manual update checks connect to the website and downloads use GitHub. The app does not encrypt local files.
+    - q:
+        zh: 支持哪些 Mac？如何更新？
+        en: Which Macs are supported, and how do I update?
+      a:
+        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.2；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
+        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.2 manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
 cta:
-  title: { zh: 今天做过什么？先记一行。, en: "What did you do today? Start with a line."  }
-  note: { zh: 免费开源 · 本地保存 · 无需账号, en: "Free and open source · Stored locally · No account"  }
+  title:
+    zh: 今天做过什么？先记一行。
+    en: What did you do today? Start with a line.
+  note:
+    zh: 免费开源 · 本地保存 · 无需账号
+    en: Free and open source · Stored locally · No account
+sparklePublicKey: r4vCUXcvXnm1Y9oxJ4pbKqOZ+76IOkH/ilZj1MvmMUg=

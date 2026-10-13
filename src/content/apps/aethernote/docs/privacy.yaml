@@ -1,16 +1,47 @@
-title: { zh: 隐私政策, en: "Privacy Policy"  }
-heading: { zh: "你的记录，\n留在你的 Mac。", en: "Your notes stay\non your Mac." }
-meta: { zh: 适用于 AetherNote 0.1.1 · 2026 年 10 月 13 日, en: "Applies to AetherNote 0.1.1 · October 13, 2026"  }
-lead: { zh: AetherNote 无需账号，运行时不联网，不上传记录，不包含分析或遥测。, en: "AetherNote requires no account, makes no network connections during use, uploads no notes and includes no analytics or telemetry."  }
+title:
+  zh: 隐私政策
+  en: Privacy Policy
+heading:
+  zh: |-
+    你的记录，
+    留在你的 Mac。
+  en: |-
+    Your notes stay
+    on your Mac.
+meta:
+  zh: 适用于 AetherNote 0.1.2 · 2026 年 10 月 13 日
+  en: Applies to AetherNote 0.1.2 · October 13, 2026
+lead:
+  zh: AetherNote 无需账号，不上传日记、草稿和备份，不包含分析或遥测。手动检查与下载更新时会联网。
+  en: AetherNote needs no account, uploads no notes, drafts or backups, and includes no analytics or telemetry. Manual update checks and downloads use the network.
 sections:
-  - heading: { zh: 本地保存, en: "Local storage"  }
+  - heading:
+      zh: 本地保存
+      en: Local storage
     body:
-      - { zh: "正文、日期与显示顺序保存在 ~/Library/Application Support/AetherNote/journal.json。草稿和偏好分别保存在同目录的 drafts.json 与 preferences.json。", en: "Entries, dates and display order are stored in ~/Library/Application Support/AetherNote/journal.json. Drafts and preferences are stored separately as drafts.json and preferences.json in the same folder." }
-      - { zh: 本地文件与导出的备份由你管理，应用本身不加密文件。请妥善保管备份及这台 Mac 的访问权限。, en: "You control local files and exported backups. The app does not encrypt them. Keep backups and access to your Mac secure."  }
-  - heading: { zh: 提醒与导出, en: "Reminders and exports"  }
+      - zh: 正文、日期与显示顺序保存在 ~/Library/Application Support/AetherNote/journal.json。草稿和偏好分别保存在同目录的 drafts.json 与 preferences.json。
+        en: Entries, dates and display order are stored in ~/Library/Application Support/AetherNote/journal.json. Drafts and preferences are stored separately as drafts.json and preferences.json in the same folder.
+      - zh: 本地文件与导出的备份由你管理，应用本身不加密文件。请妥善保管备份及这台 Mac 的访问权限。
+        en: You control local files and exported backups. The app does not encrypt them. Keep backups and access to your Mac secure.
+  - heading:
+      zh: 应用内更新
+      en: In-app updates
     body:
-      - { zh: 提醒只使用菜单栏小标记，无需系统通知权限。复制、Markdown 导出和 JSON 备份仅在你操作时写入剪贴板或所选文件。, en: "Reminders use only a menu bar mark and need no notification permission. Copy, Markdown export and JSON backup write to your clipboard or chosen file only when you request them."  }
-      - { zh: 下载页面与 GitHub 属于外部网站；在浏览器访问时适用各网站的隐私政策。日记内容不会随下载请求发送。, en: "The download website and GitHub are external sites with their own privacy policies when visited in a browser. Journal contents are not sent with download requests."  }
-  - heading: { zh: 问题与建议, en: "Questions"  }
+      - zh: 点击“检查更新”会访问 aethernative.com 的更新清单，下载更新连接 GitHub。请求可能包含 IP 地址、应用和系统兼容信息，不包含日记内容；系统配置报告已关闭。
+        en: Check for Updates requests the feed at aethernative.com, and update downloads connect to GitHub. Requests may include your IP address and app/OS compatibility information, never journal contents. System-profile reporting is disabled.
+      - zh: 默认不自动检查或下载更新；安装后重新启动由你在更新窗口中确认。
+        en: Updates are not checked or downloaded automatically by default. You choose when to install and relaunch in the update window.
+  - heading:
+      zh: 提醒与导出
+      en: Reminders and exports
+    body:
+      - zh: 提醒只使用菜单栏小标记，无需系统通知权限。复制、Markdown 导出和 JSON 备份仅在你操作时写入剪贴板或所选文件。
+        en: Reminders use only a menu bar mark and need no notification permission. Copy, Markdown export and JSON backup write to your clipboard or chosen file only when you request them.
+      - zh: 下载页面与 GitHub 属于外部网站；在浏览器访问时适用各网站的隐私政策。日记内容不会随下载请求发送。
+        en: The download website and GitHub are external sites with their own privacy policies when visited in a browser. Journal contents are not sent with download requests.
+  - heading:
+      zh: 问题与建议
+      en: Questions
     links:
-      - { label: GitHub Issues ↗, href: https://github.com/bcblr1993/AetherNote/issues }
+      - label: GitHub Issues ↗
+        href: https://github.com/bcblr1993/AetherNote/issues

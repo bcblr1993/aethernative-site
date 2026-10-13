@@ -1,24 +1,66 @@
-title: { zh: 使用帮助, en: "Support"  }
-heading: { zh: "写一行，\n挂在今天。", en: "Write a line.\nHang it on today." }
-lead: { zh: Apple 芯片 Mac · macOS 14 或更新版本。, en: "Apple silicon Mac · macOS 14 or later."  }
+title:
+  zh: 使用帮助
+  en: Support
+heading:
+  zh: |-
+    写一行，
+    挂在今天。
+  en: |-
+    Write a line.
+    Hang it on today.
+lead:
+  zh: Apple 芯片 Mac · macOS 14 或更新版本。
+  en: Apple silicon Mac · macOS 14 or later.
 sections:
-  - heading: { zh: 安装与打开, en: "Install and open"  }
+  - heading:
+      zh: 安装与打开
+      en: Install and open
     steps:
-      - { zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。后续更新先退出应用，再用新版替换，原有记录会保留。, en: "Download the DMG, drag AetherNote into Applications and open it. For updates, quit first and replace the app with the newer version. Your notes stay in place."  }
-      - { zh: 点击菜单栏便签图标展开晾衣绳；也可以将鼠标移到屏幕顶部中央。固定按钮可以让晾衣绳保持显示。, en: "Click the menu bar note icon or move to the center of the top screen edge to reveal the line. Pin it to keep it visible."  }
-      - { zh: 使用 ⌃⌥N 记一行，⌃⌥L 展开或收起；快捷键冲突时仍可使用菜单栏入口。, en: "Use Control–Option–N to write a line and Control–Option–L to toggle the line. Menu bar actions remain available if shortcuts conflict."  }
-  - heading: { zh: 追加、修改与整理, en: "Write, edit and arrange"  }
+      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.2，本地记录保留。
+        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.2 manually once. Local notes are preserved.
+      - zh: 点击菜单栏便签图标展开晾衣绳；也可以将鼠标移到屏幕顶部中央。固定按钮可以让晾衣绳保持显示。
+        en: Click the menu bar note icon or move to the center of the top screen edge to reveal the line. Pin it to keep it visible.
+      - zh: 使用 ⌃⌥N 记一行，⌃⌥L 展开或收起；快捷键冲突时仍可使用菜单栏入口。
+        en: Use Control–Option–N to write a line and Control–Option–L to toggle the line. Menu bar actions remain available if shortcuts conflict.
+  - heading:
+      zh: 检查、下载与重启更新
+      en: Check, download and relaunch
+    steps:
+      - zh: 在设置、应用菜单或菜单栏图标的右键菜单中选择“检查更新…”。更新窗口跟随系统语言。
+        en: Choose Check for Updates… in Settings, the application menu or the menu bar icon’s context menu. Update windows follow the system language.
+      - zh: 查看新版信息并下载。下载完成且签名验证通过后，点击安装并重新启动。
+        en: Review the new version and download it. Once the archive has downloaded and its signature is verified, click Install and Relaunch.
+      - zh: 有未保存的正文修改时，先保存或取消后再继续；追加草稿会保存。若下载失败可重试，未安装前仍使用当前版本。
+        en: Save or cancel unfinished entry edits before continuing; append drafts are saved. Retry failed downloads. The current version remains in use until installation.
+    note:
+      zh: 默认不自动检查、下载或重启；0.1.2 是第一个包含更新器的版本。
+      en: No automatic checks, downloads or restarts by default. Version 0.1.2 is the first release with the updater.
+  - heading:
+      zh: 追加、修改与整理
+      en: Write, edit and arrange
     list:
-      - { zh: 点开任意今天或历史日期的便签，回车追加一条；Shift + 回车换行，提交多行时自动分条。通过每条记录的菜单修改或删除。, en: "Open today's note or any past day and press Return to add an entry. Shift–Return inserts a newline; submitting multiple lines creates separate entries. Use each entry's menu to edit or delete it."  }
-      - { zh: 过去的日期一直可编辑，未来日期到当天才开放；修改不会把旧记录移到今天。, en: "Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today."  }
-      - { zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。, en: "Drag sideways to reorder and vertically to spring back. Click Tidy or double-click the rope to restore date order. Settings include weekends, languages and materials."  }
-  - heading: { zh: 每小时轻提醒, en: "Quiet hourly reminders"  }
+      - zh: 点开任意今天或历史日期的便签，回车追加一条；Shift + 回车换行，提交多行时自动分条。通过每条记录的菜单修改或删除。
+        en: Open today's note or any past day and press Return to add an entry. Shift–Return inserts a newline; submitting multiple lines creates separate entries. Use each entry's menu to edit or delete it.
+      - zh: 过去的日期一直可编辑，未来日期到当天才开放；修改不会把旧记录移到今天。
+        en: Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today.
+      - zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。
+        en: Drag sideways to reorder and vertically to spring back. Click Tidy or double-click the rope to restore date order. Settings include weekends, languages and materials.
+  - heading:
+      zh: 每小时轻提醒
+      en: Quiet hourly reminders
     body:
-      - { zh: 一小时没有记录后，只出现菜单栏标记。输入时延后、休眠后重新计时；右键菜单栏可以选择稍后再说，设置中可以关闭或预览提醒。, en: "An hour without recording produces only a menu bar mark. Reminders defer while typing and reset after sleep. Right-click the menu bar icon to dismiss, or disable and preview reminders in Settings."  }
-  - heading: { zh: 备份与恢复, en: "Backup and recovery"  }
+      - zh: 一小时没有记录后，只出现菜单栏标记。输入时延后、休眠后重新计时；右键菜单栏可以选择稍后再说，设置中可以关闭或预览提醒。
+        en: An hour without recording produces only a menu bar mark. Reminders defer while typing and reset after sleep. Right-click the menu bar icon to dismiss, or disable and preview reminders in Settings.
+  - heading:
+      zh: 备份与恢复
+      en: Backup and recovery
     body:
-      - { zh: 周回顾可以复制整周或导出 Markdown。设置可以导出 JSON 日记备份，草稿与偏好不包含在此导出中；备份整个数据目录可一并保留。, en: "The weekly review can copy the week or export Markdown. Settings can export a JSON journal backup; drafts and preferences are separate. Copy the entire data folder to preserve them too."  }
-      - { zh: 恢复前退出应用，先复制整个数据目录留作备份，再将导出的 JSON 复制为该目录中的 journal.json 后重开。journal.previous.json 只保留上一次写入前的状态，不是长期历史备份。, en: "To restore, quit the app, back up the entire data directory, then copy an exported JSON file into it as journal.json and reopen. journal.previous.json keeps only the state before the latest write, not a long-term history."  }
+      - zh: 周回顾可以复制整周或导出 Markdown。设置可以导出 JSON 日记备份，草稿与偏好不包含在此导出中；备份整个数据目录可一并保留。
+        en: The weekly review can copy the week or export Markdown. Settings can export a JSON journal backup; drafts and preferences are separate. Copy the entire data folder to preserve them too.
+      - zh: 恢复前退出应用，先复制整个数据目录留作备份，再将导出的 JSON 复制为该目录中的 journal.json 后重开。journal.previous.json 只保留上一次写入前的状态，不是长期历史备份。
+        en: To restore, quit the app, back up the entire data directory, then copy an exported JSON file into it as journal.json and reopen. journal.previous.json keeps only the state before the latest write, not a long-term history.
     links:
-      - { label: GitHub Issues ↗, href: https://github.com/bcblr1993/AetherNote/issues }
-      - { label: MIT License ↗, href: https://github.com/bcblr1993/AetherNote/blob/main/LICENSE }
+      - label: GitHub Issues ↗
+        href: https://github.com/bcblr1993/AetherNote/issues
+      - label: MIT License ↗
+        href: https://github.com/bcblr1993/AetherNote/blob/main/LICENSE
