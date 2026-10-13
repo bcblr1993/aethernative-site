@@ -8,7 +8,7 @@ import Base from '../../layouts/Base.astro';
 import BrandMark from '../../components/BrandMark.astro';
 import LoginButtons from '../../components/LoginButtons.astro';
 import { githubLinks } from '../../lib/github';
-import { getApps, getReleases, latestStable } from '../../lib/apps';
+import { getApps, getReleases, latestAppDownload } from '../../lib/apps';
 import { href, langParams, ui, type Lang } from '../../lib/i18n';
 
 export const getStaticPaths = langParams;
@@ -19,7 +19,7 @@ const apps = await Promise.all(
     id: app.id,
     name: app.data.name,
     github: githubLinks(app.data.repo),
-    version: latestStable(await getReleases(app.id))?.version ?? '',
+    version: latestAppDownload(app, await getReleases(app.id))?.version ?? '',
     icon: (await getImage({ src: app.data.icon, width: 64, height: 64 })).src,
   })),
 );

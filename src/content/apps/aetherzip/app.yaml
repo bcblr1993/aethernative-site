@@ -1,0 +1,66 @@
+name: AetherZip
+order: 8
+repo: https://github.com/bcblr1993/AetherZip
+icon: ./media/icon.png
+minimumSystemVersion: "26.0"
+tech: [Swift, SwiftUI, AppKit, 7-Zip]
+tagline: { zh: 轻一点，安心一点。, en: "Pack light. Share with confidence." }
+summary:
+  zh: 为 Apple 芯片 Mac 打造的原生压缩工具。压缩、解压、密码保护与 Finder 快速操作，默认过滤 Mac 附属文件，让分享更干净。
+  en: A native archive utility for Apple silicon Macs. Compress, extract, protect with a password and work from Finder, with Mac metadata filtered by default for cleaner sharing.
+platforms:
+  - id: mac
+    status: beta
+    requirement: { zh: Apple 芯片 · macOS 26+, en: "Apple silicon · macOS 26+" }
+cardStats:
+  - value: "原生 / Native"
+    label: { zh: SwiftUI 与 Liquid Glass, en: "SwiftUI and Liquid Glass" }
+  - value: "ZIP · 7z"
+    label: { zh: 压缩与密码保护, en: "Compression and encryption" }
+  - value: "本机 / Local"
+    label: { zh: 文件和密码不上传, en: "No file or password uploads" }
+hero:
+  eyebrow: { zh: 原生归档 · 干净分享 · Beta, en: "Native archives · Clean sharing · Beta" }
+  title: { zh: "你的文件，\n轻装出发。", en: "Your files,\nready to travel." }
+  lead:
+    zh: "把文件拖进来，轻松压缩、加密或解压。\n原生玻璃界面与 Finder 快速操作，让每一步清楚可见。"
+    en: "Drop in your files to compress, encrypt or extract.\nNative glass controls and Finder actions keep every step within reach."
+  requirements: { zh: macOS 26 或更新版本 · 仅支持 Apple 芯片 M 系列, en: "macOS 26 or later · Apple silicon M-series only" }
+notice:
+  zh: 首个公开测试版，界面目前为中文。RAR 仅支持解压；ZIP 加密密码使用英文、数字或符号。此版本通过官网手动下载安装更新。
+  en: First public beta, with a Chinese interface. RAR extraction only; ZIP encryption uses ASCII passwords. Download updates manually from this website.
+gallery:
+  - label: { zh: 开始 · 浅色与深色, en: "Home · Light and dark" }
+    zh: ./media/home-light.png
+    zhDark: ./media/home-dark.png
+features:
+  eyebrow: { zh: 日常归档, en: "Everyday archives" }
+  title: { zh: 从打包到打开，都很自然。, en: "From packing to opening, naturally." }
+  lead: { zh: 将常用能力放在手边，复杂参数留给需要的时候。, en: "Everyday controls within reach, with extra options when you need them." }
+  items:
+    - kicker: { zh: 格式, en: "Formats" }
+      title: { zh: 常用格式，一处处理, en: "Familiar formats in one place" }
+      body: { zh: 创建 ZIP、7z、TAR、TAR.GZ、TAR.XZ 和 TAR.BZ2，解压 RAR/RAR5 与 Zstandard，浏览归档并选择需要的文件。, en: "Create ZIP, 7z, TAR, TAR.GZ, TAR.XZ and TAR.BZ2; extract RAR/RAR5 and Zstandard; browse archives and extract selected files." }
+    - kicker: { zh: 分享, en: "Sharing" }
+      title: { zh: 发出去，干干净净, en: "Share without the clutter" }
+      body: { zh: 默认过滤 __MACOSX、.DS_Store 和 AppleDouble 附属文件，保留真实隐藏文件。原文件保持不变，同名输出另取名称。, en: "Filters __MACOSX, .DS_Store and AppleDouble metadata by default while preserving real hidden files. Source files stay unchanged and existing outputs are not overwritten." }
+    - kicker: { zh: 保护, en: "Protection" }
+      title: { zh: 为内容加一道锁, en: "Put a lock on your files" }
+      body: { zh: ZIP AES 与 7z 密码保护，7z 还可隐藏文件名。密码仅在本机使用；支持加密归档解锁与解压，不提供密码破解。, en: "ZIP AES and 7z password protection, with optional hidden filenames in 7z. Passwords stay local. Open and extract encrypted archives with their password; password recovery is not included." }
+    - kicker: { zh: 体验, en: "Experience" }
+      title: { zh: Finder 里，就能开始, en: "Start right in Finder" }
+      body: { zh: 右键服务与快速操作支持压缩、加密和解压。查看真实任务进度，暂停、继续或取消；正常退出会等待正在执行的任务清理临时文件。, en: "Finder services and quick actions support compression, encryption and extraction. Follow real progress, pause, resume or cancel. Normal app exit waits for active operations to clean up temporary files." }
+faq:
+  eyebrow: FAQ
+  title: { zh: 使用前，了解这些。, en: "Before you start." }
+  lead: { zh: 首版范围与使用建议。, en: "First-beta scope and practical notes." }
+  items:
+    - q: { zh: Windows 和 Linux 用户能解压吗？, en: "Can Windows and Linux recipients open the archive?" }
+      a: { zh: 已验证 Windows 普通 ZIP 与 7-Zip 加密包，以及 Linux GNU tar 的 TAR、TAR.GZ、TAR.XZ、TAR.BZ2 双向互通。AES ZIP、7z 或分卷归档需要接收方使用支持相应格式的软件；加密 ZIP 并非所有系统自带解压工具都支持。, en: "Verified Windows plain ZIP and 7-Zip encrypted archives, plus TAR, TAR.GZ, TAR.XZ and TAR.BZ2 round trips with GNU tar on Linux. AES ZIP, 7z and split archives require a compatible extraction tool; not every built-in archive utility supports encrypted ZIP." }
+    - q: { zh: 能处理几个 GB 的文件吗？, en: "Can it handle multi-GB files?" }
+      a: { zh: 已通过 4 GiB 随机文件、8 GiB 重复日志及 10000 文件的往返校验。性能随格式、内容与设备变化；压缩 TAR 流在浏览和解压时需要额外临时磁盘空间。, en: "Round-trip checks passed for a 4 GiB random file, 8 GiB of repeated logs and 10,000 files. Performance varies by format, content and device. Compressed TAR browsing and extraction require extra temporary disk space." }
+    - q: { zh: 会保留 Mac 的资源叉吗？, en: "Does clean sharing preserve Mac resource forks?" }
+      a: { zh: 干净分享适合普通文件分发，不是保留全部 Mac 元数据的备份方式。需要保留资源叉和扩展属性时，请使用专用备份工具。, en: "Clean sharing is intended for ordinary file distribution, not full Mac metadata backups. Use a dedicated backup tool when resource forks and extended attributes must be preserved." }
+cta:
+  title: { zh: 试试 AetherZip Beta。, en: "Try AetherZip Beta." }
+  note: { zh: 本机处理 · macOS 26+ · Apple Silicon, en: "Local processing · macOS 26+ · Apple silicon" }
