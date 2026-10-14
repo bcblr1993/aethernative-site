@@ -4,13 +4,26 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.6</title>
-            <pubDate>Wed, 14 Oct 2026 20:47:54 +0800</pubDate>
-            <sparkle:version>37</sparkle:version>
-            <sparkle:shortVersionString>0.6.6</sparkle:shortVersionString>
+            <title>0.7.0</title>
+            <pubDate>Wed, 14 Oct 2026 22:21:17 +0800</pubDate>
+            <sparkle:version>38</sparkle:version>
+            <sparkle:shortVersionString>0.7.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.6
+            <description sparkle:format="markdown"><![CDATA[# v0.7.0
+
+- **Swift Concurrency Actor 隔离遥测架构 (Swift Concurrency Telemetry Actor)**：
+  - **全新 `actor TelemetryActor` 并发隔离**：将多开实例的状态解析、Darwin 原生内核进程指标检索与 CDP 截图会话调度整体迁移至现代 Swift 独立并发 Actor。
+  - **消除主线程与数据竞争风险**：确保后台多实例状态扫描与网络 I/O 运行在严格隔离的并发模型下，具备编译期数据竞争安全（Data-Race Safety），彻底消除因高负载多任务并发导致的潜在线程争用。
+- **Agent 任务疑似挂起与卡死智能哨兵 (Agent Task Stall Sentinel & Multi-Level Alerts)**：
+  - **3 分钟智能静默感知**：针对多实例并发执行复杂 Agent 任务时，个别实例因终端长命令死锁、网络阻塞或隐藏等待提示导致的「卡死未结束」痛点，引入精准的挂起检测。当实例处于运行状态但在超过 180 秒（3 分钟）内无任何新输出与步骤更新时，系统自动标记为 `.stalled`（疑似挂起）。
+  - **全链路多维可视告警**：
+    - **监控墙与列表卡片**：状态标签即时点亮琥珀金黄色（Amber），展示详细挂起时长 `⚠️ 疑似挂起（Xm无响应）：...` 并伴随警示光环。
+    - **桌面悬浮胶囊 (Floating HUD)**：呼吸状态点动态切换为琥珀色，副标题实时预警 `⚠️ N 个任务疑似挂起卡顿`，让用户在做其他工作时一目了然。
+    - **macOS 菜单栏与 Dock 栏**：菜单栏状态项动态切换为挂起专属图标 `⚠️` 与 `N挂起`，Dock 栏实时展示 `⏳` 徽标。
+    - **系统级主动通知**：触发原生横幅通知「任务疑似挂起」，点击即可瞬间调出卡死实例窗口，方便用户立即介入处理。
+
+# v0.6.6
 
 - **Darwin 内核原生 libproc 进程指标直读引擎 (Kernel-Direct Native Process Monitor)**：
   - **彻底移除 `/bin/ps` 子进程派生与进程表争用**：彻底重构资源指标采集管线，移除原先每 2.2 秒通过 `Process()` 派生 `/bin/ps -A -o pid,ppid,%cpu,rss,command` 扫描系统 600+ 进程文本的旧实现。
@@ -86,10 +99,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.6/Aether-Antigravity-Multiplexer-v0.6.6-macos-arm64.zip" length="3251354" type="application/octet-stream" sparkle:edSignature="+fM0XApp3/MVimbqqGetdn0LeZe7nHVlVRer/GBRnhIdHqHXfUCKGUcmLV5G2JEXF2bwGLi1qHwIFHFJkmViDQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.0/Aether-Antigravity-Multiplexer-v0.7.0-macos-arm64.zip" length="3255355" type="application/octet-stream" sparkle:edSignature="7CZW6j0641t4bQg72a5xO84HDdJd38+bX249LGxk3WJC1yfMnVHhAFthuZjiryJItaQq97Z7SpUuDcbkIbhDBQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: PoPG1bO1DxZBWEH/XvmerYzB9+AA7Tl6xQVqWdXvKY4HsYUMuvOjqxg1iO9VYXVClVwccDPtX4h4pnfASN9AAw==
-length: 12817
+edSignature: u0qg+3SVgmsOGhvkP0TXJT5EPPtwWa+juHgLZ8nx6bN7sdkhfXGrCYCd0Q044u9EEqwxNhRD3JDENHiULj5+Cw==
+length: 14609
 -->
