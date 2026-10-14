@@ -4,13 +4,22 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.2</title>
-            <pubDate>Wed, 14 Oct 2026 11:57:01 +0800</pubDate>
-            <sparkle:version>33</sparkle:version>
-            <sparkle:shortVersionString>0.6.2</sparkle:shortVersionString>
+            <title>0.6.3</title>
+            <pubDate>Wed, 14 Oct 2026 12:47:54 +0800</pubDate>
+            <sparkle:version>34</sparkle:version>
+            <sparkle:shortVersionString>0.6.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.2
+            <description sparkle:format="markdown"><![CDATA[# v0.6.3
+
+- **彻底消除 TCC 权限 IPC 轮询开销 (Zero-Cost TCC Permission Guard)**：
+  - 彻底移除周期性 2.2 秒定时器中的 `CGPreflightScreenCaptureAccess()` 查询。修复在用户未授予屏幕录制权限时，因权限为 false 导致每次轮询都重复触发向 macOS `tccd` 守护进程发起同步 IPC 授权检查的系统日志风暴。
+  - 仅在应用获得前台聚焦（`NSApplication.didBecomeActiveNotification`）、用户手动刷新或主动点击授权按钮时才进行单次权限检测，实现后台运行 0 TCC IPC 开销。
+- **精准的前台活跃实例判定与 CDP 截图深度节流 (True Frontmost App Detection for CDP Screenshots)**：
+  - 修复此前使用 `lastFrontmostAntigravityBundle` 判定前台实例时，当用户切换至 Terminal、IDE 或其他第三方软件后，变量未及时清空导致仍将上一实例误判为前台活跃并持续通过 WebSocket 进行 CDP 屏幕快照的漏洞。
+  - 升级为实时比对 macOS 全局前台活动应用（`NSWorkspace.shared.frontmostApplication?.bundleIdentifier`），用户切离 Antigravity 实例后瞬间暂停持续截图，显著节省后台 CPU/网络消耗与内存抖动。
+
+# v0.6.2
 
 - **SwiftUI 视图层级 Equatable 智能剪枝与单实例截图按需节流 (View Tree Pruning & Smart CDP Throttling)**：
   - **核心视图组件 Equatable 化**：为监控墙卡片 `InstanceThumbnailTile`、列表卡片 `InstanceCard` 以及极速切换面板行 `QuickSwitcherRow` 声明 `Equatable` 协议并附加 `.equatable()` 修饰符，实现数据未变更时 0 视图树重算与 0 字符串分配，消除全量 Layout/Draw 冗余开销。
@@ -41,10 +50,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.2/Aether-Antigravity-Multiplexer-v0.6.2-macos-arm64.zip" length="3215477" type="application/octet-stream" sparkle:edSignature="YOOwuUjGHoIYvQGFXN6sX1YNibH3Ce+k8+E8JHY0K6lFbKSmXtEYBiHfbFynmp0UhtoPGYTlsFl+521SzR6dAA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.3/Aether-Antigravity-Multiplexer-v0.6.3-macos-arm64.zip" length="3215824" type="application/octet-stream" sparkle:edSignature="PPbLUAxSGPYXUKIVDxIOsePY7SIU4QO1eyzov89qamb08J01iW8EZeDHNlLUwzYas7e6zuPU8rHUcaUPOFagDQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 3Y5vGI7T/CJePsdcHwE5DnF61fttI2qicKzpt3eULJFzk/ZLp5A0U3wbAo0psiijT1gF3xd6CFhqhbdwEy6LBg==
-length: 6227
+edSignature: siiOSCXJH+1RSzaFRprfjx0nfjfG45Lvmt4ojoUR3JrNRKmkQYL05fNWy2PhxhaF61kLdKOU5QPO0KJhCjwwBQ==
+length: 7431
 -->
