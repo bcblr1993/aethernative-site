@@ -4,13 +4,21 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.7.1</title>
-            <pubDate>Wed, 14 Oct 2026 22:40:25 +0800</pubDate>
-            <sparkle:version>39</sparkle:version>
-            <sparkle:shortVersionString>0.7.1</sparkle:shortVersionString>
+            <title>0.7.2</title>
+            <pubDate>Thu, 15 Oct 2026 01:06:30 +0800</pubDate>
+            <sparkle:version>40</sparkle:version>
+            <sparkle:shortVersionString>0.7.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.7.1
+            <description sparkle:format="markdown"><![CDATA[# v0.7.2
+
+- **2 小时高负载长稳遥测审计与极低能耗微渲染优化 (2-Hour Long-Run Telemetry Audit & Sub-Zero Render Engine)**：
+  - **状态栏菜单指纹增量缓存 (Status Bar Menu Signature Cache)**：重构 macOS 顶部状态栏渲染管线。针对原先每 2.2 秒无论实例状态是否有变均全量重建 `NSMenu` 和 15+ 个 `NSMenuItem` 的高频开销，引入轻量级状态指纹哈希校验。无状态变动时直接复用现有菜单树，彻底消除菜单栏持续排版重绘与堆内存碎片（长跑 2 小时以上常驻内存与待机 CPU 趋于极平）。
+  - **Dock 徽标状态变动防抖 (Dock Badge Change Guard)**：新增 `lastDockBadgeLabel` 状态对比守卫，仅在任务数量或告警状态发生实质变化时才调用 `NSApp.dockTile.display()`，消除对 macOS 系统 `Dock.app` 守护进程的无效高频 IPC 刷新。
+  - **悬浮 HUD 状态隔离与免重绘订阅 (Isolated HUD State Graph)**：将悬浮胶囊视图（Floating HUD）的状态观测模型与主数据中心解耦，分离出独立的 `FloatingHUDState`。后台资源遥测数据（CPU/内存微幅抖动）更新时不再波及 HUD 视图，消除了 QuartzCore `NSCoreTypesetterTruncateLine` 文字重排版的无谓开销。
+  - **浮窗层级与瞬态网络会话优化 (HUD Order & Ephemeral CDP Connection Pruning)**：优化浮窗显示逻辑，仅在浮窗未处于显示状态时才执行 `orderFrontRegardless()`；在 CDP 瞬态端口嗅探请求中显式注入 `Connection: close` 协议头，消除 Darwin 内核关于套接字连接清理的日志告警。
+
+# v0.7.1
 
 - **悬浮胶囊黑框裁切缺陷修复与视觉呼吸留白 (Zero-Artifact HUD Glass Capsule & Margin Shield)**：
   - **消除原生窗口黑框与截断阴影**：彻底修复部分 macOS 浅色/深色壁纸下悬浮胶囊四角出现矩形灰色背景及深色硬边框的视觉缺陷。通过关闭 WindowServer 底层矩形窗口阴影并赋予 SwiftUI Capsule 充分的外层透明衰减区，让胶囊光晕自然过渡，呈现通透精致的纯胶囊形态。
@@ -107,10 +115,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.1/Aether-Antigravity-Multiplexer-v0.7.1-macos-arm64.zip" length="3256582" type="application/octet-stream" sparkle:edSignature="vZxpJMa8OLFypeKVOcjvWiC6R8t3LU/j35gRWKianm8DGlc6/yVbVBuAZiahZY8paEsWbcsqJxagoH/hEUjOBA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.2/Aether-Antigravity-Multiplexer-v0.7.2-macos-arm64.zip" length="3260967" type="application/octet-stream" sparkle:edSignature="SVQRgdFNfn2hK79hI8O+C90ZHg/eftT28jsBsWbMY8C/KAtNVTbndg3Qg3ayON06pKFyvHm5Ng6bD7PYEz14DA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: VvmylZbdwCt03lkr4hwxR23W5/OOAAmFgtjm/ydBb0xDmF1+kTZFCzyor8YdnXkYfem1aKKXD9icNazkWG8hDQ==
-length: 15631
+edSignature: vVNYZjRKijbnn7hGlQ969U/Veg2iduvTR7ykZrKKZC1XEApSaD/TeeZt6C2I6XTsZPuaqcBL73gNT8XYGU2pAg==
+length: 17240
 -->
