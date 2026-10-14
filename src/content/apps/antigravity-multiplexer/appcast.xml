@@ -4,13 +4,20 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.1</title>
-            <pubDate>Wed, 14 Oct 2026 11:36:14 +0800</pubDate>
-            <sparkle:version>32</sparkle:version>
-            <sparkle:shortVersionString>0.6.1</sparkle:shortVersionString>
+            <title>0.6.2</title>
+            <pubDate>Wed, 14 Oct 2026 11:57:01 +0800</pubDate>
+            <sparkle:version>33</sparkle:version>
+            <sparkle:shortVersionString>0.6.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.1
+            <description sparkle:format="markdown"><![CDATA[# v0.6.2
+
+- **SwiftUI 视图层级 Equatable 智能剪枝与单实例截图按需节流 (View Tree Pruning & Smart CDP Throttling)**：
+  - **核心视图组件 Equatable 化**：为监控墙卡片 `InstanceThumbnailTile`、列表卡片 `InstanceCard` 以及极速切换面板行 `QuickSwitcherRow` 声明 `Equatable` 协议并附加 `.equatable()` 修饰符，实现数据未变更时 0 视图树重算与 0 字符串分配，消除全量 Layout/Draw 冗余开销。
+  - **单实例独立截图按需判定**：CDP 截图与系统窗口捕获机制升级为实例级精准调度。仅在实例当前处于聚焦激活态（Frontmost）、正在执行 Agent 任务（Streaming Output）、或初次加载缺失缩略图时抓取；后台空闲且非当前聚焦的实例自动复用既有快照，节省 75%+ 网络套接字、JPEG 压缩与解码开销。
+  - **全局活跃态变量防抖守卫**：对 `activeInstanceName` 与 `activeConversationURLs` 等核心 `@Published` 状态变量引入变动比对守卫，消除空闲状态下每次定时轮询触发的无效 `objectWillChange` 全局发布。
+
+# v0.6.1
 
 - **深度性能优化与系统资源消耗剧减 (Deep Performance & Battery Optimization)**：
   - **消除后台空闲 GPU/CPU 循环**：针对多实例运行且空闲时 `PulsingStatusDot` 呼吸动画在主窗口复杂阴影图层中触发全树 `layoutSubtreeIfNeeded` 与 `ShapeLayerShadowHelper.visitPaint` 频繁重绘的瓶颈，升级为按需动态触发（仅在实例正在执行 Agent 任务或需要人工处理时脉动，空闲时静止呈现），并使用 `.drawingGroup()` 彻底隔离动画图层，使应用后台空闲 CPU 占用从 35%~40% 骤降至接近 0%。
@@ -34,10 +41,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.1/Aether-Antigravity-Multiplexer-v0.6.1-macos-arm64.zip" length="3208748" type="application/octet-stream" sparkle:edSignature="wDlAoKdFhDlJw21D6n+VIfQtPnNBBfOV+v+/gsrfTRj6Cd/Yc0878COKo5Yq/HA6pGY9tbl5EOBU/Ejzom60BA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.2/Aether-Antigravity-Multiplexer-v0.6.2-macos-arm64.zip" length="3215477" type="application/octet-stream" sparkle:edSignature="YOOwuUjGHoIYvQGFXN6sX1YNibH3Ce+k8+E8JHY0K6lFbKSmXtEYBiHfbFynmp0UhtoPGYTlsFl+521SzR6dAA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: MR2Xfpk1GLA1tczGfYFeTHf4MLhx/gigz6I4n5IDVgk11DpIG4pRcOHps/hkrMWuHex14hHgSua1xnlwuOoHDQ==
-length: 5119
+edSignature: 3Y5vGI7T/CJePsdcHwE5DnF61fttI2qicKzpt3eULJFzk/ZLp5A0U3wbAo0psiijT1gF3xd6CFhqhbdwEy6LBg==
+length: 6227
 -->
