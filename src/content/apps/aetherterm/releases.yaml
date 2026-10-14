@@ -1,14 +1,37 @@
 # ApexTerm 版本记录
 releases:
   - version: "1.7.1"
+    build: "2026101403"
     date: 2026-10-14
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.7.1/AetherTerm-v1.7.1-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.7.1
     sha256: e2c47540e43d9574d5108da11fcc10fbdd3b5bb5453ff269be5705d6a09f6012
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
     summary:
-      zh: AetherTerm v1.7.1
-      en: AetherTerm v1.7.1
+      zh: 优化工作区与侧边栏像素级 UI 对齐，支持原生标题栏双击缩放窗口，修复关于弹窗点击立即更新无响应缺陷。
+      en: Refines pixel-perfect UI alignment, adds titlebar double-click to zoom, and fixes update button sheet collision.
+    notes:
+      - title:
+          zh: 窗口交互与界面对齐
+          en: Window Interaction and UI Alignment
+        items:
+          - zh: 原生标题栏双击缩放：双击工作区标题栏空白区域平滑放大/恢复窗口，智能避开交互控件并遵循系统偏好。
+            en: Native titlebar double-click to zoom window with smart control exclusion and system preference compliance.
+          - zh: 工作区标题与内容垂直基准对齐：工具栏会话标题与标签栏首项、终端 Prompt 和 SFTP 面板像素级对齐。
+            en: Workspace title is aligned to the vertical axis of tabs, terminal prompt, and SFTP panels.
+          - zh: 侧边栏边距对齐：统一侧边栏头部搜索框与会话列表行快捷按钮的水平边距（16pt）。
+            en: Aligns sidebar header controls with session row action buttons to 16pt margin.
+      - title:
+          zh: 更新修复与质量门禁
+          en: Updater Fix and Quality Gates
+        items:
+          - zh: 修复在关于弹窗中点击立即更新因 Sheet 模态层冲突导致无响应的问题。
+            en: Fixes unresponsive update button in About sheet due to modal presentation collision.
+          - zh: 新增窗口交互测试矩阵（TC-WIN-01 ~ TC-WIN-05），390+ 项自动化测试 100% 绿灯通过。
+            en: Adds window interaction test matrix (TC-WIN-01 ~ TC-WIN-05) with 100% test pass.
   - version: "1.7.0"
     build: "2026101401"
     date: 2026-10-14
