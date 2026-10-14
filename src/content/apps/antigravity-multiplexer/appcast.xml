@@ -4,32 +4,31 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.5.9</title>
-            <pubDate>Tue, 13 Oct 2026 22:56:30 +0800</pubDate>
-            <sparkle:version>30</sparkle:version>
-            <sparkle:shortVersionString>0.5.9</sparkle:shortVersionString>
+            <title>0.6.0</title>
+            <pubDate>Wed, 14 Oct 2026 10:57:40 +0800</pubDate>
+            <sparkle:version>31</sparkle:version>
+            <sparkle:shortVersionString>0.6.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.9
+            <description sparkle:format="markdown"><![CDATA[# v0.6.0
 
-- **深度审计与全面稳定性修复 (Comprehensive Stability & Bugfix Overhaul)**：
-  - **Dock 图标点击重开支持 (macOS Dock Icon Reopen)**：新增 `NSApplicationDelegate` 接管 `applicationShouldHandleReopen` 生命周期，点击 Dock 图标时平滑唤醒已关闭的主窗口，并优先维持已挂载模态弹窗的正确层级与焦点（避免破坏 Sheet 状态）。
-  - **单实例聚焦模式默认改为关闭 (Solo Focus Mode Disabled by Default)**：默认不再在激活某个实例时自动隐藏其他实例窗口，避免用户感觉「点击实例后其他窗口意外消失」的困扰，保持多窗口并列直观可视。
-  - **遥测与 CDP 扫描风暴防护 (Telemetry Scanning Thundering Herd Guard)**：为后台遥测和 WebSocket 抓帧添加并发互斥锁（`isScanningTelemetry`），杜绝因定时器触发叠加导致 `/bin/ps` 子进程和网络请求堆积卡顿。
-  - **全局热键签名严格过滤 (Carbon HotKey Signature Verification)**：严格限定仅响应本程序签名 `OSType(0x4147594D)` 的系统热键事件，防止第三方应用或系统按键事件被误吞或意外触发极速切换面板。
-  - **极速切换安全边界与按键防穿透 (Quick Switcher Index Safety)**：回车跳转增加严格边界夹紧机制（`0 ..< filteredInstances.count`），避免列表为空或快速键入时发生索引越界。
-  - **脚本执行管道 EOF 挂起修复 (Process Pipe EOF Hang Prevention)**：在子进程执行启动后立即关闭父进程端写管道句柄，彻底杜绝管道读取等待 EOF 造成的潜在永久卡死。
-  - **模态弹窗键盘交互规范化 (Modal Sheet Keyboard Ergonomics)**：
-    - 所有确认与管理弹窗（创建实例、升级备份、清空工作空间、永久销毁、备份管理、更新设置）均统一支持 `Esc` 快捷取消关闭。
-    - 实例标签与备注编辑弹窗支持 `⌘ + Enter` 保存，普通回车在多行备注编辑中自由换行，输入框内键入不会意外触发窗口关闭或最小化。
-  - **实例隐藏操作轻量化**：移除隐藏实例时多余的背景 CDP 抓帧与级联刷新任务，窗口收起更加轻量平滑。
+- **Phase 2 全局任务动态与执行历史中心 (Task Mission Control & Execution History)**：
+  - **跨实例任务事件中心 (`TaskHistoryView`)**：全新设计任务历史模态面板，实时聚合记录全部多开实例的 Agent 执行状态（已完成、等待确认、执行异常），支持关键词即时搜索（实例名、备注、工作区、任务内容）与分类标签筛选。
+  - **任务耗时追踪 (`Telemetry Duration Tracking`)**：自动精确度量每个实例中 Agent 任务从启动到结束的实时耗时（例如 `⏱ 1 分 24 秒`），并在极速切换面板（⌥Space）与缩略图监控墙卡片上实时呈现青色高亮计时胶囊。
+  - **一键定位调出与日志查看**：在历史记录卡片中可直接点击「调出并聚焦」，瞬间唤醒对应实例窗口；支持一键直达对应实例的系统日志目录。
+  - **历史记录导出与清理**：支持一键将所有任务耗时与状态导出为结构化 Markdown 报告并保存到桌面；支持安全清空历史记录。
+  - **菜单栏任务动态快捷菜单**：状态栏托盘菜单中新增「📋 最近任务动态」，动态显示最近 3 条执行记录，支持一键点击直达实例及调出完整历史。
+- **实例窗口收起、恢复与启动检测深度修复 (Window Collapse/Restore & Launch Detection Fix)**：
+  - **彻底修复收起/恢复失效 Bug**：针对 macOS 跨进程沙箱与 AppKit 限制导致 `NSRunningApplication.hide()` / `unhide()` 返回 false 且无法真正隐藏/恢复 Electron 窗口的底层问题，引入针对 bundle identifier 的 System Events 显隐控制与 `NSWorkspace.openApplication` 激活机制，确保「收起全部」与「调出」100% 可靠生效。
+  - **启动冷启动状态检测优化**：引入多阶段 (0.8s / 1.8s) 异步状态校验与 Bundle 路径容错匹配，彻底解决实例已启动但监控台检测滞后或判定为未启动的问题。
+  - **防止重复创建窗口**：在激活已有实例时强制声明 `createsNewApplicationInstance = false`，杜绝点击调出时 Electron 偶发创建多余空白窗口。
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.5.9/Aether-Antigravity-Multiplexer-v0.5.9-macos-arm64.zip" length="3115336" type="application/octet-stream" sparkle:edSignature="P0hWANvgk2Yl/D0RpO5nAftYy315q2/BgUR5yDg03MZGmkPD+4/EUVo8LFvKzWLeCnK58/LwgrD2A9J7IN98Cw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.0/Aether-Antigravity-Multiplexer-v0.6.0-macos-arm64.zip" length="3202064" type="application/octet-stream" sparkle:edSignature="MT7wqrDLQKTzkW5drsw8JZJpRb5A4b6HnK7fsHGv8oJ2PjU++DYKQEsLSRezHyhxaROLOIv9JGRzqMaX8mPpBQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: sWCcMIwrn3IuIt12pnsCcE6yw2xdXKJ+7X56+LuKw7k7l0WITvRYHIPuVVDJdhmQ6JGFYjhJQeNscCbSkwSLCA==
-length: 3548
+edSignature: dE7Na+DNGuFhiK6v/Kbpow3ilZp+qCuKKyKIPos2umWYOAJejv1un6XJJgdQr3tBnczJRoIeSPYReV/9UrLVAQ==
+length: 3496
 -->
