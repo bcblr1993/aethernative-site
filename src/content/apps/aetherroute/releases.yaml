@@ -1,6 +1,33 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.3"
+    build: "2026101401"
+    date: 2026-10-14
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.3/AetherRoute-1.7.3-build-2026101401-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.3
+    sha256: 194f59b9de55ca0f0de8a39c9604ce81e6e7f3b9c43f074e717387f9f24145ae
+    sparkle:
+      edSignature: hU9a/xDEzcZuw4m0eM/llLy1HI6rh61khQEnkM9fqhHYFD+9wQyeNq05/w6NSy3z6XL+o4zL8nh8PPkmAb9rAw==
+      length: 27382618
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
+    summary:
+      zh: 全面兼容 Shadowsocks 混淆插件，升级预检安全白名单，闭环 7 项 Soak 长稳韧性优化。
+      en: Full compatibility for Shadowsocks built-in obfuscation plugins (obfs / v2ray-plugin / shadow-tls) with security whitelist gate, and complete closure of 7 soak test resilience issues.
+    notes:
+      - title:
+          zh: 特性与优化
+          en: Features & Improvements
+        items:
+          - zh: 全面支持 Shadowsocks 内置混淆插件（obfs / v2ray-plugin / shadow-tls），升级预检白名单，杜绝误报拦截。
+            en: Added support for Shadowsocks obfuscation plugins (obfs, v2ray-plugin, shadow-tls) with strict in-process whitelist.
+          - zh: 闭环修复 7 项 Soak 长稳测试问题：控制面防超时、UDP 微批处理写防 ENOBUFS、短连接竞态消除与图表渲染节流。
+            en: Resolved 7 soak resilience issues including IPC timeouts, short-lived TCP write races, UDP backpressure micro-batching, and waveform graph throttling.
+          - zh: 经 Apple 官方公证与真机双 Profile UI 性能门禁达标验证。
+            en: Notarized by Apple and verified across physical hardware UI performance and memory gates within budget.
   - version: "1.7.2"
     build: "2026101301"
     date: 2026-10-13
