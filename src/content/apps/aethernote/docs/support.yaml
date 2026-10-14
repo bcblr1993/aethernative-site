@@ -16,10 +16,10 @@ sections:
       zh: 安装与打开
       en: Install and open
     steps:
-      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.3 或更新版本，本地记录保留。
-        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.3 or later manually once. Local notes are preserved.
-      - zh: 点击菜单栏便签图标展开晾衣绳；也可以将鼠标移到屏幕顶部中央。固定按钮可以让晾衣绳保持显示。
-        en: Click the menu bar note icon or move to the center of the top screen edge to reveal the line. Pin it to keep it visible.
+      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.4 或更新版本，本地记录保留。
+        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.4 or later manually once. Local notes are preserved.
+      - zh: 点击菜单栏便签图标展开晾衣绳。开启顶部展开后，也可以在屏幕顶部中央停留约 0.6 秒。固定按钮可以让晾衣绳保持显示。
+        en: Click the menu bar note icon to reveal the line. If top-edge reveal is enabled, pause at the top center for about 0.6 seconds. Pin it to keep it visible.
       - zh: 使用 ⌃⌥N 记一行，⌃⌥L 展开或收起；快捷键冲突时仍可使用菜单栏入口。
         en: Use Control–Option–N to write a line and Control–Option–L to toggle the line. Menu bar actions remain available if shortcuts conflict.
   - heading:
@@ -45,6 +45,16 @@ sections:
         en: Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today.
       - zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。
         en: Drag sideways to reorder and vertically to spring back. Click Tidy or double-click the rope to restore date order. Settings include weekends, languages and materials.
+  - heading:
+      zh: 晾衣绳显示控制
+      en: Clothesline visibility
+    list:
+      - zh: 在设置顶部关闭“启用晾衣绳”，它会保持隐藏，重启也不自动展开；菜单栏仍可记一行、打开回顾和设置。重新开启总开关即可恢复。
+        en: Turn off Enable clothesline at the top of Settings to keep it hidden, including after relaunch. Writing, review and settings remain accessible from the menu bar. Enable it again anytime.
+      - zh: “在屏幕顶部停留时展开”单独控制鼠标触发，新安装默认关闭，旧用户的选择保留。关闭它后，通过菜单栏或 ⌃⌥L 手动展开；总开关停用时快捷键会打开设置。
+        en: Top-edge reveal is separate, defaults off for new installs and preserves existing choices. Turn it off to reveal manually with the menu bar or Control–Option–L. That shortcut opens Settings when the whole clothesline is disabled.
+      - zh: 工具栏、设置及菜单栏右键菜单均有“一键整理”，只恢复当前查看周的日期顺序，记录、颜色、草稿和其他周不变。
+        en: Tidy the line is available in the toolbar, Settings and menu bar context menu. It restores the viewed week to date order while preserving entries, colors, drafts and other weeks.
   - heading:
       zh: 每日配色与回到本周
       en: Daily colors and returning to this week

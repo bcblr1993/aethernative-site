@@ -70,8 +70,8 @@ showcase:
     zh: 今天和过去的记录都可以继续编辑。周回顾按日期展开，方便阅读、复制与导出。
     en: Today's notes and past entries remain editable. The weekly review follows calendar order, ready to read, copy or export.
   note:
-    zh: 截图来自 macOS 27 上的 AetherNote 0.1.3，展示每日配色与“回到本周”入口，内容为演示数据。
-    en: Actual AetherNote 0.1.3 captures on macOS 27, showing daily colors and the This week controls with demo entries. Screenshots show the Chinese interface.
+    zh: 截图来自 macOS 27 上的 AetherNote 0.1.3 / 0.1.4；晾衣绳与设置已更新为 0.1.4，内容为演示数据。
+    en: Actual AetherNote 0.1.3 / 0.1.4 captures on macOS 27. The clothesline and Settings show 0.1.4; all entries are demos in the Chinese interface.
   items:
     - title:
         zh: 给每一天，一点自己的颜色
@@ -98,8 +98,8 @@ showcase:
         zh: 让记录更贴合你的习惯
         en: Make this space yours
       caption:
-        zh: 语言、材质、轻提醒和应用更新分区呈现，操作更清晰。
-        en: Clear sections for language, materials, quiet reminders and in-app updates.
+        zh: 自主启用或停用晾衣绳，单独控制顶部展开；一键整理、语言和材质设置清晰可见。
+        en: Enable or disable the clothesline and choose whether hovering reveals it. Tidy, language and material controls are easy to find.
       image: ./media/settings.png
 features:
   eyebrow:
@@ -128,8 +128,8 @@ features:
         zh: 拉一拉，再一键整理
         en: Give it a tug. Tidy with a click.
       body:
-        zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击整理按钮或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天；翻到很远的日期，也能一键回到本周。
-        en: Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click Tidy or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days. Return from any distant date with the This week button.
+        zh: 左右拖动纸片换位，上下拉动轻轻回弹；绳子也可以拉。点击带文字的“一键整理”或双击绳子，便签回到日期顺序。默认五天，需要时展开到七天；翻到很远的日期，也能一键回到本周。
+        en: Drag notes sideways to reorder, pull them down to spring back, or tug the rope itself. Click the labeled Tidy the line button or double-click the rope to restore calendar order. Start with five weekdays and show up to seven days. Return from any distant date with the This week button.
     - kicker:
         zh: 语言与材质
         en: Appearance
@@ -139,6 +139,15 @@ features:
       body:
         zh: 每天自动配一款柔和颜色，也能选择预设或自定义，颜色跟随日期保存。简体中文、English、日本語随时切换。macOS 26 与 27 使用原生玻璃，配合拖动回弹动画，较早系统使用磨砂材质；尊重减少动态效果与降低透明度设置。
         en: Each day gets a soft automatic color, with presets and custom colors saved by date. Switch between Chinese, English and Japanese. macOS 26 and 27 use native glass with spring-driven drag interactions, and earlier systems use translucent material. Reduced motion and transparency settings are respected.
+    - kicker:
+        zh: 显示由你控制
+        en: Your line, your choice
+      title:
+        zh: 需要时展开，安静时收起
+        en: Show it when you want it
+      body:
+        zh: 设置中可停用整个晾衣绳，关闭后重启也保持隐藏，记一行和周回顾仍可使用。顶部自动展开单独控制，新安装默认关闭；开启后需停留约 0.6 秒，减少快速经过时的误触。
+        en: Disable the clothesline in Settings to keep it hidden, including after relaunch, while continuing to write and review. Top-edge reveal is optional and off for new installs; when enabled, it needs a 0.6-second pause to avoid accidental reveals.
     - kicker:
         zh: 轻提醒
         en: A quiet reminder
@@ -182,8 +191,8 @@ faq:
         zh: 支持哪些 Mac？如何更新？
         en: Which Macs are supported, and how do I update?
       a:
-        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.3 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
-        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.3 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
+        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.4 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
+        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.4 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
 cta:
   title:
     zh: 今天做过什么？先记一行。
