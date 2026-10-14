@@ -6,7 +6,7 @@ releases:
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.7.0/AetherTerm-v1.7.0-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.7.0
-    sha256: ad7a69b73ce754145cf2d28dec62de088359efae708d8d0012f00fef44407a11
+    sha256: 2b62e642930e46c63ad3364e8d4a9e4ca80ce8d3e65576d5530389a8e9a95591
     badge:
       zh: 正式版 · 已通过 Apple 公证
       en: Release · Apple notarized
