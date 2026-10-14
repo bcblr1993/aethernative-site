@@ -4,13 +4,28 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.3</title>
-            <pubDate>Wed, 14 Oct 2026 12:47:54 +0800</pubDate>
-            <sparkle:version>34</sparkle:version>
-            <sparkle:shortVersionString>0.6.3</sparkle:shortVersionString>
+            <title>0.6.4</title>
+            <pubDate>Wed, 14 Oct 2026 15:53:41 +0800</pubDate>
+            <sparkle:version>35</sparkle:version>
+            <sparkle:shortVersionString>0.6.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.3
+            <description sparkle:format="markdown"><![CDATA[# v0.6.4
+
+- **悬浮监控胶囊自由拖拽与智能定位记忆 (Freely Draggable Floating HUD & Smart Placement)**：
+  - **彻底解决单屏遮挡输入框缺陷**：针对用户无外接显示器（如 MacBook 单屏运行）时，悬浮返回胶囊固定在屏幕底部导致遮挡 Antigravity 对话输入框的问题，重构为支持全向随意拖拽与智能停靠。
+  - **可视化拖拽把手与原生手势联动**：引入 `DraggableHostingView` 与全局响应式拖拽手势，胶囊左侧新增可视化拖拽把手（三横线图标），按住胶囊左侧、标题或空白区即可随心所欲移动到屏幕任意位置，点击「收起回监控台」按钮独立响应不发生手势冲突。
+  - **位置智能记忆与避让初始位置**：用户调整后的坐标实时持久化至系统设置，下次切换实例或启动自动还原；默认初始位置优化至屏幕右上角（菜单栏下方安全区域），彻底避开底部聊天输入区。胶囊悬停状态新增快捷关闭（`x`）按钮，并支持在管理器偏好设置中一键开关。
+- **彻底消除 CFNetwork 孤儿事务积累与内存漂移 (Zero-Leak Ephemeral CDP Network Engine)**：
+  - 针对 2 小时真机采样中暴露出的 `16,621` 个 `CFHTTPMessage` 与 `2,765` 个 `__NSURLSessionWebSocketTask` 孤儿对象堆积导致的 +41MB 内存漂移，重构 CDP 通信引擎。
+  - 弃用共享单例 `URLSession.shared`，采用专属 `.ephemeral` 零缓存隔离会话，关闭 Metrics 事务历史跟踪与 Cookie 存储，截图握手结束即刻彻底销毁，内存曲线恢复平稳。
+- **SwiftUI 视图脏标级联与多层立体阴影重绘阻断 (Resource Metric Deadband & Shadow Shield)**：
+  - 针对采样中发现的 `ShapeLayerShadowHelper.visitPaint` 热点，为 `InstanceResourceMetric` 引入智能死区防抖 `Equatable`。
+  - 过滤 Electron 原生进程 0.01% 或微小字节的实时抖动，仅在界面展示的 CPU/内存标签整数级变动时才标记脏值，杜绝监控卡片每 2.2 秒全量重算复杂立体阴影，大幅削减 CPU 能耗。
+- **CDP `/json/list` 探测自适应退避 (Adaptive I/O Throttling)**：
+  - 对后台空闲且已有快照的实例，轮询频率由 2.2s 自适应拉长至 11s，削减 80% 本地回路 HTTP 探测与网络 I/O 申请。
+
+# v0.6.3
 
 - **彻底消除 TCC 权限 IPC 轮询开销 (Zero-Cost TCC Permission Guard)**：
   - 彻底移除周期性 2.2 秒定时器中的 `CGPreflightScreenCaptureAccess()` 查询。修复在用户未授予屏幕录制权限时，因权限为 false 导致每次轮询都重复触发向 macOS `tccd` 守护进程发起同步 IPC 授权检查的系统日志风暴。
@@ -50,10 +65,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.3/Aether-Antigravity-Multiplexer-v0.6.3-macos-arm64.zip" length="3215824" type="application/octet-stream" sparkle:edSignature="PPbLUAxSGPYXUKIVDxIOsePY7SIU4QO1eyzov89qamb08J01iW8EZeDHNlLUwzYas7e6zuPU8rHUcaUPOFagDQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.4/Aether-Antigravity-Multiplexer-v0.6.4-macos-arm64.zip" length="3229453" type="application/octet-stream" sparkle:edSignature="vgYGbSnBaEfQ1LoSKF+raJ4QuYdHtvas6a4jK/vOEWeHmBHfbr9lT74oTJ4dMKm9j11oi3UrRkmPb+jZZT8DAg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: siiOSCXJH+1RSzaFRprfjx0nfjfG45Lvmt4ojoUR3JrNRKmkQYL05fNWy2PhxhaF61kLdKOU5QPO0KJhCjwwBQ==
-length: 7431
+edSignature: sIq8bRVOaNr6zk5ewvtQnFlDpfqWtw9yOdRJeZrCIJSOvv9Yfj8+lp88nFfHpXcc7OULEBx0le/18Poj9oB1BQ==
+length: 9755
 -->
