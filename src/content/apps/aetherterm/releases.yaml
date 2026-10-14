@@ -1,14 +1,37 @@
 # ApexTerm 版本记录
 releases:
   - version: "1.7.2"
+    build: "2026101404"
     date: 2026-10-14
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.7.2/AetherTerm-v1.7.2-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.7.2
     sha256: 32af5b4de0bf21ab86627f0e550b42bb27b074054786f136dd3a8cdd4374e2ee
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
     summary:
-      zh: AetherTerm v1.7.2
-      en: AetherTerm v1.7.2
+      zh: 修复拖动到屏幕边缘自动分屏无法均分的缺陷，优化主窗口与侧边栏最小尺寸，恢复工作区操作区右侧吸附并统一 16pt 全局网格。
+      en: Fixes half-screen tiling uneven split, optimizes window minimum dimensions, restores trailing workspace actions, and unifies 16pt design grid.
+    notes:
+      - title:
+          zh: 窗口分屏与尺寸规格
+          en: Window Tiling and Sizing
+        items:
+          - zh: 修复屏幕边缘自动分屏不均：将最小尺寸统一至 600x400pt，支持 1280x800 及 1440x900 屏幕下完美的 50/50 半屏均分与 1/4 四角网格。
+            en: Fixes uneven half-screen snapping by setting min dimensions to 600x400pt, ensuring exact 50/50 splits on all MacBook displays.
+          - zh: 侧边栏与 SFTP 紧凑化：侧边栏最小宽度优化至 200pt，SFTP 路径栏紧凑自适应，为终端保留充足工作空间。
+            en: Optimizes sidebar minimum width to 200pt and compacts SFTP path input for maximum terminal viewport.
+      - title:
+          zh: 界面布局与质量门禁
+          en: UI Layout and Quality Gates
+        items:
+          - zh: 工作区操作按钮右侧吸附：恢复复制会话、分屏、系统监控指标与文件面板开关在顶部工具栏右侧的吸附排布。
+            en: Restores trailing placement for workspace action buttons (duplicate, split, metrics, files).
+          - zh: 全局 UI 统一网格对齐：侧边栏与工作区全链路严格对齐 16pt 基准线，消除视觉凹凸错位。
+            en: Standardizes entire UI layout to 16pt grid alignment across sidebar and workspace components.
+          - zh: 固化 RG-08 门禁（TC-WIN-01 ~ TC-WIN-08）：每版必测窗口分屏尺寸与 UI 对齐，390+ 项自动化测试 100% 绿灯。
+            en: Establishes RG-08 quality gate for window tiling and UI alignment with 100% test pass rate.
   - version: "1.7.1"
     build: "2026101403"
     date: 2026-10-14
