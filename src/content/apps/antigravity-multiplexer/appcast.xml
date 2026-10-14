@@ -4,13 +4,22 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.0</title>
-            <pubDate>Wed, 14 Oct 2026 10:57:40 +0800</pubDate>
-            <sparkle:version>31</sparkle:version>
-            <sparkle:shortVersionString>0.6.0</sparkle:shortVersionString>
+            <title>0.6.1</title>
+            <pubDate>Wed, 14 Oct 2026 11:36:14 +0800</pubDate>
+            <sparkle:version>32</sparkle:version>
+            <sparkle:shortVersionString>0.6.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.0
+            <description sparkle:format="markdown"><![CDATA[# v0.6.1
+
+- **深度性能优化与系统资源消耗剧减 (Deep Performance & Battery Optimization)**：
+  - **消除后台空闲 GPU/CPU 循环**：针对多实例运行且空闲时 `PulsingStatusDot` 呼吸动画在主窗口复杂阴影图层中触发全树 `layoutSubtreeIfNeeded` 与 `ShapeLayerShadowHelper.visitPaint` 频繁重绘的瓶颈，升级为按需动态触发（仅在实例正在执行 Agent 任务或需要人工处理时脉动，空闲时静止呈现），并使用 `.drawingGroup()` 彻底隔离动画图层，使应用后台空闲 CPU 占用从 35%~40% 骤降至接近 0%。
+  - **杜绝 TCC 权限 IPC 广播风暴**：对 `CGPreflightScreenCaptureAccess()` 引入权限状态缓存守卫，避免 2.2 秒循环定时器向 macOS `tccd` 守护进程高频发起同步 IPC 查询，彻底消除系统统一日志中的 TCC 访问日志风暴。
+  - **窗口非可见状态自动休眠与节流**：当主监控墙窗口处于关闭、最小化或隐藏后台状态时，自动暂停 Chromium CDP 网页截图采集与系统 `CGWindowListCreateImage` 渲染开销，仅保留轻量级状态追踪与 Dock 徽标告警。
+  - **工作区会话磁盘检索性能飞跃**：在 `TelemetryScanner` 中引入已停止实例状态缓存与活跃会话 ID 直达索引，杜绝每次轮询对所有历史会话目录进行 O(N) 递归遍历与 stat 系统调用，显著降低磁盘 I/O 磨损。
+  - **SwiftUI 状态发布防抖守卫**：对资源监控指标与缩略图更新引入 Equatable 脏值比对校验，避免无实际数据变更时高频触发 `objectWillChange` 和全界面重组重绘。
+
+# v0.6.0
 
 - **Phase 2 全局任务动态与执行历史中心 (Task Mission Control & Execution History)**：
   - **跨实例任务事件中心 (`TaskHistoryView`)**：全新设计任务历史模态面板，实时聚合记录全部多开实例的 Agent 执行状态（已完成、等待确认、执行异常），支持关键词即时搜索（实例名、备注、工作区、任务内容）与分类标签筛选。
@@ -25,10 +34,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.0/Aether-Antigravity-Multiplexer-v0.6.0-macos-arm64.zip" length="3202064" type="application/octet-stream" sparkle:edSignature="MT7wqrDLQKTzkW5drsw8JZJpRb5A4b6HnK7fsHGv8oJ2PjU++DYKQEsLSRezHyhxaROLOIv9JGRzqMaX8mPpBQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.1/Aether-Antigravity-Multiplexer-v0.6.1-macos-arm64.zip" length="3208748" type="application/octet-stream" sparkle:edSignature="wDlAoKdFhDlJw21D6n+VIfQtPnNBBfOV+v+/gsrfTRj6Cd/Yc0878COKo5Yq/HA6pGY9tbl5EOBU/Ejzom60BA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: dE7Na+DNGuFhiK6v/Kbpow3ilZp+qCuKKyKIPos2umWYOAJejv1un6XJJgdQr3tBnczJRoIeSPYReV/9UrLVAQ==
-length: 3496
+edSignature: MR2Xfpk1GLA1tczGfYFeTHf4MLhx/gigz6I4n5IDVgk11DpIG4pRcOHps/hkrMWuHex14hHgSua1xnlwuOoHDQ==
+length: 5119
 -->
