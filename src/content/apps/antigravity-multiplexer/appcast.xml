@@ -4,13 +4,22 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.4</title>
-            <pubDate>Wed, 14 Oct 2026 15:53:41 +0800</pubDate>
-            <sparkle:version>35</sparkle:version>
-            <sparkle:shortVersionString>0.6.4</sparkle:shortVersionString>
+            <title>0.6.5</title>
+            <pubDate>Wed, 14 Oct 2026 18:52:56 +0800</pubDate>
+            <sparkle:version>36</sparkle:version>
+            <sparkle:shortVersionString>0.6.5</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.4
+            <description sparkle:format="markdown"><![CDATA[# v0.6.5
+
+- **指标徽标独立 View 隔离 (Isolated Resource Metric Badges & Zero Card Invalidation)**：
+  - **组件级渲染隔离**：将监控墙卡片与列表卡片中的实时 CPU & 内存标签抽离为独立子视图组件 `InstanceThumbnailResourceBadge` 与 `InstanceCardResourceBadges`，严格声明 `Equatable` 并应用 `.equatable()`。
+  - **阻断卡片全树阴影重绘**：将指标变动渲染彻底隔离在微型胶囊内部，卡片主体（包含 24pt 外发光、玻璃拟态渐变与圆角描边）不再因指标刷新而触发全树重绘，彻底解决采样中暴露的 `ShapeLayerShadowHelper.visitPaint` 性能热点，前台 CPU 占用进一步骤降。
+- **托盘哨兵休眠模式 (Sentinel Low-Power Standby Mode)**：
+  - **自适应降频节流**：当主监控墙窗口处于隐藏或最小化且所有 Antigravity 实例空闲时，`periodicTick()` 自动进入极低能耗「哨兵模式」，将后台轮询频率从 2.2 秒自适应节流至 ~11 秒（每 5 个周期唤醒一次），大幅削减后台定时器唤醒次数，允许 macOS **App Nap** 生效，待机能耗趋近于 0%。
+  - **毫秒级零延迟唤醒**：当任一实例正在运行 Agent 任务，或用户重新唤醒监控墙、调出极速切换面板（⌥Space）时，瞬间恢复 2.2 秒高保真调度，零感知延迟。
+
+# v0.6.4
 
 - **悬浮监控胶囊自由拖拽与智能定位记忆 (Freely Draggable Floating HUD & Smart Placement)**：
   - **彻底解决单屏遮挡输入框缺陷**：针对用户无外接显示器（如 MacBook 单屏运行）时，悬浮返回胶囊固定在屏幕底部导致遮挡 Antigravity 对话输入框的问题，重构为支持全向随意拖拽与智能停靠。
@@ -65,10 +74,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.4/Aether-Antigravity-Multiplexer-v0.6.4-macos-arm64.zip" length="3229453" type="application/octet-stream" sparkle:edSignature="vgYGbSnBaEfQ1LoSKF+raJ4QuYdHtvas6a4jK/vOEWeHmBHfbr9lT74oTJ4dMKm9j11oi3UrRkmPb+jZZT8DAg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.5/Aether-Antigravity-Multiplexer-v0.6.5-macos-arm64.zip" length="3233660" type="application/octet-stream" sparkle:edSignature="HjG9RncURBUwK7kPC1XdOl1i4y0UgcynUHpvPoXKuXVqFIBWP+D/l9dD2TEcuBOse5+eb7LsWUR86cW3p4MpDw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: sIq8bRVOaNr6zk5ewvtQnFlDpfqWtw9yOdRJeZrCIJSOvv9Yfj8+lp88nFfHpXcc7OULEBx0le/18Poj9oB1BQ==
-length: 9755
+edSignature: 1O19d0IlROFT6T6XKlKEpd6vsD60MsfXpEUtV6ndv/lTEMnDnaIgSH5u29m6NPKgO36zDlQh1g8Z1DJMMC08BQ==
+length: 11106
 -->
