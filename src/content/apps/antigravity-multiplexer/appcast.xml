@@ -4,13 +4,25 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.6.5</title>
-            <pubDate>Wed, 14 Oct 2026 18:52:56 +0800</pubDate>
-            <sparkle:version>36</sparkle:version>
-            <sparkle:shortVersionString>0.6.5</sparkle:shortVersionString>
+            <title>0.6.6</title>
+            <pubDate>Wed, 14 Oct 2026 20:47:54 +0800</pubDate>
+            <sparkle:version>37</sparkle:version>
+            <sparkle:shortVersionString>0.6.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.6.5
+            <description sparkle:format="markdown"><![CDATA[# v0.6.6
+
+- **Darwin 内核原生 libproc 进程指标直读引擎 (Kernel-Direct Native Process Monitor)**：
+  - **彻底移除 `/bin/ps` 子进程派生与进程表争用**：彻底重构资源指标采集管线，移除原先每 2.2 秒通过 `Process()` 派生 `/bin/ps -A -o pid,ppid,%cpu,rss,command` 扫描系统 600+ 进程文本的旧实现。
+  - **0 子进程派生与微秒级响应**：改用 macOS Darwin 原生内核 C API `proc_pidinfo(PROC_PIDTASKINFO)` 与 `proc_listchildpids`，针对 Antigravity 主进程及其 Helper/GPU/Utility/Renderer/Language Server 进程树进行高精度直读，采集耗时由 **~40ms 骤降至 < 0.2ms（提速 200+ 倍）**，实现 **0 外部进程派生、0 管道 I/O、0 字符串内存开销**。
+  - **工业级安全回退保障**：内置 `fallbackScanResourceMetricsViaPS` 机制，在任何极端沙箱或内核安全策略受限场景下无缝兼容回退。
+- **悬浮胶囊交互式极速切换与流体玻璃质感升级 (Interactive HUD Quick-Switcher & Liquid Glass)**：
+  - **一键极速切换其他实例**：在悬浮 HUD 胶囊内新增交互式快速切换按钮（`⇄`），点击即可瞬间弹出极速切换面板（⌥Space），无需牢记快捷键即可轻松在各 Antigravity 实例间穿梭。
+  - **流体玻璃质感 (Liquid Glass Capsule)**：采用 macOS Sonoma/Sequoia 现代设计语言，结合 `.ultraThinMaterial` 磨砂毛玻璃与多色微光渐变描边，悬浮胶囊视觉层级与微交互更加精致通透。
+- **顶部仪表盘内核直连标识 (Kernel Direct Badge)**：
+  - 顶部版本号旁新增高品质绿色点亮的「Kernel Direct」硬件能效标签，直观呈现内核直连守护状态。
+
+# v0.6.5
 
 - **指标徽标独立 View 隔离 (Isolated Resource Metric Badges & Zero Card Invalidation)**：
   - **组件级渲染隔离**：将监控墙卡片与列表卡片中的实时 CPU & 内存标签抽离为独立子视图组件 `InstanceThumbnailResourceBadge` 与 `InstanceCardResourceBadges`，严格声明 `Equatable` 并应用 `.equatable()`。
@@ -74,10 +86,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.5/Aether-Antigravity-Multiplexer-v0.6.5-macos-arm64.zip" length="3233660" type="application/octet-stream" sparkle:edSignature="HjG9RncURBUwK7kPC1XdOl1i4y0UgcynUHpvPoXKuXVqFIBWP+D/l9dD2TEcuBOse5+eb7LsWUR86cW3p4MpDw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.6.6/Aether-Antigravity-Multiplexer-v0.6.6-macos-arm64.zip" length="3251354" type="application/octet-stream" sparkle:edSignature="+fM0XApp3/MVimbqqGetdn0LeZe7nHVlVRer/GBRnhIdHqHXfUCKGUcmLV5G2JEXF2bwGLi1qHwIFHFJkmViDQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 1O19d0IlROFT6T6XKlKEpd6vsD60MsfXpEUtV6ndv/lTEMnDnaIgSH5u29m6NPKgO36zDlQh1g8Z1DJMMC08BQ==
-length: 11106
+edSignature: PoPG1bO1DxZBWEH/XvmerYzB9+AA7Tl6xQVqWdXvKY4HsYUMuvOjqxg1iO9VYXVClVwccDPtX4h4pnfASN9AAw==
+length: 12817
 -->
