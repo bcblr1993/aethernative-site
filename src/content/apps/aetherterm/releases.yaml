@@ -7,9 +7,29 @@ releases:
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.7.0/AetherTerm-v1.7.0-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.7.0
     sha256: ad7a69b73ce754145cf2d28dec62de088359efae708d8d0012f00fef44407a11
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
     summary:
-      zh: AetherTerm v1.7.0
-      en: AetherTerm v1.7.0
+      zh: 支持纯原生高帧率本地终端与文件系统联动，通过 14 大核心测试场景矩阵与 100% 自动化测试门禁。
+      en: Adds native high-framerate Local Terminal and instant local file management, verified by 14 core test scenarios.
+    notes:
+      - title:
+          zh: 本地终端与系统原生 Shell
+          en: Native Local Terminal
+        items:
+          - zh: 深度集成 macOS 原生 Darwin POSIX PTY 与系统默认登录 Shell（优先 $SHELL，支持 zsh/bash），继承 120Hz 极速渲染与多套主题。
+            en: Deeply integrates with macOS Darwin POSIX PTY and default login shell ($SHELL, zsh/bash) with 120Hz ProMotion rendering.
+          - zh: 底部文件面板与本地终端联动，秒级浏览本地文件系统，支持创建、重命名、权限修改与删除。
+            en: File panel integrates with local terminal for microsecond local filesystem browsing and file operations.
+          - zh: 支持快捷键 ⇧⌘T 秒开本地终端、同屏分屏（Split Pane）及跨本地与远程会话的键盘广播。
+            en: Instant launch with Shift-Command-T, horizontal/vertical split pane, and broadcast across local and remote sessions.
+      - title:
+          zh: 质量门禁与兼容性
+          en: Quality Gates and Compatibility
+        items:
+          - zh: 新增 14 大本地终端测试矩阵与 18 项自动化测试，380+ 项自动化测试全部通过，8 大核心性能基准全部达标。
+            en: 14 test scenarios and 18 dedicated tests added; 380+ automated tests passed 100% with all 8 benchmarks satisfied.
   - version: "1.6.3"
     build: "2026101301"
     date: 2026-10-13
