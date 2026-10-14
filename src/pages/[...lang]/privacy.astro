@@ -38,8 +38,8 @@ const apps = await getApps();
             ? '我们保存的信息：平台提供的用户 ID、昵称、头像地址、已验证的邮箱（如平台提供），以及账号创建和最近登录时间。'
             : 'What we store: the user ID, display name, avatar URL and verified email address (if the provider shares one) from the provider, plus when your account was created and last used.'}</li>
           <li>{zh
-            ? '登录状态：一个 30 天有效的会话 Cookie（HttpOnly，页面脚本无法读取；服务器只保存它的哈希值）和一个仅表示“已登录”的标记 Cookie，以及登录过程中 10 分钟有效的临时 Cookie。这些都是实现登录所必需的 Cookie，不用于追踪。'
-            : 'Sign-in state: a 30-day session cookie (HttpOnly, unreadable by page scripts; the server keeps only its hash), a “signed in” marker cookie with no personal data, and a temporary 10-minute cookie during sign-in. These are strictly necessary for sign-in and are not used for tracking.'}</li>
+            ? '登录状态：一个 30 天有效、临近到期继续访问时自动续期的会话 Cookie（HttpOnly，页面脚本无法读取；服务器只保存它的哈希值）和一个仅表示“已登录”的标记 Cookie，以及登录过程中 10 分钟有效的临时 Cookie。另外，会在本浏览器记住上次成功使用的登录平台（Google 或 GitHub），保留 180 天，退出后仍可提示，不含账号或令牌。这些 Cookie 不用于追踪。'
+            : 'Sign-in state: a 30-day session cookie, renewed when you return near expiry (HttpOnly, unreadable by page scripts; the server keeps only its hash), a “signed in” marker cookie with no personal data, and a temporary 10-minute cookie during sign-in. A separate cookie remembers the last successful sign-in provider (Google or GitHub) for 180 days, including after sign-out; it contains no account details or token. These cookies are not used for tracking.'}</li>
           <li>{zh
             ? '为了会话安全，我们会记录登录时浏览器的 User-Agent。头像图片直接从 Google 或 GitHub 加载。'
             : 'For session security we record the browser User-Agent at sign-in. Avatar images load directly from Google or GitHub.'}</li>

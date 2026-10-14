@@ -4,7 +4,7 @@ import { safeEqual } from '../../../_lib/crypto';
 import type { Env } from '../../../_lib/env';
 import { clearCookie, error, parseCookies, redirect, safeNext, withAuthFlag } from '../../../_lib/http';
 import { callbackUrl, exchangeAndFetchProfile, isConfigured, isProvider } from '../../../_lib/oauth';
-import { createSession, OAUTH_COOKIE, upsertUser } from '../../../_lib/session';
+import { createSession, lastLoginCookie, OAUTH_COOKIE, upsertUser } from '../../../_lib/session';
 import type { OAuthState } from './login';
 
 function readPending(request: Request): OAuthState | null {
@@ -53,7 +53,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
     if (user.disabled_at !== null) return fail('login-failed');
     if (app) return redirect(appRedirect({ code: await issueAuthCode(env.DB, user.id, app) }), [clearPending]);
     const cookies = await createSession(env.DB, user.id, request.headers.get('User-Agent'));
-    return redirect(next, [clearPending, ...cookies]);
+    return redirect(next, [clearPending, ...cookies, lastLoginCookie(provider)]);
   } catch (e) {
     console.error('OAuth 回调失败', provider, e instanceof Error ? e.message : e);
     return fail('login-failed');

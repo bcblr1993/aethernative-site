@@ -11,22 +11,22 @@ export interface Me {
   adminFeedback?: { count: number; latestId: string | null };
 }
 
-/** 浏览器带着“可能已登录”标记时才值得请求 /api/me；没登录过的访客不产生接口请求。 */
-export const maybeSignedIn = () => document.cookie.split(/;\s*/).includes('an_signed_in=1');
+/** 登录方式仅用于提示，不参与鉴权；只记住成功登录的平台。 */
+export const lastLoginProvider = () => {
+  const value = document.cookie.split(/;\s*/).find((c) => c.startsWith('an_last_login='))?.split('=')[1];
+  return value === 'google' || value === 'github' ? value : null;
+};
 
 let current: Promise<Me | null> | null = null;
 let generation = 0;
 let signedOut = false;
 
 export function getMe(refresh = false): Promise<Me | null> {
-  if (!maybeSignedIn()) {
-    if (current) markSignedOut();
-    return Promise.resolve(null);
-  }
+  // HttpOnly 会话必须由服务器确认，不能把辅助 Cookie 缺失当作退出。
   if (refresh) current = null;
   if (current) return current;
   const requestGeneration = ++generation;
-  current = fetch('/api/me', { credentials: 'same-origin' })
+  current = fetch('/api/me', { credentials: 'same-origin', cache: 'no-store' })
     .then(async (r) => {
       if (requestGeneration !== generation) return null;
       if (r.status === 401) { markSignedOut(); return null; }

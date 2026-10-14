@@ -1,6 +1,6 @@
 ---
 // 导航栏的登录入口 / 账号菜单。
-// 静态输出“登录”按钮；只有浏览器带着 an_signed_in 标记时才请求 /api/me，未登录访客不产生任何接口请求。
+// 静态输出登录入口，加载后由 /api/me 确认真实会话。
 // 不开 JS 也能登录（链接直接跳转到授权页）。
 import { href, ui, type Lang } from '../lib/i18n';
 import LoginButtons from './LoginButtons.astro';
@@ -48,7 +48,7 @@ const u = ui[lang].auth;
 </div>
 
 <script>
-  import { getMe, loginHref, markSignedOut, maybeSignedIn, onSignedOut, type Me } from '../lib/auth-client';
+  import { getMe, loginHref, markSignedOut, onSignedOut, type Me } from '../lib/auth-client';
   import { ui, type Lang } from '../lib/i18n';
 
   const root = document.querySelector<HTMLElement>('[data-auth]');
@@ -62,7 +62,6 @@ const u = ui[lang].auth;
     const badge = $('[data-feedback-badge]');
     const adminLink = $<HTMLAnchorElement>('[data-admin-feedback]');
     let reminderKey = '';
-    let activeUser = false;
     let refreshedAt = 0;
     const updateReminder = (me: Me) => {
       $('[data-admin]').hidden = !me.isAdmin;
@@ -86,11 +85,10 @@ const u = ui[lang].auth;
     };
     $('[data-feedback-dismiss]').addEventListener('click', () => { notice.hidden = true; });
     const refreshReminder = async (force = false) => {
-      if (activeUser && !maybeSignedIn()) { markSignedOut(); return; }
-      if (!activeUser || (!force && Date.now() - refreshedAt < 30_000)) return;
+      if (!force && Date.now() - refreshedAt < 30_000) return;
       refreshedAt = Date.now();
       const me = await getMe(true);
-      if (me) updateReminder(me);
+      if (me) showSignedIn(me);
     };
     // 回到网站及管理员处理完成时更新，无后台轮询。
     window.addEventListener('focus', () => { void refreshReminder(); });
@@ -107,7 +105,6 @@ const u = ui[lang].auth;
     const showSignedOut = () => {
       $('[data-admin]').hidden = true;
       $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = true;
-      activeUser = false;
       notice.hidden = badge.hidden = adminLink.hidden = true;
       try { if (reminderKey) sessionStorage.removeItem(reminderKey); } catch { /* no-op */ }
       inn.hidden = true;
@@ -116,7 +113,6 @@ const u = ui[lang].auth;
     };
 
     const showSignedIn = (me: Me) => {
-      activeUser = true;
       // 一律用 textContent 写入，用户资料中的任何字符都不会被当作 HTML
       $('[data-name]').textContent = me.name;
       $('[data-email]').textContent = me.email ?? '';
@@ -145,6 +141,8 @@ const u = ui[lang].auth;
     }
 
     getMe().then((me) => me && showSignedIn(me));
+    // 临时断网后再次展开入口时重试，避免一直停留在未登录外观。
+    out.addEventListener('toggle', () => { if (out.open) void refreshReminder(); });
     onSignedOut(showSignedOut);
 
     $('[data-logout]').addEventListener('click', async () => {

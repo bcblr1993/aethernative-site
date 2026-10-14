@@ -5,10 +5,14 @@ import type { Profile, ProviderId } from './oauth';
 
 /** 会话 Cookie：HttpOnly，脚本读不到。 */
 export const SESSION_COOKIE = '__Host-sid';
-/** 仅表示“这个浏览器可能已登录”，不含任何秘密；页面据此决定是否请求 /api/me，未登录访客不产生接口请求。 */
+/** 兼容旧页面的辅助标记；不能替代服务端会话校验。 */
 export const HINT_COOKIE = 'an_signed_in';
 /** OAuth 进行中的临时状态（state、PKCE verifier、跳转地址），10 分钟有效。 */
 export const OAUTH_COOKIE = '__Host-oauth';
+
+export const LAST_LOGIN_COOKIE = 'an_last_login';
+export const lastLoginCookie = (provider: 'google' | 'github') =>
+  serializeCookie(LAST_LOGIN_COOKIE, provider, { maxAge: 180 * 24 * 3600, httpOnly: false });
 
 export const SESSION_TTL_MS = 30 * 24 * 3600 * 1000;
 /** App 会话：90 天有效，剩余不足 30 天时使用即续期（经常打开 App 就不会被登出） */
@@ -96,6 +100,7 @@ export interface Auth {
   user: User;
   via: 'cookie' | 'bearer';
   tokenHash: string;
+  expiresAt: number;
 }
 
 /**
@@ -121,7 +126,26 @@ export async function authenticate(db: D1Database, request: Request, now = Date.
     await db.prepare('UPDATE sessions SET expires_at = ? WHERE token_hash = ?').bind(now + APP_SESSION_TTL_MS, tokenHash).run();
   }
   const { expires_at: _, ...user } = row;
-  return { user, via, tokenHash };
+  return { user, via, tokenHash, expiresAt: row.expires_at };
+}
+
+/** /api/me 确认有效网页会话后，修复辅助标记并在剩余不足 7 天时续期。 */
+export async function refreshWebSession(db: D1Database, request: Request, auth: Auth, now = Date.now()): Promise<string[]> {
+  if (auth.via !== 'cookie') return [];
+  const cookies = parseCookies(request.headers.get('Cookie'));
+  let expiresAt = auth.expiresAt;
+  const out: string[] = [];
+  if (expiresAt - now < 7 * 24 * 3600 * 1000) {
+    expiresAt = now + SESSION_TTL_MS;
+    const updated = await db.prepare("UPDATE sessions SET expires_at = MAX(expires_at, ?) WHERE token_hash = ? AND client = 'web' AND expires_at > ?")
+      .bind(expiresAt, auth.tokenHash, now).run();
+    if (!updated.meta.changes) return [];
+    out.push(serializeCookie(SESSION_COOKIE, cookies[SESSION_COOKIE], { maxAge: SESSION_TTL_MS / 1000 }));
+  }
+  if (out.length || cookies[HINT_COOKIE] !== '1') {
+    out.push(serializeCookie(HINT_COOKIE, '1', { maxAge: (expiresAt - now) / 1000, httpOnly: false }));
+  }
+  return out;
 }
 
 /** 读取请求携带的会话用户（Cookie 或 Bearer）；无效或过期时返回 null。 */

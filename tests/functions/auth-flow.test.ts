@@ -137,6 +137,8 @@ describe('完整登录流程', () => {
     expect(res2.headers.get('Location')).toBe('/feedback/?app=aetherroute');
     expect(cookies['__Host-sid']).toMatch(/^[\w-]{43}$/);
     expect(cookies['an_signed_in']).toBe('1');
+    expect(cookies['an_last_login']).toBe('google');
+    expect(res2.headers.getSetCookie().find(c => c.startsWith('an_last_login='))).toContain('Max-Age=15552000');
     expect(cookies['__Host-oauth']).toBeUndefined();
     // 换令牌时带上了 verifier 和密钥
     const tokenBody = new URLSearchParams(calls[0].body);
@@ -201,10 +203,38 @@ describe('完整登录流程', () => {
     const { res2, cookies } = await signIn('github');
     expect(res2.headers.get('Location')).toBe('/feedback/#login-failed');
     expect(cookies['__Host-sid']).toBeUndefined();
+    expect(cookies['an_last_login']).toBeUndefined();
   });
 });
 
 describe('会话', () => {
+  it('辅助标记缺失仍识别会话并修复标记，旧账号补回登录方式', async () => {
+    mockProviders(); const { cookies } = await signIn('github');
+    const res: Response = await call(me, new Request(`${ORIGIN}/api/me`, { headers: { Cookie: `__Host-sid=${cookies['__Host-sid']}` } }));
+    expect(res.status).toBe(200);
+    expect(jar(res)).toMatchObject({ an_signed_in: '1', an_last_login: 'github' });
+    expect(res.headers.getSetCookie().some(c => c.startsWith('__Host-sid='))).toBe(false);
+  });
+  it('剩余不足七天续期 Cookie 与数据库，退出后不能恢复该会话', async () => {
+    mockProviders(); const { cookies } = await signIn('google');
+    const now = Date.now(); env.DB.raw.prepare('UPDATE sessions SET expires_at = ?').run(now + 86400000);
+    const req = new Request(`${ORIGIN}/api/me`, { headers: { Cookie: cookieHeader(cookies) } });
+    const res: Response = await call(me, req);
+    expect(res.status).toBe(200);
+    const sid = res.headers.getSetCookie().find(c => c.startsWith('__Host-sid='));
+    expect(sid).toContain('HttpOnly'); expect(sid).toContain('Secure'); expect(sid).toContain('SameSite=Lax'); expect(sid).toContain('Max-Age=2592000');
+    expect(env.DB.raw.prepare('SELECT expires_at FROM sessions').get().expires_at).toBeGreaterThanOrEqual(now + 30 * 86400000);
+    await call(logout, new Request(`${ORIGIN}/api/auth/logout`, { method: 'POST', headers: { Cookie: cookieHeader(cookies), Origin: ORIGIN } }));
+    expect((await call(me, req)).status).toBe(401);
+    expect(env.DB.raw.prepare('SELECT COUNT(*) n FROM sessions').get().n).toBe(0);
+  });
+  it('尚未接近到期的会话不写数据库续期', async () => {
+    mockProviders(); const { cookies } = await signIn('google');
+    const before = env.DB.raw.prepare('SELECT expires_at FROM sessions').get().expires_at;
+    const res: Response = await call(me, new Request(`${ORIGIN}/api/me`, { headers: { Cookie: cookieHeader(cookies) } }));
+    expect(res.headers.getSetCookie()).toEqual([]);
+    expect(env.DB.raw.prepare('SELECT expires_at FROM sessions').get().expires_at).toBe(before);
+  });
   it('未登录 401 并清除提示 Cookie；伪造令牌无效', async () => {
     const res: Response = await call(me, new Request(`${ORIGIN}/api/me`, { headers: { Cookie: '__Host-sid=forged; an_signed_in=1' } }));
     expect(res.status).toBe(401);
@@ -228,7 +258,7 @@ describe('会话', () => {
     const res: Response = await call(logout, new Request(`${ORIGIN}/api/auth/logout`, { method: 'POST', headers: h(ORIGIN) }));
     expect(res.status).toBe(204);
     expect(env.DB.raw.prepare('SELECT COUNT(*) n FROM sessions').get().n).toBe(0);
-    expect(jar(res, cookies)).toEqual({});
+    expect(jar(res, cookies)).toEqual({ an_last_login: 'google' });
   });
 
   it('注销账号删除用户、身份和全部会话，不影响其他用户', async () => {

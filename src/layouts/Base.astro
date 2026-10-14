@@ -37,6 +37,12 @@ const nav = [
 <html lang={u.htmlLang}>
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      // OAuth 和 __Host- 会话均属于主域名，避免 www 入口显示另一套登录状态。
+      if (location.hostname === 'www.aethernative.com') {
+        location.replace('https://aethernative.com' + location.pathname + location.search + location.hash);
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />

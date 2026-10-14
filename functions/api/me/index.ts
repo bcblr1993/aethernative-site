@@ -2,25 +2,33 @@
 import type { Env } from '../../_lib/env';
 import { pendingFeedback } from '../../_lib/feedback';
 import { appleConfig, decryptToken, revokeToken } from '../../_lib/apple';
-import { error, isSameOrigin, json } from '../../_lib/http';
+import { error, isSameOrigin, json, parseCookies } from '../../_lib/http';
 import { readJson } from '../../_lib/push-auth';
-import { cleanName, clearSessionCookies, deleteUser, getProviders, getSessionUser, hasBearer, publicUser, updateName } from '../../_lib/session';
+import { authenticate, refreshWebSession, LAST_LOGIN_COOKIE, lastLoginCookie, cleanName, clearSessionCookies, deleteUser, getProviders, getSessionUser, hasBearer, publicUser, updateName } from '../../_lib/session';
 
 const signedOut = () => {
-  // 顺带清掉“可能已登录”标记，页面之后就不会再请求本接口
+  // 无效会话清理会话和辅助标记；保留上次成功登录方式。
   const headers = new Headers();
   for (const c of clearSessionCookies()) headers.append('Set-Cookie', c);
   return error(401, 'unauthenticated', headers);
 };
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const user = await getSessionUser(env.DB, request);
-  if (!user) return signedOut();
+  const auth = await authenticate(env.DB, request);
+  if (!auth) return signedOut();
+  const { user } = auth;
+  const providers = await getProviders(env.DB, user.id);
+  const headers = new Headers();
+  for (const cookie of await refreshWebSession(env.DB, request, auth)) headers.append('Set-Cookie', cookie);
+  // 旧会话只有一个登录身份时，可以准确补上提示；多个身份时不猜测。
+  if (auth.via === 'cookie' && !parseCookies(request.headers.get('Cookie'))[LAST_LOGIN_COOKIE] && providers.length === 1 && (providers[0] === 'google' || providers[0] === 'github')) {
+    headers.append('Set-Cookie', lastLoginCookie(providers[0]));
+  }
   return json({ user: {
-    ...publicUser(user, await getProviders(env.DB, user.id)),
+    ...publicUser(user, providers),
     isAdmin: user.is_admin === 1,
     ...(user.is_admin === 1 ? { adminFeedback: await pendingFeedback(env.DB) } : {}),
-  } });
+  } }, 200, headers);
 };
 
 export const onRequestPatch: PagesFunction<Env> = async ({ request, env }) => {
