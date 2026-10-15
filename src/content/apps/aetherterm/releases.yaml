@@ -1,14 +1,39 @@
 # ApexTerm 版本记录
 releases:
   - version: "1.8.0"
+    build: "2026101501"
     date: 2026-10-15
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.8.0/AetherTerm-v1.8.0-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.8.0
     sha256: 348daedefc2834af029f390ae9c9340d7c58ef43943bf75709b8e9b6e546fad1
+    badge:
+      zh: 正式版 · 已通过 Apple 公证
+      en: Release · Apple notarized
     summary:
-      zh: AetherTerm v1.8.0
-      en: AetherTerm v1.8.0
+      zh: 支持动态等宽字体枚举与 Nerd Font 识别，新增标签页快速循环切换、分屏聚焦全屏放大与焦点巡航，新增 SFTP 常用运维目录预设与书签管理。
+      en: Adds dynamic monospace and Nerd Font detection, tab cycling, split pane zoom mode, and SFTP bookmark presets.
+    notes:
+      - title:
+          zh: 终端字体与生产力特性
+          en: Terminal Fonts and Productivity
+        items:
+          - zh: 动态等宽字体与 Nerd Font 智能识别：全面废除 6 个固定字体限制，自动发现系统已安装等宽字体并对各类 Nerd Font 赋予高亮徽标。
+            en: Dynamically discovers installed monospace fonts and automatically badges Nerd Font variants.
+          - zh: 终端标签页双向快速循环切换 (⌘⇧] / ⌘⇧[ / ⌃Tab)：支持标签页无限循环环形流转，终端与 SFTP 状态同步激活。
+            en: Quick bidirectional tab cycling with seamless wrap-around and synchronized view activation.
+          - zh: 终端多分屏全屏聚焦放大与无损还原 (⌘⇧Enter)：一键将当前分屏聚焦放大独占屏幕，后台窗格无损接收数据，带专属浮动还原胶囊。
+            en: Instant split pane zoom mode to temporarily maximize the active pane with zero background buffer loss.
+          - zh: 终端多分屏焦点快捷巡航 (⌘⌥方向键)：使用键盘方向键直接在分屏窗格间循环移动焦点。
+            en: Navigate focus across split panes seamlessly using Option-Command arrow keys.
+      - title:
+          zh: 文件传输与全局快捷键
+          en: File Transfer and Shortcuts
+        items:
+          - zh: SFTP 系统核心目录预设与路径书签：提供 ~、/var/log、/etc、/tmp、/opt 等高频目录一键直达，支持本地自定义书签持久化。
+            en: Fast access bookmarks for ~, /var/log, /etc, /tmp, /opt, plus persistent custom bookmark storage.
+          - zh: 全局快捷键速查表原子对齐：准确同步“新建本地终端”与新版全量快捷指令，杜绝文档与逻辑漂移。
+            en: Aligns shortcuts cheat sheet with local terminal, tab cycling, pane zoom, and SFTP navigation.
   - version: "1.7.2"
     build: "2026101404"
     date: 2026-10-14
