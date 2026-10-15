@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.0"
+    build: "2026101505"
+    date: 2026-10-15
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.0/AetherRoute-1.8.0-build-2026101505-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.0
+    sha256: 0491aad2ab1bb3863cef5f84b47f0fff5bd0ea89bf76688861402f470dbb11f4
+    sparkle:
+      edSignature: 7g9PzzGtuwmcHe/NVXOAlKTgNnfEj3oxIHnTwDzzGnvhIcxCgKU5Ld2kVzn/JWJHJih05k5w4t6ZRojUQLSHBA==
+      length: 27468281
+    summary:
+      zh: 支持允许局域网共享代理（Mixed/HTTP + SOCKS5）、智能物理 IP 解析与全平台连接教程
+      en: Allow LAN proxy sharing (HTTP/SOCKS5), physical IP resolver, and multi-platform guides
+    notes:
+      - title:
+          zh: 新增功能
+          en: New Features
+        items:
+          - zh: 允许局域网共享代理：支持 Mixed/HTTP (7890) 与 SOCKS5 (7891) 双协议监听，局域网设备通过本机代理自动走当前 TUN 或透明代理分流，主应用直接承载彻底规避 15MB 内存限制。
+            en: "Allow LAN proxy sharing: Mixed/HTTP (7890) and SOCKS5 (7891) listeners with automatic active engine traffic capture and zero Jetsam memory limits."
+          - zh: 智能物理 IPv4 解析：自动识别局域网真实网卡 IP，智能排除回环与虚拟接口，即开即用。
+            en: "Intelligent physical IPv4 resolver: auto-detects active LAN interface while filtering loopback and virtual adapters."
+          - zh: 全平台保姆级连接指引：涵盖 iOS、Android、macOS、Windows、Linux 及终端 cURL/Git 详尽配置说明。
+            en: "Multi-platform guides: comprehensive configuration instructions for iOS, Android, macOS, Windows, Linux, and terminal."
+      - title:
+          zh: 体验优化
+          en: Improvements
+        items:
+          - zh: 交互与动效打磨：复制按钮原地 1.6 秒绿色勾选动效替代突兀弹窗，卡片折叠展开采用 AetherVisual 弹簧曲线动效。
+            en: "Interaction polish: in-place green checkmark button feedback and smooth spring disclosure animations."
   - version: "1.7.5"
     build: "2026101501"
     date: 2026-10-15
