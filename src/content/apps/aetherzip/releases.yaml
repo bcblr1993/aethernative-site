@@ -1,4 +1,25 @@
 releases:
+  - version: "1.0.0"
+    build: "2026101501"
+    date: 2026-10-15
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherZip/releases/download/v1.0.0/AetherZip-1.0.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherZip/releases/tag/v1.0.0
+    sha256: 9b276fcf39c0d8dbadd35f8757bea4204ae4f9d22c3727118b105f1f2e81083d
+    badge: { zh: 正式版 · 已通过 Apple 公证, en: "Release · Apple notarized" }
+    summary:
+      zh: AetherZip 1.0 正式版发布：支持解压行为模式自选与后处理联动、Windows GBK 字符防乱码、macOS Liquid Glass 多列排列表格、开机自启动、即时预览与中英双语国际化。
+      en: "AetherZip 1.0 official release: dual extraction modes, post-extraction actions, Windows GBK encoding support, native multi-column sorting, launch at login, Quick Look preview, and bilingual localization."
+    notes:
+      - title: { zh: 核心功能与体验, en: "Core Features & Experience" }
+        items:
+          - { zh: 解压模式自选与后处理：支持浏览归档清单与一键直接解压（The Unarchiver 模式）；解压后自动在访达中高亮、成功后安全移入废纸篓、自动消除同名单层冗余文件夹嵌套。, en: "Dual extraction modes (browse vs. direct extract); supports reveal in Finder, moving archive to Trash, and automatic redundant folder flattening." }
+          - { zh: Windows 老旧归档 GBK 防乱码：支持 Windows CP936 (GBK)、日文 CP932 (Shift-JIS) 及 UTF-8 编码，提供顶部一键切换。, en: "Legacy Windows GBK/CP936 and Shift-JIS/CP932 code page support with runtime encoding switcher." }
+          - { zh: macOS Liquid Glass 多列排列表格：支持点击名称、大小、修改时间表头正序/倒序切换，与访达完全一致。, en: "Native multi-column sorting by Name, Size, and Modified Date with smooth spring animations." }
+          - { zh: 登录项与开机自启动：基于 SMAppService.mainApp 实现开机自启动与后台静默就绪，不干扰主窗口，Dock 点击即刻呈现。, en: "Seamless background launch at login with SMAppService and instant Finder services." }
+          - { zh: 即时预览与拖拽导出：支持双击或空格键 Quick Look 快速预览单项，支持直接将归档条目拖拽至访达按需解压。, en: "Spacebar / double-click Quick Look preview and direct drag-and-drop export to Finder." }
+          - { zh: 类型安全中英双语与自动更新：全界面类型安全 L10n 本地化，支持随系统或偏好切换；集成 Sparkle 2 安全更新通道。, en: "Type-safe bilingual localization (English & Simplified Chinese) and Sparkle 2 secure auto-updates." }
   - version: "0.1.0-beta.1"
     build: "2026101213"
     date: 2026-10-13

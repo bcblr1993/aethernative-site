@@ -1,6 +1,6 @@
 title: { zh: 使用帮助, en: "Support" }
 heading: { zh: "归档问题，\n从这里开始。", en: "Archive help\nstarts here." }
-lead: { zh: AetherZip Beta 使用说明与反馈入口。, en: "AetherZip Beta usage and feedback." }
+lead: { zh: AetherZip 正式版使用说明与反馈入口。, en: "AetherZip usage and feedback." }
 sections:
   - heading: { zh: 安装与 Finder 快速操作, en: "Installation and Finder actions" }
     steps:
@@ -14,8 +14,8 @@ sections:
       - { zh: 没有密码无法解密。请妥善保管密码。, en: "Decryption requires the correct password. Keep it safe." }
   - heading: { zh: 当前边界, en: "Current limits" }
     list:
-      - { zh: 仅支持 Apple 芯片和 macOS 26+；界面目前为中文。RAR 不能创建。, en: "Apple silicon and macOS 26+ only, with a Chinese interface. RAR creation is not available." }
-      - { zh: 尚不支持归档内编辑、修改密码、损坏修复或自动更新。通过本页下载新版。, en: "Archive editing, password changes, damage repair and automatic updates are not available. Download new versions from this site." }
+      - { zh: 仅支持 Apple 芯片和 macOS 26+；提供中英双语界面。RAR 仅支持解压。, en: "Apple silicon and macOS 26+ only, with English and Chinese interfaces. RAR extraction supported." }
+      - { zh: 尚不支持归档内编辑、修改密码或损坏修复。, en: "Archive editing, password changes and damage repair are not supported." }
       - { zh: 强制结束进程或断电可能留下临时目录；正常取消或退出会等待清理。请勿在任务进行中手动删除临时目录。, en: "Forced termination or power loss can leave temporary folders. Normal cancellation or exit waits for cleanup. Do not manually delete temporary folders while a task is running." }
   - heading: { zh: 反馈, en: "Feedback" }
     body:

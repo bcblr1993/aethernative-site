@@ -11,7 +11,7 @@ summary:
   en: A native archive utility for Apple silicon Macs. Compress, extract, protect with a password and work from Finder, with Mac metadata filtered by default for cleaner sharing.
 platforms:
   - id: mac
-    status: beta
+    status: available
     requirement: { zh: Apple 芯片 · macOS 26+, en: "Apple silicon · macOS 26+" }
 cardStats:
   - value: "原生 / Native"
@@ -21,15 +21,15 @@ cardStats:
   - value: "本机 / Local"
     label: { zh: 文件和密码不上传, en: "No file or password uploads" }
 hero:
-  eyebrow: { zh: 原生归档 · 干净分享 · Beta, en: "Native archives · Clean sharing · Beta" }
+  eyebrow: { zh: 原生归档 · 干净分享 · 1.0 正式版, en: "Native archives · Clean sharing · v1.0" }
   title: { zh: "你的文件，\n轻装出发。", en: "Your files,\nready to travel." }
   lead:
     zh: "把文件拖进来，轻松压缩、加密或解压。\n原生玻璃界面与 Finder 快速操作，让每一步清楚可见。"
     en: "Drop in your files to compress, encrypt or extract.\nNative glass controls and Finder actions keep every step within reach."
   requirements: { zh: macOS 26 或更新版本 · 仅支持 Apple 芯片 M 系列, en: "macOS 26 or later · Apple silicon M-series only" }
 notice:
-  zh: 首个公开测试版，界面目前为中文。RAR 仅支持解压；ZIP 加密密码使用英文、数字或符号。此版本通过官网手动下载安装更新。
-  en: First public beta, with a Chinese interface. RAR extraction only; ZIP encryption uses ASCII passwords. Download updates manually from this website.
+  zh: 1.0 正式版现已发布，支持中英双语与 Sparkle 自动更新。RAR 仅支持解压；ZIP 加密密码使用英文、数字或符号。
+  en: Version 1.0 is now available with bilingual localization and Sparkle auto-updates. RAR extraction only; ZIP encryption uses ASCII passwords.
 gallery:
   - label: { zh: 开始 · 浅色与深色, en: "Home · Light and dark" }
     zh: ./media/home-light.png
@@ -63,5 +63,5 @@ faq:
     - q: { zh: 会保留 Mac 的资源叉吗？, en: "Does clean sharing preserve Mac resource forks?" }
       a: { zh: 干净分享适合普通文件分发，不是保留全部 Mac 元数据的备份方式。需要保留资源叉和扩展属性时，请使用专用备份工具。, en: "Clean sharing is intended for ordinary file distribution, not full Mac metadata backups. Use a dedicated backup tool when resource forks and extended attributes must be preserved." }
 cta:
-  title: { zh: 试试 AetherZip Beta。, en: "Try AetherZip Beta." }
+  title: { zh: 体验 AetherZip 原生归档。, en: "Experience AetherZip." }
   note: { zh: 本机处理 · macOS 26+ · Apple Silicon, en: "Local processing · macOS 26+ · Apple silicon" }
