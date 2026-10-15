@@ -1,6 +1,34 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.7.5"
+    build: "2026101501"
+    date: 2026-10-15
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.7.5/AetherRoute-1.7.5-build-2026101501-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.7.5
+    sha256: cea5a4397c3ff9e3a4e806c7b138be1ad668fec6dc330450b8e1821e5b610d4d
+    sparkle:
+      edSignature: g7lSdS8b0VSS+NnNSMUR29NZxBwnsnrK4f5qy4Ykj32kt149iKgbzqHMEhn7awqWGiARdYRUPJy7M1JdiU6xDg==
+      length: 27409044
+    summary:
+      zh: 支持菜单栏图标自定义、强化透明代理发版门禁与双端并行验收流水线
+      en: Customizable menu bar icons, reinforced transparent proxy gates, and parallel acceptance pipeline
+    notes:
+      - title:
+          zh: 新增功能
+          en: New Features
+        items:
+          - zh: 菜单栏图标自定义：支持 41 款原生 SF Symbols 矢量图标，连接状态双态自适应（描边与实心），完美融合新版本更新小红点与系统明暗主题。
+            en: "Customizable menu bar icons: 41 native SF Symbols with dual-state adaptation and update badge support."
+          - zh: 透明代理 5 大专项门禁：原生 UDP 53 数据报接管与端口池映射、局域网直连快速穿透、真实 SNI 目标恢复、明文 HTTP/裸 IP 转发、以及 60 并发短连接瞬时冲击压测。
+            en: "Reinforced transparent proxy gates: UDP 53 routing, LAN bypass, SNI recovery, raw HTTP/IP, and 60-burst concurrency."
+      - title:
+          zh: 体验优化
+          en: Improvements
+        items:
+          - zh: 双端并行发版流水线重构：Tart 虚拟机矩阵与远程物理真机并发调度，验收测试时长由过去 >45 分钟缩短至约 7 分半钟，提速 6 倍。
+            en: "Parallel release acceptance pipeline: reduced full release testing duration from 45+ minutes to ~7.5 minutes."
   - version: "1.7.4"
     build: "2026101405"
     date: 2026-10-14
