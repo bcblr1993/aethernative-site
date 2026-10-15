@@ -4,13 +4,29 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.2</title>
-            <pubDate>Thu, 15 Oct 2026 20:22:25 +0800</pubDate>
-            <sparkle:version>50</sparkle:version>
-            <sparkle:shortVersionString>0.8.2</sparkle:shortVersionString>
+            <title>0.8.3</title>
+            <pubDate>Fri, 16 Oct 2026 05:53:02 +0800</pubDate>
+            <sparkle:version>51</sparkle:version>
+            <sparkle:shortVersionString>0.8.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.8.2
+            <description sparkle:format="markdown"><![CDATA[# v0.8.3
+
+- **自托管静默调度引擎 (Autonomous Auto-Pilot Self-Hosting Engine)**：
+  - **空闲自动注入 (Strict Idle Dispatching)**：支持勾选开启实例自托管，当 Agent 步骤执行完毕进入空闲状态时，自动向后台窗口注入预设指令，实现全流程无人值守自托管闭环。
+  - **防抖确认机制 (Debounce Confirmation Invariant)**：内置可配置的空闲防抖倒计时（默认 3 秒，1~10s 可调），连续确认实例处于持续稳定空闲状态，彻底杜绝 Agent 在多步工具调用或短暂停顿中的“假空闲”误触发。
+  - **长时间挂起坚实保护 (Long-term Stalled Protection)**：当实例执行长耗时任务（如大型项目构建、全量测试执行、深度逻辑推理或休眠等待）进入挂起（`.stalled`）状态时，自托管引擎自动进入被动等待保护模式，**绝不提前打断、绝不强行终止**，耐心守护直至任务顺利完成。
+  - **人工介入锁定防误发 (Needs Attention Safety Lock)**：若 Agent 弹出用户确认、问题选择或交互提示（`.needsAttention`），自托管引擎立即主动锁定并安全暂停，弹出系统级通知提示人工介入，**绝不盲目注入**，确保生产环境绝对安全可靠。
+  - **CDP 零焦点抢占静默通道 (Zero-Focus Background CDP Channel)**：基于底层 Chromium DevTools Protocol (`Runtime.evaluate`) 与 Lexical 内部渲染树通信，输入与提交完全在后台静默完成，**不弹窗、不激活应用、不抢占键盘焦点与鼠标光标**，让用户在前台编码、观影或办公不受丝毫干扰。
+  - **智能安全熔断器 (Circuit Breaker & Round Counter)**：支持设置最大循环轮数（0 为无限制连续自托管，也可设定 1~100 轮安全熔断），支持任务历史流式日志追踪与一键即时测试发送。
+- **全方位自托管 UI 与全键盘命令面板集成 (Comprehensive UI & Universal Command Palette)**：
+  - **动态呼吸状态胶囊 (`AutoPilotPillView`)**：卡片与缩略图上实时呈现自托管状态（就绪待命、防抖倒计时、静默注入中、挂起等待中、需要介入、已达最大轮数），呼吸光晕生动直观。
+  - **自托管配置中枢 (`AutoPilotConfigSheet`)**：提供精美的液态玻璃配置浮层，支持常用模板快捷填入（“继续下一步”、“深入分析”、“测试驱动”、“代码重构”）、自定义多行指令、防抖滑块、最大轮数调节与立即后台测试注入。
+  - **全键盘命令控制台集成**：极速切换器命令模式 (`>`) 新增 `> 🤖 全部开启自托管` 与 `> ⏹ 全部暂停自托管`，全键盘一键全局调度。
+- **全量 121 项自动化测试质量门禁坚实保障 (121/121 Automated Test Verification Gate)**：
+  - 全新加入 `test_autopilot_self_hosting.py`（14 项严格前置 TDD 质量门禁），连同既有的 107 项核心功能、UI 渲染、主题与性能测试，全部 121 项测试 100% 满分通过。
+
+# v0.8.2
 
 - **Quick Switcher 升维为 Universal Command Palette 全键盘命令面板 (P1)**：
   - **万能命令控制台**：在极速切换器中输入 `>` 或搜索动作名称，即刻进入系统命令模式，享受类似 Raycast / VS Code 的全键盘掌控手感。
@@ -266,10 +282,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.2/Aether-Antigravity-Multiplexer-v0.8.2-macos-arm64.zip" length="3552205" type="application/octet-stream" sparkle:edSignature="jXqL7s2ZPfZKZQFg3REw+FpMzY0vt3xNLgVBqFP0nlPIb1rDiTJeOr22S9EQciQvYd/X1qwBYXaoczfRzhf1DQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.3/Aether-Antigravity-Multiplexer-v0.8.3-macos-arm64.zip" length="3628422" type="application/octet-stream" sparkle:edSignature="x38aMr/x2PG8U1yEP2AaKAwSDn7zRckVq6E0cWXyc7Uy6QP6N3U86IiteLhWYUTKLPt7QQ4C7FXnTPmBRZYGAw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: LcKnubZjKpMhiyf1t2RFBv/5x4oQJ4HJYnjYHoTAYqt7IniQoHWS1KDETmUqSht/flN4yG3hWAkz1to8W4VECw==
-length: 39020
+edSignature: HASYVNcuD//kEGKxWZwuLZr7iGWWcMh/Hymu9W/Pm/vfNfMvHeE0hIn1KGkWmn+cMQhVopf1isQqtJYUZNk8CQ==
+length: 42047
 -->
