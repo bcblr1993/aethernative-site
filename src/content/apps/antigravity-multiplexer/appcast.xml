@@ -4,13 +4,28 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.7.3</title>
-            <pubDate>Thu, 15 Oct 2026 08:02:57 +0800</pubDate>
-            <sparkle:version>41</sparkle:version>
-            <sparkle:shortVersionString>0.7.3</sparkle:shortVersionString>
+            <title>0.7.5</title>
+            <pubDate>Thu, 15 Oct 2026 09:14:50 +0800</pubDate>
+            <sparkle:version>43</sparkle:version>
+            <sparkle:shortVersionString>0.7.5</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.7.3
+            <description sparkle:format="markdown"><![CDATA[# v0.7.5
+
+- **实例单窗口绝对收敛与幽灵多窗口修复 (Single-Window Absolute Invariance & Duplicate Window Pruning)**：
+  - **彻底修复运行中再次调出导致的多窗口 Bug**：此前当实例已在后台运行时，多开管理器在执行聚焦时调用了 `NSWorkspace.openApplication`，导致 macOS LaunchServices 触发重开事件使 Electron 意外派生第二扇空白窗口。现全面优化为通过精准的进程激活与 System Events 原生置顶直接唤醒现有窗口，杜绝无效拉起。
+  - **ASAR 启动层单窗口强力拦截与防重入**：在实例分身启动入口动态注入 `createWindow` 拦截锁。当实例进程内已有现存主窗口时，任何途径（如快捷键 Cmd+N、系统 Dock 菜单或启动阶段早期激活）触发的开窗调用均直接聚焦现有窗口，彻底阻断同一实例创建第二扇多余窗口。
+  - **关闭逻辑修复与从属窗口自愈释放**：修正分身中 `win.on('close')` 的拦截逻辑，确保当检测到多于一扇窗口时允许子窗口正常物理销毁，仅在仅剩最后一扇主窗口时才执行防退收起；并在后台遥测扫描中引入 CDP 幽灵窗口自动识别与秒级关闭机制，全生命周期确保「一个实例恒定一扇窗口」。
+
+# v0.7.4
+
+- **悬浮返回胶囊全硬件加速丝滑拖拽重构 (Hardware-Accelerated 120 FPS WindowServer HUD Dragging)**：
+  - **WindowServer 原生拖拽接管**：彻底重构悬浮胶囊条（Floating Return HUD）的拖拽响应内核，废弃原先在 SwiftUI 事件循环中通过 `DragGesture` 计算相对偏移并重复调用 `setFrameOrigin` 导致的抖动、卡顿与坐标跳变（Rubber-banding）痛点，改用 macOS 底层 `window.performDrag(with: event)`。
+  - **120 FPS 满帧硬件加速跟手响应**：由 macOS WindowServer 显示合成器在内核层以屏幕物理刷新率（ProMotion 120Hz / 60Hz）直接驱动窗口位移，实现无延迟、零掉帧、犹如原生系统窗口标题栏般的丝滑跟手体验。
+  - **智能指针反馈与抓取触感**：在可拖拽区域（抓手图标、实例名称与状态文字等）智能提供 `openHand`（可抓取手掌）与 `closedHand`（抓取中握拳）鼠标光标反馈；同时确保右侧控制按钮（「收起回监控台」、「快捷切换 ⇄」、「关闭 ×」）互不干扰、灵敏点击响应。
+  - **智能屏幕贴边防跑飞与断连屏幕自愈**：拖拽释放时自动依据当前屏幕有效区域（`visibleFrame`）进行平滑约束吸附并持久化坐标，避免浮窗飘出屏幕可视范围；支持多显示器热插拔时自动自愈回归当前主屏。
+
+# v0.7.3
 
 - **适配官方 Google Antigravity 2.23.1 最新主实例 (Official Antigravity 2.23.1 Compatibility)**：
   - **完成新版本特征哈希校验与完整性建档**：官方主程序升级至 2.23.1（包含 Language Server 通信稳定性强化与偶发异常修复）。管理器已完成对其 `app.asar`、ARM64 原生 `language_server` 二进制的 SHA-256 特征提取与凭据隔离补丁锚点验证。
@@ -121,10 +136,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.3/Aether-Antigravity-Multiplexer-v0.7.3-macos-arm64.zip" length="3261190" type="application/octet-stream" sparkle:edSignature="TJinSrW5wnaSk14SDJ18dA4e3jgPcnGdrSDOQay3iZoRN+6ywYTBt5wFa6v2bEU+8JT5HdaWOo4V1y8N0yXYCA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.5/Aether-Antigravity-Multiplexer-v0.7.5-macos-arm64.zip" length="3269220" type="application/octet-stream" sparkle:edSignature="KuAViTD5IL46KR5RhP2oqxRpRdqxZQTmIal5VFZnkHcb396mTpD2aCuUZQ5Su7ZALvtnl1x6A3QGD2TrOxwCDA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: OzPx6zPDhcVOnSuFfij+BdO0N3dOorY2l+AAjqO10zzjVHH8VcUHhnZsyrhXuxP3Jb3Zl+B6TXpLLAXpFQiWBA==
-length: 17942
+edSignature: waEMr6YusgmEoH5IYrFXBHmRVyxtxwzqT2BFSJaIxSjErGdL96q+EOILz+gVvbwh9hKDy3NCA8/zgAVF8kG1CA==
+length: 20611
 -->
