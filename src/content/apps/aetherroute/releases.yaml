@@ -1,6 +1,30 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.1"
+    build: "2026101506"
+    date: 2026-10-15
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.1/AetherRoute-1.8.1-build-2026101506-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.1
+    sha256: 6373a286e093961ef4ce4d6131a5fd8da8583e91f1ac606c1e061e085823bb70
+    sparkle:
+      edSignature: H4sP25+ayW8Pmq8lUS33rEf3Jwf+zosWOByNFNnSMcVVIb3FY9dSzany8E2nVD/3AkvE0UD0nH6/PqfVONPiCQ==
+      length: 27473294
+    summary:
+      zh: 菜单栏自定义图标统一 18x18 Retina 超清渲染，局域网共享代理工业级加固与 IPv6 支持
+      en: Menu bar icons standardized 18x18 Retina vector rendering, industrial Allow LAN hardening with IPv6 support
+    notes:
+      - title:
+          zh: 新增与优化
+          en: Improvements
+        items:
+          - zh: 菜单栏图标尺寸统一与 Retina 超清：41 款图标全量标准化 18x18 pt 画布，消除亚像素模糊，设置面板网格整齐划一。
+            en: "Menu Bar Icon Standardization & Retina Clarity: All 41 symbols standardized on 18x18 pt canvas with integer pixel alignment and zero blurriness."
+          - zh: 局域网共享代理健壮性加固：单次释放保护、15s 超时防僵尸连接、IPv6 / SOCKS5 ATYP 0x04 支持与 256 连接池防风暴。
+            en: "Allow LAN Hardening: Single-fire close protection, 15s timeout defense, full IPv6 and SOCKS5 ATYP 0x04 support, and 256 connection pool guard."
+          - zh: 动态网络感知重绑：集成 NWPathMonitor，在物理网卡切换时自动平滑重绑监听。
+            en: "Dynamic Network Rebinding: Integrated NWPathMonitor to smoothly rebind listeners on physical interface changes."
   - version: "1.8.0"
     build: "2026101505"
     date: 2026-10-15
