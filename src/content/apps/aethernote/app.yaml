@@ -70,8 +70,8 @@ showcase:
     zh: 今天和过去的记录都可以继续编辑。周回顾按日期展开，方便阅读、复制与导出。
     en: Today's notes and past entries remain editable. The weekly review follows calendar order, ready to read, copy or export.
   note:
-    zh: 截图来自 macOS 27 上的 AetherNote 0.1.3 / 0.1.4；晾衣绳与设置已更新为 0.1.4，内容为演示数据。
-    en: Actual AetherNote 0.1.3 / 0.1.4 captures on macOS 27. The clothesline and Settings show 0.1.4; all entries are demos in the Chinese interface.
+    zh: 截图来自 macOS 27 上的 AetherNote；日期编辑器为 0.1.5，晾衣绳与设置为 0.1.4，其余为 0.1.3，内容均为演示数据。
+    en: Actual captures on macOS 27. The editor shows 0.1.5, the clothesline and Settings show 0.1.4, and other views show 0.1.3. All entries are demos in the Chinese interface.
   items:
     - title:
         zh: 给每一天，一点自己的颜色
@@ -84,8 +84,8 @@ showcase:
         zh: 随时补记与修改
         en: Add and edit anytime
       caption:
-        zh: 回车记一条，历史日期也能补充、修改和删除。
-        en: Press Return to add an entry. Past days support additions, edits and deletion too.
+        zh: 打开日期时晾衣绳暂时收起，紧凑的玻璃标题与清晰的正文区域让记录更专注；历史日期仍可补充、修改和删除。
+        en: The clothesline steps aside when a day opens. A compact glass header and clear writing area keep the focus on your notes. Past days remain editable.
       image: ./media/editor.png
     - title:
         zh: 安静地读完这一周
@@ -191,8 +191,8 @@ faq:
         zh: 支持哪些 Mac？如何更新？
         en: Which Macs are supported, and how do I update?
       a:
-        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.4 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
-        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.4 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
+        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.5 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
+        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.5 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
 cta:
   title:
     zh: 今天做过什么？先记一行。

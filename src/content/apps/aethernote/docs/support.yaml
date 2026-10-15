@@ -16,8 +16,8 @@ sections:
       zh: 安装与打开
       en: Install and open
     steps:
-      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.4 或更新版本，本地记录保留。
-        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.4 or later manually once. Local notes are preserved.
+      - zh: 下载 DMG，将 AetherNote 拖入 Applications 后打开。0.1.0 / 0.1.1 用户需先手动安装一次 0.1.5 或更新版本，本地记录保留。
+        en: Download the DMG, drag AetherNote into Applications and open it. Users of 0.1.0 or 0.1.1 need to install 0.1.5 or later manually once. Local notes are preserved.
       - zh: 点击菜单栏便签图标展开晾衣绳。开启顶部展开后，也可以在屏幕顶部中央停留约 0.6 秒。固定按钮可以让晾衣绳保持显示。
         en: Click the menu bar note icon to reveal the line. If top-edge reveal is enabled, pause at the top center for about 0.6 seconds. Pin it to keep it visible.
       - zh: 使用 ⌃⌥N 记一行，⌃⌥L 展开或收起；快捷键冲突时仍可使用菜单栏入口。
@@ -41,6 +41,8 @@ sections:
     list:
       - zh: 点开任意今天或历史日期的便签，回车追加一条；Shift + 回车换行，提交多行时自动分条。通过每条记录的菜单修改或删除。
         en: Open today's note or any past day and press Return to add an entry. Shift–Return inserts a newline; submitting multiple lines creates separate entries. Use each entry's menu to edit or delete it.
+      - zh: 打开日期、回顾或设置时，晾衣绳暂时收起并暂停顶部触发。最后一个窗口关闭后，仅恢复原先显示的晾衣绳；已停用时保持隐藏。修改正文时追加框暂时收起，保存或取消后恢复。
+        en: Opening a day, review or Settings temporarily hides the clothesline and pauses edge reveal. Closing the last window restores it only if previously visible and still enabled. While editing an entry, the add-line box steps aside until you save or cancel.
       - zh: 过去的日期一直可编辑，未来日期到当天才开放；修改不会把旧记录移到今天。
         en: Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today.
       - zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。

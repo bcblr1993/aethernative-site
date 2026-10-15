@@ -1,4 +1,32 @@
 releases:
+  - version: 0.1.5
+    build: "2026101501"
+    date: 2026-10-15
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherNote/releases/download/v0.1.5/AetherNote-0.1.5-macos-arm64.dmg
+    github: https://github.com/bcblr1993/AetherNote/releases/tag/v0.1.5
+    sha256: 833e1d4203f7bdecfdf06f7fe69138258d75831cc03e512b17e96fe622a024b2
+    sparkle:
+      edSignature: jbz0WpAUG5n0uw3YhAPgMUOYV3yOKvmQ++mWYh2OZ6A/QpTiB/Yvkc1/COYmkhXUrzfI1EwwEW/6xq5LTIn8BA==
+      length: 3030308
+    badge:
+      zh: 已签名 · Apple 公证
+      en: Signed · Apple notarized
+    summary:
+      zh: 晾衣绳为编辑让位，更紧凑的日期窗口与清晰的阅读区域。
+      en: A focused daily editor with a clothesline that steps aside, a compact layout and clearer reading surfaces.
+    notes:
+      - title:
+          zh: 专注记录
+          en: Focused writing
+        items:
+          - zh: 打开记录、回顾或设置时暂时收起晾衣绳并暂停顶部触发；最后一个窗口关闭后，只恢复原先可见且仍启用的晾衣绳。
+            en: Opening a day, review or Settings hides the clothesline and pauses edge reveal. After the last window closes, it returns only if previously visible and still enabled.
+          - zh: 日期窗口收紧到 500pt，根据已有记录选择初始高度；输入期间不跳动。玻璃标题栏搭配更清晰的正文与输入区。
+            en: A 500pt editor chooses its initial height from existing entries and stays stable while typing. A glass header is paired with clearer reading and input surfaces.
+          - zh: 首次输入可靠聚焦，修改正文时暂时收起追加框；保留未保存保护、草稿、历史编辑与中英日支持。
+            en: Reliable initial input focus, more space while editing, and preserved unsaved-edit protection, drafts, historical editing and three-language support.
   - version: 0.1.4
     build: "2026101401"
     date: 2026-10-14
