@@ -4,13 +4,26 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.7.6</title>
-            <pubDate>Thu, 15 Oct 2026 09:47:49 +0800</pubDate>
-            <sparkle:version>44</sparkle:version>
-            <sparkle:shortVersionString>0.7.6</sparkle:shortVersionString>
+            <title>0.7.7</title>
+            <pubDate>Thu, 15 Oct 2026 14:26:59 +0800</pubDate>
+            <sparkle:version>45</sparkle:version>
+            <sparkle:shortVersionString>0.7.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.7.6
+            <description sparkle:format="markdown"><![CDATA[# v0.7.7
+
+- **多开副本菜单栏图标纯净隐藏 (Clean Menu Bar Clone Tray Suppression)**：
+  - **菜单栏图标不再泛滥堆叠**：针对多开实例增多后 macOS 顶部菜单栏拥挤杂乱的痛点，全面实施方案 A：官方主程序保持原生菜单栏托盘，而所有通过管理器衍生的高性能多开副本在启动入口自动拦截 Tray 相关 API，彻底隐藏分身托盘图标，让系统状态栏回归纯净。
+- **实例窗口全生命周期与关闭/最小化/收起彻底修复 (Window Lifecycle & Close/Minimize/Collapse Overhaul)**：
+  - **彻底修复最小化后无法调出窗口 Bug**：Electron 原生 `activate` 默认仅在窗口计数为 0 时才处理开窗，导致最小化到 Dock 后的分身窗口无法被管理器或 Dock 点击唤醒。现通过在 ASAR 底层注入 `w.restore()` + `w.show()` + `w.focus()`，并在管理器层结合 macOS Accessibility AX 原生解最小化与 AppleScript 重开事件，双轨联动，任何方式点击均可瞬间复原最小化窗口。
+  - **彻底修复点击实例红叉关闭按钮导致意外退出 Bug**：重构实例分身 `win.on('close')` 事件链，确保 `e.preventDefault()` 绝对优先拦截，窗口执行 `win.hide()` 与 `electron_1.app.hide()`，点击关闭即为平滑收起至后台，确保 Agent 与多会话后台无损继续执行。
+  - **彻底修复点击「收起回监控台」导致桌面变空或退出的 Bug**：为管理器自身窗口挂载 `MainWindowDelegate` 与 `MainWindowAccessor`，拦截管理器自身的关闭销毁；同时在 `bringMonitorWallToFront()` 中注入自愈拉起机制，即使用户之前关闭了监控台窗口，点击收起时也会即刻自动唤出监控墙主视图。
+- **升级引擎宿主防自杀与长稳会话守护 (Self-Preservation & Host App Stability)**：
+  - 深度优化升级引擎 `upgrade_all.py`，新增进程树反向回溯与当前宿主识别。当多开管理或自动化升级任务直接运行在某一分身实例内时，自动豁免杀死该实例进程，采用原子热重命名替换文件，彻底解决「升级时自己杀死自己」的严重问题。
+- **70 项自动化单元测试全绿门禁 (Expanded Automated Test Gate)**：
+  - 扩充测试套件并全量通过 70/70 单元测试（涵盖免备份升级、进度条流式输出、菜单栏图标拦截、单窗口防重入与多进程协同），发版前自动核验。
+
+# v0.7.6
 
 - **升级实例自由选择是否备份 (Flexible Upgrade Backup Option)**：
   - **交互式安全备份卡片**：升级确认弹窗中全新升级交互，新增「升级前创建安全备份」开关。默认勾选推荐状态，显示安全绿盾与清晰指引。
@@ -154,10 +167,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.6/Aether-Antigravity-Multiplexer-v0.7.6-macos-arm64.zip" length="3334763" type="application/octet-stream" sparkle:edSignature="iFaosYgcq4JTaTNyqK0JXd0lV/yR12GQcYhlEQ+Vc+JX0treB/EmOnhYKaf0WpOEs31rd3Hc8QpbkT/LAITxAA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.7/Aether-Antigravity-Multiplexer-v0.7.7-macos-arm64.zip" length="3343142" type="application/octet-stream" sparkle:edSignature="QjKjBORzrm4LD2ib6fXjyiSI9YuR8CAzFOMZJsdWOqDpC4gzyGxfghGKwNFYq/fSsQiAtl+tlZI6S+wjK+8cBA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: Rsj0yiLq5ZmJNkypQ9tGwnY6uAYuS/7i+7ufNmGF2KNAPO+yg8FMIecpH9oVqZFXSfyQI1dtec6D8HZ4td9UAw==
-length: 23329
+edSignature: TKYDBAyb7x4/3QL6CSW5J9B3bF5HfiDvfrCH2tuqkaGfZzgWPpLhHl6QJdNuaQF04FkKb9Uwh2UfCOxjcKAvBA==
+length: 25769
 -->
