@@ -4,13 +4,31 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.7.5</title>
-            <pubDate>Thu, 15 Oct 2026 09:14:50 +0800</pubDate>
-            <sparkle:version>43</sparkle:version>
-            <sparkle:shortVersionString>0.7.5</sparkle:shortVersionString>
+            <title>0.7.6</title>
+            <pubDate>Thu, 15 Oct 2026 09:47:49 +0800</pubDate>
+            <sparkle:version>44</sparkle:version>
+            <sparkle:shortVersionString>0.7.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.7.5
+            <description sparkle:format="markdown"><![CDATA[# v0.7.6
+
+- **升级实例自由选择是否备份 (Flexible Upgrade Backup Option)**：
+  - **交互式安全备份卡片**：升级确认弹窗中全新升级交互，新增「升级前创建安全备份」开关。默认勾选推荐状态，显示安全绿盾与清晰指引。
+  - **支持一键免备份极速升级**：用户可自主取消勾选或点击「跳过备份直接升级」，底层跳过耗时的全量压缩归档，升级速度飙升 3 倍且零磁盘增量，满足空间紧凑或频繁更新场景。
+  - **底层引擎支持**：`upgrade_all.py` 深度支持 `--skip-backup` 参数与原子替换机制，兼顾安全性与极致效率。
+- **全流程发光升级进度条与五阶段流水线看板 ("然后还有 这种的")**：
+  - **动态平滑进度条 (Glowing Determinate Progress Bar)**：升级触发后无缝展开为实时全功能监控看板，`0% ~ 100%` 发光进度条与当前阶段（验签、复制适配、停止进程、备份/跳过、替换安装）毫秒级联动。
+  - **五阶段流水线指示器 (Visual Pipeline Stepper)**：清晰可视化 `① 官方源验签` ➔ `② 适配与签名` ➔ `③ 关闭实例` ➔ `④ 安全备份/跳过备份` ➔ `⑤ 替换安装生效` 全流程，实时呈现完成对勾与呼吸进行态。
+  - **实例升级状态胶囊与实时日志抽屉**：各分身卡片动态流转状态胶囊（排队中 / 适配中… / 备份中… / 替换中… / 已完成 ✓），并提供可折叠等宽终端日志。
+  - **主界面底部联动与随时再唤出**：支持后台静默收起；主窗口底部状态栏同步展示进度条与当前阶段，并提供「查看升级面板」快捷调出按钮。
+- **构建产物自动清理与发布防磁盘溢出 (Automated Disk Cleanup & Storage Shield)**：
+  - **历史旧版归档与临时公证包大扫除**：全面清退 `dist/` 中以往数十个历史版本的过期 `.zip` 压缩包，单次释放超 160 MB 磁盘空间；公证成功后自动立即销毁未装订的临时公证包 `${NAME}-notary.zip` 与中间日志，杜绝磁盘泄漏与资产混淆。
+  - **发布即清理机制与日常清理工具**：推出 `scripts/clean.sh`（支持 standard / post-release / deep）与 `scripts/publish-release.sh`，发布上传完成后自动执行磁盘瘦身。
+- **发版前强制全量自动化测试门禁 (Mandatory Pre-Release Test Verification)**：
+  - 新增 `tests/test_upgrade_and_progress.py` 自动化测试套件；
+  - 打包脚本 `package-release.sh` 与发布脚本 `publish-release.sh` 均强制嵌入测试门禁，全量通过 67 项测试（含备份可选性、进度条流式协议、单窗口守恒等）方可进入打包发布流程。
+
+# v0.7.5
 
 - **实例单窗口绝对收敛与幽灵多窗口修复 (Single-Window Absolute Invariance & Duplicate Window Pruning)**：
   - **彻底修复运行中再次调出导致的多窗口 Bug**：此前当实例已在后台运行时，多开管理器在执行聚焦时调用了 `NSWorkspace.openApplication`，导致 macOS LaunchServices 触发重开事件使 Electron 意外派生第二扇空白窗口。现全面优化为通过精准的进程激活与 System Events 原生置顶直接唤醒现有窗口，杜绝无效拉起。
@@ -136,10 +154,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.5/Aether-Antigravity-Multiplexer-v0.7.5-macos-arm64.zip" length="3269220" type="application/octet-stream" sparkle:edSignature="KuAViTD5IL46KR5RhP2oqxRpRdqxZQTmIal5VFZnkHcb396mTpD2aCuUZQ5Su7ZALvtnl1x6A3QGD2TrOxwCDA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.6/Aether-Antigravity-Multiplexer-v0.7.6-macos-arm64.zip" length="3334763" type="application/octet-stream" sparkle:edSignature="iFaosYgcq4JTaTNyqK0JXd0lV/yR12GQcYhlEQ+Vc+JX0treB/EmOnhYKaf0WpOEs31rd3Hc8QpbkT/LAITxAA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: waEMr6YusgmEoH5IYrFXBHmRVyxtxwzqT2BFSJaIxSjErGdL96q+EOILz+gVvbwh9hKDy3NCA8/zgAVF8kG1CA==
-length: 20611
+edSignature: Rsj0yiLq5ZmJNkypQ9tGwnY6uAYuS/7i+7ufNmGF2KNAPO+yg8FMIecpH9oVqZFXSfyQI1dtec6D8HZ4td9UAw==
+length: 23329
 -->
