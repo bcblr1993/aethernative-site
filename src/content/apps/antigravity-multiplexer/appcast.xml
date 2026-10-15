@@ -4,13 +4,32 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.7.8</title>
-            <pubDate>Thu, 15 Oct 2026 14:34:35 +0800</pubDate>
-            <sparkle:version>46</sparkle:version>
-            <sparkle:shortVersionString>0.7.8</sparkle:shortVersionString>
+            <title>0.7.9</title>
+            <pubDate>Thu, 15 Oct 2026 15:26:35 +0800</pubDate>
+            <sparkle:version>47</sparkle:version>
+            <sparkle:shortVersionString>0.7.9</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.7.8
+            <description sparkle:format="markdown"><![CDATA[# v0.7.9
+
+- **macOS Liquid Glass 全维设计重构 (macOS Liquid Glass Full Visual Overhaul)**：
+  - **4 层视觉纵深与双层真实物理阴影 (4-Layer Depth & Dual-Layer Ambient Occlusion Shadows)**：
+    - 升级 `GlassCardModifier` 与 `.systemSurface` 核心材质层：引入微量顶层高光线性渐变、半透明晶体/曜石底色、微距物理接触阴影 (`y: 1.2, radius: 2.5`) 与悬浮扩散阴影 (`y: 3~6, radius: 8~16`)，彻底摆脱传统扁平贴纸感，呈现真实晶莹悬浮层次。
+  - **镜面边缘导角高光 (Liquid Specular Bevel & Rim Light Reflections)**：
+    - 卡片、缩略图屏风、状态胶囊、极速切换浮窗及操作按钮均采用精确的顶光高光导角渐变边框（`LinearGradient` 顶白微透至主体底色渐变，0.95~1.2pt 极细微发光边缘），在深色与浅色模式下均如同自然光线掠过晶体棱角。
+  - **流体交互与物理反馈微动画 (Liquid Glow Physics & Spring Reactions)**：
+    - `ModernButtonStyle`、`IconActionButton`、`InstanceThumbnailTile`、`InstanceCard` 与 `QuickSwitcherRow` 全面采用高响应度阻尼弹簧动画（`dampingFraction: 0.75~0.82`），悬浮时带有动态光晕投影和微浮位移，按压时产生真实果冻弹性质感。
+  - **缩略图监控屏与实时看板晶莹质感升维**：
+    - `InstanceThumbnailTile` 采用内凹式透光玻璃屏幕容器、悬浮呼吸光晕、顶层毛玻璃状态胶囊以及带有极细晶体分界线的任务状态底栏。
+    - `InstanceCard` 标识徽章融入镜面反光流体渐变与动态光晕；技术指示微胶囊 (`metaPill`) 全面注入晶莹磨砂与微发光描边。
+    - 顶部仪表盘 `headerDashboard`、4 列指标卡 `metricsStrip` 与控制栏 `controlToolbar` 均升级为悬浮半透玻璃胶囊，指示器与切换器带有顺滑跟手的滑动光晕。
+  - **全局悬浮胶囊 HUD 与 Spotlight 级极速切换悬浮窗精致打磨**：
+    - `FloatingMonitorHUDView` 升级双层磨砂曜石质感、镜面导角反光边框与灵敏的按钮光晕；
+    - `QuickSwitcherView` 具备全毛玻璃模糊、深色曜石渐变衬底与高精度键盘选中光晕，浑然一体。
+- **全量 77 项自动化质量门禁坚实保障 (77/77 Automated Test Verification Gate)**：
+  - 核心功能（8 大安全门禁、菜单栏纯净隐藏、红叉关闭防退出、最小化一键解救、宿主防杀等）经受全量自动化回归测试，100% 通过。
+
+# v0.7.8
 
 - **8 大核心功能自动化测试门禁全量内置与制度化防护 (Permanent 8-Pillar Automated Test Verification Gate)**：
   - **流水线强制熔断机制**：将本地构建脚本 `build.sh`、发布打包脚本 `scripts/package-release.sh` 与发布上载脚本 `scripts/publish-release.sh` 全部串联自动化测试前置卡点。
@@ -179,10 +198,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.8/Aether-Antigravity-Multiplexer-v0.7.8-macos-arm64.zip" length="3343148" type="application/octet-stream" sparkle:edSignature="IKzxKsKltBHRh0Ue47V5MOlxtlCXuxRtJVkEKdA3aiNxFlrwHKdoqCYtJYXKpqN3LkpEHtnp4JFkH7b6lC6/Bg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.7.9/Aether-Antigravity-Multiplexer-v0.7.9-macos-arm64.zip" length="3366615" type="application/octet-stream" sparkle:edSignature="b9Bi8UEr41k+wx+cmvjlFakKWv9ygEOzUFDjDwvU0MxmRuYV37GbyHmJg+eJ5mkkNXiVq8YpIbSwML2khZe0BA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 2m34+6g4YeVypPjrhQQ61siFZRoIMluWdbOaKyVeHOK4DpdPrh1XOY8omrlszZO4gW5NgV7rhghejBHHHSvXCg==
-length: 27631
+edSignature: Ue3mzIf12R42+XY4VWjOBN8MPGpWmz5teQ906MUxAV7wOd6O73ufYPmIBmY7dkQo2iYXaujl2vUL1+owNJqVBA==
+length: 30110
 -->
