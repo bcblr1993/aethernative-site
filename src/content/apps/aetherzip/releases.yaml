@@ -1,4 +1,21 @@
 releases:
+  - version: "1.0.1"
+    build: "2026101502"
+    date: 2026-10-15
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherZip/releases/download/v1.0.1/AetherZip-1.0.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherZip/releases/tag/v1.0.1
+    sha256: 826636525bec82ad52a4626620f3e633c9c3a92d33b1265e08fc18cb95ea53de
+    badge: { zh: 正式版 · 已通过 Apple 公证, en: "Release · Apple notarized" }
+    summary:
+      zh: AetherZip 1.0.1 优化发布：优化侧边栏点击热区与悬浮微光、全面对齐 Liquid Glass 规范、新增历史任务 50 条上限保护与一键清空支持。
+      en: "AetherZip 1.0.1: enhanced sidebar interaction and hover feedback aligned with Liquid Glass guidelines, 50-item task history cap, and manual history clearing."
+    notes:
+      - title: { zh: 体验与功能优化, en: "Experience & Improvements" }
+        items:
+          - { zh: 侧边栏菜单轻量化与点击优化：修复透明区域命中测试盲区，补齐整行全域点击响应；加入鼠标悬浮半透明柔光，重构选中态为通透微晶胶囊；切页动效优化为利落平滑淡入（0.16s easeInOut）。, en: "Sidebar menu interaction overhaul: full-row click hit testing without gaps, smooth hover translucent glow, refined Liquid Glass capsule, and fast 0.16s easeInOut page transitions." }
+          - { zh: 任务记录上限保护与清空支持：新增 50 条历史任务上限保护，自动淘汰早期完成记录；任务页面新增顶部一键清空与单项独立移除按钮。, en: "Task history management: 50-item cap with automatic pruning of oldest records, one-click clear all completed tasks, and individual card dismissal." }
   - version: "1.0.0"
     build: "2026101501"
     date: 2026-10-15
