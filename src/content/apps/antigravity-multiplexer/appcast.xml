@@ -4,13 +4,33 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.1</title>
-            <pubDate>Thu, 15 Oct 2026 19:00:58 +0800</pubDate>
-            <sparkle:version>49</sparkle:version>
-            <sparkle:shortVersionString>0.8.1</sparkle:shortVersionString>
+            <title>0.8.2</title>
+            <pubDate>Thu, 15 Oct 2026 20:22:25 +0800</pubDate>
+            <sparkle:version>50</sparkle:version>
+            <sparkle:shortVersionString>0.8.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.8.1
+            <description sparkle:format="markdown"><![CDATA[# v0.8.2
+
+- **Quick Switcher 升维为 Universal Command Palette 全键盘命令面板 (P1)**：
+  - **万能命令控制台**：在极速切换器中输入 `>` 或搜索动作名称，即刻进入系统命令模式，享受类似 Raycast / VS Code 的全键盘掌控手感。
+  - **14 大系统级原子动作**：全量支持一键启动全部、安全退出全部、全部重启、左右双分屏平铺、四宫格平铺、瀑布级联排布、收起回监控台、新建分身实例、一键全量升级、主题循环切换、视图密度循环切换、多语言循环切换、打开偏好设置及清理临时缓存。
+  - **物理级触觉回馈与多语言支持**：指令移动与回车执行均伴随 macOS 细腻力反馈，支持简体中文、English、日本語与繁體中文 4 国语言。
+- **实时波形性能火花图 (Live Sparkline Activity Charts) (P2)**：
+  - **Metal GPU 硬件离屏加速绘图**：自研 `SparklineView` 贝塞尔平滑光幕曲线与折线图，通过 `.drawingGroup(opaque: false)` 移交 Metal 着色器高速合成，ProMotion 120Hz 极致流畅。
+  - **仪表盘实时流式图谱**：顶部指标条实时渲染全局 CPU 动态脉冲与 RAM 消耗走势（20 采样点轻量环形缓冲）。
+  - **Sentinel 0Hz 能效架构**：实例未启动或处于空闲状态时采样与绘制严格归零，兼顾极客视觉冲击与整机续航。
+- **多选批量操作条与 6 色彩标签工作区 (Batch Control & 6-Color Tags) (P3)**：
+  - **多选批量操作状态机**：控制栏新增批量选择模式，支持多选、全选与清空；
+  - **Liquid Glass 底部悬浮动作条**：选中分身时从屏幕底部轻盈滑出液态玻璃胶囊条，提供 `[▶ 批量启动]`、`[⏹ 批量退出]`、`[🪟 批量平铺]`、`[全选]` 等聚合调度能力。
+  - **6 色彩标签工作区分类**：支持 6 色高质感彩色标签（核心开发、生产部署、自动化测试、算法实验、数据爬虫、临时沙箱），元数据向前兼容持久化。
+- **菜单栏 Liquid Glass 迷你悬浮看板与多显示器自适应平铺 (P4)**：
+  - **常驻轻量控制中心**：点击状态栏图标弹出精美的 Liquid Glass 半透明自研 Popover 看板（右键保留原生经典菜单），集成总览指标火花图、运行中实例微卡片流与一键平铺。
+  - **多显示器自适应感知**：平铺引擎自动探测鼠标当前所在的光标屏幕，支持外接 4K 显示器独立就位；支持窗口几何坐标记忆恢复。
+- **全量 107 项自动化测试质量门禁坚实保障 (107/107 Automated Test Verification Gate)**：
+  - 全新加入 `test_p1_p4_advanced_features.py`（11 项前置门禁测试），连同原有 96 项核心审计与界面测试，全部 107 项测试 100% 满分通过。
+
+# v0.8.1
 
 - **macOS Liquid Glass 视觉终极精修与光影流体动力学 (macOS Liquid Glass Visual Refinement & Fluid Dynamics)**：
   - **动态环境呼吸光晕 (`AmbientGlowBorder`)**：为运行中实例卡片与缩略图屏风注入 2.8s 平滑循环的流体动态呼吸光晕，结合色彩辉光渐变与高精度微发光，赋予界面生动生命力。
@@ -246,10 +266,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.1/Aether-Antigravity-Multiplexer-v0.8.1-macos-arm64.zip" length="3459627" type="application/octet-stream" sparkle:edSignature="byGAV3l0H8qaSRx6RF9/03E9u5U1ap8IkiiKtD2jVuGDghKWXGBONFXRcTOcvGjee4RkBBi1kxp9zM953g7xCQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.2/Aether-Antigravity-Multiplexer-v0.8.2-macos-arm64.zip" length="3552205" type="application/octet-stream" sparkle:edSignature="jXqL7s2ZPfZKZQFg3REw+FpMzY0vt3xNLgVBqFP0nlPIb1rDiTJeOr22S9EQciQvYd/X1qwBYXaoczfRzhf1DQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 6NEtP32ZwNgxw9CNeBKZA6qiOoCcVD8IUm+8/ON9SKhBeGPtT+oPcRoMiYsnNdLrug+kOx7ypM/XLKLDXYPIAw==
-length: 36218
+edSignature: LcKnubZjKpMhiyf1t2RFBv/5x4oQJ4HJYnjYHoTAYqt7IniQoHWS1KDETmUqSht/flN4yG3hWAkz1to8W4VECw==
+length: 39020
 -->
