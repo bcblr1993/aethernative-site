@@ -4,13 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.6</title>
-            <pubDate>Fri, 16 Oct 2026 10:25:02 +0800</pubDate>
-            <sparkle:version>54</sparkle:version>
-            <sparkle:shortVersionString>0.8.6</sparkle:shortVersionString>
+            <title>0.8.7</title>
+            <pubDate>Fri, 16 Oct 2026 10:35:31 +0800</pubDate>
+            <sparkle:version>55</sparkle:version>
+            <sparkle:shortVersionString>0.8.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.8.6
+            <description sparkle:format="markdown"><![CDATA[# v0.8.7
+
+- **自托管达到预设最大轮数自动关闭与安全下电 (Autonomous Auto-Pilot Safe Auto-Shutdown on Max Rounds)**：
+  - **自动安全关闭 (`autoPilotEnabled = false`)**：自托管任务执行满预设轮数目标（如 1/1 或 3/3 轮）并回归空闲后，引擎自动将实例元数据中的 `autoPilotEnabled` 置为 `false` 并原子落盘持久化，**彻底关闭托管调度，防止无休止空转或意外重发**。
+  - **完成态徽章与配置面板智能自适应 (`AutoPilotPillView` & `AutoPilotConfigSheet`)**：实例完成全量轮次并关闭托管后，卡片上的状态徽章依然清晰常驻显示 `[已达最大轮数 (X/X)]`（青色勋章印章），点击进入配置面板时，开关已自动切换至关闭状态，并清晰提示“已达预设最大轮数并自动关闭托管；重新开启将重置轮数并开始新一轮调度”。
+  - **重新启用一键清零重开 (Zero-Friction Re-Enable)**：当用户再次打开自托管开关或保存新配置时，自动重置已执行轮数为 0，即刻开启崭新的执行周期。
+  - **macOS 系统通知与任务历史事件闭环**：达到最大限制自动关闭时，自动触发系统级通知横幅并在任务历史时间轴中完整留痕。
+- **全量 132 项自动化测试质量门禁保障 (132/132 Automated Tests Passed)**：
+  - 增补自托管达到最大轮数自动关闭元数据验证、完成态徽章常驻测试、重启调度轮数自动清零测试，全量 132 项测试 100% 满分通过。
+
+# v0.8.6
 
 - **精准实例状态判定与杜绝误挂起 (Precise State Telemetry & Zero False-Stall Guarantee)**：
   - **完成步骤立即回归空闲就绪 (`.idle`)**：彻底重构 `parseTranscriptTail` 判定流水线，当最后步骤为 `PLANNER_RESPONSE` 且状态为 `DONE`（工具调用列表为空）时，确立为 Agent 本轮回答完毕，立即回归 `.idle`（空闲就绪），彻底根除因历史旧步骤包含未消费的 `RUNNING` 标记而误判为“⚠️ 疑似挂起”的严重缺陷。
@@ -313,10 +323,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.6/Aether-Antigravity-Multiplexer-v0.8.6-macos-arm64.zip" length="3707147" type="application/octet-stream" sparkle:edSignature="5jLn0vFjQ4+90vroJQsTsebwxql4VlF0ZQ6h4oKnRwMG/kIOen0Nzyxoaj6vjT86L4gezW3p6wQem5cZ5Kh3Dw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.7/Aether-Antigravity-Multiplexer-v0.8.7-macos-arm64.zip" length="3711353" type="application/octet-stream" sparkle:edSignature="EYNBc7CD3lCjr9HI1vV/ldBLLCGJC8UyWjWLuwR65ad2WOr5FxdlNymJk+DUCTeHY0mtVxGwFdKeBLhErkkpAA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: Z6dBEpnYycsKYo5GpKVo2ejl8b9xirKAN6bP3+PPZLjgpBrDws0hB9QsZn4DHTXBxFmo9rstNDA3jf4LBW2CDA==
-length: 47006
+edSignature: k5iibjeMuLh7XfgRtNUbEVY/0dqgeYUCIFVGMb83nhj1U8RhZNWZ/vyB+8/6zhBIVgaBsUXL7u2KuYGAOzLzAg==
+length: 48542
 -->
