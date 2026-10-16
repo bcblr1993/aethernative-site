@@ -322,10 +322,7 @@ releases:
           - zh: 各详情页可开关对应指标是否显示在菜单栏，宽度随之收缩。
             en: Toggle each metric in the menu bar from its detail view; the status item shrinks to fit.
           - zh: 数字、进度条与环形图按利用率 4 档变色：绿、黄、橙、红。
-            en: Values
-            bars and rings change color in four load tiers: green
-            yellow: null
-            orange and red.: null
+            en: "Values, bars and rings change color in four load tiers: green, yellow, orange and red."
       - title:
           zh: 修复
           en: Fixes
@@ -379,16 +376,13 @@ releases:
           - zh: 统一 70% / 85% 负载阈值，常态跟随系统文字色，修复内存卡片始终为红色。
             en: Unified 70% / 85% load thresholds with neutral normal values; the memory card is no longer always red.
           - zh: 系统图标、半透明卡片与等宽数字，速率统一显示单位。
-            en: System symbols
-            translucent cards and monospaced digits: null
-            with consistent rate units.: null
+            en: System symbols, translucent cards and monospaced digits, with consistent rate units.
       - title:
           zh: 体验与质量
           en: Experience and quality
         items:
           - zh: 「关于」改为面板内页面，提供官网、GitHub 与反馈入口。
-            en: An in-panel About page with website
-            GitHub and feedback links.: null
+            en: An in-panel About page with website, GitHub and feedback links.
           - zh: 签名并公证的 Apple Silicon 安装包，通过 50 MB 内存峰值与后台 CPU 验收。
             en: Signed and notarized Apple Silicon packages that pass the 50 MB peak memory and background CPU gates.
   - version: "1.0.2"

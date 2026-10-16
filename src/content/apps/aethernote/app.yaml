@@ -12,8 +12,8 @@ tagline:
   zh: 把做过的小事，挂在这一周。
   en: Hang the little things you did on your week.
 summary:
-  zh: 一天一张便签，随手记一行。拖动晾衣绳上的小纸片，回看这一周；历史记录随时可编辑，每小时轻提醒只留在菜单栏。
-  en: One note a day, one line at a time. Move notes along a playful clothesline and look back on your week. Edit past days anytime, with quiet hourly reminders in the menu bar.
+  zh: "一天一张便签，记录和回看这一周。支持历史编辑、草稿保存与中英日界面；打开编辑、回顾或设置时，晾衣绳自动让位，菜单栏提供安静的每小时提醒。"
+  en: "One note a day to record and review your week, with historical editing, saved drafts and Chinese, English and Japanese interfaces. The clothesline steps aside while writing, reviewing or using Settings, with quiet hourly menu bar reminders."
 platforms:
   - id: mac
     status: available
@@ -166,6 +166,15 @@ features:
       body:
         zh: 在设置或菜单选择“检查更新”，查看新版后下载，完成签名验证再安装并重新启动。默认手动检查，不自动下载，不强制重启。
         en: Choose Check for Updates in Settings or the menu, review the new version, download it, then install and relaunch after signature verification. Checks are manual, with no automatic downloads or forced restarts.
+    - kicker:
+        zh: 专注编辑
+        en: Focused writing
+      title:
+        zh: 打开记录，让文字在前面
+        en: Give your writing room
+      body:
+        zh: 打开记录、回顾或设置时暂时收起晾衣绳并暂停顶部触发；所有窗口关闭后按原先状态恢复。500pt 日期窗口保持输入时稳定，修改记录时留出更多正文空间。
+        en: Opening a day, review or Settings hides the clothesline and pauses top-edge reveal. It returns to its previous state after the windows close. The 500pt day editor stays steady while typing and gives entries more room during edits.
 faq:
   eyebrow: FAQ
   title:

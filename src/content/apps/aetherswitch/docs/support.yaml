@@ -1,19 +1,41 @@
 title: { zh: 使用帮助, en: Support & Help }
 heading: { zh: "安装与使用，\n即刻上手。", en: "Installation & Usage.\nGet started instantly." }
 sections:
-  - heading: { zh: 安装与启动, en: Installation }
+  - heading:
+      zh: 安装与启动
+      en: Installation
     steps:
-      - { zh: "从官网或 GitHub Releases 下载最新版本的 DMG 镜像或压缩包。", en: "Download the latest DMG image or archive from the official website or GitHub Releases." }
-      - { zh: "将 AetherSwitch 拖入“应用程序”文件夹（/Applications）。", en: "Drag AetherSwitch into your Applications folder." }
-      - { zh: "双击打开，应用将静默常驻在顶部菜单栏右上角，显示当前内存占比与实时上下行网速。", en: "Double-click to launch. The app sits quietly in your menu bar, displaying real-time RAM usage and network bandwidth." }
-    note: { zh: "需要 Apple 芯片（M1 及更新系列）和 macOS 14.0 或更高版本系统。", en: "Requires Apple silicon (M1 or later) and macOS 14.0 or newer." }
-  - heading: { zh: 快捷开关使用技巧, en: Tips for Quick Toggles }
+      - zh: 从官网或 GitHub Releases 下载最新版本的 DMG 镜像或压缩包。
+        en: Download the latest DMG image or archive from the official website or GitHub Releases.
+      - zh: 将 AetherSwitch 拖入“应用程序”文件夹（/Applications）。
+        en: Drag AetherSwitch into your Applications folder.
+      - zh: 双击打开，应用将静默常驻在顶部菜单栏右上角，显示当前内存占比与实时上下行网速。
+        en: Double-click to launch. The app sits quietly in your menu bar, displaying real-time RAM usage and network bandwidth.
+    note:
+      zh: 需要 Apple 芯片（M1 及更新系列）和 macOS 14.0 或更高版本系统。
+      en: Requires Apple silicon (M1 or later) and macOS 14.0 or newer.
+  - heading:
+      zh: 快捷开关使用技巧
+      en: Tips for Quick Toggles
     body:
-      - zh: "点击菜单栏即可展开毛玻璃卡片，点击任意开关立即生效。其中「保持常亮」在 App 退出时会自动归还电源策略，不会导致系统意外无法休眠。"
-        en: "Click the menu bar item to reveal the glassmorphism panel. 'Keep Awake' automatically restores power policies upon exit to prevent unintended awake states."
-  - heading: { zh: 遇到问题与反馈, en: Issue Reporting }
+      - zh: 点击菜单栏即可展开毛玻璃卡片，点击任意开关立即生效。其中「保持常亮」在 App 退出时会自动归还电源策略，不会导致系统意外无法休眠。
+        en: Click the menu bar item to reveal the glassmorphism panel. 'Keep Awake' automatically restores power policies upon exit to prevent unintended awake states.
+  - heading:
+      zh: 遇到问题与反馈
+      en: Issue Reporting
     body:
-      - zh: "如遇到显示异常或希望提供建议，欢迎在 GitHub 提交 Issue。"
-        en: "If you encounter any glitches or have feature suggestions, feel free to open an issue on GitHub."
+      - zh: 如遇到显示异常或希望提供建议，欢迎在 GitHub 提交 Issue。
+        en: If you encounter any glitches or have feature suggestions, feel free to open an issue on GitHub.
     links:
-      - { label: { zh: 在 GitHub 提交反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/AetherSwitch/issues" }
+      - label:
+          zh: 在 GitHub 提交反馈 ↗
+          en: Report on GitHub ↗
+        href: https://github.com/bcblr1993/AetherSwitch/issues
+  - heading:
+      zh: 网络、电池与采样范围
+      en: Network, battery and sampling
+    body:
+      - zh: 网络页可自动选择主接口或指定接口，累计流量仅覆盖本次监测。电池页显示系统提供的电量、容量、循环与充电信息；硬件未提供的读数显示不可用。
+        en: Select the primary network interface automatically or choose one manually. Traffic totals cover the current monitoring period. Battery details use system-provided charge, capacity, cycle and charging data; unsupported readings show as unavailable.
+      - zh: 后台刷新可选 1、2、5 或 10 秒。隐藏指标停止采样，仅图标模式收起时停止定时器；历史图只记录面板展开期间。
+        en: Choose a 1, 2, 5 or 10 second background interval. Hidden metrics stop sampling, and icon-only mode stops its timer when collapsed. History charts record while the panel is open.

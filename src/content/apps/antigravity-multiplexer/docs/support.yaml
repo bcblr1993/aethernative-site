@@ -4,29 +4,61 @@ lead:
   zh: 这是非官方工具，安装包不包含 Google Antigravity。使用前请先确认 Google 的条款。
   en: "This is an unofficial tool and does not include Google Antigravity. Please review Google's terms before use."
 sections:
-  - heading: { zh: 安装, en: Install }
+  - heading:
+      zh: 安装
+      en: Install
     steps:
-      - { zh: 先从官方渠道安装 Apple 芯片版 Antigravity.app。, en: Install the official Apple silicon Antigravity.app first. }
-      - { zh: 下载管理器的 ZIP，解压后将“Aether Antigravity Multiplexer.app”放入“应用程序”。, en: "Download the manager ZIP, unzip it and move “Aether Antigravity Multiplexer.app” into Applications." }
-      - { zh: 打开管理器，点击“创建实例”，在打开的独立登录页中完成 Google 登录。, en: "Open the manager, click “Create Instance”, and complete Google sign-in in the dedicated page that opens." }
-    note: { zh: 从 0.2.1 升级到 0.3.0 或更高版本需要手动安装一次，之后可通过应用内更新升级。, en: "Upgrading from 0.2.1 to 0.3.0 or later requires one manual install; later versions update in-app." }
-  - heading: { zh: 升级全部副本, en: Upgrade all copies }
+      - zh: 先从官方渠道安装 Apple 芯片版 Antigravity.app。
+        en: Install the official Apple silicon Antigravity.app first.
+      - zh: 下载管理器的 ZIP，解压后将“Aether Antigravity Multiplexer.app”放入“应用程序”。
+        en: Download the manager ZIP, unzip it and move “Aether Antigravity Multiplexer.app” into Applications.
+      - zh: 打开管理器，点击“创建实例”，在打开的独立登录页中完成 Google 登录。
+        en: Open the manager, click “Create Instance”, and complete Google sign-in in the dedicated page that opens.
+    note:
+      zh: 从 0.2.1 升级到 0.3.0 或更高版本需要手动安装一次，之后可通过应用内更新升级。
+      en: Upgrading from 0.2.1 to 0.3.0 or later requires one manual install; later versions update in-app.
+  - heading:
+      zh: 升级全部副本
+      en: Upgrade all copies
     body:
       - zh: 官方 Antigravity 更新后，点击“升级全部副本”。请先保存各副本中的工作；管理器会先验签并备份，再逐个替换程序。确认账号和项目正常之前，请保留备份。
-        en: "After the official Antigravity updates, click “Upgrade All Copies”. Save your work in each copy first; the manager verifies and backs up before replacing each app. Keep the backups until you've confirmed accounts and projects are fine."
+        en: After the official Antigravity updates, click “Upgrade All Copies”. Save your work in each copy first; the manager verifies and backs up before replacing each app. Keep the backups until you've confirmed accounts and projects are fine.
       - zh: 官方发布尚未适配的新版本时，管理器会停止创建和升级，需要等待管理器更新适配。
-        en: "If the official app moves to a version that hasn't been adapted yet, creating and upgrading pause until the manager is updated."
-  - heading: { zh: 清空副本工作空间, en: Clear a copy's workspace }
+        en: If the official app moves to a version that hasn't been adapted yet, creating and upgrading pause until the manager is updated.
+  - heading:
+      zh: 清空副本工作空间
+      en: Clear a copy's workspace
     body:
       - zh: 副本未运行时，从该副本的“…”菜单选择“清空工作空间…”，输入完整实例名称后，将永久清空对应 ~/.gemini-N 目录内的所有数据（包括隐藏文件）。实例应用、其他资料目录、独立登录文件和升级备份会保留。此操作不能撤销，也不等同于退出账号。
-        en: "When a copy is stopped, choose “Clear Workspace…” from its menu and enter its full name. This permanently clears all data in its ~/.gemini-N directory, including hidden files. The app, other data folders, separate login file and upgrade backups remain. This cannot be undone and does not sign you out."
-  - heading: { zh: 条款与边界, en: Terms and boundaries }
+        en: When a copy is stopped, choose “Clear Workspace…” from its menu and enter its full name. This permanently clears all data in its ~/.gemini-N directory, including hidden files. The app, other data folders, separate login file and upgrade backups remain. This cannot be undone and does not sign you out.
+  - heading:
+      zh: 条款与边界
+      en: Terms and boundaries
     body:
       - zh: Google 当前条款限制复制或修改其软件。本工具只包含自有管理器代码，不附带也不分发 Google 程序；生成的副本仅在本机使用临时签名，请勿对外分发。
-        en: "Google's current terms restrict copying or modifying its software. This tool contains only its own code and does not include or distribute Google software. Generated copies are ad-hoc signed for local use only — do not distribute them."
+        en: Google's current terms restrict copying or modifying its software. This tool contains only its own code and does not include or distribute Google software. Generated copies are ad-hoc signed for local use only — do not distribute them.
     links:
-      - { label: { zh: Google 服务条款 ↗, en: Google Terms of Service ↗ }, href: "https://policies.google.com/terms" }
-      - { label: { zh: Antigravity 条款 ↗, en: Antigravity Terms ↗ }, href: "https://antigravity.google/terms" }
-  - heading: { zh: 反馈问题, en: Report an issue }
+      - label:
+          zh: Google 服务条款 ↗
+          en: Google Terms of Service ↗
+        href: https://policies.google.com/terms
+      - label:
+          zh: Antigravity 条款 ↗
+          en: Antigravity Terms ↗
+        href: https://antigravity.google/terms
+  - heading:
+      zh: 反馈问题
+      en: Report an issue
     links:
-      - { label: { zh: 在 GitHub 反馈 ↗, en: Report on GitHub ↗ }, href: "https://github.com/bcblr1993/aether-antigravity-multiplexer/issues" }
+      - label:
+          zh: 在 GitHub 反馈 ↗
+          en: Report on GitHub ↗
+        href: https://github.com/bcblr1993/aether-antigravity-multiplexer/issues
+  - heading:
+      zh: 设置自动续跑
+      en: Configure automatic follow-ups
+    body:
+      - zh: 在实例的自托管设置中填写续跑指令，选择空闲确认时间和最大轮数。先使用测试发送确认目标实例，再启用；0 轮表示不限轮数。
+        en: Enter a follow-up prompt in the instance Auto-Pilot settings, then choose the idle interval and maximum rounds. Verify the target with a test send before enabling. A limit of 0 means unlimited rounds.
+      - zh: 需要人工确认时先处理该实例的问题。任务挂起时保持等待，可通过实例设置或命令面板暂停全部自托管。
+        en: Handle questions in the affected instance when attention is requested. Stalled tasks remain waiting. Pause through instance settings or the command palette.

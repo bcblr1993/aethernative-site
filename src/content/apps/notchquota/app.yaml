@@ -14,8 +14,8 @@ tagline:
   zh: 你的 Mac 上的 AI 额度助手
   en: An AI quota companion for your Mac
 summary:
-  zh: 原生 macOS AI 订阅额度助手。查看 Codex、Claude、Antigravity 的剩余额度和重置时间，支持三种显示模式、多账号与九位小伙伴。小乌龟会散步、回家、看书、喝水和去河里游泳。
-  en: A native macOS companion for Codex, Claude and Antigravity quotas, with three display modes, multiple accounts and nine companions. The turtle now walks, rests at home, reads, drinks and swims in a river.
+  zh: "查看 Codex、Claude 与 Antigravity 订阅额度和重置时间，支持刘海、菜单栏、侧边栏与多账号。抹茶小龟、枫糖小狐和小幽灵带来可开关的桌面互动。"
+  en: "Track Codex, Claude and Antigravity subscription quotas and resets across multiple accounts, in the notch, menu bar or sidebar. Matcha turtle, Maple fox and Little ghost add optional desktop interactions."
 
 platforms:
   - id: mac
@@ -46,128 +46,9 @@ showcase:
     zh: 刘海附近紧凑显示、菜单栏点击查看，或在任意显示器上放置可拖动的侧边栏。
     en: Compact in the notch, one click away in the menu bar, or a draggable sidebar on any display.
   note:
-    zh: 小乌龟图片来自 0.1.27 实际播放画面，熊猫来自 0.1.26，其他界面图来自 0.1.24。额度、账号名称和时间为演示数据。
-    en: Turtle captures are from 0.1.27, panda captures from 0.1.26, and other interface renders from 0.1.24. Quotas, account names and times are demo data.
+    zh: "额度界面图来自 0.1.24，账号、数值和时间为演示数据。当前 0.1.28 的伙伴外观与互动以实际安装版本为准。"
+    en: "Quota interface captures are from 0.1.24 with demo accounts, values and times. Companion artwork and interactions follow the installed 0.1.28 release."
   items:
-    - title:
-        zh: 去河里游泳 · 0.1.27
-        en: A river swim · 0.1.27
-      caption:
-        zh: 先爬到河边，下水划动、转身上岸，再走回出发位置。
-        en: Walk to the river, paddle, turn, climb ashore and walk back.
-      image: ./media/turtle-swim-027.png
-    - title:
-        zh: 自己出去散步
-        en: A little walk
-      caption:
-        zh: 四肢交替迈动，桌面小窗口真实移动；活动限制在放置位置附近。
-        en: Alternating steps move the native desktop window within a small area around its placement.
-      image: ./media/turtle-walk-027.png
-    - title:
-        zh: 翻书阅读
-        en: Reading a book
-      caption:
-        zh: 打开书、低头看、用前脚翻页，再合上书。
-        en: Open the book, look down, turn a page with a front foot and close it.
-      image: ./media/turtle-read-027.png
-    - title:
-        zh: 低头喝水
-        en: A drink of water
-      caption:
-        zh: 前脚扶杯，伸脖子低头喝水后抬起头。
-        en: Steady the cup, extend the neck, dip down for a drink and lift the head.
-      image: ./media/turtle-drink-027.png
-    - title:
-        zh: 熊猫拿杯喝水 · 0.1.26
-        en: Panda drinking · 0.1.26
-      caption:
-        zh: 选择糯米熊猫，拖出侧栏后单击互动、双击查看额度。首版包含喝水和听音乐两段动作。
-        en: Select Mochi panda and drag it out of the sidebar. Click to play; double-click for quotas. This first release includes drinking and headphones.
-      image: ./media/panda-drink-026.png
-    - title:
-        zh: 熊猫戴耳机听音乐
-        en: Panda with headphones
-      caption:
-        zh: 熊猫会拿起耳机、戴好并轻轻摇摆；设置中可关闭自动日常，或手动选择动作。
-        en: The panda lifts its headphones, puts them on and sways gently. Turn daily activities off or choose an action in settings.
-      image: ./media/panda-music-026.png
-    - title:
-        zh: 伙伴家族 · 0.1.24 外观记录
-        en: Companion family · 0.1.24 artwork
-      caption:
-        zh: 在“收起外观”中切换九位伙伴；本图记录旧版家族外观，0.1.26 熊猫已升级为上方立体造型。
-        en: Switch nine companions in Collapsed Appearance. This earlier family image predates the new 0.1.26 panda shown above.
-      image: ./media/cartoon-collection-024.png
-    - title:
-        zh: 奶油纸感提醒
-        en: Cream-paper reminders
-      caption:
-        zh: 提供商、剩余额度和重置时间一眼可见；鼠标移回正在退出的卡片时会保留提醒。
-        en: See the provider, remaining quota and reset time at a glance. Moving back onto a fading card keeps it open.
-      image: ./media/thought-floating-024.png
-    - title:
-        zh: 奶油小兔
-        en: Cream bunny
-      caption:
-        zh: 柔软长耳与胡萝卜，搭配草莓粉花瓣卡片和轻跳回弹。
-        en: Soft ears and a carrot, with strawberry-pink petals and a gentle hop.
-      image: ./media/style-bunny-floating-024.png
-    - title:
-        zh: 蜂蜜小熊
-        en: Honey bear
-      caption:
-        zh: 捧着蜂蜜罐的小熊，搭配蜂蜜金与蜂巢纹样。
-        en: A little bear holding honey, with golden colors and honeycomb motifs.
-      image: ./media/style-bear-floating-024.png
-    - title:
-        zh: 云朵团子
-        en: Cloud companion
-      caption:
-        zh: 柔和天空蓝和云团纹样，提醒轻轻漂入。
-        en: Soft sky blue and cloud motifs, with a gently floating entrance.
-      image: ./media/style-cloud-floating-024.png
-    - title:
-        zh: 橘子小猫
-        en: Orange tabby
-      caption:
-        zh: 水粉橘色毛发与奶油胸口，搭配蜜桃色爪印。
-        en: Gouache-orange fur and a cream chest, paired with peach paw prints.
-      image: ./media/style-cat-floating-024.png
-    - title:
-        zh: 枫糖小狐
-        en: Maple fox
-      caption:
-        zh: 蓬松尾巴、奶油脸颊与枫糖橙卡片，提醒带一小段侧摇。
-        en: A fluffy tail, cream cheeks and a maple-orange card with a short sway.
-      image: ./media/style-fox-floating-024.png
-    - title:
-        zh: 糯米熊猫
-        en: Mochi panda
-      caption:
-        zh: 0.1.24 熊猫外观记录；当前 0.1.26 已升级为上方柔光立体造型。
-        en: Previous 0.1.24 panda artwork; version 0.1.26 uses the softly lit character shown above.
-      image: ./media/style-panda-floating-024.png
-    - title:
-        zh: 冰蓝企鹅
-        en: Ice-blue penguin
-      caption:
-        zh: 围着蓝围巾的小企鹅，搭配冰蓝雪花提醒。
-        en: A penguin in a blue scarf, paired with ice-blue snowflake reminders.
-      image: ./media/style-penguin-floating-024.png
-    - title:
-        zh: 抹茶小龟
-        en: Matcha turtle
-      caption:
-        zh: 抹茶色龟壳与六边形纹样，慢慢探出的温柔节奏。
-        en: A matcha shell and hexagonal motifs, with a slower, gentle entrance.
-      image: ./media/style-turtle-floating-024.png
-    - title:
-        zh: 小幽灵
-        en: Little ghost
-      caption:
-        zh: 淡紫水粉笔触与星芒，轻盈漂入后保持安静。
-        en: Lilac brushwork and stars, floating in briefly before settling.
-      image: ./media/style-ghost-floating-024.png
     - title:
         zh: 侧边栏详情
         en: Sidebar details
@@ -222,11 +103,11 @@ features:
         zh: 绘本伙伴
         en: Storybook companions
       title:
-        zh: 九种角色，一点小陪伴
-        en: Nine characters to keep you company
+        zh: "三位绘本伙伴，陪你工作"
+        en: "Three storybook companions"
       body:
-        zh: 九位伙伴各有造型、配色和提醒纹样。小乌龟会自动散步、回家缩壳、翻书、喝水、去河里游泳；熊猫保留喝水和听音乐。小乌龟和熊猫拖出后单击互动、双击查看额度，其他伙伴移入展开。
-        en: Nine companions have their own artwork, colors and reminders. The turtle walks, rests in its shell, reads, drinks and swims; the panda keeps drinking and music. Click a floating turtle or panda to interact, and double-click for quotas. Other companions open on hover.
+        zh: "0.1.28 精选抹茶小龟、枫糖小狐与小幽灵。单击触发互动，拖动时呈现悬空与落地反馈；右键菜单可点播动作，或关闭日常动作与活泼互动。"
+        en: "Version 0.1.28 focuses on Matcha turtle, Maple fox and Little ghost. Click to interact, drag for lift-and-land feedback, and use the context menu to choose actions or turn off daily activities and playful interactions."
       details:
         - zh: 每 10 分钟按顺序尝试提醒一个账号，提醒前先查询；失败或旧数据跳过。
           en: Every 10 minutes, try one account at a time in order. Refresh before reminding and skip failed or stale results.
@@ -234,10 +115,8 @@ features:
           en: When a five-hour or weekly quota is observed recovering to 100%, show a randomly chosen short celebration.
         - zh: 提醒采用短暂回弹、轻摇或漂入，尊重系统减少动态效果和低电量模式。
           en: Reminders use brief hops, sways or floating entrances and respect Reduce Motion and Low Power Mode.
-        - zh: 熊猫日常动作之间保留约 35 秒安静间隔，可在设置中关闭；拖动、查看详情、临时隐藏与休眠时停止动作和提醒。
-          en: Panda activities have quiet gaps of about 35 seconds and can be disabled. Motion and reminders pause while dragging, viewing details, hidden or asleep.
-        - zh: 小乌龟每轮覆盖五种日常，动作之间休息 10–18 秒；悬停暂停，拖动重设家，右键可选动作或关闭自动日常。
-          en: The turtle covers five activities per round with 10–18 second quiet gaps. Hover to pause, drag to set home, and use the context menu to choose actions or disable automatic activities.
+        - zh: 旧版伙伴偏好会回退到当前支持的外观；低电量与休眠时暂停日常动效。
+          en: Older character preferences fall back to a supported appearance. Daily animations pause on low power and during sleep.
     - kicker:
         zh: 多账号
         en: Multiple accounts

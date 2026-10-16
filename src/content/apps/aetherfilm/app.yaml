@@ -16,8 +16,8 @@ tagline:
   zh: 轻一点的私人影院，流式播放你的本地与 NAS 视频
   en: A native personal video player streaming your local and NAS media
 summary:
-  zh: 面向 Apple 芯片 Mac 的轻量私人视频播放器，支持本地文件与 SMB NAS 流式播放、H.264 / HEVC 硬件加速、多音轨与字幕切换、播放进度记忆。iPhone / iPad 版本正在验证中。
-  en: A lightweight personal video player for Apple silicon Mac, with local files and SMB NAS streaming, H.264 / HEVC hardware acceleration, audio and subtitle selection, and saved playback progress. The iPhone and iPad version is undergoing validation.
+  zh: "在 Apple 芯片 Mac 播放本地视频与 SMB NAS 影片，支持 H.264 / HEVC 硬件解码、音轨和字幕选择、进度记忆。当前公开版为 0.1.0；新版与 iPhone / iPad 客户端仍在验证。"
+  en: "Play local videos and SMB NAS media on Apple silicon Mac, with H.264 / HEVC hardware decoding, audio and subtitle selection, and saved progress. The public release is 0.1.0; the next version and iPhone/iPad client remain under validation."
 platforms:
   - id: mac
     status: available
@@ -64,8 +64,8 @@ hero:
     zh: Apple 芯片 Mac（macOS 26.0+）／ iPhone、iPad（iOS 26.0+）
     en: Apple silicon Mac (macOS 26.0+) / iPhone, iPad (iOS 26.0+)
 notice:
-  zh: 当前可下载 macOS v0.1.0。v0.1.1 优化版正在验收，包含新图标与 NAS 浏览、连播改进；iPhone / iPad 版本尚未公开分发。
-  en: macOS v0.1.0 is available now. The v0.1.1 update is undergoing acceptance testing with the new icon and NAS browsing and auto-play improvements. The iPhone and iPad version is not publicly distributed yet.
+  zh: "公开下载为 macOS 0.1.0。0.1.1 尚未发布，iPhone / iPad 尚未公开分发；仓库中的媒体组件包不是可安装的 AetherFilm 应用。"
+  en: "The public Mac download is 0.1.0. Version 0.1.1 is unpublished and iPhone/iPad are not publicly distributed. Media-component packages in the repository are not installable AetherFilm apps."
 features:
   eyebrow:
     zh: 核心功能

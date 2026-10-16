@@ -7,9 +7,9 @@ lead:
 sections:
   - heading: { zh: 本机保存的数据, en: Data Stored on Your Device }
     list:
-      - { zh: NAS 连接配置（服务器地址、端口、共享名、用户名与域）保存在本地媒体库配置中。, en: NAS connection details (host, port, share, username, domain) are stored in the local library configuration. }
+      - {"zh":"NAS 连接配置（服务器地址、端口、共享名、用户名与域）保存在本地媒体库配置中。","en":"NAS connection details (host, port, share, username, domain) are stored in the local library configuration."}
       - { zh: NAS 密码安全保存在系统钥匙串（Keychain）中，绝不记录到日志、磁盘普通文本或导出文件中。, en: NAS passwords are stored securely in the system Keychain and never written to logs or plain text. }
-      - { zh: 播放进度、接着看记录与已看标记保存在本地 Application Support 目录，不进行云端上传。, en: Playback progress, resume items, and watched state are saved locally and never uploaded. }
+      - {"zh":"播放进度、接着看记录与已看标记保存在本地 Application Support 目录，不进行云端上传。","en":"Playback progress, resume items, and watched state are saved locally and never uploaded."}
   - heading: { zh: 网络连接与权限, en: Network Connections }
     body:
       - zh: 应用仅会直接连接你配置的局域网 SMB NAS 服务器；首次连接时系统会请求本地网络访问权限。

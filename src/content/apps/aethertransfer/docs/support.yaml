@@ -1,0 +1,20 @@
+title: { zh: 使用帮助, en: Help }
+heading: { zh: 开发状态与获取方式, en: Development and availability }
+lead: { zh: AetherTransfer 尚未公开发布安装包。, en: AetherTransfer has no public installer yet. }
+sections:
+  - heading: { zh: 当前获取方式, en: Current availability }
+    body:
+      - zh: 目前提供开发源码，没有面向用户的 DMG 或正式更新通道。构建需要 Apple 芯片、macOS 26+ 和仓库列出的开发依赖。
+        en: Development source is available without an end-user DMG or stable update channel. Building requires Apple silicon, macOS 26+ and the development dependencies listed in the repository.
+    links:
+      - { label: GitHub, href: https://github.com/bcblr1993/AetherTransfer }
+  - heading: { zh: 功能与验证范围, en: Features and validation }
+    body:
+      - zh: 官网介绍的是开发候选，协议连接、目录同步、文本编辑与恢复能力仍在验收。正式支持范围将在发布说明中列出。
+        en: The website describes development candidates. Protocol connections, folder sync, text editing and recovery remain under validation. Release notes will document supported workflows.
+  - heading: { zh: 反馈, en: Feedback }
+    body:
+      - zh: 请附系统版本、构建信息、使用协议和复现步骤；不要公开密码、私钥或未脱敏服务器配置。
+        en: Include your OS version, build, protocol and reproduction steps. Do not publish passwords, private keys or unredacted server configuration.
+    links:
+      - { label: { zh: 官网反馈, en: Website feedback }, href: /feedback/?app=aethertransfer }

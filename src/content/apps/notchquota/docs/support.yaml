@@ -24,12 +24,12 @@ sections:
         en: "Right-click → Settings & Updates to switch between menu bar, notch and sidebar modes. Your choice persists across restarts."
   - heading: { zh: 绘本伙伴与提醒, en: Characters and reminders }
     body:
-      - zh: 切换到侧边栏模式，在“设置与更新 → 收起外观”选择九种绘本角色之一。拖动到任意显示器自由摆放，靠近左、右边缘吸附；移入角色立即展开账号面板。
-        en: "Choose sidebar mode, then Settings & Updates → Collapsed Appearance for one of nine storybook characters. Drag it to any display, dock it to either edge, and hover to open your accounts."
-      - zh: 每 10 分钟按账号顺序尝试一次思考提醒，先查询，失败、过期或未知额度跳过；成功后泡泡约 5 秒淡出。监测到 5 小时或每周额度恢复至 100% 时，会出现短暂庆祝提醒。
-        en: "Thought reminders try accounts in order every 10 minutes, refreshing first and skipping failed, stale or unknown results. A successful bubble fades after about 5 seconds. A short celebration appears when a five-hour or weekly quota is observed recovering to 100%."
-      - zh: 九个角色各有配色与装饰：竹叶、花瓣、枫叶、龟壳、星光、云朵、蜂巢、爪印和雪花。提醒退出时移回鼠标可以保留卡片；静置不循环播放动画，支持系统减少动态效果与低电量模式。
-        en: "Each character has its own colors and motifs: bamboo, petals, maple leaves, shells, stars, clouds, honeycomb, paw prints or snowflakes. Move back onto a fading reminder to keep it open. No looping animation at rest; Reduce Motion and Low Power Mode are respected."
+      - zh: "侧边栏模式下，在“设置与更新 → 收起外观”选择抹茶小龟、枫糖小狐或小幽灵。0.1.28 精简为三位伙伴，旧版偏好自动回退到可用外观。"
+        en: "In sidebar mode, choose Matcha turtle, Maple fox or Little ghost in Settings & Updates → Collapsed Appearance. Version 0.1.28 offers three companions and safely falls back from older preferences."
+      - zh: "单击摸摸、拖动摆放；右键可点播“小伙伴日常动作”，并控制日常动作与活泼互动。低电量和休眠时自动暂停动效。"
+        en: "Click to interact and drag to position. Use the context menu to choose daily actions and control daily activities or playful interactions. Motion pauses on low power and during sleep."
+      - zh: "思考提醒先查询额度，失败、过期或未知数据跳过；额度恢复提醒以服务返回的周期数据为准。"
+        en: "Thought reminders refresh quotas first and skip failed, stale or unknown results. Recovery reminders depend on the quota windows returned by the service."
   - heading: { zh: 临时隐藏与恢复, en: Hide temporarily and restore }
     body:
       - zh: 右键“临时隐藏”，选择 15 分钟、1 小时、3 小时或 5 小时。隐藏后可通过菜单栏的恢复入口立即显示；隐藏期间不弹出角色提醒。

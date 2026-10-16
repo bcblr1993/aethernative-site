@@ -14,8 +14,8 @@ tagline:
   en: Control your Mac remotely over Tailscale and your local network
 
 summary:
-  zh: "原生 iPhone、iPad 与 Apple 芯片 Mac 远程桌面客户端，连接 macOS 自带的屏幕共享：Metal 渲染画面，触控板手势与 Mac 快捷键工具栏，局域网自动发现，Tailscale 设备同步。"
-  en: "A native remote desktop client for iPhone, iPad and Apple silicon Macs that connects to built-in macOS Screen Sharing, with Metal rendering, trackpad gestures, a Mac shortcut toolbar, LAN discovery and Tailscale device sync."
+  zh: "从 Mac 连接远程 Mac 或 VNC 桌面，支持 Metal 渲染、原生键鼠、Bonjour 发现、Tailscale 导入与会话恢复。Mac 版可在应用内更新；iPhone / iPad 仍为开发安装版本。"
+  en: "Connect from your Mac to remote Macs or VNC desktops with Metal rendering, native keyboard and mouse, Bonjour discovery, Tailscale import and session recovery. Mac supports in-app updates; iPhone and iPad remain development installations."
 
 platforms:
   - id: mac
@@ -68,15 +68,15 @@ features:
         zh: 远端画面直接上传为 GPU 纹理渲染；iPhone / iPad 支持双指缩放与本地平移；Mac 提供适合窗口、实际尺寸、缩放和平移菜单。
         en: Remote frames are uploaded straight to GPU textures; pinch zoom and local pan on iPhone and iPad; Mac offers fit, actual size, zoom and pan controls.
       details:
-        - { zh: 性能面板显示本地绘制帧率、带宽与测得的 TCP 往返延迟；尚未测得时显示为 —。, en: The HUD shows local draw rate, bandwidth and measured TCP round-trip time; unmeasured latency is shown as —. }
-        - { zh: 支持 Tight、ZRLE、Zlib、CopyRect 与 Raw 编码；标准 RFB 会话可选自动压缩，服务器可能忽略画质提示。, en: Supports Tight, ZRLE, Zlib, CopyRect and Raw encodings. Standard RFB sessions offer optional automatic compression; servers may ignore quality hints. }
+        - {"zh":"性能面板显示本地绘制帧率、带宽与测得的 TCP 往返延迟；尚未测得时显示为 —。","en":"The HUD shows local draw rate, bandwidth and measured TCP round-trip time; unmeasured latency is shown as —."}
+        - {"zh":"支持 Tight、ZRLE、Zlib、CopyRect 与 Raw 编码；标准 RFB 会话可选自动压缩，服务器可能忽略画质提示。","en":"Supports Tight, ZRLE, Zlib, CopyRect and Raw encodings. Standard RFB sessions offer optional automatic compression; servers may ignore quality hints."}
     - kicker: { zh: 输入, en: Input }
       title: { zh: 虚拟触控板与 Mac 快捷键工具栏, en: Virtual trackpad and Mac shortcut toolbar }
       body:
         zh: iPhone / iPad 上用轻点、双指点按、长按拖拽和双指滚动操作；工具栏提供 ⌘ ⌥ ⌃ ⇧ 粘滞修饰键、F1–F12 与常用系统快捷键。
         en: Tap, two-finger tap, long-press drag and two-finger scroll on iPhone and iPad; the toolbar adds sticky ⌘ ⌥ ⌃ ⇧ modifiers, F1–F12 and common system shortcuts.
       details:
-        - { zh: 在 Mac 上直接透传物理键盘、修饰键和鼠标滚轮。, en: On the Mac, the physical keyboard, modifiers and scroll wheel pass straight through. }
+        - {"zh":"在 Mac 上直接透传物理键盘、修饰键和鼠标滚轮。","en":"On the Mac, the physical keyboard, modifiers and scroll wheel pass straight through."}
         - { zh: 可把本机剪贴板文字插入远端输入框；暂不支持双向剪贴板同步。, en: Inserts local clipboard text into the remote field; bidirectional clipboard sync is not supported. }
     - kicker: { zh: 更新, en: Updates }
       title: { zh: 应用内下载与重启安装, en: Download and restart to install }
@@ -85,7 +85,7 @@ features:
         en: Choose “Check for Updates…” in the Mac app menu to download a signed update and restart to install. Checks are started manually by default.
       details:
         - { zh: 1.0.0 需先手动安装一次 1.1.0，之后的版本可在应用内更新。, en: Install 1.1.0 manually once from 1.0.0; subsequent versions can be updated in the app. }
-        - { zh: 应用与 DMG 均通过 Apple 公证，更新包在安装前验证签名。, en: The app and DMG are Apple notarized, and update signatures are checked before installation. }
+        - {"zh":"应用与 DMG 均通过 Apple 公证，更新包在安装前验证签名。","en":"The app and DMG are Apple notarized, and update signatures are checked before installation."}
 
 faq:
   eyebrow: FAQ
@@ -101,4 +101,4 @@ faq:
 
 cta:
   title: { zh: 下载 AetherScreens for Mac。, en: Download AetherScreens for Mac. }
-  note: { zh: Apple 芯片 Mac · macOS 14+ ／ iPhone、iPad · iOS 17+, en: Apple silicon Mac · macOS 14+ / iPhone, iPad · iOS 17+ }
+  note: {"zh":"Apple 芯片 Mac · macOS 14+ ／ iPhone、iPad · iOS 17+","en":"Apple silicon Mac · macOS 14+ / iPhone, iPad · iOS 17+"}

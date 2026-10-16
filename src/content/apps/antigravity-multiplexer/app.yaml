@@ -15,8 +15,8 @@ tagline:
   zh: 原生 Mac 多开管理，外观跟随系统
   en: Native Mac instance management that follows the system
 summary:
-  zh: 在一台 Apple 芯片 Mac 上创建和管理独立 Antigravity 实例，统一升级、备份、清空工作空间和销毁。界面跟随系统外观与透明度设置。非官方工具，不包含 Google 程序。
-  en: Create and manage separate Antigravity instances on one Apple silicon Mac, with upgrades, backups, workspace clearing and removal. The interface follows system appearance and transparency settings. Unofficial; does not include Google software.
+  zh: "在 Apple 芯片 Mac 上管理独立 Antigravity 实例、升级和备份。支持可配置的空闲自动续跑、轮数限制与状态提示；需要人工确认时暂停。非官方工具，不包含 Google 程序。"
+  en: "Manage separate Antigravity instances, upgrades and backups on Apple silicon Mac. Configure automatic follow-up prompts on idle, round limits and status indicators, with pauses for user attention. Unofficial; no Google software included."
 
 platforms:
   - id: mac
@@ -76,44 +76,97 @@ showcase:
 
 features:
   eyebrow: { zh: 功能, en: Features }
-  title: { zh: 实例管理，稳妥为先。, en: Instance management, safety first. }
+  title: {"zh":"实例管理，稳妥为先。","en":"Instance management, safety first."}
   lead:
     zh: 每一步都先校验、先备份，再动手；只接受已适配、完整签名的官方原版作为来源。
     en: Every step verifies and backs up first. Only adapted, fully signed official builds are accepted as the source.
   items:
-    - kicker: { zh: 外观, en: Appearance }
-      title: { zh: 跟随 Mac 的显示设置, en: Follow your Mac display settings }
+    - kicker:
+        zh: 外观
+        en: Appearance
+      title:
+        zh: 跟随 Mac 的显示设置
+        en: Follow your Mac display settings
       body:
         zh: 窗口、卡片与按钮随系统浅色或深色外观变化；macOS 的 Liquid Glass 色调与“降低透明度”设置也会作用于原生控件和材质，无需在应用内重复配置。
-        en: "The window, cards and controls follow light or dark mode. macOS Liquid Glass tint and Reduce Transparency settings also affect native controls and materials, with no extra in-app preference."
-    - kicker: { zh: 创建, en: Create }
-      title: { zh: 独立的新实例, en: Separate new instances }
+        en: The window, cards and controls follow light or dark mode. macOS Liquid Glass tint and Reduce Transparency settings also affect native controls and materials, with no extra in-app preference.
+    - kicker:
+        zh: 创建
+        en: Create
+      title:
+        zh: 独立的新实例
+        en: Separate new instances
       body:
         zh: 新实例拥有自己的 .gemini-N 目录、窗口缓存、日志、凭据标识、应用身份与登录回调；创建完成后打开独立登录页，由你在新窗口完成 Google 登录。
-        en: "Each new instance gets its own .gemini-N folder, window cache, logs, credential identifier, app identity and sign-in callback. A dedicated sign-in page opens and you complete Google sign-in yourself."
-    - kicker: { zh: 升级, en: Upgrade }
-      title: { zh: 一键升级全部副本, en: Upgrade every copy at once }
+        en: Each new instance gets its own .gemini-N folder, window cache, logs, credential identifier, app identity and sign-in callback. A dedicated sign-in page opens and you complete Google sign-in yourself.
+    - kicker:
+        zh: 升级
+        en: Upgrade
+      title:
+        zh: 一键升级全部副本
+        en: Upgrade every copy at once
       body:
         zh: 以本机 /Applications 中的 Antigravity 为源，不从网络重新下载。先构建并验签全部新程序，再为每个副本备份旧程序和数据，最后逐个替换；账号目录与凭据标识保持不变。
-        en: "Uses the Antigravity app already in /Applications — nothing is downloaded. New builds are created and verified first, each copy's app and data are backed up, then copies are replaced one by one. Account folders and credential identifiers stay the same."
+        en: Uses the Antigravity app already in /Applications — nothing is downloaded. New builds are created and verified first, each copy's app and data are backed up, then copies are replaced one by one. Account folders and credential identifiers stay the same.
       details:
-        - { zh: 已领先主实例的副本不会被降级。, en: Copies already ahead of the main instance are never downgraded. }
-        - { zh: 官方发布新版本后，需先适配验证；未验证的版本会被拒绝。, en: "New official versions must be adapted and verified first; unverified versions are refused." }
-    - kicker: { zh: 备份, en: Backups }
-      title: { zh: 按批次管理备份, en: Backups by batch }
+        - zh: 已领先主实例的副本不会被降级。
+          en: Copies already ahead of the main instance are never downgraded.
+        - zh: 官方发布新版本后，需先适配验证；未验证的版本会被拒绝。
+          en: New official versions must be adapted and verified first; unverified versions are refused.
+    - kicker:
+        zh: 备份
+        en: Backups
+      title:
+        zh: 按批次管理备份
+        en: Backups by batch
       body:
         zh: 按升级批次查看备份时间、数量与占用空间，可在访达中查看，或手动选择批次删除；删除前会再次确认。
         en: See each upgrade batch's time, archive count and size. Open it in Finder, or delete a batch manually after confirming.
-    - kicker: { zh: 清空, en: Clear }
-      title: { zh: 仅清空所选工作空间, en: Clear one workspace }
+    - kicker:
+        zh: 清空
+        en: Clear
+      title:
+        zh: 仅清空所选工作空间
+        en: Clear one workspace
       body:
         zh: 副本退出后，可输入完整实例名确认永久清空对应 .gemini-N 目录内的全部数据；保留实例应用、其他资料目录与升级备份。
-        en: "After a copy quits, enter its full name to permanently clear all data inside its .gemini-N directory. The app, other data folders and upgrade backups remain."
-    - kicker: { zh: 销毁, en: Remove }
-      title: { zh: 明确确认后才删除, en: Removed only after explicit confirmation }
+        en: After a copy quits, enter its full name to permanently clear all data inside its .gemini-N directory. The app, other data folders and upgrade backups remain.
+    - kicker:
+        zh: 销毁
+        en: Remove
+      title:
+        zh: 明确确认后才删除
+        en: Removed only after explicit confirmation
       body:
         zh: 销毁前会列出将删除的应用、账号资料、窗口数据和日志，必须输入完整实例名才能执行；主实例和其他副本不受影响。
-        en: "Before removal, the app, account data, window data and logs to be deleted are listed, and you must type the full instance name. The main instance and other copies are untouched."
+        en: Before removal, the app, account data, window data and logs to be deleted are listed, and you must type the full instance name. The main instance and other copies are untouched.
+    - kicker:
+        zh: 自动续跑
+        en: Automatic follow-ups
+      title:
+        zh: 空闲后继续，需要你时暂停
+        en: Continue on idle, pause for attention
+      body:
+        zh: 为实例设置续跑指令、1–10 秒空闲确认时间和最大轮数。后台发送指令，挂起任务保持等待，出现用户确认或问题时暂停并通知；支持查看日志与随时暂停。
+        en: Set a follow-up prompt, a 1–10 second idle confirmation interval and a round limit per instance. Prompts are sent in the background; stalled tasks wait, and user questions or confirmations pause dispatch and trigger a notification. Review logs or pause at any time.
+    - kicker:
+        zh: 批量管理
+        en: Batch management
+      title:
+        zh: 按工作区整理与控制实例
+        en: Organize and control instances
+      body:
+        zh: 六色标签区分工作区，多选后批量启动、退出或平铺窗口。支持双栏、四宫格与层叠排列，可在鼠标所在显示器上安排实例窗口。
+        en: Use six color tags to organize workspaces and select instances for batch launch, quit or tiling. Arrange windows side by side, in a grid or in a cascade on the display containing your pointer.
+    - kicker:
+        zh: 命令与监控
+        en: Commands and monitoring
+      title:
+        zh: 键盘调度，菜单栏查看
+        en: Control from the keyboard, check from the menu bar
+      body:
+        zh: 极速切换器中输入 > 查找管理动作；菜单栏迷你看板显示运行实例与 CPU、内存走势。支持简体中文、繁體中文、English 与日本語。
+        en: Type > in the quick switcher to find management actions. The menu bar dashboard shows running instances and CPU/memory trends. Supports Simplified Chinese, Traditional Chinese, English and Japanese.
 
 faq:
   eyebrow: FAQ
@@ -130,5 +183,5 @@ faq:
       a: { zh: 不会。管理器只保存实例的版本与登录验收状态，不保存账号凭据。, en: "No. It only records each instance's version and sign-in check status — never credentials." }
 
 cta:
-  title: { zh: 多开，也可以井井有条。, en: Multiple instances, neatly managed. }
+  title: {"zh":"多开，也可以井井有条。","en":"Multiple instances, neatly managed."}
   note: { zh: Apple 芯片 · macOS 13+ · 非官方工具 · 应用内更新, en: Apple silicon · macOS 13+ · Unofficial · In-app updates }

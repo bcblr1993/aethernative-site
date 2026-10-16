@@ -12,8 +12,8 @@ tagline:
   en: Walk up, it unlocks. Walk away, it guards.
 
 summary:
-  zh: "Mac 菜单栏 + iPhone 双端配合：带着 iPhone 靠近自动解锁，离开自动锁屏；你不在时有人动 Mac，手机立刻收到带照片的报警。"
-  en: "A Mac menu bar app paired with your iPhone: unlock as you walk up, lock as you leave, and get a photo alert on your phone if someone touches your Mac while you're away."
+  zh: "开发中的 Mac 与 iPhone 配套工具，目标是靠近解锁、离开锁屏与抓拍提醒。公开开发里程碑已包含蓝牙配对和签名测距，尚无面向普通用户的安装入口。"
+  en: "A Mac and iPhone project for proximity unlock, away locking and photo alerts. Public development milestones include Bluetooth pairing and signed ranging; no end-user installer is currently available."
 
 platforms:
   - id: mac
@@ -21,7 +21,7 @@ platforms:
     requirement: { zh: macOS 26+, en: macOS 26+ }
   - id: ios
     status: coming
-    requirement: { zh: iOS 26+ · TestFlight 公测, en: iOS 26+ · TestFlight beta }
+    requirement: { zh: "iOS 26+ · 开发验证中", en: "iOS 26+ · In development and validation" }
 
 cardStats:
   - value: "20 s"
@@ -32,7 +32,7 @@ cardStats:
     label: { zh: 第三方服务器, en: Third-party servers }
 
 hero:
-  eyebrow: { zh: Mac × iPhone · 近场守护, en: Mac × iPhone · Proximity guard }
+  eyebrow: { zh: "Mac × iPhone · 开发预览", en: "Mac × iPhone · Development preview" }
   title: { zh: "走近，就解锁。\n走开，就守护。", en: "Walk up, it unlocks.\nWalk away, it guards." }
   lead:
     zh: "带着 iPhone 靠近，Mac 自动解锁；起身离开，自动锁屏。\n你不在时有人动你的 Mac，手机马上收到带照片的提醒。"
@@ -42,15 +42,15 @@ hero:
     en: "Mac: macOS 26+ · iPhone: iOS 26+ · Both signed in to the same Apple ID"
 
 notice:
-  zh: 1.0 功能已全部完成，正在真机验证；验证通过后在这里提供签名公证的 Mac 安装包，iPhone 版通过 TestFlight 公测。
-  en: Every 1.0 feature is built and in on-device testing. Once it passes, a signed and notarized Mac installer will be available here, and the iPhone app via TestFlight.
+  zh: "仍处于开发与真机验证阶段。GitHub v0.2.0 是 BLE 配对与测距里程碑，不代表 1.0 完整功能已公开发布；本页尚无 Mac 安装包或 TestFlight 邀请链接。"
+  en: "Still in development and device validation. GitHub v0.2.0 is the BLE pairing and ranging milestone, not a public 1.0 feature-complete release. No Mac installer or TestFlight invitation is available on this page."
 
 features:
-  eyebrow: { zh: 核心功能, en: Features }
+  eyebrow: { zh: "产品目标与开发预览", en: "Product goals and development preview" }
   title: { zh: 不用想起它，它一直都在。, en: You won't think about it. It's always there. }
   lead:
-    zh: 不需要按键、不需要戴手表。只要 iPhone 在你口袋里，AetherGuard 就知道你在不在。
-    en: No buttons, no watch. As long as your iPhone is in your pocket, AetherGuard knows whether you're around.
+    zh: "以下介绍配套工具的设计方向，实际可用范围以发布版本及真机验证结果为准。"
+    en: "The following describes the intended product. Availability depends on the released version and device validation."
   items:
     - kicker: { zh: 靠近解锁 · 离开锁屏, en: Unlock · Lock }
       title: { zh: 回到座位就能用，起身就上锁, en: Sit down and it's open. Stand up and it's locked. }
@@ -58,11 +58,11 @@ features:
         zh: 手机靠近且签名校验通过，自动输入登录密码解锁；手机离开几秒后自动锁屏，期间回来则取消。
         en: When your phone is near and its signature checks out, AetherGuard types your login password to unlock. A few seconds after you leave, it locks — unless you come back first.
       details:
-        - { zh: 登录密码先经系统验证，再存入本机钥匙串，不会离开这台 Mac。, en: Your login password is verified by the system, then stored in this Mac's keychain. It never leaves the Mac. }
+        - {"zh":"登录密码先经系统验证，再存入本机钥匙串，不会离开这台 Mac。","en":"Your login password is verified by the system, then stored in this Mac's keychain. It never leaves the Mac."}
         - { zh: 可以在座位上一键校准距离，适配你的桌面和手机摆放习惯。, en: One-click calibration at your seat adapts the thresholds to your desk and where you keep your phone. }
-        - { zh: 自动解锁失败会自动暂停，避免反复输入错误密码。, en: Auto-unlock pauses itself after a failure, so it never keeps typing a wrong password. }
+        - {"zh":"自动解锁失败会自动暂停，避免反复输入错误密码。","en":"Auto-unlock pauses itself after a failure, so it never keeps typing a wrong password."}
     - kicker: { zh: 三种警戒, en: Three guard modes }
-      title: { zh: 离开、定时、手动，按需叠加, en: Away, scheduled or manual — they stack }
+      title: {"zh":"离开、定时、手动，按需叠加","en":"Away, scheduled or manual — they stack"}
       body:
         zh: 手机离开满 30 秒自动警戒；设定时间段（比如下班后）始终警戒；也可以一键手动开启。定时和手动警戒期间禁用自动解锁。
         en: Guard turns on 30 s after you leave, always during scheduled hours (say, after work), or with one click. Auto-unlock is disabled during scheduled and manual guard.
@@ -81,13 +81,13 @@ features:
         en: Bluetooth signals can be recorded and replayed. So every 2 seconds the Mac sends a one-time nonce; the iPhone measures signal strength and signs it with the nonce using its Secure Enclave key. The Mac verifies and consumes the nonce before judging distance.
       details:
         - { zh: 私钥在 iPhone 的 Secure Enclave 里生成，无法导出；消息类型也纳入签名。, en: The private key is generated in the iPhone's Secure Enclave and can't be exported. Message types are covered by the signature too. }
-        - { zh: 远程指令带时间窗口与随机数，伪造、篡改、重放都有对应的单元测试。, en: Remote commands carry a time window and nonce. Forgery, tampering and replay are all covered by unit tests. }
+        - {"zh":"远程指令带时间窗口与随机数，伪造、篡改、重放都有对应的单元测试。","en":"Remote commands carry a time window and nonce. Forgery, tampering and replay are all covered by unit tests."}
 
 experience:
-  eyebrow: { zh: 警戒中有人操作时, en: When someone uses your Mac during guard }
-  title: { zh: 先给你 20 秒，再叫醒你的手机。, en: Twenty seconds for you, then your phone wakes up. }
+  eyebrow: { zh: "警戒流程 · 设计预览", en: "Guard workflow · Design preview" }
+  title: {"zh":"先给你 20 秒，再叫醒你的手机。","en":"Twenty seconds for you, then your phone wakes up."}
   cards:
-    - title: { zh: 检测到操作，立即抓拍, en: Activity detected, photo taken }
+    - title: {"zh":"检测到操作，立即抓拍","en":"Activity detected, photo taken"}
       body:
         zh: 锁屏后 3 秒内的输入会被忽略，按下锁屏快捷键不会被当成有人操作。
         en: Input in the 3 s after locking is ignored, so pressing the lock shortcut isn't mistaken for an intruder.
@@ -106,7 +106,7 @@ faq:
   lead: { zh: 关于 AetherGuard 的常见问题。, en: Common questions about AetherGuard. }
   items:
     - q: { zh: 什么时候可以下载？, en: When can I download it? }
-      a: { zh: 1.0 的全部功能已经开发完成，正在做真机验证。验证通过后会在本页提供签名公证的 Mac 安装包，iPhone 版通过 TestFlight 公测。之后的新版本 Mac 端会自动提示更新。, en: "Every 1.0 feature is built and now in on-device testing. Once it passes, a signed and notarized Mac installer will be on this page, and the iPhone app will be available via TestFlight. Later versions are offered to the Mac app automatically." }
+      a: { zh: "目前尚未开放面向普通用户的下载，也没有公开 TestFlight 邀请链接。可在 GitHub 查看开发里程碑；完成发布后，官网会提供相应入口。", en: "There is no end-user download or public TestFlight invitation yet. Follow development milestones on GitHub; download links will appear here after publication." }
     - q: { zh: 需要什么设备和系统？, en: What devices and OS do I need? }
       a: { zh: 一台 macOS 26 或更新版本、带蓝牙和摄像头的 Mac，以及一台 iOS 26 或更新版本的 iPhone，两台设备登录同一个 Apple ID。Touch ID 自证需要带 Touch ID 的 Mac 或妙控键盘。, en: "A Mac with Bluetooth and a camera on macOS 26 or later, and an iPhone on iOS 26 or later, both signed in to the same Apple ID. Touch ID confirmation needs a Mac or Magic Keyboard with Touch ID." }
     - q: { zh: 和 Apple Watch 解锁有什么不同？, en: How is this different from Apple Watch unlock? }

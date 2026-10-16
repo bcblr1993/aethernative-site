@@ -1,14 +1,27 @@
 # ApexTerm 版本记录
 releases:
-  - version: "1.9.0"
+  - version: 1.9.0
     date: 2026-10-15
     channel: stable
     download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.9.0/AetherTerm-v1.9.0-macos-arm64.dmg
     github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.9.0
     sha256: 1b2abc0d803634c11512f75fb5a6aa8303f32757d99822f2899207a514a954b9
     summary:
-      zh: AetherTerm v1.9.0
-      en: AetherTerm v1.9.0
+      zh: 新增进程监视、SSH 密钥保险库、会话日志与命令输出提取，完善隧道和快捷命令工作流。
+      en: Adds process monitoring, an SSH key vault, session logs and command-output extraction, plus tunnel and quick-command workflows.
+    notes:
+      - title:
+          zh: 功能更新
+          en: Feature updates
+        items:
+          - zh: Linux 进程搜索、排序与信号操作，以及 systemd 服务状态。
+            en: Linux process search, sorting and signals, plus systemd service status.
+          - zh: 管理 SSH 密钥、查看指纹、绑定会话并部署公钥。
+            en: Manage SSH keys, inspect fingerprints, bind sessions and deploy public keys.
+          - zh: 纯文本或原始会话日志、50 MB 轮转与上一条命令输出复制。
+            en: Plain-text or raw session logs, 50 MB rotation and previous-command output copying.
+          - zh: 本地、远程和动态端口转发，快捷命令栏与 ⌘P 命令面板。
+            en: Local, remote and dynamic forwarding, a quick-command bar and the ⌘P command palette.
   - version: "1.8.0"
     build: "2026101501"
     date: 2026-10-15

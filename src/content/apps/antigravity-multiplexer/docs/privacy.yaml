@@ -5,18 +5,33 @@ lead:
   zh: 管理器在本机运行，不包含统计分析或遥测，不向开发者发送任何数据。
   en: The manager runs locally, contains no analytics or telemetry, and sends no data to the developer.
 sections:
-  - heading: { zh: 账号与凭据, en: Accounts and credentials }
+  - heading:
+      zh: 账号与凭据
+      en: Accounts and credentials
     body:
       - zh: 管理器只保存实例的版本与登录验收状态，不保存账号凭据。Google 登录由你在各实例的窗口中自行完成，管理器不接触登录过程。
-        en: "The manager only records each instance's version and sign-in check status — never credentials. You complete Google sign-in yourself in each instance's window; the manager is not involved."
-  - heading: { zh: 本地文件, en: Local files }
+        en: The manager only records each instance's version and sign-in check status — never credentials. You complete Google sign-in yourself in each instance's window; the manager is not involved.
+  - heading:
+      zh: 本地文件
+      en: Local files
     body:
       - zh: 升级前的备份保存在 ~/Library/Application Support/Antigravity Multiplexer/Backups/，只有在你确认后才会删除。
-        en: "Pre-upgrade backups are kept in ~/Library/Application Support/Antigravity Multiplexer/Backups/ and are deleted only after you confirm."
-  - heading: { zh: 软件更新, en: Software updates }
+        en: Pre-upgrade backups are kept in ~/Library/Application Support/Antigravity Multiplexer/Backups/ and are deleted only after you confirm.
+  - heading:
+      zh: 软件更新
+      en: Software updates
     body:
       - zh: 管理器默认每天通过 HTTPS 检查一次更新清单（由 aethernative.com 提供，托管于 Cloudflare；较早版本从 GitHub 获取），安装包从 GitHub 下载。这些服务可能接收普通网络连接信息（如 IP 地址与请求头）。可在齿轮菜单中关闭自动更新。
-        en: "By default the manager checks the update feed over HTTPS once a day (served by aethernative.com on Cloudflare; earlier versions use GitHub) and downloads installers from GitHub. These services may receive ordinary connection information such as IP address and request headers. Automatic updates can be turned off from the gear menu."
-  - heading: { zh: 联系, en: Contact }
+        en: By default the manager checks the update feed over HTTPS once a day (served by aethernative.com on Cloudflare; earlier versions use GitHub) and downloads installers from GitHub. These services may receive ordinary connection information such as IP address and request headers. Automatic updates can be turned off from the gear menu.
+  - heading:
+      zh: 联系
+      en: Contact
     links:
-      - { label: GitHub Issues ↗, href: "https://github.com/bcblr1993/aether-antigravity-multiplexer/issues" }
+      - label: GitHub Issues ↗
+        href: https://github.com/bcblr1993/aether-antigravity-multiplexer/issues
+  - heading:
+      zh: 自动续跑指令
+      en: Automatic follow-up prompts
+    body:
+      - zh: 启用实例自托管后，管理器使用本机调试连接读取实例状态并向该实例发送你配置的指令。指令由 Antigravity 实例按其自身服务流程处理；请按任务需要设置内容、轮数与暂停条件。
+        en: When Auto-Pilot is enabled, the manager uses a local debugging connection to read instance state and send your configured prompt to that instance. Antigravity processes the prompt through its own service workflow. Choose prompt content, round limits and pause conditions for your task.

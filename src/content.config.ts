@@ -12,7 +12,8 @@ import { githubLinks } from './lib/github';
  */
 
 /** 双语文本：写成 { zh, en }；专有名词等不需要翻译的可以直接写字符串。 */
-const L = z.union([z.string(), z.object({ zh: z.string(), en: z.string() })]);
+// Reject accidental keys from unquoted commas in YAML flow mappings instead of truncating copy.
+const L = z.union([z.string(), z.strictObject({ zh: z.string(), en: z.string() })]);
 const base = './src/content/apps';
 const appId = ({ entry }: { entry: string }) => entry.split('/')[0];
 

@@ -21,15 +21,15 @@ cardStats:
   - value: "本机 / Local"
     label: { zh: 文件和密码不上传, en: "No file or password uploads" }
 hero:
-  eyebrow: { zh: 原生归档 · 干净分享 · 1.0 正式版, en: "Native archives · Clean sharing · v1.0" }
+  eyebrow: { zh: "原生归档 · 干净分享", en: "Native archives · Clean sharing" }
   title: { zh: "你的文件，\n轻装出发。", en: "Your files,\nready to travel." }
   lead:
     zh: "把文件拖进来，轻松压缩、加密或解压。\n原生玻璃界面与 Finder 快速操作，让每一步清楚可见。"
     en: "Drop in your files to compress, encrypt or extract.\nNative glass controls and Finder actions keep every step within reach."
   requirements: { zh: macOS 26 或更新版本 · 仅支持 Apple 芯片 M 系列, en: "macOS 26 or later · Apple silicon M-series only" }
 notice:
-  zh: 1.0 正式版现已发布，支持中英双语与 Sparkle 自动更新。RAR 仅支持解压；ZIP 加密密码使用英文、数字或符号。
-  en: Version 1.0 is now available with bilingual localization and Sparkle auto-updates. RAR extraction only; ZIP encryption uses ASCII passwords.
+  zh: "正式版支持中英双语与 Sparkle 更新。1.0.1 改进侧边栏操作，并加入已完成任务的单项移除、一键清空与 50 条历史上限。RAR 仅支持解压。"
+  en: "The stable release supports English, Chinese and Sparkle updates. Version 1.0.1 improves sidebar interaction and adds individual removal, clear-all and a 50-entry task history limit. RAR extraction only."
 gallery:
   - label: { zh: 开始 · 浅色与深色, en: "Home · Light and dark" }
     zh: ./media/home-light.png
@@ -39,22 +39,55 @@ features:
   title: { zh: 从打包到打开，都很自然。, en: "From packing to opening, naturally." }
   lead: { zh: 将常用能力放在手边，复杂参数留给需要的时候。, en: "Everyday controls within reach, with extra options when you need them." }
   items:
-    - kicker: { zh: 格式, en: "Formats" }
-      title: { zh: 常用格式，一处处理, en: "Familiar formats in one place" }
-      body: { zh: 创建 ZIP、7z、TAR、TAR.GZ、TAR.XZ 和 TAR.BZ2，解压 RAR/RAR5 与 Zstandard，浏览归档并选择需要的文件。, en: "Create ZIP, 7z, TAR, TAR.GZ, TAR.XZ and TAR.BZ2; extract RAR/RAR5 and Zstandard; browse archives and extract selected files." }
-    - kicker: { zh: 分享, en: "Sharing" }
-      title: { zh: 发出去，干干净净, en: "Share without the clutter" }
-      body: { zh: 默认过滤 __MACOSX、.DS_Store 和 AppleDouble 附属文件，保留真实隐藏文件。原文件保持不变，同名输出另取名称。, en: "Filters __MACOSX, .DS_Store and AppleDouble metadata by default while preserving real hidden files. Source files stay unchanged and existing outputs are not overwritten." }
-    - kicker: { zh: 保护, en: "Protection" }
-      title: { zh: 为内容加一道锁, en: "Put a lock on your files" }
-      body: { zh: ZIP AES 与 7z 密码保护，7z 还可隐藏文件名。密码仅在本机使用；支持加密归档解锁与解压，不提供密码破解。, en: "ZIP AES and 7z password protection, with optional hidden filenames in 7z. Passwords stay local. Open and extract encrypted archives with their password; password recovery is not included." }
-    - kicker: { zh: 体验, en: "Experience" }
-      title: { zh: Finder 里，就能开始, en: "Start right in Finder" }
-      body: { zh: 右键服务与快速操作支持压缩、加密和解压。查看真实任务进度，暂停、继续或取消；正常退出会等待正在执行的任务清理临时文件。, en: "Finder services and quick actions support compression, encryption and extraction. Follow real progress, pause, resume or cancel. Normal app exit waits for active operations to clean up temporary files." }
+    - kicker:
+        zh: 格式
+        en: Formats
+      title:
+        zh: 常用格式，一处处理
+        en: Familiar formats in one place
+      body:
+        zh: 创建 ZIP、7z、TAR、TAR.GZ、TAR.XZ 和 TAR.BZ2，解压 RAR/RAR5 与 Zstandard，浏览归档并选择需要的文件。
+        en: Create ZIP, 7z, TAR, TAR.GZ, TAR.XZ and TAR.BZ2; extract RAR/RAR5 and Zstandard; browse archives and extract selected files.
+    - kicker:
+        zh: 分享
+        en: Sharing
+      title:
+        zh: 发出去，干干净净
+        en: Share without the clutter
+      body:
+        zh: 默认过滤 __MACOSX、.DS_Store 和 AppleDouble 附属文件，保留真实隐藏文件。原文件保持不变，同名输出另取名称。
+        en: Filters __MACOSX, .DS_Store and AppleDouble metadata by default while preserving real hidden files. Source files stay unchanged and existing outputs are not overwritten.
+    - kicker:
+        zh: 保护
+        en: Protection
+      title:
+        zh: 为内容加一道锁
+        en: Put a lock on your files
+      body:
+        zh: ZIP AES 与 7z 密码保护，7z 还可隐藏文件名。密码仅在本机使用；支持加密归档解锁与解压，不提供密码破解。
+        en: ZIP AES and 7z password protection, with optional hidden filenames in 7z. Passwords stay local. Open and extract encrypted archives with their password; password recovery is not included.
+    - kicker:
+        zh: 体验
+        en: Experience
+      title:
+        zh: Finder 里，就能开始
+        en: Start right in Finder
+      body:
+        zh: 右键服务与快速操作支持压缩、加密和解压。查看真实任务进度，暂停、继续或取消；正常退出会等待正在执行的任务清理临时文件。
+        en: Finder services and quick actions support compression, encryption and extraction. Follow real progress, pause, resume or cancel. Normal app exit waits for active operations to clean up temporary files.
+    - kicker:
+        zh: 任务记录
+        en: Task history
+      title:
+        zh: 完成之后，轻松整理
+        en: Tidy up after the job
+      body:
+        zh: 在任务页查看进度，单独移除已结束记录或一键清空。历史最多保留 50 条，自动淘汰最旧的已完成记录。
+        en: Follow progress in Tasks, remove individual finished entries or clear them together. History is capped at 50 entries, pruning the oldest completed records.
 faq:
   eyebrow: FAQ
   title: { zh: 使用前，了解这些。, en: "Before you start." }
-  lead: { zh: 首版范围与使用建议。, en: "First-beta scope and practical notes." }
+  lead: { zh: "格式兼容、密码与日常使用。", en: "Formats, passwords and everyday use." }
   items:
     - q: { zh: Windows 和 Linux 用户能解压吗？, en: "Can Windows and Linux recipients open the archive?" }
       a: { zh: 已验证 Windows 普通 ZIP 与 7-Zip 加密包，以及 Linux GNU tar 的 TAR、TAR.GZ、TAR.XZ、TAR.BZ2 双向互通。AES ZIP、7z 或分卷归档需要接收方使用支持相应格式的软件；加密 ZIP 并非所有系统自带解压工具都支持。, en: "Verified Windows plain ZIP and 7-Zip encrypted archives, plus TAR, TAR.GZ, TAR.XZ and TAR.BZ2 round trips with GNU tar on Linux. AES ZIP, 7z and split archives require a compatible extraction tool; not every built-in archive utility supports encrypted ZIP." }
