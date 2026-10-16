@@ -13,14 +13,19 @@ const apps = await getApps();
     <header class="page-hero">
       <p class="eyebrow">Privacy</p>
       <h1>{zh ? '网站隐私说明' : 'Website privacy'}</h1>
-      <p class="muted">{zh ? `生效日期：2026-10-03 · 适用于 ${site.name} 官网与 iPhone App` : `Effective: 2026-10-03 · Applies to the ${site.name} website and iPhone app`}</p>
+      <p class="muted">{zh ? `生效日期：2026-10-16 · 适用于 ${site.name} 官网与 iPhone App` : `Effective: 2026-10-16 · Applies to the ${site.name} website and iPhone app`}</p>
     </header>
     <article class="prose">
       <section>
+        <h2>{zh ? '点赞、评分与匿名评论' : 'Likes, ratings and anonymous comments'}</h2>
+        <p>{zh ? '参与互动无需登录。浏览器会保存有效期一年的随机 Cookie，服务器仅保存其哈希，用于记住你的点赞、评分和防止重复评论，不与登录账号关联。清除 Cookie 或更换浏览器后，无法恢复原来的互动身份。点赞和评分统计公开，评论审核通过后以“匿名用户”公开；未通过的内容仅供管理员审核。匿名不代表无法通过你主动填写的内容识别身份，请勿提交隐私信息。' : 'No sign-in is required. A random cookie lasts one year; the server stores only its hash to remember your likes and ratings and prevent duplicate comments, without linking it to your account. Clearing cookies or switching browsers loses this identity. Aggregate votes are public; comments are published as “Anonymous” after moderation. Unpublished comments are visible only to administrators. Your words may identify you, so avoid private information.'}</p>
+        <p>{zh ? '为限制刷票和垃圾评论，服务器使用加盐、按时间窗口变化的 IP 哈希做短期限流，不在互动数据中保存原始 IP。限流记录到期后在后续互动请求中清理，最长有效窗口为一小时。点赞、评分和评论保留至你撤回或管理员移除；你可在原浏览器撤回点赞和评分，评论删除可通过网站反馈联系管理员并提供软件名称及评论内容。' : 'To limit spam, the server uses salted, time-windowed IP hashes for short-lived rate limits, without storing raw IP addresses in interaction records. Expired counters are removed on subsequent writes; the longest active window is one hour. Votes and comments remain until withdrawn or removed by an administrator. You can withdraw votes in the original browser; request comment deletion through website feedback with the app name and comment text.'}</p>
+      </section>
+      <section>
         <h2>{zh ? '不追踪' : 'No tracking'}</h2>
         <p>{zh
-          ? '本网站不使用广告、分析脚本、指纹识别或营销 Cookie。浏览、下载软件都不需要账号；只有在你主动登录时，才会使用下文“账号与登录”中说明的 Cookie。'
-          : 'This website uses no advertising, analytics scripts, fingerprinting or marketing cookies. Browsing and downloading never require an account; the cookies described under “Accounts and sign-in” are used only if you choose to sign in.'}</p>
+          ? '本网站不使用广告、分析脚本、指纹识别或营销 Cookie。浏览、下载软件都不需要账号。账号 Cookie 仅在你主动登录时使用；软件互动区另使用上文说明的匿名 Cookie 记住点赞和评分。'
+          : 'This website uses no advertising, analytics scripts, fingerprinting or marketing cookies. Browsing and downloading never require an account. Account cookies are used only when you sign in; app reviews also use the anonymous cookie described above to remember votes.'}</p>
       </section>
       <section>
         <h2>{zh ? '托管与下载' : 'Hosting and downloads'}</h2>

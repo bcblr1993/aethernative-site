@@ -24,6 +24,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
     <PlatformBadges app={app} lang={lang} />
     <h3><a href={page}>{d.name}</a></h3>
     <p>{t(d.summary, lang)}</p>
+    <a class="community-summary" href={`${page}#reviews`} data-community-summary={app.id} data-lang={lang}>{lang === 'zh' ? '评分与评论 →' : 'Ratings & reviews →'}</a>
     {d.featured && d.cardStats.length > 0 && (
       <div class="specs">
         {d.cardStats.map((s) => <div><b>{t(s.value, lang)}</b>{t(s.label, lang)}</div>)}
@@ -43,6 +44,19 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
   )}
 </article>
 
+<script>
+  const summaries = document.querySelectorAll<HTMLElement>('[data-community-summary]');
+  if (summaries.length) fetch('/api/community', { credentials: 'omit' }).then(async r => {
+    if (!r.ok) return;
+    const data = await r.json();
+    for (const link of summaries) {
+      const s = data.apps.find((a: { appId: string }) => a.appId === link.dataset.communitySummary);
+      const zh = link.dataset.lang === 'zh';
+      link.textContent = `${s?.ratings ? `★ ${Number(s.average).toFixed(1)} (${s.ratings})` : zh ? '暂无评分' : 'No ratings yet'} · ♡ ${s?.likes ?? 0} · ${zh ? '评论 →' : 'Reviews →'}`;
+    }
+  }).catch(() => { /* Keep the working reviews link when the summary is unavailable. */ });
+</script>
+
 <style>
   .app-card { display: flex; flex-direction: column; transition: transform 0.25s; }
   .app-card:hover { transform: translateY(-3px); }
@@ -50,6 +64,7 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
   .app-card .badges { margin: 18px 0 12px; }
   .app-card h3 a:hover { color: var(--accent); }
   .app-card p { margin-top: 6px; }
+  .community-summary { font-size: 13px; color: var(--text-2); margin-top: 14px; width: fit-content; }.community-summary:hover { color: var(--accent); }
   .app-icon-link { display: block; width: fit-content; margin-left: -6px; }
   .body { display: flex; flex-direction: column; height: 100%; }
   .body > .cta { margin-top: auto; padding-top: 26px; }

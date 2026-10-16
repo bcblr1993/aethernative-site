@@ -4,6 +4,7 @@ import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../../../../layouts/Base.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
+import AppReviews from '../../../../components/AppReviews.astro';
 import ThemeGallery from '../../../../components/ThemeGallery.astro';
 import Text from '../../../../components/Text.astro';
 import Checksum from '../../../../components/Checksum.astro';
@@ -71,6 +72,7 @@ const subnav = [
     <div class="wrap">
       <a class="sn-name" href="#top">{d.name}</a>
       <div class="sn-links">
+        <a href="#reviews">{zh ? '评分与评论' : 'Reviews'}</a>
         {subnav.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
         {releases.length > 0 && <a href={`${base}releases/`}>{u.releases}</a>}
         {hasDoc('support') && <a href={`${base}support/`}>{u.help}</a>}
@@ -92,6 +94,7 @@ const subnav = [
           : d.ios && <a class="btn btn-s" href="#ios">{zh ? 'iPhone 版预告' : 'iPhone preview'} ↓</a>)}
       </div>
       <p class="req muted"><Text v={d.hero.requirements} lang={lang} /></p>
+      <a class="more small" href="#reviews">{zh ? '点赞、评分与匿名评论 ↓' : 'Likes, ratings & anonymous comments ↓'}</a>
       {d.notice && <p class="notice"><Text v={d.notice} lang={lang} /></p>}
     </div>
 
@@ -369,6 +372,7 @@ const subnav = [
       </div>
     </section>
   )}
+  <AppReviews appId={app.id} lang={lang} />
 </Base>
 
 <script>

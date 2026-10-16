@@ -1,5 +1,6 @@
 // GET /api/me —— 当前登录用户；PATCH /api/me —— 修改昵称 { name }；DELETE /api/me —— 注销账号并删除全部数据。
 import type { Env } from '../../_lib/env';
+import { pendingComments } from '../../_lib/community';
 import { pendingFeedback } from '../../_lib/feedback';
 import { appleConfig, decryptToken, revokeToken } from '../../_lib/apple';
 import { error, isSameOrigin, json, parseCookies } from '../../_lib/http';
@@ -27,7 +28,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   return json({ user: {
     ...publicUser(user, providers),
     isAdmin: user.is_admin === 1,
-    ...(user.is_admin === 1 ? { adminFeedback: await pendingFeedback(env.DB) } : {}),
+    ...(user.is_admin === 1 ? { adminFeedback: await pendingFeedback(env.DB), adminComments: await pendingComments(env.DB) } : {}),
   } }, 200, headers);
 };
 

@@ -32,6 +32,7 @@ const u = ui[lang].auth;
       <a class="item" href="/admin/" data-admin hidden>{lang === 'zh' ? '管理后台' : 'Admin dashboard'}</a>
       <a class="item" href={href(lang, '/feedback/')}>{u.myFeedback}</a>
       <a class="item" href="/admin/feedback/?status=new" data-admin-feedback hidden>{u.manageFeedback}</a>
+      <a class="item" href="/admin/comments/" data-admin-comments hidden>{lang === 'zh' ? '评论审核' : 'Review comments'}</a>
       <a class="item" href="/admin/users/" data-admin-users hidden>{u.manageUsers}</a>
       <a class="item" href="/admin/apps/" data-admin-apps hidden>{u.manageApps}</a>
       <button type="button" class="item" data-logout>{u.signOut}</button>
@@ -67,19 +68,29 @@ const u = ui[lang].auth;
       $('[data-admin]').hidden = !me.isAdmin;
       reminderKey = `an:feedback-notice:${me.id}`;
       const pending = me.adminFeedback;
-      const count = pending?.count ?? 0;
+      const feedbackCount = pending?.count ?? 0;
+      const comments = me.adminComments;
+      const commentCount = comments?.count ?? 0;
+      const count = feedbackCount + commentCount;
+      const commentLabel = root!.dataset.lang === 'zh' ? '评论审核' : 'Review comments';
+      $('[data-admin-comments]').hidden = !me.isAdmin;
+      $('[data-admin-comments]').textContent = `${commentLabel}${commentCount ? ` · ${commentCount}` : ''}`;
+      const reminderText = [feedbackCount ? u.newFeedback(feedbackCount) : '', commentCount ? (root!.dataset.lang === 'zh' ? `${commentCount} 条评论待审核` : `${commentCount} comments awaiting review`) : ''].filter(Boolean).join(' · ');
       adminLink.hidden = !pending;
       $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = !pending;
-      adminLink.textContent = count ? `${u.manageFeedback} · ${count}` : u.manageFeedback;
+      adminLink.textContent = feedbackCount ? `${u.manageFeedback} · ${feedbackCount}` : u.manageFeedback;
       badge.hidden = count === 0;
       badge.textContent = count > 99 ? '99+' : String(count);
-      inn.querySelector('summary')!.setAttribute('aria-label', count ? `${u.account} · ${u.newFeedback(count)}` : u.account);
-      if (!count || location.pathname.startsWith('/admin/feedback')) { notice.hidden = true; return; }
-      const signature = `${count}:${pending!.latestId}`;
+      inn.querySelector('summary')!.setAttribute('aria-label', count ? `${u.account} · ${reminderText}` : u.account);
+      if (!count || location.pathname.startsWith('/admin/feedback') || location.pathname.startsWith('/admin/comments')) { notice.hidden = true; return; }
+      const signature = `${feedbackCount}:${pending?.latestId}:${commentCount}:${comments?.latestId}`;
       let previous: string | null = null;
       try { previous = sessionStorage.getItem(reminderKey); } catch { /* 存储不可用时仍显示提醒 */ }
       if (previous === signature) return;
-      $('[data-feedback-notice-text]').textContent = u.newFeedback(count);
+      $('[data-feedback-notice-text]').textContent = reminderText;
+      const noticeLink = notice.querySelector('a')!;
+      noticeLink.href = feedbackCount ? '/admin/feedback/?status=new' : '/admin/comments/';
+      noticeLink.textContent = feedbackCount ? `${u.viewFeedback} →` : `${commentLabel} →`;
       notice.hidden = false;
       try { sessionStorage.setItem(reminderKey, signature); } catch { /* 提醒本身不依赖存储 */ }
     };
@@ -103,7 +114,7 @@ const u = ui[lang].auth;
     };
 
     const showSignedOut = () => {
-      $('[data-admin]').hidden = true;
+      $('[data-admin]').hidden = $('[data-admin-comments]').hidden = true;
       $('[data-admin-users]').hidden = $('[data-admin-apps]').hidden = true;
       notice.hidden = badge.hidden = adminLink.hidden = true;
       try { if (reminderKey) sessionStorage.removeItem(reminderKey); } catch { /* no-op */ }

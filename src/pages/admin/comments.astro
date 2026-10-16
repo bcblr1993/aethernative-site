@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
+import { getApps } from '../../lib/apps';
+const apps = await getApps();
+---
+<Base lang="zh" title="评论审核" standalone>
+  <div class="wrap comments-admin">
+    <AdminHeader title="评论审核" description="匿名评论审核通过后公开。可隐藏已公开的评论，也可恢复或重新送审。" />
+    <p role="status" data-status>正在加载…</p>
+    <section data-private hidden>
+      <form data-filters><label>软件<select name="app"><option value="">全部软件</option>{apps.map(a => <option value={a.id}>{a.data.name}</option>)}</select></label><label>状态<select name="status"><option value="pending">待审核</option><option value="approved">已公开</option><option value="hidden">已隐藏</option></select></label><button type="submit" class="btn btn-s btn-sm">查询 / 刷新</button></form>
+      <div data-comments></div><button type="button" class="btn btn-s btn-sm" data-more hidden>加载更多</button>
+    </section>
+    <noscript>请启用 JavaScript 并登录管理员账号。</noscript>
+  </div>
+</Base>
+<script>
+  import { markSignedOut, onSignedOut } from '../../lib/auth-client';
+  const root = document.querySelector<HTMLElement>('.comments-admin')!;
+  const status = root.querySelector<HTMLElement>('[data-status]')!;
+  const content = root.querySelector<HTMLElement>('[data-private]')!;
+  const list = root.querySelector<HTMLElement>('[data-comments]')!;
+  const form = root.querySelector<HTMLFormElement>('[data-filters]')!;
+  const more = root.querySelector<HTMLButtonElement>('[data-more]')!;
+  let controller: AbortController | null = null, next: string | null = null, query = new URLSearchParams();
+  let signedOut = false;
+  const actionsController = new AbortController();
+  onSignedOut(() => { signedOut = true; controller?.abort(); actionsController.abort(); content.hidden = true; list.replaceChildren(); status.textContent = '请先登录管理员账号。'; });
+  async function check(r: Response) {
+    if (r.status === 401) markSignedOut();
+    if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? '请使用管理员账号登录。' : '操作失败，请重试。');
+    return r.json();
+  }
+  async function load(append = false) {
+    controller?.abort(); const current = new AbortController(); controller = current;
+    more.disabled = true; status.textContent = '正在加载…';
+    if (!append) { query = new URLSearchParams(new FormData(form) as unknown as Record<string, string>); list.replaceChildren(); }
+    const params = new URLSearchParams(query); if (append && next) params.set('cursor', next);
+    try {
+      const d = await check(await fetch(`/api/admin/comments?${params}`, { credentials: 'same-origin', signal: current.signal }));
+      if (current.signal.aborted || signedOut) return;
+      content.hidden = false;
+      status.textContent = `待审核 ${d.pending.count} 条。${!d.comments.length && !append ? '当前筛选暂无评论。' : ''}`;
+      for (const c of d.comments) {
+        const article = document.createElement('article'); article.className = 'card';
+        const meta = document.createElement('p'); meta.className = 'muted'; meta.textContent = `匿名用户 · ${c.appId} · ${new Date(c.createdAt).toLocaleString('zh-CN')}`;
+        const body = document.createElement('p'); body.className = 'comment-body'; body.textContent = c.body;
+        const actions = document.createElement('div'); actions.className = 'actions';
+        const hint = document.createElement('p'); hint.setAttribute('role', 'status');
+        for (const [value, label] of [['approved', '通过并公开'], ['hidden', '隐藏'], ['pending', '重新送审']]) {
+          if (value === c.status) continue;
+          const button = document.createElement('button'); button.type = 'button'; button.className = 'btn btn-s btn-sm'; button.textContent = label;
+          button.addEventListener('click', async () => {
+            const buttons = actions.querySelectorAll('button'); buttons.forEach(b => b.disabled = true);
+            try {
+              await check(await fetch(`/api/admin/comments/${encodeURIComponent(c.id)}`, { method: 'PATCH', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: value }), signal: actionsController.signal }));
+              if (signedOut || !article.isConnected) return;
+              document.dispatchEvent(new Event('an:feedback-updated')); await load();
+            } catch (e) { if (!signedOut && article.isConnected) hint.textContent = (e as Error).message; }
+            finally { buttons.forEach(b => b.disabled = false); }
+          }); actions.append(button);
+        }
+        article.append(meta, body, actions, hint); list.append(article);
+      }
+      next = d.next; more.hidden = !next;
+    } catch (e) { if (!current.signal.aborted) status.textContent = (e as Error).message; }
+    finally { if (!current.signal.aborted) more.disabled = false; }
+  }
+  form.addEventListener('submit', e => { e.preventDefault(); void load(); });
+  more.addEventListener('click', () => { void load(true); });
+  void load();
+</script>
+<style>
+  .comments-admin { padding-bottom: 70px; }section { padding: 20px 0; }form { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin-bottom: 24px; }label { display: grid; gap: 6px; font-size: 14px; }select { border: 1px solid var(--line); background: var(--bg); color: var(--text); padding: 10px; border-radius: 8px; font: inherit; }[data-comments] { display: grid; gap: 16px; margin-bottom: 20px; }[data-comments] :global(.comment-body) { white-space: pre-wrap; overflow-wrap: anywhere; margin: 18px 0; }[data-comments] :global(.actions) { display: flex; gap: 12px; flex-wrap: wrap; }[hidden] { display: none; }
+</style>

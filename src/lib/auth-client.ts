@@ -8,6 +8,7 @@ export interface Me {
   email: string | null;
   avatarUrl: string | null;
   providers: string[];
+  adminComments?: { count: number; latestId: string | null };
   adminFeedback?: { count: number; latestId: string | null };
 }
 
