@@ -4,13 +4,29 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.9</title>
-            <pubDate>Fri, 16 Oct 2026 12:46:08 +0800</pubDate>
-            <sparkle:version>57</sparkle:version>
-            <sparkle:shortVersionString>0.8.9</sparkle:shortVersionString>
+            <title>0.8.10</title>
+            <pubDate>Fri, 16 Oct 2026 13:40:07 +0800</pubDate>
+            <sparkle:version>58</sparkle:version>
+            <sparkle:shortVersionString>0.8.10</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.8.9
+            <description sparkle:format="markdown"><![CDATA[# v0.8.10
+
+- **精准空闲态感知与任务完成即时回归 (Precise Real-Time Idle State Perception & Zero False-Positive Running Task)**：
+  - **彻底清除工具完成后的虚假执行中与挂起状态**：彻底修复旧逻辑中 `lastType == "GENERIC"` 工具执行完毕（`status: "DONE"`）后，依然强制维持 120 秒 `.runningTask`（“任务执行中”）以及 480 秒 `.stalled`（“⚠️ 疑似挂起”）的严重逻辑假阳性缺陷。工具执行完毕后仅保留 3 秒平滑过渡，随后即刻精准回归 `.idle`（空闲就绪）。
+  - **精准识别后台任务与子 Agent 完成事件 (`SYSTEM_MESSAGE`)**：全面支持 Antigravity 在后台命令、测试套件与子智能体执行完成时写入的 `SYSTEM_MESSAGE`（`status: "DONE"`）结构化解析，不再泄露内部日志文本，准确回归 `.idle` 并提示“后台任务完成 · 等待新指令”。
+  - **完善异常与错误事件安全收敛 (`ERROR_MESSAGE`)**：全面识别 `ERROR_MESSAGE` 事件，避免回退为空字符串或挂死，优雅收拢为就绪态。
+  - **历史旧会话超时自愈机制**：对于历史遗留的 `tool_calls` 或 `USER_INPUT` 步骤，超过 10 分钟（`age >= 600s`）无活动自动平滑判定为 `.idle`（就绪），彻底根除打开旧实例卡在“⚠️ 疑似挂起”的问题。
+- **CDP 状态感知全并发非阻塞改造与 DOM 权威校准 (Concurrent Non-Blocking CDP Telemetry & DOM Ground Truth)**：
+  - **解耦 DOM 执行态探测与重型视窗截图**：将纯 V8 引擎执行态判断（`Runtime.evaluate`）与重型视窗截图（`Page.captureScreenshot`）拆解为两阶段独立调用，确保即使窗口处于 macOS 隐藏、最小化或合成器暂停帧渲染状态，`isExecuting` 探测也能在 20ms 内极速返回，绝不被截图挂起。
+  - **全并发 `withTaskGroup` 扫描**：将各实例 CDP 轮询从串行 `for-in` 升级为 Swift 原生高并发 TaskGroup，多开 7+ 实例并发探测总耗时从 O(N) 压缩至 < 0.5s。
+  - **严格超时熔断机制 (`withTimeout`)**：对 WebSocket 消息接收施加 0.5s / 0.6s 严格 deadline，彻底杜绝隐藏/最小化窗口因 Chromium 挂起帧生成而导致的 `task.receive()` 无限等待与遥测扫描卡死。
+  - **DOM 权威校准时彻底清理残留动作文本**：当 Chromium DOM 确认无停止/取消按钮（`!isExecuting`）时，不仅纠正 `state = .idle`，同时彻底清空残留的“正在执行...”、“正在处理...”、“分析结果...”等历史文本，统合为“任务已完成 · 等待新指令”。
+  - **遥测扫描看门狗自动复位 (Telemetry Watchdog Auto-Reset)**：在 `refreshTelemetryAndThumbnails` 增加 6 秒超时自愈看门狗，确保遥测锁绝不永久阻塞主循环。
+- **全量 142 项自动化回归测试质量门禁保障 (142/142 Automated Tests Passed)**：
+  - 增补空闲态精确判定、并发 CDP 任务组及超时熔断、DOM 校准动作清空、扫描看门狗四大严苛断言，全量 142 项测试 100% 满分通过。
+
+# v0.8.9
 
 - **多开副本 Dock 栏净化与动态隐形策略 (Clone Instance Dock Clutter Prevention & Stealth Policy)**：
   - **彻底解决多开实例 Dock 栏堆积与重复问题**：继 v0.7.7 解决菜单栏托盘图标泛滥后，针对用户反馈的“实例多开后 Dock 图标依然很多”痛点，实现从 Electron 主进程生命周期到底层 AppKit 的 Dock 图标隐形与智能动态控制体系。
@@ -355,10 +371,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.9/Aether-Antigravity-Multiplexer-v0.8.9-macos-arm64.zip" length="3742647" type="application/octet-stream" sparkle:edSignature="UPB6uyqslwCGRp7qv/so+v3YxJVkr/Q/uMCAhGvGHQMv/oHhi1hl5pho1ysyeerAP28o39JqNXew+SHqkF2ODg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.10/Aether-Antigravity-Multiplexer-v0.8.10-macos-arm64.zip" length="3752351" type="application/octet-stream" sparkle:edSignature="NpBmKWOfBA5IrQAXm5YxHjAH/2wy5Je2hw1Ajpk60mbSvQf7d0MrPF0oWJYDuru6Gud3HMqEy/z8SmrBjBSuCQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 2HlzLX7FaqPCW279FBV0havaCnm+pevwS6ksIqf0sC0anc//MXDZDFawjKfTTWcsnMM3nABfIA9y6Ys7Vs23CA==
-length: 53158
+edSignature: NvarxujB7soOF2Rik6CdjALrL/vn0SyU9/7Sjb8c3f7zLZFeqewiftdsB88rQwxadcEQNL5LsqutjEHaPSKMAw==
+length: 56235
 -->
