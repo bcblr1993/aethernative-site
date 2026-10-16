@@ -1,27 +1,27 @@
 {
-  "checkedAt": "2026-10-16T04:41:09.917Z",
+  "checkedAt": "2026-10-16T11:34:29.691Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "1.8.1",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.1/AetherRoute-1.8.1-build-2026101506-arm64.dmg",
-      "sha256": "6373a286e093961ef4ce4d6131a5fd8da8583e91f1ac606c1e061e085823bb70",
-      "length": 27473294,
-      "edSignature": "H4sP25+ayW8Pmq8lUS33rEf3Jwf+zosWOByNFNnSMcVVIb3FY9dSzany8E2nVD/3AkvE0UD0nH6/PqfVONPiCQ==",
+      "version": "1.8.3",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.3/AetherRoute-1.8.3-build-2026101603-arm64.dmg",
+      "sha256": "58de51c5cae2a48f841c9841aa3658bc6666282094983661919519377c878c14",
+      "length": 27482017,
+      "edSignature": "BMP+bqk/nD7RfR0HJN8twl7GRv+Dy7a4pEtdNwbkmDIkPOFwGELAmyKAPfC2cxN6f4gfk82eFbc36UoZ69foDA==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 27473294,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/7fa533ba-38f7-4aed-a9a2-85a7862e8231",
+          "bytes": 27482017,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/2f356a48-98d6-400e-91c0-9040e3d4474f",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "6373a286e093961ef4ce4d6131a5fd8da8583e91f1ac606c1e061e085823bb70",
+          "actual": "58de51c5cae2a48f841c9841aa3658bc6666282094983661919519377c878c14",
           "message": "SHA256 一致"
         },
         {
@@ -41,24 +41,24 @@
     {
       "id": "notchquota",
       "name": "AetherNotchQuota",
-      "version": "0.1.29",
-      "download": "https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.29/AetherNotchQuota-0.1.29-macos-arm64.dmg",
-      "sha256": "0d24e62163f8121c70821b135c913093d97020658d36356103cfbce59d3a0fa4",
-      "length": 5418007,
-      "edSignature": "Y99u1Ncqkiy0FbVXaIMjH+Es98BsGZ3PrPoFedNY9F/DZjT2TMH7vCFMWFUS51fclJaUWAFs+Czs6MnSwBNKDg==",
+      "version": "0.1.30",
+      "download": "https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.30/AetherNotchQuota-0.1.30-macos-arm64.dmg",
+      "sha256": "eebaeaf9899261030dfec370af76b69c20610eb18701821942bdb722231840ba",
+      "length": 5418101,
+      "edSignature": "LAu1F3Pe8P66QpdhgA9Mg5YofdEExPzqVB/wgliWG2kn9C7X99htTPUngvn6Rgwqmg9xVM265cD+gBPXdy6+Aw==",
       "appcast": "/apps/notchquota/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 5418007,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391592112/d95cd935-ab29-4de9-9b51-beda0cf97db7",
+          "bytes": 5418101,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391592112/3f18678e-831a-41f4-9431-c95f71da9769",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "0d24e62163f8121c70821b135c913093d97020658d36356103cfbce59d3a0fa4",
+          "actual": "eebaeaf9899261030dfec370af76b69c20610eb18701821942bdb722231840ba",
           "message": "SHA256 一致"
         },
         {
@@ -78,22 +78,22 @@
     {
       "id": "aetherterm",
       "name": "AetherTerm",
-      "version": "1.11.0",
-      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.11.0/AetherTerm-v1.11.0-macos-arm64.dmg",
-      "sha256": "f6b38fc857f7d34c7f2b1d1dadbe1e63dae55b3d5b4ee53435c1e3f7e1ec7258",
+      "version": "1.12.0",
+      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.12.0/AetherTerm-v1.12.0-macos-arm64.dmg",
+      "sha256": "df1fc7067cf824eba204a2984ececeb6caaae49a140dcf953db1692b09cbe28b",
       "appcast": null,
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3849424,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/c6003c00-110f-44e8-a892-486189944eda",
+          "bytes": 4316840,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/06562b52-a878-44ce-8a42-c9da8a4855f8",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "f6b38fc857f7d34c7f2b1d1dadbe1e63dae55b3d5b4ee53435c1e3f7e1ec7258",
+          "actual": "df1fc7067cf824eba204a2984ececeb6caaae49a140dcf953db1692b09cbe28b",
           "message": "SHA256 一致"
         },
         {
@@ -182,24 +182,24 @@
     {
       "id": "antigravity-multiplexer",
       "name": "Aether Antigravity Multiplexer",
-      "version": "0.8.8",
-      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.8/Aether-Antigravity-Multiplexer-v0.8.8-macos-arm64.zip",
-      "sha256": "cd3b3897849114211db4d8b6e7ecd098d70f812145d769de53755e560f0e151a",
-      "length": 3730096,
-      "edSignature": "AAxIKDYihEzXsyKztSKPiluy6vEvanjcWcNzZc7GEhSj0DGC2CA3EeueltJida99HpQ/E9P95V66zLY2qZ+1AA==",
+      "version": "0.8.13",
+      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.13/Aether-Antigravity-Multiplexer-v0.8.13-macos-arm64.zip",
+      "sha256": "845d683a85e83cee5384a1bdb5c710ebc7908ea5ce3954e50f7fdc851fc28558",
+      "length": 3777410,
+      "edSignature": "f8SIj1Lz7HzNNuHycDLDY6hKmi+OJG5YvGSaiJOVrHUQvT78Ysj+61254UTh7veim4nCFw8LZQtPb1tgDCwvBg==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3730096,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/5ac39ee6-d046-4a4f-8ff9-adb4150c4d3f",
+          "bytes": 3777410,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/2743a609-97a6-4185-8bf7-7a6f0d504a3a",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "cd3b3897849114211db4d8b6e7ecd098d70f812145d769de53755e560f0e151a",
+          "actual": "845d683a85e83cee5384a1bdb5c710ebc7908ea5ce3954e50f7fdc851fc28558",
           "message": "SHA256 一致"
         },
         {
@@ -233,24 +233,24 @@
     {
       "id": "aetherscreens",
       "name": "AetherScreens",
-      "version": "1.1.0",
-      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.1.0/AetherScreens-macOS-AppleSilicon-v1.1.0.dmg",
-      "sha256": "85df54b81ca6f0c699c02cc1963fbd1d2e9d2c3c192384f4d9e1121ff26fb56c",
-      "length": 7999443,
-      "edSignature": "evZezDf57+fCMG2lFwS8aCAUzkZ0zatzOaHhoX5nNPXxFCP1/DK0L8gtdD2b/h5zhPoz5AoOXUnjJ/jfMZorAA==",
+      "version": "1.2.0",
+      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.2.0/AetherScreens-macOS-AppleSilicon-v1.2.0.dmg",
+      "sha256": "e2f12fbb01c76044c8ffa5cbc2af1054099c6540f35165e3fcb4d0b487a482aa",
+      "length": 11285049,
+      "edSignature": "NsUvNDQl5h2oGNZGdcpMcS4/d5UscZgK+e3py/f+vPfifeeI05jj0HzH/nXD/+W1Pjkwk1+QKlTQCzob+HVFAA==",
       "appcast": "/apps/aetherscreens/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 7999443,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/4e11959e-4c46-4ef0-b12d-d4a805352f02",
+          "bytes": 11285049,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/377951c7-cff4-4428-8fbb-2e080bd26090",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "85df54b81ca6f0c699c02cc1963fbd1d2e9d2c3c192384f4d9e1121ff26fb56c",
+          "actual": "e2f12fbb01c76044c8ffa5cbc2af1054099c6540f35165e3fcb4d0b487a482aa",
           "message": "SHA256 一致"
         },
         {
