@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.3"
+    build: "2026101603"
+    date: 2026-10-16
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.3/AetherRoute-1.8.3-build-2026101603-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.3
+    sha256: 58de51c5cae2a48f841c9841aa3658bc6666282094983661919519377c878c14
+    sparkle:
+      edSignature: BMP+bqk/nD7RfR0HJN8twl7GRv+Dy7a4pEtdNwbkmDIkPOFwGELAmyKAPfC2cxN6f4gfk82eFbc36UoZ69foDA==
+      length: 27482017
+    summary:
+      zh: 支持菜单栏实时网速与流量监测、TDD 自动化发版门禁落地、叶子节点遥测隔离与双端并行验收流水线
+      en: Real-time menu bar network traffic monitor, TDD release gate, telemetry isolation, and parallel acceptance pipeline
+    notes:
+      - title:
+          zh: 新增功能
+          en: New Features
+        items:
+          - zh: 菜单栏实时网速监测：设置中支持一键开启菜单栏实时上传与下载速率，等宽紧凑排版自适应速率单位，完美兼容全量 41 款 SF Symbols 图标与更新红点 Badge。
+            en: "Menu bar real-time traffic: optional live upload and download speed indicators in the menu bar, fully compatible with all 41 SF Symbols and update badges."
+          - zh: 高频遥测观察隔离架构：将 1Hz 速率遥测观察收敛至独立叶子节点视图，彻底避免主视窗与设置页面的层叠重绘与 CPU 抖动。
+            en: "Telemetry observation isolation: high-frequency 1Hz rate updates strictly isolated in leaf view, eliminating cascade re-rendering."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 自动化发版门禁落地：新增 Tests/MenuBarTraffic 门禁套件并纳入 standard SOP，全面覆盖速率格式化、设置持久化、图像合成与断连安全归零。
+            en: "Automated release gate: added Tests/MenuBarTraffic suite to standard SOP covering formatting, persistence, image composition, and disconnect safety."
+          - zh: 双端并行验收全绿：Tart 虚拟机 6 维网络矩阵 210 项用例与物理真机 UI 性能及内存门禁全数通过。
+            en: "Parallel acceptance 100% passed: 210 matrix checks in isolated Tart VM and remote physical Mac mini UI performance passed."
   - version: "1.8.2"
     build: "2026101601"
     date: 2026-10-16
