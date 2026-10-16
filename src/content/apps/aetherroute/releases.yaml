@@ -1,6 +1,30 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.2"
+    build: "2026101601"
+    date: 2026-10-16
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.2/AetherRoute-1.8.2-build-2026101601-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.2
+    sha256: e304927577fc33beff966e3bc08e0cac69415b1a72978020391dadf76002e2b9
+    sparkle:
+      edSignature: PLfonBiXxLFdcIRZ5IqxuoeNxSAEktODZWmJqJPDVBxubTe71//rIiNzl7CNA/u5yjU7FK9CS8rZmpxbEt2jDQ==
+      length: 27473579
+    summary:
+      zh: 局域网共享代理完全独立解耦，消除设置页面置灰限制，状态栏与设置体验对齐
+      en: Allow LAN proxy sharing completely decoupled as a standalone feature across Settings and Menu Bar
+    notes:
+      - title:
+          zh: 修复与优化
+          en: Improvements
+        items:
+          - zh: 局域网共享完全独立：彻底解除对本机回环代理的前置依赖，设置页面与状态栏随时自由独立开启。
+            en: "Allow LAN Independence: Decoupled from loopback proxy dependency; togglable directly in Settings and Menu Bar."
+          - zh: 消除设置页面置灰：移除了初始状态下的禁用限制，两端状态实时保持 100% 同步。
+            en: "Eliminated Grayed-Out State: Removed disabled restriction in Settings, keeping states perfectly synchronized."
+          - zh: 底层服务网关解耦：网关服务由 allowLAN 独立驱动，支持在 TUN 与透明代理下随开随用。
+            en: "Gateway Decoupling: In-process proxy gateway runs independently driven by allowLAN."
   - version: "1.8.1"
     build: "2026101506"
     date: 2026-10-15
