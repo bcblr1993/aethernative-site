@@ -241,9 +241,27 @@ iPhone App 与推送服务读取的静态 JSON，由 `npm run build` 根据内�
 - `POST /api/community/:app`：必须同源 JSON，先 GET 建立浏览器身份。`{action:"like",liked:boolean}` 设置点赞，`{action:"rate",rating:1..5|null}` 设置/撤回评分，`{action:"comment",body,requestId}` 提交最长 1000 字的评论。requestId 为随机 UUID，重试使用原 UUID；重用 UUID 改正文/软件返回 409。评论默认 pending。
 - 列表使用不透明 `next`，下一页传 `?cursor=...`。公开接口仅返回 approved，正文必须按纯文本渲染。
 - `GET /api/admin/comments?status=pending|approved|hidden&app=...&cursor=...`：管理员评论队列和 pending 数量。
-- `PATCH /api/admin/comments/:id`：管理员同源 JSON `{status:"approved"|"hidden"|"pending"}`。隐藏可恢复。所有互动和管理响应均 no-store。
+- `PATCH /api/admin/comments/:id`：管理员同源 JSON `{status:"approved"|"hidden"|"pending"}`。隐藏可恢复。个人互动和管理响应均 no-store；不含身份信息的全站聚合 `GET /api/community` 允许浏览器缓存 30 秒。
 - 管理员 `/api/me` 额外返回 `adminComments: {count,latestId}`，账号角标和提醒合并反馈/待审评论，普通用户不获得该信息。
 
 匿名身份独立于账号；清理 Cookie 或换浏览器可以产生新身份，所以统计是浏览器参与量，不保证真实独立人数。服务器只存凭证哈希，IP 仅以服务端随机盐及时间窗口哈希进入短期限流表。每浏览器评论最多 3 条/小时，每网络 10 条/小时；点赞/评分写入分别限制 30/60 次/分钟。固定窗口计数采用原子 UPSERT，跨软件共用。无验证码，仍需关注分布式刷票。
 
 上线先应用 `0010_app_community.sql`，只新增表和索引，不修改既有账号/反馈数据；再部署代码。不需新增密钥、绑定或依赖。回滚网站到上一部署即可停用入口和接口，新表应保留以免丢失已收集的互动。
+
+
+## 后台统计看板
+
+`GET /api/admin/analytics?days=7|30|90&app=<appId>` 仅管理员可读，响应 `no-store`，不返回账号标识、邮件或反馈/评论正文。日期以北京时间自然日计算，默认近 30 天，`app` 省略表示全部，`general` 对应网站反馈。
+
+- `downloads.rows/versions/startedAt`：所选期间下载发起次数、前 12 个版本、开始统计时间；不是下载完成数或独立访客数。
+- `users.total/added/disabled/recentLogin/daily/providers`：全站当前保留账号及新增趋势、最后登录时间处于区间的账号数、绑定平台分布。账号维度不受软件筛选影响；不是 DAU。
+- `feedback.daily/statuses/categories` 和 `community.comments`：所选期间提交记录的当前状态；待处理反馈、待审评论另返回当前累计待办。
+- `community.votes/stars`：当前累计点赞、评分均值及星级分布。撤回会更新结果，不能按日期回溯。
+
+没有采集页面浏览量、访客地区、设备类型，因此不展示这些维度。看板不新增数据库表或外部图表依赖。
+
+## 页面加载优化（2026-10-16）
+
+首屏内容直接呈现，取消依赖脚本的滚动显现和入场延迟；页面下方的评论及卡片互动摘要临近视口才读取。主题预览只保留一个图片节点，切换主题时再加载对应图片；截图提供适配手机的 WebP 尺寸。内容哈希资源 `/_astro/*` 长期缓存，HTML、登录和私有 API 不适用此策略。社区接口用小型静态应用目录验证应用，避免读取含完整发布历史的 app.json，并行读取独立数据。
+
+大陆手机网络访问还受 DNS、TLS 和跨境线路波动影响。本地链路测量不能代替大陆运营商实测；当前不承诺固定打开时间，也未变更 DNS、托管商或引入付费 CDN。本次没有数据库迁移，可通过恢复前一部署回滚。

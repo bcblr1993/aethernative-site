@@ -8,8 +8,11 @@ export const onRequestGet: PagesFunction<Env, 'app'> = async ({ request, env, pa
   const after = cursor(new URL(request.url).searchParams.get('cursor'));
   if (after === false) return error(400, 'invalid_cursor');
   const who = await visitor(request, true);
-  const mine = await env.DB.prepare('SELECT liked, rating FROM app_votes WHERE app_id = ? AND visitor_hash = ?').bind(app, who.hash).first<{ liked: number; rating: number | null }>();
-  return json({ ...await listComments(env.DB, app, 'approved', after), summary: await summary(env.DB, app), mine: { liked: Boolean(mine?.liked), rating: mine?.rating ?? null } }, 200, who.cookie ? { 'Set-Cookie': who.cookie } : {});
+  const [mine, comments, stats] = await Promise.all([
+    env.DB.prepare('SELECT liked, rating FROM app_votes WHERE app_id = ? AND visitor_hash = ?').bind(app, who.hash).first<{ liked: number; rating: number | null }>(),
+    listComments(env.DB, app, 'approved', after), summary(env.DB, app),
+  ]);
+  return json({ ...comments, summary: stats, mine: { liked: Boolean(mine?.liked), rating: mine?.rating ?? null } }, 200, who.cookie ? { 'Set-Cookie': who.cookie } : {});
 };
 
 export const onRequestPost: PagesFunction<Env, 'app'> = async ({ request, env, params }) => {

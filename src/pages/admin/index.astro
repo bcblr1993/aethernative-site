@@ -1,31 +1,107 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AdminHeader from '../../components/AdminHeader.astro';
-import { getRecentReleases } from '../../lib/apps';
-const recent = await getRecentReleases(6);
+import { getApps, getRecentReleases } from '../../lib/apps';
+const apps = (await getApps()).map(a => ({ id: a.id, name: a.data.name }));
+const recent = await getRecentReleases(4);
+const panels = [
+  ['downloads', '下载趋势', '所选日期 · 下载发起次数，非下载完成或独立用户'],
+  ['apps', '软件热度', '所选日期 · 按官网下载发起次数排名'],
+  ['users', '新增账号趋势', '所选日期 · 全站账号，不受软件筛选影响'],
+  ['providers', '账号登录来源', '当前全部账号绑定的平台；同一账号可能绑定多个平台'],
+  ['versions', '版本下载排行', '所选日期 · 最多展示前 12 个版本'],
+  ['feedback', '反馈提交趋势', '所选日期 · 按反馈提交时间统计'],
+  ['feedback-status', '反馈处理状态', '所选日期提交的反馈，截至当前的处理状态'],
+  ['feedback-category', '反馈类型', '所选日期 · 问题、功能建议与其他反馈'],
+  ['votes', '点赞与评分', '当前累计 · 评分可撤回，不按所选日期回溯'],
+  ['stars', '星级分布', '当前累计 · 每个浏览器对同一软件保留一份评分'],
+  ['comments', '评论审核分布', '所选日期提交的评论，截至当前的审核状态'],
+];
 ---
 <Base lang="zh" title="管理后台" standalone>
-  <div class="wrap dashboard"><AdminHeader title="管理后台" description="下载、反馈与发布概览 · 北京时间" />
-    <p data-status role="status">正在加载…</p>
-    <section class="cards" data-private hidden>
-      <a class="card" href="/admin/downloads/"><span>今日下载发起</span><strong data-today></strong></a>
-      <a class="card" href="/admin/downloads/"><span>近 7 天下载发起</span><strong data-week></strong></a>
-      <a class="card" href="/admin/feedback/"><span>待处理反馈</span><strong data-pending></strong></a>
+  <div class="wrap dashboard" data-apps={JSON.stringify(apps)}>
+    <AdminHeader title="数据概览" description="下载、账号、反馈与社区互动，一页了解网站近况。所有日期均按北京时间统计。" />
+    <form class="filters" data-filters>
+      <label>时间范围<select name="days"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select></label>
+      <label>软件<select name="app"><option value="">全部软件</option>{apps.map(a => <option value={a.id}>{a.name}</option>)}<option value="general">网站 / 其他反馈</option></select></label>
+      <button class="btn btn-p btn-sm" type="submit">查询 / 刷新</button>
+      <a class="more" href="/admin/downloads/">下载明细与 CSV 导出 →</a>
+    </form>
+    <p data-status role="status" aria-live="polite">正在加载…</p>
+    <section data-private hidden>
+      <p class="small muted" data-period></p>
+      <div class="metrics">
+        {[['downloads','所选期间下载发起','/admin/downloads/'],['users','当前账号总数','/admin/users/'],['added','所选期间新增账号','/admin/users/'],['login','所选期间登录过的账号','/admin/users/'],['feedback','当前待处理反馈','/admin/feedback/'],['comments','当前待审评论','/admin/comments/']].map(([id,label,url]) => <a class="card metric" href={url}><span>{label}</span><strong data-metric={id}>—</strong></a>)}
+      </div>
+      <div class="charts">{panels.map(([id,title,note]) => <article class:list={['card chart-card',{wide:id==='downloads'}]}><h2>{title}</h2><p class="small muted">{note}</p><div data-chart={id} class:list={['chart',{distribution:['providers','feedback-status','feedback-category','comments'].includes(id)}]}></div></article>)}</div>
+      <p class="small muted caveat">下载统计启用前的日期显示为“尚未统计”；启用当天和今天可能只有部分数据。账号图只统计当前保留的账号，注销后不再计入；登录人数来自账号最近登录时间，并非每日活跃人数。当前没有采集页面访问量、访客地区和设备分布。</p>
     </section>
-    <h2>最近发布</h2><ul>{recent.map(({app,release}) => <li><a href={`/apps/${app.id}/releases/${release.version}/`}>{app.data.name} · {release.version}</a><time>{release.date.toISOString().slice(0,10)}</time></li>)}</ul>
+    <h2 class="recent-heading">最近发布</h2><ul class="releases">{recent.map(({app,release}) => <li><a href={`/apps/${app.id}/releases/${release.version}/`}>{app.data.name} · {release.version}</a><time>{release.date.toISOString().slice(0,10)}</time></li>)}</ul>
     <p><a href="/admin/services/">查看下载和更新服务状态 →</a></p>
+    <noscript>请启用 JavaScript，并登录管理员账号查看统计。</noscript>
   </div>
 </Base>
 <script>
   import { markSignedOut, onSignedOut } from '../../lib/auth-client';
-  const controller = new AbortController();
-  onSignedOut(() => { controller.abort(); document.querySelector<HTMLElement>('[data-private]')!.hidden = true; for (const key of ['today', 'week', 'pending']) document.querySelector(`[data-${key}]`)!.textContent = ''; status.textContent = '请先登录管理员账号。'; });
-  const status = document.querySelector<HTMLElement>('[data-status]')!;
-  fetch('/api/admin/overview', {credentials:'same-origin', signal:controller.signal}).then(async r => {
-    if(!r.ok){if(r.status===401)markSignedOut();status.textContent=r.status===401?'请先登录管理员账号。':r.status===403?'当前账号没有管理权限。':'概览加载失败，请刷新重试。';return;}
-    const d=await r.json(); if(controller.signal.aborted)return;
-    for(const [key,value] of Object.entries({today:d.downloads.today,week:d.downloads.week,pending:d.feedback.pending})) document.querySelector<HTMLElement>(`[data-${key}]`)!.textContent=String(value);
-    document.querySelector<HTMLElement>('[data-private]')!.hidden=false;status.textContent='数据已更新。下载次数不代表独立用户或下载完成。';
-  }).catch(()=>{if(!controller.signal.aborted)status.textContent='概览加载失败，请刷新重试。';});
+  import { buildDownloadReport, type AppName, type DownloadStats } from '../../lib/download-report';
+  import { bars, ring, trend } from '../../lib/admin-charts';
+  interface Count { label: string | number; count: number }
+  interface Daily { day: string; count: number }
+  interface Result {
+    from: string; to: string; app: string; generatedAt: number;
+    downloads: Pick<DownloadStats, 'rows' | 'versions' | 'startedAt'>;
+    users: { total: number; added: number; disabled: number; recentLogin: number; daily: Daily[]; providers: Count[] };
+    feedback: { daily: Daily[]; statuses: Count[]; categories: Count[]; pending: { count: number } };
+    community: { votes: { appId: string; likes: number; ratings: number; average: number | null }[]; stars: Count[]; comments: Count[]; pending: { count: number } };
+  }
+  const root = document.querySelector<HTMLElement>('.dashboard')!;
+  const apps: AppName[] = JSON.parse(root.dataset.apps!);
+  const status = root.querySelector<HTMLElement>('[data-status]')!;
+  const content = root.querySelector<HTMLElement>('[data-private]')!;
+  const form = root.querySelector<HTMLFormElement>('form')!;
+  const chart = (key: string) => root.querySelector<HTMLElement>(`[data-chart="${key}"]`)!;
+  const name = (id: string) => id === 'general' ? '网站 / 其他反馈' : apps.find(a => a.id === id)?.name ?? id;
+  const labels: Record<string,string> = {google:'Google',github:'GitHub',apple:'Apple',new:'待处理',triaged:'处理中',replied:'已回复',closed:'已关闭',bug:'问题反馈',feature:'功能建议',other:'其他',pending:'待审核',approved:'已公开',hidden:'已隐藏'};
+  const counts = (rows: Count[]) => rows.map(r => ({label: labels[r.label] ?? String(r.label), value:r.count}));
+  let controller: AbortController | undefined;
+  function clear() { content.hidden = true; root.querySelectorAll('[data-chart]').forEach(el => el.replaceChildren()); root.querySelectorAll('[data-metric]').forEach(el => el.textContent = '—'); root.querySelector('[data-period]')!.textContent = ''; }
+  onSignedOut(() => { controller?.abort(); clear(); status.textContent = '请登录管理员账号查看统计。'; });
+  async function load() {
+    controller?.abort(); const active = new AbortController(); controller = active;
+    clear(); status.textContent = '正在加载…';
+    const params = new URLSearchParams(new FormData(form) as unknown as Record<string,string>);
+    try {
+      const r = await fetch(`/api/admin/analytics?${params}`, { credentials:'same-origin', cache:'no-store', signal:active.signal });
+      if (r.status === 401) { markSignedOut(); return; }
+      if (r.status === 403) { status.textContent = '当前账号没有管理权限。'; return; }
+      if (!r.ok) throw new Error('failed');
+      const data = await r.json() as Result; if (active.signal.aborted) return;
+      const report = buildDownloadReport({...data,...data.downloads},apps);
+      const days = [...report.days].reverse();
+      const metric = {downloads:report.total,users:data.users.total,added:data.users.added,login:data.users.recentLogin,feedback:data.feedback.pending.count,comments:data.community.pending.count};
+      for (const [key,value] of Object.entries(metric)) root.querySelector(`[data-metric="${key}"]`)!.textContent = value.toLocaleString('zh-CN');
+      root.querySelector('[data-period]')!.textContent = `${data.from} 至 ${data.to} · ${data.app ? name(data.app) : '全部软件'} · 更新于 ${new Date(data.generatedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false})}`;
+      trend(chart('downloads'), days.map(d => ({label:d.day,value:d.requests})), '每日下载发起次数');
+      bars(chart('apps'),report.apps.map(a=>({label:a.name,value:a.requests})));
+      const daily = (rows: Daily[]) => { const map = new Map(rows.map(r=>[r.day,r.count])); return days.map(d=>({label:d.day,value:map.get(d.day)??0})); };
+      trend(chart('users'),daily(data.users.daily),'每日新增账号');
+      trend(chart('feedback'),daily(data.feedback.daily),'每日反馈提交量');
+      ring(chart('providers'),counts(data.users.providers));
+      ring(chart('feedback-status'),counts(data.feedback.statuses));
+      ring(chart('feedback-category'),counts(data.feedback.categories));
+      ring(chart('comments'),counts(data.community.comments));
+      bars(chart('versions'),(data.downloads.versions??[]).map(v=>({label:`${name(v.app_id)} · ${v.version}`,value:v.requests})));
+      bars(chart('stars'),[5,4,3,2,1].map(n=>({label:`${n} 星`,value:data.community.stars.find(s=>Number(s.label)===n)?.count??0})),'份');
+      bars(chart('votes'),data.community.votes.map(v=>({label:name(v.appId),value:v.likes})),'赞');
+      for (const vote of data.community.votes) { const p = document.createElement('p'); p.className = 'rating-note'; p.textContent = `${name(vote.appId)} · ${vote.average === null ? '暂无评分' : `${vote.average.toFixed(1)} / 5 · ${vote.ratings} 份评分`}`; chart('votes').append(p); }
+      content.hidden = false; status.textContent = '已加载。日期筛选适用于下载、注册和反馈提交时间；累计指标已单独标注。';
+    } catch { if (!active.signal.aborted) status.textContent = '加载失败，请点击查询 / 刷新重试。'; }
+  }
+  form.addEventListener('submit',e=>{e.preventDefault();void load();});
+  void load();
 </script>
-<style>.dashboard{padding-bottom:70px}.cards{padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.cards[hidden]{display:none}.cards a{display:grid;gap:10px;padding:24px}.cards strong{font-size:36px}h2{font-size:24px;margin:36px 0 12px}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}time{color:var(--text-3)}@media(max-width:640px){.cards{grid-template-columns:1fr}}</style>
+<style>
+  .dashboard{padding-bottom:70px}.filters{display:flex;gap:14px;align-items:end;flex-wrap:wrap;margin:20px 0}.filters label{display:grid;gap:6px;font-size:13px}.filters select{min-width:0;width:100%;font:inherit;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px 12px;max-width:100%}[data-status]{font-size:14px;color:var(--text-2);margin:16px 0}[data-private]{padding:0}[hidden]{display:none!important}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}.metric{display:grid;gap:10px;padding:20px;box-shadow:none}.metric span{font-size:13px;color:var(--text-2)}.metric strong{font-size:32px;font-variant-numeric:tabular-nums}.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.chart-card{padding:22px;box-shadow:none;min-width:0}.wide{grid-column:1/-1}.chart-card h2{font-size:18px;margin-bottom:6px}.chart{margin-top:22px;min-width:0}.distribution{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.caveat{margin:24px 0}.recent-heading{font-size:22px;margin:32px 0 12px}.releases{list-style:none;padding:0}.releases li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}time{color:var(--text-3);white-space:nowrap}
+  .chart :global(.chart-empty){padding:30px 0;color:var(--text-3);font-size:14px}.chart :global(.bar-row){display:grid;grid-template-columns:minmax(90px,1.2fr) minmax(40px,1fr) 44px;align-items:center;gap:12px;margin:14px 0;font-size:13px}.chart :global(.bar-name){overflow-wrap:anywhere}.chart :global(.bar-track){height:9px;background:var(--surface-2);border-radius:8px;overflow:hidden}.chart :global(.bar-track i){display:block;height:100%;background:var(--accent);border-radius:8px}.chart :global(.bar-row b){text-align:right;font-variant-numeric:tabular-nums}.chart :global(.chart-ring){width:136px;height:136px;border-radius:50%;display:grid;place-items:center;flex:none}.chart :global(.chart-ring span){display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background:var(--surface);font-size:28px;font-weight:600}.chart :global(.chart-legend p){display:flex;align-items:center;gap:8px;font-size:13px;margin:10px 0}.chart :global(.chart-legend i){width:9px;height:9px;border-radius:50%;flex:none}.chart :global(.trend-columns){display:flex;align-items:end;gap:3px;height:160px;border-bottom:1px solid var(--line);padding-top:25px}.chart :global(.trend-column){position:relative;height:100%;flex:1;min-width:1px;display:flex;align-items:end;outline-offset:2px}.chart :global(.trend-column i){display:block;width:100%;background:var(--accent);border-radius:3px 3px 0 0;min-height:1px}.chart :global(.trend-column.untracked){background:repeating-linear-gradient(135deg,transparent,transparent 4px,var(--line) 5px);opacity:.4}.chart :global(.trend-column.untracked i){display:none}.chart :global(.trend-column:is(:hover,:focus-visible)::after){content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);padding:5px 8px;background:var(--text);color:var(--bg);font-size:12px;white-space:nowrap;border-radius:5px;z-index:1}.chart :global(.trend-column:first-child:is(:hover,:focus-visible)::after){left:0;transform:none}.chart :global(.trend-column:last-child:is(:hover,:focus-visible)::after){left:auto;right:0;transform:none}.chart :global(.chart-axis){display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--text-3);margin-top:10px}.chart :global(details){margin-top:14px;font-size:13px;max-height:260px;overflow:auto}.chart :global(summary){cursor:pointer;color:var(--text-2)}.chart :global(table){width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}.chart :global(th),.chart :global(td){text-align:left;padding:8px;border-bottom:1px solid var(--line)}.chart :global(.rating-note){font-size:12px;color:var(--text-2);margin-top:10px}
+  @media(max-width:700px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:1fr}.chart-card{padding:18px}.metric{padding:16px}.metric strong{font-size:28px}.filters label{flex:1;min-width:120px}.releases li{font-size:13px}.chart :global(.trend-columns){gap:2px}.chart :global(.bar-row){gap:8px}}
+</style>

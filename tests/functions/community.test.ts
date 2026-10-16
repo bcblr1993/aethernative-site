@@ -11,8 +11,7 @@ import { onRequestGet as me } from '../../functions/api/me/index';
 const origin = 'https://aethernative.com';
 let env: ReturnType<typeof setup>;
 const setup = () => ({ DB: createD1(), ASSETS: { fetch: async (request: Request) => {
-  const app = new URL(request.url).pathname.split('/')[2];
-  return app === 'aetherterm' || app === 'aethernote' ? Response.json({ app: { id: app } }) : new Response('not found', { status: 404 });
+  return new URL(request.url).pathname === '/community-catalog.json' ? Response.json(['aetherterm','aethernote']) : new Response('not found', { status: 404 });
 } } });
 beforeEach(() => { env = setup(); });
 async function read(cookie = '', query = '', app = 'aetherterm') {

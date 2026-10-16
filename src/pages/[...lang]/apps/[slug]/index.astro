@@ -120,9 +120,9 @@ const subnav = [
           <div class="stage-shots">
             {d.gallery.map((s, i) => (
               <figure data-shot={i} data-active={i === 0 ? 'true' : undefined} data-seen={i === 0 ? 'true' : undefined} style={`--w: ${shotWidth(s)}%`}>
-                <Image class="layer layer-light" src={shotOf(s)} alt={`${d.name} — ${t(s.label, lang)}`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading={i === 0 ? 'eager' : 'lazy'} data-full={fulls[i]} />
+                <Image class="layer layer-light" src={shotOf(s)} alt={`${d.name} — ${t(s.label, lang)}`} widths={[480, 800, 1400, 2000]} quality={75} sizes="(max-width: 1120px) 100vw, 1072px" loading={i === 0 ? 'eager' : 'lazy'} data-full={fulls[i]} />
                 {hasDark && (
-                  <Image class="layer layer-dark" src={darkOf(s)!} alt={`${d.name} — ${t(s.label, lang)} (${u.lookDark})`} widths={[800, 1400, 2000]} sizes="(max-width: 1120px) 100vw, 1072px" loading="lazy" data-full={fullsDark[i]} />
+                  <Image class="layer layer-dark" src={darkOf(s)!} alt={`${d.name} — ${t(s.label, lang)} (${u.lookDark})`} widths={[480, 800, 1400, 2000]} quality={75} sizes="(max-width: 1120px) 100vw, 1072px" loading="lazy" data-full={fullsDark[i]} />
                 )}
               </figure>
             ))}
@@ -551,22 +551,6 @@ const subnav = [
   document.fonts?.ready.then(layoutPills);
   requestAnimationFrame(() => stage?.classList.add('pills-ready'));
 
-  // ---------- 滚动浮现：区块进入视口时依次淡入上浮 ----------
-  const revealed = document.querySelectorAll<HTMLElement>('[data-reveal]');
-  if (!reduce.matches && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((en) => {
-          if (!en.isIntersecting) return;
-          en.target.classList.add('is-in');
-          io.unobserve(en.target);
-        }),
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-    );
-    revealed.forEach((el) => io.observe(el));
-  } else {
-    revealed.forEach((el) => el.classList.add('is-in'));
-  }
 </script>
 
 <style>
@@ -628,30 +612,7 @@ const subnav = [
   .stage-tabs { display: flex; width: max-content; max-width: 100%; margin: 16px auto 0; overflow-x: auto; scrollbar-width: none; }
   .stage-tabs::-webkit-scrollbar { display: none; }
 
-  /* ---------- 首屏入场：图标弹入后轻轻漂浮，标题与按钮依次上浮 ---------- */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-icon { animation: icon-in 1s cubic-bezier(0.22, 1, 0.36, 1) both, icon-float 6s ease-in-out 1s infinite; }
-    .hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .req { animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
-    .hero .eyebrow { animation-delay: 0.12s; }
-    .hero h1 { animation-delay: 0.2s; }
-    .hero .lead { animation-delay: 0.3s; }
-    .hero .cta { animation-delay: 0.4s; }
-    .hero .req { animation-delay: 0.48s; }
-    .stage-glow { animation: glow-drift 18s ease-in-out infinite alternate; }
-    :global(html.js) [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(32px); }
-    [data-reveal] { transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
-    :global(html.js) [data-reveal]:not(.is-in) :global(.grid-3) > :global(*) { opacity: 0; transform: translateY(24px); }
-    [data-reveal] :global(.grid-3) > :global(*) { transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-    [data-reveal] :global(.grid-3) > :global(*:nth-child(2)) { transition-delay: 0.08s; }
-    [data-reveal] :global(.grid-3) > :global(*:nth-child(3)) { transition-delay: 0.16s; }
-    [data-reveal] :global(.grid-3) > :global(*:nth-child(4)) { transition-delay: 0.24s; }
-    [data-reveal] :global(.grid-3) > :global(*:nth-child(5)) { transition-delay: 0.32s; }
-    [data-reveal] :global(.grid-3) > :global(*:nth-child(6)) { transition-delay: 0.4s; }
-  }
-  @keyframes icon-in { from { opacity: 0; transform: scale(0.6) translateY(16px); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
-  @keyframes icon-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-  @keyframes glow-drift { from { transform: translate3d(-3%, 0, 0) scale(1); } to { transform: translate3d(3%, 4%, 0) scale(1.08); } }
+  /* Content is visible immediately, including when scripts are delayed or unavailable. */
   @media (prefers-reduced-motion: reduce) {
     .stage-shots figure, .stage-shots figure > :global(img) { transition: none; transform: none; filter: none; }
     .stage-shots figure > :global(img) { filter: drop-shadow(0 18px 40px rgba(15, 23, 42, 0.28)); }

@@ -15,9 +15,9 @@ export async function visitor(request: Request, create = false) {
 
 export async function knownApp(env: Env, request: Request, app: unknown) {
   if (typeof app !== 'string' || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(app)) return false;
-  const r = await env.ASSETS.fetch(new Request(new URL(`/apps/${app}/app.json`, request.url)));
+  const r = await env.ASSETS.fetch(new Request(new URL('/community-catalog.json', request.url)));
   if (!r.ok) return false;
-  try { return (await r.json() as { app?: { id?: string } }).app?.id === app; }
+  try { const ids = await r.json(); return Array.isArray(ids) && ids.includes(app); }
   catch { return false; }
 }
 

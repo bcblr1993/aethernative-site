@@ -110,7 +110,14 @@ const zh = lang === 'zh';
     });
     more.addEventListener('click', () => { void load(true); });
     retry.addEventListener('click', () => { void load(); });
-    void load();
+    // Reviews are usually far below the fold; don't compete with the initial document and images.
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        observer.disconnect(); void load();
+      }, { rootMargin: '300px' });
+      observer.observe(root);
+    } else { void load(); }
   }
 </script>
 <style>
