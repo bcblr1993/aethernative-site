@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-20T11:49:08.896Z",
+  "checkedAt": "2026-10-20T17:18:10.141Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -108,24 +108,24 @@
     {
       "id": "aetherswitch",
       "name": "AetherSwitch",
-      "version": "1.9.0",
-      "download": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.0/AetherSwitch-1.9.0-arm64.dmg",
-      "sha256": "04e663e07e7252af7fb5ed702b90f04b22740d06cbac04e1ed16a83e353313c4",
-      "length": 1924245,
-      "edSignature": "HDYW0V02YbaW2fd+hhyHDlvGlzhIOU5MI2SuOMws1LGJqdHw02NMXpGDoYKnsc6Gwzpt++655WVD0OPggPGTCw==",
+      "version": "1.9.1",
+      "download": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.1/AetherSwitch-1.9.1-arm64.dmg",
+      "sha256": "376b11d0bb52bb52e8d61985b5356a7b9861483a352e8585afe593699816f1da",
+      "length": 1936532,
+      "edSignature": "C7a1PHpl9KCKl2EoY8QnBgYqW4OnEt4L0E5sKRN5pV5XsOkTaAbCd7vfa/L4dCOQi+WD9OYfx2dhqvc6ma7LCA==",
       "appcast": "/apps/aetherswitch/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 1924245,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391502964/e2478cc1-7fb1-4938-b4d5-9f27f1fabd1d",
+          "bytes": 1936532,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391502964/7066fa7a-51f6-4cb0-aa93-d7f176a7496f",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "04e663e07e7252af7fb5ed702b90f04b22740d06cbac04e1ed16a83e353313c4",
+          "actual": "376b11d0bb52bb52e8d61985b5356a7b9861483a352e8585afe593699816f1da",
           "message": "SHA256 一致"
         },
         {
