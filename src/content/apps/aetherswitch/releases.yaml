@@ -1,5 +1,35 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.9.1"
+    build: "2026102006"
+    date: 2026-10-20
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.1/AetherSwitch-1.9.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.9.1
+    sha256: 376b11d0bb52bb52e8d61985b5356a7b9861483a352e8585afe593699816f1da
+    sparkle:
+      edSignature: C7a1PHpl9KCKl2EoY8QnBgYqW4OnEt4L0E5sKRN5pV5XsOkTaAbCd7vfa/L4dCOQi+WD9OYfx2dhqvc6ma7LCA==
+      length: 1936532
+    summary:
+      zh: 统一网络显隐设置，优化菜单栏留白与采样稳定性
+      en: Unified network visibility controls, tighter menu bar spacing and sampling fixes
+    notes:
+      - title:
+          zh: 界面优化
+          en: Interface improvements
+        items:
+          - zh: 外观设置增加网络显隐开关并与详情页同步
+            en: Network visibility is available in appearance settings and stays synchronized with the detail page
+          - zh: CPU 与内存默认组合宽度从 70 pt 缩至 60 pt，100% 时自动扩展
+            en: The default CPU and memory layout shrinks from 70 pt to 60 pt and expands when displaying 100%
+      - title:
+          zh: 稳定性修复
+          en: Stability fixes
+        items:
+          - zh: 完善唤醒重置、网络计数器与 IPv6 识别
+            en: Improve wake resets, network counters and IPv6 detection
+          - zh: 修复进程采样重复 PID 风险并优化系统控制超时
+            en: Handle duplicate PIDs in process sampling and improve system control timeouts
   - version: "1.9.0"
     build: "2026100604"
     date: 2026-10-06
