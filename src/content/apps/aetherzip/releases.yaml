@@ -1,4 +1,29 @@
 releases:
+  - version: "1.0.2"
+    build: "2026102103"
+    date: 2026-10-21
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherZip/releases/download/v1.0.2/AetherZip-1.0.2-arm64.dmg
+    github: https://github.com/bcblr1993/AetherZip/releases/tag/v1.0.2
+    sha256: 76c3b984c8415103ef526dbc184c26ee0964705a4908a0f9816f024270f9fc2c
+    sparkle:
+      edSignature: "6fTpvFp58LaD2T36ILe28H45yQZx4w1c9vKezL1lPqsdlILDGLdiTOJm+MwATeOw6ZYRKVQ55KbMtvskaet7Bg=="
+      length: 4436768
+    badge: { zh: 正式版 · 已通过 Apple 公证, en: "Release · Apple notarized" }
+    summary:
+      zh: 修复解压与批量任务的边界问题，完善分卷识别、预览与拖拽清理，并启用可验证的应用内更新。
+      en: Fixes extraction and batch-task edge cases, improves split-volume handling and preview/export cleanup, and enables signed in-app updates.
+    notes:
+      - title: { zh: 解压安全与可靠性修复, en: "Extraction reliability fixes" }
+        items:
+          - { zh: 同名批量任务在执行时分配独立输出；选择性解压不会自动回收原归档。, en: "Batch tasks choose distinct output names at execution time. Selective extraction never automatically trashes the source archive." }
+          - { zh: 同名目录折叠改为校验后的单次发布，保留其他目录结构与选择路径。, en: "Matching-folder flattening now publishes once after validation, preserving other folder layouts and selected paths." }
+          - { zh: 支持从后续 RAR、ZIP、7z 分卷定位首卷并去重；缺首卷时明确提示。, en: "Resolve secondary RAR, ZIP and 7z volumes to their first volume, deduplicate batches and report missing first volumes." }
+      - title: { zh: 预览、导出与更新改进, en: "Preview, export and update improvements" }
+        items:
+          - { zh: 关闭归档不再回填旧清单；退出等待预览和导出清理，拖拽导出沿用当前编码。, en: "Closed archives no longer restore stale listings. Exit waits for preview/export cleanup, and exports preserve the chosen encoding." }
+          - { zh: 补齐官网签名更新订阅，保持原 Developer ID 签名并轮换更新密钥。, en: "Adds the signed website update feed and rotates the update key while retaining the existing Developer ID signature." }
   - version: "1.0.1"
     build: "2026101502"
     date: 2026-10-15
@@ -27,7 +52,7 @@ releases:
     badge: { zh: 正式版 · 已通过 Apple 公证, en: "Release · Apple notarized" }
     summary:
       zh: AetherZip 1.0 正式版发布：支持解压行为模式自选与后处理联动、Windows GBK 字符防乱码、macOS Liquid Glass 多列排列表格、开机自启动、即时预览与中英双语国际化。
-      en: "AetherZip 1.0 official release: dual extraction modes, post-extraction actions, Windows GBK encoding support, native multi-column sorting, launch at login, Quick Look preview, and bilingual localization."
+      en: "AetherZip 1.0 official release: dual extraction modes, post-extraction actions, Windows GBK encoding support, native multi-column sorting, launch at login, system-app file preview, and bilingual localization."
     notes:
       - title: { zh: 核心功能与体验, en: "Core Features & Experience" }
         items:
@@ -35,7 +60,7 @@ releases:
           - { zh: Windows 老旧归档 GBK 防乱码：支持 Windows CP936 (GBK)、日文 CP932 (Shift-JIS) 及 UTF-8 编码，提供顶部一键切换。, en: "Legacy Windows GBK/CP936 and Shift-JIS/CP932 code page support with runtime encoding switcher." }
           - { zh: macOS Liquid Glass 多列排列表格：支持点击名称、大小、修改时间表头正序/倒序切换，与访达完全一致。, en: "Native multi-column sorting by Name, Size, and Modified Date with smooth spring animations." }
           - { zh: 登录项与开机自启动：基于 SMAppService.mainApp 实现开机自启动与后台静默就绪，不干扰主窗口，Dock 点击即刻呈现。, en: "Seamless background launch at login with SMAppService and instant Finder services." }
-          - { zh: 即时预览与拖拽导出：支持双击或空格键 Quick Look 快速预览单项，支持直接将归档条目拖拽至访达按需解压。, en: "Spacebar / double-click Quick Look preview and direct drag-and-drop export to Finder." }
+          - { zh: 即时预览与拖拽导出：支持双击或空格键 系统应用预览单项，支持直接将归档条目拖拽至访达按需解压。, en: "Spacebar / double-click system-app file preview and direct drag-and-drop export to Finder." }
           - { zh: 类型安全中英双语与自动更新：全界面类型安全 L10n 本地化，支持随系统或偏好切换；集成 Sparkle 2 安全更新通道。, en: "Type-safe bilingual localization (English & Simplified Chinese) and Sparkle 2 secure auto-updates." }
   - version: "0.1.0-beta.1"
     build: "2026101213"

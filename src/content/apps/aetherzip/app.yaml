@@ -4,6 +4,7 @@ repo: https://github.com/bcblr1993/AetherZip
 icon: ./media/icon.png
 iconScale: 0.98
 minimumSystemVersion: "26.0"
+sparklePublicKey: "0WT9j6B9WmFYpxFsD23qNRAtJpCQF6Ppd+QnALNCffo="
 tech: [Swift, SwiftUI, AppKit, 7-Zip]
 tagline: { zh: 轻一点，安心一点。, en: "Pack light. Share with confidence." }
 summary:
@@ -28,9 +29,15 @@ hero:
     en: "Drop in your files to compress, encrypt or extract.\nNative glass controls and Finder actions keep every step within reach."
   requirements: { zh: macOS 26 或更新版本 · 仅支持 Apple 芯片 M 系列, en: "macOS 26 or later · Apple silicon M-series only" }
 notice:
-  zh: "正式版支持中英双语与 Sparkle 更新。1.0.1 改进侧边栏操作，并加入已完成任务的单项移除、一键清空与 50 条历史上限。RAR 仅支持解压。"
-  en: "The stable release supports English, Chinese and Sparkle updates. Version 1.0.1 improves sidebar interaction and adds individual removal, clear-all and a 50-entry task history limit. RAR extraction only."
+  zh: "1.0.2 修复批量同名输出、选择性解压和目录折叠，完善 RAR / ZIP / 7z 分卷识别与预览、拖拽导出的清理。支持中英双语与应用内更新；RAR 仅支持解压。"
+  en: "Version 1.0.2 fixes batch output conflicts, selective extraction and folder flattening, and improves split RAR / ZIP / 7z handling and preview/export cleanup. Includes English, Chinese and in-app updates. RAR extraction only."
 gallery:
+  - label: { zh: 1.0.2 · 归档浏览, en: "1.0.2 · Archive browser" }
+    zh: ./media/archive-1.0.2.png
+  - label: { zh: 1.0.2 · 加密分享, en: "1.0.2 · Encrypted sharing" }
+    zh: ./media/encryption-1.0.2.png
+  - label: { zh: 1.0.2 · 任务进度, en: "1.0.2 · Task progress" }
+    zh: ./media/tasks-1.0.2.png
   - label: { zh: 开始 · 浅色与深色, en: "Home · Light and dark" }
     zh: ./media/home-light.png
     zhDark: ./media/home-dark.png

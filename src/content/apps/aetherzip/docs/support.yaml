@@ -18,8 +18,8 @@ sections:
     list:
       - zh: ZIP 加密创建使用 ASCII 密码；需要中文密码或隐藏文件名时选择 7z。
         en: Use ASCII passwords when creating encrypted ZIP files. Choose 7z for Chinese passwords or hidden filenames.
-      - zh: 将所有 7z 分卷放在同一目录，从 .001 文件打开。
-        en: Keep all 7z volumes in one folder and open the .001 file.
+      - zh: 将全部分卷放在同一目录。1.0.2 支持从后续分卷定位 7z / RAR / ZIP 首卷，多选同组分卷只解压一次；缺少首卷会提示。
+        en: Keep all volumes together. Version 1.0.2 resolves secondary 7z / RAR / ZIP volumes to their first volume, deduplicates a selected set and reports a missing first volume.
       - zh: 没有密码无法解密。请妥善保管密码。
         en: Decryption requires the correct password. Keep it safe.
   - heading:
@@ -51,3 +51,11 @@ sections:
     body:
       - zh: 1.0.1 起可在任务页顶部清空已结束记录，或移除单个已结束任务。记录上限为 50 条，最旧的完成记录会自动清理。
         en: From 1.0.1, clear finished records from the top of Tasks or dismiss one finished entry. History is capped at 50, with the oldest completed entries pruned automatically.
+  - heading:
+      zh: 解压与目录整理
+      en: Extraction and folder layout
+    list:
+      - zh: 批量任务在开始执行时选择不冲突的输出名称，不覆盖已存在的文件。仅提取选中条目时，原包不会自动移入废纸篓。
+        en: Batch tasks choose an available output name when they start. Selective extraction never automatically moves the source archive to Trash.
+      - zh: 自动折叠只适用于完整解压、同名的单层目录，并在发布输出前检查链接边界；其他目录结构保留。
+        en: Automatic flattening applies only to full extraction of a single matching folder, after checking link boundaries. Other directory layouts are preserved.
