@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.5"
+    build: "2026102102"
+    date: 2026-10-21
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.5/AetherRoute-1.8.5-build-2026102102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.5
+    sha256: ba2a4e7c690b8d91ca60a4cb49dcafa038c3317840b86ce7beb9131a55aa18fa
+    sparkle:
+      edSignature: pmWIFvOVbJ6sToaL9LUexwWjQ0Kl+G9J0pfhkxFO7oUjMckOUNo4oh3CRCTrc+Pq8Ys8l8VFLQP9cmKt56VjBw==
+      length: 27530233
+    summary:
+      zh: 新增 GEOSITE 与 DST-PORT 自定义规则、链式前置代理 (dialer-proxy) 与自定义规则 iCloud 端到端加密同步
+      en: Added GEOSITE and DST-PORT custom rules, chained dialer-proxy support for manual nodes, and end-to-end encrypted iCloud sync for custom rules and bypass policies
+    notes:
+      - title:
+          zh: 新增与优化
+          en: New & Improved
+        items:
+          - zh: 自定义分流规则扩展：支持添加 GEOSITE 站点分类（如 openai、youtube、category-ai-!cn）与 DST-PORT 目标端口规则。
+            en: "Expanded custom routing rules: add GEOSITE category rules (such as openai, youtube, category-ai-!cn) and DST-PORT destination port rules directly in the rule editor."
+          - zh: 自建节点链式代理：全量 12 种协议支持配置前置代理 (dialer-proxy)，轻松搭建中转节点与住宅 IP 链式代理。
+            en: "Chained proxy nodes: all 12 manual node protocols now support an optional dialer-proxy field for multi-hop relay and residential landing proxy chains."
+          - zh: iCloud 端到端加密同步升级：新增自定义分流规则与绕过策略的 AES-256-GCM 加密同步与智能去重合并。
+            en: "Enhanced iCloud end-to-end encrypted sync: custom routing rules and network bypass policies now sync across devices with AES-256-GCM encryption and smart deduplicating merge."
+      - title:
+          zh: 修复与质量保证
+          en: Fixes & Quality Assurance
+        items:
+          - zh: 透明代理防 Fake-IP 污染：过滤系统 DNS 在 Fake-IP 隧道下返回的 198.18.0.0/15 虚拟地址，确保 TUN 与透明代理平滑切换。
+            en: "Fake-IP poisoning protection: filters synthetic 198.18.0.0/15 addresses from system DNS resolution during TUN-to-Transparent Proxy transitions."
+          - zh: 全矩阵与物理真机验收：Tart 虚拟机 6 维矩阵 0 失败通过；物理真机 Mac mini 通过 TUN 与透明代理双模式空闲复用、2 MiB 上传与双网卡切换自动恢复验证。
+            en: "Full matrix & hardware validation: 0 failures across the 6-way VM acceptance matrix, and verified on an Apple Silicon Mac mini for idle reuse, 2 MiB uploads, and dual-NIC failover."
   - version: "1.8.4"
     build: "2026102101"
     date: 2026-10-21
