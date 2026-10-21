@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.6"
+    build: "2026102103"
+    date: 2026-10-21
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.6/AetherRoute-1.8.6-build-2026102103-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.6
+    sha256: f8a8442194c5e32227ed7e657ddc0f9c5d1560576687e564ccf6de7ee1910a6a
+    sparkle:
+      edSignature: guXf+IRN19I5BdD1vpaMAoxqWs9Rr4TRQCL6NU7Pq4yJYD2jjCCywCFQteSnfuLi4z9mijqozJq9/15QZgr3BQ==
+      length: 26674077
+    summary:
+      zh: 支持连接列表右键一键下发域名/IP分流规则、单节点分享链接剪贴板导入导出，以及自定义规则优先级排序与多行批量导入
+      en: Added one-click destination routing rules from the Connections table, single-node share URI clipboard import/export, and custom rule priority reordering with batch import
+    notes:
+      - title:
+          zh: 新增与优化
+          en: New & Improved
+        items:
+          - zh: 连接列表一键下发目标规则：右键任意连接即可针对根域名、精确子域名或公网 IP 一键指定直连、代理策略组或拦截，并自动中断旧连接使其立即重连生效。
+            en: "One-click destination rules from Connections: right-click any live connection to route its root domain, exact subdomain, or public IP directly, through any proxy group, or block it, automatically closing stale connections."
+          - zh: 单节点分享链接导入与导出：自建节点编辑器支持从剪贴板一键粘贴或复制 vless://、trojan://、ss://、vmess://、hysteria2://、tuic://、anytls://、socks5://、http:// 节点链接。
+            en: "Single-node share URI import & export: paste or copy vless://, trojan://, ss://, vmess://, hysteria2://, tuic://, anytls://, socks5://, and http:// node links directly in the manual node editor."
+          - zh: 自定义规则排序与批量导入：支持上下调整自定义规则匹配优先级，并支持多行 Clash 规则与 payload 列表一键批量导入去重。
+            en: "Custom rule priority & batch import: reorder custom rules up or down and batch-import multi-line Clash rule lists with automatic deduplication."
+      - title:
+          zh: 验证与质量保证
+          en: Verification & Quality Assurance
+        items:
+          - zh: 全矩阵与物理真机验收：12 协议互通门禁、Tart 虚拟机 6 维矩阵（210 项检查 0 失败）及物理真机 Mac mini 双模式空闲复用、2 MiB 上传与双网卡切换自动恢复全部通过。
+            en: "Full matrix & hardware validation: passed all 12-protocol interop checks, the 6-way VM acceptance matrix (210 checks, 0 failures), and Apple Silicon Mac mini physical runtime gates."
   - version: "1.8.5"
     build: "2026102102"
     date: 2026-10-21
