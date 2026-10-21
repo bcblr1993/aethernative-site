@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.4"
+    build: "2026102101"
+    date: 2026-10-21
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.4/AetherRoute-1.8.4-build-2026102101-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.4
+    sha256: a06bc1fde7ace43577c2832cdbadb3e4243ddc3c1a48f1294d2c9df3ae972537
+    sparkle:
+      edSignature: 2LrdiDu7dxo7uE+jgZOqzkhHZyXiqnXmdDH//yKmZYbUtojrYWPtfhB4OyFMaIv9C7QqpGCjrB1nEXZ6uvViAQ==
+      length: 27491955
+    summary:
+      zh: 局域网共享代理稳定性修复：握手拆包合包、上传后响应完整、HTTP 转发规范化
+      en: "LAN sharing proxy fixes: fragmented handshakes, complete responses after uploads, and standards-compliant HTTP forwarding"
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 局域网共享代理握手更稳：HTTP 与 SOCKS5 握手被拆分或与数据合并发送时也能正确处理，二进制上传内容保持完整。
+            en: "Sturdier LAN proxy handshakes: HTTP and SOCKS5 handshakes split across reads or coalesced with data are handled correctly, and binary uploads stay intact."
+          - zh: 上传后的响应不再被截断：客户端上传完成后服务器响应完整送达；对端不关闭的空闲连接 60 秒后自动释放。
+            en: "No more truncated responses after uploads: server responses arrive in full after the client finishes sending; idle half-closed connections are released after 60 seconds."
+          - zh: 普通 HTTP 转发更规范：不再向网站转发代理认证等代理专用字段，修复同一连接访问不同网站时请求发错目标的问题。
+            en: "Standards-compliant plain HTTP forwarding: proxy-only fields such as proxy credentials are no longer sent to websites, and requests on a reused connection no longer reach the wrong site."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 物理真机实测：本次公证安装包在 Mac mini 上以 TUN 与透明代理通过空闲复用、2 MiB 上传与网卡切换自动恢复，局域网共享代理跨机器实测通过。
+            en: "Physical hardware: the notarized build passed idle reuse, 2 MiB upload and network-interface switching in TUN and transparent proxy modes on a Mac mini, plus a cross-machine LAN proxy test."
+          - zh: 发布门禁加固：打包前强制校验与公证安装包绑定的真机证据，UI 性能门禁固定为每档 300 秒。
+            en: "Hardened release gates: packaging now requires physical-hardware evidence bound to the notarized build, and UI performance profiles run a full 300 seconds."
   - version: "1.8.3"
     build: "2026101603"
     date: 2026-10-16
