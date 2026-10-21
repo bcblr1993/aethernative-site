@@ -1,5 +1,37 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.9.2"
+    build: "2026102101"
+    date: 2026-10-21
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.2/AetherSwitch-1.9.2-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.9.2
+    sha256: b0dc645a5657eb87f0e76c28e7f56280424ee01d8d9fbbbb8c0d620605887724
+    sparkle:
+      edSignature: f0BlrpKGPlYdXdTbvHgb+3m9S6bDEq4ElNfxZL/qMm6qyWzubPgnlyO+WEWgeEahlP0bD57aAKoKrIAKxswiDQ==
+      length: 1943700
+    summary:
+      zh: 修复滚动条截断与进程榜单不全，外部开关命令改为显式开启
+      en: Fixes clipped content and incomplete process lists; system-changing external commands now require opt-in
+    notes:
+      - title:
+          zh: 问题修复
+          en: Fixes
+        items:
+          - zh: 修复始终显示滚动条时页面右侧内容被截断
+            en: Fix content clipped on the right when scrollbars are always shown
+          - zh: 修复主要进程榜单只采样约 8% 进程
+            en: Fix the top-processes list sampling only about 8% of processes
+          - zh: 切换隐藏桌面与隐藏文件时不再阻塞其他开关
+            en: Toggling hidden desktop or files no longer blocks other switches
+      - title:
+          zh: 安全与无障碍
+          en: Security and accessibility
+        items:
+          - zh: 改变系统状态的外部命令默认关闭，需环境变量 AETHERSWITCH_AUTOMATION=1 开启
+            en: System-changing external commands are off by default; set AETHERSWITCH_AUTOMATION=1 to enable them
+          - zh: 概览卡片与详情图表支持 VoiceOver 朗读
+            en: Overview cards and detail charts are now readable by VoiceOver
   - version: "1.9.1"
     build: "2026102006"
     date: 2026-10-20
