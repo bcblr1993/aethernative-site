@@ -12,7 +12,7 @@ const zh = lang === 'zh';
     </summary>
     <div class="reply-panel" aria-label={zh ? '回复提醒' : 'Reply notifications'}>
       <strong>{zh ? '回复我的评论' : 'Replies to my comments'}</strong>
-      <p class="reply-note">{zh ? '匿名评论的提醒保留在当前浏览器。' : 'Anonymous reply notifications stay in this browser.'}</p>
+      <p class="reply-note">{zh ? '登录后可跨浏览器查看；匿名评论请在原浏览器查看。' : 'Sign in for replies across browsers. Anonymous comments stay in their original browser.'}</p>
       <p role="status" data-inbox-status>{zh ? '正在加载…' : 'Loading…'}</p>
       <div data-inbox-items></div>
       <button class="btn btn-s btn-sm" type="button" data-inbox-refresh>{zh ? '刷新' : 'Refresh'}</button>
@@ -83,6 +83,7 @@ const zh = lang === 'zh';
     window.addEventListener('focus', resume); window.addEventListener('pageshow', resume);
     document.addEventListener('visibilitychange', resume);
     document.addEventListener('an:replies-updated', () => { void refresh(); });
+    document.addEventListener('an:signed-out', () => { menu.open = false; notice.hidden = badge.hidden = true; list.replaceChildren(); void refresh(); });
     document.addEventListener('an:comment-posted', () => { void refresh(); });
     window.addEventListener('storage', e => { if (e.key === 'an:replies-updated') void refresh(); });
     document.addEventListener('click', e => { if (!root.contains(e.target as Node)) menu.open = false; });

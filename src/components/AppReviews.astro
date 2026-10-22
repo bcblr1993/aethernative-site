@@ -23,8 +23,8 @@ const zh = lang === 'zh';
           <label for={`comment-${appId}`}>{zh ? '匿名评论' : 'Anonymous comment'}</label>
           <div class="reply-target" data-reply-target hidden><span data-reply-label></span><button type="button" class="clear-rating" data-cancel-reply>{zh ? '取消回复' : 'Cancel reply'}</button></div>
           <textarea id={`comment-${appId}`} name="body" rows="4" maxlength="1000" required placeholder={zh ? '哪些地方好用？你希望改进什么？' : 'What works well? What could be better?'}></textarea>
-          <p class="muted small">{zh ? '评论和回复提交后直接公开，以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately with a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
-          <p class="muted small">{zh ? '有人回复时，导航栏会显示未读提醒；请在同一浏览器查看。' : 'Replies appear in the navigation bell. Check them in the same browser.'}</p>
+          <p class="muted small">{zh ? '评论和回复提交后直接公开，未登录时以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately. Signed-out visitors use a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
+          <p class="muted small">{zh ? '登录后显示账号昵称，管理员带“站长”标识。回复提醒可跨浏览器查看；匿名评论请在原浏览器查看。' : 'Signed-in comments show your name, with a badge for the site owner. Reply notifications follow your account; anonymous comments stay in their original browser.'}</p>
           <button class="btn btn-p btn-sm" type="submit" disabled>{zh ? '提交评论' : 'Submit comment'}</button>
         </form>
         <p class="review-status" role="status" aria-live="polite" data-review-status></p>
@@ -40,6 +40,7 @@ const zh = lang === 'zh';
   </div>
 </section>
 <script>
+  import { getMe, onSignedOut, markSignedOut } from '../lib/auth-client';
   import { markRepliesRead } from '../lib/reply-notifications';
   for (const root of document.querySelectorAll<HTMLElement>('[data-app-reviews]')) {
     const zh = root.dataset.lang === 'zh';
@@ -57,7 +58,11 @@ const zh = lang === 'zh';
     let focusId = new URLSearchParams(location.search).get('focus');
     let liked = false, rating: number | null = null, next: string | null = null, busy = false, ready = false;
     let requestId = '', submittedBody = '';
-    type Entry = { id: string; body: string; author: string; replyTo: string | null; createdAt: number; threadId: string | null; replies?: Entry[]; repliesNext?: string | null };
+    type Entry = { id: string; body: string; author: string; replyTo: string | null; createdAt: number; threadId: string | null; replies?: Entry[]; repliesNext?: string | null; authorRole: 'owner' | 'member' | 'guest'; likeCount: number; likedByMe: boolean };
+    let signedIn = false;
+    const identityLabel = form.querySelector('label')!;
+    void getMe().then(me => { signedIn = Boolean(me); if (me) identityLabel.textContent = me.isAdmin ? (zh ? '站长评论' : 'Site owner comment') : (zh ? `${me.name}的评论` : `Comment as ${me.name}`); });
+    onSignedOut(() => { signedIn = false; identityLabel.textContent = zh ? '匿名评论' : 'Anonymous comment'; });
     let target: Entry | null = null;
     const threads = new Map<string, { list: HTMLElement; more: HTMLButtonElement; next: string | null }>();
     function cancelReply() {
@@ -71,7 +76,9 @@ const zh = lang === 'zh';
       item.id = `comment-${c.id}`;
       if (c.id === focusId) item.classList.add('focused-comment');
       const head = document.createElement('p'); head.className = 'comment-meta';
-      head.textContent = `${guest(c.author)}${c.replyTo ? ` · ${zh ? '回复' : 'to'} ${guest(c.replyTo)}` : ''} · ${new Date(c.createdAt).toLocaleDateString(zh ? 'zh-CN' : 'en-US')}`;
+      head.append(document.createTextNode(guest(c.author)));
+      if (c.authorRole === 'owner') { const badge = document.createElement('span'); badge.className = 'author-owner'; badge.textContent = zh ? '站长' : 'Site owner'; head.append(badge); }
+      head.append(document.createTextNode(`${c.replyTo ? ` · ${zh ? '回复' : 'to'} ${guest(c.replyTo)}` : ''} · ${new Date(c.createdAt).toLocaleDateString(zh ? 'zh-CN' : 'en-US')}`));
       const body = document.createElement('p'); body.textContent = c.body;
       const button = document.createElement('button'); button.type = 'button'; button.className = 'comment-reply-button'; button.textContent = zh ? '回复' : 'Reply';
       button.addEventListener('click', () => {
@@ -80,7 +87,22 @@ const zh = lang === 'zh';
         $('[data-reply-label]').textContent = `${zh ? '回复' : 'Reply to'} ${guest(c.author)}: ${c.body.slice(0, 80)}`;
         submit.textContent = zh ? '提交回复' : 'Post reply'; form.scrollIntoView({ behavior: 'smooth', block: 'center' }); textarea.focus({ preventScroll: true });
       });
-      item.append(head, body, button);
+      const actions = document.createElement('div'); actions.className = 'comment-actions';
+      const likeButton = document.createElement('button'); likeButton.type = 'button'; likeButton.className = 'comment-like-button';
+      likeButton.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 10v10H3V10h4Zm0 0 5-7c1-1 2 0 2 1v5h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 1H7"/></svg>';
+      const likeText = document.createElement('span'); likeButton.append(likeText);
+      const paintLike = () => { likeText.textContent = `${zh ? (c.likedByMe ? '已赞' : '赞') : (c.likedByMe ? 'Liked' : 'Like')} ${c.likeCount}`; likeButton.setAttribute('aria-pressed', String(c.likedByMe)); likeButton.setAttribute('aria-label', zh ? `${c.likedByMe ? '取消点赞' : '点赞'}，${c.likeCount} 赞` : `${c.likedByMe ? 'Unlike' : 'Like'}, ${c.likeCount} likes`); };
+      paintLike();
+      likeButton.addEventListener('click', async () => {
+        if (busy || likeButton.disabled) return;
+        likeButton.disabled = true;
+        try {
+          const result = await response(await fetch(endpoint, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'comment-like', commentId: c.id, liked: !c.likedByMe }) }));
+          c.likeCount = result.likeCount; c.likedByMe = result.likedByMe; paintLike();
+        } catch (e) { status.textContent = (e as Error).message; }
+        finally { likeButton.disabled = false; }
+      });
+      actions.append(likeButton, button); item.append(head, body, actions);
       if (!nested) {
         const list = document.createElement('div'); list.className = 'thread-replies';
         const more = document.createElement('button'); more.type = 'button'; more.className = 'btn btn-s btn-sm'; more.textContent = zh ? '更多回复' : 'More replies'; more.hidden = !c.repliesNext;
@@ -117,7 +139,8 @@ const zh = lang === 'zh';
       $('[data-likes]').textContent = String(s.likes);
     }
     async function response(r: Response) {
-      if (!r.ok) throw new Error(r.status === 429 ? (zh ? '提交较频繁，请稍后再试。' : 'Too many submissions. Please try again later.') : r.status === 428 ? (zh ? '请允许本站 Cookie 后重新加载。' : 'Please allow site cookies and reload.') : (zh ? '暂时无法完成，请重试。' : 'Unable to complete. Please try again.'));
+      if (r.status === 401) markSignedOut();
+      if (!r.ok) throw new Error(r.status === 401 ? (zh ? '登录已失效，请重新登录后再回复。' : 'Your session expired. Please sign in again.') : r.status === 429 ? (zh ? '提交较频繁，请稍后再试。' : 'Too many submissions. Please try again later.') : r.status === 428 ? (zh ? '请允许本站 Cookie 后重新加载。' : 'Please allow site cookies and reload.') : (zh ? '暂时无法完成，请重试。' : 'Unable to complete. Please try again.'));
       return r.json();
     }
     async function load(append = false) {
@@ -174,7 +197,7 @@ const zh = lang === 'zh';
     form.addEventListener('submit', e => {
       e.preventDefault(); const body = textarea.value.trim(); if (!body) { textarea.focus(); return; }
       if (!requestId || submittedBody !== body) { requestId = crypto.randomUUID(); submittedBody = body; }
-      void write({ action: 'comment', body, requestId, parentId: target?.id ?? null });
+      void write({ action: 'comment', body, requestId, parentId: target?.id ?? null, requireLogin: signedIn });
     });
     more.addEventListener('click', () => { void load(true); });
     retry.addEventListener('click', () => { void load(); });
@@ -205,5 +228,9 @@ const zh = lang === 'zh';
   .reply-target { display: flex; align-items: center; gap: 12px; justify-content: space-between; font-size: 13px; overflow-wrap: anywhere; }
   .reply-target .clear-rating { flex-shrink: 0; margin: 0; }
   [data-comments] :global(.focused-comment) { background: var(--surface); border-radius: 10px; outline: 2px solid var(--accent); outline-offset: 6px; scroll-margin-top: 140px; }
+  [data-comments] :global(.comment-actions) { display: flex; align-items: center; gap: 22px; }
+  [data-comments] :global(.comment-like-button) { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 8px 0; font: inherit; font-size: 13px; color: var(--text-3); cursor: pointer; font-variant-numeric: tabular-nums; }
+  [data-comments] :global(.comment-like-button[aria-pressed=true]) { color: var(--accent); }
+  [data-comments] :global(.author-owner) { display: inline-block; margin-left: 8px; padding: 1px 6px; border: 1px solid var(--accent); border-radius: 4px; color: var(--accent); font-size: 11px; font-weight: 600; }
   [hidden] { display: none !important; }
 </style>

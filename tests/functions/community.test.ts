@@ -84,7 +84,7 @@ describe('Anonymous app community', () => {
     expect(userMe.user).not.toHaveProperty('adminComments');
     expect((await moderate(owner, submitted.id, 'approved')).status).toBe(200);
     const visible = (await (await read()).json() as any).comments[0];
-    expect(Object.keys(visible).sort()).toEqual(['id', 'appId', 'body', 'status', 'createdAt', 'parentId', 'threadId', 'author', 'replyTo', 'replies', 'repliesNext'].sort());
+    expect(Object.keys(visible).sort()).toEqual(['id', 'appId', 'body', 'status', 'createdAt', 'parentId', 'threadId', 'author', 'replyTo', 'replies', 'repliesNext', 'authorRole', 'likeCount', 'likedByMe'].sort());
     expect(visible.body).toBe(text);
     await moderate(owner, submitted.id, 'hidden');
     expect((await (await read()).json() as any).comments).toEqual([]);

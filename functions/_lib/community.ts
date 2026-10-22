@@ -1,6 +1,7 @@
 import type { Env } from './env';
 import { randomToken, sha256Hex } from './crypto';
 import { error, parseCookies, serializeCookie } from './http';
+import { getSessionUser } from './session';
 import { boundedBody } from './feedback-screenshots';
 
 export const VISITOR_COOKIE = '__Host-community';
@@ -58,15 +59,28 @@ export function cursor(raw: string | null): { time: number; id: string } | null 
   const match = /^(\d{1,15}):([a-zA-Z0-9-]{1,64})$/.exec(raw);
   return match ? { time: Number(match[1]), id: match[2] } : false;
 }
-export interface Comment { id: string; app_id: string; body: string; status: string; created_at: number; parent_id: string | null; thread_id: string | null; visitor_hash: string; parent_hash: string | null }
-const authorName = async (hash: string, thread: string) => `访客 ${(await sha256Hex(`${thread}:${hash}`)).slice(0, 6).toUpperCase()}`;
-async function publicComment(r: Comment) {
-  const thread = r.thread_id ?? r.id;
-  return { id: r.id, appId: r.app_id, body: r.body, status: r.status, createdAt: r.created_at,
-    parentId: r.parent_id, threadId: r.thread_id, author: await authorName(r.visitor_hash, thread),
-    replyTo: r.parent_hash ? await authorName(r.parent_hash, thread) : null };
+export async function communityIdentity(db: D1Database, request: Request, create = false) {
+  const [who, user] = await Promise.all([visitor(request, create), getSessionUser(db, request)]);
+  return { ...who, user, voterKey: user ? await sha256Hex(`community-user:${user.id}`) : who.hash };
 }
-export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>, options: { admin?: boolean; thread?: string; rootId?: string; highlightId?: string } = {}) {
+export interface Comment { id: string; app_id: string; body: string; status: string; created_at: number; parent_id: string | null; thread_id: string | null; visitor_hash: string; parent_hash: string | null; user_id: string | null; author_name: string | null; author_admin: number | null; parent_user_id: string | null; parent_name: string | null }
+const authorName = async (hash: string, thread: string) => `访客 ${(await sha256Hex(`${thread}:${hash}`)).slice(0, 6).toUpperCase()}`;
+const commentFields = 'c.*, p.visitor_hash AS parent_hash, p.user_id AS parent_user_id, u.name AS author_name, u.is_admin AS author_admin, pu.name AS parent_name';
+const commentJoins = "LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' LEFT JOIN users u ON u.id = c.user_id AND u.disabled_at IS NULL LEFT JOIN users pu ON pu.id = p.user_id AND pu.disabled_at IS NULL";
+async function publicComments(db: D1Database, rows: Comment[], voterKey = '') {
+  const likes = rows.length ? (await db.prepare(`SELECT comment_id, COUNT(*) AS count, MAX(voter_hash = ?) AS liked FROM app_comment_likes WHERE comment_id IN (${rows.map(() => '?').join(',')}) GROUP BY comment_id`).bind(voterKey, ...rows.map(r => r.id)).all<{ comment_id: string; count: number; liked: number }>()).results : [];
+  const byId = new Map(likes.map(r => [r.comment_id, r]));
+  return Promise.all(rows.map(async r => {
+    const thread = r.thread_id ?? r.id;
+    return { id: r.id, appId: r.app_id, body: r.body, status: r.status, createdAt: r.created_at,
+      parentId: r.parent_id, threadId: r.thread_id,
+      author: r.user_id ? (r.author_name ?? '已注销用户') : await authorName(r.visitor_hash, thread),
+      authorRole: r.user_id ? (r.author_admin === 1 ? 'owner' : 'member') : 'guest',
+      replyTo: r.parent_hash ? (r.parent_user_id ? (r.parent_name ?? '已注销用户') : await authorName(r.parent_hash, thread)) : null,
+      likeCount: byId.get(r.id)?.count ?? 0, likedByMe: Boolean(byId.get(r.id)?.liked) };
+  }));
+}
+export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>, options: { admin?: boolean; thread?: string; rootId?: string; highlightId?: string; voterKey?: string } = {}) {
   const where = ['c.status = ?'];
   const args: (string | number)[] = [status];
   if (app) { where.push('c.app_id = ?'); args.push(app); }
@@ -75,19 +89,19 @@ export async function listComments(db: D1Database, app: string, status: string, 
   else if (!options.admin) where.push('c.thread_id IS NULL');
   if (!options.admin) where.push("(c.thread_id IS NULL OR EXISTS (SELECT 1 FROM app_comments root WHERE root.id = c.thread_id AND root.app_id = c.app_id AND root.status = 'approved'))");
   if (after) { where.push('(c.created_at < ? OR (c.created_at = ? AND c.id < ?))'); args.push(after.time, after.time, after.id); }
-  const { results } = await db.prepare(`SELECT c.*, p.visitor_hash AS parent_hash FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE ${where.join(' AND ')} ORDER BY c.created_at DESC, c.id DESC LIMIT 21`).bind(...args).all<Comment>();
+  const { results } = await db.prepare(`SELECT ${commentFields} FROM app_comments c ${commentJoins} WHERE ${where.join(' AND ')} ORDER BY c.created_at DESC, c.id DESC LIMIT 21`).bind(...args).all<Comment>();
   const rows = results.slice(0, 20);
   const last = rows.at(-1);
-  const comments = await Promise.all(rows.map(publicComment));
+  const comments = await publicComments(db, rows, options.voterKey);
   // Fetch a bounded preview for each thread in one query, regardless of thread size.
   if (!options.admin && !options.thread && rows.length) {
-    const { results: replies } = await db.prepare(`SELECT * FROM (SELECT c.*, p.visitor_hash AS parent_hash, ROW_NUMBER() OVER (PARTITION BY c.thread_id ORDER BY c.created_at DESC, c.id DESC) AS rank FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE c.status = 'approved' AND c.thread_id IN (${rows.map(() => '?').join(',')})) WHERE rank <= 4 OR id = ? ORDER BY created_at DESC, id DESC`).bind(...rows.map(r => r.id), options.highlightId ?? '').all<Comment>();
+    const { results: replies } = await db.prepare(`SELECT * FROM (SELECT ${commentFields}, ROW_NUMBER() OVER (PARTITION BY c.thread_id ORDER BY c.created_at DESC, c.id DESC) AS rank FROM app_comments c ${commentJoins} WHERE c.status = 'approved' AND c.thread_id IN (${rows.map(() => '?').join(',')})) WHERE rank <= 4 OR id = ? ORDER BY created_at DESC, id DESC`).bind(...rows.map(r => r.id), options.highlightId ?? '').all<Comment>();
     return { comments: await Promise.all(comments.map(async c => {
       const thread = replies.filter(r => r.thread_id === c.id);
       const preview = thread.slice(0, 3), lastReply = preview.at(-1);
       const highlighted = thread.find(r => r.id === options.highlightId);
       if (highlighted && !preview.some(r => r.id === highlighted.id)) preview.push(highlighted);
-      return { ...c, replies: await Promise.all(preview.map(publicComment)), repliesNext: thread.length > 3 && lastReply ? `${lastReply.created_at}:${lastReply.id}` : null };
+      return { ...c, replies: await publicComments(db, preview, options.voterKey), repliesNext: thread.length > 3 && lastReply ? `${lastReply.created_at}:${lastReply.id}` : null };
     })), next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
   }
   return { comments, next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
