@@ -10,10 +10,16 @@ sections:
       - { zh: 设备列表（名称、地址、端口、上次连接时间）保存在应用偏好设置中。, en: "The device list (name, address, port, last connection) is kept in the app’s preferences." }
       - { zh: 设备密码保存在系统钥匙串中。, en: Device passwords are stored in the system Keychain. }
       - { zh: 远端桌面缩略图保存在本机缓存目录，可随时由系统清理。, en: Remote desktop thumbnails are kept in the local cache folder and may be cleared by the system at any time. }
+  - heading: { zh: 可选的 iCloud 同步, en: Optional iCloud Sync }
+    body:
+      - zh: 只有在你主动开启 iCloud 同步后，电脑列表及连接配置才会存入你自己的 iCloud 私有数据库，用于在登录同一 Apple 账户的受支持设备间同步。配置可能包含电脑名称、地址、端口、用户名和连接偏好。
+        en: Only after you enable iCloud Sync are your computer library and connection settings stored in your private iCloud database, for synchronization between supported devices signed into the same Apple Account. Settings may include computer names, addresses, ports, usernames, and connection preferences.
+      - zh: 连接密码、SSH 私钥和 Tailscale API Token 不会写入此同步数据库。关闭同步会停止后续同步；删除电脑时，删除记录会在同步开启时传递到其他设备。
+        en: Connection passwords, SSH private keys, and Tailscale API tokens are not stored in this sync database. Turning sync off stops further synchronization. Deleting a computer propagates its deletion to other devices while sync is enabled.
   - heading: { zh: 网络连接, en: Network Connections }
     body:
-      - zh: 应用本身不加密局域网 VNC 画面与输入流量。请在可信局域网中使用；外部网络连接请通过两端的 Tailscale 加密隧道进行。
-        en: The app does not encrypt LAN VNC screen and input traffic itself. Use a trusted local network, or Tailscale on both devices for encrypted connections over external networks.
+      - zh: 普通 VNC 连接可能不加密画面与输入流量。请使用可信局域网，或通过已配置的 SSH 或 Tailscale 加密隧道连接。连接的安全机制取决于协议、配置和服务端支持。
+        en: VNC screen and input traffic may be unencrypted. Use a trusted local network or a configured SSH or Tailscale tunnel. Connection security depends on the protocol, settings, and server capabilities.
       - zh: 远程桌面连接只会连接你添加或在局域网中发现的 Mac；局域网发现使用 Bonjour，仅在本地网络内进行。
         en: Remote desktop connections reach only Macs you add or discover on your local network; discovery uses Bonjour and stays on your local network.
       - zh: 只有在你填写 Tailscale API Token 并同步设备时，应用才会访问 api.tailscale.com 读取 Tailnet 设备列表。Token 只在本次运行期间保存在内存中，不会写入磁盘。
