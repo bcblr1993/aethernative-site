@@ -4,13 +4,21 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.17</title>
-            <pubDate>Thu, 22 Oct 2026 11:32:27 +0800</pubDate>
-            <sparkle:version>65</sparkle:version>
-            <sparkle:shortVersionString>0.8.17</sparkle:shortVersionString>
+            <title>0.8.18</title>
+            <pubDate>Thu, 22 Oct 2026 11:47:34 +0800</pubDate>
+            <sparkle:version>66</sparkle:version>
+            <sparkle:shortVersionString>0.8.18</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.8.17 (Build 65) — 2026-10-22
+            <description sparkle:format="markdown"><![CDATA[## v0.8.18 (Build 66) — 2026-10-22
+
+### 🎨 全新极简纯白 Liquid Glass 图标上线
+- 采用全新极简纯白 Liquid Glass 设计图标：悬浮毛玻璃多开窗口主题
+- 纯净白底座 + 三层错落浮空的通透磨砂玻璃终端工作空间，清亮微光边框
+- 高清 1024×1024 Retina ICNS，完美融入 macOS 现代设计规范
+- 全系统展示位（Dock、启动台、Finder、状态栏）及官方网站全量同步
+
+## v0.8.17 (Build 65) — 2026-10-22
 
 ### 🎨 全新 App 图标
 - 采用全新设计图标：无限轨道 / 克隆运行主题
@@ -466,10 +474,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.17/Aether-Antigravity-Multiplexer-v0.8.17-macos-arm64.zip" length="4320073" type="application/octet-stream" sparkle:edSignature="kNoeu7aDNP6d9NNFTkAnjoDRav3A22rrmlycysSGxGAEY7YZNNDlKVBXi42p768wHZGriYN9/pZ+YmdrOV3FAg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.18/Aether-Antigravity-Multiplexer-v0.8.18-macos-arm64.zip" length="4444455" type="application/octet-stream" sparkle:edSignature="9nQkQpPdJEjckqPBXhvWZTT8yhbIUr9JBaMMHZ5WrNQU9Pz+BYmE3G09P+JGqp/f2NVF6DfwTznCJHPp6VZ9Cw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: l0JRYXc0OL2PATeJfW+3Kc/H5FPtFH3TUeGsq2288IYsmhA2ygS17H9r+CxyZSHFEMN5PoTXeY1s3aIlirloAA==
-length: 71339
+edSignature: 2mHGYS4qWX1NxgwCPE7n6cezy916FTMfzCWxNBkalK1sV1uR28Y3IG7cFMBwTTTL/CC6tCHjCjHdRzpHWFD9Bw==
+length: 71783
 -->
