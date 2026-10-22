@@ -21,8 +21,9 @@ const zh = lang === 'zh';
       <div>
         <form class="card review-form" data-comment-form>
           <label for={`comment-${appId}`}>{zh ? '匿名评论' : 'Anonymous comment'}</label>
+          <div class="reply-target" data-reply-target hidden><span data-reply-label></span><button type="button" class="clear-rating" data-cancel-reply>{zh ? '取消回复' : 'Cancel reply'}</button></div>
           <textarea id={`comment-${appId}`} name="body" rows="4" maxlength="1000" required placeholder={zh ? '哪些地方好用？你希望改进什么？' : 'What works well? What could be better?'}></textarea>
-          <p class="muted small">{zh ? '审核通过后公开显示为“匿名用户”。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Published as “Anonymous” after review. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
+          <p class="muted small">{zh ? '评论和回复提交后直接公开，以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately with a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
           <button class="btn btn-p btn-sm" type="submit" disabled>{zh ? '提交评论' : 'Submit comment'}</button>
         </form>
         <p class="review-status" role="status" aria-live="polite" data-review-status></p>
@@ -52,6 +53,50 @@ const zh = lang === 'zh';
     const endpoint = `/api/community/${encodeURIComponent(root.dataset.app!)}`;
     let liked = false, rating: number | null = null, next: string | null = null, busy = false, ready = false;
     let requestId = '', submittedBody = '';
+    type Entry = { id: string; body: string; author: string; replyTo: string | null; createdAt: number; threadId: string | null; replies?: Entry[]; repliesNext?: string | null };
+    let target: Entry | null = null;
+    const threads = new Map<string, { list: HTMLElement; more: HTMLButtonElement; next: string | null }>();
+    function cancelReply() {
+      target = null; requestId = ''; $('[data-reply-target]').hidden = true;
+      submit.textContent = zh ? '提交评论' : 'Submit comment';
+    }
+    $('[data-cancel-reply]').addEventListener('click', () => { if (!busy) cancelReply(); });
+    function guest(name: string) { return zh ? name : name.replace('访客 ', 'Guest '); }
+    function renderComment(c: Entry, nested = false) {
+      const item = document.createElement('article'); item.className = nested ? 'thread-reply' : 'public-comment';
+      const head = document.createElement('p'); head.className = 'comment-meta';
+      head.textContent = `${guest(c.author)}${c.replyTo ? ` · ${zh ? '回复' : 'to'} ${guest(c.replyTo)}` : ''} · ${new Date(c.createdAt).toLocaleDateString(zh ? 'zh-CN' : 'en-US')}`;
+      const body = document.createElement('p'); body.textContent = c.body;
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'comment-reply-button'; button.textContent = zh ? '回复' : 'Reply';
+      button.addEventListener('click', () => {
+        if (busy) return;
+        target = c; requestId = ''; $('[data-reply-target]').hidden = false;
+        $('[data-reply-label]').textContent = `${zh ? '回复' : 'Reply to'} ${guest(c.author)}: ${c.body.slice(0, 80)}`;
+        submit.textContent = zh ? '提交回复' : 'Post reply'; form.scrollIntoView({ behavior: 'smooth', block: 'center' }); textarea.focus({ preventScroll: true });
+      });
+      item.append(head, body, button);
+      if (!nested) {
+        const list = document.createElement('div'); list.className = 'thread-replies';
+        const more = document.createElement('button'); more.type = 'button'; more.className = 'btn btn-s btn-sm'; more.textContent = zh ? '更多回复' : 'More replies'; more.hidden = !c.repliesNext;
+        for (const reply of c.replies ?? []) list.append(renderComment(reply, true));
+        threads.set(c.id, { list, more, next: c.repliesNext ?? null });
+        more.addEventListener('click', () => { void loadThread(c.id, true); });
+        item.append(list, more);
+      }
+      return item;
+    }
+    async function loadThread(id: string, append = false) {
+      const thread = threads.get(id); if (!thread || thread.more.disabled || busy) return;
+      busy = true; controls(); thread.more.disabled = true;
+      try {
+        const query = new URLSearchParams({ thread: id }); if (append && thread.next) query.set('cursor', thread.next);
+        const d = await response(await fetch(`${endpoint}?${query}`, { credentials: 'same-origin', cache: 'no-store' }));
+        if (!append) thread.list.replaceChildren();
+        for (const c of d.comments) thread.list.append(renderComment(c, true));
+        thread.next = d.next; thread.more.hidden = !d.next;
+      } catch (e) { status.textContent = (e as Error).message; }
+      finally { thread.more.disabled = false; busy = false; controls(); }
+    }
     const message = (cn: string, en: string) => { status.textContent = zh ? cn : en; };
     const controls = () => { like.disabled = fieldset.disabled = submit.disabled = busy || !ready; more.disabled = retry.disabled = busy; };
     function paintVote() {
@@ -76,14 +121,8 @@ const zh = lang === 'zh';
         const d = await response(await fetch(endpoint + (append && next ? `?cursor=${encodeURIComponent(next)}` : ''), { credentials: 'same-origin', cache: 'no-store' }));
         paintSummary(d.summary); liked = d.mine.liked; rating = d.mine.rating; paintVote();
         const list = $('[data-comments]');
-        if (!append) list.replaceChildren();
-        for (const c of d.comments) {
-          const item = document.createElement('article'); item.className = 'public-comment';
-          const head = document.createElement('p'); head.className = 'comment-meta';
-          head.textContent = `${zh ? '匿名用户' : 'Anonymous'} · ${new Date(c.createdAt).toLocaleDateString(zh ? 'zh-CN' : 'en-US')}`;
-          const body = document.createElement('p'); body.textContent = c.body;
-          item.append(head, body); list.append(item);
-        }
+        if (!append) { list.replaceChildren(); threads.clear(); }
+        for (const c of d.comments) list.append(renderComment(c));
         $('[data-empty]').hidden = list.childElementCount > 0;
         next = d.next; more.hidden = !next; ready = true;
         status.textContent = '';
@@ -93,12 +132,14 @@ const zh = lang === 'zh';
     async function write(value: Record<string, unknown>) {
       if (busy) return;
       busy = true; controls(); message('正在保存…', 'Saving…');
+      let refresh: string | null | undefined;
       try {
         const d = await response(await fetch(endpoint, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(value) }));
-        if (value.action === 'comment') { textarea.value = ''; requestId = ''; message('评论已提交，审核通过后会公开显示。', 'Comment submitted. It will appear after review.'); }
+        if (value.action === 'comment') { refresh = target ? (target.threadId ?? target.id) : null; textarea.value = ''; cancelReply(); message('已发布，谢谢你的分享。', 'Published. Thanks for sharing.'); }
         else { if (value.action === 'like') liked = value.liked as boolean; else rating = value.rating as number | null; paintSummary(d.summary); message('已保存，谢谢你的反馈。', 'Saved. Thanks for your feedback.'); }
       } catch (e) { status.textContent = (e as Error).message; }
       finally { paintVote(); busy = false; controls(); }
+      if (refresh === null) await load(); else if (refresh) await loadThread(refresh);
     }
     like.addEventListener('click', () => { void write({ action: 'like', liked: !liked }); });
     fieldset.addEventListener('change', e => { void write({ action: 'rate', rating: Number((e.target as HTMLInputElement).value) }); });
@@ -106,7 +147,7 @@ const zh = lang === 'zh';
     form.addEventListener('submit', e => {
       e.preventDefault(); const body = textarea.value.trim(); if (!body) { textarea.focus(); return; }
       if (!requestId || submittedBody !== body) { requestId = crypto.randomUUID(); submittedBody = body; }
-      void write({ action: 'comment', body, requestId });
+      void write({ action: 'comment', body, requestId, parentId: target?.id ?? null });
     });
     more.addEventListener('click', () => { void load(true); });
     retry.addEventListener('click', () => { void load(); });
@@ -131,4 +172,10 @@ const zh = lang === 'zh';
   .review-form { display: grid; gap: 14px; }.review-form label { font-weight: 600; }.review-form textarea { width: 100%; min-height: 120px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); font: inherit; resize: vertical; }.review-form .btn { justify-self: start; }.review-status { margin: 16px 0; font-size: 14px; }.comments-heading { font-size: 20px; margin: 28px 0 16px; }
   [data-comments] :global(.public-comment) { border-bottom: 1px solid var(--line); padding: 18px 0; overflow-wrap: anywhere; white-space: pre-wrap; }[data-comments] :global(.comment-meta) { font-size: 13px; color: var(--text-3); margin-bottom: 10px; }[data-more] { margin-top: 20px; }button:disabled { opacity: .5; cursor: wait; }
   @media(max-width: 700px) { .review-grid { grid-template-columns: 1fr; }.review-score { gap: 12px; } }
+  [data-comments] :global(.thread-replies) { margin: 14px 0 0 12px; padding-left: 16px; border-left: 2px solid var(--line); }
+  [data-comments] :global(.thread-reply) { padding: 14px 0; }
+  [data-comments] :global(.comment-reply-button) { color: var(--accent); background: none; border: 0; font: inherit; font-size: 13px; padding: 8px 0; cursor: pointer; }
+  .reply-target { display: flex; align-items: center; gap: 12px; justify-content: space-between; font-size: 13px; overflow-wrap: anywhere; }
+  .reply-target .clear-rating { flex-shrink: 0; margin: 0; }
+  [hidden] { display: none !important; }
 </style>

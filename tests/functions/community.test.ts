@@ -63,17 +63,20 @@ describe('Anonymous app community', () => {
     expect((await write(a, { action: 'comment', body: 'x'.repeat(9000), requestId: crypto.randomUUID() })).status).toBe(413);
     expect((await read(a, '?cursor=invalid')).status).toBe(400);
   });
-  it('keeps comments private until approved, hides them immediately, and never exposes browser hashes', async () => {
+  it('publishes new comments immediately, retains moderation and never exposes browser hashes', async () => {
     const a = await identity(), owner = await admin(), ordinary = await admin(false);
     const text = '<img src=x onerror=alert(1)> Plain text, never HTML';
     const submitted = await (await write(a, { action: 'comment', body: text, requestId: crypto.randomUUID() })).json() as any;
-    expect(submitted.status).toBe('pending');
+    expect(submitted.status).toBe('approved');
+    expect((await (await read(a)).json() as any).comments[0].body).toBe(text);
+    // Historical submissions retain their original private state.
+    await moderate(owner, submitted.id, 'pending');
     expect((await (await read(a)).json() as any).comments).toEqual([]);
     expect((await queue('')).status).toBe(401); expect((await queue(ordinary)).status).toBe(403);
     expect((await moderate(ordinary, submitted.id, 'approved')).status).toBe(403);
     expect((await moderate(owner, submitted.id, 'approved', 'https://evil.test')).status).toBe(403);
     expect((await moderate(owner, submitted.id, 'invalid')).status).toBe(400);
-    const pending = await (await queue(owner)).json() as any;
+    const pending = await (await queue(owner, '?status=pending')).json() as any;
     expect(pending.pending.count).toBe(1); expect(pending.comments[0].body).toBe(text);
     const adminMe = await (await me({ request: new Request(`${origin}/api/me`, { headers: { Cookie: owner } }), env } as any)).json() as any;
     expect(adminMe.user.adminComments).toEqual({ count: 1, latestId: submitted.id });
@@ -81,7 +84,7 @@ describe('Anonymous app community', () => {
     expect(userMe.user).not.toHaveProperty('adminComments');
     expect((await moderate(owner, submitted.id, 'approved')).status).toBe(200);
     const visible = (await (await read()).json() as any).comments[0];
-    expect(Object.keys(visible).sort()).toEqual(['id', 'appId', 'body', 'status', 'createdAt'].sort());
+    expect(Object.keys(visible).sort()).toEqual(['id', 'appId', 'body', 'status', 'createdAt', 'parentId', 'threadId', 'author', 'replyTo', 'replies', 'repliesNext'].sort());
     expect(visible.body).toBe(text);
     await moderate(owner, submitted.id, 'hidden');
     expect((await (await read()).json() as any).comments).toEqual([]);
@@ -98,6 +101,59 @@ describe('Anonymous app community', () => {
     expect(env.DB.raw.prepare('SELECT COUNT(*) n FROM app_comments').get()!.n).toBe(1);
     expect((await write(a, { ...input, body: 'Different comment' })).status).toBe(409);
     expect((await write(a, input, 'aethernote')).status).toBe(409);
+  });
+  it('supports mutual replies, validates targets and keeps hidden threads private', async () => {
+    const owner = await admin(), a = await identity(), b = await identity();
+    const root = await (await write(a, { action: 'comment', body: 'Question', requestId: crypto.randomUUID() })).json() as any;
+    const input = { action: 'comment', body: '<img src=x onerror=alert(1)> Answer', parentId: root.id, requestId: crypto.randomUUID() };
+    const first = await (await write(b, input)).json() as any;
+    expect(first.status).toBe('approved');
+    expect((await write(b, input)).status).toBe(200);
+    expect((await write(b, { ...input, parentId: null })).status).toBe(409);
+    const second = await (await write(a, { action: 'comment', body: 'Thank you', parentId: first.id, requestId: crypto.randomUUID() })).json() as any;
+    const page = await (await read()).json() as any;
+    expect(page.comments).toHaveLength(1);
+    expect(page.comments[0].replies).toHaveLength(2);
+    const nested = page.comments[0].replies.find((r: any) => r.id === second.id);
+    expect(nested).toMatchObject({ parentId: first.id, threadId: root.id, author: page.comments[0].author });
+    expect(nested.replyTo).toBe(page.comments[0].replies.find((r: any) => r.id === first.id).author);
+    expect(JSON.stringify(page)).not.toMatch(/visitor_hash|parent_hash|request_id/);
+    const replyInput = { action: 'comment', body: 'Another reply', requestId: crypto.randomUUID() };
+    for (const parentId of ['', 42, {}, 'bad/target']) expect((await write(b, { ...replyInput, parentId })).status).toBe(400);
+    expect((await write(b, { ...replyInput, parentId: 'missing' })).status).toBe(404);
+    expect((await write(b, { ...replyInput, parentId: root.id }, 'aethernote')).status).toBe(404);
+    await moderate(owner, first.id, 'hidden');
+    const visible = await (await read()).json() as any;
+    expect(visible.comments[0].replies).toHaveLength(1);
+    expect(visible.comments[0].replies[0].replyTo).toBeNull();
+    expect((await write(b, { ...replyInput, parentId: first.id })).status).toBe(404);
+    await moderate(owner, root.id, 'hidden');
+    expect((await (await read()).json() as any).comments).toEqual([]);
+    expect((await read('', `?thread=${root.id}`)).status).toBe(404);
+    expect((await write(b, { ...replyInput, parentId: second.id })).status).toBe(404);
+    const hidden = await (await queue(owner, '?status=hidden')).json() as any;
+    expect(hidden.comments).toHaveLength(2);
+    await moderate(owner, root.id, 'approved');
+    expect((await (await read()).json() as any).comments[0].replies).toHaveLength(1);
+  });
+  it('bounds reply previews and paginates all replies without mixing apps or threads', async () => {
+    const insert = env.DB.raw.prepare("INSERT INTO app_comments(id,app_id,visitor_hash,request_id,body,status,created_at,updated_at,parent_id,thread_id) VALUES(?,'aetherterm','hash',?,'hello','approved',123,123,?,?)");
+    insert.run('root', 'root-request', null, null);
+    insert.run('other', 'other-request', null, null);
+    for (let i = 0; i < 45; i++) insert.run(`reply-${String(i).padStart(2,'0')}`, `req-${i}`, 'root', 'root');
+    insert.run('other-reply', 'other-reply-request', 'other', 'other');
+    const page = await (await read()).json() as any;
+    const root = page.comments.find((c: any) => c.id === 'root');
+    expect(root.replies).toHaveLength(3); expect(root.repliesNext).toBeTruthy();
+    const ids = root.replies.map((c: any) => c.id); let next = root.repliesNext;
+    while (next) {
+      const data = await (await read('', `?thread=root&cursor=${encodeURIComponent(next)}`)).json() as any;
+      ids.push(...data.comments.map((c: any) => c.id)); next = data.next;
+    }
+    expect(ids).toHaveLength(45); expect(new Set(ids).size).toBe(45);
+    expect(ids).not.toContain('other-reply');
+    expect((await read('', '?thread=root', 'aethernote')).status).toBe(404);
+    expect((await read('', '?thread=bad/target')).status).toBe(400);
   });
   it('paginates approved comments deterministically even with identical timestamps', async () => {
     const stmt = env.DB.raw.prepare("INSERT INTO app_comments(id,app_id,visitor_hash,request_id,body,status,created_at,updated_at) VALUES(?,'aetherterm','hash',?,'hello','approved',123,123)");

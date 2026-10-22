@@ -1,7 +1,7 @@
 ---
 interface Props { current?: 'users' | 'feedback' | 'comments' | 'apps' | 'downloads' | 'overview' | 'services' }
 const current = Astro.props.current ?? (Astro.url.pathname.split('/')[2] || 'overview');
-const items = [['overview', '概览'], ['feedback', '反馈管理'], ['comments', '评论审核'], ['users', '用户管理'], ['apps', '软件与仓库'], ['downloads', '下载统计'], ['services', '服务检查']];
+const items = [['overview', '概览'], ['feedback', '反馈管理'], ['comments', '评论管理'], ['users', '用户管理'], ['apps', '软件与仓库'], ['downloads', '下载统计'], ['services', '服务检查']];
 ---
 <nav class="admin-nav" aria-label="管理后台">
   {items.map(([id, title]) => <a href={id === 'overview' ? '/admin/' : `/admin/${id}/`} aria-current={id === current ? 'page' : undefined}>{title}</a>)}

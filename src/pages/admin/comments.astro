@@ -4,12 +4,12 @@ import AdminHeader from '../../components/AdminHeader.astro';
 import { getApps } from '../../lib/apps';
 const apps = await getApps();
 ---
-<Base lang="zh" title="评论审核" standalone>
+<Base lang="zh" title="评论管理" standalone>
   <div class="wrap comments-admin">
-    <AdminHeader title="评论审核" description="匿名评论审核通过后公开。可隐藏已公开的评论，也可恢复或重新送审。" />
+    <AdminHeader title="评论管理" description="评论和回复提交后直接公开，可隐藏不合适的内容，也可恢复。旧的待审核评论仍需手动公开。" />
     <p role="status" data-status>正在加载…</p>
     <section data-private hidden>
-      <form data-filters><label>软件<select name="app"><option value="">全部软件</option>{apps.map(a => <option value={a.id}>{a.data.name}</option>)}</select></label><label>状态<select name="status"><option value="pending">待审核</option><option value="approved">已公开</option><option value="hidden">已隐藏</option></select></label><button type="submit" class="btn btn-s btn-sm">查询 / 刷新</button></form>
+      <form data-filters><label>软件<select name="app"><option value="">全部软件</option>{apps.map(a => <option value={a.id}>{a.data.name}</option>)}</select></label><label>状态<select name="status"><option value="approved">已公开</option><option value="pending">待审核（历史）</option><option value="hidden">已隐藏</option></select></label><button type="submit" class="btn btn-s btn-sm">查询 / 刷新</button></form>
       <div data-comments></div><button type="button" class="btn btn-s btn-sm" data-more hidden>加载更多</button>
     </section>
     <noscript>请启用 JavaScript 并登录管理员账号。</noscript>
@@ -24,6 +24,12 @@ const apps = await getApps();
   const form = root.querySelector<HTMLFormElement>('[data-filters]')!;
   const more = root.querySelector<HTMLButtonElement>('[data-more]')!;
   let controller: AbortController | null = null, next: string | null = null, query = new URLSearchParams();
+  const initial = new URLSearchParams(location.search);
+  for (const name of ['status', 'app']) {
+    const select = form.elements.namedItem(name) as HTMLSelectElement;
+    const value = initial.get(name);
+    if (value && Array.from(select.options).some(option => option.value === value)) select.value = value;
+  }
   let signedOut = false;
   const actionsController = new AbortController();
   onSignedOut(() => { signedOut = true; controller?.abort(); actionsController.abort(); content.hidden = true; list.replaceChildren(); status.textContent = '请先登录管理员账号。'; });
@@ -41,14 +47,14 @@ const apps = await getApps();
       const d = await check(await fetch(`/api/admin/comments?${params}`, { credentials: 'same-origin', signal: current.signal }));
       if (current.signal.aborted || signedOut) return;
       content.hidden = false;
-      status.textContent = `待审核 ${d.pending.count} 条。${!d.comments.length && !append ? '当前筛选暂无评论。' : ''}`;
+      status.textContent = `${d.pending.count ? `历史待审核 ${d.pending.count} 条。` : ''}${!d.comments.length && !append ? '当前筛选暂无评论。' : '已加载评论。'}`;
       for (const c of d.comments) {
         const article = document.createElement('article'); article.className = 'card';
-        const meta = document.createElement('p'); meta.className = 'muted'; meta.textContent = `匿名用户 · ${c.appId} · ${new Date(c.createdAt).toLocaleString('zh-CN')}`;
+        const meta = document.createElement('p'); meta.className = 'muted'; meta.textContent = `${c.parentId ? '回复 · ' : ''}${c.author} · ${c.appId} · ${new Date(c.createdAt).toLocaleString('zh-CN')}`;
         const body = document.createElement('p'); body.className = 'comment-body'; body.textContent = c.body;
         const actions = document.createElement('div'); actions.className = 'actions';
         const hint = document.createElement('p'); hint.setAttribute('role', 'status');
-        for (const [value, label] of [['approved', '通过并公开'], ['hidden', '隐藏'], ['pending', '重新送审']]) {
+        for (const [value, label] of [['approved', '公开 / 恢复'], ['hidden', '隐藏']]) {
           if (value === c.status) continue;
           const button = document.createElement('button'); button.type = 'button'; button.className = 'btn btn-s btn-sm'; button.textContent = label;
           button.addEventListener('click', async () => {

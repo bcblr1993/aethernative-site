@@ -7,10 +7,16 @@ export const onRequestGet: PagesFunction<Env, 'app'> = async ({ request, env, pa
   const app = params.app as string;
   const after = cursor(new URL(request.url).searchParams.get('cursor'));
   if (after === false) return error(400, 'invalid_cursor');
+  const thread = new URL(request.url).searchParams.get('thread');
+  if (thread !== null) {
+    if (!/^[a-zA-Z0-9-]{1,64}$/.test(thread)) return error(400, 'invalid');
+    const root = await env.DB.prepare("SELECT id FROM app_comments WHERE id = ? AND app_id = ? AND status = 'approved' AND thread_id IS NULL").bind(thread, app).first();
+    if (!root) return error(404, 'not_found');
+  }
   const who = await visitor(request, true);
   const [mine, comments, stats] = await Promise.all([
     env.DB.prepare('SELECT liked, rating FROM app_votes WHERE app_id = ? AND visitor_hash = ?').bind(app, who.hash).first<{ liked: number; rating: number | null }>(),
-    listComments(env.DB, app, 'approved', after), summary(env.DB, app),
+    listComments(env.DB, app, 'approved', after, { thread: thread ?? undefined }), summary(env.DB, app),
   ]);
   return json({ ...comments, summary: stats, mine: { liked: Boolean(mine?.liked), rating: mine?.rating ?? null } }, 200, who.cookie ? { 'Set-Cookie': who.cookie } : {});
 };
@@ -29,12 +35,24 @@ export const onRequestPost: PagesFunction<Env, 'app'> = async ({ request, env, p
   if (v.action === 'like' && typeof v.liked !== 'boolean') return error(400, 'invalid');
   if (v.action === 'rate' && v.rating !== null && (!Number.isInteger(v.rating) || Number(v.rating) < 1 || Number(v.rating) > 5)) return error(400, 'invalid');
   let text = '';
+  let parentId: string | null = null, threadId: string | null = null;
   if (v.action === 'comment') {
     if (typeof v.body !== 'string' || typeof v.requestId !== 'string' || !/^[a-f0-9-]{36}$/.test(v.requestId)) return error(400, 'invalid');
     text = v.body.trim();
     if (!text || [...text].length > 1000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(text)) return error(400, 'invalid');
-    const prior = await env.DB.prepare('SELECT id, status, app_id, body FROM app_comments WHERE visitor_hash = ? AND request_id = ?').bind(who.hash, v.requestId).first<{ id: string; status: string; app_id: string; body: string }>();
-    if (prior) return prior.app_id === app && prior.body === text ? json({ id: prior.id, status: prior.status }) : error(409, 'request_conflict');
+    if (v.parentId !== undefined && v.parentId !== null) {
+      if (typeof v.parentId !== 'string' || !/^[a-zA-Z0-9-]{1,64}$/.test(v.parentId)) return error(400, 'invalid');
+      parentId = v.parentId;
+    }
+    const prior = await env.DB.prepare('SELECT id, status, app_id, body, parent_id FROM app_comments WHERE visitor_hash = ? AND request_id = ?').bind(who.hash, v.requestId).first<{ id: string; status: string; app_id: string; body: string; parent_id: string | null }>();
+    if (prior) return prior.app_id === app && prior.body === text && prior.parent_id === parentId ? json({ id: prior.id, status: prior.status }) : error(409, 'request_conflict');
+    if (parentId) {
+      const parent = await env.DB.prepare("SELECT id, thread_id FROM app_comments WHERE id = ? AND app_id = ? AND status = 'approved'").bind(parentId, app).first<{ id: string; thread_id: string | null }>();
+      if (!parent) return error(404, 'not_found');
+      threadId = parent.thread_id ?? parent.id;
+      const root = await env.DB.prepare("SELECT id FROM app_comments WHERE id = ? AND app_id = ? AND status = 'approved' AND thread_id IS NULL").bind(threadId, app).first();
+      if (!root) return error(404, 'not_found');
+    }
   }
   const wait = await allowWrite(env.DB, request, who.hash, v.action === 'comment');
   if (wait) return error(429, 'rate_limited', { 'Retry-After': String(wait) });
@@ -42,9 +60,10 @@ export const onRequestPost: PagesFunction<Env, 'app'> = async ({ request, env, p
     const id = crypto.randomUUID();
     const now = Date.now();
     // Idempotent even if two network retries pass the initial lookup concurrently.
-    await env.DB.prepare(`INSERT INTO app_comments (id, app_id, visitor_hash, request_id, body, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(visitor_hash, request_id) DO NOTHING`).bind(id, app, who.hash, v.requestId, text, now, now).run();
-    const row = await env.DB.prepare('SELECT id, status, app_id, body FROM app_comments WHERE visitor_hash = ? AND request_id = ?').bind(who.hash, v.requestId).first<{ id: string; status: string; app_id: string; body: string }>();
-    if (row?.app_id !== app || row?.body !== text) return error(409, 'request_conflict');
+    await env.DB.prepare(`INSERT INTO app_comments (id, app_id, visitor_hash, request_id, body, status, created_at, updated_at, parent_id, thread_id) SELECT ?, ?, ?, ?, ?, 'approved', ?, ?, ?, ? WHERE ? IS NULL OR EXISTS (SELECT 1 FROM app_comments p JOIN app_comments root ON root.id = ? WHERE p.id = ? AND p.app_id = ? AND p.status = 'approved' AND root.status = 'approved') ON CONFLICT(visitor_hash, request_id) DO NOTHING`).bind(id, app, who.hash, v.requestId, text, now, now, parentId, threadId, parentId, threadId, parentId, app).run();
+    const row = await env.DB.prepare('SELECT id, status, app_id, body, parent_id FROM app_comments WHERE visitor_hash = ? AND request_id = ?').bind(who.hash, v.requestId).first<{ id: string; status: string; app_id: string; body: string; parent_id: string | null }>();
+    if (!row) return error(404, 'not_found');
+    if (row.app_id !== app || row.body !== text || row.parent_id !== parentId) return error(409, 'request_conflict');
     return json({ id: row.id, status: row.status }, 201);
   }
   if (v.action === 'like') await env.DB.prepare(`INSERT INTO app_votes(app_id,visitor_hash,liked) VALUES(?,?,?) ON CONFLICT(app_id,visitor_hash) DO UPDATE SET liked=excluded.liked`).bind(app, who.hash, Number(v.liked)).run();

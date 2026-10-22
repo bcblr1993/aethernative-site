@@ -37,7 +37,7 @@ it('filters date cohorts and app data while keeping account dimensions global an
   env.DB.raw.prepare("INSERT INTO identities(provider,provider_user_id,user_id,created_at) VALUES('google','private-external-id',?,?)").run(a.id,now);
   env.DB.raw.prepare("INSERT INTO app_votes VALUES('aetherterm','private-hash',1,5)").run();
   env.DB.raw.prepare("INSERT INTO app_votes VALUES('aethernote','other-hash',1,2)").run();
-  env.DB.raw.prepare("INSERT INTO app_comments VALUES('c','aetherterm','private-hash','r','private comment','pending',?,?)").run(start,start);
+  env.DB.raw.prepare("INSERT INTO app_comments (id,app_id,visitor_hash,request_id,body,status,created_at,updated_at) VALUES('c','aetherterm','private-hash','r','private comment','pending',?,?)").run(start,start);
   const d=await (await get(a.cookie,'?days=7&app=aetherterm')).json() as any;
   expect(d.downloads.rows.map((r:any)=>r.requests)).toEqual([2,3]);expect(d.downloads.versions[0]).toMatchObject({version:'2',requests:3});
   expect(d.feedback.daily).toEqual([{day:'2026-10-10',count:1}]);expect(d.feedback.statuses).toEqual([{label:'replied',count:1}]);

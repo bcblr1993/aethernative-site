@@ -58,16 +58,36 @@ export function cursor(raw: string | null): { time: number; id: string } | null 
   const match = /^(\d{1,15}):([a-zA-Z0-9-]{1,64})$/.exec(raw);
   return match ? { time: Number(match[1]), id: match[2] } : false;
 }
-export interface Comment { id: string; app_id: string; body: string; status: string; created_at: number }
-export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>) {
-  const where = ['status = ?'];
+export interface Comment { id: string; app_id: string; body: string; status: string; created_at: number; parent_id: string | null; thread_id: string | null; visitor_hash: string; parent_hash: string | null }
+const authorName = async (hash: string, thread: string) => `访客 ${(await sha256Hex(`${thread}:${hash}`)).slice(0, 6).toUpperCase()}`;
+async function publicComment(r: Comment) {
+  const thread = r.thread_id ?? r.id;
+  return { id: r.id, appId: r.app_id, body: r.body, status: r.status, createdAt: r.created_at,
+    parentId: r.parent_id, threadId: r.thread_id, author: await authorName(r.visitor_hash, thread),
+    replyTo: r.parent_hash ? await authorName(r.parent_hash, thread) : null };
+}
+export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>, options: { admin?: boolean; thread?: string } = {}) {
+  const where = ['c.status = ?'];
   const args: (string | number)[] = [status];
-  if (app) { where.push('app_id = ?'); args.push(app); }
-  if (after) { where.push('(created_at < ? OR (created_at = ? AND id < ?))'); args.push(after.time, after.time, after.id); }
-  const { results } = await db.prepare(`SELECT id, app_id, body, status, created_at FROM app_comments WHERE ${where.join(' AND ')} ORDER BY created_at DESC, id DESC LIMIT 21`).bind(...args).all<Comment>();
+  if (app) { where.push('c.app_id = ?'); args.push(app); }
+  if (options.thread) { where.push('c.thread_id = ?'); args.push(options.thread); }
+  else if (!options.admin) where.push('c.thread_id IS NULL');
+  if (!options.admin) where.push("(c.thread_id IS NULL OR EXISTS (SELECT 1 FROM app_comments root WHERE root.id = c.thread_id AND root.app_id = c.app_id AND root.status = 'approved'))");
+  if (after) { where.push('(c.created_at < ? OR (c.created_at = ? AND c.id < ?))'); args.push(after.time, after.time, after.id); }
+  const { results } = await db.prepare(`SELECT c.*, p.visitor_hash AS parent_hash FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE ${where.join(' AND ')} ORDER BY c.created_at DESC, c.id DESC LIMIT 21`).bind(...args).all<Comment>();
   const rows = results.slice(0, 20);
   const last = rows.at(-1);
-  return { comments: rows.map(r => ({ id: r.id, appId: r.app_id, body: r.body, status: r.status, createdAt: r.created_at })), next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
+  const comments = await Promise.all(rows.map(publicComment));
+  // Fetch a bounded preview for each thread in one query, regardless of thread size.
+  if (!options.admin && !options.thread && rows.length) {
+    const { results: replies } = await db.prepare(`SELECT * FROM (SELECT c.*, p.visitor_hash AS parent_hash, ROW_NUMBER() OVER (PARTITION BY c.thread_id ORDER BY c.created_at DESC, c.id DESC) AS rank FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE c.status = 'approved' AND c.thread_id IN (${rows.map(() => '?').join(',')})) WHERE rank <= 4 ORDER BY created_at DESC, id DESC`).bind(...rows.map(r => r.id)).all<Comment>();
+    return { comments: await Promise.all(comments.map(async c => {
+      const thread = replies.filter(r => r.thread_id === c.id);
+      const preview = thread.slice(0, 3), lastReply = preview.at(-1);
+      return { ...c, replies: await Promise.all(preview.map(publicComment)), repliesNext: thread.length > 3 && lastReply ? `${lastReply.created_at}:${lastReply.id}` : null };
+    })), next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
+  }
+  return { comments, next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
 }
 
 export const pendingComments = (db: D1Database) => db.prepare("SELECT COUNT(*) AS count, (SELECT id FROM app_comments WHERE status = 'pending' ORDER BY created_at DESC, id DESC LIMIT 1) AS latestId FROM app_comments WHERE status = 'pending'").first<{ count: number; latestId: string | null }>();

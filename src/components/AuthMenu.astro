@@ -32,7 +32,7 @@ const u = ui[lang].auth;
       <a class="item" href="/admin/" data-admin hidden>{lang === 'zh' ? '管理后台' : 'Admin dashboard'}</a>
       <a class="item" href={href(lang, '/feedback/')}>{u.myFeedback}</a>
       <a class="item" href="/admin/feedback/?status=new" data-admin-feedback hidden>{u.manageFeedback}</a>
-      <a class="item" href="/admin/comments/" data-admin-comments hidden>{lang === 'zh' ? '评论审核' : 'Review comments'}</a>
+      <a class="item" href="/admin/comments/" data-admin-comments hidden>{lang === 'zh' ? '评论管理' : 'Manage comments'}</a>
       <a class="item" href="/admin/users/" data-admin-users hidden>{u.manageUsers}</a>
       <a class="item" href="/admin/apps/" data-admin-apps hidden>{u.manageApps}</a>
       <button type="button" class="item" data-logout>{u.signOut}</button>
@@ -72,8 +72,9 @@ const u = ui[lang].auth;
       const comments = me.adminComments;
       const commentCount = comments?.count ?? 0;
       const count = feedbackCount + commentCount;
-      const commentLabel = root!.dataset.lang === 'zh' ? '评论审核' : 'Review comments';
+      const commentLabel = root!.dataset.lang === 'zh' ? '评论管理' : 'Manage comments';
       $('[data-admin-comments]').hidden = !me.isAdmin;
+      ($('[data-admin-comments]') as HTMLAnchorElement).href = commentCount ? '/admin/comments/?status=pending' : '/admin/comments/';
       $('[data-admin-comments]').textContent = `${commentLabel}${commentCount ? ` · ${commentCount}` : ''}`;
       const reminderText = [feedbackCount ? u.newFeedback(feedbackCount) : '', commentCount ? (root!.dataset.lang === 'zh' ? `${commentCount} 条评论待审核` : `${commentCount} comments awaiting review`) : ''].filter(Boolean).join(' · ');
       adminLink.hidden = !pending;
@@ -89,7 +90,7 @@ const u = ui[lang].auth;
       if (previous === signature) return;
       $('[data-feedback-notice-text]').textContent = reminderText;
       const noticeLink = notice.querySelector('a')!;
-      noticeLink.href = feedbackCount ? '/admin/feedback/?status=new' : '/admin/comments/';
+      noticeLink.href = feedbackCount ? '/admin/feedback/?status=new' : '/admin/comments/?status=pending';
       noticeLink.textContent = feedbackCount ? `${u.viewFeedback} →` : `${commentLabel} →`;
       notice.hidden = false;
       try { sessionStorage.setItem(reminderKey, signature); } catch { /* 提醒本身不依赖存储 */ }
