@@ -4,13 +4,22 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.18</title>
-            <pubDate>Thu, 22 Oct 2026 11:47:34 +0800</pubDate>
-            <sparkle:version>66</sparkle:version>
-            <sparkle:shortVersionString>0.8.18</sparkle:shortVersionString>
+            <title>0.8.19</title>
+            <pubDate>Thu, 22 Oct 2026 15:45:19 +0800</pubDate>
+            <sparkle:version>67</sparkle:version>
+            <sparkle:shortVersionString>0.8.19</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.8.18 (Build 66) — 2026-10-22
+            <description sparkle:format="markdown"><![CDATA[## v0.8.19 (Build 67) — 2026-10-22
+
+### 🎨 全新 Google Antigravity 专属高清晰度图标 (三重反重力共振波)
+- 深度融合 Google Antigravity 官方多彩反重力高斯波峰视觉母题，强化多开管理器专属身份
+- 采用 3D 纵深层叠三重反重力波设计：中央全彩主波峰 + 后方双翼浮空副波峰
+- 底部集成 4 色微晶发光实例活跃指示灯（Google 蓝、绿、黄、红）
+- 深空曜石高对比度背景，彻底解决浅色全透玻璃在 Dock（64px）和访达（32px）发飘看不清的问题
+- 全面生成 1024×1024 Retina 超高清 ICNS，全量同步官方网站与系统全展示位
+
+## v0.8.18 (Build 66) — 2026-10-22
 
 ### 🎨 全新极简纯白 Liquid Glass 图标上线
 - 采用全新极简纯白 Liquid Glass 设计图标：悬浮毛玻璃多开窗口主题
@@ -474,10 +483,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.18/Aether-Antigravity-Multiplexer-v0.8.18-macos-arm64.zip" length="4444455" type="application/octet-stream" sparkle:edSignature="9nQkQpPdJEjckqPBXhvWZTT8yhbIUr9JBaMMHZ5WrNQU9Pz+BYmE3G09P+JGqp/f2NVF6DfwTznCJHPp6VZ9Cw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.19/Aether-Antigravity-Multiplexer-v0.8.19-macos-arm64.zip" length="4206583" type="application/octet-stream" sparkle:edSignature="wNr2uhyk41qe5U4fURp1ZU12TGdzWcG3E4tPrQrxMeDUx1X07E+PDCcVb4ROkWbKHgfvKeKiScA+gFnT8sp5AA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: 2mHGYS4qWX1NxgwCPE7n6cezy916FTMfzCWxNBkalK1sV1uR28Y3IG7cFMBwTTTL/CC6tCHjCjHdRzpHWFD9Bw==
-length: 71783
+edSignature: ad1Xuosa2qESt6ZHKa2MKHSeQzGF9gqTv4WZsyrNzdBQJ8K5dI3eSjtI+I178hoYmdM/AgwxELcMpoXeBCVKDA==
+length: 72439
 -->
