@@ -4,13 +4,24 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.20</title>
-            <pubDate>Thu, 22 Oct 2026 17:43:34 +0800</pubDate>
-            <sparkle:version>68</sparkle:version>
-            <sparkle:shortVersionString>0.8.20</sparkle:shortVersionString>
+            <title>0.8.21</title>
+            <pubDate>Thu, 22 Oct 2026 19:23:02 +0800</pubDate>
+            <sparkle:version>69</sparkle:version>
+            <sparkle:shortVersionString>0.8.21</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.8.20 (Build 68) — 2026-10-22
+            <description sparkle:format="markdown"><![CDATA[## v0.8.21 (Build 69) — 2026-10-22
+
+### 🚀 新增「一键关闭所有实例」功能与主实例保护选项 (One-Click Close All Instances)
+- **顶部操作栏一键关闭（Split Menu）**：在监控台顶部操作栏为运行中实例配备即时一键关闭菜单按钮，醒目危险红交互，实时显示可退出的实例数量。
+- **主实例保护与可配置策略**：
+  - 默认安全保护官方主实例（👑 Antigravity），一键关闭仅退出所有多开分身（`一键关闭分身 (N)`）。
+  - 支持开启「包含主实例」，一键同时安全退出全部实例包括官方主实例（`一键关闭全部 (N)`）。
+  - 下拉菜单就地即时切换开关，并提供单次独立的「退出全部（含主实例）」与「仅退出分身（保留主实例）」快捷动作。
+- **全局偏好与状态栏全面联动**：在右上角偏好设置面板持久化存储「一键关闭包含主实例」配置；菜单栏状态菜单与极速指令面板 (`stopAll`) 全面联动生效。
+- **系统级优雅退出保障**：基于 `NSRunningApplication.terminate()` 执行优雅关闭，若工作区有未保存文件，系统将正常提示保存，杜绝暴力强杀造成数据损坏。
+
+## v0.8.20 (Build 68) — 2026-10-22
 
 ### ⚡️ 彻底修复软件自动更新失败缺陷 (Fix Sparkle Autoupdate Issues)
 - **根除代码签名校验错误 (-67030)**：彻底修复后台运行中更新时因 XPC 权限校验与磁盘文件冲突导致的 `errSecCSInfoPlistFailed` (-67030) 错误，确保从旧版本平滑安装。
@@ -491,10 +502,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.20/Aether-Antigravity-Multiplexer-v0.8.20-macos-arm64.zip" length="4138452" type="application/octet-stream" sparkle:edSignature="OWXCRhvj6q0DF/K89lENaZZypU8A2cXbAdAh/uLLwtVcxHwZCPe/el3oE1iUAC0IOznbJU9OfAL7NgPGzSmdAQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.21/Aether-Antigravity-Multiplexer-v0.8.21-macos-arm64.zip" length="4151961" type="application/octet-stream" sparkle:edSignature="twwEYRNrg3ytUsrT5BRg3qg+JsbGddR6CtcjLBXUZ3NqLSLQab6rpiFYgZmD4LKj7k9mrBZ26SBzDCG593DOBQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: zO3Y4uCU+0AsdQqsLIqfDXgX10exPFDG7sVlxw4ofCQMxYcRpq0q1t4qeSZsUwNBQZuFOJLZ9Gb6XZyoEZnDAg==
-length: 73436
+edSignature: Ibfl34VOPevyoMqPJKEJGw+pA7jjyu7wp/t/1kwD0ndiXzNnxrQ2mhZesMx92xlHzYkkbETlTGQnriAdBY4sDw==
+length: 74667
 -->
