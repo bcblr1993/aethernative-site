@@ -1,6 +1,40 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.7"
+    build: "2026102202"
+    date: 2026-10-22
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.7/AetherRoute-1.8.7-build-2026102202-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.7
+    sha256: f9340c2f070300659423d85ac76e5dca237eb39f062d9b9b4ed3449eabf2bb64
+    sparkle:
+      edSignature: NPH9xdq3SXcXqhhVTggsDQLV5IoyWox5iLVakHn9rNJVn/vpW7zri+aNRuiotQU24IAYY30XGvrZYXlgmokpAQ==
+      length: 27714011
+    summary:
+      zh: 修复规则导入丢数据、前置代理与 GEOSITE 导致无法连接、iCloud 删除复活与启动重连死循环
+      en: Fixes rule imports dropping rules, dialer proxies and GEOSITE typos blocking connections, iCloud deletions returning, and a startup reconnect loop
+    notes:
+      - title:
+          zh: 修复
+          en: Fixes
+        items:
+          - zh: 批量导入不再丢规则：超出上限时整批拒绝并说明原因，不支持的行与错误的 GEOSITE 分类会被跳过并列出行号。
+            en: "Rule imports no longer drop rules: an import over the limit is refused with the reason, and unsupported lines or unknown GEOSITE categories are skipped and listed by line."
+          - zh: 前置代理与 GEOSITE 分类名写错不再让整个配置无法连接：编辑时校验，旧配置在连接时给出明确提示。
+            en: "A wrong dialer proxy or GEOSITE category no longer stops a profile from connecting: both are checked while editing, and existing profiles get a clear message at connect time."
+          - zh: iCloud 同步删除生效：一台 Mac 上删除的规则不再被其他设备同步回来，同步来的规则立即生效。
+            en: "iCloud sync keeps deletions: a rule deleted on one Mac no longer comes back from another, and synced rules apply immediately."
+          - zh: 启动重连不再死循环：连接前失败时最多重试一轮，不再持续占用约 70% CPU。
+            en: "No more startup reconnect loop: a failure before connecting is retried within one bounded round instead of using about 70% CPU indefinitely."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 物理真机实测：本次公证安装包在 Mac mini 上以 TUN 与透明代理通过空闲复用、2 MiB 上传与网卡切换自动恢复，GEOSITE 与 DST-PORT 规则实测生效。
+            en: "Physical hardware: the notarized build passed idle reuse, 2 MiB upload and interface switching in TUN and transparent proxy modes on a Mac mini, with GEOSITE and DST-PORT rules verified in effect."
+          - zh: 远程真机门禁完整覆盖：产品构建、单元测试、DMG 升级回滚等此前跳过的检查均在真机执行通过。
+            en: "Full remote hardware coverage: the product build, unit tests, DMG upgrade and rollback and other previously skipped checks now run and pass on the device."
   - version: "1.8.6"
     build: "2026102103"
     date: 2026-10-21
