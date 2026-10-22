@@ -4,13 +4,33 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.15</title>
-            <pubDate>Wed, 21 Oct 2026 09:56:47 +0800</pubDate>
-            <sparkle:version>63</sparkle:version>
-            <sparkle:shortVersionString>0.8.15</sparkle:shortVersionString>
+            <title>0.8.17</title>
+            <pubDate>Thu, 22 Oct 2026 11:32:27 +0800</pubDate>
+            <sparkle:version>65</sparkle:version>
+            <sparkle:shortVersionString>0.8.17</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.8.15
+            <description sparkle:format="markdown"><![CDATA[## v0.8.17 (Build 65) — 2026-10-22
+
+### 🎨 全新 App 图标
+- 采用全新设计图标：无限轨道 / 克隆运行主题
+- 深紫→电蓝渐变背景 + 3D 无限符号轨道，4 个发光节点沿轨道运行
+- 高清 1024×1024 ICNS，支持 Retina 显示屏
+- 所有系统图标位置（Dock、启动台、Finder、菜单栏）全部更新
+
+# v0.8.16
+
+- **全面适配最新官方 Antigravity 2.25.0 (Full Official Antigravity 2.25.0 Compatibility)**：
+  - **核心二进制与安全补丁适配 (Binary & Security Patch Verification)**：
+    - **Language Server 符号精准匹配**：通过深度解析 2.25.0 Go 运行时 `gopclntab`，精确提取 `google3/third_party/jetski/language_server/code_assist_client/codeassistclient.shouldBypassKeyring` 的机器指令入口，确定最新内存偏移量为 `27121568` (`0x19dd7a0`)，严格匹配 ARM64 函数栈帧序言指令序列（`900b40f9f1c301d13f0210eb`），确保独立副本凭据隔离与 Keychain 绕过机制在 2.25.0 上无缝生效。
+    - **ASAR 补丁与多开单窗口/Dock 隐形管线验证**：针对 2.25.0 的 `app.asar` 执行完整 ASAR 解包与多层补丁注入验证，单窗口强制管线（`createWindow` / `BrowserWindow.getAllWindows`）、Dock 极简无痕与智能收拢策略（`app.dock.hide`）、托盘图标净化（`DummyTray`）全部 100% 成功注入并更新 Electron 完整性校验哈希（`ElectronAsarIntegrity`）。
+    - **官方签名与 Team ID 安全审计**：完整核验 Google 官方发布签名（`EQHXZ8M8AV`）与 Notarization Ticket，验证 `ad7fb1a177a11522490cba910c0970a117bec568cd9ad85233fa62873361ed05` (ASAR) 及 `060ebf79719024f1b3acb52a21c7a182cb6466b2ac4ac25e93391169b1c1bb46` (Language Server) 哈希指纹。
+  - **升级管理与平滑迁移 (Seamless Upgrade Pipeline)**：
+    - 多开管理器识别官方源版本即刻显示“已适配官方版本 (2.25.0)”，支持针对全部运行中或离线副本一键平滑热升级至 2.25.0，保留所有工作空间数据、历史会话与独立凭据配置。
+  - **全量 155 项自动化回归测试质量门禁保障 (155/155 Automated Tests Passed)**：
+    - 增补 2.25.0 兼容性表项与凭据偏移断言，全量 155 项自动化测试 100% 满分通过。
+
+# v0.8.15
 
 - **修复收起窗口导致会话丢失重置的关键缺陷 (Fix Window Collapse Conversation Loss & Session Reset Bug)**：
   - **故障根本原因分析与深度修复 (Root Cause Analysis & Architecture Fix)**：
@@ -446,10 +466,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.15/Aether-Antigravity-Multiplexer-v0.8.15-macos-arm64.zip" length="3791864" type="application/octet-stream" sparkle:edSignature="MvQB4AGhB7jf4UMqpQhHoOcA+TQisTGxSXjCSRHQHILrbH80IfCwGYf8SN95awomZFflyIY27tKHVIar0iAJBQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.17/Aether-Antigravity-Multiplexer-v0.8.17-macos-arm64.zip" length="4320073" type="application/octet-stream" sparkle:edSignature="kNoeu7aDNP6d9NNFTkAnjoDRav3A22rrmlycysSGxGAEY7YZNNDlKVBXi42p768wHZGriYN9/pZ+YmdrOV3FAg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: W9PwbNbDJcc8bLOXYqET+qlshAfWqOdLmRUQ8z1Kw+bOvxNqMy3OSVrzIAS9/u6D87p3FLn6Ic+QvpVeGvyRAQ==
-length: 69072
+edSignature: l0JRYXc0OL2PATeJfW+3Kc/H5FPtFH3TUeGsq2288IYsmhA2ygS17H9r+CxyZSHFEMN5PoTXeY1s3aIlirloAA==
+length: 71339
 -->
