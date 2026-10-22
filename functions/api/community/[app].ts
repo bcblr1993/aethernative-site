@@ -8,6 +8,16 @@ export const onRequestGet: PagesFunction<Env, 'app'> = async ({ request, env, pa
   const after = cursor(new URL(request.url).searchParams.get('cursor'));
   if (after === false) return error(400, 'invalid_cursor');
   const thread = new URL(request.url).searchParams.get('thread');
+  const focus = new URL(request.url).searchParams.get('focus');
+  let rootId: string | undefined;
+  if (focus !== null) {
+    if (thread !== null || after || !/^[a-zA-Z0-9-]{1,64}$/.test(focus)) return error(400, 'invalid');
+    const target = await env.DB.prepare(`SELECT c.id, c.thread_id FROM app_comments c WHERE c.id = ? AND c.app_id = ? AND c.status = 'approved'
+      AND (c.thread_id IS NULL OR EXISTS (SELECT 1 FROM app_comments root WHERE root.id = c.thread_id AND root.status = 'approved' AND root.app_id = c.app_id))`)
+      .bind(focus, app).first<{ id: string; thread_id: string | null }>();
+    if (!target) return error(404, 'not_found');
+    rootId = target.thread_id ?? target.id;
+  }
   if (thread !== null) {
     if (!/^[a-zA-Z0-9-]{1,64}$/.test(thread)) return error(400, 'invalid');
     const root = await env.DB.prepare("SELECT id FROM app_comments WHERE id = ? AND app_id = ? AND status = 'approved' AND thread_id IS NULL").bind(thread, app).first();
@@ -16,7 +26,7 @@ export const onRequestGet: PagesFunction<Env, 'app'> = async ({ request, env, pa
   const who = await visitor(request, true);
   const [mine, comments, stats] = await Promise.all([
     env.DB.prepare('SELECT liked, rating FROM app_votes WHERE app_id = ? AND visitor_hash = ?').bind(app, who.hash).first<{ liked: number; rating: number | null }>(),
-    listComments(env.DB, app, 'approved', after, { thread: thread ?? undefined }), summary(env.DB, app),
+    listComments(env.DB, app, 'approved', after, { thread: thread ?? undefined, rootId, highlightId: focus ?? undefined }), summary(env.DB, app),
   ]);
   return json({ ...comments, summary: stats, mine: { liked: Boolean(mine?.liked), rating: mine?.rating ?? null } }, 200, who.cookie ? { 'Set-Cookie': who.cookie } : {});
 };

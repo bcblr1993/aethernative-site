@@ -66,10 +66,11 @@ async function publicComment(r: Comment) {
     parentId: r.parent_id, threadId: r.thread_id, author: await authorName(r.visitor_hash, thread),
     replyTo: r.parent_hash ? await authorName(r.parent_hash, thread) : null };
 }
-export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>, options: { admin?: boolean; thread?: string } = {}) {
+export async function listComments(db: D1Database, app: string, status: string, after: ReturnType<typeof cursor>, options: { admin?: boolean; thread?: string; rootId?: string; highlightId?: string } = {}) {
   const where = ['c.status = ?'];
   const args: (string | number)[] = [status];
   if (app) { where.push('c.app_id = ?'); args.push(app); }
+  if (options.rootId) { where.push('c.id = ?'); args.push(options.rootId); }
   if (options.thread) { where.push('c.thread_id = ?'); args.push(options.thread); }
   else if (!options.admin) where.push('c.thread_id IS NULL');
   if (!options.admin) where.push("(c.thread_id IS NULL OR EXISTS (SELECT 1 FROM app_comments root WHERE root.id = c.thread_id AND root.app_id = c.app_id AND root.status = 'approved'))");
@@ -80,10 +81,12 @@ export async function listComments(db: D1Database, app: string, status: string, 
   const comments = await Promise.all(rows.map(publicComment));
   // Fetch a bounded preview for each thread in one query, regardless of thread size.
   if (!options.admin && !options.thread && rows.length) {
-    const { results: replies } = await db.prepare(`SELECT * FROM (SELECT c.*, p.visitor_hash AS parent_hash, ROW_NUMBER() OVER (PARTITION BY c.thread_id ORDER BY c.created_at DESC, c.id DESC) AS rank FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE c.status = 'approved' AND c.thread_id IN (${rows.map(() => '?').join(',')})) WHERE rank <= 4 ORDER BY created_at DESC, id DESC`).bind(...rows.map(r => r.id)).all<Comment>();
+    const { results: replies } = await db.prepare(`SELECT * FROM (SELECT c.*, p.visitor_hash AS parent_hash, ROW_NUMBER() OVER (PARTITION BY c.thread_id ORDER BY c.created_at DESC, c.id DESC) AS rank FROM app_comments c LEFT JOIN app_comments p ON p.id = c.parent_id AND p.status = 'approved' WHERE c.status = 'approved' AND c.thread_id IN (${rows.map(() => '?').join(',')})) WHERE rank <= 4 OR id = ? ORDER BY created_at DESC, id DESC`).bind(...rows.map(r => r.id), options.highlightId ?? '').all<Comment>();
     return { comments: await Promise.all(comments.map(async c => {
       const thread = replies.filter(r => r.thread_id === c.id);
       const preview = thread.slice(0, 3), lastReply = preview.at(-1);
+      const highlighted = thread.find(r => r.id === options.highlightId);
+      if (highlighted && !preview.some(r => r.id === highlighted.id)) preview.push(highlighted);
       return { ...c, replies: await Promise.all(preview.map(publicComment)), repliesNext: thread.length > 3 && lastReply ? `${lastReply.created_at}:${lastReply.id}` : null };
     })), next: results.length > 20 && last ? `${last.created_at}:${last.id}` : null };
   }

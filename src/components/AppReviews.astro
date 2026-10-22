@@ -24,10 +24,12 @@ const zh = lang === 'zh';
           <div class="reply-target" data-reply-target hidden><span data-reply-label></span><button type="button" class="clear-rating" data-cancel-reply>{zh ? '取消回复' : 'Cancel reply'}</button></div>
           <textarea id={`comment-${appId}`} name="body" rows="4" maxlength="1000" required placeholder={zh ? '哪些地方好用？你希望改进什么？' : 'What works well? What could be better?'}></textarea>
           <p class="muted small">{zh ? '评论和回复提交后直接公开，以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately with a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
+          <p class="muted small">{zh ? '有人回复时，导航栏会显示未读提醒；请在同一浏览器查看。' : 'Replies appear in the navigation bell. Check them in the same browser.'}</p>
           <button class="btn btn-p btn-sm" type="submit" disabled>{zh ? '提交评论' : 'Submit comment'}</button>
         </form>
         <p class="review-status" role="status" aria-live="polite" data-review-status></p>
         <button type="button" class="btn btn-s btn-sm" data-retry hidden>{zh ? '重新加载' : 'Retry'}</button>
+        <a class="btn btn-s btn-sm" data-all-comments href={lang === 'zh' ? `/apps/${appId}/#reviews` : `/en/apps/${appId}/#reviews`} hidden>{zh ? '查看全部评论' : 'View all comments'}</a>
         <h3 class="comments-heading">{zh ? '大家的评论' : 'Community comments'}</h3>
         <p class="muted" data-empty hidden>{zh ? '还没有公开评论，欢迎分享第一条体验。' : 'No published comments yet. Be the first to share your experience.'}</p>
         <div data-comments></div>
@@ -38,6 +40,7 @@ const zh = lang === 'zh';
   </div>
 </section>
 <script>
+  import { markRepliesRead } from '../lib/reply-notifications';
   for (const root of document.querySelectorAll<HTMLElement>('[data-app-reviews]')) {
     const zh = root.dataset.lang === 'zh';
     const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
@@ -51,6 +54,7 @@ const zh = lang === 'zh';
     const retry = $<HTMLButtonElement>('[data-retry]');
     const clear = $<HTMLButtonElement>('[data-clear]');
     const endpoint = `/api/community/${encodeURIComponent(root.dataset.app!)}`;
+    let focusId = new URLSearchParams(location.search).get('focus');
     let liked = false, rating: number | null = null, next: string | null = null, busy = false, ready = false;
     let requestId = '', submittedBody = '';
     type Entry = { id: string; body: string; author: string; replyTo: string | null; createdAt: number; threadId: string | null; replies?: Entry[]; repliesNext?: string | null };
@@ -64,6 +68,8 @@ const zh = lang === 'zh';
     function guest(name: string) { return zh ? name : name.replace('访客 ', 'Guest '); }
     function renderComment(c: Entry, nested = false) {
       const item = document.createElement('article'); item.className = nested ? 'thread-reply' : 'public-comment';
+      item.id = `comment-${c.id}`;
+      if (c.id === focusId) item.classList.add('focused-comment');
       const head = document.createElement('p'); head.className = 'comment-meta';
       head.textContent = `${guest(c.author)}${c.replyTo ? ` · ${zh ? '回复' : 'to'} ${guest(c.replyTo)}` : ''} · ${new Date(c.createdAt).toLocaleDateString(zh ? 'zh-CN' : 'en-US')}`;
       const body = document.createElement('p'); body.textContent = c.body;
@@ -92,7 +98,7 @@ const zh = lang === 'zh';
         const query = new URLSearchParams({ thread: id }); if (append && thread.next) query.set('cursor', thread.next);
         const d = await response(await fetch(`${endpoint}?${query}`, { credentials: 'same-origin', cache: 'no-store' }));
         if (!append) thread.list.replaceChildren();
-        for (const c of d.comments) thread.list.append(renderComment(c, true));
+        for (const c of d.comments) if (!thread.list.querySelector(`#comment-${CSS.escape(c.id)}`)) thread.list.append(renderComment(c, true));
         thread.next = d.next; thread.more.hidden = !d.next;
       } catch (e) { status.textContent = (e as Error).message; }
       finally { thread.more.disabled = false; busy = false; controls(); }
@@ -118,13 +124,29 @@ const zh = lang === 'zh';
       if (busy) return;
       busy = true; controls(); retry.hidden = true;
       try {
-        const d = await response(await fetch(endpoint + (append && next ? `?cursor=${encodeURIComponent(next)}` : ''), { credentials: 'same-origin', cache: 'no-store' }));
+        const d = await response(await fetch(endpoint + (append && next ? `?cursor=${encodeURIComponent(next)}` : focusId ? `?focus=${encodeURIComponent(focusId)}` : ''), { credentials: 'same-origin', cache: 'no-store' }));
         paintSummary(d.summary); liked = d.mine.liked; rating = d.mine.rating; paintVote();
         const list = $('[data-comments]');
         if (!append) { list.replaceChildren(); threads.clear(); }
         for (const c of d.comments) list.append(renderComment(c));
         $('[data-empty]').hidden = list.childElementCount > 0;
         next = d.next; more.hidden = !next; ready = true;
+        $('[data-all-comments]').hidden = !focusId;
+        if (focusId && !append) {
+          const focused = document.getElementById(`comment-${focusId}`);
+          if (focused) {
+            focused.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const id = focusId;
+            const mark = () => { void markRepliesRead([id]).catch(() => { /* Retain unread state on network errors. */ }); };
+            if ('IntersectionObserver' in window) {
+              const seen = new IntersectionObserver(entries => {
+                if (document.visibilityState !== 'visible' || !entries.some(e => e.isIntersecting)) return;
+                seen.disconnect(); mark();
+              });
+              seen.observe(focused);
+            } else if (document.visibilityState === 'visible') mark();
+          }
+        }
         status.textContent = '';
       } catch (e) { status.textContent = (e as Error).message; retry.hidden = false; }
       finally { busy = false; controls(); }
@@ -135,7 +157,12 @@ const zh = lang === 'zh';
       let refresh: string | null | undefined;
       try {
         const d = await response(await fetch(endpoint, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(value) }));
-        if (value.action === 'comment') { refresh = target ? (target.threadId ?? target.id) : null; textarea.value = ''; cancelReply(); message('已发布，谢谢你的分享。', 'Published. Thanks for sharing.'); }
+        if (value.action === 'comment') {
+          refresh = target ? (target.threadId ?? target.id) : null; textarea.value = ''; cancelReply();
+          if (refresh === null && focusId) { focusId = null; const url = new URL(location.href); url.searchParams.delete('focus'); history.replaceState(null, '', url); }
+          document.dispatchEvent(new Event('an:comment-posted'));
+          message('已发布，谢谢你的分享。', 'Published. Thanks for sharing.');
+        }
         else { if (value.action === 'like') liked = value.liked as boolean; else rating = value.rating as number | null; paintSummary(d.summary); message('已保存，谢谢你的反馈。', 'Saved. Thanks for your feedback.'); }
       } catch (e) { status.textContent = (e as Error).message; }
       finally { paintVote(); busy = false; controls(); }
@@ -177,5 +204,6 @@ const zh = lang === 'zh';
   [data-comments] :global(.comment-reply-button) { color: var(--accent); background: none; border: 0; font: inherit; font-size: 13px; padding: 8px 0; cursor: pointer; }
   .reply-target { display: flex; align-items: center; gap: 12px; justify-content: space-between; font-size: 13px; overflow-wrap: anywhere; }
   .reply-target .clear-rating { flex-shrink: 0; margin: 0; }
+  [data-comments] :global(.focused-comment) { background: var(--surface); border-radius: 10px; outline: 2px solid var(--accent); outline-offset: 6px; scroll-margin-top: 140px; }
   [hidden] { display: none !important; }
 </style>

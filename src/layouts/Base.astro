@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import AuthMenu from '../components/AuthMenu.astro';
+import ReplyNotifications from '../components/ReplyNotifications.astro';
 import BrandMark from '../components/BrandMark.astro';
 import { altHref, href, site, ui, type Lang } from '../lib/i18n';
 
@@ -95,6 +96,7 @@ const nav = [
         <div class="nav-r">
           <a class="icon-btn" data-language-switch href={lang === 'zh' ? enPath : zhPath} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={u.switchLangLabel}>{u.switchLang}</a>
           <button class="icon-btn" type="button" data-theme-toggle aria-label={u.theme}>◐</button>
+          <ReplyNotifications lang={lang} />
           <AuthMenu lang={lang} />
           <details class="menu">
             <summary class="icon-btn" aria-label={lang === 'zh' ? '菜单' : 'Menu'}>☰</summary>

@@ -1,0 +1,109 @@
+---
+import type { Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const zh = lang === 'zh';
+---
+<div class="reply-inbox" data-reply-inbox data-lang={lang}>
+  <details data-reply-menu>
+    <summary class="icon-btn reply-bell" aria-label={zh ? '我的回复' : 'Replies to me'}>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
+      <b data-reply-count hidden></b>
+    </summary>
+    <div class="reply-panel" aria-label={zh ? '回复提醒' : 'Reply notifications'}>
+      <strong>{zh ? '回复我的评论' : 'Replies to my comments'}</strong>
+      <p class="reply-note">{zh ? '匿名评论的提醒保留在当前浏览器。' : 'Anonymous reply notifications stay in this browser.'}</p>
+      <p role="status" data-inbox-status>{zh ? '正在加载…' : 'Loading…'}</p>
+      <div data-inbox-items></div>
+      <button class="btn btn-s btn-sm" type="button" data-inbox-refresh>{zh ? '刷新' : 'Refresh'}</button>
+    </div>
+  </details>
+  <aside class="reply-notice" role="status" aria-live="polite" data-reply-notice hidden>
+    <strong data-reply-notice-text></strong>
+    <button type="button" class="reply-open" data-reply-open>{zh ? '查看回复' : 'View replies'} →</button>
+    <button type="button" class="reply-dismiss" data-reply-dismiss aria-label={zh ? '暂时关闭提醒' : 'Dismiss reminder'}>×</button>
+  </aside>
+</div>
+<script>
+  import { markRepliesRead } from '../lib/reply-notifications';
+  const root = document.querySelector<HTMLElement>('[data-reply-inbox]');
+  if (root) {
+    const zh = root.dataset.lang === 'zh';
+    const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const menu = $<HTMLDetailsElement>('[data-reply-menu]');
+    const badge = $('[data-reply-count]'), notice = $('[data-reply-notice]');
+    const status = $('[data-inbox-status]'), list = $('[data-inbox-items]');
+    const refreshButton = $<HTMLButtonElement>('[data-inbox-refresh]');
+    let busy = false, refreshAgain = false, signature = '', dismissed = '', lastRefresh = 0;
+    try { dismissed = sessionStorage.getItem('an:reply-reminder-dismissed') ?? ''; } catch { /* Optional. */ }
+    async function refresh() {
+      if (busy) { refreshAgain = true; return; }
+      busy = true; refreshButton.disabled = true;
+      try {
+        const response = await fetch('/api/community/notifications', { credentials: 'same-origin', cache: 'no-store' });
+        if (!response.ok) throw new Error('unavailable');
+        const d = await response.json();
+        badge.hidden = !d.count; badge.textContent = d.count > 99 ? '99+' : String(d.count);
+        menu.querySelector('summary')!.setAttribute('aria-label', zh ? `我的回复${d.count ? `，${d.count} 条未读` : ''}` : `Replies to me${d.count ? `, ${d.count} unread` : ''}`);
+        signature = d.count ? `${d.count}:${d.notifications[0]?.id}` : '';
+        $('[data-reply-notice-text]').textContent = zh ? `你的评论有 ${d.count} 条新回复` : `${d.count} new ${d.count === 1 ? 'reply' : 'replies'} to your comments`;
+        notice.hidden = !d.count || signature === dismissed || menu.open;
+        status.textContent = d.count ? (zh ? `${d.count} 条未读回复` : `${d.count} unread replies`) : (zh ? '暂无未读回复。' : 'No unread replies.');
+        list.replaceChildren();
+        for (const n of d.notifications) {
+          const item = document.createElement('div'); item.className = 'reply-inbox-item';
+          const link = document.createElement('a'); link.href = (zh ? '' : '/en') + n.href;
+          const meta = document.createElement('span'); meta.className = 'reply-note'; meta.textContent = `${n.appId} · ${new Date(n.createdAt).toLocaleString(zh ? 'zh-CN' : 'en-US')}`;
+          const body = document.createElement('p'); body.textContent = n.body;
+          const parent = document.createElement('p'); parent.className = 'reply-quote'; parent.textContent = `${zh ? '回复你：' : 'Reply to: '}${n.parentBody.slice(0, 100)}`;
+          link.append(meta, body, parent);
+          const read = document.createElement('button'); read.type = 'button'; read.className = 'reply-read'; read.textContent = zh ? '标为已读' : 'Mark as read';
+          read.addEventListener('click', async () => {
+            read.disabled = true;
+            try { await markRepliesRead([n.id]); }
+            catch { status.textContent = zh ? '保存失败，请重试。' : 'Unable to save. Please retry.'; read.disabled = false; }
+          });
+          item.append(link, read); list.append(item);
+        }
+        lastRefresh = Date.now();
+      } catch { status.textContent = zh ? '暂时无法加载回复，请刷新重试。' : 'Unable to load replies. Please refresh.'; }
+      finally {
+        busy = false; refreshButton.disabled = false;
+        if (refreshAgain) { refreshAgain = false; void refresh(); }
+      }
+    }
+    menu.addEventListener('toggle', () => { if (menu.open) { notice.hidden = true; void refresh(); } });
+    $('[data-reply-open]').addEventListener('click', () => { menu.open = true; menu.querySelector('summary')?.focus(); });
+    $('[data-reply-dismiss]').addEventListener('click', () => {
+      dismissed = signature; notice.hidden = true;
+      try { sessionStorage.setItem('an:reply-reminder-dismissed', dismissed); } catch { /* Optional. */ }
+    });
+    refreshButton.addEventListener('click', () => { void refresh(); });
+    const resume = () => { if (document.visibilityState === 'visible' && Date.now() - lastRefresh > 5000) void refresh(); };
+    window.addEventListener('focus', resume); window.addEventListener('pageshow', resume);
+    document.addEventListener('visibilitychange', resume);
+    document.addEventListener('an:replies-updated', () => { void refresh(); });
+    document.addEventListener('an:comment-posted', () => { void refresh(); });
+    window.addEventListener('storage', e => { if (e.key === 'an:replies-updated') void refresh(); });
+    document.addEventListener('click', e => { if (!root.contains(e.target as Node)) menu.open = false; });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary')?.focus(); } });
+    void refresh();
+  }
+</script>
+<style>
+  .reply-inbox { position: relative; }
+  summary { list-style: none; cursor: pointer; }summary::-webkit-details-marker { display: none; }
+  .reply-bell { position: relative; display: flex; align-items: center; justify-content: center; }
+  [data-reply-count] { position: absolute; top: -5px; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: #d93a3a; color: white; font-size: 10px; line-height: 17px; text-align: center; }
+  .reply-panel { position: absolute; top: 44px; right: 0; width: min(360px, calc(100vw - 32px)); max-height: min(520px, calc(100dvh - 100px)); overflow-y: auto; padding: 20px; display: grid; gap: 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); z-index: 70; font-size: 14px; }
+  .reply-note { color: var(--text-3); font-size: 12px; }
+  [data-inbox-items] :global(.reply-inbox-item) { padding: 12px 0; border-top: 1px solid var(--line); }
+  [data-inbox-items] :global(a) { display: grid; gap: 6px; overflow-wrap: anywhere; }
+  [data-inbox-items] :global(a:hover) { color: var(--accent); }
+  [data-inbox-items] :global(.reply-quote) { color: var(--text-3); font-size: 12px; }
+  [data-inbox-items] :global(.reply-read), .reply-open { border: 0; background: none; padding: 6px 0; color: var(--accent); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+  .reply-notice { position: fixed; bottom: 24px; right: 24px; width: min(340px, calc(100vw - 32px)); padding: 18px 42px 12px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); z-index: 65; display: grid; gap: 6px; font-size: 14px; }
+  .reply-dismiss { position: absolute; top: 8px; right: 8px; border: 0; background: none; color: var(--text-3); font-size: 22px; cursor: pointer; }
+  [hidden] { display: none !important; }
+  @media(max-width: 640px) { .reply-panel { position: fixed; top: calc(var(--nav-h) + 8px); left: 16px; right: 16px; width: auto; }.reply-notice { right: 16px; bottom: 16px; } }
+</style>
