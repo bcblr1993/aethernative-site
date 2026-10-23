@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.8"
+    build: "2026102302"
+    date: 2026-10-23
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.8/AetherRoute-1.8.8-build-2026102302-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.8
+    sha256: 182e72fc9a2a066648f84979d18d43c5a4698046f2c08eb7e1176b5260cd1be7
+    sparkle:
+      edSignature: dMIyOzozz2Hi43lPSCtY8cLHP8Z9Ln4rElvoh1Aq6NVm+szRPaJ7EVsyrqXQI0NkyA32wTFey4n4oCqz3ipSAw==
+      length: 27328729
+    summary:
+      zh: 彻底卸载数据零残留、完成一键关闭自删除 App、完善沙盒权限与全量门禁通过
+      en: Complete uninstall with zero host residuals, one-click close and auto-removal of app bundle, sandbox entitlement refinements, and full release acceptance
+    notes:
+      - title:
+          zh: 新增
+          en: Added
+        items:
+          - zh: 彻底卸载数据零残留：默认全量清除钥匙串、App Group 容器、Containers 沙盒、Caches 与偏好设置。
+            en: "Zero residual uninstallation: fully erases keychain items, App Group containers, sandbox folders, caches and preferences."
+          - zh: 一键关闭并自动删除：卸载完成点击“完成”即可立即退出应用并从磁盘彻底删除，告别手动拖拽。
+            en: "One-click close and auto-removal: clicking Done closes the app and permanently deletes the bundle from disk without manual drag-and-drop."
+          - zh: 规范沙盒临时例外授权：保持 App Sandbox 隔离的同时赋能原生卸载能力。
+            en: "Refined sandbox temporary exceptions: maintains rigorous App Sandbox security while enabling native uninstallation."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 双端矩阵全绿通过：Tart 虚拟机 6 维网络矩阵与物理真机 Mac mini 运行证据 100% 验证通过。
+            en: "Full dual-track validation passed: Tart VM 6-way network matrix and physical Mac mini runtime evidence 100% verified."
+          - zh: UI 性能与内存严密受控：切页 p95 ≤ 146.8 ms，内存增长 ≤ 2 MB，远优于发版指标。
+            en: "UI performance and memory well within budget: page switch p95 ≤ 146.8 ms, memory growth ≤ 2 MB."
   - version: "1.8.7"
     build: "2026102202"
     date: 2026-10-22
