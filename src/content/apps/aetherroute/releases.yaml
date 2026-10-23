@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.8.9"
+    build: "2026102303"
+    date: 2026-10-23
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.9/AetherRoute-1.8.9-build-2026102303-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.8.9
+    sha256: 7e7e09c932b82efaab83a813dba0030cc0b20335738dda61a2c5bb2f30c205b8
+    sparkle:
+      edSignature: p77mg/gL6qpgnafl9A2CeDge2GxekPtUcqtEuUFdf+WlozoZMpuH9aLbEX7kZJMaEVcsvo70eEJ+tPXpTb9gAA==
+      length: 27819211
+    summary:
+      zh: 已连接流式逐节点延迟测速（消除慢节点队头阻塞与 64 节点上限）、局域网共享代理协同优化及卸载自清理加固
+      en: Streaming per-node verified latency probes while connected, LAN proxy loopback coordination, and uninstaller cleanup hardening
+    notes:
+      - title:
+          zh: 优化与修复
+          en: Fixed & Improved
+        items:
+          - zh: 流式逐节点延迟测速：8 并发滑动窗口实时回传每个节点的协议验证延迟，选中节点优先探测，健康节点 ~100 ms 即刻出分，彻底消除整组被慢节点拖住 6–24 秒的问题。
+            en: "Streaming per-node latency probes: 8-worker sliding window streams verified latency per node with the selected node prioritized first, eliminating 6–24s tail-latency stalls."
+          - zh: 解除 64 节点上限与单节点独立重测：大节点组与 Hysteria2/TUIC/ShadowQUIC/WireGuard 全程走真实协议探测；单点重测仅探测目标节点。
+            en: Removed 64-node batch cap and isolated single-node re-testing across all TCP and UDP protocols.
+          - zh: 并发探测队列与局域网代理协同：Provider 探测队列改为并发执行消除后台巡检阻塞；优化允许局域网模式下的端口监听与终端环境变量复制。
+            en: Concurrent provider probe queue, scaled IPC watchdog, and streamlined Allow LAN listener and shell environment export.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 全量协议互通与双端矩阵通过：12 协议真实互通、Tart VM 6 维网络矩阵与物理真机 Mac mini 门禁 100% 验证通过。
+            en: 12-protocol real interop, Tart VM 6-way network matrix, and physical Mac mini validation 100% passed.
+          - zh: UI 性能与内存表现优异：展示档切页 p95 126.2 ms、重载档切页 p95 125.6 ms，内存中位数稳定在 67 MB。
+            en: "UI performance and memory well within budget: page switch p95 ≤ 126.2 ms, memory median 67 MB."
   - version: "1.8.8"
     build: "2026102302"
     date: 2026-10-23
