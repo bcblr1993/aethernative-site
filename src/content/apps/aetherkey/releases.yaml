@@ -1,0 +1,60 @@
+{
+  "releases": [
+    {
+      "version": "1.0.0",
+      "build": "2026102402",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.0/AetherKey-1.0.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.0",
+      "badge": {
+        "zh": "首个正式版 · Apple 公证",
+        "en": "First stable release · Apple notarized"
+      },
+      "summary": {
+        "zh": "原生 macOS 拼音输入法首个正式版，提供本地转换与学习、紧凑候选面板、中文 Emoji 和完整安装向导。",
+        "en": "The first stable native macOS pinyin release, with local conversion and learning, compact candidates, Chinese emoji lookup and guided setup."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "首版功能",
+            "en": "Included features"
+          },
+          "items": [
+            {
+              "zh": "内容自适应候选面板，跟随光标，支持选词、翻页与展开。",
+              "en": "Content-adaptive candidates follow the caret and support selection, paging and expansion."
+            },
+            {
+              "zh": "44,359 个有普通话读音的汉字，覆盖 8,105 个通用规范汉字；本地学习与自定义短语。",
+              "en": "44,359 characters with Mandarin readings, including all 8,105 standard Chinese characters; local learning and custom phrases."
+            },
+            {
+              "zh": "中文 Emoji、智能标点、中英自动空格和 V 模式；原生安装启用向导。",
+              "en": "Chinese emoji lookup, smart punctuation, mixed-language spacing, V mode and native guided installation."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "系统要求与边界",
+            "en": "Requirements and limits"
+          },
+          "items": [
+            {
+              "zh": "Apple 芯片 Mac，macOS 14 或更新版本。暂无 Intel 版、双拼、语音、手写、云同步和自动更新。",
+              "en": "Apple silicon Mac with macOS 14 or later. No Intel build, shuangpin, voice, handwriting, cloud sync or automatic updates."
+            },
+            {
+              "zh": "更新时重新运行安装向导，保留本地词库与偏好；首次启用需要在系统键盘设置中添加输入法。",
+              "en": "Rerun setup to update while preserving local dictionaries and preferences. First activation requires adding the source in Keyboard settings."
+            }
+          ]
+        }
+      ],
+      "sha256": "0b12f64282f8da6e264888fe6d0e6b8d818be22115338a3ca5f1f5016c2ac2b1"
+    }
+  ]
+}

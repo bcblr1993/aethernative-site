@@ -1,0 +1,125 @@
+{
+  "title": {
+    "zh": "使用帮助与对比说明",
+    "en": "Help and comparison notes"
+  },
+  "heading": {
+    "zh": "从第一句你好，\n开始使用。",
+    "en": "Start with\nyour first nihao."
+  },
+  "sections": [
+    {
+      "heading": {
+        "zh": "安装、切换与更新",
+        "en": "Install, switch and update"
+      },
+      "steps": [
+        {
+          "zh": "下载官方 DMG，打开「安装 AetherKey.app」，按向导完成安装。仅支持 Apple 芯片与 macOS 14+。",
+          "en": "Download the official DMG and run its setup app. Apple silicon and macOS 14+ are required."
+        },
+        {
+          "zh": "在系统设置的键盘 → 文本输入 → 编辑中添加 AetherKey 拼音；从菜单栏选择，或按 Control + 空格切换。",
+          "en": "Add AetherKey Pinyin in System Settings → Keyboard → Text Input → Edit. Select it in the menu bar or press Control + Space."
+        },
+        {
+          "zh": "输入 nihao，空格选择首项，数字键选择候选。使用减号/等号翻页，或点击面板箭头。Tab 切换候选布局。",
+          "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Tab switches candidate layout."
+        },
+        {
+          "zh": "更新时下载新 DMG 并重新运行安装向导，会保留本机词库与偏好。1.0.0 暂无自动更新。",
+          "en": "To update, download the new DMG and rerun setup. Your local dictionary and settings are retained. Version 1.0.0 has no automatic updater."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "姓名、生僻字与个人短语",
+        "en": "Names, uncommon characters and phrases"
+      },
+      "body": [
+        {
+          "zh": "可分开输入 chen、jing、yi，在候选页中选择陈、璟、逸。可在词库中心添加 chenjingyi → 陈璟逸；个人短语保存在本机，不会作为公共词库随安装包分发。",
+          "en": "Type chen, jing and yi separately and page to 陈, 璟 and 逸. Add chenjingyi → 陈璟逸 in the dictionary settings for direct entry. Personal phrases stay local and are not distributed with the app."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "搜狗对比的依据",
+        "en": "Basis for the Sogou comparison"
+      },
+      "body": [
+        {
+          "zh": "对比核对于 2026-10-24。搜狗 Mac 官方日志列有云输入、账号词库同步、语音、皮肤及跨设备剪贴板。它也支持基础离线输入，不能把“能离线”说成 AetherKey 独有优势。AetherKey 的取舍是仅在本机处理、无需账号、公开源码与紧凑原生界面。未进行同版本同条件的性能或准确率对照测试。",
+          "en": "Checked on 2026-10-24. Sogou’s official Mac changelog documents cloud input, account-based dictionary sync, voice, skins and cross-device clipboard. Basic offline typing is not unique to AetherKey. AetherKey focuses on local processing, no accounts, public source and a compact native interface. No controlled version-matched performance or accuracy comparison was performed."
+        }
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "搜狗 Mac 官方页面 ↗",
+            "en": "Sogou Mac official page ↗"
+          },
+          "href": "https://pinyin.sogou.com/mac/"
+        },
+        {
+          "label": {
+            "zh": "搜狗 Mac 官方更新日志 ↗",
+            "en": "Sogou Mac official changelog ↗"
+          },
+          "href": "https://pinyin.sogou.com/mac/update_log.php"
+        },
+        {
+          "label": {
+            "zh": "Unicode Unihan 17 数据 ↗",
+            "en": "Unicode Unihan 17 data ↗"
+          },
+          "href": "https://www.unicode.org/Public/17.0.0/ucd/Unihan.zip"
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "首版实测数据与方法",
+        "en": "Release measurements and method"
+      },
+      "body": [
+        {
+          "zh": "2026-10-24，在 Apple M1 Max、macOS 27.0.1 上，以 Release 优化方式编译引擎，用 20 组拼音执行 10 轮共 200 次热态查询。中位数 0.150 ms，P95 0.554 ms，最大 0.598 ms；首次加载并查询约 880 ms。查询时间只包含引擎调用，不包含按键传递、候选布局或屏幕刷新，不代表端到端打字延迟，也不是与搜狗的对照数据。",
+          "en": "On 2026-10-24, a Release-optimized engine build on Apple M1 Max with macOS 27.0.1 ran 10 rounds of 20 pinyin strings (200 warm queries). Median: 0.150 ms; P95: 0.554 ms; maximum: 0.598 ms. Initial load and first query: about 880 ms. These are engine-call times, excluding keystroke delivery, layout and display. They are not end-to-end typing latency or Sogou comparison results."
+        },
+        {
+          "zh": "32 项自动化回归测试通过，另有隔离 macOS 虚拟机的 DMG 安装、启用、候选与中文提交记录。首版候选排序仍受本地词库与学习记录影响，不据此承诺长句准确率。",
+          "en": "32 automated regression tests passed, alongside isolated macOS VM records for DMG installation, activation, candidates and Chinese text commits. Candidate ordering depends on bundled dictionaries and local learning; no long-sentence accuracy guarantee is inferred."
+        },
+        {
+          "zh": "资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
+          "en": "Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "卸载与问题反馈",
+        "en": "Uninstall and report issues"
+      },
+      "steps": [
+        {
+          "zh": "先从菜单栏切换到其他输入法，再在系统设置中移除 AetherKey。",
+          "en": "Switch to another input source, then remove AetherKey in System Settings."
+        },
+        {
+          "zh": "退出 AetherKey 后，将 ~/Library/Input Methods/AetherKey.app 移到废纸篓；必要时注销重新登录。词库默认保留，可自行决定是否删除。",
+          "en": "Quit AetherKey and move ~/Library/Input Methods/AetherKey.app to Trash. Log out and back in if needed. The local dictionary is retained unless you remove it yourself."
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Issues ↗",
+          "href": "https://github.com/bcblr1993/AetherKey/issues"
+        }
+      ]
+    }
+  ]
+}

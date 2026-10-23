@@ -1,0 +1,52 @@
+{
+  "title": {
+    "zh": "隐私政策",
+    "en": "Privacy Policy"
+  },
+  "heading": {
+    "zh": "输入与学习，\n留在你的 Mac。",
+    "en": "Your typing and learning,\non your Mac."
+  },
+  "meta": {
+    "zh": "适用于 AetherKey 1.0.0 · 2026-10-24",
+    "en": "AetherKey 1.0.0 · 2026-10-24"
+  },
+  "sections": [
+    {
+      "heading": {
+        "zh": "本机处理与存储",
+        "en": "Local processing and storage"
+      },
+      "body": [
+        {
+          "zh": "拼音转换使用安装包内的字词与 Emoji 词库。用户学习、自定义短语存放在 ~/Library/Application Support/AetherKey/user_lexicon.json；偏好由 macOS UserDefaults 保存。客户端不提供云转换、账号登录、广告和分析统计功能。",
+          "en": "Pinyin conversion uses bundled character, phrase and emoji data. Learned words and custom phrases are stored at ~/Library/Application Support/AetherKey/user_lexicon.json; preferences use macOS UserDefaults. There is no cloud conversion, login, advertising or analytics module."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "应用上下文与诊断",
+        "en": "Application context and diagnostics"
+      },
+      "body": [
+        {
+          "zh": "输入法使用系统输入框与光标坐标呈现候选；可根据前台应用识别终端或 IDE 并切换英文。默认不启用光标诊断，手动启用时只记录几何坐标诊断。系统本身仍可能生成崩溃报告。",
+          "en": "The input method uses system input clients and caret geometry to place candidates, and can recognize terminal or IDE apps to switch to English. Caret diagnostics are disabled by default; manually enabled diagnostics record geometry only. macOS may independently generate crash reports."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "下载与反馈",
+        "en": "Downloads and feedback"
+      },
+      "body": [
+        {
+          "zh": "官网下载、GitHub 仓库和问题反馈属于独立网络服务。不要在公开反馈中粘贴敏感输入、私人词库或未遮挡的个人截图。卸载应用不会自动删除个人词库；如需删除，可在退出输入法后自行移除上述本机数据。",
+          "en": "The website, GitHub downloads and issue reports are separate online services. Do not post sensitive typing, private dictionaries or unredacted personal screenshots publicly. Uninstalling does not automatically remove your local dictionary; remove local data yourself after quitting the input method if desired."
+        }
+      ]
+    }
+  ]
+}
