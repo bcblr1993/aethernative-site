@@ -23,12 +23,16 @@
           "en": "Add AetherKey Pinyin in System Settings → Keyboard → Text Input → Edit. Select it in the menu bar or press Control + Space."
         },
         {
-          "zh": "输入 nihao，空格选择首项，数字键选择候选。使用减号/等号翻页，或点击面板箭头。Tab 切换候选布局。",
-          "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Tab switches candidate layout."
+          "zh": "输入 nihao，空格选择首项，数字键选择候选。使用减号/等号翻页，或点击面板箭头。Option + Tab 切换候选布局。",
+          "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "更新时下载新 DMG 并重新运行安装向导，会保留本机词库与偏好。1.0.0 暂无自动更新。",
-          "en": "To update, download the new DMG and rerun setup. Your local dictionary and settings are retained. Version 1.0.0 has no automatic updater."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载并确认安装、重启。自动检查可关闭。1.0.0 没有更新模块，需手动安装一次 1.0.1，之后可应用内更新；更新保留本地词库与偏好。",
+          "en": "Choose Check for Updates in the input menu or Preferences → Updates & Startup, then download, confirm installation and relaunch. Automatic checks can be disabled. Version 1.0.0 requires a one-time manual install of 1.0.1; later updates work in-app. Local dictionaries and preferences are retained."
+        },
+        {
+          "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
+          "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
         }
       ]
     },
@@ -86,8 +90,8 @@
       },
       "body": [
         {
-          "zh": "2026-10-24，在 Apple M1 Max、macOS 27.0.1 上，以 Release 优化方式编译引擎，用 20 组拼音执行 10 轮共 200 次热态查询。中位数 0.150 ms，P95 0.554 ms，最大 0.598 ms；首次加载并查询约 880 ms。查询时间只包含引擎调用，不包含按键传递、候选布局或屏幕刷新，不代表端到端打字延迟，也不是与搜狗的对照数据。",
-          "en": "On 2026-10-24, a Release-optimized engine build on Apple M1 Max with macOS 27.0.1 ran 10 rounds of 20 pinyin strings (200 warm queries). Median: 0.150 ms; P95: 0.554 ms; maximum: 0.598 ms. Initial load and first query: about 880 ms. These are engine-call times, excluding keystroke delivery, layout and display. They are not end-to-end typing latency or Sogou comparison results."
+          "zh": "以下引擎与资源数据测于 1.0.0；1.0.1 的更新模块另有额外开销，不能据此宣称其总内存相同。2026-10-24，在 Apple M1 Max、macOS 27.0.1 上，以 Release 优化方式编译引擎，用 20 组拼音执行 10 轮共 200 次热态查询。中位数 0.150 ms，P95 0.554 ms，最大 0.598 ms；首次加载并查询约 880 ms。查询时间只包含引擎调用，不包含按键传递、候选布局或屏幕刷新，不代表端到端打字延迟，也不是与搜狗的对照数据。",
+          "en": "The following measurements are from 1.0.0. The update module in 1.0.1 adds overhead; these are not a claim of identical total memory. On 2026-10-24, a Release-optimized engine build on Apple M1 Max with macOS 27.0.1 ran 10 rounds of 20 pinyin strings (200 warm queries). Median: 0.150 ms; P95: 0.554 ms; maximum: 0.598 ms. Initial load and first query: about 880 ms. These are engine-call times, excluding keystroke delivery, layout and display. They are not end-to-end typing latency or Sogou comparison results."
         },
         {
           "zh": "32 项自动化回归测试通过，另有隔离 macOS 虚拟机的 DMG 安装、启用、候选与中文提交记录。首版候选排序仍受本地词库与学习记录影响，不据此承诺长句准确率。",

@@ -90,7 +90,7 @@ export function buildAppcast({ appId, appName, site, minimumSystemVersion, relea
   const items = appcastReleases(releases, limit).map((r) => {
     const sp = r.sparkle!;
     const minSys = sp.minimumSystemVersion ?? minimumSystemVersion;
-    const download = new URL(r.download!, site).href;
+    const download = new URL(sp.download ?? r.download!, site).href;
     const notesZh = new URL(`/apps/${appId}/releases/${r.version}/`, site).href;
     const notesEn = new URL(`/en/apps/${appId}/releases/${r.version}/`, site).href;
     return [

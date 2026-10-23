@@ -8,8 +8,8 @@
     "en": "Your typing and learning,\non your Mac."
   },
   "meta": {
-    "zh": "适用于 AetherKey 1.0.0 · 2026-10-24",
-    "en": "AetherKey 1.0.0 · 2026-10-24"
+    "zh": "适用于 AetherKey 1.0.1 · 2026-10-24",
+    "en": "AetherKey 1.0.1 · 2026-10-24"
   },
   "sections": [
     {
@@ -33,6 +33,18 @@
         {
           "zh": "输入法使用系统输入框与光标坐标呈现候选；可根据前台应用识别终端或 IDE 并切换英文。默认不启用光标诊断，手动启用时只记录几何坐标诊断。系统本身仍可能生成崩溃报告。",
           "en": "The input method uses system input clients and caret geometry to place candidates, and can recognize terminal or IDE apps to switch to English. Caret diagnostics are disabled by default; manually enabled diagnostics record geometry only. macOS may independently generate crash reports."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "应用更新",
+        "en": "App updates"
+      },
+      "body": [
+        {
+          "zh": "Sparkle 更新模块默认每 6 小时检查官网更新清单，自动检查可在设置中关闭；手动点击检查更新也会发起请求。下载安装包时访问 GitHub Release。更新请求会产生常规网络连接信息，可能包含应用版本；已关闭系统画像上报，不附带输入文本、用户词库或自定义短语。下载包在解压与安装前进行更新签名验证。",
+          "en": "Sparkle checks the website update feed every six hours by default. You can disable automatic checks; manual checks also make a request. Update downloads use GitHub Releases. Requests involve normal network connection information and may include the app version. System profiling is disabled; typing, dictionaries and custom phrases are not attached. Update signatures are verified before extraction and installation."
         }
       ]
     },

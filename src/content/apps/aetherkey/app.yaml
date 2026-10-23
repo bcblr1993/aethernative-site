@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.0 首个正式版。支持本地学习、自定义短语、中文 Emoji、V 模式与候选翻页；暂不含双拼、语音输入、云端同步和自动更新。",
-    "en": "First stable release: 1.0.0. Local learning, custom phrases, Chinese emoji lookup, V mode and candidate paging. Shuangpin, voice input, cloud sync and automatic updates are not included."
+    "zh": "1.0.1 支持应用内检查更新与签名安装，并保留本地学习、自定义短语、中文 Emoji、V 模式和候选翻页。暂不含双拼、语音和云端词库同步。",
+    "en": "Version 1.0.1 adds in-app update checks and signed installation, alongside local learning, custom phrases, Chinese emoji lookup, V mode and paging. Shuangpin, voice input and cloud sync are not included."
   },
   "gallery": [
     {
@@ -97,6 +97,13 @@
         "en": "Installation · Native setup wizard"
       },
       "zh": "./media/setup.png"
+    },
+    {
+      "label": {
+        "zh": "更新与启动 · 6 小时检查与登录启动",
+        "en": "Updates & Startup · Six-hour checks and login launch"
+      },
+      "zh": "./media/updates.png"
     }
   ],
   "features": {
@@ -168,6 +175,20 @@
           "zh": "输入 meigui 查找玫瑰 Emoji；智能中文标点、可关闭的中英自动空格、V 模式计算与人民币大写，让常用操作就在键盘上。",
           "en": "Type meigui to find rose emoji. Smart Chinese punctuation, optional Chinese–English spacing, V-mode calculations and uppercase RMB amounts keep common tasks on the keyboard."
         }
+      },
+      {
+        "kicker": {
+          "zh": "更新",
+          "en": "Updates"
+        },
+        "title": {
+          "zh": "下一版，在应用里更新",
+          "en": "Get the next version in the app"
+        },
+        "body": {
+          "zh": "每 6 小时自动检查，发现新版时显示版本号与更新说明。设置中可查看最近与下次计划检查、关闭自动检查、管理登录后自动启动；安装前验证更新签名，保留词库与偏好。",
+          "en": "Check automatically every six hours and see the new version and release notes. Settings show the last and next scheduled check, automatic-check controls and login startup. Updates are signature-verified, retaining dictionaries and preferences."
+        }
       }
     ]
   },
@@ -226,8 +247,8 @@
           "en": "Sogou for Mac"
         },
         {
-          "zh": "AetherKey 1.0.0",
-          "en": "AetherKey 1.0.0"
+          "zh": "AetherKey 1.0.1",
+          "en": "AetherKey 1.0.1"
         }
       ],
       "rows": [
@@ -346,8 +367,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24。搜狗信息来自 Mac 官方页面及更新日志，按具体版本和设置而异；本页不声称 AetherKey 更快、更省内存或拥有更高准确率。双方都可以提供离线基础输入。",
-      "en": "Checked 2026-10-24 against Sogou’s official Mac pages and changelog. Features vary by version and settings. No claim of superior speed, memory usage or accuracy is made. Both can support basic offline typing."
+      "zh": "核对日期：2026-10-24。搜狗信息来自 Mac 官方页面及更新日志，按具体版本和设置而异；本页不声称 AetherKey 更快、更省内存或拥有更高准确率。双方都可以提供离线基础输入。 引擎数据测于 1.0.0，完整方法见使用帮助。",
+      "en": "Checked 2026-10-24 against Sogou’s official Mac pages and changelog. Features vary by version and settings. No claim of superior speed, memory usage or accuracy is made. Both can support basic offline typing. Engine measurements are from 1.0.0; see Help for methods."
     }
   },
   "faq": {
@@ -377,8 +398,8 @@
           "en": "Is my typing uploaded?"
         },
         "a": {
-          "zh": "1.0.0 客户端的拼音转换、用户学习与自定义短语在本机完成，没有输入上传接口。访问官网或 GitHub 下载、反馈时，适用相应网站的隐私政策。",
-          "en": "Version 1.0.0 converts pinyin and stores learning and custom phrases locally, with no typing-upload interface. Website visits, downloads and feedback are subject to the respective website policies."
+          "zh": "拼音转换、用户学习与自定义短语在本机完成，没有输入上传接口。开启自动更新检查后，每 6 小时联网检查版本；可在设置关闭。官网、GitHub 下载和反馈适用各自隐私政策。",
+          "en": "Pinyin conversion, learning and custom phrases stay local, with no typing-upload interface. Optional update checks contact the server every six hours and can be disabled. Website, GitHub downloads and feedback follow their respective policies."
         }
       },
       {
@@ -387,8 +408,8 @@
           "en": "Can it fully replace Sogou?"
         },
         "a": {
-          "zh": "适合偏好本机处理和简洁原生界面的全拼用户。首版不含云同步、双拼、语音、手写和自动更新；依赖这些能力时，搜狗等成熟输入法可能更适合。",
-          "en": "It suits full-pinyin users who prefer local processing and a focused native interface. The first release lacks cloud sync, shuangpin, voice, handwriting and automatic updates; mature input methods may better serve those needs."
+          "zh": "适合偏好本机处理和简洁原生界面的全拼用户。当前不含云同步、双拼、语音、手写；依赖这些能力时，搜狗等成熟输入法可能更适合。",
+          "en": "It suits full-pinyin users who prefer local processing and a focused native interface. The current release lacks cloud sync, shuangpin, voice, handwriting; mature input methods may better serve those needs."
         }
       },
       {
@@ -412,5 +433,6 @@
       "zh": "无需账号 · 本机处理 · Apple 芯片 · macOS 14+",
       "en": "No account · On-device · Apple silicon · macOS 14+"
     }
-  }
+  },
+  "sparklePublicKey": "+7eRUcpR39mrlReC1QPjuEEtIXSBq/qWj5hSzVqPJWQ="
 }

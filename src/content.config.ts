@@ -186,6 +186,8 @@ const releases = defineCollection({
         /** Sparkle 自动更新信息（sign_update 的输出）。只有填了这项的版本才会出现在 appcast.xml 里 */
         sparkle: z
           .object({
+            /** Standalone app archive when the primary download is a setup wizard. */
+            download: z.url().optional(),
             edSignature: z.string().regex(/^[A-Za-z0-9+/]{86}==$/, 'edSignature 应为 sign_update 输出的 88 位 Base64'),
             length: z.number().int().positive(),
             minimumSystemVersion: z.string().regex(/^\d+(\.\d+)*$/).optional(),

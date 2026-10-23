@@ -58,6 +58,14 @@ describe('buildAppcast', () => {
     expect(xml).not.toContain('>15.0<');
   });
 
+  it('更新归档与安装向导分开', () => {
+    const update = 'https://github.com/x/y/releases/download/v1.0.0/Y-update.zip';
+    const xml = build([rel({ sparkle: { edSignature: SIG, length: 321, download: update } })]);
+    expect(xml).toContain(`url="${update}"`);
+    expect(xml).toContain(`sparkle:edSignature="${SIG}" length="321"`);
+    expect(xml).not.toContain('Y.dmg');
+  });
+
   it('beta 版本带测试频道标记', () => {
     expect(build([rel({ channel: 'beta' })])).toContain('<sparkle:channel>beta</sparkle:channel>');
   });

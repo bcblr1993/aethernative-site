@@ -28,7 +28,7 @@ export async function checkPackage(app, fetcher = fetch, site = 'https://aethern
       const url = enclosure.match(/\burl="([^"]+)"/)?.[1]?.replaceAll('&amp;','&');
       const signature = enclosure.match(/sparkle:edSignature="([^"]+)"/)?.[1];
       const length = Number(enclosure.match(/\blength="(\d+)"/)?.[1]);
-      const valid = url === new URL(app.download,site).href && !!signature && (!app.edSignature || signature === app.edSignature) && (!app.length || length === app.length);
+      const valid = url === new URL(app.updateDownload ?? app.download,site).href && !!signature && (!app.edSignature || signature === app.edSignature) && (!(app.updateLength ?? app.length) || length === (app.updateLength ?? app.length));
       checks.push({kind:'appcast',status:valid?'ok':'failed',message:valid?'更新源版本、下载地址和大小一致，包含对应签名字段':'更新源与当前正式版不一致或缺少签名字段'});
     } catch(e) {checks.push({kind:'appcast',status:'failed',message:e.message});}
   }

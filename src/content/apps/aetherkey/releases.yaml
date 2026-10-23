@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.1",
+      "build": "2026102404",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.1/AetherKey-1.0.1-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.1",
+      "badge": {
+        "zh": "应用内更新 · Apple 公证",
+        "en": "In-app updates · Apple notarized"
+      },
+      "summary": {
+        "zh": "新增应用内安全更新、每 6 小时检查与可见提醒，以及可管理的登录自动启动。",
+        "en": "Adds signed in-app updates, six-hour checks and visible reminders, plus managed login startup."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "更新与启动",
+            "en": "Updates and startup"
+          },
+          "items": [
+            {
+              "zh": "设置新增“更新与启动”：显示版本、检查状态、最近与下次检查时间，每 6 小时检查；休眠或退出时顺延。",
+              "en": "The new Updates & Startup pane shows version, status, last and next checks. Checks run every six hours while running and awake."
+            },
+            {
+              "zh": "新版本通过 Sparkle 提醒，下载验证签名后由你确认安装，保留本地词库和偏好。",
+              "en": "Sparkle shows available releases, verifies signed downloads and asks before installation, preserving local dictionaries and preferences."
+            },
+            {
+              "zh": "首次启动注册登录自动启动，可随时关闭；界面读取 macOS 实际状态，必要时引导系统允许。",
+              "en": "Login startup registers on first launch and can be disabled. The pane reflects macOS status and guides approval when needed."
+            },
+            {
+              "zh": "1.0.0 用户需手动安装一次 1.0.1，此后可在应用内更新。Apple 芯片，macOS 14 及以上。",
+              "en": "Users of 1.0.0 must install 1.0.1 manually once to enable future in-app updates. Apple silicon, macOS 14 or later."
+            }
+          ]
+        }
+      ],
+      "sha256": "437c6d9a0ac34a7902c3819baf9f81af80574c7fade3f77d63980f9c7477995d",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.1/AetherKey-1.0.1-update.zip",
+        "edSignature": "ZQeJ5uVQee2vIrPkIUlCALQJB1cOIL96fTu6MbYDw/fhAUXe7OJ05eN8XecT0++WHEoVLaPeF5fAlp+KQ5baCQ==",
+        "length": 7602369
+      }
+    },
+    {
       "version": "1.0.0",
       "build": "2026102402",
       "date": "2026-10-24",
