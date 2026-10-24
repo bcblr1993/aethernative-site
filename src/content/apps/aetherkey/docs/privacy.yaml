@@ -8,8 +8,8 @@
     "en": "Your typing and learning,\non your Mac."
   },
   "meta": {
-    "zh": "适用于 AetherKey 1.0.1 · 2026-10-24",
-    "en": "AetherKey 1.0.1 · 2026-10-24"
+    "zh": "适用于 AetherKey 1.0.2 · 2026-10-24",
+    "en": "AetherKey 1.0.2 · 2026-10-24"
   },
   "sections": [
     {
@@ -19,8 +19,8 @@
       },
       "body": [
         {
-          "zh": "拼音转换使用安装包内的字词与 Emoji 词库。用户学习、自定义短语存放在 ~/Library/Application Support/AetherKey/user_lexicon.json；偏好由 macOS UserDefaults 保存。客户端不提供云转换、账号登录、广告和分析统计功能。",
-          "en": "Pinyin conversion uses bundled character, phrase and emoji data. Learned words and custom phrases are stored at ~/Library/Application Support/AetherKey/user_lexicon.json; preferences use macOS UserDefaults. There is no cloud conversion, login, advertising or analytics module."
+          "zh": "拼音转换使用安装包内的字词与 Emoji 词库。用户学习、自定义短语、置顶与忘记记录存放在 ~/Library/Application Support/AetherKey/user_lexicon.json；偏好由 macOS UserDefaults 保存。客户端不提供云转换、账号登录、广告和分析统计功能。",
+          "en": "Pinyin conversion uses bundled character, phrase and emoji data. Learned words, custom phrases, pins and forgotten-word records are stored at ~/Library/Application Support/AetherKey/user_lexicon.json; preferences use macOS UserDefaults. There is no cloud conversion, login, advertising or analytics module."
         }
       ]
     },

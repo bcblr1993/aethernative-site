@@ -63,7 +63,7 @@ const subnav = [
   d.ios && { id: 'ios', label: zh ? 'iOS 版' : 'iPhone' },
   d.protocols && { id: 'protocols', label: zh ? '协议' : 'Protocols' },
   d.features && { id: 'features', label: zh ? '特性' : 'Features' },
-  d.benchmarks && { id: 'benchmarks', label: zh ? '实测' : 'Benchmarks' },
+  d.benchmarks && { id: 'benchmarks', label: d.benchmarks.navLabel ? t(d.benchmarks.navLabel, lang) : zh ? '实测' : 'Benchmarks' },
   d.faq && { id: 'faq', label: 'FAQ' },
 ].filter(Boolean) as { id: string; label: string }[];
 ---
@@ -306,14 +306,16 @@ const subnav = [
           <h2><Text v={d.benchmarks.title} lang={lang} /></h2>
           <p class="lead"><Text v={d.benchmarks.lead} lang={lang} /></p>
         </div></div>
+        {!d.benchmarks.table?.expanded && (
         <div class="grid-4">
           {d.benchmarks.stats.map((s) => (
             <div class="card bench"><strong><Text v={s.value} lang={lang} /></strong><span><Text v={s.label} lang={lang} /></span><p><Text v={s.note} lang={lang} /></p></div>
           ))}
         </div>
+        )}
         {d.benchmarks.table && (
-          <details class="fold compare">
-            <summary>{u.compare}</summary>
+          <details class="fold compare" open={d.benchmarks.table.expanded}>
+            <summary>{d.benchmarks.table.title ? t(d.benchmarks.table.title, lang) : u.compare}</summary>
             <div class="fold-body table-wrap">
               <table>
                 <thead><tr>{d.benchmarks.table.columns.map((c) => <th scope="col"><Text v={c} lang={lang} /></th>)}</tr></thead>
@@ -329,6 +331,13 @@ const subnav = [
               {d.benchmarks.footnote && <p class="muted small mt-sm"><Text v={d.benchmarks.footnote} lang={lang} /></p>}
             </div>
           </details>
+        )}
+        {d.benchmarks.table?.expanded && (
+        <div class="grid-4 comparison-stats">
+          {d.benchmarks.stats.map((s) => (
+            <div class="card bench"><strong><Text v={s.value} lang={lang} /></strong><span><Text v={s.label} lang={lang} /></span><p><Text v={s.note} lang={lang} /></p></div>
+          ))}
+        </div>
         )}
       </div>
     </section>
@@ -683,6 +692,7 @@ const subnav = [
   .bench span { display: block; font-weight: 600; margin-top: 4px; }
   .bench p { font-size: 13px; margin-top: 10px; }
   .compare { margin-top: 28px; }
+  .comparison-stats { margin-top: 28px; }
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 720px; }
   th, td { text-align: left; vertical-align: top; padding: 14px 12px; border-bottom: 1px solid var(--line); }

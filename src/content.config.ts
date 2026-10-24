@@ -146,9 +146,12 @@ const apps = defineCollection({
           eyebrow: L,
           title: L,
           lead: L,
+          navLabel: L.optional(),
           stats: z.array(z.object({ value: L, label: L, note: L })),
           table: z
             .object({
+              expanded: z.boolean().optional(),
+              title: L.optional(),
               columns: z.array(L),
               rows: z.array(z.object({ metric: L, cells: z.array(z.object({ value: L, note: L })) })),
             })

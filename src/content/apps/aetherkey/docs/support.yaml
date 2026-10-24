@@ -27,12 +27,36 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载并确认安装、重启。自动检查可关闭。1.0.0 没有更新模块，需手动安装一次 1.0.1，之后可应用内更新；更新保留本地词库与偏好。",
-          "en": "Choose Check for Updates in the input menu or Preferences → Updates & Startup, then download, confirm installation and relaunch. Automatic checks can be disabled. Version 1.0.0 requires a one-time manual install of 1.0.1; later updates work in-app. Local dictionaries and preferences are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 可直接升级到 1.0.2；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Version 1.0.1 can update directly to 1.0.2; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "拼音编辑与候选管理",
+        "en": "Pinyin editing and candidate preferences"
+      },
+      "steps": [
+        {
+          "zh": "← / → 在拼音串内移动，Option + ← / → 按音节移动，Home / End 到开头或末尾。退格删除前一个字母，Option + 退格删除前一个音节，向前删除键删除光标后的字母。",
+          "en": "Left/Right move within pinyin; Option + arrows move by syllable; Home/End move to either end. Backspace deletes the previous letter, Option + Backspace the previous syllable, and Forward Delete the next letter."
+        },
+        {
+          "zh": "↑ / ↓ / Tab / Shift + Tab 选择候选，空格或数字键上屏，减号/等号翻页。",
+          "en": "Use Up/Down/Tab/Shift + Tab to select candidates, Space or number keys to commit, and minus/equals to page."
+        },
+        {
+          "zh": "右键候选词可置顶、取消置顶或忘记。Control + Option + P / U / 退格分别对当前高亮词执行这三项操作，不会把拼音误上屏。",
+          "en": "Right-click to pin, unpin or forget a candidate. Control + Option + P/U/Backspace perform these actions on the highlighted candidate without committing the composition."
+        },
+        {
+          "zh": "忘记按拼音生效，会移除对应的学习、自定义和置顶记录，并隐藏该候选；其他拼音和词语不受影响。需要恢复时，在词库中心重新添加拼音与短语。",
+          "en": "Forgetting applies to one reading: it removes that word’s learned, custom and pinned entries and hides the candidate. Other readings and words remain. Add the reading and phrase in dictionary settings to restore it."
         }
       ]
     },
@@ -50,13 +74,13 @@
     },
     {
       "heading": {
-        "zh": "搜狗对比的依据",
-        "en": "Basis for the Sogou comparison"
+        "zh": "输入法对比的依据",
+        "en": "Sources for input-method comparisons"
       },
       "body": [
         {
-          "zh": "对比核对于 2026-10-24。搜狗 Mac 官方日志列有云输入、账号词库同步、语音、皮肤及跨设备剪贴板。它也支持基础离线输入，不能把“能离线”说成 AetherKey 独有优势。AetherKey 的取舍是仅在本机处理、无需账号、公开源码与紧凑原生界面。未进行同版本同条件的性能或准确率对照测试。",
-          "en": "Checked on 2026-10-24. Sogou’s official Mac changelog documents cloud input, account-based dictionary sync, voice, skins and cross-device clipboard. Basic offline typing is not unique to AetherKey. AetherKey focuses on local processing, no accounts, public source and a compact native interface. No controlled version-matched performance or accuracy comparison was performed."
+          "zh": "核对日期为 2026-10-24。搜狗的官方资料列有云输入、词库同步、语音和皮肤；Apple 提供内置中文输入方式、候选设置与词频调整；Rime 提供配置文件定制、词典与同步目录机制。AetherKey 的优势侧重默认无需账号的本机全拼、紧凑原生面板与图形化日常词语管理，不意味着其他输入法不能本地输入或管理候选。官网没有以本次功能回归宣称高于其他产品的准确率、速度或资源效率。",
+          "en": "Checked on 2026-10-24. Official Sogou materials document cloud input, dictionary sync, voice and skins. Apple documents built-in Chinese input, candidate settings and frequency adjustment. Rime documents customization, dictionaries and sync folders. AetherKey emphasizes account-free local full-pinyin input, compact native candidates and visual everyday word management; these are not claims that others lack local input or candidate controls. Functional checks do not establish superior accuracy, speed or resource efficiency."
         }
       ],
       "links": [
@@ -80,26 +104,54 @@
             "en": "Unicode Unihan 17 data ↗"
           },
           "href": "https://www.unicode.org/Public/17.0.0/ucd/Unihan.zip"
+        },
+        {
+          "label": {
+            "zh": "Apple 中文输入法手册 ↗",
+            "en": "Apple Chinese input manual ↗"
+          },
+          "href": "https://support.apple.com/zh-hans/guide/chinese-input-method/welcome/mac"
+        },
+        {
+          "label": {
+            "zh": "Apple 候选与词频设置 ↗",
+            "en": "Apple candidate and frequency settings ↗"
+          },
+          "href": "https://support.apple.com/zh-hans/guide/chinese-input-method/cim21aa5fa50/mac"
+        },
+        {
+          "label": {
+            "zh": "Rime 官方定制指南 ↗",
+            "en": "Rime customization guide ↗"
+          },
+          "href": "https://github.com/rime/home/wiki/CustomizationGuide"
+        },
+        {
+          "label": {
+            "zh": "Rime 用户指南与词库同步 ↗",
+            "en": "Rime user guide and dictionary sync ↗"
+          },
+          "href": "https://github.com/rime/home/wiki/UserGuide"
         }
       ]
     },
     {
       "heading": {
-        "zh": "首版实测数据与方法",
-        "en": "Release measurements and method"
+        "zh": "实测数据与验证范围",
+        "en": "Measurements and verification scope"
       },
       "body": [
         {
-          "zh": "以下引擎与资源数据测于 1.0.0；1.0.1 的更新模块另有额外开销，不能据此宣称其总内存相同。2026-10-24，在 Apple M1 Max、macOS 27.0.1 上，以 Release 优化方式编译引擎，用 20 组拼音执行 10 轮共 200 次热态查询。中位数 0.150 ms，P95 0.554 ms，最大 0.598 ms；首次加载并查询约 880 ms。查询时间只包含引擎调用，不包含按键传递、候选布局或屏幕刷新，不代表端到端打字延迟，也不是与搜狗的对照数据。",
-          "en": "The following measurements are from 1.0.0. The update module in 1.0.1 adds overhead; these are not a claim of identical total memory. On 2026-10-24, a Release-optimized engine build on Apple M1 Max with macOS 27.0.1 ran 10 rounds of 20 pinyin strings (200 warm queries). Median: 0.150 ms; P95: 0.554 ms; maximum: 0.598 ms. Initial load and first query: about 880 ms. These are engine-call times, excluding keystroke delivery, layout and display. They are not end-to-end typing latency or Sogou comparison results."
+          "zh": "1.0.2 引擎查询实测：2026-10-24，Apple M1 Max、macOS 27.0.1，Release 优化编译，20 组拼音 × 10 轮共 200 次热态查询。中位数 0.457 ms，P95 2.042 ms，最大 2.197 ms。仅包含引擎调用，不包含按键传递、布局或屏幕刷新，不代表端到端延迟，也不是与搜狗的对照数据。",
+          "en": "Engine measurements for 1.0.2 on 2026-10-24: Apple M1 Max, macOS 27.0.1, Release-optimized compilation, 10 rounds of 20 pinyin inputs (200 warm queries). Median 0.457 ms, P95 2.042 ms, maximum 2.197 ms. Engine calls only, excluding key delivery, layout and display; not end-to-end latency or a Sogou comparison."
         },
         {
-          "zh": "32 项自动化回归测试通过，另有隔离 macOS 虚拟机的 DMG 安装、启用、候选与中文提交记录。首版候选排序仍受本地词库与学习记录影响，不据此承诺长句准确率。",
-          "en": "32 automated regression tests passed, alongside isolated macOS VM records for DMG installation, activation, candidates and Chinese text commits. Candidate ordering depends on bundled dictionaries and local learning; no long-sentence accuracy guarantee is inferred."
+          "zh": "1.0.2 的 40 项自动化回归测试通过，并在本机与隔离 macOS 虚拟机使用系统级真实逐键输入验证中间编辑、整句提交、候选管理、翻页和展开。候选排序仍受词库与本机学习影响，功能回归不等于广泛语料准确率测试。",
+          "en": "All 40 regression tests passed for 1.0.2. Real system-level keystrokes on the host and an isolated macOS VM verified editing, sentence commits, candidate management, paging and expansion. Rankings depend on dictionaries and local learning; functional regression checks are not a broad corpus accuracy study."
         },
         {
-          "zh": "资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
-          "en": "Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
+          "zh": "以下为 1.0.0 的历史资源短样本，不代表 1.0.2：资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
+          "en": "The following historical resource sample is from 1.0.0, not 1.0.2: Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
         }
       ]
     },

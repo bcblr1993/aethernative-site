@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.2",
+      "build": "2026102405",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.2",
+      "badge": {
+        "zh": "拼音编辑 · 候选管理 · Apple 公证",
+        "en": "Inline editing · Candidate controls · Notarized"
+      },
+      "summary": {
+        "zh": "拼音中间编辑、整句候选优化、候选词置顶与忘记，保持紧凑的光标跟随体验。",
+        "en": "Inline pinyin editing, improved sentence candidates, and pinning and forgetting, retaining compact caret-following candidates."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "打字更顺手",
+            "en": "Smoother everyday typing"
+          },
+          "items": [
+            {
+              "zh": "拼音串支持左右、中间插入删除、按音节移动和删除；分步选词后可继续编辑。",
+              "en": "Edit pinyin in place, navigate and delete by syllable, including after partial selection."
+            },
+            {
+              "zh": "整句保留多条词组组合，结合本机选词排序并过滤低质量拼接。",
+              "en": "Sentence candidates retain alternative phrase combinations, use local selections and filter weak combinations."
+            },
+            {
+              "zh": "候选词右键置顶、取消置顶与忘记，支持快捷键；记录按拼音保存，重启及更新后保留。",
+              "en": "Right-click candidates to pin, unpin or forget them; keyboard shortcuts and per-reading persistence are included."
+            },
+            {
+              "zh": "保留紧凑自适应面板与光标跟随；40 项自动化回归通过，并完成真实按键验证。",
+              "en": "Retains compact adaptive candidates and caret following, with 40 regression tests and real-keystroke verification."
+            }
+          ]
+        }
+      ],
+      "sha256": "8e2a39a6e77967115795f2eee49b4214f4216f84af1ee30a43decbc66b176a2f",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-update.zip",
+        "edSignature": "y6MfxQT+/xPX7bcEM0XFfS2HKGyyQRZeRtBwSiKBJdGsA3FFp1+9oVym49t6RSlpSkqhevrdf9qaXMKrY0nOAA==",
+        "length": 7631990
+      }
+    },
+    {
       "version": "1.0.1",
       "build": "2026102404",
       "date": "2026-10-24",

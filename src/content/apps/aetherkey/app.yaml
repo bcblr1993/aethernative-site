@@ -15,8 +15,8 @@
     "en": "Every word, processed on your Mac."
   },
   "summary": {
-    "zh": "为 Apple 芯片 Mac 打造的原生中文拼音输入法。离线词库、贴近光标的紧凑候选面板、中文 Emoji 和本地学习，无需账号。",
-    "en": "A native Chinese pinyin input method for Apple silicon Macs, with offline dictionaries, a compact caret-following panel, Chinese emoji lookup and local learning. No account required."
+    "zh": "无需账号、无需配置文件的原生全拼输入法。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
+    "en": "A native full-pinyin input method with no account or configuration files required for everyday use. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
   },
   "platforms": [
     {
@@ -64,8 +64,8 @@
       "en": "Stay in the flow.\nLet words come naturally."
     },
     "lead": {
-      "zh": "候选面板贴着光标，宽度随词语自然变化。\n从日常短句到名字里的生僻字，用熟悉的拼音输入。",
-      "en": "A compact candidate panel follows your caret and fits its words.\nType everyday phrases and uncommon names with familiar pinyin."
+      "zh": "拼音打错，在中间直接改；常用词，置顶就能找到。\n候选面板贴着光标，宽度随词语自然变化。",
+      "en": "Fix pinyin in place and pin the words you use most.\nCompact candidates follow your caret and fit their words."
     },
     "requirements": {
       "zh": "macOS 14 或更新版本 · Apple 芯片 M 系列",
@@ -73,16 +73,30 @@
     }
   },
   "notice": {
-    "zh": "1.0.1 支持应用内检查更新与签名安装，并保留本地学习、自定义短语、中文 Emoji、V 模式和候选翻页。暂不含双拼、语音和云端词库同步。",
-    "en": "Version 1.0.1 adds in-app update checks and signed installation, alongside local learning, custom phrases, Chinese emoji lookup, V mode and paging. Shuangpin, voice input and cloud sync are not included."
+    "zh": "1.0.2 新增拼音中间编辑、整句候选优化、候选词置顶与忘记。保留紧凑的光标跟随面板、6 小时更新检查与登录启动。暂不含双拼、语音和云同步。",
+    "en": "Version 1.0.2 adds inline pinyin editing, improved sentence candidates, and candidate pinning and forgetting. Compact caret-following candidates, six-hour update checks and login startup remain. Shuangpin, voice and cloud sync are not included."
   },
   "gallery": [
     {
       "label": {
-        "zh": "真实输入 · 候选跟随光标",
-        "en": "Real typing · Caret-following candidates"
+        "zh": "真实输入 · 整句候选与光标跟随",
+        "en": "Real typing · Sentence candidates and caret following"
       },
       "zh": "./media/typing.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.2 · 右键置顶、取消置顶与忘记",
+        "en": "1.0.2 · Right-click to pin, unpin and forget"
+      },
+      "zh": "./media/candidate-management.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.2 · 拼音中间编辑后选词",
+        "en": "1.0.2 · Candidates after inline pinyin editing"
+      },
+      "zh": "./media/editing.png"
     },
     {
       "label": {
@@ -108,16 +122,16 @@
   ],
   "features": {
     "eyebrow": {
-      "zh": "把输入留在本机",
-      "en": "Keep typing local"
+      "zh": "为什么选择 AetherKey",
+      "en": "Why AetherKey"
     },
     "title": {
-      "zh": "少一些打扰，多一些顺手。",
-      "en": "Less distraction. More flow."
+      "zh": "少一些配置，让常用的操作更直接。",
+      "en": "Fewer settings to manage. Everyday actions within reach."
     },
     "lead": {
-      "zh": "围绕 Mac 上每天要做的事，保留清楚、直接的输入体验。",
-      "en": "Made for everyday work on your Mac, with clear and direct controls."
+      "zh": "如果你只想在一台 Mac 上安静地打字，这些是 AetherKey 为你做好的取舍。",
+      "en": "If you want focused typing on one Mac, these are the choices AetherKey makes for you."
     },
     "items": [
       {
@@ -146,6 +160,48 @@
         "body": {
           "zh": "候选面板宽度随内容适配，支持翻页与展开，浅色和深色随系统变化。出现和收起采用轻量渐变，连续输入保持位置跟随。",
           "en": "Content-adaptive width, paging and expanded candidates, with system light and dark appearance. Gentle fades and continuous caret following keep the panel near your text."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "编辑",
+          "en": "Editing"
+        },
+        "title": {
+          "zh": "拼音打错，不用从头再来",
+          "en": "Fix pinyin without starting over"
+        },
+        "body": {
+          "zh": "左右键移动到拼音中间，直接插入、退格或向前删除。Option 配合方向键按音节移动，分步选词后也能继续修改剩余拼音。上下键和 Tab 仍用于选择候选。",
+          "en": "Move within pinyin with Left and Right, then insert, backspace or forward-delete. Option + arrows move by syllable, including after partial selection. Up, Down and Tab still navigate candidates."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "组词",
+          "en": "Sentences"
+        },
+        "title": {
+          "zh": "整句组词，参考你的选词习惯",
+          "en": "Sentence candidates informed by your choices"
+        },
+        "body": {
+          "zh": "保留多条词组组合，结合词组完整度、词典顺序和本机选词记录排序，并过滤低质量拼接。转换全程在本机完成，不依赖联网语言模型。",
+          "en": "Keep alternative phrase combinations and rank them using phrase cohesion, dictionary order and local selections, filtering weak combinations. Conversion runs locally without an online language model."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "管理",
+          "en": "Preferences"
+        },
+        "title": {
+          "zh": "常用词置顶，不想要的词忘记",
+          "en": "Pin useful words and forget unwanted ones"
+        },
+        "body": {
+          "zh": "右键候选词即可置顶、取消置顶或忘记，也支持键盘快捷键。记录按拼音保存在本机，重启与更新后保留；忘记只影响对应拼音，需要时可重新添加自定义短语恢复。",
+          "en": "Right-click a candidate to pin, unpin or forget it, or use keyboard shortcuts. Preferences are stored per reading and survive restarts and updates. Forgotten words can be restored by adding a custom phrase."
         }
       },
       {
@@ -194,16 +250,16 @@
   },
   "benchmarks": {
     "eyebrow": {
-      "zh": "与搜狗 Mac 版怎么选",
-      "en": "Choosing between AetherKey and Sogou for Mac"
+      "zh": "AetherKey · 搜狗 · 系统拼音 · 鼠须管",
+      "en": "AetherKey · Sogou · macOS Pinyin · Rime"
     },
     "title": {
-      "zh": "偏爱本地与简洁，这些是我们的取舍。",
-      "en": "Local and focused, by choice."
+      "zh": "哪款输入法，更适合你的习惯？",
+      "en": "Which input method fits the way you work?"
     },
     "lead": {
-      "zh": "AetherKey 的优势是无需账号、转换链路在本机、源码可审阅，以及紧凑的原生交互。搜狗的云服务与跨端生态更成熟；生僻字和 Emoji 并非 AetherKey 独有。",
-      "en": "AetherKey offers account-free local conversion, publicly inspectable source and a compact native interface. Sogou has a broader cloud and cross-device ecosystem; uncommon characters and emoji are not exclusive to AetherKey."
+      "zh": "相对搜狗的云服务生态，AetherKey 把无需账号、本机转换和紧凑界面作为默认体验；相对鼠须管的深度定制路线，常用词管理可以直接在界面完成。系统拼音的优势是随 Mac 即用。选择 AetherKey，是选择一套专注全拼、直接可控的日常操作。",
+      "en": "Compared with Sogou’s cloud ecosystem, AetherKey focuses on account-free local conversion and a compact interface. Compared with Rime’s deep customization, common word-management actions are available directly in the UI. macOS Pinyin is built in. Choose AetherKey for focused full-pinyin input and direct everyday controls."
     },
     "stats": [
       {
@@ -218,148 +274,293 @@
         }
       },
       {
-        "value": "32",
+        "value": "40",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "引擎、候选选择与分页等回归检查",
-          "en": "Engine, selection, paging and regression checks"
+          "zh": "1.0.2 · 编辑、词库持久化、候选与分页回归",
+          "en": "1.0.2 · Editing, persistence, candidates and paging"
         }
       },
       {
-        "value": "0.15 ms",
+        "value": "0.46 ms",
         "label": {
           "zh": "热态引擎查询中位数",
           "en": "Median warm engine query"
         },
         "note": {
-          "zh": "M1 Max · 200 次查询；不含显示耗时",
-          "en": "M1 Max · 200 queries; excludes rendering"
+          "zh": "1.0.2 · M1 Max · 200 次查询；不含显示耗时",
+          "en": "1.0.2 · M1 Max · 200 queries; excludes rendering"
         }
       }
     ],
     "table": {
+      "expanded": true,
+      "title": {
+        "zh": "四款 Mac 输入法，按需求选择",
+        "en": "Four Mac input methods, compared by need"
+      },
       "columns": [
+        {
+          "zh": "你的需求",
+          "en": "Your needs"
+        },
+        {
+          "zh": "AetherKey 1.0.2",
+          "en": "AetherKey 1.0.2"
+        },
         {
           "zh": "搜狗 Mac 版",
           "en": "Sogou for Mac"
         },
         {
-          "zh": "AetherKey 1.0.1",
-          "en": "AetherKey 1.0.1"
+          "zh": "macOS 系统拼音",
+          "en": "macOS Pinyin"
+        },
+        {
+          "zh": "鼠须管 / Rime",
+          "en": "Squirrel / Rime"
         }
       ],
       "rows": [
         {
           "metric": {
-            "zh": "本地输入与账号",
-            "en": "Local input and accounts"
+            "zh": "产品取向",
+            "en": "Focus"
           },
           "cells": [
             {
               "value": {
-                "zh": "支持本地输入与可选账号服务",
-                "en": "Local input and optional account services"
+                "zh": "专注单台 Mac 的全拼",
+                "en": "Focused full-pinyin typing"
               },
               "note": {
-                "zh": "云输入、词库同步等功能见官方说明",
-                "en": "See official cloud input and sync descriptions"
+                "zh": "无需账号，本机转换与学习",
+                "en": "No account; on-device conversion and learning"
               }
             },
             {
               "value": {
-                "zh": "无需账号",
-                "en": "No account"
+                "zh": "丰富的输入与云功能",
+                "en": "Broad input and cloud features"
               },
               "note": {
-                "zh": "随包词库完成转换，无云同步链路",
-                "en": "Bundled conversion dictionaries, no cloud sync"
+                "zh": "官方提供云输入、语音、账号同步与皮肤",
+                "en": "Officially offers cloud input, voice, account sync and skins"
+              }
+            },
+            {
+              "value": {
+                "zh": "系统内置，开箱即用",
+                "en": "Built into macOS"
+              },
+              "note": {
+                "zh": "直接在键盘设置中添加中文输入方式",
+                "en": "Add Chinese input sources in Keyboard settings"
+              }
+            },
+            {
+              "value": {
+                "zh": "按习惯深度定制",
+                "en": "Deep customization"
+              },
+              "note": {
+                "zh": "输入方案、词典和按键可配置",
+                "en": "Configurable schemas, dictionaries and keys"
               }
             }
           ]
         },
         {
           "metric": {
-            "zh": "界面与交互",
-            "en": "Interface"
+            "zh": "日常调整",
+            "en": "Everyday controls"
           },
           "cells": [
             {
               "value": {
-                "zh": "丰富的个性装扮",
-                "en": "Extensive customization"
+                "zh": "右键就能管理常用词",
+                "en": "Manage words with a right-click"
               },
               "note": {
-                "zh": "官方日志列出皮肤、鼠标特效与 Emoji 面板",
-                "en": "Official log lists skins, pointer effects and an emoji panel"
+                "zh": "置顶、取消置顶、忘记；图形化短语管理",
+                "en": "Pin, unpin, forget; graphical phrase management"
               }
             },
             {
               "value": {
-                "zh": "紧凑原生候选面板",
-                "en": "Compact native panel"
+                "zh": "词库、短语与外观设置",
+                "en": "Dictionaries, phrases and appearance"
               },
               "note": {
-                "zh": "内容适配宽度、光标跟随、系统明暗外观",
-                "en": "Content-adaptive width, caret following and system appearance"
+                "zh": "按使用版本提供相应管理功能",
+                "en": "Management options depend on the installed version"
+              }
+            },
+            {
+              "value": {
+                "zh": "系统设置与词频学习",
+                "en": "System settings and word learning"
+              },
+              "note": {
+                "zh": "支持候选方向、字号、模糊拼音等设置",
+                "en": "Candidate direction, font size and fuzzy-pinyin settings"
+              }
+            },
+            {
+              "value": {
+                "zh": "配置文件与方案部署",
+                "en": "Configuration files and deployment"
+              },
+              "note": {
+                "zh": "官方定制流程提供更广的调整空间",
+                "en": "Official customization workflow offers extensive control"
               }
             }
           ]
         },
         {
           "metric": {
-            "zh": "源码透明度",
-            "en": "Source visibility"
+            "zh": "输入体验",
+            "en": "Typing experience"
           },
           "cells": [
             {
               "value": {
-                "zh": "以官方产品与政策为准",
-                "en": "Refer to official product and policies"
+                "zh": "紧凑面板，修改直接",
+                "en": "Compact candidates and inline editing"
               },
               "note": {
-                "zh": "本页未进行搜狗代码审计",
-                "en": "No Sogou source audit was performed"
+                "zh": "宽度随内容变化；拼音中间插入删除",
+                "en": "Content-adaptive width; edit letters inside pinyin"
               }
             },
             {
               "value": {
-                "zh": "公开源码，可审阅",
-                "en": "Publicly inspectable source"
+                "zh": "全拼、双拼与扩展工具",
+                "en": "Pinyin, shuangpin and extra tools"
               },
               "note": {
-                "zh": "可检查转换、学习与本机存储实现",
-                "en": "Inspect conversion, learning and local storage code"
+                "zh": "语音、手写等以 Mac 官方版本为准",
+                "en": "Voice and handwriting availability follows the Mac release"
+              }
+            },
+            {
+              "value": {
+                "zh": "多种中文输入方式",
+                "en": "Multiple Chinese input methods"
+              },
+              "note": {
+                "zh": "拼音、双拼、笔画、五笔及手写等",
+                "en": "Pinyin, shuangpin, strokes, Wubi and handwriting"
+              }
+            },
+            {
+              "value": {
+                "zh": "方案决定输入方式",
+                "en": "Schema-driven input"
+              },
+              "note": {
+                "zh": "适合需要自定义编码与布局的用户",
+                "en": "Suited to custom encodings and layouts"
               }
             }
           ]
         },
         {
           "metric": {
-            "zh": "跨设备与扩展能力",
-            "en": "Cross-device features"
+            "zh": "个人词库",
+            "en": "Personal dictionaries"
           },
           "cells": [
             {
               "value": {
-                "zh": "更完整的跨端功能",
-                "en": "Broader cross-device features"
+                "zh": "记录留在本机",
+                "en": "Stored on your Mac"
               },
               "note": {
-                "zh": "官方日志提供词库同步、跨端剪贴板和语音功能",
-                "en": "Official log lists dictionary sync, cross-device clipboard and voice features"
+                "zh": "学习、短语、置顶和忘记随更新保留；暂无云同步",
+                "en": "Learning, phrases, pins and forgotten words survive updates; no cloud sync"
               }
             },
             {
               "value": {
-                "zh": "专注单台 Mac",
-                "en": "Focused on one Mac"
+                "zh": "支持账号词库同步",
+                "en": "Account-based dictionary sync"
               },
               "note": {
-                "zh": "暂无云同步、语音和双拼",
-                "en": "No cloud sync, voice input or shuangpin"
+                "zh": "适合需要跨设备同步的用户",
+                "en": "Useful for cross-device dictionary needs"
+              }
+            },
+            {
+              "value": {
+                "zh": "系统词频调整",
+                "en": "System word-frequency learning"
+              },
+              "note": {
+                "zh": "按日常选词习惯调整候选顺序",
+                "en": "Adjusts candidate ordering from selections"
+              }
+            },
+            {
+              "value": {
+                "zh": "词典快照与同步目录",
+                "en": "Snapshots and sync folders"
+              },
+              "note": {
+                "zh": "可结合外部工具同步，需自行配置",
+                "en": "Can work with external sync tools; requires configuration"
+              }
+            }
+          ]
+        },
+        {
+          "metric": {
+            "zh": "更适合谁",
+            "en": "Best fit"
+          },
+          "cells": [
+            {
+              "value": {
+                "zh": "喜欢原生简洁、可视化管理",
+                "en": "Native simplicity and visual controls"
+              },
+              "note": {
+                "zh": "不需要账号与云服务，希望常用操作触手可及",
+                "en": "For local typing with common actions readily accessible"
+              }
+            },
+            {
+              "value": {
+                "zh": "需要完整工具与云生态",
+                "en": "A broader tool and cloud ecosystem"
+              },
+              "note": {
+                "zh": "看重语音、装扮和跨端功能",
+                "en": "For voice, customization and cross-device features"
+              }
+            },
+            {
+              "value": {
+                "zh": "希望不额外安装软件",
+                "en": "No additional software"
+              },
+              "note": {
+                "zh": "优先考虑系统自带的输入体验",
+                "en": "For a built-in typing experience"
+              }
+            },
+            {
+              "value": {
+                "zh": "愿意配置自己的输入系统",
+                "en": "Build your own input setup"
+              },
+              "note": {
+                "zh": "看重方案生态与深度可定制性",
+                "en": "For schema ecosystems and detailed customization"
               }
             }
           ]
@@ -367,8 +568,12 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24。搜狗信息来自 Mac 官方页面及更新日志，按具体版本和设置而异；本页不声称 AetherKey 更快、更省内存或拥有更高准确率。双方都可以提供离线基础输入。 引擎数据测于 1.0.0，完整方法见使用帮助。",
-      "en": "Checked 2026-10-24 against Sogou’s official Mac pages and changelog. Features vary by version and settings. No claim of superior speed, memory usage or accuracy is made. Both can support basic offline typing. Engine measurements are from 1.0.0; see Help for methods."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 当前没有双拼、语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey currently lacks shuangpin, voice, handwriting and cloud sync. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+    },
+    "navLabel": {
+      "zh": "优势与对比",
+      "en": "Why AetherKey"
     }
   },
   "faq": {
@@ -382,6 +587,16 @@
       "en": "Installation, dictionaries and current limits."
     },
     "items": [
+      {
+        "q": {
+          "zh": "已经有系统拼音，为什么还要试 AetherKey？",
+          "en": "Why try AetherKey if I already use macOS Pinyin?"
+        },
+        "a": {
+          "zh": "如果你喜欢随内容变化的紧凑候选面板，想直接在拼音中间修改、右键管理常用词，可以体验 AetherKey 这套交互。系统拼音同样有词频学习和多种中文输入方式；如果你只想零额外安装，它仍然很合适。",
+          "en": "Try AetherKey if you prefer its compact, content-adaptive candidates, inline pinyin editing and direct word-management controls. macOS Pinyin also learns word frequencies and offers several input methods; it remains a good fit when you want no additional installation."
+        }
+      },
       {
         "q": {
           "zh": "如何安装和启用？",
