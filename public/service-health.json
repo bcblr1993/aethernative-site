@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-23T21:30:07.491Z",
+  "checkedAt": "2026-10-24T04:46:48.449Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -8,6 +8,8 @@
       "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.9/AetherRoute-1.8.9-build-2026102303-arm64.dmg",
       "sha256": "7e7e09c932b82efaab83a813dba0030cc0b20335738dda61a2c5bb2f30c205b8",
       "length": 27819211,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v1.8.9/AetherRoute-1.8.9-build-2026102303-arm64.dmg",
+      "updateLength": 27819211,
       "edSignature": "p77mg/gL6qpgnafl9A2CeDge2GxekPtUcqtEuUFdf+WlozoZMpuH9aLbEX7kZJMaEVcsvo70eEJ+tPXpTb9gAA==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
@@ -45,6 +47,8 @@
       "download": "https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.33/AetherNotchQuota-0.1.33-macos-arm64.dmg",
       "sha256": "f8d5678b2ef79813cc63f3fcdc95c360285ef32c6fa5fa6cbbac87e966346850",
       "length": 5431682,
+      "updateDownload": "https://github.com/bcblr1993/AetherNotchQuota/releases/download/v0.1.33/AetherNotchQuota-0.1.33-macos-arm64.dmg",
+      "updateLength": 5431682,
       "edSignature": "VB3pnqAyh6mFf0RjN0R/BitX5rilw035mSXTPffBMDztNznErnWZPWR32JCSgog4icHNrW+3tZBo+aUeQmwGBA==",
       "appcast": "/apps/notchquota/appcast.xml",
       "checks": [
@@ -81,6 +85,7 @@
       "version": "1.14.3",
       "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.14.3/AetherTerm-v1.14.3-macos-arm64.dmg",
       "sha256": "76ca1d78e22cea82d7950dd91821ddf4aab8948fb754cd849c04fa14ad36ea29",
+      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.14.3/AetherTerm-v1.14.3-macos-arm64.dmg",
       "appcast": null,
       "checks": [
         {
@@ -112,6 +117,8 @@
       "download": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.2/AetherSwitch-1.9.2-arm64.dmg",
       "sha256": "b0dc645a5657eb87f0e76c28e7f56280424ee01d8d9fbbbb8c0d620605887724",
       "length": 1943700,
+      "updateDownload": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.2/AetherSwitch-1.9.2-arm64.dmg",
+      "updateLength": 1943700,
       "edSignature": "f0BlrpKGPlYdXdTbvHgb+3m9S6bDEq4ElNfxZL/qMm6qyWzubPgnlyO+WEWgeEahlP0bD57aAKoKrIAKxswiDQ==",
       "appcast": "/apps/aetherswitch/appcast.xml",
       "checks": [
@@ -149,6 +156,8 @@
       "download": "https://github.com/bcblr1993/AetherNote/releases/download/v0.1.5/AetherNote-0.1.5-macos-arm64.dmg",
       "sha256": "833e1d4203f7bdecfdf06f7fe69138258d75831cc03e512b17e96fe622a024b2",
       "length": 3030308,
+      "updateDownload": "https://github.com/bcblr1993/AetherNote/releases/download/v0.1.5/AetherNote-0.1.5-macos-arm64.dmg",
+      "updateLength": 3030308,
       "edSignature": "jbz0WpAUG5n0uw3YhAPgMUOYV3yOKvmQ++mWYh2OZ6A/QpTiB/Yvkc1/COYmkhXUrzfI1EwwEW/6xq5LTIn8BA==",
       "appcast": "/apps/aethernote/appcast.xml",
       "checks": [
@@ -186,6 +195,8 @@
       "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.21/Aether-Antigravity-Multiplexer-v0.8.21-macos-arm64.zip",
       "sha256": "23f8a90269f5c2c7c49685224b32456f989bed993cfdf024844bb046799581ef",
       "length": 4151961,
+      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.21/Aether-Antigravity-Multiplexer-v0.8.21-macos-arm64.zip",
+      "updateLength": 4151961,
       "edSignature": "twwEYRNrg3ytUsrT5BRg3qg+JsbGddR6CtcjLBXUZ3NqLSLQab6rpiFYgZmD4LKj7k9mrBZ26SBzDCG593DOBQ==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
@@ -237,6 +248,8 @@
       "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.3.5/AetherScreens-macOS-AppleSilicon-v1.3.5.dmg",
       "sha256": "ccf44fd3b0f81aa7c1446e8979c969fbeb88ff5ac0dcb9191dc7121f05dd518d",
       "length": 10993553,
+      "updateDownload": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.3.5/AetherScreens-macOS-AppleSilicon-v1.3.5.dmg",
+      "updateLength": 10993553,
       "edSignature": "0j5RqtJui7wyReY8Oe78r3cNL5T9qqpGi4Fqnc2SmfUfMXwZ9hpN8oPccZRbESNXpDZz9DI7FvSzv2EyWsWDDQ==",
       "appcast": "/apps/aetherscreens/appcast.xml",
       "checks": [
@@ -273,6 +286,7 @@
       "version": "0.1.0",
       "download": "https://github.com/bcblr1993/AetherFilm/releases/download/v0.1.0/AetherFilm-0.1.0-macos-arm64.dmg",
       "sha256": "20b579a6c089828808149f2eb776aa7536d4eb8d7b62859326721e300a02f51f",
+      "updateDownload": "https://github.com/bcblr1993/AetherFilm/releases/download/v0.1.0/AetherFilm-0.1.0-macos-arm64.dmg",
       "appcast": null,
       "checks": [
         {
@@ -304,6 +318,8 @@
       "download": "https://github.com/bcblr1993/AetherZip/releases/download/v1.0.2/AetherZip-1.0.2-arm64.dmg",
       "sha256": "76c3b984c8415103ef526dbc184c26ee0964705a4908a0f9816f024270f9fc2c",
       "length": 4436768,
+      "updateDownload": "https://github.com/bcblr1993/AetherZip/releases/download/v1.0.2/AetherZip-1.0.2-arm64.dmg",
+      "updateLength": 4436768,
       "edSignature": "6fTpvFp58LaD2T36ILe28H45yQZx4w1c9vKezL1lPqsdlILDGLdiTOJm+MwATeOw6ZYRKVQ55KbMtvskaet7Bg==",
       "appcast": "/apps/aetherzip/appcast.xml",
       "checks": [
@@ -340,6 +356,7 @@
       "version": "0.1.1",
       "download": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.1.1/AetherTransfer-0.1.1-arm64.dmg",
       "sha256": "e019fd31db58251a98c84b18beac2ffb31d12eb97327a7ddc4c90d5f0355197d",
+      "updateDownload": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.1.1/AetherTransfer-0.1.1-arm64.dmg",
       "appcast": null,
       "checks": [
         {
@@ -359,6 +376,83 @@
           "kind": "size",
           "status": "skipped",
           "message": "发布记录未提供文件大小"
+        }
+      ],
+      "failures": 0,
+      "status": "ok"
+    },
+    {
+      "id": "aetherdisk",
+      "name": "AetherDisk",
+      "version": "0.2.1",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.1/AetherDisk-0.2.1-arm64.dmg",
+      "sha256": "16e16a6f71845d0b8778014d0aacfcd7fdc7755a8ff1db527b2bc7744607ffde",
+      "length": 3189184,
+      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.1/AetherDisk-0.2.1-arm64.dmg",
+      "updateLength": 3189184,
+      "edSignature": "Jwj21MjDo9tNVbDW5+VCEDPd4fciel3LcSxgGGvUyeYUqn4NkwHMJPNO+Ax7RFwOgQcjddt89ceP0K/JbdU7DA==",
+      "appcast": "/apps/aetherdisk/appcast.xml",
+      "checks": [
+        {
+          "kind": "package",
+          "status": "ok",
+          "bytes": 3189184,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/6183e50a-75d7-4943-8429-04051acd84cd",
+          "message": "安装包可下载"
+        },
+        {
+          "kind": "sha256",
+          "status": "ok",
+          "actual": "16e16a6f71845d0b8778014d0aacfcd7fdc7755a8ff1db527b2bc7744607ffde",
+          "message": "SHA256 一致"
+        },
+        {
+          "kind": "size",
+          "status": "ok",
+          "message": "文件大小一致"
+        },
+        {
+          "kind": "appcast",
+          "status": "ok",
+          "message": "更新源版本、下载地址和大小一致，包含对应签名字段"
+        }
+      ],
+      "failures": 0,
+      "status": "ok"
+    },
+    {
+      "id": "aetherkey",
+      "name": "AetherKey",
+      "version": "1.0.2",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-arm64.dmg",
+      "sha256": "8e2a39a6e77967115795f2eee49b4214f4216f84af1ee30a43decbc66b176a2f",
+      "updateDownload": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-update.zip",
+      "updateLength": 7631990,
+      "edSignature": "y6MfxQT+/xPX7bcEM0XFfS2HKGyyQRZeRtBwSiKBJdGsA3FFp1+9oVym49t6RSlpSkqhevrdf9qaXMKrY0nOAA==",
+      "appcast": "/apps/aetherkey/appcast.xml",
+      "checks": [
+        {
+          "kind": "package",
+          "status": "ok",
+          "bytes": 10866776,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431113436/39a6d8b3-82c0-4741-a258-8fe4659ec6a3",
+          "message": "安装包可下载"
+        },
+        {
+          "kind": "sha256",
+          "status": "ok",
+          "actual": "8e2a39a6e77967115795f2eee49b4214f4216f84af1ee30a43decbc66b176a2f",
+          "message": "SHA256 一致"
+        },
+        {
+          "kind": "size",
+          "status": "skipped",
+          "message": "发布记录未提供文件大小"
+        },
+        {
+          "kind": "appcast",
+          "status": "ok",
+          "message": "更新源版本、下载地址和大小一致，包含对应签名字段"
         }
       ],
       "failures": 0,
