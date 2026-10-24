@@ -1,6 +1,54 @@
 {
   "releases": [
     {
+      "version": "0.2.1",
+      "build": "2026102409",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.1/AetherDisk-0.2.1-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v0.2.1",
+      "sha256": "16e16a6f71845d0b8778014d0aacfcd7fdc7755a8ff1db527b2bc7744607ffde",
+      "sparkle": {
+        "edSignature": "Jwj21MjDo9tNVbDW5+VCEDPd4fciel3LcSxgGGvUyeYUqn4NkwHMJPNO+Ax7RFwOgQcjddt89ceP0K/JbdU7DA==",
+        "length": 3189184
+      },
+      "badge": {
+        "zh": "正式版 · 已通过 Apple 公证",
+        "en": "Release · Apple notarized"
+      },
+      "summary": {
+        "zh": "加固扫描准确性与清理安全，扩充源码及安装包保护，加入清理风险与责任提示。",
+        "en": "Strengthens scan accuracy and cleanup safety, expands source and installer protection, and adds risk and responsibility notices."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "安全与准确性复核",
+            "en": "Safety and accuracy audit"
+          },
+          "items": [
+            {
+              "zh": "使用不跟随链接的目录句柄扫描，目录变动与跨卷标记部分结果；统一硬链接占用统计。",
+              "en": "Scans with no-follow directory handles, flags changed folders and skipped volumes, and aligns hard-link usage accounting."
+            },
+            {
+              "zh": "构建目录要求真实项目文件；补齐源码与安装包格式、受保护容器、Git 未忽略文件和异常状态保护。",
+              "en": "Requires real project files for build caches and protects more source and installer formats, protected containers, unignored Git files and failed checks."
+            },
+            {
+              "zh": "占用检查后再次复核，失败项全部保留并报告；部分扫描不覆盖完整历史。",
+              "en": "Revalidates after open-file checks, reports all retained items on failure and preserves complete scan history."
+            },
+            {
+              "zh": "清理确认页、设置和官网显示风险提示：请谨慎操作并先备份，误删或数据丢失由用户自行承担，开发者概不负责。",
+              "en": "The confirmation page, settings and website warn users to review and back up first. Users assume responsibility for accidental deletion or data loss; the developer accepts no liability."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.2.0",
       "build": "2026102405",
       "date": "2026-10-24",

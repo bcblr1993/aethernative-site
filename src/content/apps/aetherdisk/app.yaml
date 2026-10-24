@@ -78,16 +78,16 @@
   "gallery": [
     {
       "label": {
-        "zh": "0.2.0 · 跨目录大文件",
-        "en": "0.2.0 · Large files across folders"
+        "zh": "0.2.1 · 跨目录大文件",
+        "en": "0.2.1 · Large files across folders"
       },
       "zh": "./media/large-light.png",
       "zhDark": "./media/large-dark.png"
     },
     {
       "label": {
-        "zh": "0.2.0 · 文件类型占用",
-        "en": "0.2.0 · File-type breakdown"
+        "zh": "0.2.1 · 文件类型占用",
+        "en": "0.2.1 · File-type breakdown"
       },
       "zh": "./media/types-light.png",
       "zhDark": "./media/types-dark.png"
@@ -109,10 +109,11 @@
     },
     {
       "label": {
-        "zh": "清理前明确确认",
-        "en": "Explicit confirmation before cleanup"
+        "zh": "清理前确认与风险提示",
+        "en": "Review cleanup risks before confirming"
       },
-      "zh": "./media/confirmation-light.png"
+      "zh": "./media/confirmation-light.png",
+      "zhDark": "./media/confirmation-dark.png"
     },
     {
       "label": {
@@ -235,6 +236,16 @@
     "items": [
       {
         "q": {
+          "zh": "清理有风险吗？误删由谁负责？",
+          "en": "What are the cleanup risks and responsibilities?"
+        },
+        "a": {
+          "zh": "软件及清理建议可能存在问题或误判，请谨慎操作。重要文件请先备份，并逐项核对清理目录。误删或数据丢失由用户自行承担，开发者概不负责。",
+          "en": "The software and cleanup suggestions may contain errors or misclassifications. Use caution, back up important files and review every folder before cleaning. Users assume responsibility for accidental deletion or data loss; the developer accepts no liability."
+        }
+      },
+      {
+        "q": {
           "zh": "会自动删除文件吗？",
           "en": "Does it delete files automatically?"
         },
@@ -271,8 +282,8 @@
       "en": "Give your disk some breathing room."
     },
     "note": {
-      "zh": "本机分析 · 确认后清理",
-      "en": "Local analysis · Confirm before cleanup"
+      "zh": "软件及清理建议可能存在问题或误判，请谨慎操作。重要文件请先备份，并逐项核对清理目录。误删或数据丢失由用户自行承担，开发者概不负责。",
+      "en": "The software and cleanup suggestions may contain errors or misclassifications. Use caution, back up important files and review every folder before cleaning. Users assume responsibility for accidental deletion or data loss; the developer accepts no liability."
     }
   }
 }
