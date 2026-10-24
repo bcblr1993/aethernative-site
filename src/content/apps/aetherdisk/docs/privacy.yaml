@@ -18,6 +18,10 @@
         {
           "zh": "扫描文件元数据，不读取文件内容。扫描路径、大小和历史记录保存在本机 ~/Library/Application Support/AetherDisk/Scans，不上传服务器。不含广告或跟踪 SDK。",
           "en": "Reads file metadata without reading contents. Paths, sizes and history remain in local ~/Library/Application Support/AetherDisk/Scans and are not uploaded. No advertising or tracking SDKs."
+        },
+        {
+          "zh": "自定义保护目录路径保存在本机偏好设置。用户主动导出的 CSV 含扫描路径与大小等元数据，由用户选择保存位置；应用不会自动上传报告。",
+          "en": "Custom protection paths are stored in local preferences. Exported CSV reports contain paths and sizes at a location chosen by the user; reports are not automatically uploaded."
         }
       ]
     },

@@ -1,6 +1,50 @@
 {
   "releases": [
     {
+      "version": "0.2.0",
+      "build": "2026102405",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.0/AetherDisk-0.2.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v0.2.0",
+      "sha256": "8adab68fd908cd645d2905159d38b0fc978e0088544016ea42cba3164546b303",
+      "sparkle": {
+        "edSignature": "yb/1jk3KpS4nM8SfAnDxnsU4rhyY8t6Dg2YrehqzutSDSL3X6Bx+Wy25//E6k9z8xwGNZMQf0zo7uRZwdNusAA==",
+        "length": 3157881
+      },
+      "badge": {
+        "zh": "正式版 · 已通过 Apple 公证",
+        "en": "Release · Apple notarized"
+      },
+      "summary": {
+        "zh": "新增大文件排行、类型占用、自定义保护、CSV 报告和权限详情，完善文档与报告保护。",
+        "en": "Adds large-file rankings, file-type usage, custom protection, CSV reports and permission details, with document and report protection."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "分析与保护",
+            "en": "Analysis and protection"
+          },
+          "items": [
+            {
+              "zh": "跨目录查看大文件，支持大小、类型与路径筛选；区分稀疏文件的逻辑大小和真实占用。",
+              "en": "Find large files across folders by size, type or path; distinguish sparse-file logical size from physical usage."
+            },
+            {
+              "zh": "自定义保护目录，连同包含它的缓存父目录一起保留；报告和常见文档默认保护。",
+              "en": "Custom protected folders also protect cache ancestors; reports and common documents are protected by default."
+            },
+            {
+              "zh": "原生导出 CSV 元数据报告，显示具体权限遗漏路径；兼容旧版扫描历史。",
+              "en": "Native CSV metadata reports and specific unreadable paths, with compatibility for earlier scan history."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.1.0",
       "build": "2026102403",
       "date": "2026-10-24",

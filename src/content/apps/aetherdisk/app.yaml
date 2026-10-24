@@ -1,71 +1,278 @@
-name: AetherDisk
-order: 12
-repo: https://github.com/bcblr1993/AetherDisk
-icon: ./media/icon.png
-minimumSystemVersion: "14.0"
-sparklePublicKey: "NtKT+Grl0IhrUwpJJb5a4Lulft66JG+GqgUhx25LD2E="
-appcastMode: mirror
-tech: [Swift, SwiftUI, AppKit, Sparkle]
-tagline: { zh: 看清每一寸空间。, en: See where your space goes. }
-summary:
-  zh: 原生磁盘占用分析工具。扫描隐藏目录、查看占用排行与历史变化，给出保守的缓存清理建议；保护源码和安装包，确认后仅移入废纸篓。
-  en: A native disk usage analyzer with hidden-folder scanning, usage rankings and scan comparisons. Conservative cache suggestions protect source files and installers; cleanup requires confirmation and moves items to Trash.
-platforms:
-  - id: mac
-    status: available
-    requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
-cardStats:
-  - value: "原生 / Native"
-    label: { zh: 紧凑的深浅色界面, en: Compact light and dark interface }
-  - value: "本机 / Local"
-    label: { zh: 不上传扫描记录, en: Scan history stays on your Mac }
-  - value: "先确认 / Confirm"
-    label: { zh: 仅移入废纸篓, en: Move to Trash after confirmation }
-hero:
-  eyebrow: { zh: 原生磁盘分析 · 安心整理, en: Native disk analysis · Thoughtful cleanup }
-  title: { zh: "磁盘空间，\n一目了然。", en: "Your disk space,\nat a glance." }
-  lead:
-    zh: 看清文件夹与隐藏目录的真实占用，追踪两次扫描间的变化。清理建议先检查、再确认，让源码和正式安装包留在原处。
-    en: See folder and hidden-directory usage and compare scans over time. Review cleanup suggestions before confirming; source files and release installers stay protected.
-  requirements: { zh: Apple 芯片 · macOS 14 或更新版本, en: Apple silicon · macOS 14 or later }
-notice:
-  zh: 截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓后，需要你自行清空废纸篓才会释放相应空间。
-  en: Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space.
-gallery:
-  - label: { zh: 磁盘概览 · 深浅外观, en: Overview · Light and dark }
-    zh: ./media/overview-light.png
-    zhDark: ./media/overview-dark.png
-  - label: { zh: 保守的清理建议, en: Conservative cleanup suggestions }
-    zh: ./media/suggestions-dark.png
-  - label: { zh: 清理前明确确认, en: Explicit confirmation before cleanup }
-    zh: ./media/confirmation-light.png
-  - label: { zh: 查看占用变化, en: Compare scans }
-    zh: ./media/changes-light.png
-features:
-  eyebrow: { zh: 看清，再整理, en: Understand before cleaning }
-  title: { zh: 每一步，都清楚。, en: Clarity at every step. }
-  lead: { zh: 本机扫描、保守建议、明确确认。, en: Local scans. Conservative suggestions. Explicit confirmation. }
-  items:
-    - kicker: { zh: 分析, en: Analyze }
-      title: { zh: 包含隐藏目录的占用排行, en: Rankings including hidden folders }
-      body: { zh: 扫描文件元数据，区分已分配大小与逻辑大小，不跟随符号链接、不跨卷；可以随时停止，并明确显示权限遗漏与部分结果。, en: Scans file metadata with separate allocated and logical sizes. Does not follow symlinks or cross volumes. Cancel any time; permission gaps and partial results are visible. }
-    - kicker: { zh: 保护, en: Protect }
-      title: { zh: 源码和安装包默认保留, en: Source and installers stay protected }
-      body: { zh: 结合项目标记识别构建缓存；包含源码、Git 跟踪文件、安装包、签名材料或链接的候选会阻止清理。检查进程占用，执行前再次核对目录内容。, en: "Identifies build caches using project markers. Candidates containing source files, Git-tracked files, installers, signing materials or links are blocked. Checks open files and revalidates before cleanup." }
-    - kicker: { zh: 记录, en: Compare }
-      title: { zh: 知道空间去了哪里, en: See what changed }
-      body: { zh: 对比相同目录的两次扫描，包括新增与已移除的项目。扫描记录只在本机保存，可在 Finder 中查看文件位置。, en: Compares scans of the same folder including added and removed items. History stays on your Mac; reveal items in Finder. }
-faq:
-  eyebrow: FAQ
-  title: { zh: 整理之前，了解这些。, en: Before you tidy up. }
-  lead: { zh: 关于权限、保护和更新。, en: "Permissions, protection and updates." }
-  items:
-    - q: { zh: 会自动删除文件吗？, en: Does it delete files automatically? }
-      a: { zh: 不会。建议默认不勾选，检查后还需确认；执行仅移入系统废纸篓，不永久删除、不自动清空废纸篓。, en: No. Suggestions are unselected by default and require review and confirmation. Cleanup moves items to system Trash without permanently deleting them or emptying Trash. }
-    - q: { zh: 为什么部分目录无法统计？, en: Why are some folders unreadable? }
-      a: { zh: macOS 隐私权限可能限制访问。应用会明确标记遗漏，可按需在系统设置允许完整磁盘访问；它不会将遗漏当作零占用。, en: macOS privacy permissions may restrict access. The app reports gaps and links to Full Disk Access settings rather than treating unreadable content as zero usage. }
-    - q: { zh: 支持应用内更新吗？, en: Are in-app updates supported? }
-      a: { zh: 支持通过官网签名更新源检查更新。下载与安装需要你决定，更新包在解压前验证签名，不发送系统概况。, en: Yes. Updates use the signed website feed and require your decision to download and install. Update signatures are verified before extraction; system profiles are not sent. }
-cta:
-  title: { zh: 让空间，轻一点。, en: Give your disk some breathing room. }
-  note: { zh: 本机分析 · 确认后清理, en: Local analysis · Confirm before cleanup }
+{
+  "name": "AetherDisk",
+  "order": 12,
+  "repo": "https://github.com/bcblr1993/AetherDisk",
+  "icon": "./media/icon.png",
+  "minimumSystemVersion": "14.0",
+  "sparklePublicKey": "NtKT+Grl0IhrUwpJJb5a4Lulft66JG+GqgUhx25LD2E=",
+  "appcastMode": "mirror",
+  "tech": [
+    "Swift",
+    "SwiftUI",
+    "AppKit",
+    "Sparkle"
+  ],
+  "tagline": {
+    "zh": "看清每一寸空间。",
+    "en": "See where your space goes."
+  },
+  "summary": {
+    "zh": "原生磁盘占用分析工具。跨目录定位大文件、查看类型占比与历史变化，导出本机扫描报告；自定义保护重要目录，清理前检查并确认。",
+    "en": "A native disk analyzer with large-file rankings, file-type breakdowns, scan comparisons and local CSV reports. Protect important folders and review cleanup before confirming."
+  },
+  "platforms": [
+    {
+      "id": "mac",
+      "status": "available",
+      "requirement": {
+        "zh": "Apple 芯片 · macOS 14+",
+        "en": "Apple silicon · macOS 14+"
+      }
+    }
+  ],
+  "cardStats": [
+    {
+      "value": "原生 / Native",
+      "label": {
+        "zh": "紧凑的深浅色界面",
+        "en": "Compact light and dark interface"
+      }
+    },
+    {
+      "value": "本机 / Local",
+      "label": {
+        "zh": "不上传扫描记录",
+        "en": "Scan history stays on your Mac"
+      }
+    },
+    {
+      "value": "先确认 / Confirm",
+      "label": {
+        "zh": "仅移入废纸篓",
+        "en": "Move to Trash after confirmation"
+      }
+    }
+  ],
+  "hero": {
+    "eyebrow": {
+      "zh": "原生磁盘分析 · 安心整理",
+      "en": "Native disk analysis · Thoughtful cleanup"
+    },
+    "title": {
+      "zh": "磁盘空间，\n一目了然。",
+      "en": "Your disk space,\nat a glance."
+    },
+    "lead": {
+      "zh": "看清文件夹与隐藏目录的真实占用，追踪两次扫描间的变化。清理建议先检查、再确认，让源码和正式安装包留在原处。",
+      "en": "See folder and hidden-directory usage and compare scans over time. Review cleanup suggestions before confirming; source files and release installers stay protected."
+    },
+    "requirements": {
+      "zh": "Apple 芯片 · macOS 14 或更新版本",
+      "en": "Apple silicon · macOS 14 or later"
+    }
+  },
+  "notice": {
+    "zh": "0.2.0 新增跨目录大文件排行、类型占比、自定义保护与 CSV 报告。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 0.2.0 adds large-file rankings, type breakdowns, custom protection and CSV reports. Screenshots show an isolated test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+  },
+  "gallery": [
+    {
+      "label": {
+        "zh": "0.2.0 · 跨目录大文件",
+        "en": "0.2.0 · Large files across folders"
+      },
+      "zh": "./media/large-light.png",
+      "zhDark": "./media/large-dark.png"
+    },
+    {
+      "label": {
+        "zh": "0.2.0 · 文件类型占用",
+        "en": "0.2.0 · File-type breakdown"
+      },
+      "zh": "./media/types-light.png",
+      "zhDark": "./media/types-dark.png"
+    },
+    {
+      "label": {
+        "zh": "磁盘概览 · 深浅外观",
+        "en": "Overview · Light and dark"
+      },
+      "zh": "./media/overview-light.png",
+      "zhDark": "./media/overview-dark.png"
+    },
+    {
+      "label": {
+        "zh": "保守的清理建议",
+        "en": "Conservative cleanup suggestions"
+      },
+      "zh": "./media/suggestions-dark.png"
+    },
+    {
+      "label": {
+        "zh": "清理前明确确认",
+        "en": "Explicit confirmation before cleanup"
+      },
+      "zh": "./media/confirmation-light.png"
+    },
+    {
+      "label": {
+        "zh": "查看占用变化",
+        "en": "Compare scans"
+      },
+      "zh": "./media/changes-light.png"
+    }
+  ],
+  "features": {
+    "eyebrow": {
+      "zh": "看清，再整理",
+      "en": "Understand before cleaning"
+    },
+    "title": {
+      "zh": "每一步，都清楚。",
+      "en": "Clarity at every step."
+    },
+    "lead": {
+      "zh": "本机扫描、保守建议、明确确认。",
+      "en": "Local scans. Conservative suggestions. Explicit confirmation."
+    },
+    "items": [
+      {
+        "kicker": {
+          "zh": "分析",
+          "en": "Analyze"
+        },
+        "title": {
+          "zh": "包含隐藏目录的占用排行",
+          "en": "Rankings including hidden folders"
+        },
+        "body": {
+          "zh": "扫描文件元数据，区分已分配大小与逻辑大小，不跟随符号链接、不跨卷；可以随时停止，并明确显示权限遗漏与部分结果。",
+          "en": "Scans file metadata with separate allocated and logical sizes. Does not follow symlinks or cross volumes. Cancel any time; permission gaps and partial results are visible."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "保护",
+          "en": "Protect"
+        },
+        "title": {
+          "zh": "源码和安装包默认保留",
+          "en": "Source and installers stay protected"
+        },
+        "body": {
+          "zh": "结合项目标记识别构建缓存；包含源码、Git 跟踪文件、安装包、签名材料或链接的候选会阻止清理。检查进程占用，执行前再次核对目录内容。",
+          "en": "Identifies build caches using project markers. Candidates containing source files, Git-tracked files, installers, signing materials or links are blocked. Checks open files and revalidates before cleanup."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "记录",
+          "en": "Compare"
+        },
+        "title": {
+          "zh": "知道空间去了哪里",
+          "en": "See what changed"
+        },
+        "body": {
+          "zh": "对比相同目录的两次扫描，包括新增与已移除的项目。扫描记录只在本机保存，可在 Finder 中查看文件位置。",
+          "en": "Compares scans of the same folder including added and removed items. History stays on your Mac; reveal items in Finder."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "定位",
+          "en": "Locate"
+        },
+        "title": {
+          "zh": "大文件与类型占比，一起看",
+          "en": "Large files and file types in one place"
+        },
+        "body": {
+          "zh": "跨目录查看大文件，按类型、大小和路径筛选，区分磁盘占用与逻辑大小。类型汇总覆盖已读取的深层文件，不受目录列表显示上限影响。",
+          "en": "Find large files across folders and filter by type, size or path. Separate physical and logical sizes; file-type totals include scanned deep files beyond the directory display limit."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "自定义",
+          "en": "Customize"
+        },
+        "title": {
+          "zh": "重要目录，由你额外保护",
+          "en": "Add your own protected folders"
+        },
+        "body": {
+          "zh": "保护目录仍参与扫描，但清理时连同它的内部文件与包含它的缓存父目录一起保留。设置只在本机保存。",
+          "en": "Protected folders remain in scans but cannot be cleaned, including their contents and cache ancestors. Settings remain local."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "报告",
+          "en": "Reports"
+        },
+        "title": {
+          "zh": "导出报告，查看未读取路径",
+          "en": "Export reports and inspect unreadable paths"
+        },
+        "body": {
+          "zh": "通过系统保存面板导出 CSV 元数据报告，保留大小、类型汇总和权限遗漏；不读取或导出文件内容，报告不会自动上传。",
+          "en": "Export CSV metadata through the native save panel, including sizes, file-type totals and permission gaps. File contents are never read or exported; reports are not uploaded automatically."
+        }
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": {
+      "zh": "整理之前，了解这些。",
+      "en": "Before you tidy up."
+    },
+    "lead": {
+      "zh": "关于权限、保护和更新。",
+      "en": "Permissions, protection and updates."
+    },
+    "items": [
+      {
+        "q": {
+          "zh": "会自动删除文件吗？",
+          "en": "Does it delete files automatically?"
+        },
+        "a": {
+          "zh": "不会。建议默认不勾选，检查后还需确认；执行仅移入系统废纸篓，不永久删除、不自动清空废纸篓。",
+          "en": "No. Suggestions are unselected by default and require review and confirmation. Cleanup moves items to system Trash without permanently deleting them or emptying Trash."
+        }
+      },
+      {
+        "q": {
+          "zh": "为什么部分目录无法统计？",
+          "en": "Why are some folders unreadable?"
+        },
+        "a": {
+          "zh": "macOS 隐私权限可能限制访问。应用会明确标记遗漏，可按需在系统设置允许完整磁盘访问；它不会将遗漏当作零占用。",
+          "en": "macOS privacy permissions may restrict access. The app reports gaps and links to Full Disk Access settings rather than treating unreadable content as zero usage."
+        }
+      },
+      {
+        "q": {
+          "zh": "支持应用内更新吗？",
+          "en": "Are in-app updates supported?"
+        },
+        "a": {
+          "zh": "支持通过官网签名更新源检查更新。下载与安装需要你决定，更新包在解压前验证签名，不发送系统概况。",
+          "en": "Yes. Updates use the signed website feed and require your decision to download and install. Update signatures are verified before extraction; system profiles are not sent."
+        }
+      }
+    ]
+  },
+  "cta": {
+    "title": {
+      "zh": "让空间，轻一点。",
+      "en": "Give your disk some breathing room."
+    },
+    "note": {
+      "zh": "本机分析 · 确认后清理",
+      "en": "Local analysis · Confirm before cleanup"
+    }
+  }
+}
