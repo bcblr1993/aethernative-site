@@ -1,0 +1,37 @@
+{
+  "title": {
+    "zh": "隐私政策",
+    "en": "Privacy Policy"
+  },
+  "heading": {
+    "zh": "文件与记录，留在你的 Mac。",
+    "en": "Files and history stay on your Mac."
+  },
+  "meta": "2026-10-24",
+  "sections": [
+    {
+      "heading": {
+        "zh": "本机磁盘分析",
+        "en": "Local disk analysis"
+      },
+      "body": [
+        {
+          "zh": "扫描文件元数据，不读取文件内容。扫描路径、大小和历史记录保存在本机 ~/Library/Application Support/AetherDisk/Scans，不上传服务器。不含广告或跟踪 SDK。",
+          "en": "Reads file metadata without reading contents. Paths, sizes and history remain in local ~/Library/Application Support/AetherDisk/Scans and are not uploaded. No advertising or tracking SDKs."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "更新与网络",
+        "en": "Updates and network requests"
+      },
+      "body": [
+        {
+          "zh": "检查更新会访问官网更新源，下载时连接安装包托管服务；服务可能记录 IP 等常规访问日志。应用不发送系统概况，可关闭自动检查。",
+          "en": "Update checks contact the website feed and downloads contact the package host. These services may log IP addresses and routine access data. System profiles are not sent; automatic checks can be disabled."
+        }
+      ]
+    }
+  ]
+}

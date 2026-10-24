@@ -1,0 +1,44 @@
+{
+  "releases": [
+    {
+      "version": "0.1.0",
+      "build": "2026102403",
+      "date": "2026-10-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.1.0/AetherDisk-0.1.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v0.1.0",
+      "sha256": "14e328fdec2916ba4aa3dcb3080b2dac0aca38097cd952174b97d8938122cca2",
+      "sparkle": {
+        "edSignature": "7p1Jrm2OplYSdqBcMHiIDZzW0ERNHW/SxVssLSXH07NsuFfYQGIYrgpZY23T8+R3kwav5Xg7vMPIVXslh/s2CQ==",
+        "length": 3095240
+      },
+      "badge": {
+        "zh": "正式版 · 已通过 Apple 公证",
+        "en": "Release · Apple notarized"
+      },
+      "summary": {
+        "zh": "首个正式版：原生磁盘扫描、占用分析、历史变化与确认后移入废纸篓，支持签名应用内更新。",
+        "en": "First release: native disk scanning, usage analysis, scan comparisons and confirmed cleanup to Trash, with signed in-app updates."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "首版功能",
+            "en": "Initial features"
+          },
+          "items": [
+            {
+              "zh": "保护源码、Git 跟踪内容与正式安装包；清理前检查并确认。",
+              "en": "Protects source files, Git-tracked content and release installers; requires review and confirmation before cleanup."
+            },
+            {
+              "zh": "支持深浅色外观、隐藏目录扫描、取消与权限遗漏提示。",
+              "en": "Light and dark appearance, hidden-folder scanning, cancellation and explicit permission gaps."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
