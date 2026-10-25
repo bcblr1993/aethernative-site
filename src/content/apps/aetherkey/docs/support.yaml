@@ -27,12 +27,36 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 可直接升级到 1.0.2；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Version 1.0.1 can update directly to 1.0.2; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 和 1.0.2 可直接升级到 1.0.3；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 and 1.0.2 can update directly to 1.0.3; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "小鹤与微软双拼",
+        "en": "Flypy and Microsoft shuangpin"
+      },
+      "steps": [
+        {
+          "zh": "1.0.3 起，在设置 → 通用设置 → 拼音方案选择全拼、小鹤双拼或微软双拼，也可从输入法菜单切换。默认全拼；正在编辑的拼音保持原方案直到结束。",
+          "en": "From 1.0.3, choose full pinyin, Flypy or Microsoft shuangpin in Settings → General → Pinyin Layout, or use the input-method menu. Full pinyin is the default. An active composition keeps its original layout until finished."
+        },
+        {
+          "zh": "小鹤输入 nihc → 你好、vsgo → 中国、jbtmtmqi → 今天天气；微软输入 nihk → 你好、vsgo → 中国、p; → ping（平等候选）。微软零声母可用 o，例如 or → er。",
+          "en": "Flypy examples: nihc → 你好, vsgo → 中国, jbtmtmqi → 今天天气. Microsoft: nihk → 你好, vsgo → 中国, p; → ping candidates such as 平. Microsoft zero-initial syllables use o, for example or → er."
+        },
+        {
+          "zh": "支持整句、中间插入删除、Option + 方向键按音节移动、分段选词和翻页。学习、短语、置顶和忘记按标准拼音保存，换方案继续使用。自定义短语的拼音仍填写全拼。",
+          "en": "Sentence input, inline editing, Option + arrow syllable movement, partial selection and paging are supported. Learning, phrases, pins and forgotten words use standard pinyin and work across layouts. Enter full pinyin when adding custom phrases."
+        },
+        {
+          "zh": "双拼 v 表示 zh；计算器可继续使用 v 加数字。空格选词，回车提交原始按键。",
+          "en": "In shuangpin v represents zh; v followed by digits still starts the calculator. Space selects a candidate; Return commits the raw keys."
         }
       ]
     },
@@ -79,8 +103,8 @@
       },
       "body": [
         {
-          "zh": "核对日期为 2026-10-24。搜狗的官方资料列有云输入、词库同步、语音和皮肤；Apple 提供内置中文输入方式、候选设置与词频调整；Rime 提供配置文件定制、词典与同步目录机制。AetherKey 的优势侧重默认无需账号的本机全拼、紧凑原生面板与图形化日常词语管理，不意味着其他输入法不能本地输入或管理候选。官网没有以本次功能回归宣称高于其他产品的准确率、速度或资源效率。",
-          "en": "Checked on 2026-10-24. Official Sogou materials document cloud input, dictionary sync, voice and skins. Apple documents built-in Chinese input, candidate settings and frequency adjustment. Rime documents customization, dictionaries and sync folders. AetherKey emphasizes account-free local full-pinyin input, compact native candidates and visual everyday word management; these are not claims that others lack local input or candidate controls. Functional checks do not establish superior accuracy, speed or resource efficiency."
+          "zh": "核对日期为 2026-10-24。搜狗的官方资料列有云输入、词库同步、语音和皮肤；Apple 提供内置中文输入方式、候选设置与词频调整；Rime 提供配置文件定制、词典与同步目录机制。AetherKey 的优势侧重默认无需账号的本机全拼与双拼、紧凑原生面板与图形化日常词语管理，不意味着其他输入法不能本地输入或管理候选。官网没有以本次功能回归宣称高于其他产品的准确率、速度或资源效率。",
+          "en": "Checked on 2026-10-24. Official Sogou materials document cloud input, dictionary sync, voice and skins. Apple documents built-in Chinese input, candidate settings and frequency adjustment. Rime documents customization, dictionaries and sync folders. AetherKey emphasizes account-free local full-pinyin and shuangpin input, compact native candidates and visual everyday word management; these are not claims that others lack local input or candidate controls. Functional checks do not establish superior accuracy, speed or resource efficiency."
         }
       ],
       "links": [
@@ -150,8 +174,8 @@
           "en": "All 40 regression tests passed for 1.0.2. Real system-level keystrokes on the host and an isolated macOS VM verified editing, sentence commits, candidate management, paging and expansion. Rankings depend on dictionaries and local learning; functional regression checks are not a broad corpus accuracy study."
         },
         {
-          "zh": "以下为 1.0.0 的历史资源短样本，不代表 1.0.2：资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
-          "en": "The following historical resource sample is from 1.0.0, not 1.0.2: Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
+          "zh": "以下为 1.0.0 的历史资源短样本，不代表当前 1.0.3：资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
+          "en": "The following historical resource sample is from 1.0.0, not the current 1.0.3: Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
         }
       ]
     },
@@ -174,6 +198,18 @@
         {
           "label": "GitHub Issues ↗",
           "href": "https://github.com/bcblr1993/AetherKey/issues"
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.3 双拼验证",
+        "en": "1.0.3 shuangpin verification"
+      },
+      "body": [
+        {
+          "zh": "44 项自动化回归通过，涵盖双拼键位、音节重码保留、原始按键偏移、分段选词、中间编辑和跨方案候选偏好。已在隔离 macOS 的 TextEdit 中使用系统级逐键事件验证小鹤、微软、分号、零声母、翻页及光标跟随。",
+          "en": "44 regression tests cover layouts, ambiguous syllables, raw-key offsets, partial selection, inline editing and shared preferences. System-level keystrokes in TextEdit on isolated macOS verified Flypy, Microsoft, semicolon, zero-initial syllables, paging and caret following."
         }
       ]
     }

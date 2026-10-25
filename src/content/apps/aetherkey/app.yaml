@@ -15,8 +15,8 @@
     "en": "Every word, processed on your Mac."
   },
   "summary": {
-    "zh": "无需账号、无需配置文件的原生全拼输入法。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
-    "en": "A native full-pinyin input method with no account or configuration files required for everyday use. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
+    "zh": "无需账号、无需配置文件的原生拼音输入法，支持全拼、小鹤双拼和微软双拼。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
+    "en": "A native input method supporting full pinyin, Flypy and Microsoft shuangpin with no account or configuration files required for everyday use. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
   },
   "platforms": [
     {
@@ -73,10 +73,31 @@
     }
   },
   "notice": {
-    "zh": "1.0.2 新增拼音中间编辑、整句候选优化、候选词置顶与忘记。保留紧凑的光标跟随面板、6 小时更新检查与登录启动。暂不含双拼、语音和云同步。",
-    "en": "Version 1.0.2 adds inline pinyin editing, improved sentence candidates, and candidate pinning and forgetting. Compact caret-following candidates, six-hour update checks and login startup remain. Shuangpin, voice and cloud sync are not included."
+    "zh": "1.0.3 新增小鹤双拼和微软双拼，设置或菜单直接切换，与全拼共用本机词库和候选管理。保留拼音中间编辑、紧凑面板与光标跟随；支持应用内签名更新。",
+    "en": "Version 1.0.3 adds Flypy and Microsoft shuangpin, selectable in Settings or the menu. All three layouts share local dictionaries and candidate preferences. Inline editing, compact caret-following candidates and signed in-app updates remain."
   },
   "gallery": [
+    {
+      "label": {
+        "zh": "1.0.3 · 小鹤双拼整句候选",
+        "en": "1.0.3 · Flypy sentence candidates"
+      },
+      "zh": "./media/flypy.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.3 · 微软双拼分号 ing 与光标跟随",
+        "en": "1.0.3 · Microsoft ing key and caret following"
+      },
+      "zh": "./media/microsoft.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.3 · 三种拼音方案，一键选择",
+        "en": "1.0.3 · Choose from three pinyin layouts"
+      },
+      "zh": "./media/pinyin-schemes.png"
+    },
     {
       "label": {
         "zh": "真实输入 · 整句候选与光标跟随",
@@ -160,6 +181,20 @@
         "body": {
           "zh": "候选面板宽度随内容适配，支持翻页与展开，浅色和深色随系统变化。出现和收起采用轻量渐变，连续输入保持位置跟随。",
           "en": "Content-adaptive width, paging and expanded candidates, with system light and dark appearance. Gentle fades and continuous caret following keep the panel near your text."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "双拼",
+          "en": "Shuangpin"
+        },
+        "title": {
+          "zh": "熟悉的双拼，直接选就能用",
+          "en": "Pick your familiar two-key layout"
+        },
+        "body": {
+          "zh": "全拼、小鹤双拼、微软双拼可从设置和输入法菜单切换，无需修改配置文件。整句、拼音编辑、候选词置顶与忘记共用同一套本机词库，换方案不用重新学习。",
+          "en": "Choose full pinyin, Flypy or Microsoft shuangpin in Settings or the input-method menu, with no configuration files to edit. Sentence candidates, inline editing, pins and forgotten words share one local dictionary across layouts."
         }
       },
       {
@@ -258,8 +293,8 @@
       "en": "Which input method fits the way you work?"
     },
     "lead": {
-      "zh": "相对搜狗的云服务生态，AetherKey 把无需账号、本机转换和紧凑界面作为默认体验；相对鼠须管的深度定制路线，常用词管理可以直接在界面完成。系统拼音的优势是随 Mac 即用。选择 AetherKey，是选择一套专注全拼、直接可控的日常操作。",
-      "en": "Compared with Sogou’s cloud ecosystem, AetherKey focuses on account-free local conversion and a compact interface. Compared with Rime’s deep customization, common word-management actions are available directly in the UI. macOS Pinyin is built in. Choose AetherKey for focused full-pinyin input and direct everyday controls."
+      "zh": "相对搜狗的云服务生态，AetherKey 把无需账号、本机转换和紧凑界面作为默认体验；相对鼠须管的深度定制路线，常用词管理可以直接在界面完成。系统拼音的优势是随 Mac 即用。选择 AetherKey，是选择一套支持全拼与两种双拼、直接可控的日常操作。",
+      "en": "Compared with Sogou’s cloud ecosystem, AetherKey focuses on account-free local conversion and a compact interface. Compared with Rime’s deep customization, common word-management actions are available directly in the UI. macOS Pinyin is built in. Choose AetherKey for full pinyin, two shuangpin layouts and direct everyday controls."
     },
     "stats": [
       {
@@ -274,14 +309,14 @@
         }
       },
       {
-        "value": "40",
+        "value": "44",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "1.0.2 · 编辑、词库持久化、候选与分页回归",
-          "en": "1.0.2 · Editing, persistence, candidates and paging"
+          "zh": "1.0.3 · 双拼键位、编辑、共用词库与候选回归",
+          "en": "1.0.3 · Layouts, editing, shared dictionaries and candidates"
         }
       },
       {
@@ -308,8 +343,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.2",
-          "en": "AetherKey 1.0.2"
+          "zh": "AetherKey 1.0.3",
+          "en": "AetherKey 1.0.3"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -333,8 +368,8 @@
           "cells": [
             {
               "value": {
-                "zh": "专注单台 Mac 的全拼",
-                "en": "Focused full-pinyin typing"
+                "zh": "专注单台 Mac 的拼音",
+                "en": "Focused local pinyin typing"
               },
               "note": {
                 "zh": "无需账号，本机转换与学习",
@@ -433,8 +468,8 @@
                 "en": "Compact candidates and inline editing"
               },
               "note": {
-                "zh": "宽度随内容变化；拼音中间插入删除",
-                "en": "Content-adaptive width; edit letters inside pinyin"
+                "zh": "全拼、小鹤与微软双拼；中间编辑、内容自适应面板",
+                "en": "Full pinyin, Flypy and Microsoft; inline editing and adaptive candidates"
               }
             },
             {
@@ -568,8 +603,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 当前没有双拼、语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey currently lacks shuangpin, voice, handwriting and cloud sync. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.3 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.3 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
@@ -599,6 +634,16 @@
       },
       {
         "q": {
+          "zh": "支持哪些双拼？怎么切换？",
+          "en": "Which shuangpin layouts are available?"
+        },
+        "a": {
+          "zh": "1.0.3 支持小鹤双拼与微软双拼。在通用设置的「拼音方案」选择，或从输入法菜单直接切换。默认仍为全拼。微软分号键输入 ing；三种方案共用词库、学习和候选偏好。",
+          "en": "Version 1.0.3 supports Flypy and Microsoft shuangpin. Select a layout in General Settings or the input-method menu. Full pinyin remains the default. Microsoft uses semicolon for ing; all three layouts share dictionaries, learning and candidate preferences."
+        }
+      },
+      {
+        "q": {
           "zh": "如何安装和启用？",
           "en": "How do I install and enable it?"
         },
@@ -623,8 +668,8 @@
           "en": "Can it fully replace Sogou?"
         },
         "a": {
-          "zh": "适合偏好本机处理和简洁原生界面的全拼用户。当前不含云同步、双拼、语音、手写；依赖这些能力时，搜狗等成熟输入法可能更适合。",
-          "en": "It suits full-pinyin users who prefer local processing and a focused native interface. The current release lacks cloud sync, shuangpin, voice, handwriting; mature input methods may better serve those needs."
+          "zh": "适合偏好本机处理和简洁原生界面的全拼与双拼用户。当前不含云同步、语音、手写；依赖这些能力时，搜狗等成熟输入法可能更适合。",
+          "en": "It suits full-pinyin and shuangpin users who prefer local processing and a focused native interface. The current release lacks cloud sync, voice, handwriting; mature input methods may better serve those needs."
         }
       },
       {

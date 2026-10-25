@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.3",
+      "build": "2026102501",
+      "date": "2026-10-25",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.3/AetherKey-1.0.3-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.3",
+      "badge": {
+        "zh": "小鹤与微软双拼 · Apple 公证",
+        "en": "Flypy & Microsoft shuangpin · Notarized"
+      },
+      "summary": {
+        "zh": "新增小鹤双拼、微软双拼，与全拼共用词库和候选偏好，保持紧凑的光标跟随体验。",
+        "en": "Adds Flypy and Microsoft shuangpin with shared dictionaries and candidate preferences, retaining compact caret-following candidates."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "双拼方案与共用词库",
+            "en": "Shuangpin layouts and shared dictionaries"
+          },
+          "items": [
+            {
+              "zh": "设置和输入法菜单支持全拼、小鹤双拼、微软双拼，默认保持全拼；正在编辑的拼音沿用原方案。",
+              "en": "Choose full pinyin, Flypy or Microsoft in Settings or the input-method menu. Full pinyin remains the default; active compositions keep their original layout."
+            },
+            {
+              "zh": "支持双拼整句、中间编辑、按音节移动与删除、分段选词、数字选词和翻页。微软分号输入 ing；v 加数字仍可使用计算器。",
+              "en": "Shuangpin supports sentences, inline editing, syllable movement and deletion, partial selection, number-key selection and paging. Microsoft uses semicolon for ing; v plus digits still starts the calculator."
+            },
+            {
+              "zh": "本机学习、自定义短语、置顶和忘记按标准拼音共用；保留重码读音候选，避免少用字因布局重码丢失。",
+              "en": "Learning, custom phrases, pins and forgotten words share standard-pinyin readings across layouts. Ambiguous layout mappings retain their alternate readings."
+            },
+            {
+              "zh": "保留自适应候选面板、光标跟随、6 小时检查更新与登录启动；44 项回归测试通过，两种双拼完成真实逐键打字验证。",
+              "en": "Retains adaptive candidates, caret following, six-hour update checks and login startup. All 44 regression tests passed, with real-keystroke verification of both layouts."
+            }
+          ]
+        }
+      ],
+      "sha256": "359dc93fc28f7a9256770cb474ee9202f251a450e2fe03eb1b8bdd25949fe99e",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.3/AetherKey-1.0.3-update.zip",
+        "edSignature": "bl8398ZkSSYRLY0tp/cMpafFgyUM85zHs31otDrkNhTOA5Oq0BkNZpJq+hH3LPz9CEsYnE2NqRXDrnqFwNf8Aw==",
+        "length": 7657260
+      }
+    },
+    {
       "version": "1.0.2",
       "build": "2026102405",
       "date": "2026-10-24",
