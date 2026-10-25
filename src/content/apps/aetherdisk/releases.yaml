@@ -1,6 +1,50 @@
 {
   "releases": [
     {
+      "version": "0.2.2",
+      "build": "2026102502",
+      "date": "2026-10-25",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.2/AetherDisk-0.2.2-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v0.2.2",
+      "sha256": "1e82e1f49ea4c59312c37ff975e21f469f283268994297bcca6f8db54bbb0d38",
+      "sparkle": {
+        "edSignature": "DnQ+9DXhwTmxLXfU1KX/wHsxhGjtgxLliN5+RCFfHjgl4YoY9faR4SiYmVgKf0Zu48zmQ5MIWRS5NbkYcMydAw==",
+        "length": 3223132
+      },
+      "badge": {
+        "zh": "正式版 · 已通过 Apple 公证",
+        "en": "Release · Apple notarized"
+      },
+      "summary": {
+        "zh": "统一按钮、弹出面板与深浅色界面，改善设置页及原生文件选择/导出体验。",
+        "en": "Unifies buttons, sheets and light/dark styling, with improved settings and native file-selection/export panels."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "统一的原生界面",
+            "en": "A consistent native interface"
+          },
+          "items": [
+            {
+              "zh": "统一主按钮、次按钮、文字操作与红色危险操作，共用尺寸、圆角和焦点反馈。",
+              "en": "Primary, secondary, text and red destructive actions share sizes, corner radii and focus feedback."
+            },
+            {
+              "zh": "清理确认和未读取路径面板共用标题、内容与操作栏，保留源码/安装包保护和风险提醒。",
+              "en": "Cleanup confirmation and unreadable-path sheets share a header, content and action layout while retaining protection and risk notices."
+            },
+            {
+              "zh": "统一搜索框、卡片及设置页布局；文件选择与 CSV 保存面板依附当前窗口，取消后可正常再次打开。",
+              "en": "Consistent search fields, cards and settings; native folder and CSV panels attach to the current window and reopen correctly after cancellation."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.2.1",
       "build": "2026102409",
       "date": "2026-10-24",

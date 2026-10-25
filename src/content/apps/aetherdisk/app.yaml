@@ -72,26 +72,10 @@
     }
   },
   "notice": {
-    "zh": "0.2.0 新增跨目录大文件排行、类型占比、自定义保护与 CSV 报告。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "Version 0.2.0 adds large-file rankings, type breakdowns, custom protection and CSV reports. Screenshots show an isolated test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "0.2.2 统一按钮、弹出面板与深浅色样式。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 0.2.2 unifies buttons, sheets and light/dark styling. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
   },
   "gallery": [
-    {
-      "label": {
-        "zh": "0.2.1 · 跨目录大文件",
-        "en": "0.2.1 · Large files across folders"
-      },
-      "zh": "./media/large-light.png",
-      "zhDark": "./media/large-dark.png"
-    },
-    {
-      "label": {
-        "zh": "0.2.1 · 文件类型占用",
-        "en": "0.2.1 · File-type breakdown"
-      },
-      "zh": "./media/types-light.png",
-      "zhDark": "./media/types-dark.png"
-    },
     {
       "label": {
         "zh": "磁盘概览 · 深浅外观",
@@ -102,10 +86,34 @@
     },
     {
       "label": {
+        "zh": "0.2.2 · 跨目录大文件",
+        "en": "0.2.2 · Large files across folders"
+      },
+      "zh": "./media/large-light.png",
+      "zhDark": "./media/large-dark.png"
+    },
+    {
+      "label": {
+        "zh": "0.2.2 · 文件类型占用",
+        "en": "0.2.2 · File-type breakdown"
+      },
+      "zh": "./media/types-light.png",
+      "zhDark": "./media/types-dark.png"
+    },
+    {
+      "label": {
         "zh": "保守的清理建议",
         "en": "Conservative cleanup suggestions"
       },
       "zh": "./media/suggestions-dark.png"
+    },
+    {
+      "label": {
+        "zh": "统一的设置与更新界面",
+        "en": "Consistent settings and updates"
+      },
+      "zh": "./media/updates-light.png",
+      "zhDark": "./media/updates-dark.png"
     },
     {
       "label": {
