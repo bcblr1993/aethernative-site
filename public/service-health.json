@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-24T20:57:39.353Z",
+  "checkedAt": "2026-10-25T04:53:49.819Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -384,26 +384,26 @@
     {
       "id": "aetherdisk",
       "name": "AetherDisk",
-      "version": "0.2.1",
-      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.1/AetherDisk-0.2.1-arm64.dmg",
-      "sha256": "16e16a6f71845d0b8778014d0aacfcd7fdc7755a8ff1db527b2bc7744607ffde",
-      "length": 3189184,
-      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.1/AetherDisk-0.2.1-arm64.dmg",
-      "updateLength": 3189184,
-      "edSignature": "Jwj21MjDo9tNVbDW5+VCEDPd4fciel3LcSxgGGvUyeYUqn4NkwHMJPNO+Ax7RFwOgQcjddt89ceP0K/JbdU7DA==",
+      "version": "0.2.2",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.2/AetherDisk-0.2.2-arm64.dmg",
+      "sha256": "1e82e1f49ea4c59312c37ff975e21f469f283268994297bcca6f8db54bbb0d38",
+      "length": 3223132,
+      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.2.2/AetherDisk-0.2.2-arm64.dmg",
+      "updateLength": 3223132,
+      "edSignature": "DnQ+9DXhwTmxLXfU1KX/wHsxhGjtgxLliN5+RCFfHjgl4YoY9faR4SiYmVgKf0Zu48zmQ5MIWRS5NbkYcMydAw==",
       "appcast": "/apps/aetherdisk/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3189184,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/6183e50a-75d7-4943-8429-04051acd84cd",
+          "bytes": 3223132,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/c9f263a5-7e0a-4795-89b9-91cc9f23d918",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "16e16a6f71845d0b8778014d0aacfcd7fdc7755a8ff1db527b2bc7744607ffde",
+          "actual": "1e82e1f49ea4c59312c37ff975e21f469f283268994297bcca6f8db54bbb0d38",
           "message": "SHA256 一致"
         },
         {
@@ -423,25 +423,25 @@
     {
       "id": "aetherkey",
       "name": "AetherKey",
-      "version": "1.0.2",
-      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-arm64.dmg",
-      "sha256": "8e2a39a6e77967115795f2eee49b4214f4216f84af1ee30a43decbc66b176a2f",
-      "updateDownload": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.2/AetherKey-1.0.2-update.zip",
-      "updateLength": 7631990,
-      "edSignature": "y6MfxQT+/xPX7bcEM0XFfS2HKGyyQRZeRtBwSiKBJdGsA3FFp1+9oVym49t6RSlpSkqhevrdf9qaXMKrY0nOAA==",
+      "version": "1.0.3",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.3/AetherKey-1.0.3-arm64.dmg",
+      "sha256": "359dc93fc28f7a9256770cb474ee9202f251a450e2fe03eb1b8bdd25949fe99e",
+      "updateDownload": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.3/AetherKey-1.0.3-update.zip",
+      "updateLength": 7657260,
+      "edSignature": "bl8398ZkSSYRLY0tp/cMpafFgyUM85zHs31otDrkNhTOA5Oq0BkNZpJq+hH3LPz9CEsYnE2NqRXDrnqFwNf8Aw==",
       "appcast": "/apps/aetherkey/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 10866776,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431113436/39a6d8b3-82c0-4741-a258-8fe4659ec6a3",
+          "bytes": 10769870,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431113436/c9e88d9f-aa85-4c5c-bab9-6d619765dff1",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "8e2a39a6e77967115795f2eee49b4214f4216f84af1ee30a43decbc66b176a2f",
+          "actual": "359dc93fc28f7a9256770cb474ee9202f251a450e2fe03eb1b8bdd25949fe99e",
           "message": "SHA256 一致"
         },
         {
