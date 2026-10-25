@@ -73,10 +73,24 @@
     }
   },
   "notice": {
-    "zh": "1.0.3 新增小鹤双拼和微软双拼，设置或菜单直接切换，与全拼共用本机词库和候选管理。保留拼音中间编辑、紧凑面板与光标跟随；支持应用内签名更新。",
-    "en": "Version 1.0.3 adds Flypy and Microsoft shuangpin, selectable in Settings or the menu. All three layouts share local dictionaries and candidate preferences. Inline editing, compact caret-following candidates and signed in-app updates remain."
+    "zh": "1.0.4 优化准确音节与模糊音排序，结合光标前文从本地词库联想，支持全拼与两种双拼。新增默认关闭的“中文使用英文标点”，Ctrl + . 随时切换，保留当前拼音和候选。",
+    "en": "Version 1.0.4 improves exact and fuzzy candidate ordering and uses preceding text for on-device dictionary continuations across all three layouts. Optional English punctuation is off by default; Ctrl + . switches styles without committing the composition."
   },
   "gallery": [
+    {
+      "label": {
+        "zh": "1.0.4 · 光标前文联想：快捷 jian → 键",
+        "en": "1.0.4 · Contextual continuation: 快捷 jian → 键"
+      },
+      "zh": "./media/context.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.4 · 中文使用英文标点，默认关闭",
+        "en": "1.0.4 · Optional English punctuation, off by default"
+      },
+      "zh": "./media/punctuation.png"
+    },
     {
       "label": {
         "zh": "1.0.3 · 小鹤双拼整句候选",
@@ -217,12 +231,12 @@
           "en": "Sentences"
         },
         "title": {
-          "zh": "整句组词，参考你的选词习惯",
-          "en": "Sentence candidates informed by your choices"
+          "zh": "接着前文，候选更贴近表达",
+          "en": "Candidates informed by the preceding text"
         },
         "body": {
-          "zh": "保留多条词组组合，结合词组完整度、词典顺序和本机选词记录排序，并过滤低质量拼接。转换全程在本机完成，不依赖联网语言模型。",
-          "en": "Keep alternative phrase combinations and rank them using phrase cohesion, dictionary order and local selections, filtering weak combinations. Conversion runs locally without an online language model."
+          "zh": "准确音节优先于歧义词与模糊音；结合光标前最多四个相邻汉字，从本地词库查找续词。例如“快捷 jian”推荐“键”，“文 jian”推荐“件”，“时 jian”推荐“间”。保留置顶、自定义与忘记规则；没有可用前文时使用普通候选排序。",
+          "en": "Exact syllables precede ambiguous and fuzzy alternatives. Up to four adjacent Chinese characters before the caret guide local dictionary continuations, such as 快捷 jian → 键 and 时 jian → 间. Pins, custom phrases and forgotten words remain respected. Without usable context, normal ordering applies."
         }
       },
       {
@@ -263,8 +277,8 @@
           "en": "Emoji, punctuation and numbers"
         },
         "body": {
-          "zh": "输入 meigui 查找玫瑰 Emoji；智能中文标点、可关闭的中英自动空格、V 模式计算与人民币大写，让常用操作就在键盘上。",
-          "en": "Type meigui to find rose emoji. Smart Chinese punctuation, optional Chinese–English spacing, V-mode calculations and uppercase RMB amounts keep common tasks on the keyboard."
+          "zh": "输入 meigui 查找玫瑰 Emoji；智能中文标点、可关闭的中英自动空格、V 模式计算与人民币大写，让常用操作就在键盘上。 “中文使用英文标点”默认关闭，Ctrl + . 可在输入中切换。",
+          "en": "Type meigui to find rose emoji. Smart Chinese punctuation, optional Chinese–English spacing, V-mode calculations and uppercase RMB amounts keep common tasks on the keyboard. English punctuation in Chinese mode is optional and off by default; toggle with Ctrl + . while composing."
         }
       },
       {
@@ -309,14 +323,14 @@
         }
       },
       {
-        "value": "44",
+        "value": "52",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "1.0.3 · 双拼键位、编辑、共用词库与候选回归",
-          "en": "1.0.3 · Layouts, editing, shared dictionaries and candidates"
+          "zh": "1.0.4 · 候选排序、前文联想、标点、双拼与面板回归",
+          "en": "1.0.4 · Ranking, context, punctuation, shuangpin and panel regression tests"
         }
       },
       {
@@ -343,8 +357,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.3",
-          "en": "AetherKey 1.0.3"
+          "zh": "AetherKey 1.0.4",
+          "en": "AetherKey 1.0.4"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -603,8 +617,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.3 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.3 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.4 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.4 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",

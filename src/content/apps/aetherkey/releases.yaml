@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.4",
+      "build": "2026102502",
+      "date": "2026-10-25",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.4/AetherKey-1.0.4-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.4",
+      "badge": {
+        "zh": "上下文候选与标点切换 · Apple 公证",
+        "en": "Contextual candidates & punctuation · Notarized"
+      },
+      "summary": {
+        "zh": "优化准确音节与模糊音排序，基于光标前文做本地词库联想；新增默认关闭的中文使用英文标点与 Ctrl + . 切换。",
+        "en": "Improves exact and fuzzy ordering, adds local dictionary continuations using preceding text, and offers optional English punctuation with Ctrl + . switching."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "候选排序与输入体验",
+            "en": "Candidate ordering and typing"
+          },
+          "items": [
+            {
+              "zh": "准确单音节优先于歧义词与模糊音。使用光标前最多四个相邻汉字查现有本地词库，覆盖快捷键、文件、时间、银行等多种续词场景；全拼和两种双拼共用。",
+              "en": "Exact syllables precede ambiguous and fuzzy alternatives. Up to four adjacent Chinese characters guide continuations from the existing local dictionary across all three layouts."
+            },
+            {
+              "zh": "保留置顶、自定义与忘记规则。删除文字或移动光标后重新读取上下文；接口不可用且光标锚点不匹配时回退普通排序，标点结束上下文。",
+              "en": "Pins, custom phrases and forgotten words remain respected. Context is refreshed after editing or moving the caret; unavailable context with a changed caret anchor falls back to normal ordering, and punctuation ends context."
+            },
+            {
+              "zh": "新增“中文使用英文标点”，默认关闭，可从设置或菜单开启；Ctrl + . 切换时保留拼音和候选。若其他软件占用该快捷键，请解除冲突或使用设置项。",
+              "en": "Optional English punctuation in Chinese mode is off by default. Ctrl + . switches styles without committing pinyin. Resolve conflicting shortcuts in other apps or use the setting/menu item."
+            },
+            {
+              "zh": "保持自适应候选面板与光标跟随。52 项自动化回归通过，Mac mini 完成 17 组真实输入/编辑场景，并核对翻页往返。",
+              "en": "Retains adaptive candidates and caret following. All 52 regression tests passed, with 17 real typing/editing scenarios and paging verified on a Mac mini."
+            }
+          ]
+        }
+      ],
+      "sha256": "efd5cf1333a4ee9c5898ca5e9ab48bf7ac601e1043b1949f8b1f5cdb25e4dbab",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.4/AetherKey-1.0.4-update.zip",
+        "edSignature": "2G+UqhlZ7Xsvo/TF95YwlY2BlhGM2lJIWGY9Wxs3X0XyD2ZamOb+aR4ix/ad7b68JhAKKlOQoYL8m1nNMggdDQ==",
+        "length": 7673746
+      }
+    },
+    {
       "version": "1.0.3",
       "build": "2026102501",
       "date": "2026-10-25",

@@ -8,8 +8,8 @@
     "en": "Your typing and learning,\non your Mac."
   },
   "meta": {
-    "zh": "适用于 AetherKey 1.0.3 · 2026-10-25",
-    "en": "AetherKey 1.0.3 · 2026-10-25"
+    "zh": "适用于 AetherKey 1.0.4 · 2026-10-25",
+    "en": "AetherKey 1.0.4 · 2026-10-25"
   },
   "sections": [
     {
@@ -33,6 +33,10 @@
         {
           "zh": "输入法使用系统输入框与光标坐标呈现候选；可根据前台应用识别终端或 IDE 并切换英文。默认不启用光标诊断，手动启用时只记录几何坐标诊断。系统本身仍可能生成崩溃报告。",
           "en": "The input method uses system input clients and caret geometry to place candidates, and can recognize terminal or IDE apps to switch to English. Caret diagnostics are disabled by default; manually enabled diagnostics record geometry only. macOS may independently generate crash reports."
+        },
+        {
+          "zh": "候选排序通过系统输入框接口读取光标前有限文本，提取最多四个相邻汉字在本机词库中查找续词；接口不可用时，仅在光标锚点仍匹配的条件下使用本输入框近期提交的文字。前文仅在内存中使用，不另行保存或上传；选词学习仍按本机词库规则保存。",
+          "en": "Candidate ranking reads a bounded window before the caret through the system input client, using up to four adjacent Chinese characters for local dictionary continuations. If unavailable, recent commits from that input field are used only while the caret anchor matches. Context stays in memory and is neither separately stored nor uploaded; chosen words may still be learned in the local dictionary."
         }
       ]
     },

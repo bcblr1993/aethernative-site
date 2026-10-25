@@ -27,12 +27,32 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 和 1.0.2 可直接升级到 1.0.3；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 and 1.0.2 can update directly to 1.0.3; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1、1.0.2 和 1.0.3 可直接升级到 1.0.4；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1, 1.0.2 and 1.0.3 can update directly to 1.0.4; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.4：上下文候选与中英文标点",
+        "en": "1.0.4: contextual candidates and punctuation"
+      },
+      "body": [
+        {
+          "zh": "按当前光标前文查本地词库，例如“快捷”后输入 jian 推荐“键”，“文”后推荐“件”，“时”后推荐“间”。全拼、小鹤、微软双拼共用这套排序，置顶与自定义优先，忘记规则仍有效。前文无法读取时，仅在光标位置未变化的条件下使用本输入框近期已提交的文字；否则回退普通排序。",
+          "en": "Preceding text guides local dictionary continuations across all layouts: 快捷 + jian → 键, 文 + jian → 件, 时 + jian → 间. Pins and custom phrases take priority; forgotten words stay excluded. If the host cannot expose surrounding text, recent commits are used only while the caret anchor still matches; otherwise normal ordering applies."
+        },
+        {
+          "zh": "设置 → 通用设置可开启“中文使用英文标点”，默认关闭。Ctrl + . 在两种标点样式间切换，不会提交当前拼音或移动候选。若搜狗等其他软件全局占用此快捷键，需要先解除同名快捷键冲突；也可直接勾选设置或输入法菜单项。",
+          "en": "Enable English punctuation in Chinese mode in Settings → General; it is off by default. Ctrl + . toggles styles without committing pinyin or moving candidates. If another app such as Sogou globally captures this shortcut, resolve that conflict or use the setting/menu item."
+        },
+        {
+          "zh": "52 项自动化回归通过，Mac mini（macOS 27.0.1）完成 12 组常用词和 5 组编辑/双拼场景的真实逐键验证，并核对候选翻页及光标跟随。此验证不是与其他输入法的准确率或性能对照测试。",
+          "en": "All 52 regression tests passed. A Mac mini running macOS 27.0.1 verified 12 word sequences and five editing/shuangpin scenarios using real system keystrokes, plus paging and caret following. This is not an accuracy or performance comparison against other input methods."
         }
       ]
     },
@@ -174,8 +194,8 @@
           "en": "All 40 regression tests passed for 1.0.2. Real system-level keystrokes on the host and an isolated macOS VM verified editing, sentence commits, candidate management, paging and expansion. Rankings depend on dictionaries and local learning; functional regression checks are not a broad corpus accuracy study."
         },
         {
-          "zh": "以下为 1.0.0 的历史资源短样本，不代表当前 1.0.3：资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
-          "en": "The following historical resource sample is from 1.0.0, not the current 1.0.3: Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
+          "zh": "以下为 1.0.0 的历史资源短样本，不代表当前 1.0.4：资源短样本：隔离虚拟机 macOS 27.0、4 核、4 GB，安装签名构建后采样。空闲 15 次、每秒一次：RSS 约 138 MiB，ps CPU 均为 0.0%；连续输入 20 组 nihao/shijie 的 20 次采样：RSS 137.6–139.9 MiB，ps CPU 峰值 68.8%（单核口径）。RSS 不是活动监视器的内存占用值，短时采样不是长时间负载测试，不用于宣称比搜狗省资源。",
+          "en": "The following historical resource sample is from 1.0.0, not the current 1.0.4: Short resource sample in an isolated macOS 27.0 VM with 4 cores and 4 GB after installing a signed build: 15 idle samples at one-second intervals showed about 138 MiB RSS and 0.0% ps CPU. During 20 nihao/shijie entries, 20 samples showed 137.6–139.9 MiB RSS and a 68.8% peak ps CPU (single-core basis). RSS differs from Activity Monitor memory. This is not a sustained-load test or a resource-efficiency comparison with Sogou."
         }
       ]
     },
