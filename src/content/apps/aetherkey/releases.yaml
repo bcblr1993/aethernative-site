@@ -1,6 +1,51 @@
 {
   "releases": [
     {
+      "version": "1.0.6",
+      "build": "2026102602",
+      "date": "2026-10-26",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.6/AetherKey-1.0.6-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.6",
+      "badge": {
+        "zh": "全新设置与品牌图标 · Apple 公证",
+        "en": "New settings & brand icon · Notarized"
+      },
+      "summary": {
+        "zh": "全新侧边导航与分组设置，支持明暗外观；菜单栏采用圆角实心 A 字牌，保留紧凑候选面板与光标跟随。",
+        "en": "Redesigned settings with sidebar navigation, grouped controls and light/dark appearance. A solid rounded A keycap brings the brand to the menu bar while retaining compact caret-following candidates."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "更清晰的设置，更统一的品牌",
+            "en": "Clearer settings, a consistent brand"
+          },
+          "items": [
+            {
+              "zh": "通用、词库与短语、更新与启动、快捷键与关于四页统一布局，缩短说明并对齐开关。",
+              "en": "Four consistent settings pages with grouped cards, aligned controls and concise descriptions."
+            },
+            {
+              "zh": "新增原生圆角 A 字牌图标，保留完整 AetherKey 拼音名称；更新图标资源名并移除旧字符标签覆盖。",
+              "en": "A native rounded A badge retains the full AetherKey name, with a new resource name and removal of the old character-label override."
+            },
+            {
+              "zh": "四方向键选词、Option 拼音编辑和候选面板光标跟随保持原有行为。",
+              "en": "Four-arrow selection, Option-based pinyin editing and caret-following candidates retain their behavior."
+            }
+          ]
+        }
+      ],
+      "sha256": "45e4cd6908845525faa6521cc1b3d1e0a635ae3ac674f0b63a724a31c09c6ec6",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.6/AetherKey-1.0.6-update.zip",
+        "edSignature": "TJ101+GbTqYitZwNLrNZxNNIGmMfgDrCh+JYDRLWwG3Ixxg/JdMnyIB2v5NUGELQhWTHg7EqMROpZxJCCiBNDA==",
+        "length": 7717937
+      }
+    },
+    {
       "version": "1.0.5",
       "build": "2026102601",
       "date": "2026-10-26",

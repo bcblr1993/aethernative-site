@@ -73,10 +73,52 @@
     }
   },
   "notice": {
-    "zh": "1.0.5 新增“四方向键选择候选”，默认关闭。开启后 ← / ↑ 选上一个、→ / ↓ 选下一个，Option + 左右键保留拼音编辑；面板继续贴着光标，宽度随候选内容变化。",
-    "en": "Version 1.0.5 adds optional four-arrow candidate selection, off by default. Left/Up select the previous candidate; Right/Down select the next. Option + Left/Right still edits pinyin, while compact candidates keep following the caret."
+    "zh": "1.0.6 全新设置界面：侧边导航与分组卡片，支持明暗外观。菜单栏换上圆角 A 字牌，四方向键选词、拼音编辑与紧凑光标跟随体验保持不变。",
+    "en": "Version 1.0.6 brings redesigned settings with sidebar navigation, grouped cards and light/dark appearance, plus a rounded A menu-bar badge. Four-arrow selection, pinyin editing and compact caret-following candidates are retained."
   },
   "gallery": [
+    {
+      "label": {
+        "zh": "1.0.6 · 全新通用设置",
+        "en": "1.0.6 · Redesigned general settings"
+      },
+      "zh": "./media/settings-106-general.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.6 · 全新 A 字牌菜单栏图标",
+        "en": "1.0.6 · The new A menu-bar badge"
+      },
+      "zh": "./media/menu-106.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.6 · 词库与短语",
+        "en": "1.0.6 · Lexicon and phrases"
+      },
+      "zh": "./media/settings-106-lexicon.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.6 · 更新与启动",
+        "en": "1.0.6 · Updates and startup"
+      },
+      "zh": "./media/settings-106-updates.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.6 · 快捷键与关于",
+        "en": "1.0.6 · Shortcuts and about"
+      },
+      "zh": "./media/settings-106-shortcuts.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.6 · Mac mini 真实打字与光标跟随",
+        "en": "1.0.6 · Real typing and caret tracking on Mac mini"
+      },
+      "zh": "./media/typing-106.png"
+    },
     {
       "label": {
         "zh": "1.0.5 · 四方向键选词：右键移动候选高亮",
@@ -307,6 +349,20 @@
         "body": {
           "zh": "每 6 小时自动检查，发现新版时显示版本号与更新说明。设置中可查看最近与下次计划检查、关闭自动检查、管理登录后自动启动；安装前验证更新签名，保留词库与偏好。",
           "en": "Check automatically every six hours and see the new version and release notes. Settings show the last and next scheduled check, automatic-check controls and login startup. Updates are signature-verified, retaining dictionaries and preferences."
+        }
+      },
+      {
+        "kicker": {
+          "zh": "设置",
+          "en": "Settings"
+        },
+        "title": {
+          "zh": "每个页面，都清晰顺手",
+          "en": "Clear controls on every page"
+        },
+        "body": {
+          "zh": "侧边导航直达通用、词库、更新与快捷键四页。设置按用途分组，支持系统明暗外观；自定义短语、六小时更新检查与登录启动都可直接管理。圆角实心 A 字牌统一菜单栏品牌。",
+          "en": "Sidebar navigation leads to General, Dictionary, Updates and Shortcuts. Grouped settings follow system light/dark appearance, with direct controls for phrases, six-hour update checks and login startup. A solid rounded A badge unifies the menu-bar identity."
         }
       }
     ]

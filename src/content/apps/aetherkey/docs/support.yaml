@@ -27,12 +27,28 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.4 可直接升级到 1.0.5；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.4 can update directly to 1.0.5; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.5 可直接升级到 1.0.6；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.5 can update directly to 1.0.6; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.6：全新设置与 A 字牌图标",
+        "en": "1.0.6: redesigned settings and A badge"
+      },
+      "body": [
+        {
+          "zh": "设置使用左侧导航与分组卡片，四页均跟随系统明暗外观。通用页可切换全拼与双拼、候选布局和输入习惯；词库页管理自定义短语；更新页查看检查时间与登录启动；快捷键页按用途分组说明。",
+          "en": "Settings use sidebar navigation and grouped cards with system light/dark appearance on all four pages. Manage input layouts and habits, custom phrases, update checks and login startup, and grouped shortcut help."
+        },
+        {
+          "zh": "菜单栏图标更换为圆角实心 A 字牌，名称仍为 AetherKey 拼音。更新后若系统仍暂显旧图标，可先切到 ABC 再切回；若仍无变化，注销并重新登录可刷新系统输入源缓存。词库和偏好不会因图标更新被清空。",
+          "en": "The menu-bar icon is now a solid rounded A badge; the name remains AetherKey 拼音. If macOS temporarily shows an old cached icon, switch to ABC and back, or log out and back in to refresh input-source caches. Dictionaries and preferences are retained."
         }
       ]
     },
