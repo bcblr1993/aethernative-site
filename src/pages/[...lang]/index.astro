@@ -76,6 +76,7 @@ const icons = [
       <div class="grid-3 apps-grid">
         {cards.map(({ app, releases }) => <AppCard app={app} releases={releases} lang={lang} />)}
       </div>
+      <p class="download-note muted">{zh ? '下载量为本站自开始统计以来各版本的累计下载发起次数，不含 App Store 下载，不代表安装人数。' : 'Totals count download requests through this site across all versions since tracking began. App Store downloads are excluded; counts are not unique installs.'}</p>
       <p class="soon muted">{u.moreSoon}</p>
     </div>
   </section>
@@ -153,6 +154,7 @@ const icons = [
   .tabs { display: inline-flex; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
   .tab { border: 0; background: none; color: var(--text-2); font-size: 14px; padding: 7px 18px; border-radius: 999px; cursor: pointer; }
   .tab[aria-pressed='true'] { background: var(--text); color: var(--bg); }
+  .download-note { margin-top: 24px; font-size: 12px; text-align: center; }
   .soon { margin-top: 20px; font-size: 14px; text-align: center; }
   .pnum { font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: 0.1em; }
   .pico { width: 40px; height: 40px; border-radius: 11px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-top: 18px; }

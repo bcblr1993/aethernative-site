@@ -25,6 +25,10 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
     <h3><a href={page}>{d.name}</a></h3>
     <p>{t(d.summary, lang)}</p>
     <a class="community-summary" href={`${page}#reviews`} data-community-summary={app.id} data-lang={lang}>{lang === 'zh' ? '评分与评论 →' : 'Ratings & reviews →'}</a>
+    <div class="download-total" data-download-total={app.id} data-lang={lang} aria-live="polite">
+      <span>{lang === 'zh' ? '累计下载' : 'Total downloads'}</span>
+      <strong data-download-count>—</strong>
+    </div>
     {d.featured && d.cardStats.length > 0 && (
       <div class="specs">
         {d.cardStats.map((s) => <div><b>{t(s.value, lang)}</b>{t(s.label, lang)}</div>)}
@@ -45,6 +49,24 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
 </article>
 
 <script>
+  const totals = document.querySelectorAll<HTMLElement>('[data-download-total]');
+  if (totals.length) {
+    void fetch('/api/downloads', { credentials: 'omit' }).then(async response => {
+      if (!response.ok) throw new Error('unavailable');
+      const data: { startedAt: number; apps: { appId: string; total: number }[] } = await response.json();
+      if (!Number.isFinite(data.startedAt) || !Array.isArray(data.apps)) throw new Error('invalid_stats');
+      for (const row of totals) {
+        const zh = row.dataset.lang === 'zh';
+        const total = data.apps.find(app => app.appId === row.dataset.downloadTotal)?.total ?? 0;
+        if (!Number.isSafeInteger(total) || total < 0) continue;
+        row.querySelector('[data-download-count]')!.textContent = total.toLocaleString(zh ? 'zh-CN' : 'en-US');
+        const since = new Intl.DateTimeFormat(zh ? 'zh-CN' : 'en-US', { timeZone: 'Asia/Shanghai', dateStyle: 'medium' }).format(data.startedAt);
+        row.title = zh ? `自 ${since} 起本站发起的下载次数，含各版本；不含 App Store，不代表安装人数。` : `Download requests through this site since ${since}, across all versions. Excludes App Store downloads; not unique installs.`;
+      }
+    }).catch(() => {
+      for (const row of totals) row.querySelector('[data-download-count]')!.textContent = row.dataset.lang === 'zh' ? '暂不可用' : 'Unavailable';
+    });
+  }
   const summaries = document.querySelectorAll<HTMLElement>('[data-community-summary]');
   const loadSummaries = () => fetch('/api/community', { credentials: 'omit' }).then(async r => {
     if (!r.ok) return;
@@ -74,6 +96,8 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
   .app-card h3 a:hover { color: var(--accent); }
   .app-card p { margin-top: 6px; }
   .community-summary { font-size: 13px; color: var(--text-2); margin-top: 14px; width: fit-content; }.community-summary:hover { color: var(--accent); }
+  .download-total { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; color: var(--text-2); font-size: 13px; }
+  .download-total strong { color: var(--text); font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
   .app-icon-link { display: block; width: fit-content; margin-left: -6px; }
   .body { display: flex; flex-direction: column; height: 100%; }
   .body > .cta { margin-top: auto; padding-top: 26px; }
