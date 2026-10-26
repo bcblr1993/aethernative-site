@@ -399,8 +399,8 @@
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "1.0.5 · 四方向键选词、拼音编辑与候选面板回归",
-          "en": "1.0.5 · Four-arrow selection, pinyin editing and candidate panel regression tests"
+          "zh": "1.0.6 · 四方向键选词、拼音编辑与候选面板回归",
+          "en": "1.0.6 · Four-arrow selection, pinyin editing and candidate panel regression tests"
         }
       },
       {
@@ -427,8 +427,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.5",
-          "en": "AetherKey 1.0.5"
+          "zh": "AetherKey 1.0.6",
+          "en": "AetherKey 1.0.6"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -687,8 +687,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.5 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.5 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.6 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.6 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
