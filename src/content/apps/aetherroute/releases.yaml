@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.9.0"
+    build: "2026102601"
+    date: 2026-10-26
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.9.0/AetherRoute-1.9.0-build-2026102601-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.9.0
+    sha256: 9c21148fcfa01b2c901c39b6a8317ec9de602cb9c8a16a6c790531717de96bba
+    sparkle:
+      edSignature: lXk/cgWbP8iEWxv+TQvIlMUFDrMRQS2IhkrUw8Kj7FgHT4gLQ+9c5ryWvqNlLHgIKF2GZbczXC7LwRdRyOUUDA==
+      length: 27883173
+    summary:
+      zh: 路由测试器全协议升级（支持 no-resolve、GEOSITE、DST-PORT 与私有地址）、代理节点搜索与超时过滤、自定义规则过滤与置顶/置底、以及最近关闭连接缓冲
+      en: Route tester overhaul (no-resolve, GEOSITE, DST-PORT, private IP), proxy node search and timeout filter, custom rule filtering with move to top/bottom, and recently closed connections buffer
+    notes:
+      - title:
+          zh: 新增与优化
+          en: Added & Improved
+        items:
+          - zh: 路由测试器与全量规则统计：支持识别 no-resolve 跳过域名 IP 规则、离线评估 GEOSITE 分类、匹配 GEOIP,PRIVATE 与 DST-PORT 端口，并统计超过 500 条上限的全量订阅规则分布。
+            en: "Route tester & full-profile rule counts: honors no-resolve on IP/GEOIP rules for domains, evaluates GEOSITE categories offline, matches GEOIP,PRIVATE and DST-PORT, and counts all profile rules beyond the 500-rule display cap."
+          - zh: 节点组搜索与自定义规则增强：节点组支持中英文地区/国旗/协议搜索与一键隐藏超时节点；自定义规则接入搜索与动作过滤，支持一键移至顶部/底部与 LazyVStack 高性能渲染。
+            en: "Proxy node search & custom rule scalability: cross-language region/flag/protocol search and hide timed-out nodes toggle; custom rules support search/action filtering, Move to Top/Bottom, and LazyVStack rendering."
+          - zh: 连接页按最新排序与最近关闭缓冲：新增「按最新连接」排序与「最近关闭」50 条连接环形缓冲，轻松捕获短连接或被拦截请求并一键创建路由规则。
+            en: "Connections sort by newest & recently closed buffer: sort connections by newest and inspect up to 50 recently closed or rejected connections to create routing rules."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 全量协议互通与双端矩阵通过：538 项单元测试、12 协议真实互通、Tart VM 6 维网络矩阵与物理真机 Mac mini 门禁 100% 验证通过。
+            en: 538 unit tests, 12-protocol real interop, Tart VM 6-way network matrix, and physical Mac mini validation 100% passed.
+          - zh: UI 性能与内存表现优异：展示档切页 p95 143.0 ms、重载档切页 p95 143.7 ms，内存中位数低至 65–66 MB。
+            en: "UI performance and memory well within budget: page switch p95 ≤ 143.7 ms, memory median 65–66 MB."
   - version: "1.8.9"
     build: "2026102303"
     date: 2026-10-23
