@@ -73,10 +73,24 @@
     }
   },
   "notice": {
-    "zh": "1.0.4 优化准确音节与模糊音排序，结合光标前文从本地词库联想，支持全拼与两种双拼。新增默认关闭的“中文使用英文标点”，Ctrl + . 随时切换，保留当前拼音和候选。",
-    "en": "Version 1.0.4 improves exact and fuzzy candidate ordering and uses preceding text for on-device dictionary continuations across all three layouts. Optional English punctuation is off by default; Ctrl + . switches styles without committing the composition."
+    "zh": "1.0.5 新增“四方向键选择候选”，默认关闭。开启后 ← / ↑ 选上一个、→ / ↓ 选下一个，Option + 左右键保留拼音编辑；面板继续贴着光标，宽度随候选内容变化。",
+    "en": "Version 1.0.5 adds optional four-arrow candidate selection, off by default. Left/Up select the previous candidate; Right/Down select the next. Option + Left/Right still edits pinyin, while compact candidates keep following the caret."
   },
   "gallery": [
+    {
+      "label": {
+        "zh": "1.0.5 · 四方向键选词：右键移动候选高亮",
+        "en": "1.0.5 · Four-arrow selection: Right moves the highlight"
+      },
+      "zh": "./media/four-arrows-selection.png"
+    },
+    {
+      "label": {
+        "zh": "1.0.5 · 四方向键选词设置，默认关闭",
+        "en": "1.0.5 · Optional four-arrow selection setting"
+      },
+      "zh": "./media/four-arrows-settings.png"
+    },
     {
       "label": {
         "zh": "1.0.4 · 光标前文联想：快捷 jian → 键",
@@ -193,8 +207,8 @@
           "en": "Close to your caret, with room to write"
         },
         "body": {
-          "zh": "候选面板宽度随内容适配，支持翻页与展开，浅色和深色随系统变化。出现和收起采用轻量渐变，连续输入保持位置跟随。",
-          "en": "Content-adaptive width, paging and expanded candidates, with system light and dark appearance. Gentle fades and continuous caret following keep the panel near your text."
+          "zh": "候选面板宽度随内容适配，支持翻页与展开，浅色和深色随系统变化。出现和收起采用轻量渐变，连续输入保持位置跟随。 可选开启四方向键选词：← / ↑ 上一个，→ / ↓ 下一个，空格确认。默认关闭，按自己的习惯选择。",
+          "en": "Content-adaptive width, paging and expanded candidates, with system light and dark appearance. Gentle fades and continuous caret following keep the panel near your text. Optionally enable all four arrows: Left/Up select the previous candidate, Right/Down select the next, and Space confirms. Off by default."
         }
       },
       {
@@ -221,8 +235,8 @@
           "en": "Fix pinyin without starting over"
         },
         "body": {
-          "zh": "左右键移动到拼音中间，直接插入、退格或向前删除。Option 配合方向键按音节移动，分步选词后也能继续修改剩余拼音。上下键和 Tab 仍用于选择候选。",
-          "en": "Move within pinyin with Left and Right, then insert, backspace or forward-delete. Option + arrows move by syllable, including after partial selection. Up, Down and Tab still navigate candidates."
+          "zh": "左右键移动到拼音中间，直接插入、退格或向前删除。开启四方向键选词后，使用 Option + 左右键按音节移动拼音光标；分步选词后也能继续编辑。快捷键帮助随开关状态同步变化。",
+          "en": "Move inside pinyin to insert or delete letters. With four-arrow selection enabled, Option + Left/Right still moves the composition caret by syllable. Continue editing after partial commits; shortcut help follows your setting."
         }
       },
       {
@@ -323,14 +337,14 @@
         }
       },
       {
-        "value": "52",
+        "value": "54",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "1.0.4 · 候选排序、前文联想、标点、双拼与面板回归",
-          "en": "1.0.4 · Ranking, context, punctuation, shuangpin and panel regression tests"
+          "zh": "1.0.5 · 四方向键选词、拼音编辑与候选面板回归",
+          "en": "1.0.5 · Four-arrow selection, pinyin editing and candidate panel regression tests"
         }
       },
       {
@@ -357,8 +371,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.4",
-          "en": "AetherKey 1.0.4"
+          "zh": "AetherKey 1.0.5",
+          "en": "AetherKey 1.0.5"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -617,8 +631,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.4 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.4 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.5 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.5 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",

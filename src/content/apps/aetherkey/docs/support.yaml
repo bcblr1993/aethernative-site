@@ -27,12 +27,28 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1、1.0.2 和 1.0.3 可直接升级到 1.0.4；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1, 1.0.2 and 1.0.3 can update directly to 1.0.4; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.4 可直接升级到 1.0.5；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.4 can update directly to 1.0.5; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.5：四方向键选择候选",
+        "en": "1.0.5: four-arrow candidate selection"
+      },
+      "body": [
+        {
+          "zh": "在设置 → 通用设置中开启“四方向键选择候选”。默认关闭，保留原来的左右键拼音编辑习惯；开启后 ← / ↑ 选择上一个候选，→ / ↓ 选择下一个候选，空格确认。可连续移动到下一页，再用左键返回。",
+          "en": "Enable Four-arrow candidate selection in Settings → General. It is off by default to preserve existing Left/Right editing. When enabled, Left/Up choose the previous candidate and Right/Down choose the next; Space confirms. Continue moving across page boundaries and use Left to return."
+        },
+        {
+          "zh": "开启后仍可用 Option + ← / → 按音节移动拼音光标，在中间插入、退格修正；Home / End 到开头或末尾。快捷键帮助会随开关状态同步变化，候选面板样式和光标跟随保持原样。",
+          "en": "Option + Left/Right still moves the pinyin caret by syllable for inline insertion and correction; Home/End jump to either end. Shortcut help follows the setting, and candidate appearance and caret following remain unchanged."
         }
       ]
     },

@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.5",
+      "build": "2026102601",
+      "date": "2026-10-26",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.5/AetherKey-1.0.5-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.5",
+      "badge": {
+        "zh": "四方向键选词 · Apple 公证",
+        "en": "Four-arrow selection · Notarized"
+      },
+      "summary": {
+        "zh": "新增默认关闭的四方向键选择候选，Option + 左右键保留拼音中间编辑，保持自适应面板与光标跟随。",
+        "en": "Adds optional four-arrow candidate selection while retaining Option + Left/Right pinyin editing, adaptive candidates and caret following."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "按自己的习惯选词",
+            "en": "Choose candidates your way"
+          },
+          "items": [
+            {
+              "zh": "设置 → 通用设置新增“四方向键选择候选”，默认关闭。开启后 ← / ↑ 选上一个，→ / ↓ 选下一个，空格确认，连续移动可跨页选词。",
+              "en": "Enable Four-arrow candidate selection in Settings → General. Off by default. Left/Up select the previous candidate, Right/Down select the next, and Space confirms. Movement continues across pages."
+            },
+            {
+              "zh": "Option + 左右键仍按音节移动拼音光标，保留中间插入、退格修正；Home / End 到开头或末尾。关闭开关后，普通左右键继续编辑拼音。",
+              "en": "Option + Left/Right retains syllable-based caret movement for inline correction; Home/End move to either end. With the option off, ordinary Left/Right still edits pinyin."
+            },
+            {
+              "zh": "快捷键帮助随开关同步变化，设置重启后保留。候选面板外观、内容自适应宽度与光标跟随不变。",
+              "en": "Shortcut help follows the setting, which persists across restarts. Candidate appearance, adaptive width and caret following are retained."
+            },
+            {
+              "zh": "54 项自动化回归通过，Mac mini 真实逐键验证四方向键选词、跨页往返、Option 拼音编辑、空格上屏与换行跟随。",
+              "en": "All 54 automated regression tests passed. Real keystrokes on a Mac mini verified arrow selection, page crossing, Option-based editing, Space commits and caret following across lines."
+            }
+          ]
+        }
+      ],
+      "sha256": "67d721024c7be4c05debaf15c120023b1df66dca3a7ed9ca191acefa39181aaf",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.5/AetherKey-1.0.5-update.zip",
+        "edSignature": "E6YMHkKrCJFaqc1QvGuQOvJrlAeU0dphB+XLb7Dy98mG2UktXvyBgg+NTaRWgZIEhTPoaf33S8ObBA6a6+8mCw==",
+        "length": 7674633
+      }
+    },
+    {
       "version": "1.0.4",
       "build": "2026102502",
       "date": "2026-10-25",
