@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.9.1"
+    build: "2026102801"
+    date: 2026-10-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.9.1/AetherRoute-1.9.1-build-2026102801-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.9.1
+    sha256: bc8a1e96a9011f6b1371e169b082c904f806ba49ea1994ba43cb2a5cdff77174
+    sparkle:
+      edSignature: ClbS2qkJtSYmvVM+/ipO2grylMJk21G+1/IRQ8sFsNZrn/Im7AQVy7tFLayCI0J8Kw66656h8vAdIgEQip00BA==
+      length: 27950246
+    summary:
+      zh: 修复卡在「正在恢复」不再自动重连、切换订阅后国内应用短暂断网，以及 Trojan 节点 UDP 偶发丢包
+      en: Fixes the app staying on Recovering without reconnecting, domestic apps losing connectivity after switching subscriptions, and intermittent Trojan UDP packet loss
+    notes:
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: 自动恢复：网络扩展意外终止后会自动重连，不再一直停在「正在恢复」；每条恢复路径都有看门狗，首次连接失败立即报错。
+            en: "Automatic recovery: after an unexpected extension stop the app reconnects instead of staying on Recovering; every recovery path has a watchdog and a first-connect failure is reported at once."
+          - zh: 切换订阅：国内 DNS 改写正确处理无缩进列表和行内注释，并保留全部解析器；大订阅压缩后原地重载，透明代理超出排除上限时不再启动失败。
+            en: "Subscription switching: the domestic DNS rewrite handles indentless lists and inline comments and keeps every resolver; large profiles reload in place compressed, and transparent proxy no longer fails on oversized exclusion lists."
+          - zh: Trojan UDP：修复内核在 TLS 分段到达时丢失或重复发送字节导致的数据错乱，经 Trojan 节点的 QUIC、语音与 DNS 更稳定。
+            en: "Trojan UDP: fixes bytes being lost or resent when TLS records split a frame, which corrupted later packets for QUIC, voice and DNS over Trojan nodes."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 12 协议真实互通、Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过；有线/无线网卡切换 1–3 秒自动恢复。
+            en: 12-protocol real interop, the Tart VM 6-way network matrix and physical Mac mini gates all passed; wired/Wi-Fi switches recover in 1–3 seconds.
+          - zh: UI 性能与内存在预算内：切页 p95 不超过 148.4 ms，内存中位数 65–67 MB。
+            en: "UI performance and memory within budget: page switch p95 ≤ 148.4 ms, memory median 65–67 MB."
   - version: "1.9.0"
     build: "2026102601"
     date: 2026-10-26
