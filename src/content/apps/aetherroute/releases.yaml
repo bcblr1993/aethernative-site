@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.10.1"
+    build: "2026102901"
+    date: 2026-10-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.10.1/AetherRoute-1.10.1-build-2026102901-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.10.1
+    sha256: 857edd17ec2e11c36de6dd327e4e6af3b435fc01fe9c2fdd8afb8797c5299f6e
+    sparkle:
+      edSignature: vwXUxzScEqCrVa/Yci0Ghs/9N4YDbb3hRIBBBlV56m+L1SQAQUt6madTkqXissMi9bMW3h1eSkLLg+rsdudBDQ==
+      length: 27955421
+    summary:
+      zh: 机场订阅里带浏览器指纹选项的 AnyTLS 节点、SS2022 ChaCha 与 WireGuard 节点都能正常加载
+      en: AnyTLS nodes with a browser fingerprint option, SS2022 ChaCha and WireGuard nodes from airport subscriptions now load
+    notes:
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: AnyTLS 节点带 client-fingerprint 或 idle-session 选项时照常连接，不再让订阅一直停在“正在恢复网络”（连接时不模拟浏览器 TLS 指纹）。
+            en: AnyTLS nodes with client-fingerprint or idle-session options now connect instead of leaving the subscription stuck recovering (the browser TLS fingerprint is not imitated).
+          - zh: 支持 SS2022 加密的标准名称 2022-blake3-chacha20-poly1305。
+            en: Accepts the standard SS2022 cipher name 2022-blake3-chacha20-poly1305.
+          - zh: WireGuard 的 ip 与 ipv6 可以不带前缀，IPv6 地址不再被悄悄丢弃。
+            en: WireGuard ip and ipv6 may omit the prefix; IPv6 addresses are no longer silently dropped.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 真实服务器 28 种协议变体与 Mihomo 逐节点对照，27 种表现一致；Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过。
+            en: 28 protocol variants on a real server compared node by node with Mihomo, 27 behave the same; the Tart VM 6-way matrix and Mac mini physical gates all passed.
   - version: "1.10.0"
     build: "2026102805"
     date: 2026-10-28
