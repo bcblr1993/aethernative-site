@@ -1,6 +1,40 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.11.0"
+    build: "2026102902"
+    date: 2026-10-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.11.0/AetherRoute-1.11.0-build-2026102902-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.11.0
+    sha256: 36a6613233e8aa952f8063d2f49fe50f6acb32846131d460ff1ad74fd7133ebf
+    sparkle:
+      edSignature: wqCjQ52hEjUhwEPLr+GsLYrPIdAUQO+S0f5UA9roPfmPDMil41UzC0j/C1E19fuQHEIvW3LeWeQaxo8r+cOwAg==
+      length: 27742514
+    summary:
+      zh: 新增 httpupgrade 传输支持，28 种协议变体与 Mihomo 逐节点对照全部一致
+      en: Adds the httpupgrade transport; all 28 protocol variants now match Mihomo node by node
+    notes:
+      - title:
+          zh: 新增
+          en: Added
+        items:
+          - zh: VMess、VLESS、Trojan 支持 httpupgrade 传输，Mihomo 配置与分享链接导入即可连接。
+            en: VMess, VLESS and Trojan support the httpupgrade transport, from both Mihomo profiles and share links.
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: 粘贴节点链接遇到不支持的传输会明确提示，不再生成连不上的 TCP 节点。
+            en: Pasting a node link with an unsupported transport now shows an error instead of creating a TCP node that never connects.
+          - zh: JSON 格式订阅里的 shadow-tls 等内置插件不再被误判为不安全。
+            en: JSON profiles with built-in plugins such as shadow-tls are no longer refused as unsafe.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 真实服务器 28 种协议变体与 Mihomo 逐节点对照全部一致；Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过。
+            en: All 28 protocol variants on a real server match Mihomo node by node; the Tart VM 6-way matrix and Mac mini physical gates all passed.
   - version: "1.10.1"
     build: "2026102901"
     date: 2026-10-28
