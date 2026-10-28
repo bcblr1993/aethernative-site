@@ -1,6 +1,34 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.9.2"
+    build: "2026102804"
+    date: 2026-10-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.9.2/AetherRoute-1.9.2-build-2026102804-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.9.2
+    sha256: ea06cb432a32cbf560fa3b661edd2bd34bcbac2be7f85f20fda796fd24c0108e
+    sparkle:
+      edSignature: 2iaB+6SaxYpFBoKcQp4ZZ3Vb3A5vR5Jd8esjUsmam+6xWEwVzOOHJLNcHR68dlPbdpJhui2tP9RdYPztF8qABA==
+      length: 27529019
+    summary:
+      zh: 修复订阅节点全部失效时透明代理测速阻塞控制通道、误判扩展无响应并重启，导致直连应用一起断网的问题
+      en: Fixes transparent proxy probes of dead nodes stalling the control plane and restarting the extension, which dropped direct connections too
+    notes:
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: 透明代理的测速不再与节点快照、遥测共用一把锁，节点全部失效时控制请求照常响应，与 TUN 模式一致。
+            en: Transparent proxy latency probes no longer share a lock with selector snapshots and telemetry, so control requests stay responsive when every node is down, as in TUN mode.
+          - zh: 坏节点测速超时不再被当作扩展无响应，不会再因此重启扩展、断开直连的微信等应用。
+            en: Probe timeouts of dead nodes no longer count as an unresponsive extension, so the app no longer restarts it and drops direct connections such as WeChat.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 新增回归测试在旧代码上失败、在新代码上通过；12 协议真实互通、Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过。
+            en: New regression tests fail on the old code and pass now; 12-protocol real interop, the Tart VM 6-way matrix and physical Mac mini gates all passed.
   - version: "1.9.1"
     build: "2026102801"
     date: 2026-10-28
