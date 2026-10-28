@@ -1,6 +1,38 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.10.0"
+    build: "2026102805"
+    date: 2026-10-28
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.10.0/AetherRoute-1.10.0-build-2026102805-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.10.0
+    sha256: 13a2166f1495d1b0deb2b43445a521b0088b6dbf512206a07dbfafddd3cbbe22
+    sparkle:
+      edSignature: OSKt+X4iN7YQ86XIR+dZWvjebAVn2uF7jSV9DPHJ3VmMARqvlXV/WG9wBjOYJha7esRbR8gSCFWEj4jp1OsoAQ==
+      length: 27954489
+    summary:
+      zh: 订阅混入个别不支持的节点时只跳过这些节点，不再整体失效；新增与 Mihomo 的逐节点对照测试
+      en: Subscriptions with a few unsupported nodes now skip just those nodes instead of failing; adds node-by-node differential testing against Mihomo
+    notes:
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: 订阅里有 xhttp 或 httpupgrade 节点时，只跳过这些节点并从策略组中移除，其余节点照常可用。
+            en: Subscriptions containing xhttp or httpupgrade nodes now skip just those nodes and remove them from groups; the remaining nodes keep working.
+      - title:
+          zh: 新增
+          en: Added
+        items:
+          - zh: 与参考实现 Mihomo 的逐节点对照测试，报告不含服务器地址和凭据。
+            en: Node-by-node differential testing against the Mihomo reference implementation, with reports that contain no server addresses or credentials.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 测试先行开发；三轨并行验收将总耗时由约 70 分钟降到 25 分钟。12 协议真实互通、Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过。
+            en: Test-first development; three-track parallel acceptance cut total time from about 70 to 25 minutes. 12-protocol real interop, the Tart VM 6-way matrix and physical Mac mini gates all passed.
   - version: "1.9.2"
     build: "2026102804"
     date: 2026-10-28
