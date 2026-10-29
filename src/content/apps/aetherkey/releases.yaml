@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.7",
+      "build": "2026102901",
+      "date": "2026-10-29",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.7/AetherKey-1.0.7-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.7",
+      "badge": {
+        "zh": "五笔 86 · Apple 公证",
+        "en": "Wubi 86 · Notarized"
+      },
+      "summary": {
+        "zh": "新增五笔 86、简码与词组、满四码顶字、z + 拼音反查，以及独立的五笔候选偏好；沿用紧凑候选面板。",
+        "en": "Adds Wubi 86, short codes and phrases, fifth-key commit, z + pinyin reverse lookup and independent Wubi candidate preferences, with the existing compact panel."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "五笔 86 与独立词库偏好",
+            "en": "Wubi 86 and independent preferences"
+          },
+          "items": [
+            {
+              "zh": "设置和输入法菜单可选择五笔 86；全拼与两种双拼继续保留。",
+              "en": "Select Wubi 86 in settings or the input menu; full pinyin and both shuangpin layouts remain available."
+            },
+            {
+              "zh": "简码、四码字词、满四码顶字、z + 拼音反查与逐码编辑。",
+              "en": "Short codes, four-key words, fifth-key commit, z + pinyin reverse lookup and code editing."
+            },
+            {
+              "zh": "五笔学习、自定义短语、置顶和忘记独立保存；原始码表与许可随应用提供。",
+              "en": "Wubi learning, phrases, pins and forgotten words are separate; source tables and licenses are bundled."
+            },
+            {
+              "zh": "59 项自动化回归已通过；五笔真实逐键与本轮应用内安装升级尚未进行。",
+              "en": "59 automated regressions passed; real Wubi keystrokes and this release’s in-app installation upgrade have not been tested."
+            }
+          ]
+        }
+      ],
+      "sha256": "dcfdb1ef05f286fcc7ef0c06b1f255ec77b724701e6f55f275b2405fbce6f7b0",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.7/AetherKey-1.0.7-update.zip",
+        "edSignature": "dR1u0I7fDKNOYaaRj425gUHOfBerP7r1/798/whLOJ2w4SReyLZ9sVFSUwP9oHOC36Pd1V0UIKKJhh5PwwblDA==",
+        "length": 8854681
+      }
+    },
+    {
       "version": "1.0.6",
       "build": "2026102602",
       "date": "2026-10-26",

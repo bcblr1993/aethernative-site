@@ -27,12 +27,36 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.5 可直接升级到 1.0.6；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.5 can update directly to 1.0.6; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.6 可直接升级到 1.0.7；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.6 can update directly to 1.0.7; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.7：五笔 86",
+        "en": "1.0.7: Wubi 86"
+      },
+      "body": [
+        {
+          "zh": "在设置 → 通用设置 → 输入方案选择「五笔 86」，或从输入法菜单切换。默认仍为全拼；正在编辑的编码会保留原方案直到上屏或取消。",
+          "en": "Choose Wubi 86 in Preferences → General → Input Scheme or from the input menu. Full pinyin remains the default. An active composition keeps its original scheme until committed or cancelled."
+        },
+        {
+          "zh": "g → 一、wq → 你、vbg → 好、khlg → 中国。空格确认，数字或方向键选词，减号/等号翻页。满四码后继续输入会确认当前候选并开始下一词；无码或中间编辑时不顶字。",
+          "en": "Examples: g → 一, wq → 你, vbg → 好, khlg → 中国. Space confirms, numbers and arrows select, and minus/equals change pages. A fifth key commits the highlighted candidate and starts a new code; invalid codes and edits in the middle do not trigger this."
+        },
+        {
+          "zh": "z + 拼音反查，例如 znihao 显示「你好」及 wqvb 编码。五笔模式的 v 是字根，不启用 V 模式计算器。Option + 左右键逐码编辑；回车提交原始编码，Esc 取消。",
+          "en": "Use z + pinyin for reverse lookup: znihao shows 你好 and code wqvb. In Wubi, v is a root key and does not open the calculator. Option + Left/Right edits codes; Return commits raw keys and Esc cancels."
+        },
+        {
+          "zh": "五笔学习、1–4 码自定义短语、置顶和忘记独立保存，不影响拼音。码表固定来自 rime/rime-wubi，包含 136,076 条字词编码；不保证所有汉字都有码。当前只支持 86 版，98 版和新世纪版未包含。59 项自动化回归通过，五笔真实逐键验收仍待进行。",
+          "en": "Wubi learning, 1–4-key custom phrases, pins and forgotten words are stored independently. The pinned rime/rime-wubi table contains 136,076 entries; not every character has a code. This release supports 86 only, not 98 or New Century. All 59 automated regressions passed; real Wubi keystroke acceptance is still pending."
         }
       ]
     },

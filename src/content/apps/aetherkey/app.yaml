@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.6 全新设置界面：侧边导航与分组卡片，支持明暗外观。菜单栏换上圆角 A 字牌，四方向键选词、拼音编辑与紧凑光标跟随体验保持不变。",
-    "en": "Version 1.0.6 brings redesigned settings with sidebar navigation, grouped cards and light/dark appearance, plus a rounded A menu-bar badge. Four-arrow selection, pinyin editing and compact caret-following candidates are retained."
+    "zh": "1.0.7 新增五笔 86：简码、字词编码、满四码顶字与 z + 拼音反查。与拼音分开保存选词偏好，继续使用紧凑候选面板。",
+    "en": "Version 1.0.7 adds Wubi 86, short codes, words and phrases, fifth-key commit and z + pinyin reverse lookup. Wubi preferences are separate from pinyin, with the same compact candidate panel."
   },
   "gallery": [
     {
@@ -255,6 +255,20 @@
       },
       {
         "kicker": {
+          "zh": "五笔",
+          "en": "Wubi"
+        },
+        "title": {
+          "zh": "熟悉的五笔，也能直接用",
+          "en": "Wubi 86, ready to choose"
+        },
+        "body": {
+          "zh": "在输入方案中选择五笔 86，支持简码、词组与满四码后继续输入顶字。不确定拆字时，用 z + 拼音查字和编码。学习、自定义短语、置顶和忘记与拼音分开保存。",
+          "en": "Select Wubi 86 for short codes, phrases and fifth-key commit. Use z + pinyin to look up text and its Wubi code. Learning, phrases, pins and forgotten words are stored separately from pinyin."
+        }
+      },
+      {
+        "kicker": {
           "zh": "双拼",
           "en": "Shuangpin"
         },
@@ -305,7 +319,7 @@
           "en": "Pin useful words and forget unwanted ones"
         },
         "body": {
-          "zh": "右键候选词即可置顶、取消置顶或忘记，也支持键盘快捷键。记录按拼音保存在本机，重启与更新后保留；忘记只影响对应拼音，需要时可重新添加自定义短语恢复。",
+          "zh": "右键候选词即可置顶、取消置顶或忘记，也支持键盘快捷键。记录按输入编码保存在本机，五笔与拼音隔离，重启与更新后保留；忘记只影响对应拼音，需要时可重新添加自定义短语恢复。",
           "en": "Right-click a candidate to pin, unpin or forget it, or use keyboard shortcuts. Preferences are stored per reading and survive restarts and updates. Forgotten words can be restored by adding a custom phrase."
         }
       },
@@ -393,14 +407,14 @@
         }
       },
       {
-        "value": "54",
+        "value": "59",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "1.0.6 · 四方向键选词、拼音编辑与候选面板回归",
-          "en": "1.0.6 · Four-arrow selection, pinyin editing and candidate panel regression tests"
+          "zh": "2026-10-28 · 五笔码表完整性、编辑与拼音回归；五笔实机逐键验收尚未进行",
+          "en": "2026-10-28 · Wubi table coverage, editing and pinyin regression; real Wubi keystroke acceptance is pending"
         }
       },
       {
@@ -427,8 +441,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.6",
-          "en": "AetherKey 1.0.6"
+          "zh": "AetherKey 1.0.7",
+          "en": "AetherKey 1.0.7"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -687,8 +701,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.6 支持全拼、小鹤双拼和微软双拼，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.6 supports full pinyin, Flypy and Microsoft shuangpin; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.7 支持全拼、小鹤双拼、微软双拼和五笔 86，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.7 supports full pinyin, Flypy and Microsoft shuangpin, and Wubi 86; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
