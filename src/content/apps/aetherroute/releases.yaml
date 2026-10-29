@@ -1,6 +1,32 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "1.11.1"
+    build: "2026102903"
+    date: 2026-10-29
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v1.11.1/AetherRoute-1.11.1-build-2026102903-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v1.11.1
+    sha256: f50d16f09b6823e41215e8a3a2ccbaebfeba61c2e19b5c3b23596d90b1daef3f
+    sparkle:
+      edSignature: Y3sW5x1btWYblhb33h0PqJ+k7d0il3/7NcTbekRgFnWB27qNTKIGucydTZHdW6JOM/Vo1y7sF2WcyYJ+a4uFBg==
+      length: 27959612
+    summary:
+      zh: "修复 VMess 与 Trojan 节点写明 network: tcp 时无法加载的问题"
+      en: "Fixes VMess and Trojan nodes that state network: tcp failing to load"
+    notes:
+      - title:
+          zh: 修复
+          en: Fixed
+        items:
+          - zh: "Xboard 等面板生成的 VMess、Trojan 节点（显式写 network: tcp）现在可以正常加载和连接。"
+            en: "VMess and Trojan nodes from panels such as Xboard, which state network: tcp explicitly, now load and connect."
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 真实服务器 28 种协议变体与 Mihomo 逐节点对照全部一致；Tart VM 6 维网络矩阵与 Mac mini 真机门禁全部通过。
+            en: All 28 protocol variants on a real server match Mihomo node by node; the Tart VM 6-way matrix and Mac mini physical gates all passed.
   - version: "1.11.0"
     build: "2026102902"
     date: 2026-10-28
