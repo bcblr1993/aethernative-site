@@ -1,6 +1,44 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.0"
+    build: "2026103101"
+    date: 2026-10-31
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.0/AetherRoute-2.0.0-build-2026103101-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.0
+    sha256: 48c7ad80827cfdd8b42bafc4c527b06699f33551257e28250f7e61112092df1c
+    sparkle:
+      edSignature: KK1MD7VTjUXJVNQxgyhBNRxBridYRMprevsLlO6VTqUsAfUNknw+Lm26dUYSbRUxiWFLP6Hct/w8fiFRLw1kCA==
+      length: 29114366
+    summary:
+      zh: 2.0.0 重大里程碑：16 种现代出站代理协议全覆盖、Chrome 152 uTLS 指纹与后量子 ALPS、全量 37 种 Mihomo 规则、DoQ/DoH3 现代 DNS 与嗅探器、分享链接编解码与订阅兼容性预检
+      en: "2.0.0 major milestone: full coverage across 16 modern protocols, Chrome 152 uTLS with post-quantum ALPS, all 37 Mihomo rules, DoQ/DoH3 DNS & sniffer, bi-directional share-links, and compatibility pre-flight reports"
+    notes:
+      - title:
+          zh: 现代协议矩阵
+          en: Modern Protocol Matrix
+        items:
+          - zh: 全面支持 Hysteria v1、SSR (TCP/UDP)、VLESS xhttp/httpupgrade、VLESS post-quantum 加密、TUIC v4、Snell v1–v5、sing-mux 多路复用、Mieru (TCP/UDP)、AmneziaWG 与 ECH。
+            en: Comprehensive support for Hysteria v1, SSR (TCP/UDP), VLESS xhttp/httpupgrade, VLESS post-quantum encryption, TUIC v4, Snell v1–v5, sing-mux, Mieru (TCP/UDP), AmneziaWG, and ECH.
+          - zh: 客户端 TLS 握手真实模拟 Chrome 152 浏览器指纹，支持 ALPS 与混合后量子密钥协商 (X25519MLKEM768)。
+            en: Client TLS handshakes simulate Chrome 152 browser fingerprints with ALPS and hybrid post-quantum key exchange (X25519MLKEM768).
+      - title:
+          zh: 规则、DNS 与生态
+          en: Rules, DNS & Ecosystem
+        items:
+          - zh: 对齐 Mihomo 全部 37 种路由规则类型；DNS 支持 DoQ、DoH3、direct-nameserver 与 fake-ip-filter-mode；支持 sniffer 流量嗅探器。
+            en: Aligned with all 37 Mihomo routing rule types; DNS supports DoQ, DoH3, direct-nameserver, and fake-ip-filter-mode; adds top-level sniffer inspection.
+          - zh: 支持全协议分享链接解析与生成、SIP008 JSON 及 Surge [Proxy] 导入；提供引擎能力清单预检与订阅兼容性报告。
+            en: Supports share links across all protocols, SIP008 JSON, and Surge [Proxy] import; adds engine capability manifest and pre-flight compatibility reports.
+      - title:
+          zh: 质量保证
+          en: Quality Assurance
+        items:
+          - zh: 两轮 12 协议真实互通门禁、9 大真实站点 Chrome 指纹握手、43 节点真实网络实验室与 Mihomo 逐节点对照全部 100% 一致并通过。
+            en: Two passes of 12-protocol interop gates, 9 live Chrome TLS handshakes, and 43-node real-network lab differential with Mihomo all 100% passed.
+          - zh: 物理真机 Mac mini：TUN 与透明代理空闲复用通过，2 MiB 上传通过，网卡切换 6 轮在 1–3 秒内自动恢复；UI 性能与内存全项达标。
+            en: "Physical Mac mini: TUN and Transparent Proxy idle reuse passed, 2 MiB upload passed, 6 interface switches recovered in 1-3s; UI performance within budgets."
   - version: "1.11.1"
     build: "2026102903"
     date: 2026-10-29
