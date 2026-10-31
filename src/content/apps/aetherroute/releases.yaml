@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.1"
+    build: "2026103102"
+    date: 2026-10-31
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.1/AetherRoute-2.0.1-build-2026103102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.1
+    sha256: b3f3a5bf15e5a930afc0d16836296c84da03fe8808acdd39273d925b5315104c
+    sparkle:
+      edSignature: xqKO/fNk9bumqHJLO2+KFZySpHo504LapeEr7sQLERKyfYccb797dkKCrN0M3QXxOixEklTIlcbHWJMOQ5V1AQ==
+      length: 29114825
+    summary:
+      zh: 2.0.1 优化发布：重构菜单栏实时网速排版架构，实现像素级三列对齐与防抖动，彻底解决大带宽下网速单位截断问题
+      en: "2.0.1 optimization release: overhauled menu bar traffic layout with pixel-aligned 3-column typography and anti-jitter, completely resolving unit clipping on high bandwidth rates"
+    notes:
+      - title:
+          zh: 菜单栏排版优化
+          en: Menu Bar Typography Improvements
+        items:
+          - zh: 拆分实时网速为三列独立排版（箭头、右对齐数值、左对齐单位），彻底消除网速数值变动引起的左右抖动，上下两行小数点与单位严格对齐。
+            en: Split real-time speed display into three independent columns (arrow, right-aligned numbers, left-aligned units), eliminating horizontal jitter and aligning decimal points vertically.
+          - zh: 画布宽度扩容至 82pt 与 86pt，彻底解决大网速（如 484.7 KB/s、10.25 GB/s）末尾单位 /s 截断问题。
+            en: Expanded canvas width to 82pt and 86pt, completely preventing trailing unit clipping (e.g. /s) on high bandwidth rates.
+      - title:
+          zh: 质量保证与真机验证
+          en: Quality Assurance & Hardware Validation
+        items:
+          - zh: 全量 41 款 SF Symbols 图标在网速模式下像素级渲染验证通过；test.sh 与快速门禁全量通过且零代码警告。
+            en: All 41 SF Symbols verified pixel-perfect in traffic mode; test.sh and fast lane passed with zero code warnings.
+          - zh: Apple Silicon Mac mini 物理真机：TUN 与透明代理空闲 50s 复用通过，2 MiB 上传通过，6 轮网卡切换 1–4 秒内自愈恢复。
+            en: "Physical Apple Silicon Mac mini: TUN and Transparent Proxy idle reuse passed, 2 MiB upload passed, 6 interface switches recovered in 1-4s."
   - version: "2.0.0"
     build: "2026103101"
     date: 2026-10-31
