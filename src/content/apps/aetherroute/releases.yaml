@@ -1,6 +1,48 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.2"
+    build: "2026110202"
+    date: 2026-11-01
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.2/AetherRoute-2.0.2-build-2026110202-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.2
+    sha256: f62f4b7d1d787e06269c1a9ab73935d7895070c2e714c714d78447384aecf191
+    sparkle:
+      edSignature: mcE1/WJqicFsEMNe9dqVhJEM1fzgxqPvRnixxjGsnBWO0nBLUIFp7v0anM+zyLV+QPcDWajVpa1gkeAQgvQsAQ==
+      length: 29185083
+    summary:
+      zh: 修复半关闭连接的上传中断、透明代理诊断计量与菜单栏实时网速绘制异常。
+      en: Fix uploads interrupted after remote half-close, transparent-proxy diagnostic metering, and menu-bar traffic rendering.
+    notes:
+      - title:
+          zh: 连接与诊断
+          en: Connections and diagnostics
+        items:
+          - zh: 半关闭连接按实际空闲时间回收，在途上传不再被固定计时器取消。
+            en: Reclaim half-closed connections after actual inactivity, allowing in-flight uploads to drain.
+          - zh: 按成功写入统计 TCP / UDP 字节与失败会话，标准诊断显示半关闭超时原因。
+            en: Count acknowledged TCP/UDP writes and failed sessions, with half-close timeouts visible in standard diagnostics.
+      - title:
+          zh: 配置兼容与隐私
+          en: Profile compatibility and privacy
+        items:
+          - zh: 修复 JSON Clash 配置的运行时改写，保留原始文本和嵌套节点参数。
+            en: Fix runtime rewrites of JSON Clash profiles while preserving imported text and nested proxy options.
+          - zh: YAML/JSON 反序列化错误不再输出完整配置或被拒绝的输入值。
+            en: Prevent YAML/JSON deserialization errors from exposing complete profiles or rejected input values.
+      - title:
+          zh: 依赖安全
+          en: Dependency security
+        items:
+          - zh: 升级 DNS 与 SSH 依赖，修复已审查的资源耗尽及客户端校验问题，并保持主机密钥固定校验。
+            en: Upgrade DNS and SSH dependencies for reviewed resource-exhaustion and client-validation issues while preserving host-key pins.
+      - title:
+          zh: 菜单栏稳定性
+          en: Menu-bar stability
+        items:
+          - zh: 实时网速预先生成 Retina 像素，修复原生状态栏压力实验复现的文字绘制异常，保留原有排版。
+            en: Pre-render traffic text into Retina pixels to fix the text-rendering exception reproduced under native status-item stress while preserving its layout.
   - version: "2.0.1"
     build: "2026103102"
     date: 2026-10-31
