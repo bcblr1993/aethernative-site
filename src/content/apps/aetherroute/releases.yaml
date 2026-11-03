@@ -1,6 +1,40 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.3"
+    build: "2026110301"
+    date: 2026-11-03
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.3/AetherRoute-2.0.3-build-2026110301-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.3
+    sha256: e7dc90b07dca517329f549767b65fb32b5d66765590496a5f152d824d45952d4
+    sparkle:
+      edSignature: ZwpvMwS0hPFylgtyMWHPPNGFom10NmOy+HqHwWm/X2akWY/JDo0PLkm+ndNbxIC+MDeZ3Zzh+Tt8VNt8hgnuDg==
+      length: 29210020
+    summary:
+      zh: 修复唤醒后重复重置网络，改善透明代理诊断与菜单栏实时网速刷新。
+      en: Fix repeated network resets after wake and improve transparent-proxy diagnostics and menu-bar traffic refresh.
+    notes:
+      - title:
+          zh: 唤醒与网络恢复
+          en: Wake and network recovery
+        items:
+          - zh: 合并恢复请求，同一网卡不再重复重置，避免不必要的连接中断。
+            en: Coalesce recovery requests and avoid repeated resets on the same uplink to reduce connection interruptions.
+          - zh: 取消恢复后忽略过期的健康检查结果，保持连接状态准确。
+            en: Ignore stale health-check results after cancellation to keep connection state accurate.
+      - title:
+          zh: 诊断准确性
+          en: Diagnostic accuracy
+        items:
+          - zh: 正常的半关闭尾部关闭不再计为会话失败，并减少正常结束与取消操作的错误日志。
+            en: Stop counting normal trailing closes after half-close as failed sessions and reduce error logs for normal termination and cancellation.
+      - title:
+          zh: 菜单栏实时网速
+          en: Menu-bar traffic
+        items:
+          - zh: 关闭所有窗口后仍每三秒刷新网速，启用显示后立即更新，全零流量时暂停曲线动画。
+            en: Refresh traffic every three seconds with all windows closed, update immediately when enabled, and pause graphs while traffic remains zero.
   - version: "2.0.2"
     build: "2026110202"
     date: 2026-11-01
