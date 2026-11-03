@@ -3,7 +3,7 @@
  * 规则：
  * - 只收录填写了 sparkle 签名的 Mac 版本；技术预览（preview）不收录；
  * - beta 版本带 <sparkle:channel>beta</sparkle:channel>，只推送给开启了测试版更新的用户；
- * - 更新说明默认中文，另附 xml:lang="en" 的英文版，Sparkle 按系统语言选择；
+ * - 更新说明显式标记 xml:lang="zh-CN" 和 xml:lang="en"，Sparkle 按系统语言选择；
  * - 附 sparkle:fullReleaseNotesLink，指向网站上的完整版本说明。
  */
 import type { Release } from './apps';
@@ -101,9 +101,9 @@ export function buildAppcast({ appId, appName, site, minimumSystemVersion, relea
       `      <sparkle:shortVersionString>${esc(r.version)}</sparkle:shortVersionString>`,
       minSys && `      <sparkle:minimumSystemVersion>${esc(minSys)}</sparkle:minimumSystemVersion>`,
       r.channel === 'beta' && '      <sparkle:channel>beta</sparkle:channel>',
-      `      <sparkle:fullReleaseNotesLink>${esc(notesZh)}</sparkle:fullReleaseNotesLink>`,
+      `      <sparkle:fullReleaseNotesLink xml:lang="zh-CN">${esc(notesZh)}</sparkle:fullReleaseNotesLink>`,
       `      <sparkle:fullReleaseNotesLink xml:lang="en">${esc(notesEn)}</sparkle:fullReleaseNotesLink>`,
-      `      <description>${cdata(notesHtml(r, 'zh'))}</description>`,
+      `      <description xml:lang="zh-CN">${cdata(notesHtml(r, 'zh'))}</description>`,
       `      <description xml:lang="en">${cdata(notesHtml(r, 'en'))}</description>`,
       `      <enclosure url="${esc(download)}" sparkle:edSignature="${esc(sp.edSignature)}" length="${sp.length}" type="application/octet-stream" />`,
       '    </item>',

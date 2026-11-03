@@ -74,14 +74,17 @@ describe('buildAppcast', () => {
     expect(build([rel({ download: '/downloads/Y.zip' })])).toContain('url="https://aethernative.com/downloads/Y.zip"');
   });
 
-  it('中英文说明分别输出，英文带 xml:lang', () => {
+  it('中英文说明及完整说明链接都显式标记语言', () => {
     const xml = build([rel({ notes: [{ title: { zh: '修复', en: 'Fixes' }, items: [{ zh: '甲', en: 'A' }] }] })]);
-    const zh = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    const zh = xml.match(/<description xml:lang="zh-CN"><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
     const en = xml.match(/<description xml:lang="en"><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
     expect(zh).toContain('<p class="summary">中文摘要</p>');
     expect(zh).toContain('<section class="group fix"><h3 class="tag">修复</h3><ul><li>甲</li></ul></section>');
     expect(en).toContain('<p class="summary">English summary</p>');
     expect(en).toContain('<h3 class="tag">Fixes</h3>');
+    expect(xml).toContain('<sparkle:fullReleaseNotesLink xml:lang="zh-CN">https://aethernative.com/apps/demo/releases/1.0.0/</sparkle:fullReleaseNotesLink>');
+    expect(xml).not.toContain('<sparkle:fullReleaseNotesLink>');
+    expect(xml).not.toContain('<description><![CDATA[');
     expect(xml).toContain('<sparkle:fullReleaseNotesLink xml:lang="en">https://aethernative.com/en/apps/demo/releases/1.0.0/</sparkle:fullReleaseNotesLink>');
   });
 
@@ -89,7 +92,7 @@ describe('buildAppcast', () => {
     const xml = build([rel({ summary: 'a < b & c ]]> d', download: 'https://x.test/a.dmg?x=1&y=2' })]);
     // 先做 HTML 转义，"]]>" 变成 "]]&gt;"，不会提前结束 CDATA
     expect(xml).toContain('<p class="summary">a &lt; b &amp; c ]]&gt; d</p>');
-    const body = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    const body = xml.match(/<description xml:lang="zh-CN"><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
     expect(body).not.toContain(']]>');
     expect(xml).toContain('url="https://x.test/a.dmg?x=1&amp;y=2"');
   });
@@ -104,7 +107,7 @@ describe('buildAppcast', () => {
 describe('更新说明样式', () => {
   it('内联样式，支持深色模式，不引用外部资源', () => {
     const xml = build([rel({ notes: [{ title: { zh: '修复', en: 'Fixes' }, items: [{ zh: '甲', en: 'A' }] }] })]);
-    const zh = xml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
+    const zh = xml.match(/<description xml:lang="zh-CN"><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ?? '';
     expect(zh.startsWith('<style>')).toBe(true);
     expect(zh).toContain('prefers-color-scheme:dark');
     expect(zh).not.toMatch(/https?:\/\//);
