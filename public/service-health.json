@@ -1,29 +1,29 @@
 {
-  "checkedAt": "2026-11-02T21:46:56.949Z",
+  "checkedAt": "2026-11-03T06:57:45.506Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "2.0.2",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.2/AetherRoute-2.0.2-build-2026110202-arm64.dmg",
-      "sha256": "f62f4b7d1d787e06269c1a9ab73935d7895070c2e714c714d78447384aecf191",
-      "length": 29185083,
-      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.2/AetherRoute-2.0.2-build-2026110202-arm64.dmg",
-      "updateLength": 29185083,
-      "edSignature": "mcE1/WJqicFsEMNe9dqVhJEM1fzgxqPvRnixxjGsnBWO0nBLUIFp7v0anM+zyLV+QPcDWajVpa1gkeAQgvQsAQ==",
+      "version": "2.0.3",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.3/AetherRoute-2.0.3-build-2026110301-arm64.dmg",
+      "sha256": "e7dc90b07dca517329f549767b65fb32b5d66765590496a5f152d824d45952d4",
+      "length": 29210020,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.3/AetherRoute-2.0.3-build-2026110301-arm64.dmg",
+      "updateLength": 29210020,
+      "edSignature": "ZwpvMwS0hPFylgtyMWHPPNGFom10NmOy+HqHwWm/X2akWY/JDo0PLkm+ndNbxIC+MDeZ3Zzh+Tt8VNt8hgnuDg==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 29185083,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/518b3a5b-6eee-407f-87e4-e7bea6a9be58",
+          "bytes": 29210020,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/97758d8d-a6c6-4796-98a3-924ac4cfec4b",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "f62f4b7d1d787e06269c1a9ab73935d7895070c2e714c714d78447384aecf191",
+          "actual": "e7dc90b07dca517329f549767b65fb32b5d66765590496a5f152d824d45952d4",
           "message": "SHA256 一致"
         },
         {
@@ -82,23 +82,23 @@
     {
       "id": "aetherterm",
       "name": "AetherTerm",
-      "version": "1.15.0",
-      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.15.0/AetherTerm-v1.15.0-macos-arm64.dmg",
-      "sha256": "ccaaf8d241dee866439459cc43341d1acf45456982092170f898f7b8e132cd8a",
-      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.15.0/AetherTerm-v1.15.0-macos-arm64.dmg",
+      "version": "1.16.0",
+      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.0/AetherTerm-v1.16.0-macos-arm64.dmg",
+      "sha256": "0a83a080502e6f50887dc2fe0b0e711d76e29e8c9fb52653263639187de7d8a7",
+      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.0/AetherTerm-v1.16.0-macos-arm64.dmg",
       "appcast": null,
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4578933,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/28483729-b23d-4200-9723-1ebcaf270712",
+          "bytes": 4870893,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/784f5d92-861b-415a-8c24-a1d6f1c8f4b7",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "ccaaf8d241dee866439459cc43341d1acf45456982092170f898f7b8e132cd8a",
+          "actual": "0a83a080502e6f50887dc2fe0b0e711d76e29e8c9fb52653263639187de7d8a7",
           "message": "SHA256 一致"
         },
         {
