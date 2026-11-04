@@ -27,12 +27,32 @@
           "en": "Type nihao; Space selects the first candidate and number keys select a candidate. Use minus/equals or the panel arrows to change pages. Option + Tab switches candidate layout."
         },
         {
-          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.6 可直接升级到 1.0.7；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
-          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.6 can update directly to 1.0.7; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
+          "zh": "从输入法菜单或设置 → 更新与启动点击「检查更新」，按提示下载、确认安装并重启。1.0.1 至 1.0.7 可直接升级到 1.0.8；1.0.0 用户需手动安装一次当前版本。更新保留本地词库、置顶、忘记记录和偏好。",
+          "en": "Choose Check for Updates from the menu or Preferences → Updates & Startup, then download, confirm and relaunch. Versions 1.0.1 through 1.0.7 can update directly to 1.0.8; users of 1.0.0 need a one-time manual installation of the current version. Dictionaries, pins, forgotten words and settings are retained."
         },
         {
           "zh": "在设置 → 更新与启动中，可管理每 6 小时检查、查看检查时间与登录后自动启动。如果 macOS 显示等待允许，请点击入口在系统登录项中确认；休眠与退出期间不会按时检查。",
           "en": "In Preferences → Updates & Startup, manage six-hour checks, view check times and enable login startup. If macOS requires approval, follow the link to Login Items. Checks are deferred while the Mac sleeps or the app is not running."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "zh": "1.0.8：词库导入导出与常用地名",
+        "en": "1.0.8: lexicon import/export and place names"
+      },
+      "body": [
+        {
+          "zh": "在设置 → 词库与短语 → 词库备份与迁移中，可将个人词库导出为完整 JSON 备份（包含选词频次、前后文二元搭配、自定义短语、置顶与忘记记录）或纯文本短语词表（编码<Tab>短语）。",
+          "en": "In Preferences → Lexicon & Phrases → Backup & Migration, export your personal lexicon as a full JSON backup (including word frequencies, bigram context, custom phrases, pins and forgotten words) or a plain-text phrase table (code<Tab>phrase)."
+        },
+        {
+          "zh": "导入支持「合并导入」与「覆盖恢复」两种模式，兼容 AetherKey JSON 备份、Rime .dict.yaml 词典以及 TSV/TXT 文本词表（支持编码在前或词条在前，保留 wubi86: 五笔独立命名空间）。",
+          "en": "Import supports Merge and Replace modes, accepting AetherKey JSON backups, Rime .dict.yaml dictionaries and TSV/TXT word lists (either code-first or phrase-first, preserving the wubi86: Wubi namespace)."
+        },
+        {
+          "zh": "内置词库扩充至 533,958 条词条，新增并调优全国 34 个省级行政区、300+ 地级市与主要区县、核心商圈与科技园区（中关村、陆家嘴、张江、未来科技城、粤海街道、前海、珠江新城、光谷、天府新区等）及主要高铁站与机场，全拼、双拼、简拼与五笔 86 同步支持。",
+          "en": "The bundled dictionary expands to 533,958 entries with optimized rankings across 34 provincial divisions, 300+ cities and districts, major tech hubs and CBDs, and railway stations and airports across full pinyin, shuangpin, abbreviations and Wubi 86."
         }
       ]
     },
