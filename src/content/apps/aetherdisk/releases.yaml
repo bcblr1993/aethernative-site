@@ -1,6 +1,50 @@
 {
   "releases": [
     {
+      "version": "0.3.0",
+      "build": "2026110401",
+      "date": "2026-11-04",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.3.0/AetherDisk-0.3.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v0.3.0",
+      "sha256": "ff6ff6898d0c23a02d18de4cdb090936933bb0620bfd23992af5354fd333ffcb",
+      "sparkle": {
+        "edSignature": "V612JLbaeYrhYNUbJMT/gt5+QOFIy3Gf3TZCk8z3QW5B4qx8Xf2wrR30DucHeXFlK4REvK18IrRFqSdhooI6BQ==",
+        "length": 3351540
+      },
+      "badge": {
+        "zh": "正式版 · 已通过 Apple 公证",
+        "en": "Release · Apple notarized"
+      },
+      "summary": {
+        "zh": "支持概览页无重扫目录快速展开与排序、清理建议检索筛选与更多构建缓存规则、深层对比及久未修改大文件筛选。",
+        "en": "Adds zero-rescan hierarchy drilldown and sorting in Overview, cleanup suggestion filtering with expanded cache rules, deep scan comparisons and stale large-file filters."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "更深入的分析与筛选",
+            "en": "Deeper analysis and filtering"
+          },
+          "items": [
+            {
+              "zh": "概览页目录排行支持按占用、逻辑大小与文件数排序，并支持无重扫的内存内子目录展开与面包屑回退。",
+              "en": "Overview directory rankings sort by allocated size, logical size or file count, with in-memory folder expansion and breadcrumb navigation without rescanning."
+            },
+            {
+              "zh": "清理建议支持关键字搜索、可选/受保护状态筛选及分类过滤；新增 CoreSimulator、Maven target、CMake build、Go/uv/pip/Gradle 及 VS Code/Cursor 缓存识别，并为缓存目录保留独立候选池。",
+              "en": "Cleanup suggestions filter by keyword, eligibility and category, adding CoreSimulator, Maven target, CMake build, Go/uv/pip/Gradle and VS Code/Cursor cache rules with a dedicated cache candidate budget."
+            },
+            {
+              "zh": "上次对比支持顶层与深层目录切换并自动去重整目录新增/移除噪音，历史记录保留最近 5 次完整扫描；大文件支持久未修改筛选，文件类型区分大体积 .ts 视频与源码并始终保留源码保护。",
+              "en": "Scan comparison toggles between top-level and deep directory views while deduplicating newly added or removed parent trees, retaining the last 5 completed scans; Large Files adds stale-file filtering and File Types separates large .ts media from source code while keeping source protection."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.2.2",
       "build": "2026102502",
       "date": "2026-10-25",

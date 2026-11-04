@@ -72,8 +72,8 @@
     }
   },
   "notice": {
-    "zh": "0.2.2 统一按钮、弹出面板与深浅色样式。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "Version 0.2.2 unifies buttons, sheets and light/dark styling. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "0.3.0 支持无重扫目录展开、清理建议筛选与更多开发缓存规则、深层对比及久未修改大文件筛选。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 0.3.0 adds zero-rescan folder drilldown, cleanup suggestion filters with expanded developer cache rules, deep scan comparisons and stale large-file filtering. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
   },
   "gallery": [
     {
@@ -86,16 +86,16 @@
     },
     {
       "label": {
-        "zh": "0.2.2 · 跨目录大文件",
-        "en": "0.2.2 · Large files across folders"
+        "zh": "0.3.0 · 跨目录大文件",
+        "en": "0.3.0 · Large files across folders"
       },
       "zh": "./media/large-light.png",
       "zhDark": "./media/large-dark.png"
     },
     {
       "label": {
-        "zh": "0.2.2 · 文件类型占用",
-        "en": "0.2.2 · File-type breakdown"
+        "zh": "0.3.0 · 文件类型占用",
+        "en": "0.3.0 · File-type breakdown"
       },
       "zh": "./media/types-light.png",
       "zhDark": "./media/types-dark.png"
