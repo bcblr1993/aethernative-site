@@ -1,6 +1,42 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.6"
+    build: "2026110402"
+    date: 2026-11-04
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.6/AetherRoute-2.0.6-build-2026110402-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.6
+    sha256: e1ebbdf5aa96a63cb5566f03af137e794e45051885854563afe396f69ba37088
+    sparkle:
+      edSignature: KiFQqhiFajAbi6dFOOQz7L0pEr7r9/j4HF+pl7QWE3FJnpK0RW+jw/Jbjv8c10hKukUELPf0D/M7S/QNRzXgCA==
+      length: 29235179
+    summary:
+      zh: 强化 Fake-IP 与 TUN DNS 并发稳定性，新增休眠唤醒出站网卡绑定自愈与恢复消重，并优化故障转移探测。
+      en: Harden Fake-IP and concurrent TUN DNS handling, add outbound interface bind self-healing and wake recovery deduplication, and isolate failover probes.
+    notes:
+      - title:
+          zh: Fake-IP 与 TUN DNS
+          en: Fake-IP & TUN DNS
+        items:
+          - zh: 保留 198.18.0.1/2/255 并在 TLS SNI 恢复域名时自愈缺失的 Fake-IP 映射，保障后续 QUIC/UDP 443 命中。
+            en: Reserve 198.18.0.1/2/255 and self-heal missing Fake-IP mappings on TLS SNI recovery so subsequent QUIC/UDP 443 flows resolve cleanly.
+          - zh: 非 A/AAAA 查询本地立即返回 NODATA，TUN DNS 查询改为有界并发任务，消除 UDP 数据面队头阻塞。
+            en: Return local NODATA for non-A/AAAA queries in Fake-IP mode and spawn TUN DNS queries concurrently to eliminate UDP head-of-line blocking.
+      - title:
+          zh: 休眠唤醒与网卡切换自愈
+          en: Wake & Interface Self-Healing
+        items:
+          - zh: 出站套接字在失效接口上绑定失败时自动切换至可用物理接口并更新缓存。
+            en: Automatically rebind outbound sockets to a live physical interface and update the cache when binding to a stale interface fails.
+          - zh: 合并唤醒初期重复的恢复通知并在 Packet Tunnel 中按物理上联签名消重重置。
+            en: Coalesce duplicate wake recovery triggers and deduplicate Packet Tunnel network resets by physical uplink signature.
+      - title:
+          zh: 故障转移与遥测优化
+          en: Failover & Telemetry
+        items:
+          - zh: 首选节点回切探测前刷新连接池，统一 macOS 物理内存统计口径并消除按钮进度指示器约束警告。
+            en: Refresh the probe session before preferred-node failover checks, align macOS physical footprint telemetry, and remove progress spinner constraint warnings.
   - version: "2.0.5"
     build: "2026110401"
     date: 2026-11-04
