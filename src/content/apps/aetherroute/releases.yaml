@@ -1,6 +1,40 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.5"
+    build: "2026110401"
+    date: 2026-11-04
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.5/AetherRoute-2.0.5-build-2026110401-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.5
+    sha256: 02fb2d02aea0fe6e94bc1134dbf4dfaeee1da9a9cc0d77c6a4e2f126143a5bc1
+    sparkle:
+      edSignature: RJGK6mHYEr9xp1fTGwuFYmYPLSKwzmfpIOjcRKV1WxowZKdq8shKHEYvqQZj95/rx1G8B0Ec7Hc9QFzYNhEmBA==
+      length: 29210410
+    summary:
+      zh: 统一菜单测速口径，真实探测 DIRECT 与策略组出口，并自动刷新过期结果。
+      en: Keep menu latency measurements consistent, probe DIRECT and active strategy routes, and refresh stale readings.
+    notes:
+      - title:
+          zh: 测速准确性
+          en: Latency accuracy
+        items:
+          - zh: 后台健康检查不再覆盖界面测速；DIRECT 使用真实探测，取消固定 1 毫秒。
+            en: Keep background health checks out of display results and replace the fixed DIRECT value with a real probe.
+          - zh: 策略组测量当前实际出口，不再以组内最快节点的延迟代替。
+            en: Measure the strategy group's actual active route instead of substituting the fastest child's latency.
+      - title:
+          zh: 结果刷新
+          en: Result freshness
+        items:
+          - zh: 打开菜单时刷新缺失或超过 60 秒的结果；实际出口或测试地址变化后使对应缓存失效。
+            en: Refresh missing or 60-second-old readings when opening the menu, and invalidate affected samples when the active route or test URL changes.
+      - title:
+          zh: 使用说明
+          en: Measurement scope
+        items:
+          - zh: 真实网络较慢或冷启动时仍会显示高延迟；本次不改变故障转移策略。
+            en: Slow networks and cold starts can still show high latency; this update does not change fault failover policy.
   - version: "2.0.4"
     build: "2026110302"
     date: 2026-11-03
