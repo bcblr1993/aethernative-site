@@ -1,29 +1,29 @@
 {
-  "checkedAt": "2026-11-03T19:35:02.484Z",
+  "checkedAt": "2026-11-04T06:39:48.635Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "2.0.4",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.4/AetherRoute-2.0.4-build-2026110302-arm64.dmg",
-      "sha256": "dc2a09794d7cddcdd519d2af1046021480a35042e20eb38fdb3f6e331d429b76",
-      "length": 29209686,
-      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.4/AetherRoute-2.0.4-build-2026110302-arm64.dmg",
-      "updateLength": 29209686,
-      "edSignature": "9yZKhvJoejVYyhg1F/vz4NJIFk+1a6EqG2yWNPzZEvXt5792Y4FeB5apMJTbfWeAyAtN7LHiCLNinjLVP61eBw==",
+      "version": "2.0.5",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.5/AetherRoute-2.0.5-build-2026110401-arm64.dmg",
+      "sha256": "02fb2d02aea0fe6e94bc1134dbf4dfaeee1da9a9cc0d77c6a4e2f126143a5bc1",
+      "length": 29210410,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.5/AetherRoute-2.0.5-build-2026110401-arm64.dmg",
+      "updateLength": 29210410,
+      "edSignature": "RJGK6mHYEr9xp1fTGwuFYmYPLSKwzmfpIOjcRKV1WxowZKdq8shKHEYvqQZj95/rx1G8B0Ec7Hc9QFzYNhEmBA==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 29209686,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/db49592e-12dc-4671-9825-7acfc41dbaba",
+          "bytes": 29210410,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/31fb6849-2185-42ee-8a21-b6deab6198b8",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "dc2a09794d7cddcdd519d2af1046021480a35042e20eb38fdb3f6e331d429b76",
+          "actual": "02fb2d02aea0fe6e94bc1134dbf4dfaeee1da9a9cc0d77c6a4e2f126143a5bc1",
           "message": "SHA256 一致"
         },
         {
@@ -82,23 +82,23 @@
     {
       "id": "aetherterm",
       "name": "AetherTerm",
-      "version": "1.16.0",
-      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.0/AetherTerm-v1.16.0-macos-arm64.dmg",
-      "sha256": "0a83a080502e6f50887dc2fe0b0e711d76e29e8c9fb52653263639187de7d8a7",
-      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.0/AetherTerm-v1.16.0-macos-arm64.dmg",
+      "version": "1.16.2",
+      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.2/AetherTerm-v1.16.2-macos-arm64.dmg",
+      "sha256": "365683376f8f004c0c58fe42a1f0236c5e613e041822ef782d8f9009a2f992b0",
+      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.16.2/AetherTerm-v1.16.2-macos-arm64.dmg",
       "appcast": null,
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4870893,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/784f5d92-861b-415a-8c24-a1d6f1c8f4b7",
+          "bytes": 4951738,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/6a280bf8-4479-4d6a-946f-59d5d8c775cc",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "0a83a080502e6f50887dc2fe0b0e711d76e29e8c9fb52653263639187de7d8a7",
+          "actual": "365683376f8f004c0c58fe42a1f0236c5e613e041822ef782d8f9009a2f992b0",
           "message": "SHA256 一致"
         },
         {
@@ -191,26 +191,26 @@
     {
       "id": "antigravity-multiplexer",
       "name": "Aether Antigravity Multiplexer",
-      "version": "0.8.24",
-      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.24/Aether-Antigravity-Multiplexer-v0.8.24-macos-arm64.zip",
-      "sha256": "c5809768cd48f946eae5ad13fa98398144f25c982a293a719a7836ac97cad24c",
-      "length": 4152983,
-      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.24/Aether-Antigravity-Multiplexer-v0.8.24-macos-arm64.zip",
-      "updateLength": 4152983,
-      "edSignature": "eZGsP+SN8exTS3csYCc8X33IJj1QLZjK3YnSsIWputg2K8cIy3AisnoRTYCDrVjrprdMEYrlOFjg89tHiuFxBA==",
+      "version": "0.8.26",
+      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.26/Aether-Antigravity-Multiplexer-v0.8.26-macos-arm64.zip",
+      "sha256": "bf456b8382826c913b05837386b147069843f5794a6143288423dba5d10bd5c9",
+      "length": 4205547,
+      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.26/Aether-Antigravity-Multiplexer-v0.8.26-macos-arm64.zip",
+      "updateLength": 4205547,
+      "edSignature": "QFXbE7BhM7pHiJ1NZHj7sq0c07+j61qeWTiFLVz+IgHMP1j/Cg10q5aGS/bGZnpxdC2dpjpeeu1d1pXDqkn7DA==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4152983,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/0bdd20a0-573a-4d02-93d7-827cf622c3fe",
+          "bytes": 4205547,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/7fdd1ffd-40b1-4a29-8d4d-4c796c2dc8e0",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "c5809768cd48f946eae5ad13fa98398144f25c982a293a719a7836ac97cad24c",
+          "actual": "bf456b8382826c913b05837386b147069843f5794a6143288423dba5d10bd5c9",
           "message": "SHA256 一致"
         },
         {
@@ -423,25 +423,25 @@
     {
       "id": "aetherkey",
       "name": "AetherKey",
-      "version": "1.0.7",
-      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.7/AetherKey-1.0.7-arm64.dmg",
-      "sha256": "dcfdb1ef05f286fcc7ef0c06b1f255ec77b724701e6f55f275b2405fbce6f7b0",
-      "updateDownload": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.7/AetherKey-1.0.7-update.zip",
-      "updateLength": 8854681,
-      "edSignature": "dR1u0I7fDKNOYaaRj425gUHOfBerP7r1/798/whLOJ2w4SReyLZ9sVFSUwP9oHOC36Pd1V0UIKKJhh5PwwblDA==",
+      "version": "1.0.8",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.8/AetherKey-1.0.8-arm64.dmg",
+      "sha256": "f727d29d925fe2e2a2b9b052295473e90583070ae78f10b6fa88d7363f4409f7",
+      "updateDownload": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.8/AetherKey-1.0.8-update.zip",
+      "updateLength": 8929351,
+      "edSignature": "JK+5lOPZpovwHcXPKf9Y6s+ebb4ece5ru4JqLi3BY881Hzh1UpYhJLLbD1EtLeqryr4rjQENQTvD6w7vlbgtDg==",
       "appcast": "/apps/aetherkey/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 12401994,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431113436/d0b60a89-c34f-4c58-824b-75feac92ae0b",
+          "bytes": 12532373,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431113436/aebcaf38-8733-44d4-9645-b0b2857c7745",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "dcfdb1ef05f286fcc7ef0c06b1f255ec77b724701e6f55f275b2405fbce6f7b0",
+          "actual": "f727d29d925fe2e2a2b9b052295473e90583070ae78f10b6fa88d7363f4409f7",
           "message": "SHA256 一致"
         },
         {
