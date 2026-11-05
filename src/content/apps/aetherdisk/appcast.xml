@@ -4,16 +4,16 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>AetherDisk</title>
         <item>
-            <title>0.3.0</title>
-            <pubDate>Wed, 04 Nov 2026 15:30:24 +0800</pubDate>
-            <sparkle:version>2026110401</sparkle:version>
-            <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
+            <title>0.5.0</title>
+            <pubDate>Thu, 05 Nov 2026 10:24:17 +0800</pubDate>
+            <sparkle:version>2026110501</sparkle:version>
+            <sparkle:shortVersionString>0.5.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/bcblr1993/AetherDisk/releases/download/v0.3.0/AetherDisk-0.3.0-arm64.dmg" length="3351540" type="application/octet-stream" sparkle:edSignature="V612JLbaeYrhYNUbJMT/gt5+QOFIy3Gf3TZCk8z3QW5B4qx8Xf2wrR30DucHeXFlK4REvK18IrRFqSdhooI6BQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/AetherDisk/releases/download/v0.5.0/AetherDisk-0.5.0-arm64.dmg" length="3524718" type="application/octet-stream" sparkle:edSignature="5aQcAzIQ1Clzji7QyrTAjz4drLc1ucHwZyJD1IXXkbou26BcU/nkl/xKhTHEGOXkX5yf5lKFexbv1vrhIRkiCw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: Mqs84pfnqImA56i3rbuDU34geN9CfDEEvw52JgzuVYsaSuZEszaPJvO1V1X+3ligRqVCH2njlKNDNr6+GnqTAw==
+edSignature: R73o3Y0kILq3aVOqIK7EZVQ1tr1mgoGJhPi0aW2jJzqieEry5sjA7xnF6zZ+Jekfj1vhWCBclgP2Qubot+lnAw==
 length: 1142
 -->

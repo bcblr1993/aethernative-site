@@ -72,8 +72,8 @@
     }
   },
   "notice": {
-    "zh": "0.3.0 支持无重扫目录展开、清理建议筛选与更多开发缓存规则、深层对比及久未修改大文件筛选。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "Version 0.3.0 adds zero-rescan folder drilldown, cleanup suggestion filters with expanded developer cache rules, deep scan comparisons and stale large-file filtering. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "0.5.0 采用 getattrlistbulk 高速只读扫描内核，新增工程工作区洞察、文件分类扩展名透视、APFS 稀疏度提示、占用变化方向筛选与多历史基线切换。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 0.5.0 uses a fast getattrlistbulk read-only scan kernel and adds project workspace insights, per-category extension breakdowns, APFS sparsity hints, scan change direction filters and baseline switching. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
   },
   "gallery": [
     {
