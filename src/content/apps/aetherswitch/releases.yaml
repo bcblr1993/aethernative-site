@@ -1,5 +1,39 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.9.3"
+    build: "2026110501"
+    date: 2026-11-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.9.3/AetherSwitch-1.9.3-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.9.3
+    sha256: ae92c15199ac42a887fb33591ec8a417dadce07f8550e18b9a7790172f080744
+    sparkle:
+      edSignature: aLDTIvjZ21wZDKpA7dVapliPvtjs5mqJSKYPjzXpHJyaeqynvEWj89XgPaIzZGy9RjVlVI9IQ2IoFrQ5zm0oDA==
+      length: 1943188
+    summary:
+      zh: 修复采样期切页刷新丢失、IOReport 句柄释放与隐藏指标排序，优化磁盘网络切换响应
+      en: Fixes dropped refreshes during in-flight sampling, IOReport handle release, and hidden-metric ordering; non-blocking disk and network switching
+    notes:
+      - title:
+          zh: 问题修复
+          en: Fixes
+        items:
+          - zh: 修复采样进行中切换标签页时刷新请求被丢弃的问题
+            en: Fix dropped refresh requests when switching tabs during an in-flight sample
+          - zh: 修复 IOReport 动态库句柄在释放时未调用 dlclose 的问题
+            en: Close the IOReport dynamic library handle on deallocation
+          - zh: 菜单栏指标排序自动跳过已隐藏的指标项
+            en: Skip hidden metrics when reordering visible menu bar items
+          - zh: 外接磁盘卷拔出后立即重扫并回退到启动盘
+            en: Immediately rescan and fall back to the root volume when an external volume is unmounted
+      - title:
+          zh: 性能与安全
+          en: Performance and security
+        items:
+          - zh: 磁盘与网络接口切换改为非阻塞登记，避免阻塞主线程
+            en: Make disk and network interface selection non-blocking while background sampling is running
+          - zh: 运行状态回执写入前通过 lstat 拒绝符号链接目标
+            en: Refuse to write runtime status receipts through symbolic links
   - version: "1.9.2"
     build: "2026102101"
     date: 2026-10-21
