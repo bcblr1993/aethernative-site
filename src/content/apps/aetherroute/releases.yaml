@@ -1,6 +1,42 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.0.7"
+    build: "2026110501"
+    date: 2026-11-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.0.7/AetherRoute-2.0.7-build-2026110501-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.0.7
+    sha256: 5953f03012c7b7c6b2610ed463bc16eff7b82f9222ecf3a34d3287c78d7a8d14
+    sparkle:
+      edSignature: 9KiC5kUYbi9E/7rJd5aYk2Hw1cVbfzwSjUg21uwhh/wpCBm/sGwH2aNVbd4rIj6KwOCFIH4TNaxvZrpArQ8tBw==
+      length: 29240089
+    summary:
+      zh: 消除主进程 CGFontCache 滚动数字内存泄漏，增强 Fake-IP 二级映射与 HTTP/MMTLS Host 自愈，并收敛启动通知风暴与布局递归。
+      en: Eliminate the main app CGFontCache numeric transition memory leak, harden secondary Fake-IP reverse mappings and HTTP/MMTLS Host recovery, and silence startup notification storms and layout recursion.
+    notes:
+      - title:
+          zh: 内存与渲染稳定性
+          en: Memory & Rendering Stability
+        items:
+          - zh: 移除动态数字文本的 numericText 滚动插值过渡，根治长时间运行下 CGFontCache 可变字体缓存累积导致的内存上涨。
+            en: Replace rolling numericText transitions with identity transitions on live counters to eliminate long-running CGFontCache variable-font memory growth.
+          - zh: 合并并异步推迟 WindowChromeView 窗口样式配置，消除启动阶段 AppKit _NSDetectedLayoutRecursion 告警。
+            en: Coalesce and defer WindowChromeView window chrome mutations to prevent startup AppKit _NSDetectedLayoutRecursion warnings.
+      - title:
+          zh: Fake-IP 与流量嗅探自愈
+          en: Fake-IP & Host Sniffing Self-Healing
+        items:
+          - zh: 在不覆盖域名最新正向 Fake-IP 的前提下，支持恢复并持久化历史二级 Fake-IP 的反向映射。
+            en: Restore and persist secondary historical Fake-IP reverse mappings without overwriting a domain's newer primary forward Fake-IP.
+          - zh: 在 443 与 80 端口同时嗅探 TLS ClientHello SNI 与 HTTP/MMTLS Host 请求头以自愈未映射 Fake-IP。
+            en: Sniff both TLS ClientHello SNI and HTTP/MMTLS Host headers on ports 443 and 80 to self-heal unmapped Fake-IPs before reverse lookup.
+      - title:
+          zh: 运行时资源与启动优化
+          en: Runtime Resources & Startup Optimization
+        items:
+          - zh: 通过 getxattr 短路已设置的备份排除属性并跳过内容未变的运行时文件重写，消除 Tunnel 启动通知风暴。
+            en: Short-circuit unchanged backup-exclusion xattrs and preserve unchanged runtime file inodes to eliminate Tunnel startup notification storms.
   - version: "2.0.6"
     build: "2026110402"
     date: 2026-11-04
