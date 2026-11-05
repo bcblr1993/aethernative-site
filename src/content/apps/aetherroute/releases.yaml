@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.1.0"
+    build: "2026110502"
+    date: 2026-11-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.1.0/AetherRoute-2.1.0-build-2026110502-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.1.0
+    sha256: 760cbfbaadec911774144cd33bbecc313f7105bc3fe898f3061a5c601b23d4d5
+    sparkle:
+      edSignature: tFc0vmJe6ASFZznxhupDN5M5ulKgxvow2UI1WvmRCWVYNJ7+XyRCATS2CmVbqmxFFDjGBo8n3Kbn1q8azr9DDA==
+      length: 28232922
+    summary:
+      zh: 全新上线内核（Core）与宿主应用（App）实时物理内存全景可视化，涵盖概览页黄金分割双拼卡片、连接页会话栏与菜单栏底栏。
+      en: Introduce real-time Core and App physical memory telemetry across the Overview golden-ratio split card, Connections session bar, and Menu Bar popover footer.
+    notes:
+      - title:
+          zh: 应用与内核实时物理内存可视化
+          en: Real-Time Core & App Memory Telemetry
+        items:
+          - zh: 概览页顶栏升级为黄金分割双拼卡片，同屏展示实时上下行流量波形与 Core/App 物理内存（phys_footprint）、活动监视器口径总占用及 30 秒平滑曲线。
+            en: Upgrade the Overview top card to a golden-ratio split layout displaying live traffic waveforms alongside Core/App physical footprint, Activity Monitor total memory, and 30-second smooth sparklines.
+          - zh: 连接页会话状态栏新增 Core · App 实时内存摘要胶囊，菜单栏状态弹窗底部新增单行内存底栏与双色比例进度条。
+            en: Add a compact Core · App memory capsule to the Connections session bar and a single-row memory footer with proportional dual-segment gauge to the Menu Bar popover.
+      - title:
+          zh: 渲染隔离与零打扰验收架构
+          en: Observation Isolation & Zero-Intrusive Qualification
+        items:
+          - zh: 通过定长环形缓冲与叶子视图观察范围隔离，确保 1 Hz 内存遥测刷新零泄漏、零主视图无感重绘。
+            en: Isolate 1 Hz memory telemetry updates to leaf views using fixed-capacity ring buffers with zero variable-font cache growth.
+          - zh: 全面统一至后台无头 Tart 虚拟机（vm:macos27）执行全量发布验收与网卡断连恢复验证，宿主机零弹窗、零干扰。
+            en: Unify release qualification and NIC uplink switch recovery gates inside the headless Tart VM (vm:macos27) with zero host window popups or network interference.
   - version: "2.0.7"
     build: "2026110501"
     date: 2026-11-05
