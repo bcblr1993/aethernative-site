@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.2.0"
+    build: "2026110503"
+    date: 2026-11-05
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.2.0/AetherRoute-2.2.0-build-2026110503-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.2.0
+    sha256: ec4150597a14bda02517da20566f9357f54a4948dd491313e163baf46893ff34
+    sparkle:
+      edSignature: pcbxcBMXRiulR8mPTOW70Hw8ckzBlq9mM62PNrmwglU4YRfMOphtX0TUMb7/rE/oE7VHNwUxM8s+pkZWKGGQAg==
+      length: 28954184
+    summary:
+      zh: 全新支持一等公民链式代理（dialer-proxy 前置代理与 relay 多跳中继组），并实现节点/模式切换时旧节点连接与 QUIC 会话池即时驱逐。
+      en: Introduce first-class Chained Proxy support (dialer-proxy & relay groups) and immediate stale connection / QUIC session pool eviction on node or routing mode switches.
+    notes:
+      - title:
+          zh: 一等公民链式代理（dialer-proxy 与 relay）
+          en: First-Class Chained Proxy (dialer-proxy & relay)
+        items:
+          - zh: 原生配置编辑器支持为任意节点指定前置代理（dialer-proxy）并自动校验环路，节点卡片直观展示「经由 <上游>」徽章。
+            en: Configure upstream pre-proxies (dialer-proxy) on any outbound node in the native editor with automatic cycle validation and Via <upstream> badges.
+          - zh: 新增链式代理（Relay Chain）策略组与代理页只读多跳路径展示（入口 → 中继 → 落地），Rust 双引擎支持最多 8 跳递归链式拨号。
+            en: Add ordered Relay Chain proxy groups and read-only multi-hop path visualization on the Proxies page, backed by recursive multi-hop dialing in the Rust engine.
+      - title:
+          zh: 节点切换旧连接即时驱逐与多跳链路追踪
+          en: Stale Connection Eviction & Multi-Hop Chain Tracking
+        items:
+          - zh: 连接页完整呈现多跳代理链路（Group → Hop1 → Hop2），切换策略组节点或直连模式时立即关闭流经旧节点的在途连接。
+            en: Display full multi-hop proxy chains in Connections and immediately close in-flight flows traversing the previous node when switching nodes or routing modes.
+          - zh: 切换节点时同步清空 Hysteria / Hysteria2 缓存的持久 QUIC 客户端连接池，彻底杜绝新流量复用旧节点会话。
+            en: Evict cached Hysteria and Hysteria2 QUIC client sessions upon node switch so new streams never reuse a deselected node's connection.
   - version: "2.1.0"
     build: "2026110502"
     date: 2026-11-05
