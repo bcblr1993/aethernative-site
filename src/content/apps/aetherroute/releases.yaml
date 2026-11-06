@@ -1,6 +1,34 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.3.0"
+    build: "2026110602"
+    date: 2026-11-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.3.0/AetherRoute-2.3.0-build-2026110602-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.3.0
+    sha256: 326d6d302d3fcd41eccee8960fc8b007b9f93b3dd849653d4e43e6ed12f169de
+    sparkle:
+      edSignature: Ge56t/2Ize+2Oc8Xkm4Gq9qpBvG+iOe2f9kkYLqqT3L4RCeG86BouY2vUCDRAlZJLJeQxftaSBbWjt01hJd0CQ==
+      length: 29119060
+    summary:
+      zh: 新增网络环境自动化（按网关/以太网/Wi-Fi 自动切策略或启停连接）、单连接阶段握手耗时拆解与 DNS 自定义本地 Hosts 映射。
+      en: Add Network Environment Automation (gateway/Ethernet/Wi-Fi rules), single-connection handshake timing breakdown, and custom local DNS Host mappings.
+    notes:
+      - title:
+          zh: 网络环境自动化（按网关 / 以太网 / Wi-Fi 自动切策略）
+          en: Network Environment Automation
+        items:
+          - zh: 支持零定位权限识别当前路由器网关 IPv4、有线以太网与 Wi-Fi 环境，自动切换规则/全局/直连模式或自动启停连接。
+            en: Automatically switch routing modes or connect/disconnect based on router gateway IPv4, wired Ethernet, or Wi-Fi SSID without requiring Location permissions.
+      - title:
+          zh: 单连接阶段握手耗时拆解与自定义本地 Hosts 映射
+          en: Connection Timing Breakdown & Custom Local Host Mappings
+        items:
+          - zh: 连接详情面板新增「建连耗时」分组，展示 DNS 解析、节点握手与建连总耗时；支持 ART5 遥测编码并向下兼容 ART1–ART4。
+            en: Inspect per-connection DNS lookup, outbound handshake, and total setup durations in the Connection Inspector via ART5 telemetry.
+          - zh: DNS 页新增自定义 Hosts 映射管理（支持精确域名、*. 与 +. 通配符），随配置加密存储与 iCloud 同步，订阅更新不丢失。
+            en: Manage non-destructive custom host mappings (exact, *., and +. wildcards) on the DNS page that survive subscription updates and iCloud sync.
   - version: "2.2.1"
     build: "2026110601"
     date: 2026-11-06
