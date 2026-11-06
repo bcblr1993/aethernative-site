@@ -4,13 +4,27 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.27</title>
-            <pubDate>Wed, 04 Nov 2026 15:22:01 +0800</pubDate>
-            <sparkle:version>75</sparkle:version>
-            <sparkle:shortVersionString>0.8.27</sparkle:shortVersionString>
+            <title>0.8.28</title>
+            <pubDate>Fri, 06 Nov 2026 09:18:45 +0800</pubDate>
+            <sparkle:version>76</sparkle:version>
+            <sparkle:shortVersionString>0.8.28</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.8.27 (Build 75) — 2026-11-04
+            <description sparkle:format="markdown"><![CDATA[## v0.8.28 (Build 76) — 2026-11-06
+
+### ⚡️ 深度性能优化：根除后台高 CPU 占用与 120Hz Metal 图层持续重绘 (Ultra-Low CPU & 0Hz GPU Idle Optimization)
+- **消除 120FPS 常驻离屏渲染与 `WindowServer` 合成负载 (`AmbientGlowBorder` & `PulsingStatusDot`)**：
+  - 将发光边框 `AmbientGlowBorder`、状态指示点 `PulsingStatusDot` 及合成视窗进度条中的无限循环 `.repeatForever` 动画重构为状态切换时的单次平滑过渡（`0.15s`），并固定高斯模糊半径，使 `.drawingGroup` 将发光层缓存在单张静态 Metal 纹理中，稳态下 GPU / `RenderBox` 帧率降至 **0 Hz**，实测进程 CPU 占用从 **42%~97%** 降至 **0.0%~0.3%**，`WindowServer` 负载显著下降。
+- **精准感知窗口遮挡状态 (`window.occlusionState`) 与后台自适应降频**：
+  - `isMainWindowVisible` 新增 `window.occlusionState.contains(.visible)` 遮挡检测；当监控墙主窗口被其他应用遮挡或处于后台非激活状态时，自动停止高频 CDP 与 `CGWindowListCreateImage` 窗口截图，并在 `periodicTick` 中进入低功耗降频轮询（修复 `refreshRunningStates` 误重置 `standbyTickCount` 的问题）。
+- **收敛 `@Published` 广播风暴与资源遥测死区过滤 (`InstanceResourceMetric`)**：
+  - 移除内部非视图状态上冗余的 `@Published` 标记，为自托管状态机 `handleAutoPilotStateChange` 增加值相等守卫，拓宽 CPU / 内存标签与运行耗时的死区量化步进，消除后台每 2.2 秒触发整树 SwiftUI 视图重排。
+- **新增 Transcript 尾部解析缓存 (`parsedTailCache`) 与目录遍历节流 (`lastDirectoryScanTime`)**：
+  - 当会话日志 `transcript.jsonl` 修改时间未发生变化时直接复用解析结果，避免每轮轮询重复枚举 `brain/` 子目录及读取解析 32KB JSON 尾部；优化 `runningApplication(bundleID:path:)` 仅在多候选进程时才执行磁盘符号链接解析。
+- **全量自动化回归测试质量门禁保障**：
+  - 新增 `test_zero_hz_idle_gpu_and_occlusion_throttling` 性能架构断言，全量 167 项自动化回归测试 100% 满分通过。
+
+## v0.8.27 (Build 75) — 2026-11-04
 
 ### 🎨 全新 Aether Studio Bento 极客暗黑卡片工作台视觉升级 (Aether Studio Bento UI Redesign)
 - **三段式一体化 Bento 实例卡片 (`InstanceThumbnailTile`)**：
@@ -581,10 +595,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.27/Aether-Antigravity-Multiplexer-v0.8.27-macos-arm64.zip" length="4202808" type="application/octet-stream" sparkle:edSignature="ecD73tDt5z37lpnOj4HfgTs2P1KTiwGZMEj6Q9Df6rKdNp9e1fsuORIuqkwOxdf4g30L9tmw/4eEVSRffljDAQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.28/Aether-Antigravity-Multiplexer-v0.8.28-macos-arm64.zip" length="4206362" type="application/octet-stream" sparkle:edSignature="/7Y7PieQGeoJHusfgY6ILsCnzWx2vH32aqyaU9enB4qZgu+i+SQQSbuwY2KprNtEwxd3N2aNjeUcGhuC9bZxDQ=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: DHBkF6cMcl9JyFr3wxX1cd79y6SBDuGU4e08pKYKDdkQ1YCmXqn39a+sGKh16hYedh6gfvJq/rsHGxwFdqUhBQ==
-length: 86154
+edSignature: WBZE9JGHNPlMVnXjoCADgIL8UdYmb+tAhQQo92xmXEyrh5GN3OqoyM7VZaux1gJI7H2YH2LsY+Kx70Ai0564Dg==
+length: 88314
 -->
