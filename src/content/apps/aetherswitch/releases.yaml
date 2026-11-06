@@ -1,5 +1,37 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.10.0"
+    build: "2026110601"
+    date: 2026-11-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.10.0/AetherSwitch-1.10.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.10.0
+    sha256: 2562e821a4ff0b973ab116f892f3c208110fdf5043e1827753ff4d0f5ebf18be
+    sparkle:
+      edSignature: 2Y/cwCSgXLoiIvsYo2PK+7xjA/kCLYiIp6WZ7FLA0ocb4g+NXpGS8tX2Mny7JQw1S9hptAxAakYkz4pHhoe1Cg==
+      length: 1963162
+    summary:
+      zh: 新增菜单栏温度列与概览页硬件温度卡片，修复 macOS 27 状态栏无法点击问题
+      en: Add menu bar temperature column and overview hardware temperature card; fix unclickable status bar item on macOS 27
+    notes:
+      - title:
+          zh: 新增特性
+          en: Features
+        items:
+          - zh: 新增菜单栏 TMP 温度指标列与「图标 + 实时温度」样式
+            en: Add menu bar TMP temperature metric column and Icon + Temperature style
+          - zh: 概览页新增硬件温度卡片（CPU 均温/峰值、GPU 温度、电池温度与温控状态）及高负载进程摘要
+            en: Add hardware temperature card (CPU avg/max, GPU, battery temperature, thermal state) and top processes summary on Overview tab
+      - title:
+          zh: 问题修复与性能优化
+          en: Fixes and performance
+        items:
+          - zh: 修复 macOS 27 NSSceneStatusItem 宿主窗口零高度导致状态栏锁定无法点击的问题
+            en: Fix unclickable status bar item on macOS 27 caused by zero-height NSStatusBarWindow before MenuBarAgent scene handshake
+          - zh: 文本类菜单栏样式采用固定模板宽度，消除网速波动引起的按钮位移
+            en: Lock text-based menu bar styles to fixed template widths to prevent click-time layout jitter
+          - zh: 优化折叠态状态栏图层直接更新与 SCDynamicStore 连接复用，空闲 CPU 降至 ~0.068%
+            en: Optimize folded-state layer updates and SCDynamicStore connection reuse, reducing idle CPU to ~0.068%
   - version: "1.9.3"
     build: "2026110501"
     date: 2026-11-05
