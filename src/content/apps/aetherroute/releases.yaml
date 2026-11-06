@@ -1,6 +1,34 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.2.1"
+    build: "2026110601"
+    date: 2026-11-06
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.2.1/AetherRoute-2.2.1-build-2026110601-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.2.1
+    sha256: 222386d5491739ec800ac6908f2daf2d3797ffa5bea37c718f5a8bdd76ec04ce
+    sparkle:
+      edSignature: SAYO0gqBVZwRfXOG/wXA0OZadwUohUOFkqGeOVb+Bjsj/f8IuA00Cwl4i+dlHRelDZJnUQ+LJpI76Cnbt+/nBA==
+      length: 29003784
+    summary:
+      zh: 修复新建链式代理在大规模订阅下的默认分组匹配与独立「链式代理」分组展示，并优化 iCloud 配置同步状态与错误指引。
+      en: Fix Chained Proxy default group selection for >64-node subscriptions and standalone Chained Proxies group visibility, with improved iCloud sync diagnostics.
+    notes:
+      - title:
+          zh: 链式代理分组归属与独立分组可见性修复
+          en: Chained Proxy Group Placement & Standalone Group Visibility
+        items:
+          - zh: 修复超过 64 个节点的订阅主分组在新建链式代理时未被默认选中的问题，并在切换目标分组时自动规避前置代理自环。
+            en: Automatically preselect the primary select group even when it contains over 64 nodes, and prevent self-referencing dialer-proxy cycles when changing groups.
+          - zh: 未加入其他分组的链式代理自动汇总至顶层「链式代理」分组，历史保存节点与新建节点均可在节点页直接查看、测速、编辑与删除。
+            en: Automatically surface standalone chained proxies in a top-level Chained Proxies group so existing and new chained proxies can be selected, tested, edited, and deleted.
+      - title:
+          zh: iCloud 配置同步状态与本地化错误指引
+          en: iCloud Profile Sync Status & Actionable Error Guidance
+        items:
+          - zh: 细化 iCloud 账户状态预检与 CloudKit 错误本地化提示，清晰指引未登录、空间不足、网络异常等场景的排查。
+            en: Provide clear, actionable bilingual guidance for iCloud account availability and CloudKit errors across the sync sheet and status indicators.
   - version: "2.2.0"
     build: "2026110503"
     date: 2026-11-05
