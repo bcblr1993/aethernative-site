@@ -1,29 +1,29 @@
 {
-  "checkedAt": "2026-11-06T06:58:23.318Z",
+  "checkedAt": "2026-11-06T19:30:31.615Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "2.2.1",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.2.1/AetherRoute-2.2.1-build-2026110601-arm64.dmg",
-      "sha256": "222386d5491739ec800ac6908f2daf2d3797ffa5bea37c718f5a8bdd76ec04ce",
-      "length": 29003784,
-      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.2.1/AetherRoute-2.2.1-build-2026110601-arm64.dmg",
-      "updateLength": 29003784,
-      "edSignature": "SAYO0gqBVZwRfXOG/wXA0OZadwUohUOFkqGeOVb+Bjsj/f8IuA00Cwl4i+dlHRelDZJnUQ+LJpI76Cnbt+/nBA==",
+      "version": "2.3.0",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.3.0/AetherRoute-2.3.0-build-2026110602-arm64.dmg",
+      "sha256": "326d6d302d3fcd41eccee8960fc8b007b9f93b3dd849653d4e43e6ed12f169de",
+      "length": 29119060,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.3.0/AetherRoute-2.3.0-build-2026110602-arm64.dmg",
+      "updateLength": 29119060,
+      "edSignature": "Ge56t/2Ize+2Oc8Xkm4Gq9qpBvG+iOe2f9kkYLqqT3L4RCeG86BouY2vUCDRAlZJLJeQxftaSBbWjt01hJd0CQ==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 29003784,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/d8e2944c-8857-44fa-922c-ae5408d5f36a",
+          "bytes": 29119060,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/f95300ad-11c0-425f-a653-e72e3b801f60",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "222386d5491739ec800ac6908f2daf2d3797ffa5bea37c718f5a8bdd76ec04ce",
+          "actual": "326d6d302d3fcd41eccee8960fc8b007b9f93b3dd849653d4e43e6ed12f169de",
           "message": "SHA256 一致"
         },
         {
