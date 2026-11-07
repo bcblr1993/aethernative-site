@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.4.0"
+    build: "2026110702"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.4.0/AetherRoute-2.4.0-build-2026110702-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.4.0
+    sha256: 9452a1a6e3c1bc23f07eb8c41f3f5911815b36d920c06a2ab432064996f6d394
+    sparkle:
+      edSignature: PBBoeaL5A/ktmnFUwgreLANjuZo1hOJvkR2Y2p6uZXLd1AUfpG3jWzQMOsRz8I/7o6DEps8TV3kxXc2+trqDAw==
+      length: 29762479
+    summary:
+      zh: 新增远程规则集（Rule Providers）可视化管理与即时刷新、单连接 6 步分流决策路径追踪与快捷加规则、DNS 交互式解析/Fake-IP 检视器以及代理页多维组合检索。
+      en: Add visual Rule Providers management & instant refresh, 6-step Connection Route Decision Trace with quick rule actions, interactive DNS/Fake-IP lookup inspector, and multi-token proxy filtering.
+    notes:
+      - title:
+          zh: Rule Providers 远程规则集管理与 6 步连接分流追踪
+          en: Rule Providers Management & 6-Step Route Decision Trace
+        items:
+          - zh: 规则页支持管理自定义 HTTPS 远程规则集（domain/ipcidr/classical），一键单独或批量刷新更新并检索预览缓存规则；配置详情支持展示订阅提供者的类型、格式与策略组引用。
+            en: Manage custom HTTPS remote rule sets with one-click refresh and rule preview on the Rules page, plus detailed provider metadata and target badges in Profile inspection.
+          - zh: 连接详情面板新增 6 步分流决策路径追踪（模式 → Hosts → 应用分流 → 自定义规则 → 订阅规则 → 出站链路），支持连接内一键添加自定义规则及跳转至规则页定位。
+            en: Trace the 6-step routing decision path in the Connection Inspector, create custom rules directly from any flow, or jump to the matched rule on the Rules page.
+      - title:
+          zh: DNS 交互式解析测试器与代理页多关键词组合检索
+          en: Interactive DNS Lookup Inspector & Multi-Token Proxy Search
+        items:
+          - zh: DNS 页新增交互式解析测试器，一键检视本地 Hosts 通配命中、DNS 模式、关联分流规则以及实时系统解析出的 IPv4/IPv6（自动识别 Fake-IP 地址池与解析耗时）。
+            en: Test any domain on the DNS page to inspect custom host wildcard matches, active DNS mode, routing target, and live system resolution with Fake-IP pool detection.
+          - zh: 代理页搜索支持空格分词组合过滤，可同时按国家/地区、节点名、协议类型、传输层（ws/grpc/h2/xhttp）与前置代理（dialer-proxy）精准筛选。
+            en: Filter proxy nodes with multi-token queries across regions, node names, protocols, transports (ws/grpc/h2/xhttp), and dialer-proxy upstreams.
   - version: "2.3.0"
     build: "2026110602"
     date: 2026-11-06
