@@ -72,8 +72,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.0 正式版提供交互式空间占比图、10 份历史快照持续增长热点预警、APFS 弹性可回收空间透视、本机清理审计账本与 CLI 1.0。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "Version 1.0.0 adds an interactive space map, 10-snapshot continuous growth hotspot alerts, APFS purgeable space insights, a local cleanup audit ledger and CLI 1.0. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "1.0.1 正式版完善侧边栏与全页面整行点击热区及悬停反馈、目录二次点击下钻与空间图保护状态透传、历史快照尾部连续增长热点识别，并提供交互式空间占比图、APFS 弹性可回收空间透视、本机清理审计账本与 CLI 1.0。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 1.0.1 refines full-row sidebar and list hit targets with hover feedback, click-to-drilldown folder navigation, space-map protection badges and trailing growth hotspot detection, alongside the interactive space map, APFS purgeable space insights, local cleanup audit ledger and CLI 1.0. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
   },
   "gallery": [
     {
