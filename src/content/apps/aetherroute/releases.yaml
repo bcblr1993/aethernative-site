@@ -1,6 +1,28 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.6.0"
+    build: "2026110802"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.6.0/AetherRoute-2.6.0-build-2026110802-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.6.0
+    sha256: 2c91474811bc993a5b679165089237b185c3b1b8d94acbe031ae84cb5adaf932
+    sparkle:
+      edSignature: GwWySnX0fGILGY6+RzoSEigSq2iH9GKWrGrgdjAddEzxG+fcjSJbjnktSzPetm409Tq+6cqkjvKT4qJH1AFhBg==
+      length: 29879031
+    summary:
+      zh: 新增多 Shell 终端代理环境命令生成器（支持 Zsh/Bash、Fish、Nushell、PowerShell）与标准 FindProxyForURL PAC 自动代理脚本生成。
+      en: Add multi-shell terminal proxy environment generator (Zsh/Bash, Fish, Nushell, PowerShell) and standard FindProxyForURL PAC script generation.
+    notes:
+      - title:
+          zh: 多终端代理命令与 PAC 脚本一键生成
+          en: Multi-Shell Proxy Environment & PAC Script Generator
+        items:
+          - zh: 在设置页与菜单栏支持 Zsh / Bash、Fish、Nushell、PowerShell 四种终端语法的代理环境变量设置与清理命令一键复制。
+            en: One-click copy for Zsh / Bash, Fish, Nushell, and PowerShell proxy environment export and unset commands from Settings and the Menu Bar.
+          - zh: 支持一键复制标准 FindProxyForURL PAC 自动代理脚本，内置本地回环、localhost 与局域网私网直连豁免。
+            en: One-click copy for standard FindProxyForURL PAC scripts with built-in loopback, localhost, and RFC 1918 private network bypass.
   - version: "2.5.0"
     build: "2026110801"
     date: 2026-11-07
