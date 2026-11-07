@@ -1,6 +1,28 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.7.0"
+    build: "2026110803"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.7.0/AetherRoute-2.7.0-build-2026110803-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.7.0
+    sha256: 156f7329b19911a8516d5c040eaa0d71ffb769e1cd0028b5779cb5853ae3612c
+    sparkle:
+      edSignature: zm9Cega0hCBYd84vC+rZF5bE14Epr2jS2hF+PK6DipFwgid0aYqn+rfaajXN43qfGVbczr+LodX2dXqhcxxSDw==
+      length: 29438278
+    summary:
+      zh: 新增一键式 6 维全链路网络诊断医生（NetworkDiagnosticDoctor）与零敏感信息 Markdown 诊断报告导出。
+      en: Add one-click 6-point Network Diagnostic Doctor (NetworkDiagnosticDoctor) and zero-secret Markdown diagnostic report export.
+    notes:
+      - title:
+          zh: 一键式全链路网络诊断医生
+          en: One-Click Network Diagnostic Doctor
+        items:
+          - zh: 在 DNS 页提供一键式 6 维网络诊断检查（本地代理端口监听、本地回环直连防线、DNS 解析与 Fake-IP、国内直连、代理出站与规则集状态）。
+            en: One-click 6-dimension health checks on the DNS page covering local proxy listener, loopback direct bypass, DNS & Fake-IP, domestic direct, proxy outbound, and rule providers.
+          - zh: 支持一键复制脱敏 Markdown 诊断报告，零节点地址与凭据泄漏。
+            en: One-click sanitized Markdown diagnostic report export with zero server address or credential leakage.
   - version: "2.6.0"
     build: "2026110802"
     date: 2026-11-07
