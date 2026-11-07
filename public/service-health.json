@@ -1,29 +1,29 @@
 {
-  "checkedAt": "2026-11-06T19:30:31.615Z",
+  "checkedAt": "2026-11-07T06:10:43.909Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "2.3.0",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.3.0/AetherRoute-2.3.0-build-2026110602-arm64.dmg",
-      "sha256": "326d6d302d3fcd41eccee8960fc8b007b9f93b3dd849653d4e43e6ed12f169de",
-      "length": 29119060,
-      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.3.0/AetherRoute-2.3.0-build-2026110602-arm64.dmg",
-      "updateLength": 29119060,
-      "edSignature": "Ge56t/2Ize+2Oc8Xkm4Gq9qpBvG+iOe2f9kkYLqqT3L4RCeG86BouY2vUCDRAlZJLJeQxftaSBbWjt01hJd0CQ==",
+      "version": "2.4.0",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.4.0/AetherRoute-2.4.0-build-2026110702-arm64.dmg",
+      "sha256": "9452a1a6e3c1bc23f07eb8c41f3f5911815b36d920c06a2ab432064996f6d394",
+      "length": 29762479,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.4.0/AetherRoute-2.4.0-build-2026110702-arm64.dmg",
+      "updateLength": 29762479,
+      "edSignature": "PBBoeaL5A/ktmnFUwgreLANjuZo1hOJvkR2Y2p6uZXLd1AUfpG3jWzQMOsRz8I/7o6DEps8TV3kxXc2+trqDAw==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 29119060,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/f95300ad-11c0-425f-a653-e72e3b801f60",
+          "bytes": 29762479,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/adf8a246-b53c-4462-b027-12abdf3e9488",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "326d6d302d3fcd41eccee8960fc8b007b9f93b3dd849653d4e43e6ed12f169de",
+          "actual": "9452a1a6e3c1bc23f07eb8c41f3f5911815b36d920c06a2ab432064996f6d394",
           "message": "SHA256 一致"
         },
         {
@@ -244,26 +244,26 @@
     {
       "id": "aetherscreens",
       "name": "AetherScreens",
-      "version": "1.4.0",
-      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.4.0/AetherScreens-macOS-AppleSilicon-v1.4.0.dmg",
-      "sha256": "217014d56532b9a42ccc74ce18439f915d647b482aba86d8e920c3cd8717f0a5",
-      "length": 11122098,
-      "updateDownload": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.4.0/AetherScreens-macOS-AppleSilicon-v1.4.0.dmg",
-      "updateLength": 11122098,
-      "edSignature": "u27CH7r8ju4BHN0xAyYkh+OTVB41JXz2EXcIokSi05/gjEMLgoCc7QwiBQu9QiC7VrzPAX3JhEiXMAI83areCw==",
+      "version": "1.4.1",
+      "download": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.4.1/AetherScreens-macOS-AppleSilicon-v1.4.1.dmg",
+      "sha256": "a086ee6a147e1a5fdb0fe55296e4e57d2d935dc662d097c288371605938f1710",
+      "length": 11147073,
+      "updateDownload": "https://github.com/bcblr1993/AetherScreens/releases/download/v1.4.1/AetherScreens-macOS-AppleSilicon-v1.4.1.dmg",
+      "updateLength": 11147073,
+      "edSignature": "yLCNeDpk1sFtXW/XkfHh3JwpszgOuCV4SeJP3SZiUBWE296n2Ia0GtWBCoSvqE/aS8EgwnWRl0cIs6MQeoH6Dw==",
       "appcast": "/apps/aetherscreens/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 11122098,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/4194b934-1131-4bfe-95ca-18d44ab665da",
+          "bytes": 11147073,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391942758/de77fffb-9d10-4eb7-9087-f4cb75209b68",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "217014d56532b9a42ccc74ce18439f915d647b482aba86d8e920c3cd8717f0a5",
+          "actual": "a086ee6a147e1a5fdb0fe55296e4e57d2d935dc662d097c288371605938f1710",
           "message": "SHA256 一致"
         },
         {
@@ -384,26 +384,26 @@
     {
       "id": "aetherdisk",
       "name": "AetherDisk",
-      "version": "0.5.0",
-      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.5.0/AetherDisk-0.5.0-arm64.dmg",
-      "sha256": "215a5812565f4f7497e492772831088eeb1f449d2350cc7b590a7abf70884d3f",
-      "length": 3524718,
-      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.5.0/AetherDisk-0.5.0-arm64.dmg",
-      "updateLength": 3524718,
-      "edSignature": "5aQcAzIQ1Clzji7QyrTAjz4drLc1ucHwZyJD1IXXkbou26BcU/nkl/xKhTHEGOXkX5yf5lKFexbv1vrhIRkiCw==",
+      "version": "0.6.0",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.6.0/AetherDisk-0.6.0-arm64.dmg",
+      "sha256": "5a695742421a0c2c978aa557ac6bef8565015132025db04486df2e8579792f68",
+      "length": 3580046,
+      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v0.6.0/AetherDisk-0.6.0-arm64.dmg",
+      "updateLength": 3580046,
+      "edSignature": "NScJPNB9qbrPyhuLir/j0gUnp8S/PZcRT6CMoyp1xsjr9VtnJIiC9Km/Dq9ePBcjbSlCYPBiwJ38tQ4xTFrjBA==",
       "appcast": "/apps/aetherdisk/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 3524718,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/987f9a91-5c31-4605-9d16-751048d48999",
+          "bytes": 3580046,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/9dd51fca-d056-4af6-9437-cca877de574a",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "215a5812565f4f7497e492772831088eeb1f449d2350cc7b590a7abf70884d3f",
+          "actual": "5a695742421a0c2c978aa557ac6bef8565015132025db04486df2e8579792f68",
           "message": "SHA256 一致"
         },
         {
