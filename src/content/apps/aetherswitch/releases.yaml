@@ -1,5 +1,31 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.10.1"
+    build: "2026110701"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.10.1/AetherSwitch-1.10.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.10.1
+    sha256: 5d087d851ed37bc8bb4ddf50f98be8a7d934dddbbd3ef97c1febbca42be95ba5
+    sparkle:
+      edSignature: ysOG/k7qKVVNJC4uRJYBgVbs4+HZoSE7c+olRRD61HfOg7a9iiu4SlMqwQnlr+Jz1au9fPA/iZ798+6g5+xoAQ==
+      length: 1968793
+    summary:
+      zh: 修复磁盘选择跨模式同步、折叠态 SMC 连接释放、温度专用告警阈值与进程切换基线保留等 12 项底层与 UI 细节问题。
+      en: Fixes 12 core and UI issues including cross-mode disk volume selection, folded SMC connection release, dedicated temperature thresholds, and process baseline retention across tab switches.
+    notes:
+      - title:
+          zh: 修复与优化
+          en: Fixes & Improvements
+        items:
+          - zh: 修复在磁盘详情页切换卷后，返回总览与折叠菜单栏仍固定采样根分区 `/` 的问题；卷卸载时自动回退至根分区。
+            en: Fixed selected disk volume resetting to `/` in Overview and folded Menu Bar modes, with automatic fallback when unmounted.
+          - zh: 修复折叠态未启用温度指标时 `AppleSMC` 内核连接未关闭的问题，并新增温度专属色彩与进度映射（`<65°C` 正常、`65–80°C` 温和、`80–92°C` 偏高、`>=92°C` 告警）。
+            en: Closed `AppleSMC` connection when folded without temperature metric enabled, and introduced dedicated temperature color/progress thresholds.
+          - zh: 优化进程采样基线跨标签页保留（消除切换 CPU/内存/磁盘页时的“采集中”闪烁），并在切换网卡时自动重置网速历史曲线。
+            en: Preserved differential process sampling baselines across tabs and reset network throughput chart history when switching interfaces.
+          - zh: 优化外接显示器背光异步验证锁粒度、仅在总览页轮询系统开关状态、状态栏窗口尺寸监听自愈、错误横幅消失后窗口高度自动回缩，以及菜单栏指标排序下拉框实时同步。
+            en: Improved external display backlight lock granularity, scoped switch polling to the Overview tab, rebound status bar window resize observers, restored panel height after temporary error banners, and updated the metric order dropdown live.
   - version: "1.10.0"
     build: "2026110601"
     date: 2026-11-06
