@@ -5,7 +5,7 @@
   --surface-2: #fbfbfd;
   --text: #1d1d1f;
   --text-2: #6e6e73;
-  --text-3: #86868b;
+  --text-3: #6e6e73;
   --line: rgba(0, 0, 0, 0.08);
   --accent: #3a5bd9;
   --accent-2: #5b3ad9;
@@ -27,7 +27,7 @@
   --surface-2: #161618;
   --text: #f5f5f7;
   --text-2: #a1a1a6;
-  --text-3: #7c7c80;
+  --text-3: #a1a1a6;
   --line: rgba(255, 255, 255, 0.1);
   --accent: #6f8cff;
   --accent-2: #a58bff;
@@ -169,3 +169,7 @@ details.fold > .fold-body { padding: 0 0 20px; color: var(--text-2); font-size: 
   .brand-mark { width: 22px; height: 22px; }
   .icon-btn { padding: 0 6px; }
 }
+
+/* Keep long product names and translated labels inside their grid tracks. */
+.grid-2 > *, .grid-3 > *, .grid-4 > * { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 380px) { .brand-name { display: none; } }

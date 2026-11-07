@@ -71,6 +71,7 @@ const docLinks = [
   .app { display: grid; gap: 18px; align-content: start; }
   .head { display: flex; gap: 16px; align-items: center; }
   .icon { width: 64px; height: 64px; flex: none; margin: -4px; }
+  .head > div:last-child { min-width: 0; overflow-wrap: anywhere; }
   .head h2 { font-size: 22px; }
   .head p { font-size: 14px; }
   ul { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 16px; border-top: 1px solid var(--line); padding-top: 12px; }

@@ -51,8 +51,13 @@ const apps = await getApps();
       for (const c of d.comments) {
         const article = document.createElement('article'); article.className = 'card';
         const meta = document.createElement('p'); meta.className = 'muted'; meta.textContent = `${c.parentId ? '回复 · ' : ''}${c.author} · ${c.appId} · ${new Date(c.createdAt).toLocaleString('zh-CN')}`;
+        const context = document.createElement('p'); context.className = 'comment-context'; context.textContent = c.replyTo ? `回复 ${c.replyTo}` : '主评论';
         const body = document.createElement('p'); body.className = 'comment-body'; body.textContent = c.body;
         const actions = document.createElement('div'); actions.className = 'actions';
+        if (c.status === 'approved') {
+          const conversation = document.createElement('a'); conversation.className = 'btn btn-s btn-sm'; conversation.textContent = '查看对话 / 回复';
+          conversation.href = `/apps/${encodeURIComponent(c.appId)}/?focus=${encodeURIComponent(c.id)}#reviews`; actions.append(conversation);
+        }
         const hint = document.createElement('p'); hint.setAttribute('role', 'status');
         for (const [value, label] of [['approved', '公开 / 恢复'], ['hidden', '隐藏']]) {
           if (value === c.status) continue;
@@ -67,7 +72,7 @@ const apps = await getApps();
             finally { buttons.forEach(b => b.disabled = false); }
           }); actions.append(button);
         }
-        article.append(meta, body, actions, hint); list.append(article);
+        article.append(meta, context, body, actions, hint); list.append(article);
       }
       next = d.next; more.hidden = !next;
     } catch (e) { if (!current.signal.aborted) status.textContent = (e as Error).message; }
@@ -78,5 +83,5 @@ const apps = await getApps();
   void load();
 </script>
 <style>
-  .comments-admin { padding-bottom: 70px; }section { padding: 20px 0; }form { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin-bottom: 24px; }label { display: grid; gap: 6px; font-size: 14px; }select { border: 1px solid var(--line); background: var(--bg); color: var(--text); padding: 10px; border-radius: 8px; font: inherit; }[data-comments] { display: grid; gap: 16px; margin-bottom: 20px; }[data-comments] :global(.comment-body) { white-space: pre-wrap; overflow-wrap: anywhere; margin: 18px 0; }[data-comments] :global(.actions) { display: flex; gap: 12px; flex-wrap: wrap; }[hidden] { display: none; }
+  .comments-admin { padding-bottom: 70px; }section { padding: 20px 0; }form { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin-bottom: 24px; }label { display: grid; gap: 6px; font-size: 14px; }label { max-width: 100%; min-width: 0; }select { max-width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--text); padding: 10px; border-radius: 8px; font: inherit; }[data-comments] { display: grid; gap: 16px; margin-bottom: 20px; }[data-comments] :global(.comment-context) { margin-top: 10px; color: var(--accent); font-size: 13px; }[data-comments] :global(.muted) { overflow-wrap: anywhere; }[data-comments] :global(.comment-body) { white-space: pre-wrap; overflow-wrap: anywhere; margin: 18px 0; }[data-comments] :global(.actions) { display: flex; gap: 12px; flex-wrap: wrap; }[hidden] { display: none; }
 </style>

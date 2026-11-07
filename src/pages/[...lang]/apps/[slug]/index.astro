@@ -628,6 +628,7 @@ const subnav = [
   }
   @media (max-width: 640px) {
     .stage { padding: 12px; border-radius: 22px; }
+    .stage-glow { left: 0; right: 0; }
     .stage-top { flex-wrap: wrap; }
     .stage-shots { aspect-ratio: 1145 / 760; }
     .stage-shots figure { padding: 2.5%; }
@@ -676,7 +677,7 @@ const subnav = [
   .proto p { margin: 14px 0 12px; font-size: 14px; }
 
   .notice { max-width: 640px; margin: 22px auto 0; padding: 12px 18px; border-radius: 14px; background: var(--warn-soft); color: var(--text); font-size: 13px; text-align: left; }
-  .sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+  .sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; align-items: start; }
   .sc-grid figure { padding: 22px; }
   .sc-img { display: grid; place-items: center; min-height: 140px; padding: 16px; border-radius: 14px; background: linear-gradient(135deg, #e9ecf5, #dfe3ee); }
   :global([data-theme='dark']) .sc-img { background: linear-gradient(135deg, #1b1d24, #23262f); }

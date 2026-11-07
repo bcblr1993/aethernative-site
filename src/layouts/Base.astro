@@ -89,7 +89,7 @@ const nav = [
     <a class="skip" href="#content">{u.skip}</a>
     <nav class="nav" aria-label={lang === 'zh' ? '主导航' : 'Main'}>
       <div class="wrap">
-        <a class="brand" href={href(lang)}><BrandMark />{site.name}</a>
+        <a class="brand" aria-label={site.name} href={href(lang)}><BrandMark /><span class="brand-name">{site.name}</span></a>
         <div class="links">
           {nav.map((n) => <a href={n.to} aria-current={current === n.key ? 'page' : undefined}>{n.label}</a>)}
         </div>
@@ -146,6 +146,11 @@ const nav = [
       document.querySelectorAll<HTMLAnchorElement>('.menu-panel a').forEach((a) =>
         a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
       );
+      // Keep navigation popovers mutually exclusive, including keyboard activation.
+      const navMenus = document.querySelectorAll<HTMLDetailsElement>('.nav details');
+      navMenus.forEach(menu => menu.addEventListener('toggle', () => {
+        if (menu.open) navMenus.forEach(other => { if (other !== menu) other.open = false; });
+      }));
       const mobileMenu = document.querySelector<HTMLDetailsElement>('.menu');
       document.addEventListener('click', (event) => {
         if (mobileMenu?.open && !mobileMenu.contains(event.target as Node)) mobileMenu.open = false;
