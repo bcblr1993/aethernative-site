@@ -4,13 +4,32 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.8.30</title>
-            <pubDate>Sat, 07 Nov 2026 16:16:42 +0800</pubDate>
-            <sparkle:version>78</sparkle:version>
-            <sparkle:shortVersionString>0.8.30</sparkle:shortVersionString>
+            <title>0.9.0</title>
+            <pubDate>Sat, 07 Nov 2026 17:20:08 +0800</pubDate>
+            <sparkle:version>79</sparkle:version>
+            <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.8.30 (Build 78) — 2026-11-07
+            <description sparkle:format="markdown"><![CDATA[## v0.9.0 (Build 79) — 2026-11-07
+
+### 🚀 Aether Fleet Commander：免切换原位操控、多步任务编排与跨实例配置同步中心 (Major Release)
+- **免切换原位操控与实时对话流透视 (`Inline Quick-Reply`, `Remote CDP Approver` & `LiveTranscriptInspectorSheet`)**：
+  - **卡片内联快速回复条 (`sendInlineQuickReply`)**：在 Bento 实例卡片底栏新增一键展开的 `💬 原位发送指令` 输入框，通过 CDP 后台静默注入指令并提交，无需切出监控墙或激活目标窗口。
+  - **远程一键批准/执行 (`approveOrRejectViaCDP`)**：当后台实例处于 `待确认 / 待选择 (Needs Attention)` 状态时，卡片直接浮现 `远程批准` 快捷按钮，基于 CDP 自动定位并触发确认按钮（Proceed / Approve / Accept / Run / Allow），彻底省去频繁切窗点确认的负担。
+  - **实时对话流透视抽屉 (`LiveTranscriptInspectorSheet`)**：点击卡片底栏气泡图标即可直接预览该实例 `transcript.jsonl` 最近 12 步的用户输入、Agent 回复摘要与思维链（Thinking）折叠详情。
+- **Auto-Pilot 2.0 多步顺序任务队列与集群广播 (`Sequential Prompt Pipeline` & `FleetBroadcastSheet`)**：
+  - **多步顺序任务队列 (`autoPilotQueue`)**：`AutoPilotConfigSheet` 新增 **Prompt Playlist** 顺序指令队列支持；当实例进入 `.idle` 空闲状态时，优先按 FIFO 顺序弹出队列中的下一条指令执行，队列耗尽后平滑回退至默认循环预设指令。
+  - **集群广播与批量指令分发 (`FleetBroadcastSheet`)**：支持从顶部维护菜单或批量操作栏一键向全部运行中实例（或指定勾选的目标分身集群）并发广播同一条 Prompt 指令，并实时展示每个实例的送达状态。
+- **跨实例配置与技能同步中心 (`ProfileSyncHubSheet` & `syncMasterCustomizationsToClones`)**：
+  - 支持将主实例（或本机全局 `~/.gemini`）的 **MCP Servers (`mcp_config.json`)**、**全局 Skills (`skills/`)**、**全局规则 (`GEMINI.md`)** 及 **IDE 编辑器偏好与快捷键 (`settings.json` / `keybindings.json`)** 一键同步至所有多开分身实例。
+  - 每次覆盖前自动创建 `.bak` 安全备份，支持单向软链接（Symlink）或独立文件拷贝模式，同时严格隔离 OAuth 登录态、`state.vscdb` 数据库与独立工作区缓存。
+- **智能内存护航：闲置分身自动热休眠 (`checkIdleAutoHibernation`)**：
+  - 偏好设置新增 **智能内存护航（关闭 / 30 min / 60 min / 120 min）**：当后台分身连续处于 `.idle` 空闲状态达到设定时长、非当前前台窗口且未开启自托管时，自动安全休眠释放数 GB Electron 渲染进程内存。
+  - 休眠后卡片显示 `💤 已休眠省存` 专属徽章并保留最后工作区快照，点击卡片即可一键原位唤醒恢复工作。
+- **模块化架构演进 (`Sources/FleetCommander.swift`) 与 TDD 质量门禁**：
+  - 将 v0.9.0 集群指挥官核心能力独立拆分为模块化源码文件 `Sources/FleetCommander.swift`，新增 `tests/test_v0_9_0_fleet_commander.py` 专项测试套件，全量 **182 项自动化回归测试** 100% 满分通过。
+
+## v0.8.30 (Build 78) — 2026-11-07
 
 ### ⚡️ 深度并发安全、非阻塞主线程与多开补丁稳健性优化 (Deep Concurrency, Non-Blocking Main Thread & Multi-Instance Robustness)
 - **消除主线程同步子进程与 AppleScript 阻塞 (`refreshBackups` & `runAppleScriptAsync`)**：
@@ -625,10 +644,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.8.30/Aether-Antigravity-Multiplexer-v0.8.30-macos-arm64.zip" length="4218495" type="application/octet-stream" sparkle:edSignature="9q4hQeTFVsCcYguIPyMdTgEBRqF4W2gma96/ZlmGxxcc6nw0FtNkkD3tHf50HZp+eUaqcbJpDEVLK+td+AkACw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.0/Aether-Antigravity-Multiplexer-v0.9.0-macos-arm64.zip" length="4392197" type="application/octet-stream" sparkle:edSignature="m2fq8zBzvm/fSXjrZ2NHlcQmKOgliSFbFtNyfqOeBDGITq9oDV/J3l1hoNIV05jgJ9dREpv6DinA3vqp4xSrDg=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: I60ID8r9EG+m28Y0apD7KXNaOGkGB4YBlNpir3mcsPyufqDQND7RWdhEQc0VmSFRNMwaHtF0i8Px1zNka0RWCQ==
-length: 93019
+edSignature: 2+ULyznZ+m5ST/leoIQM8wfSvZwDm7ksyAwMvZn71Zdq1KzH10AB2ue5Wv5KtyxBDAPyQFR4qjoRKHKESHRBBA==
+length: 96221
 -->
