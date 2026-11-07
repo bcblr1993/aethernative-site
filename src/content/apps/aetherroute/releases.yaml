@@ -1,6 +1,28 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.4.1"
+    build: "2026110703"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.4.1/AetherRoute-2.4.1-build-2026110703-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.4.1
+    sha256: 590a5f779c9cbea7425eb6d6dd10cec46519819ef11211a21b51f116865de468
+    sparkle:
+      edSignature: zZgac9KvDRa3Pf2KHHGuy3/Tr46JizeYNVUzYasGWspa05SDqRCFgkKo7l3TsRmI0cFv2U0KIQPCXlJtpK7LAA==
+      length: 29782368
+    summary:
+      zh: 构建 5 层本地回环（127.0.0.0/8、::1）与 RFC 6761 localhost / *.localhost 绝对直连防线，确保全局代理模式及各类分流配置下本地开发流量 100% 直连。
+      en: Implement 5-layer loopback (127.0.0.0/8, ::1) and RFC 6761 localhost / *.localhost direct bypass protection across Global and Rule modes.
+    notes:
+      - title:
+          zh: 5 层本地回环与 localhost 绝对直连防线
+          en: 5-Layer Loopback & RFC 6761 localhost Direct Bypass
+        items:
+          - zh: Rust 核心引擎在 TCP 与 UDP 分流热路径内置回环守卫，即使在全局代理（Global）模式下访问 127.0.0.0/8、::1 与 localhost / *.localhost 也强制走本地 DIRECT。
+            en: Built-in Rust Dispatcher loopback guard forces 127.0.0.0/8, ::1, and localhost / *.localhost to DIRECT across TCP and UDP even in Global mode.
+          - zh: Fake-IP 过滤与本地解析对 localhost / *.localhost 零劫持，置顶回环保护规则优先于应用级规则且在关闭国内直连加速时仍始终生效。
+            en: Fake-IP unconditionally skips localhost / *.localhost, while top-priority loopback rules precede process rules and remain active when domestic direct optimization is off.
   - version: "2.4.0"
     build: "2026110702"
     date: 2026-11-07
