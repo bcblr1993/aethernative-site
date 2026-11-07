@@ -72,8 +72,8 @@
     }
   },
   "notice": {
-    "zh": "0.6.0 新增全目录文件活跃度与陈旧分布画像、清理建议分类汇总胶囊与陈旧可检项筛选、工程源码与资产净占用统计及更多工具链缓存规则。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "Version 0.6.0 adds file activity and age distribution insights, interactive cleanup category pills and stale-cache filtering, project net source usage metrics and expanded toolchain cache rules. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "1.0.0 正式版提供交互式空间占比图、10 份历史快照持续增长热点预警、APFS 弹性可回收空间透视、本机清理审计账本与 CLI 1.0。截图来自独立 macOS 测试环境，容量为测试数据。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
+    "en": "Version 1.0.0 adds an interactive space map, 10-snapshot continuous growth hotspot alerts, APFS purgeable space insights, a local cleanup audit ledger and CLI 1.0. Screenshots show an isolated macOS test environment. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
   },
   "gallery": [
     {
