@@ -1,6 +1,28 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.5.0"
+    build: "2026110801"
+    date: 2026-11-07
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.5.0/AetherRoute-2.5.0-build-2026110801-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.5.0
+    sha256: cdbddafe609b85cc56338f6b80cbd2241835fe8d39fa6539bdd5783fad017bfe
+    sparkle:
+      edSignature: ry2SfEEoTS5GH51hH90P8GORQOPeMZd6jKoY9yZ3P7xAw5JAwchhml69i3POMkLhjLgjY2WxfR0HLftiI/IWDQ==
+      length: 29848967
+    summary:
+      zh: 新增连接页多维流量排行榜（按应用 / 域名 / 节点聚合与一键筛选联动），并优化核心引擎高并发出站可重试握手的对冲超时。
+      en: Add multi-dimensional traffic leaderboard (by App, Host, and Outbound with one-click filter linkage) and optimize hedged retryable outbound connect timeouts.
+    notes:
+      - title:
+          zh: 多维流量排行榜与高并发握手对冲优化
+          en: Multi-Dimensional Traffic Leaderboard & Hedged Outbound Connect Retries
+        items:
+          - zh: 在连接页提供按应用、按域名/目标、按策略/节点三维度实时流量排行榜，支持总流量占比进度条与一键点击联动过滤连接列表。
+            en: Real-time traffic leaderboard on the Connections page ranked by Application, Host, or Outbound with proportional bars and one-click connection list filtering.
+          - zh: Rust 核心引擎对前两次可重试出站握手采用 3 秒对冲超时，显著缩短高并发突发场景下偶发丢包的重试恢复耗时。
+            en: Rust core engine applies a 3-second hedged timeout on retryable outbound connect attempts, accelerating failover under burst concurrency.
   - version: "2.4.1"
     build: "2026110703"
     date: 2026-11-07
