@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.0"
+    build: "2026110805"
+    date: 2026-11-08
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.0/AetherRoute-2.9.0-build-2026110805-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.0
+    sha256: 14389dd6158196eb7eee9ba15bc426c9e2767d62d513d1c29e5be8b38541a1c1
+    sparkle:
+      edSignature: Lfa2f/yo3lWMdF5yxhdYSS63IpcDkyDF8zPK94+DZysIP/NBewHe0fWN2rsVpmwJ9n5QuNbT5Le9jprhewknCA==
+      length: 28921512
+    summary:
+      zh: 修复透明代理短连接首包下行关闭误报 Error 日志、消除概览与节点页被动刷新双次重排、新增 ICU 格式化与连接快照缓存、支持原生节点重命名自动更新兄弟节点 dialer-proxy 引用，并补齐自定义规则集独立 iCloud 同步实时热重载。
+      en: Eliminates false-positive transparent proxy post-EOF write error logs, removes double window re-layouts during passive proxy selection refreshes, caches ICU formatters and live connection snapshots, propagates native node renames to dialer-proxy references, and adds live iCloud sync reload for standalone custom rule providers.
   - version: "2.8.0"
     build: "2026110804"
     date: 2026-11-08
