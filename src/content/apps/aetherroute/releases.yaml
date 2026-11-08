@@ -1,6 +1,36 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.8.0"
+    build: "2026110804"
+    date: 2026-11-08
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.8.0/AetherRoute-2.8.0-build-2026110804-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.8.0
+    sha256: c3695e89e25d865772fc3bf45d86ab01e6dfa8445743a9173e49108447b0e6ef
+    sparkle:
+      edSignature: BG7/8mwKQDhmuozH9l0RDzPHepJg2/oOxodAx73lWSacyPV/1wwfUyKHIPQVRQcDRPAcqcLOMTlAPwhBzB47Cw==
+      length: 28901333
+    summary:
+      zh: 全模块代码审查与性能优化：零分配连接分类器、500 节点 O(1) 预索引与重复节点防崩溃、透明代理并发 DNS 预算控制及真实 HTTP 诊断探测。
+      en: "End-to-end code review & performance optimization: zero-allocation connection classifier, O(1) 500-node indexing with duplicate guard, bounded concurrent Transparent Proxy DNS resolution, and live HTTP diagnostic probes."
+    notes:
+      - title:
+          zh: 界面极速响应与内存控制优化
+          en: UI Responsiveness & Memory Optimization
+        items:
+          - zh: 新增零分配连接出站分类器（ConnectionOutletClassifier）与 2,000 连接表格快速路径，连接页切页 p50 降至 106.3ms，全页最大延迟降低 26.3ms，内存稳定在 65–68 MB。
+            en: Zero-allocation ConnectionOutletClassifier and 2,000-row table fast-path reduce Connections page switch p50 to 106.3ms and peak switch latency by 26.3ms while holding memory at 65–68 MB median.
+          - zh: 策略组 500 节点列表改为 O(1) 字典预索引并支持同名节点保序去重，规则页对齐 REJECT-DROP 筛选。
+            en: O(1) dictionary pre-indexing and order-preserving deduplication for 500-node proxy groups, plus REJECT-DROP filter parity on Rules.
+      - title:
+          zh: 透明代理启动防卡死与真实 HTTP 诊断
+          en: Bounded Transparent Proxy DNS & Live Diagnostics
+        items:
+          - zh: 透明代理上游节点域名采用去重并发解析与 3.5 秒总预算上限，防止失效 DNS 阻塞启动。
+            en: Concurrent deduplicated upstream DNS resolution with a 3.5s deadline prevents unresponsive DNS servers from stalling Transparent Proxy startup.
+          - zh: DNS 页网络诊断医生支持真实国内直连与代理出站 HTTP 探测及自定义规则集过期统计。
+            en: Network Diagnostic Doctor now performs live domestic and proxy HTTP reachability probes and stale custom rule-provider checks.
   - version: "2.7.0"
     build: "2026110803"
     date: 2026-11-07
