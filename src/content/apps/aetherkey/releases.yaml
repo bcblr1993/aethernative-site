@@ -1,6 +1,55 @@
 {
   "releases": [
     {
+      "version": "1.0.9",
+      "build": "2026110801",
+      "date": "2026-11-08",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.9/AetherKey-1.0.9-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.9",
+      "badge": {
+        "zh": "键序纠错 · 整句防误拼 · 词库卫生 · Apple 公证",
+        "en": "Typo Correction · Sentence Integrity · Lexicon Hygiene · Notarized"
+      },
+      "summary": {
+        "zh": "新增实时键序纠错与整句防误拼、误上屏立即 Delete 撤回自学习词频与配对引号、置顶与已忽略词条可视化管理面板，并修复 [ / ] 候选翻页、双拼常见缩写简拼与上下文状态同步。",
+        "en": "Adds real-time typo correction and whole-sentence anti-mashing guards, immediate Backspace rollback for learned word frequencies and paired quotes, a visual Pinned & Ignored words manager, plus fixes for [ / ] candidate paging and Double Pinyin abbreviation fallbacks."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "实时键序纠错、整句防误拼与词库卫生治理",
+            "en": "Real-time typo correction, sentence integrity and lexicon hygiene"
+          },
+          "items": [
+            {
+              "zh": "自动修正元音/鼻音倒置（如 houmina → 后面、shijain → 时间、baozhneg → 保证、xinag → 想、xingnegn → 性能）、双敲辅音（如 shemme → 什么、rangnni → 让你）、漏元音（如 woshnme → 我什么）与冗余鼻音尾缀（如 gongzuong → 工作），并杜绝将无关联单字或生僻鼻音独音字（哽、鞥）拼接为伪整句。",
+              "en": "Automatically repairs vowel/nasal transpositions (houmina → 后面, shijain → 时间, baozhneg → 保证, xinag → 想, xingnegn → 性能), double-tapped consonants (shemme → 什么, rangnni → 让你), omitted vowels (woshnme → 我什么) and redundant nasal suffixes (gongzuong → 工作), preventing unrelated single characters or rare syllabic nasals from gluing into nonsense sentences."
+            },
+            {
+              "zh": "单声母普通词频不再劫持默认高频首字（如 w → 我、c → 此）；拦截超长随机乱敲串污染词频表；上屏后立即按 Delete 自动撤回刚刚习得的词频计数与配对引号翻转状态。",
+              "en": "Single-letter ordinary frequency counts no longer hijack initial-prefix default top characters (w → 我, c → 此); key-mashing strings are rejected from frequency learning; pressing Backspace immediately after commit rolls back the learned frequency increment and quote pairing toggle."
+            },
+            {
+              "zh": "设置 → 词库与短语新增「候选偏好管理（置顶与已忽略词条）」面板，支持一键取消置顶与恢复已忽略候选，并为自定义短语列表提供即时搜索与懒加载渲染。",
+              "en": "Preferences → Lexicon & Phrases adds a Pinned & Ignored Words management card with one-click unpin and restore actions, plus instant search and lazy rendering for custom phrases."
+            },
+            {
+              "zh": "修复编码输入中 [ / ] 快捷键翻页、双拼模式下常见多音节缩写简拼（如 srf → 输入法、zgc → 中关村）兜底，以及失焦与退格后的盘古空格上下文同步；64 项 TDD 自动化测试全部通过。",
+              "en": "Fixes [ / ] candidate paging during composition, common multi-syllable abbreviation fallbacks in Double Pinyin (srf → 输入法, zgc → 中关村), and contextual Pangu spacing synchronization after Backspace or focus changes; all 64 TDD automated tests pass."
+            }
+          ]
+        }
+      ],
+      "sha256": "727b0951211462403b2b49bd3ff1b6ca3435e299bff0e32e2478582124cc87a0",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.9/AetherKey-1.0.9-update.zip",
+        "edSignature": "a+MUulAl/cQuiDlpS0vmtqeY6+6X6ZW4TEWyy0eamA2t3k3fQs0PpCaL9gCDY2c8kgqvvQEsUCS15gYsumDMAA==",
+        "length": 8967967
+      }
+    },
+    {
       "version": "1.0.8",
       "build": "2026110401",
       "date": "2026-11-04",

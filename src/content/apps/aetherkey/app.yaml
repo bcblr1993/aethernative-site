@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.8 新增词库导入导出与常用地名：支持 JSON 完整备份与 TXT/TSV/Rime 词表合并导入、覆盖恢复与导出；内置词库扩充至 533,958 条，覆盖全国省市区、核心商圈科技园与高铁机场。",
-    "en": "Version 1.0.8 adds lexicon backup & migration (JSON full backups and TXT/TSV/Rime word lists with merge or replace) and expands the dictionary to 533,958 entries across provinces, cities, tech hubs and transport stations."
+    "zh": "1.0.9 新增实时键序纠错与整句防误拼（自动修复元音/鼻音倒置、双敲辅音与漏元音）、误上屏立即 Delete 撤回词频与引号配对、置顶与已忽略词条管理面板，并修复 [ / ] 翻页与双拼简拼兜底。",
+    "en": "Version 1.0.9 adds real-time typo correction and whole-sentence anti-mashing guards, immediate Backspace rollback for learned word frequencies and paired quotes, a Pinned & Ignored words manager, plus [ / ] paging and Double Pinyin abbreviation fallbacks."
   },
   "gallery": [
     {
