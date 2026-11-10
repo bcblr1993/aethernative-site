@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.2"
+    build: "2026111004"
+    date: 2026-11-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.2/AetherRoute-2.9.2-build-2026111004-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.2
+    sha256: 8e42e67239d6ccb8c6d293f493ef039ebf482c7d6b34358d8c23a68eaaee11aa
+    sparkle:
+      edSignature: VelPN+XHgj2czKKYTpT2bREdaebB639gSFUZCHUmMKnnjiHRB0UnLp9tukYSpIkB6i5mTzI1BHg++62H18tACg==
+      length: 29957180
+    summary:
+      zh: 修复卸载重装但未重启 Mac 时首次运行网络扩展向导卡在「正在等待授权...」无法进入下一步的问题，支持双引擎独立并发初始化与单引擎就绪即刻继续。
+      en: Fixes first-run network setup getting stuck on 'Waiting for approval...' after an uninstall without rebooting, adding cross-version pending-reboot detection, concurrent per-engine initialization, and immediate continuation once at least one engine is ready.
   - version: "2.9.1"
     build: "2026111002"
     date: 2026-11-10
