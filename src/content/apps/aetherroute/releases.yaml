@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.1"
+    build: "2026111002"
+    date: 2026-11-10
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.1/AetherRoute-2.9.1-build-2026111002-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.1
+    sha256: c31cacdf3a3c65930e0616f8db8113df8097813576fa8063c1fa6efbe8e59463
+    sparkle:
+      edSignature: eBlgwrJEYmCR5ztNVLzFWK2WjgA7Ju367EIc9JG80gnBNgjlGaShX5+JHwuIwDjM0kY852YTmGlfrmMkAbb0Bw==
+      length: 29950139
+    summary:
+      zh: 彻底修复应用内卸载在「完成」界面卡死、无法退出及沙盒环境下应用包清理受阻的问题，支持卸载完成后自动收尾退出并完整清除残留。
+      en: Fixes the in-app uninstaller hanging on the completion sheet due to .terminateLater modal deadlock and App Sandbox ~/.Trash restrictions, ensuring immediate clean exit and complete app bundle removal.
   - version: "2.9.0"
     build: "2026110805"
     date: 2026-11-08
