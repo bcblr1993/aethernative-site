@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.3"
+    build: "2026111101"
+    date: 2026-11-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.3/AetherRoute-2.9.3-build-2026111101-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.3
+    sha256: be32508496d4c81662af1305102cbf79692e15479ae1129191c91afd98ecaf64
+    sparkle:
+      edSignature: 3My+C/k2HG95L42enFvv7cNviojIKMrcwWsdU/7FnYP2clGqPg8a2gAO0dx4orS/lOJEBNsBIQXXhTM9epM8BQ==
+      length: 29959103
+    summary:
+      zh: 修复 Hysteria2 节点连接 apernet/hysteria v2.13.0+ 服务端时触发 H3_CLOSED_CRITICAL_STREAM 导致延迟测速与代理请求超时的问题，并完善 Brutal 下行带宽协商、纯 IP 缺省 SNI 回退与端口跳跃网卡绑定。
+      en: Fixes Hysteria2 connection timeouts (H3_CLOSED_CRITICAL_STREAM) against apernet/hysteria v2.13.0+ servers by retaining HTTP/3 critical streams for the QUIC connection lifetime, alongside accurate Brutal Hysteria-CC-RX negotiation, IP-literal SNI fallback, and UdpHop outbound interface binding.
   - version: "2.9.2"
     build: "2026111004"
     date: 2026-11-10
