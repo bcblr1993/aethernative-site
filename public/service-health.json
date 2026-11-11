@@ -1,29 +1,29 @@
 {
-  "checkedAt": "2026-11-10T19:51:33.405Z",
+  "checkedAt": "2026-11-11T06:41:22.484Z",
   "apps": [
     {
       "id": "aetherroute",
       "name": "AetherRoute",
-      "version": "2.9.2",
-      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.2/AetherRoute-2.9.2-build-2026111004-arm64.dmg",
-      "sha256": "8e42e67239d6ccb8c6d293f493ef039ebf482c7d6b34358d8c23a68eaaee11aa",
-      "length": 29957180,
-      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.2/AetherRoute-2.9.2-build-2026111004-arm64.dmg",
-      "updateLength": 29957180,
-      "edSignature": "VelPN+XHgj2czKKYTpT2bREdaebB639gSFUZCHUmMKnnjiHRB0UnLp9tukYSpIkB6i5mTzI1BHg++62H18tACg==",
+      "version": "2.9.3",
+      "download": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.3/AetherRoute-2.9.3-build-2026111101-arm64.dmg",
+      "sha256": "be32508496d4c81662af1305102cbf79692e15479ae1129191c91afd98ecaf64",
+      "length": 29959103,
+      "updateDownload": "https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.3/AetherRoute-2.9.3-build-2026111101-arm64.dmg",
+      "updateLength": 29959103,
+      "edSignature": "3My+C/k2HG95L42enFvv7cNviojIKMrcwWsdU/7FnYP2clGqPg8a2gAO0dx4orS/lOJEBNsBIQXXhTM9epM8BQ==",
       "appcast": "/apps/aetherroute/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 29957180,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/fa585d36-4a2c-495d-8f95-c070271f76b5",
+          "bytes": 29959103,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1320777167/4244df97-db3e-46f9-a677-182c261d6bfd",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "8e42e67239d6ccb8c6d293f493ef039ebf482c7d6b34358d8c23a68eaaee11aa",
+          "actual": "be32508496d4c81662af1305102cbf79692e15479ae1129191c91afd98ecaf64",
           "message": "SHA256 一致"
         },
         {
@@ -191,26 +191,26 @@
     {
       "id": "antigravity-multiplexer",
       "name": "Aether Antigravity Multiplexer",
-      "version": "0.9.1",
-      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.1/Aether-Antigravity-Multiplexer-v0.9.1-macos-arm64.zip",
-      "sha256": "80727c1740beaeb233a07bdf4fa9e822f3f5c081bef59b2f8648aecacce777a4",
-      "length": 4392548,
-      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.1/Aether-Antigravity-Multiplexer-v0.9.1-macos-arm64.zip",
-      "updateLength": 4392548,
-      "edSignature": "JJ0+jSF4gPTs+Mgnyzij3nWXjtCrNaTqziTgAKO5UOAKtLOXiBKVYyFS4LyjPQg1YeyeIXJeMlzgJ/d4uQ6TAA==",
+      "version": "0.9.2",
+      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.2/Aether-Antigravity-Multiplexer-v0.9.2-macos-arm64.zip",
+      "sha256": "c4bfb50d2bd5525aa75b9a28a244c84b18623a9b6d7cda9712504bc7e40deb6e",
+      "length": 4392982,
+      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.2/Aether-Antigravity-Multiplexer-v0.9.2-macos-arm64.zip",
+      "updateLength": 4392982,
+      "edSignature": "KZbxrEWb7j5pbFOS38whi9ehwKdp6kjOzsO7UE3m+5liBKURJ0pY7YodBHb9SKCbfQp2mZFbt9uwMIa8kCBrAA==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4392548,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/501b8bee-7fa1-4b8d-a6fb-a2c744e8a8a2",
+          "bytes": 4392982,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/df5b50e9-ae1f-4892-a147-e27b09fbf0ac",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "80727c1740beaeb233a07bdf4fa9e822f3f5c081bef59b2f8648aecacce777a4",
+          "actual": "c4bfb50d2bd5525aa75b9a28a244c84b18623a9b6d7cda9712504bc7e40deb6e",
           "message": "SHA256 一致"
         },
         {
@@ -274,7 +274,7 @@
           "message": "更新源与当前正式版不一致或缺少签名字段"
         }
       ],
-      "failures": 7,
+      "failures": 8,
       "status": "failed"
     },
     {
