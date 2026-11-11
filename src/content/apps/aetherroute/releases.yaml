@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.4"
+    build: "2026111102"
+    date: 2026-11-11
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.4/AetherRoute-2.9.4-build-2026111102-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.4
+    sha256: 82595ac76c9df4f959ee6d612f2a672b8d28cbe20298bfa2dd2fd9ce6471b51d
+    sparkle:
+      edSignature: saXCD2IVPS8nxCxtDdaQrwodYN5U6b0dzHjEeyUvjPJWa8QEwFL/9TnP9ElVowNscMM/EjYW8Y9WXxwi1i/HCA==
+      length: 30181937
+    summary:
+      zh: 新增与 Mihomo 对齐的 unified-delay 净隧道 RTT 延迟测速、节点页双列紧凑卡片网格与顶部订阅公告栏、毫秒级乐观节点切换、连接态订阅无感热更新，并修复全局模式直连回退风险与流量采样掉帧问题。
+      en: Introduces Mihomo-aligned unified-delay tunnel RTT benchmarking, a compact dual-column card grid and subscription notice bar in Proxies, sub-millisecond optimistic proxy switching, live subscription hot-reloading while connected, and fixes for Global mode routing safety and monotonic bandwidth sampling.
   - version: "2.9.3"
     build: "2026111101"
     date: 2026-11-11
