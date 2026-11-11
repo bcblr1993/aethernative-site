@@ -4,13 +4,21 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.9.1</title>
-            <pubDate>Tue, 10 Nov 2026 09:05:25 +0800</pubDate>
-            <sparkle:version>80</sparkle:version>
-            <sparkle:shortVersionString>0.9.1</sparkle:shortVersionString>
+            <title>0.9.2</title>
+            <pubDate>Wed, 11 Nov 2026 09:18:50 +0800</pubDate>
+            <sparkle:version>81</sparkle:version>
+            <sparkle:shortVersionString>0.9.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.9.1 (Build 80) — 2026-11-10
+            <description sparkle:format="markdown"><![CDATA[## v0.9.2 (Build 81) — 2026-11-11
+
+### 🎯 官方 Antigravity 2.31.0 正式版适配支持 (Official Antigravity 2.31.0 Support)
+- **新增 Antigravity `2.31.0` 多开创建与一键无损升级适配**：
+  - 完成官方 Antigravity `2.31.0` (Apple Silicon `arm64`) 的 `app.asar` 完整性哈希（`03f3d094...`）、`language_server` 二进制哈希（`abb5debf...`）及 `shouldBypassKeyring` 偏移量（`keyring_bypass_offset: 31009120`）精准定位与实机深度验签。
+  - 全面兼容 `2.31.0` 内置浏览器安全沙箱升级（`pointerLock` / `keyboardLock` 托管权限拦截、Agent 下载审批门禁 `webview:resolve-download` 与 60 秒 `AgentControlTombstone` 延迟下载防护）以及 Native Swarm 多代理协同与 `SwitchLoginToAuthCode` 授权码登录回退机制，确保各多开分身实例的独立 `.gemini-N` 配置、OAuth 登录回调与本地网络 `LC_UUID` 权限互不干扰。
+  - 同步内置 Antigravity `2.31.0` 版本更新亮点说明（`source_release_notes.json`），支持在升级确认弹窗中直接预览新版特性。
+
+## v0.9.1 (Build 80) — 2026-11-10
 
 ### 🎯 官方 Antigravity 2.30.0 正式版适配支持 (Official Antigravity 2.30.0 Support)
 - **新增 Antigravity `2.30.0` 多开创建与一键无损升级适配**：
@@ -652,10 +660,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.1/Aether-Antigravity-Multiplexer-v0.9.1-macos-arm64.zip" length="4392548" type="application/octet-stream" sparkle:edSignature="JJ0+jSF4gPTs+Mgnyzij3nWXjtCrNaTqziTgAKO5UOAKtLOXiBKVYyFS4LyjPQg1YeyeIXJeMlzgJ/d4uQ6TAA=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.2/Aether-Antigravity-Multiplexer-v0.9.2-macos-arm64.zip" length="4392982" type="application/octet-stream" sparkle:edSignature="KZbxrEWb7j5pbFOS38whi9ehwKdp6kjOzsO7UE3m+5liBKURJ0pY7YodBHb9SKCbfQp2mZFbt9uwMIa8kCBrAA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: t1ZKx81lhdTh9lnzTuOsTZGXUctnFgSIl18fZwbx6e/DAjhXs63QO40ORN8DmThn9wJnyAT7Z1gcfokSvAj/Bg==
-length: 97119
+edSignature: Dog+ixqa8Te+SvQYMnX12zBg9wO2nFP+/gbXfHABdMSwmD7uf9x35xkuExhPJS+iZ1kBgz0Y+3KUGv+brGosAw==
+length: 98201
 -->
