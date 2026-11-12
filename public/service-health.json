@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-11T19:42:47.883Z",
+  "checkedAt": "2026-11-12T07:23:05.888Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -191,26 +191,26 @@
     {
       "id": "antigravity-multiplexer",
       "name": "Aether Antigravity Multiplexer",
-      "version": "0.9.2",
-      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.2/Aether-Antigravity-Multiplexer-v0.9.2-macos-arm64.zip",
-      "sha256": "c4bfb50d2bd5525aa75b9a28a244c84b18623a9b6d7cda9712504bc7e40deb6e",
-      "length": 4392982,
-      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.2/Aether-Antigravity-Multiplexer-v0.9.2-macos-arm64.zip",
-      "updateLength": 4392982,
-      "edSignature": "KZbxrEWb7j5pbFOS38whi9ehwKdp6kjOzsO7UE3m+5liBKURJ0pY7YodBHb9SKCbfQp2mZFbt9uwMIa8kCBrAA==",
+      "version": "0.9.3",
+      "download": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.3/Aether-Antigravity-Multiplexer-v0.9.3-macos-arm64.zip",
+      "sha256": "e5fbfcbc42d9cbf8624189eb7a4d6bbd14e2d6dce8dd761d89b43110555fac10",
+      "length": 4393273,
+      "updateDownload": "https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.3/Aether-Antigravity-Multiplexer-v0.9.3-macos-arm64.zip",
+      "updateLength": 4393273,
+      "edSignature": "/1tIzoN3GVOlPeNEEuiPFvFhC7knuFaujdVR0aulqYMR48/UFjc7kOSw87wikTy4laj29OHUR0NcTpgL4bjhDw==",
       "appcast": "/apps/antigravity-multiplexer/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4392982,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/df5b50e9-ae1f-4892-a147-e27b09fbf0ac",
+          "bytes": 4393273,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1382571776/24957451-73e5-4e95-8bbc-9717201cd006",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "c4bfb50d2bd5525aa75b9a28a244c84b18623a9b6d7cda9712504bc7e40deb6e",
+          "actual": "e5fbfcbc42d9cbf8624189eb7a4d6bbd14e2d6dce8dd761d89b43110555fac10",
           "message": "SHA256 一致"
         },
         {
@@ -274,7 +274,7 @@
           "message": "更新源与当前正式版不一致或缺少签名字段"
         }
       ],
-      "failures": 9,
+      "failures": 10,
       "status": "failed"
     },
     {
