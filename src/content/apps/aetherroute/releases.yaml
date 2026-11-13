@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "2.9.5"
+    build: "2026111301"
+    date: 2026-11-13
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v2.9.5/AetherRoute-2.9.5-build-2026111301-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v2.9.5
+    sha256: 73aadefddc36c4ad9abe36b8de7928bd0aa1afb335680643094e383e90eaff46
+    sparkle:
+      edSignature: 0FgHb+hMn+hc+qQJ8DI4lYPDHuecDwG5uB4UF96e4vbdp7BR5+kLHa/1RIXC6Mnv97+Bw8zWDSpbQ99WqBTQCg==
+      length: 30223331
+    summary:
+      zh: 新增面向主流 ACL4SSR、Loyalsoldier 与 blackmatrix7 订阅的离线 RULE-SET 规则合成，对齐 Mihomo 默认 rule-providers 行为与嵌入式启动容错，并统一透明代理配置裁剪与校验策略，彻底解决第三方订阅导入后无法连通的问题。
+      en: Adds offline GeoSite-verified RULE-SET synthesis for mainstream ACL4SSR, Loyalsoldier, and blackmatrix7 subscriptions, aligns omitted rule-provider defaults and HTTP fetch resilience with Mihomo, and unifies Transparent Proxy hardening with embedded core validation.
   - version: "2.9.4"
     build: "2026111102"
     date: 2026-11-11
