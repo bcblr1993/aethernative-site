@@ -1,6 +1,63 @@
 {
   "releases": [
     {
+      "version": "1.0.10",
+      "build": "2026111601",
+      "date": "2026-11-16",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.10/AetherKey-1.0.10-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.10",
+      "badge": {
+        "zh": "面板稳态 · 全词库简拼 · 状态胶囊 · Apple 公证",
+        "en": "Anchored Panel · Weighted Jianpin · Status HUD · Notarized"
+      },
+      "summary": {
+        "zh": "候选面板同行稳态锚定与单调防抖、中/英与全/半角切换胶囊提示，全词库权重简拼与首字音节混拼、lue/nue 归并及音节级多鼻音模糊音，修复 V 模式人民币大写越界崩溃并完善上下文防误触与状态同步。",
+        "en": "Eliminates candidate panel jumping with same-line caret anchoring and monotonic session width, adds a mode-switch Status HUD capsule, full-lexicon weighted Jianpin and mixed initial+syllable matching, lue/nue equivalence, syllable-level fuzzy nasal matching, V-mode RMB overflow fix, and stronger context/Shift guards."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "候选面板稳态与体验增强",
+            "en": "Candidate panel stability & UX enhancements"
+          },
+          "items": [
+            {
+              "zh": "屏蔽宿主应用在更新预编辑文本瞬间返回的 (0, 0) 占位光标准标，在输入会话期间锁定同行锚点并维持候选框单调最小宽度与多屏/全屏窗口层级自适应，配合预编辑光标指示（▏）彻底消除候选窗跳动。",
+              "en": "Ignores (0, 0) placeholder caret rects during preedit updates, locks a same-line anchor within each typing session with monotonic minimum panel width, adapts window levels across Spaces/full-screen apps, and renders an inline preedit caret (▏)."
+            },
+            {
+              "zh": "新增中/英与全/半角切换 HUD 状态胶囊提示；基于全词库词频与核心地名构建加权简拼索引，支持首字母与完整音节混合拼写并整合进双拼简拼；支持 lue/lve 与 nue/nve 等价归并（排除 lver/nver）及 ian/iang、uan/uang 音节级多鼻音模糊音展开。",
+              "en": "Adds a translucent Status HUD capsule for Chinese/English and full/half-width toggles; builds a full-lexicon weighted Jianpin index supporting mixed initial+syllable queries and Double Pinyin abbreviations; adds lue/lve and nue/nve normalization (excluding lver/nver) plus syllable-level fuzzy nasal expansion including ian↔iang and uan↔uang."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "问题修复与上下文防误触",
+            "en": "Bug fixes & context guards"
+          },
+          "items": [
+            {
+              "zh": "重构 V 模式人民币大写转换改用整型分算术，消除小数边界四舍五入（如 v1.999、v9.996）触发的数组越界崩溃并补齐跨段金融零位（如 100001.05）。",
+              "en": "Rewrites V-mode RMB capitalization with integer-cents arithmetic to fix out-of-bounds crashes on rounding carries (v1.999, v9.996) and properly insert cross-section financial zeroes."
+            },
+            {
+              "zh": "保留包含大写字母的原始英文输入；修复 Shift 组合键或鼠标点击后的误切中英文、手选上屏或方向键移动光标后的盘古上下文同步、VS Code 手动模式记忆与「哽咽」自学习误拦截；68 项自动化测试全部通过。",
+              "en": "Preserves mixed-case raw English input; guards Shift toggling across key combinations and mouse clicks, syncs Pangu context after candidate selection or cursor movement, remembers per-app manual mode cleanly in VS Code, and allows learning normal phrases like 哽咽; all 68 automated tests pass."
+            }
+          ]
+        }
+      ],
+      "sha256": "7a38138e286d1aa2711f57fed4f54b4a41a44333b02161748c74547d8ac0e750",
+      "sparkle": {
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.10/AetherKey-1.0.10-update.zip",
+        "edSignature": "ka3jpO6dmAvsQzvbZ3jtAHrizhS7LlkrrnwXaGwUZkA5fMIAN26qZxK7bMUntXPT03EgjfIaMaO3L7+xlHM/Bg==",
+        "length": 9024469
+      }
+    },
+    {
       "version": "1.0.9",
       "build": "2026110801",
       "date": "2026-11-08",

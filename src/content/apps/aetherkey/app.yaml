@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.9 新增实时键序纠错与整句防误拼（自动修复元音/鼻音倒置、双敲辅音与漏元音）、误上屏立即 Delete 撤回词频与引号配对、置顶与已忽略词条管理面板，并修复 [ / ] 翻页与双拼简拼兜底。",
-    "en": "Version 1.0.9 adds real-time typo correction and whole-sentence anti-mashing guards, immediate Backspace rollback for learned word frequencies and paired quotes, a Pinned & Ignored words manager, plus [ / ] paging and Double Pinyin abbreviation fallbacks."
+    "zh": "1.0.10 消除候选面板输入跳动并新增中/英与全/半角切换状态胶囊，升级全词库权重简拼与首字音节混拼、lue/nue 归并及音节级多鼻音模糊音，并修复 V 模式人民币大写越界崩溃与 Shift/上下文防误触。",
+    "en": "Version 1.0.10 anchors the candidate panel to eliminate jumping, adds a mode-switch Status HUD capsule, upgrades to full-lexicon weighted Jianpin and mixed initial+syllable input, adds lue/nue equivalence and syllable-level fuzzy nasals, and fixes V-mode RMB overflow and context/Shift edge cases."
   },
   "gallery": [
     {
@@ -407,14 +407,14 @@
         }
       },
       {
-        "value": "61",
+        "value": "68",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "2026-11-04 · 词库导入导出、常用地名、五笔码表与拼音回归",
-          "en": "2026-11-04 · Lexicon backup/migration, place names, Wubi table and pinyin regression"
+          "zh": "2026-11-16 · 面板稳态锚定、全词库简拼、V 模式大写、五笔与拼音回归",
+          "en": "2026-11-16 · Panel anchoring, weighted Jianpin, V-mode RMB, Wubi and pinyin regression"
         }
       },
       {
@@ -441,8 +441,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.8",
-          "en": "AetherKey 1.0.8"
+          "zh": "AetherKey 1.0.10",
+          "en": "AetherKey 1.0.10"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -701,8 +701,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.8 支持全拼、小鹤双拼、微软双拼和五笔 86，支持本地词库导入导出，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.8 supports full pinyin, Flypy and Microsoft shuangpin, and Wubi 86 with local lexicon import/export; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.10 支持全拼、小鹤双拼、微软双拼和五笔 86，支持本地词库导入导出，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.10 supports full pinyin, Flypy and Microsoft shuangpin, and Wubi 86 with local lexicon import/export; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
