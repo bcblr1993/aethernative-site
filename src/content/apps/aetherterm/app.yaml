@@ -16,8 +16,8 @@ platforms:
   - id: mac
     status: available
     requirement:
-      zh: Apple 芯片 · macOS 14+
-      en: Apple silicon · macOS 14+
+      zh: Apple M 系列芯片 · macOS 26+
+      en: Apple M-series · macOS 26+
 hero:
   eyebrow:
     zh: SSH · SFTP · 服务器监控
@@ -37,8 +37,8 @@ hero:
       Your terminal, files and server health in one native window.
       Built with Swift 6 and SwiftUI, tuned for Apple silicon.
   requirements:
-    zh: Apple 芯片（M1 及更新）/ macOS 14+
-    en: Apple silicon (M1 or later) / macOS 14+
+    zh: Apple M 系列芯片（M1 及更新）· macOS 26+
+    en: Apple M-series silicon (M1 or later) · macOS 26+
 features:
   eyebrow:
     zh: 功能
@@ -188,8 +188,8 @@ cta:
     zh: 让远程运维，回到原生。
     en: Bring remote work back to native.
   note:
-    zh: Apple 芯片 · macOS 14+ · MIT 开源
-    en: Apple silicon · macOS 14+ · MIT licensed
+    zh: Apple M 系列芯片 · macOS 26+ · MIT 开源
+    en: Apple M-series · macOS 26+ · MIT licensed
 themeGallery:
   note:
     zh: 12 种应用主题 · macOS 27 原生窗口截图 · 演示数据。应用主题预览与网站深浅色独立切换。

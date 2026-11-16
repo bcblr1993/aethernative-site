@@ -9,8 +9,8 @@ heading:
     Write a line.
     Hang it on today.
 lead:
-  zh: Apple 芯片 Mac · macOS 14 或更新版本。
-  en: Apple silicon Mac · macOS 14 or later.
+  zh: Apple M 系列芯片 Mac · macOS 26 或更新版本。
+  en: Apple M-series Mac · macOS 26 or later.
 sections:
   - heading:
       zh: 安装与打开

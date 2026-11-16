@@ -22,8 +22,8 @@ platforms:
   - id: mac
     status: available
     requirement:
-      zh: Apple 芯片 · macOS 26.0+
-      en: Apple silicon · macOS 26.0+
+      zh: Apple M 系列芯片 · macOS 26.0+
+      en: Apple M-series · macOS 26.0+
 cardStats:
   - value: SMB NAS
     label:
@@ -56,8 +56,8 @@ hero:
       Browse your local files and NAS shares, then continue from your saved position.
       Start streaming without downloading the entire film or setting up a media server.
   requirements:
-    zh: Apple 芯片 Mac（macOS 26.0+）
-    en: Apple silicon Mac (macOS 26.0+)
+    zh: Apple M 系列芯片 Mac · macOS 26.0+
+    en: Apple M-series Mac · macOS 26.0+
 notice:
   zh: "Mac 正式下载版本为 0.1.0；仓库中的媒体组件包不是可安装的 AetherFilm 应用。"
   en: "The formal Mac download is version 0.1.0. Media-component packages in the repository are not installable AetherFilm apps."
@@ -152,5 +152,5 @@ cta:
     zh: 开启轻量顺畅的观影体验。
     en: Start your lightweight native film journey.
   note:
-    zh: Apple 芯片 Mac · macOS 26.0+（iOS 同步验证中）
-    en: Apple silicon Mac · macOS 26.0+ (iOS testing alongside)
+    zh: Apple M 系列芯片 Mac · macOS 26.0+
+    en: Apple M-series Mac · macOS 26.0+

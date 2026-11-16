@@ -47,8 +47,8 @@ export const site = {
 export const ui = {
   zh: {
     htmlLang: 'zh-CN',
-    tagline: '为 Apple 芯片原生打造',
-    description: '专为 Apple M 系列芯片深度优化的原生 Mac 软件。',
+    tagline: '专为 Apple M 系列芯片与 macOS 26+ 原生打造',
+    description: '专为 Apple M 系列芯片深度优化的原生 Mac 软件，支持 macOS 26 及以上系统。',
     nav: { apps: '软件', why: '理念', news: '动态', about: '关于', support: '支持' },
     community: {
       nav: 'Telegram 交流群',
@@ -84,7 +84,7 @@ export const ui = {
     license: '许可协议',
     help: '使用帮助',
     releases: '版本记录',
-    footer: '为 Apple 芯片精心打造',
+    footer: '仅支持 Apple M 系列芯片 · macOS 26+',
     madeBy: '由编程不良人用心打造',
     moreSoon: '更多原生软件正在开发中，完成后会第一时间出现在这里。',
     benchmarkNote: '* 数据来自 AetherRoute Mac 版实测',
@@ -190,8 +190,8 @@ export const ui = {
   },
   en: {
     htmlLang: 'en',
-    tagline: 'Built natively for Apple silicon',
-    description: 'Native Mac apps, deeply optimized for Apple M-series chips.',
+    tagline: 'Built natively for Apple M-series & macOS 26+',
+    description: 'Native Mac apps deeply optimized for Apple M-series chips, supporting macOS 26 and later.',
     nav: { apps: 'Apps', why: 'Philosophy', news: 'News', about: 'About', support: 'Support' },
     community: {
       nav: 'Telegram community',
@@ -227,7 +227,7 @@ export const ui = {
     license: 'License',
     help: 'Help',
     releases: 'Releases',
-    footer: 'Crafted for Apple silicon',
+    footer: 'Apple M-series silicon · macOS 26+',
     madeBy: 'Made with care by BianChengBuLiangRen',
     moreSoon: 'More native apps are in development and will appear here as soon as they are ready.',
     benchmarkNote: '* Measured with AetherRoute for Mac',

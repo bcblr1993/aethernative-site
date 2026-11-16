@@ -23,8 +23,8 @@
       "id": "mac",
       "status": "available",
       "requirement": {
-        "zh": "Apple 芯片 · macOS 14+",
-        "en": "Apple silicon · macOS 14+"
+        "zh": "Apple M 系列芯片 · macOS 26+",
+        "en": "Apple M-series · macOS 26+"
       }
     }
   ],
@@ -68,8 +68,8 @@
       "en": "Fix pinyin in place and pin the words you use most.\nCompact candidates follow your caret and fit their words."
     },
     "requirements": {
-      "zh": "macOS 14 或更新版本 · Apple 芯片 M 系列",
-      "en": "macOS 14 or later · Apple silicon M-series"
+      "zh": "Apple M 系列芯片（M1 及更新）· macOS 26 或更新版本",
+      "en": "Apple M-series silicon · macOS 26 or later"
     }
   },
   "notice": {
@@ -788,8 +788,8 @@
       "en": "Write your next sentence with AetherKey."
     },
     "note": {
-      "zh": "无需账号 · 本机处理 · Apple 芯片 · macOS 14+",
-      "en": "No account · On-device · Apple silicon · macOS 14+"
+      "zh": "无需账号 · 本机处理 · Apple M 系列芯片 · macOS 26+",
+      "en": "No account · On-device · Apple M-series · macOS 26+"
     }
   },
   "sparklePublicKey": "+7eRUcpR39mrlReC1QPjuEEtIXSBq/qWj5hSzVqPJWQ="

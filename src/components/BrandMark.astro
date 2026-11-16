@@ -1,12 +1,12 @@
 ---
 interface Props { size?: number }
-const { size = 14 } = Astro.props;
+const { size = 16 } = Astro.props;
 ---
 <span class="brand-mark" aria-hidden="true">
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <path d="M12 2.5 20.2 7.25v9.5L12 21.5l-8.2-4.75v-9.5L12 2.5Z" fill="currentColor" fill-opacity="0.16" />
-    <path d="M12 2.5 20.2 7.25 12 12 3.8 7.25 12 2.5Z" fill="currentColor" fill-opacity="0.96" />
-    <path d="M12 12v9.5l-8.2-4.75v-9.5L12 12Z" fill="currentColor" fill-opacity="0.58" />
-    <path d="M12 12v9.5l8.2-4.75v-9.5L12 12Z" fill="currentColor" fill-opacity="0.32" />
+  <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
+    <path d="M32 10 11 52h10.5L32 28.5V10Z" fill="#ffffff" />
+    <path d="M32 10 53 52H42.5L32 28.5V10Z" fill="#cfd7e3" />
+    <path d="M32 33.5 39.8 41.8 32 50 24.2 41.8 32 33.5Z" fill="#2997ff" />
+    <path d="M32 33.5 39.8 41.8H24.2L32 33.5Z" fill="#70c2ff" />
   </svg>
 </span>

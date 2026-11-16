@@ -20,7 +20,7 @@ summary:
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 13+, en: Apple silicon · macOS 13+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
 
 hero:
   eyebrow: { zh: Codex · Claude · Antigravity, en: Codex · Claude · Antigravity }
@@ -33,8 +33,8 @@ hero:
 
       Choose your accounts, set their order and pick a storybook companion."
   requirements:
-    zh: Apple 芯片 / macOS 13+ · 需要先在对应软件中登录订阅账号
-    en: "Apple silicon / macOS 13+ · Sign in to each service's own app first"
+    zh: Apple M 系列芯片 · macOS 26+ · 需要先在对应软件中登录订阅账号
+    en: "Apple M-series · macOS 26+ · Sign in to each service's own app first"
 notice:
   zh: AetherNotchQuota 是独立开发的非官方工具，与 OpenAI、Anthropic、Google 无关联。Codex、Claude、Antigravity 及相关标识归各自权利人所有。
   en: AetherNotchQuota is an independent, unofficial tool and is not affiliated with OpenAI, Anthropic or Google. Codex, Claude, Antigravity and related marks belong to their respective owners.
@@ -168,8 +168,8 @@ features:
         zh: 签名、公证，应用内升级
         en: Signed and notarized with in-app updates
       body:
-        zh: 面向 Apple 芯片 Mac，支持 macOS 13+。正式 DMG 经过 Developer ID 签名和 Apple 公证，使用 Sparkle 检查、下载、校验并安装更新。
-        en: For Apple silicon Macs on macOS 13 or later. Official DMGs are Developer ID–signed and Apple-notarized; Sparkle checks, downloads, verifies and installs updates.
+        zh: 面向 Apple M 系列芯片 Mac，支持 macOS 26+。正式 DMG 经过 Developer ID 签名和 Apple 公证，使用 Sparkle 检查、下载、校验并安装更新。
+        en: For Apple M-series Macs on macOS 26 or later. Official DMGs are Developer ID–signed and Apple-notarized; Sparkle checks, downloads, verifies and installs updates.
       details:
         - zh: 默认每天检查一次，也可手动检查；检查不会自动下载或安装。
           en: Checks daily by default or on demand. Checking alone does not download or install updates.
@@ -198,4 +198,4 @@ faq:
 
 cta:
   title: { zh: 把 AI 额度，放在手边。, en: Keep your AI quotas close. }
-  note: { zh: Apple 芯片 · macOS 13+ · 签名并公证 · 应用内更新, en: Apple silicon · macOS 13+ · Signed & notarized · In-app updates }
+  note: { zh: Apple M 系列芯片 · macOS 26+ · 签名并公证 · 应用内更新, en: Apple M-series · macOS 26+ · Signed & notarized · In-app updates }

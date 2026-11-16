@@ -60,6 +60,7 @@ const footerApps = isAdmin ? [] : (await getApps()).slice(0, 6);
       </>
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
@@ -151,15 +152,15 @@ const footerApps = isAdmin ? [] : (await getApps()).slice(0, 6);
               </a>
               <p class="f-bio">
                 {zh
-                  ? `专为 Apple 芯片深度优化的原生 Mac 软件，由${t(site.author, lang)}独立打造。`
-                  : `Native macOS software deeply optimized for Apple silicon by ${t(site.author, lang)}.`}
+                  ? `专为 Apple M 系列芯片深度优化的原生 Mac 软件（支持 macOS 26 及以上系统），由${t(site.author, lang)}独立打造。`
+                  : `Native macOS apps deeply optimized for Apple M-series chips (macOS 26 or later), crafted by ${t(site.author, lang)}.`}
               </p>
               <span class="f-badge">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="6" y="6" width="12" height="12" rx="2" />
                   <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
                 </svg>
-                Apple Silicon Native
+                {zh ? 'Apple M 系列芯片 · macOS 26+' : 'Apple M-Series · macOS 26+'}
               </span>
             </div>
             <div class="footer-col">

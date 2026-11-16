@@ -25,8 +25,8 @@
       "id": "mac",
       "status": "available",
       "requirement": {
-        "zh": "Apple 芯片 · macOS 14+",
-        "en": "Apple silicon · macOS 14+"
+        "zh": "Apple M 系列芯片 · macOS 26+",
+        "en": "Apple M-series · macOS 26+"
       }
     }
   ],
@@ -67,8 +67,8 @@
       "en": "See folder and hidden-directory usage and compare scans over time. Review cleanup suggestions before confirming; source files and release installers stay protected."
     },
     "requirements": {
-      "zh": "Apple 芯片 · macOS 14 或更新版本",
-      "en": "Apple silicon · macOS 14 or later"
+      "zh": "Apple M 系列芯片（M1 及更新）· macOS 26 或更新版本",
+      "en": "Apple M-series silicon · macOS 26 or later"
     }
   },
   "notice": {

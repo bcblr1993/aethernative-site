@@ -20,7 +20,7 @@ summary:
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
 
 cardStats:
   - value: "≤ 50 MB"
@@ -37,8 +37,8 @@ hero:
     zh: "按需采样，发布前逐页验证物理内存峰值 ≤ 50 MB。\n原生菜单栏读数、六类详情和高频开关集中在一个轻巧工具中。"
     en: "On-demand sampling with a 50 MB peak-footprint release gate.\nNative menu bar readings, six detail views and everyday toggles live in one compact utility."
   requirements:
-    zh: Apple 芯片（M1 及更新）/ macOS 14+
-    en: Apple silicon (M1 or later) / macOS 14+
+    zh: Apple M 系列芯片（M1 及更新）· macOS 26+
+    en: Apple M-series silicon (M1 or later) · macOS 26+
 
 showcase:
   eyebrow: { zh: 界面设计与交互体验, en: Interface and Experience }
@@ -168,4 +168,4 @@ faq:
 
 cta:
   title: { zh: 告别臃肿，体验极致纯粹的 Mac 状态控制。, en: Eliminate the bloat. Experience pure native Mac control. }
-  note: { zh: 适用于 Apple 芯片 Mac · macOS 14.0+ · Swift 6 原生底座 · Sparkle 更新, en: For Apple silicon Mac · macOS 14.0+ · Native Swift 6 · Sparkle Updates }
+  note: { zh: Apple M 系列芯片 Mac · macOS 26+ · Swift 6 原生底座 · Sparkle 更新, en: Apple M-series Mac · macOS 26+ · Native Swift 6 · Sparkle Updates }

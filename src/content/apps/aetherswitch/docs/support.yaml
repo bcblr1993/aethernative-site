@@ -12,8 +12,8 @@ sections:
       - zh: 双击打开，应用将静默常驻在顶部菜单栏右上角，显示当前内存占比与实时上下行网速。
         en: Double-click to launch. The app sits quietly in your menu bar, displaying real-time RAM usage and network bandwidth.
     note:
-      zh: 需要 Apple 芯片（M1 及更新系列）和 macOS 14.0 或更高版本系统。
-      en: Requires Apple silicon (M1 or later) and macOS 14.0 or newer.
+      zh: 需要 Apple M 系列芯片（M1 及更新）和 macOS 26 或更高版本系统。
+      en: Requires Apple M-series silicon (M1 or later) and macOS 26 or newer.
   - heading:
       zh: 快捷开关使用技巧
       en: Tips for Quick Toggles

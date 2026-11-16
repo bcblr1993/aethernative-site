@@ -20,7 +20,7 @@ summary:
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 15+, en: Apple silicon · macOS 15+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
 
 cardStats:
   - { value: ~210 MB, label: { zh: 整体内存, en: Total memory } }
@@ -34,8 +34,8 @@ hero:
     zh: "原生、轻快的网络连接体验。\n专为 Apple M 系列芯片深度定制，追求极致性能与能效优化。"
     en: "Native, effortless connections.\nPurpose-built for Apple M-series chips and tuned for performance and efficiency."
   requirements:
-    zh: Apple 芯片 Mac · macOS 15+ · 自备订阅或节点
-    en: "Apple silicon Mac · macOS 15+ · Bring your own nodes"
+    zh: Apple M 系列芯片 Mac · macOS 26 及以上系统 · 自备订阅或节点
+    en: "Apple M-series Mac · macOS 26 or later · Bring your own nodes"
 
 gallery:
   - { label: { zh: 连接概览, en: Overview }, zh: ./media/mac/overview-zh-light.png, en: ./media/mac/overview-en-light.png, zhDark: ./media/mac/overview-zh-dark.png, enDark: ./media/mac/overview-en-dark.png }
@@ -356,10 +356,10 @@ faq:
     - q: { zh: 为什么不需要降低系统安全性或关闭 SIP？, en: Why Reduced Security and disabling SIP are not required }
       a: { zh: AetherRoute 100% 构建于 Apple 官方公开的用户空间 Network Extension 架构之上，完全不需要内核扩展（kext），因此绝对不需要关闭系统完整性保护（SIP），也不需要在恢复模式降低系统安全性。软件已获得 Apple Developer ID 签名并由 Apple 官方双重公证（Notarized），安全合规。, en: "AetherRoute is built 100% on Apple's modern user-space Network Extension APIs. It requires no kernel extensions (kexts), no disabling of SIP, and no Reduced Security mode. It is Developer ID signed and Apple double-notarized for security compliance." }
     - q: { zh: 第一次使用，需要准备什么？, en: What do I need to get started? }
-      a: { zh: 准备一台运行 macOS 15 或更高版本的 Apple 芯片 Mac，以及你自己的订阅或节点。安装后导入配置，按系统提示批准网络扩展，再连接。, en: "You need an Apple silicon Mac running macOS 15 or later and your own subscription or nodes. Install the app, import your profile, approve the Network Extension when prompted, and connect." }
+      a: { zh: 准备一台运行 macOS 26 或更高版本的 Apple M 系列芯片 Mac，以及你自己的订阅或节点。安装后导入配置，按系统提示批准网络扩展，再连接。, en: "You need an Apple M-series Mac running macOS 26 or later and your own subscription or nodes. Install the app, import your profile, approve the Network Extension when prompted, and connect." }
     - q: { zh: 软件免费吗？包含节点吗？, en: Is it free? Are servers included? }
       a: { zh: 客户端免费使用，无需付费激活。软件不提供节点或订阅服务，需要自行准备。, en: The client is free to use without paid activation. Servers and subscription services are not included; bring your own. }
 
 cta:
   title: { zh: 让连接，回归简单。, en: Make connecting simple again. }
-  note: { zh: Mac 正式版 · iPhone 版即将上架 · 自备订阅或节点, en: Mac available · iPhone coming soon · Bring your own nodes }
+  note: { zh: Apple M 系列芯片 · macOS 26+ · 自备订阅或节点, en: Apple M-series · macOS 26+ · Bring your own nodes }

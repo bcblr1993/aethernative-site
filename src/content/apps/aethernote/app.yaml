@@ -18,8 +18,8 @@ platforms:
   - id: mac
     status: available
     requirement:
-      zh: Apple 芯片 · macOS 14+
-      en: Apple silicon · macOS 14+
+      zh: Apple M 系列芯片 · macOS 26+
+      en: Apple M-series · macOS 26+
 cardStats:
   - value: "7"
     label:
@@ -52,8 +52,8 @@ hero:
       A feature finished, a few pages read, or a walk outside.
       Write a line on today's note. Come back to any day whenever you have more to add.
   requirements:
-    zh: Apple 芯片 · macOS 14+ · macOS 27 原生玻璃与弹性动画
-    en: Apple silicon · macOS 14+ · Native glass and spring motion on macOS 27
+    zh: Apple M 系列芯片（M1 及更新）· macOS 26 或更新版本 · 原生玻璃与弹性动画
+    en: Apple M-series silicon · macOS 26 or later · Native glass and spring motion
 gallery:
   - label:
       zh: 一周的晾衣绳
@@ -200,13 +200,13 @@ faq:
         zh: 支持哪些 Mac？如何更新？
         en: Which Macs are supported, and how do I update?
       a:
-        zh: 支持 Apple 芯片 Mac 与 macOS 14+，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.5 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
-        en: Supports Apple silicon Macs on macOS 14 or later, with signed and Apple-notarized packages. Install 0.1.5 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
+        zh: 支持 Apple M 系列芯片 Mac 与 macOS 26 及以上系统，安装包经过签名和 Apple 公证。0.1.0 / 0.1.1 需要手动安装一次 0.1.5 或更新版本；之后可以在应用内检查、下载并重新启动完成更新，本地记录保留。
+        en: Supports Apple M-series Macs on macOS 26 or later, with signed and Apple-notarized packages. Install 0.1.5 or later manually once from 0.1.0 or 0.1.1; later updates can be checked, downloaded and installed with a relaunch inside the app. Local notes are preserved.
 cta:
   title:
     zh: 今天做过什么？先记一行。
     en: What did you do today? Start with a line.
   note:
-    zh: 免费开源 · 本地保存 · 无需账号
-    en: Free and open source · Stored locally · No account
+    zh: Apple M 系列芯片 · macOS 26+ · 免费开源 · 本地保存
+    en: Apple M-series · macOS 26+ · Free and open source · Stored locally
 sparklePublicKey: r4vCUXcvXnm1Y9oxJ4pbKqOZ+76IOkH/ilZj1MvmMUg=

@@ -9,7 +9,7 @@ sections:
       - { zh: 下载 DMG，打开后将 AetherNotchQuota 拖入“应用程序”。, en: "Download the DMG, open it and drag AetherNotchQuota into Applications." }
       - { zh: 从“应用程序”启动 AetherNotchQuota。首次下载后系统可能显示正常的“从互联网下载”确认。, en: "Launch AetherNotchQuota from Applications. macOS may show the usual “downloaded from the internet” confirmation the first time." }
       - { zh: macOS 首次询问读取登录钥匙串时，按需允许。, en: "Allow Keychain access when macOS asks, as needed." }
-    note: { zh: 需要 Apple 芯片、macOS 13 或更新版本，并已在对应软件中登录订阅账号。无需安装 Homebrew、Python、Node 或命令行工具。, en: "Requires Apple silicon and macOS 13 or later, with each service already signed in. No Homebrew, Python, Node or command-line tools needed." }
+    note: { zh: 需要 Apple M 系列芯片（M1 及更新）、macOS 26 或更新版本，并已在对应软件中登录订阅账号。无需安装 Homebrew、Python、Node 或命令行工具。, en: "Requires Apple M-series silicon and macOS 26 or later, with each service already signed in. No Homebrew, Python, Node or command-line tools needed." }
   - heading: { zh: 从 NotchQuota 旧版迁移, en: Migrate from an older NotchQuota }
     body:
       - zh: 0.1.17 及更早版本的应用仍指向旧 GitHub 仓库，无法通过应用内更新。请先退出旧应用，手动安装 AetherNotchQuota 0.1.18 或更新版本；确认新版正常运行后，可移除旧的 NotchQuota.app。账号和偏好会保留，曾开启登录时启动的用户请在新版中确认设置。

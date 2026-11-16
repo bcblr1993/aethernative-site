@@ -47,7 +47,7 @@ const categories = [
 ] as const;
 
 const stats = [
-  { v: '100%', l: zh ? 'arm64 原生' : 'Native arm64' },
+  { v: '100%', l: zh ? 'M 系列芯片 · macOS 26+' : 'M-series · macOS 26+' },
   { v: '0', l: zh ? 'Electron / 网页壳' : 'Electron / web wrappers' },
   { v: '~0.1%', l: zh ? '后台静默 CPU*' : 'Background idle CPU*' },
   { v: `${apps.length}`, l: zh ? '款正式发布应用' : 'Released Mac apps' },
@@ -76,23 +76,23 @@ const icons = [
 
 const siliconSpecs = zh
   ? [
-      { k: 'ARCH', l: '指令架构', v: 'ARM64 Native Mach-O' },
+      { k: 'ARCH', l: '芯片架构', v: 'Apple M-Series (arm64)' },
+      { k: 'SYSTEM', l: '系统要求', v: 'macOS 26.0+' },
       { k: 'UI LAYER', l: '界面框架', v: 'SwiftUI & AppKit' },
       { k: 'MEMORY', l: '内存模型', v: 'Unified Memory Zero-Copy' },
-      { k: 'POWER', l: '能效调度', v: 'E-Core Idle Scheduling' },
     ]
   : [
-      { k: 'ARCH', l: 'Architecture', v: 'ARM64 Native Mach-O' },
+      { k: 'ARCH', l: 'Chip Architecture', v: 'Apple M-Series (arm64)' },
+      { k: 'SYSTEM', l: 'OS Requirement', v: 'macOS 26.0+' },
       { k: 'UI LAYER', l: 'Interface', v: 'SwiftUI & AppKit' },
       { k: 'MEMORY', l: 'Memory Model', v: 'Unified Memory Zero-Copy' },
-      { k: 'POWER', l: 'Scheduling', v: 'E-Core Idle Scheduling' },
     ];
 ---
 <Base lang={lang}>
   <header class="hero">
     <div class="hero-ambient" aria-hidden="true"></div>
     <div class="wrap hero-center">
-      <span class="chip"><b></b>{zh ? 'Apple Silicon 原生独立工作室' : 'Independent Apple Silicon Studio'}</span>
+      <span class="chip"><b></b>{zh ? '专为 Apple M 系列芯片打造 · 支持 macOS 26+' : 'Built for Apple M-Series · macOS 26+'}</span>
       <h1>
         {zh
           ? <>让 Mac 更轻，<br /><span class="grad">也更强。</span></>
@@ -100,8 +100,8 @@ const siliconSpecs = zh
       </h1>
       <p class="lead">
         {zh
-          ? '一系列真正原生的 Mac 工具。没有网页壳，没有臃肿后台——只把性能、电量和注意力，用在真正重要的地方。'
-          : 'A growing family of truly native Mac tools. No web wrappers or bloated background work — just thoughtful software that respects your performance, battery, and focus.'}
+          ? '一系列专为 Apple M 系列芯片与 macOS 26 及以上系统打造的原生 Mac 工具。没有网页壳，没有臃肿后台——只把性能、电量和注意力，用在真正重要的地方。'
+          : 'A growing family of truly native Mac tools built for Apple M-series silicon and macOS 26 or later. No web wrappers or bloated background work — just thoughtful software that respects your performance, battery, and focus.'}
       </p>
       <div class="cta">
         <a class="btn btn-p" href="#apps">{zh ? `探索 ${apps.length} 款应用` : `Explore ${apps.length} apps`} <span aria-hidden="true">↓</span></a>
@@ -110,15 +110,15 @@ const siliconSpecs = zh
       <ul class="hero-notes" aria-label={zh ? '产品特点' : 'Product qualities'}>
         <li>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>{zh ? 'Apple 公证签名' : 'Apple notarized'}</span>
+          <span>{zh ? '仅支持 Apple M 系列芯片' : 'Apple M-series silicon only'}</span>
         </li>
         <li>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>{zh ? '零 Electron 网页壳' : 'Zero Electron wrappers'}</span>
+          <span>{zh ? 'macOS 26 及以上系统' : 'macOS 26 or later'}</span>
         </li>
         <li>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>{zh ? '本地隐私优先' : 'Local-first privacy'}</span>
+          <span>{zh ? 'Apple 公证签名 · 零网页壳' : 'Apple notarized · Zero web wrappers'}</span>
         </li>
       </ul>
     </div>
@@ -264,12 +264,12 @@ const siliconSpecs = zh
 
       <div class="silicon">
         <div class="silicon-copy">
-          <div class="eyebrow silicon-eyebrow">Apple Silicon Architecture</div>
+          <div class="eyebrow silicon-eyebrow">Apple M-Series · macOS 26+</div>
           <h3>{zh ? <>不是“能在 M 芯片上跑”，<br />而是“为 M 芯片而写”。</> : <>Not just “runs on Apple silicon.”<br />Written for it.</>}</h3>
           <p>
             {zh
-              ? '从统一内存到能效核心调度，每款软件都会针对 Apple 芯片的架构特性单独调优，并附上可复现的测试条件。'
-              : 'From unified memory to efficiency-core scheduling, every app is tuned for the architecture of Apple silicon — with reproducible test conditions published alongside.'}
+              ? '面向 Apple M 系列芯片与 macOS 26 及以上系统深度优化：从统一内存到能效核心调度，每款软件都针对架构特性单独调优，并附上可复现的测试条件。'
+              : 'Deeply optimized for Apple M-series chips and macOS 26 or later: from unified memory to efficiency-core scheduling, every app is tuned for the silicon architecture — with reproducible test conditions published alongside.'}
           </p>
         </div>
 

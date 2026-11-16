@@ -12,8 +12,8 @@ sections:
       - zh: 连接后，上方为终端，下方为 SFTP 文件视图；在终端中 cd，文件视图会自动跟随。
         en: Once connected, the terminal is on top and SFTP files below; cd in the terminal and the file view follows.
     note:
-      zh: 需要 Apple 芯片（M1 及更新）和 macOS 14 或更新版本。
-      en: Requires Apple silicon (M1 or later) and macOS 14 or later.
+      zh: 需要 Apple M 系列芯片（M1 及更新）和 macOS 26 或更新版本。
+      en: Requires Apple M-series silicon (M1 or later) and macOS 26 or later.
   - heading:
       zh: 服务器监控不显示数据
       en: Server metrics aren't showing

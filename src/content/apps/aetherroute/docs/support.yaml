@@ -26,8 +26,8 @@ sections:
       zh: Mac：首次启用网络扩展
       en: "Mac: enable the Network Extension"
     body:
-      - zh: 透明代理和 TUN 可以路由网络流量，因此 macOS 15 或更高版本要求您亲自批准。AetherRoute 会把您带到正确的系统设置页面，但不会绕过、自动点击或模拟这项安全授权。
-        en: Transparent Proxy and TUN can route network traffic, so macOS 15 or later requires your approval. AetherRoute takes you to the correct System Settings page but never bypasses, auto-clicks, or simulates this security authorization.
+      - zh: 透明代理和 TUN 可以路由网络流量，因此 macOS 26 及以上系统要求您亲自批准。AetherRoute 会把您带到正确的系统设置页面，但不会绕过、自动点击或模拟这项安全授权。
+        en: Transparent Proxy and TUN can route network traffic, so macOS 26 or later requires your approval. AetherRoute takes you to the correct System Settings page but never bypasses, auto-clicks, or simulates this security authorization.
     steps:
       - zh: 将 AetherRoute 拖到“应用程序”，打开后导入或选择一个有效配置，再点击连接。
         en: Move AetherRoute to Applications, open it, import or select a valid profile, then click Connect.

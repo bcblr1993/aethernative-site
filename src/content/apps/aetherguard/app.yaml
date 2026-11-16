@@ -18,7 +18,7 @@ summary:
 platforms:
   - id: mac
     status: coming
-    requirement: { zh: macOS 26+, en: macOS 26+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
   - id: ios
     status: coming
     requirement: { zh: "iOS 26+ · 开发验证中", en: "iOS 26+ · In development and validation" }

@@ -1,1 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a5bd9"/><stop offset="1" stop-color="#5b3ad9"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="url(#g)"/><path d="M32 13l17 9.5v19L32 51l-17-9.5v-19z" fill="#fff" opacity=".95"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2c303a" />
+      <stop offset="52%" stop-color="#16181f" />
+      <stop offset="100%" stop-color="#090a0d" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.12" r="0.75">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.22" />
+      <stop offset="65%" stop-color="#2997ff" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30" />
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="wingL" x1="0.2" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#dbe2ee" />
+    </linearGradient>
+    <linearGradient id="wingR" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#e5ebf4" />
+      <stop offset="100%" stop-color="#9aa5b8" />
+    </linearGradient>
+    <linearGradient id="core" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#75c2ff" />
+      <stop offset="55%" stop-color="#2997ff" />
+      <stop offset="100%" stop-color="#0066cc" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)" />
+       <rect width="64" height="64" rx="15" fill="url(#glow)" />
+       <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="14.25" fill="none" stroke="url(#rim)" stroke-width="1.2" />
+  <!-- Left titanium wing of the A prism -->
+  <path d="M32 12.5 13.5 49.5h9.2L32 28.2V12.5Z" fill="url(#wingL)" />
+  <!-- Right machined wing of the A prism -->
+  <path d="M32 12.5 50.5 49.5h-9.2L32 28.2V12.5Z" fill="url(#wingR)" />
+  <!-- Silicon optical blue diamond core / crossbar -->
+  <path d="M32 33.2 38.8 40.5 32 47.8 25.2 40.5Z" fill="url(#core)" />
+  <path d="M32 33.2 38.8 40.5 32 40.5 25.2 40.5Z" fill="#ffffff" fill-opacity="0.26" />
+</svg>

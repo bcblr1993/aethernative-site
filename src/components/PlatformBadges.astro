@@ -16,9 +16,10 @@ const techTags = tech ? app.data.tech.slice(0, maxTech) : [];
 <div class="badges">
   {app.data.platforms.filter((p) => p.id === 'mac').map((p) => {
     const status = u.status[p.status];
+    const baseLabel = lang === 'zh' ? 'M 芯片 · macOS 26+' : 'M-series · macOS 26+';
     return (
       <span class:list={['badge', { soon: p.status === 'coming' || p.status === 'dev' }]}>
-        {u.platform[p.id]}{status && ` ${status}`}
+        {baseLabel}{status && ` ${status}`}
       </span>
     );
   })}

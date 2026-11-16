@@ -113,8 +113,9 @@ const featClass = (i: number, total: number) => {
       <div class="hero-meta">
         <p class="req muted"><Text v={d.hero.requirements} lang={lang} /></p>
         <p class="hero-trust muted">
+          <span>{zh ? 'Apple M 系列芯片' : 'Apple M-Series'}</span>
+          <span>macOS 26+</span>
           <span>{zh ? 'Apple 公证' : 'Apple Notarized'}</span>
-          <span>{zh ? 'arm64 原生' : 'arm64 Native'}</span>
           {latest?.sha256 && <span>{zh ? 'SHA-256 校验' : 'SHA-256 Verified'}</span>}
           <a class="more" href="#reviews">{zh ? '评分与评论 ↓' : 'Reviews & ratings ↓'}</a>
         </p>

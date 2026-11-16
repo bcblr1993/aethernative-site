@@ -7,8 +7,8 @@ const { lang } = Astro.props as { lang: Lang };
 const zh = lang === 'zh';
 
 const pillars = zh
-  ? ['arm64 原生编译', 'SwiftUI & AppKit', '统一内存架构', '能效核心调度']
-  : ['arm64 Native Build', 'SwiftUI & AppKit', 'Unified Memory', 'Efficiency-Core Scheduling'];
+  ? ['Apple M 系列芯片 (arm64)', 'macOS 26 及以上系统', 'SwiftUI & AppKit 原生', '统一内存与能效核心调度']
+  : ['Apple M-Series (arm64)', 'macOS 26 or later', 'SwiftUI & AppKit', 'Unified Memory & E-Core'];
 
 const promises = [
   {
@@ -58,12 +58,12 @@ const promises = [
       </h1>
       <p class="lead">
         {zh
-          ? `${site.name} 是${t(site.author, lang)}的独立软件品牌，专注为 Apple 芯片的 Mac 与 iPhone 打造原生软件。`
-          : `${site.name} is the independent software label of ${t(site.author, lang)}, focused on native apps for Apple-silicon Macs and iPhone.`}
+          ? `${site.name} 是${t(site.author, lang)}的独立软件品牌，专注为 Apple M 系列芯片与 macOS 26 及以上系统打造原生 Mac 软件。`
+          : `${site.name} is the independent software label of ${t(site.author, lang)}, focused on native Mac apps for Apple M-series chips and macOS 26 or later.`}
       </p>
       <div class="studio-tags" aria-label={zh ? '工作室定位' : 'Studio focus'}>
-        <span class="chip"><b></b>{zh ? 'Apple Silicon 原生' : 'Apple Silicon Native'}</span>
-        <span class="studio-tag">{zh ? '独立开发 · macOS & iPhone' : 'Independent · macOS & iPhone'}</span>
+        <span class="chip"><b></b>{zh ? 'Apple M 系列芯片 · macOS 26+' : 'Apple M-Series · macOS 26+'}</span>
+        <span class="studio-tag">{zh ? '独立开发 · 原生 macOS' : 'Independent · Native macOS'}</span>
         <span class="studio-tag">{zh ? '零广告 · 零遥测' : 'Zero Ads · Zero Telemetry'}</span>
       </div>
     </header>

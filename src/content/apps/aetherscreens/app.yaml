@@ -20,7 +20,7 @@ summary:
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
 
 cardStats:
   - value: "Swift"
@@ -37,8 +37,8 @@ hero:
     zh: "直接连接 macOS 自带的屏幕共享，无需在被控端安装任何软件。\n在家用局域网，在外走 Tailscale 加密直连。"
     en: "Connects to built-in macOS Screen Sharing, with nothing to install on the remote Mac.\nUse your LAN at home, or an encrypted Tailscale connection when away."
   requirements:
-    zh: 客户端：Apple 芯片 Mac（macOS 14+）· 被控端：开启屏幕共享的 Mac
-    en: "Client: Apple silicon Mac (macOS 14+) · Remote: a Mac with Screen Sharing on"
+    zh: 客户端：Apple M 系列芯片 Mac（macOS 26+）· 被控端：开启屏幕共享的 Mac
+    en: "Client: Apple M-series Mac (macOS 26+) · Remote: a Mac with Screen Sharing on"
 
 notice:
   zh: Mac 正式版现已提供下载。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
@@ -98,4 +98,4 @@ faq:
 
 cta:
   title: { zh: 下载 AetherScreens for Mac。, en: Download AetherScreens for Mac. }
-  note: {"zh":"Apple 芯片 Mac · macOS 14+","en":"Apple silicon Mac · macOS 14+"}
+  note: {"zh":"Apple M 系列芯片 Mac · macOS 26+","en":"Apple M-series Mac · macOS 26+"}

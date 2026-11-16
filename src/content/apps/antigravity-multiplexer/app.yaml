@@ -21,7 +21,7 @@ summary:
 platforms:
   - id: mac
     status: available
-    requirement: { zh: Apple 芯片 · macOS 13+, en: Apple silicon · macOS 13+ }
+    requirement: { zh: Apple M 系列芯片 · macOS 26+, en: Apple M-series · macOS 26+ }
 
 hero:
   eyebrow: { zh: 非官方 · 本机管理工具, en: Unofficial · Local manager }
@@ -30,8 +30,8 @@ hero:
     zh: "为每个 Antigravity 实例准备独立的账号目录、窗口数据和登录回调。\n创建、升级和清理集中在一个随 macOS 浅深色与透明度设置变化的原生窗口里。"
     en: "Each Antigravity instance gets its own account folder, window data and sign-in callback.\nCreate, upgrade and clean up from a native window that adapts to macOS appearance and transparency settings."
   requirements:
-    zh: Apple 芯片 / macOS 13+ · 需已安装官方 Apple 芯片版 Antigravity
-    en: Apple silicon / macOS 13+ · Requires the official Apple silicon Antigravity app
+    zh: Apple M 系列芯片 · macOS 26+ · 需已安装官方 Apple 芯片版 Antigravity
+    en: Apple M-series · macOS 26+ · Requires the official Apple silicon Antigravity app
 notice:
   zh: 本工具是独立开发的非官方工具，与 Google 无关联，安装包不包含也不分发 Google Antigravity 程序。Google 的条款限制复制或修改其软件，使用前请自行确认 https://antigravity.google/terms 。Antigravity 及相关标识归 Google 所有。
   en: "This is an independent, unofficial tool not affiliated with Google. It does not include or distribute Google Antigravity. Google's terms restrict copying or modifying its software — please review https://antigravity.google/terms before use. Antigravity and related marks belong to Google."
@@ -184,4 +184,4 @@ faq:
 
 cta:
   title: {"zh":"多开，也可以井井有条。","en":"Multiple instances, neatly managed."}
-  note: { zh: Apple 芯片 · macOS 13+ · 非官方工具 · 应用内更新, en: Apple silicon · macOS 13+ · Unofficial · In-app updates }
+  note: { zh: Apple M 系列芯片 · macOS 26+ · 非官方工具 · 应用内更新, en: Apple M-series · macOS 26+ · Unofficial · In-app updates }
