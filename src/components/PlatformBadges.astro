@@ -1,12 +1,20 @@
 ---
 import type { App } from '../lib/apps';
 import { ui, type Lang } from '../lib/i18n';
-interface Props { app: App; lang: Lang; tech?: boolean }
-const { app, lang, tech = true } = Astro.props;
+
+interface Props {
+  app: App;
+  lang: Lang;
+  tech?: boolean;
+  maxTech?: number;
+}
+
+const { app, lang, tech = true, maxTech = 2 } = Astro.props;
 const u = ui[lang];
+const techTags = tech ? app.data.tech.slice(0, maxTech) : [];
 ---
 <div class="badges">
-  {app.data.platforms.map((p) => {
+  {app.data.platforms.filter((p) => p.id === 'mac').map((p) => {
     const status = u.status[p.status];
     return (
       <span class:list={['badge', { soon: p.status === 'coming' || p.status === 'dev' }]}>
@@ -14,5 +22,5 @@ const u = ui[lang];
       </span>
     );
   })}
-  {tech && app.data.tech.map((x) => <span class="badge gray">{x}</span>)}
+  {techTags.map((x) => <span class="badge gray">{x}</span>)}
 </div>

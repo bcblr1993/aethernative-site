@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TrafficDashboard from '../../components/TrafficDashboard.astro';
 import AdminHeader from '../../components/AdminHeader.astro';
-import { getApps, getRecentReleases } from '../../lib/apps';
-const apps = (await getApps()).map(a => ({ id: a.id, name: a.data.name }));
+import { getAllApps, getRecentReleases } from '../../lib/apps';
+const apps = (await getAllApps()).map(a => ({ id: a.id, name: a.data.name }));
 const recent = await getRecentReleases(4);
 const panels = [
   ['downloads', '下载趋势', '所选日期 · 下载发起次数，非下载完成或独立用户'],
@@ -21,6 +22,7 @@ const panels = [
 <Base lang="zh" title="管理后台" standalone>
   <div class="wrap dashboard" data-apps={JSON.stringify(apps)}>
     <AdminHeader title="数据概览" description="下载、账号、反馈与社区互动，一页了解网站近况。所有日期均按北京时间统计。" />
+    <TrafficDashboard />
     <form class="filters" data-filters>
       <label>时间范围<select name="days"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select></label>
       <label>软件<select name="app"><option value="">全部软件</option>{apps.map(a => <option value={a.id}>{a.name}</option>)}<option value="general">网站 / 其他反馈</option></select></label>
@@ -34,7 +36,7 @@ const panels = [
         {[['downloads','所选期间下载发起','/admin/downloads/'],['users','当前账号总数','/admin/users/'],['added','所选期间新增账号','/admin/users/'],['login','所选期间登录过的账号','/admin/users/'],['feedback','当前待处理反馈','/admin/feedback/'],['comments','当前待审评论','/admin/comments/']].map(([id,label,url]) => <a class="card metric" href={url}><span>{label}</span><strong data-metric={id}>—</strong></a>)}
       </div>
       <div class="charts">{panels.map(([id,title,note]) => <article class:list={['card chart-card',{wide:id==='downloads'}]}><h2>{title}</h2><p class="small muted">{note}</p><div data-chart={id} class:list={['chart',{distribution:['providers','feedback-status','feedback-category','comments'].includes(id)}]}></div></article>)}</div>
-      <p class="small muted caveat">下载统计启用前的日期显示为“尚未统计”；启用当天和今天可能只有部分数据。账号图只统计当前保留的账号，注销后不再计入；登录人数来自账号最近登录时间，并非每日活跃人数。当前没有采集页面访问量、访客地区和设备分布。</p>
+      <p class="small muted caveat">下载统计启用前的日期显示为“尚未统计”；启用当天和今天可能只有部分数据。账号图只统计当前保留的账号，注销后不再计入；登录人数来自账号最近登录时间，并非每日活跃人数。访问量、地区和设备请查看上方独立的 Cloudflare 统计。</p>
     </section>
     <h2 class="recent-heading">最近发布</h2><ul class="releases">{recent.map(({app,release}) => <li><a href={`/apps/${app.id}/releases/${release.version}/`}>{app.data.name} · {release.version}</a><time>{release.date.toISOString().slice(0,10)}</time></li>)}</ul>
     <p><a href="/admin/services/">查看下载和更新服务状态 →</a></p>

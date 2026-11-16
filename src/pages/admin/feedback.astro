@@ -8,9 +8,9 @@ import '../../styles/feedback-screenshots.css';
 import AdminHeader from '../../components/AdminHeader.astro';
 import Base from '../../layouts/Base.astro';
 import { githubLinks } from '../../lib/github';
-import { getApps } from '../../lib/apps';
+import { getAllApps } from '../../lib/apps';
 
-const catalog = await getApps();
+const catalog = await getAllApps();
 const apps = Object.fromEntries(catalog.map((a) => [a.id, a.data.name]));
 const repos = Object.fromEntries(catalog.map((a) => [a.id, githubLinks(a.data.repo)]));
 ---
@@ -49,6 +49,7 @@ const repos = Object.fromEntries(catalog.map((a) => [a.id, githubLinks(a.data.re
       <h2 data-k="title"></h2>
       <a class="who" data-k="who"></a>
       <div class="repo-links" data-k="repos"></div>
+      <a data-k="known-issue">关联已知问题 →</a>
       <p class="ver" data-k="ver"></p>
       <pre class="body" data-k="body"></pre>
       <div data-k="screenshots"></div>
@@ -150,6 +151,8 @@ const repos = Object.fromEntries(catalog.map((a) => [a.id, githubLinks(a.data.re
     k('category').textContent = CATEGORY[f.category] ?? f.category;
     k('time').textContent = new Date(f.createdAt).toLocaleString('zh-CN', { hour12: false });
     k('title').textContent = f.title;
+    k<HTMLAnchorElement>('known-issue').href = `/admin/issues/?app=${encodeURIComponent(f.appId)}&feedback=${encodeURIComponent(f.id)}`;
+    k('known-issue').hidden = f.appId === 'general';
     k<HTMLAnchorElement>('who').href = `/admin/users/?q=${encodeURIComponent(f.user.id)}`;
     if (repos[f.appId]) {
       for (const [key, label] of [['repo', 'GitHub ↗'], ['issues', 'GitHub Issues ↗']] as const) {

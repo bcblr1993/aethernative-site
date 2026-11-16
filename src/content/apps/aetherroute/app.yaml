@@ -11,8 +11,8 @@ sparklePublicKey: hVgNMayXzdIN2G5V0aeepQYjD2moJQ/ANUy14lqMtEM=
 tech: [SwiftUI + Rust, iCloud Sync]
 
 tagline:
-  zh: 为 Mac 与 iPhone 精心设计的私密路由
-  en: Private routing, thoughtfully designed for Mac and iPhone
+  zh: 为 Apple 芯片 Mac 精心设计的私密路由
+  en: Private routing, thoughtfully designed for Apple silicon Mac
 summary:
   zh: "Apple 芯片 Mac 原生网络工具，支持 12 类协议、透明代理与 TUN、iCloud 加密配置同步。可向局域网共享代理，并自定义菜单栏图标。"
   en: "A native network tool for Apple silicon Mac with 12 protocols, Transparent Proxy and TUN engines, and encrypted iCloud profile sync. Share a proxy over your LAN and customize the menu bar icon."
@@ -21,9 +21,6 @@ platforms:
   - id: mac
     status: available
     requirement: { zh: Apple 芯片 · macOS 15+, en: Apple silicon · macOS 15+ }
-  - id: ios
-    status: coming
-    requirement: { zh: 仅支持 iOS 26 及以上, en: Requires iOS 26 or later }
 
 cardStats:
   - { value: ~210 MB, label: { zh: 整体内存, en: Total memory } }
@@ -31,14 +28,14 @@ cardStats:
   - { value: 10h+, label: { zh: 长跑无泄漏, en: Leak-free soak } }
 
 hero:
-  eyebrow: { zh: 为你的 Mac 和 iPhone，多想一点。, en: A little more thought. For your Mac and iPhone. }
+  eyebrow: { zh: 为你的 Mac，多想一点。, en: A little more thought. For your Mac. }
   title: { zh: "连接世界，\n轻松一点。", en: "A world of connections.\nMade simple." }
   lead:
-    zh: "从桌面到掌心，原生、轻快的网络连接体验。\nMac 版专为 Apple M 系列芯片深度定制，追求极致性能与能效优化。"
-    en: "Native, effortless connections. From your desk to your pocket.\nPurpose-built for Apple M-series chips. Tuned for performance and efficiency."
+    zh: "原生、轻快的网络连接体验。\n专为 Apple M 系列芯片深度定制，追求极致性能与能效优化。"
+    en: "Native, effortless connections.\nPurpose-built for Apple M-series chips and tuned for performance and efficiency."
   requirements:
-    zh: Mac：Apple 芯片 / macOS 15+ · iPhone：仅支持 iOS 26 及以上 · 自备订阅或节点
-    en: "Mac: Apple silicon / macOS 15+ · iPhone: requires iOS 26 or later · Bring your own nodes"
+    zh: Apple 芯片 Mac · macOS 15+ · 自备订阅或节点
+    en: "Apple silicon Mac · macOS 15+ · Bring your own nodes"
 
 gallery:
   - { label: { zh: 连接概览, en: Overview }, zh: ./media/mac/overview-zh-light.png, en: ./media/mac/overview-en-light.png, zhDark: ./media/mac/overview-zh-dark.png, enDark: ./media/mac/overview-en-dark.png }

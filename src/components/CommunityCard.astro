@@ -1,33 +1,109 @@
 ---
 import { site, ui, type Lang } from '../lib/i18n';
 
-interface Props { lang: Lang }
+interface Props {
+  lang: Lang;
+}
+
 const { lang } = Astro.props;
 const copy = ui[lang].community;
 ---
 <aside class="community" aria-label={copy.nav}>
-  <svg class="community-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="m21 3-7 18-4-7-7-4 18-7Z" />
-    <path d="m10 14 6-6" />
-  </svg>
+  <div class="community-icon-wrap" aria-hidden="true">
+    <svg class="community-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m21 3-7 18-4-7-7-4 18-7Z" />
+      <path d="m10 14 6-6" />
+    </svg>
+  </div>
   <div class="community-copy">
+    <span class="community-kicker">{copy.nav}</span>
     <h2>{copy.title}</h2>
     <p>{copy.description}</p>
   </div>
-  <a class="btn btn-s btn-sm" href={site.telegram} target="_blank" rel="noopener noreferrer">{copy.join} ↗</a>
+  <a class="btn btn-s btn-sm community-btn" href={site.telegram} target="_blank" rel="noopener noreferrer">
+    <span>{copy.join}</span>
+    <span aria-hidden="true">↗</span>
+  </a>
 </aside>
 
 <style>
-  .community { display: flex; align-items: center; gap: 18px; padding: 22px 24px; margin-bottom: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-  .community-icon { width: 28px; height: 28px; flex: none; color: var(--accent); }
-  .community-copy { flex: 1; min-width: 0; }
-  h2 { font-size: 18px; line-height: 1.4; margin-bottom: 5px; }
-  p { font-size: 14px; line-height: 1.65; color: var(--text-2); }
-  .btn { flex: none; }
+  .community {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 26px;
+    margin-bottom: 32px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm, var(--shadow)), var(--specular, inset 0 1px 0 rgba(255, 255, 255, 0.06));
+    transition: border-color 0.2s var(--ease-out, ease);
+  }
+  .community:hover {
+    border-color: var(--line-strong, var(--line));
+  }
+  .community-icon-wrap {
+    width: 48px;
+    height: 48px;
+    flex: none;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--accent);
+  }
+  .community-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .community-copy {
+    flex: 1;
+    min-width: 0;
+  }
+  .community-kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+  .community-btn {
+    flex: none;
+    white-space: nowrap;
+    padding-inline: 18px;
+  }
   @media (max-width: 640px) {
-    .community { flex-wrap: wrap; gap: 14px; padding: 20px; }
-    .community-icon { align-self: flex-start; margin-top: 3px; }
-    .community-copy { flex-basis: calc(100% - 42px); }
-    .btn { width: 100%; }
+    .community {
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 20px;
+    }
+    .community-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      align-self: flex-start;
+    }
+    .community-copy {
+      flex-basis: calc(100% - 58px);
+    }
+    .community-btn {
+      width: 100%;
+    }
   }
 </style>

@@ -3,10 +3,19 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 export type App = CollectionEntry<'apps'>;
 export type Release = CollectionEntry<'releases'>['data']['releases'][number];
 
-/** 按 order 排序的全部软件。 */
-export async function getApps() {
+/** 按 order 排序的全部内容软件，供管理后台使用。 */
+export async function getAllApps() {
   const apps = await getCollection('apps');
   return apps.sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name));
+}
+
+/** 公开站点只展示已有 Mac 正式版下载的软件。 */
+export async function getApps() {
+  const apps = await getAllApps();
+  const released = await Promise.all(apps.map(async (app) => ({ app, release: latestStable(await getReleases(app.id)) })));
+  return released
+    .filter(({ app, release }) => app.data.platforms.some((p) => p.id === 'mac') && release?.platform === 'mac')
+    .map(({ app }) => app);
 }
 
 /** 某款软件的版本记录（按文件顺序，最新的在最上面）。 */

@@ -16,19 +16,14 @@ tagline:
   zh: 轻一点的私人影院，流式播放你的本地与 NAS 视频
   en: A native personal video player streaming your local and NAS media
 summary:
-  zh: "在 Apple 芯片 Mac 播放本地视频与 SMB NAS 影片，支持 H.264 / HEVC 硬件解码、音轨和字幕选择、进度记忆。当前公开版为 0.1.0；新版与 iPhone / iPad 客户端仍在验证。"
-  en: "Play local videos and SMB NAS media on Apple silicon Mac, with H.264 / HEVC hardware decoding, audio and subtitle selection, and saved progress. The public release is 0.1.0; the next version and iPhone/iPad client remain under validation."
+  zh: "在 Apple 芯片 Mac 播放本地视频与 SMB NAS 影片，支持 H.264 / HEVC 硬件解码、音轨和字幕选择、进度记忆。当前正式版为 0.1.0。"
+  en: "Play local videos and SMB NAS media on Apple silicon Mac, with H.264 / HEVC hardware decoding, audio and subtitle selection, and saved progress. The current formal release is 0.1.0."
 platforms:
   - id: mac
     status: available
     requirement:
       zh: Apple 芯片 · macOS 26.0+
       en: Apple silicon · macOS 26.0+
-  - id: ios
-    status: dev
-    requirement:
-      zh: iPhone / iPad · iOS 26.0+
-      en: iPhone / iPad · iOS 26.0+
 cardStats:
   - value: SMB NAS
     label:
@@ -61,18 +56,18 @@ hero:
       Browse your local files and NAS shares, then continue from your saved position.
       Start streaming without downloading the entire film or setting up a media server.
   requirements:
-    zh: Apple 芯片 Mac（macOS 26.0+）／ iPhone、iPad（iOS 26.0+）
-    en: Apple silicon Mac (macOS 26.0+) / iPhone, iPad (iOS 26.0+)
+    zh: Apple 芯片 Mac（macOS 26.0+）
+    en: Apple silicon Mac (macOS 26.0+)
 notice:
-  zh: "公开下载为 macOS 0.1.0。0.1.1 尚未发布，iPhone / iPad 尚未公开分发；仓库中的媒体组件包不是可安装的 AetherFilm 应用。"
-  en: "The public Mac download is 0.1.0. Version 0.1.1 is unpublished and iPhone/iPad are not publicly distributed. Media-component packages in the repository are not installable AetherFilm apps."
+  zh: "Mac 正式下载版本为 0.1.0；仓库中的媒体组件包不是可安装的 AetherFilm 应用。"
+  en: "The formal Mac download is version 0.1.0. Media-component packages in the repository are not installable AetherFilm apps."
 features:
   eyebrow:
     zh: 核心功能
     en: Core Features
   title:
     zh: 专注观影本质，原生轻量体验。
-    en: Focused on viewing, crafted for macOS and iOS.
+    en: Focused on viewing, crafted for macOS.
   lead:
     zh: 原生 Swift 6 与 SwiftUI 打造，提供纯净低耗的私人播放体验。
     en: Built with native Swift 6 and SwiftUI for a lightweight and responsive experience.

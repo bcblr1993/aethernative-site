@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AdminHeader from '../../components/AdminHeader.astro';
-import { getApps } from '../../lib/apps';
-const apps = await getApps();
+import { getAllApps } from '../../lib/apps';
+const apps = await getAllApps();
 ---
 <Base lang="zh" title="评论管理" standalone>
   <div class="wrap comments-admin">

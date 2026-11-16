@@ -1,0 +1,304 @@
+---
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  app: string;
+  lang: Lang;
+}
+
+const { app, lang } = Astro.props;
+const zh = lang === 'zh';
+---
+<div class="known-issues" data-known-issues data-app={app} data-lang={lang} data-state="loading">
+  <div class="status-bar">
+    <p class="status-msg" data-status role="status">{zh ? '正在加载已知问题…' : 'Loading known issues…'}</p>
+    <button type="button" class="btn btn-s btn-sm" data-retry hidden>{zh ? '重试' : 'Retry'}</button>
+  </div>
+  <div class="issues-list" data-items></div>
+  <noscript>
+    <p class="card noscript-msg">{zh ? '请启用 JavaScript 查看最新问题进度。' : 'Enable JavaScript to view current issue status.'}</p>
+  </noscript>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-known-issues]')) {
+    const zh = root.dataset.lang === 'zh';
+    const app = root.dataset.app!;
+    const hint = root.querySelector<HTMLElement>('[data-status]')!;
+    const list = root.querySelector<HTMLElement>('[data-items]')!;
+    const retry = root.querySelector<HTMLButtonElement>('[data-retry]')!;
+    const statuses: Record<string, string> = zh
+      ? { investigating: '排查中', in_progress: '修复中', fixed: '已修复' }
+      : { investigating: 'Investigating', in_progress: 'Fix in progress', fixed: 'Fixed' };
+
+    async function load() {
+      retry.hidden = true;
+      root.dataset.state = 'loading';
+      hint.textContent = zh ? '正在加载…' : 'Loading…';
+      try {
+        const r = await fetch(`/api/issues/${app}`, { credentials: 'omit' });
+        if (!r.ok) throw new Error();
+        const { issues } = await r.json();
+        list.replaceChildren();
+        root.dataset.state = issues.length ? 'ready' : 'empty';
+        hint.textContent = issues.length
+          ? zh
+            ? '以下为管理员整理发布的说明；状态不代表你当前版本一定受影响。'
+            : 'Published summaries; your current version may not be affected.'
+          : zh
+            ? '暂未发布已知问题。这不代表没有问题，欢迎通过反馈入口告诉我们。'
+            : 'No known issues have been published. Please report any problems you encounter.';
+
+        for (const issue of issues) {
+          const card = document.createElement('article');
+          card.className = 'issue card';
+          card.id = `issue-${issue.id}`;
+
+          const head = document.createElement('div');
+          head.className = 'issue-head';
+
+          const badge = document.createElement('span');
+          badge.className = 'issue-badge';
+          badge.dataset.issueStatus = issue.status;
+          badge.textContent = statuses[issue.status] ?? issue.status;
+
+          const date = document.createElement('time');
+          const updatedAt = new Date(issue.updated_at);
+          date.className = 'issue-date';
+          date.dateTime = updatedAt.toISOString();
+          const dateText = updatedAt.toLocaleDateString(zh ? 'zh-CN' : 'en-US', { timeZone: 'Asia/Shanghai' });
+          date.textContent = zh ? `更新于 ${dateText}` : `Updated ${dateText}`;
+
+          head.append(badge, date);
+
+          const title = document.createElement('h2');
+          title.className = 'issue-title';
+          title.textContent = zh ? issue.title : issue.title_en || issue.title;
+          card.append(head, title);
+
+          if (!zh && (!issue.title_en || !issue.description_en)) {
+            const langNote = document.createElement('p');
+            langNote.className = 'issue-lang-note';
+            langNote.textContent = 'Some details are currently available in Chinese only.';
+            card.append(langNote);
+          }
+
+          const descText = zh ? issue.description : issue.description_en || issue.description;
+          if (descText) {
+            const p = document.createElement('p');
+            p.className = 'issue-desc';
+            p.textContent = descText;
+            card.append(p);
+          }
+
+          const work = zh ? issue.workaround : issue.workaround_en || issue.workaround;
+          if (work) {
+            const box = document.createElement('div');
+            box.className = 'issue-workaround';
+            const label = document.createElement('strong');
+            label.className = 'workaround-label';
+            label.textContent = zh ? '临时解决方法' : 'Workaround';
+            const wp = document.createElement('p');
+            wp.className = 'workaround-text';
+            wp.textContent = work;
+            box.append(label, wp);
+            card.append(box);
+          }
+
+          if (issue.status === 'fixed' && issue.resolved_version) {
+            const foot = document.createElement('div');
+            foot.className = 'issue-foot';
+            const a = document.createElement('a');
+            a.className = 'issue-fix-link';
+            a.href = `${zh ? '' : '/en'}/apps/${app}/releases/${encodeURIComponent(issue.resolved_version)}/`;
+            a.textContent = `${zh ? '查看修复版本' : 'Fixed in'} ${issue.resolved_version} →`;
+            foot.append(a);
+            card.append(foot);
+          }
+
+          list.append(card);
+        }
+      } catch {
+        root.dataset.state = 'error';
+        hint.textContent = zh ? '暂时无法加载问题进度，请稍后重试。' : 'Unable to load issue status. Please retry.';
+        retry.hidden = false;
+      }
+    }
+
+    retry.addEventListener('click', () => void load());
+    void load();
+  }
+</script>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+  .known-issues {
+    display: grid;
+    gap: 16px;
+  }
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 13px 18px;
+    border-radius: var(--radius-sm, 12px);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+  .known-issues[data-state='empty'] .status-bar {
+    padding: 28px 24px;
+    justify-content: center;
+    text-align: center;
+    border-style: dashed;
+    border-color: var(--line-strong, var(--line));
+    background: var(--surface);
+  }
+  .known-issues[data-state='error'] .status-bar {
+    border-color: color-mix(in srgb, var(--warn) 35%, transparent);
+    background: var(--warn-soft);
+  }
+  .status-msg {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-2);
+  }
+  .noscript-msg {
+    padding: 20px 24px;
+    font-size: 14.5px;
+    color: var(--text-2);
+  }
+
+  [data-items] {
+    display: grid;
+    gap: 16px;
+  }
+  [data-items]:empty {
+    display: none;
+  }
+  [data-items] :global(.issue) {
+    padding: 26px 28px;
+    display: grid;
+    gap: 14px;
+    transition: border-color 0.2s var(--ease-out, ease);
+  }
+  [data-items] :global(.issue:hover) {
+    border-color: var(--line-strong, var(--line));
+  }
+  [data-items] :global(.issue-head) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    flex-wrap: wrap;
+  }
+  [data-items] :global(.issue-badge) {
+    --badge-c: var(--text-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--badge-c);
+    background: color-mix(in srgb, var(--badge-c) 11%, transparent);
+    border: 1px solid color-mix(in srgb, var(--badge-c) 24%, transparent);
+  }
+  [data-items] :global(.issue-badge::before) {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--badge-c);
+  }
+  [data-items] :global(.issue-badge[data-issue-status='investigating']) {
+    --badge-c: var(--warn);
+  }
+  [data-items] :global(.issue-badge[data-issue-status='in_progress']) {
+    --badge-c: var(--accent);
+  }
+  [data-items] :global(.issue-badge[data-issue-status='fixed']) {
+    --badge-c: var(--ok);
+  }
+  [data-items] :global(.issue-date) {
+    font-size: 12.5px;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  [data-items] :global(.issue-title) {
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  [data-items] :global(.issue-lang-note) {
+    font-size: 13px;
+    color: var(--text-3);
+    font-style: italic;
+  }
+  [data-items] :global(.issue-desc) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-2);
+  }
+  [data-items] :global(.issue-workaround) {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm, 12px);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    display: grid;
+    gap: 4px;
+  }
+  [data-items] :global(.workaround-label) {
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  [data-items] :global(.workaround-text) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  [data-items] :global(.issue-foot) {
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+  }
+  [data-items] :global(.issue-fix-link) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ok) 11%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ok) 24%, transparent);
+    color: var(--ok);
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  [data-items] :global(.issue-fix-link:hover) {
+    background: color-mix(in srgb, var(--ok) 17%, transparent);
+  }
+
+  @media (max-width: 640px) {
+    [data-items] :global(.issue) {
+      padding: 20px;
+    }
+    [data-items] :global(.issue-title) {
+      font-size: 18px;
+    }
+  }
+</style>

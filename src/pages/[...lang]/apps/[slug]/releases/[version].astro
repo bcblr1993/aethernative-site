@@ -1,6 +1,7 @@
 ---
 import { downloadURL } from '../../../../../lib/download-url';
 import Base from '../../../../../layouts/Base.astro';
+import AppIcon from '../../../../../components/AppIcon.astro';
 import Checksum from '../../../../../components/Checksum.astro';
 import ReleaseMeta from '../../../../../components/ReleaseMeta.astro';
 import { getApps, getReleases, latestStable, type App, type Release } from '../../../../../lib/apps';
@@ -32,50 +33,413 @@ const zh = lang === 'zh';
 const base = href(lang, `/apps/${app.id}/`);
 const fileName = r.download ? decodeURIComponent(r.download.split('/').pop() ?? '') : undefined;
 const kind = r.channel === 'preview' ? u.preview : r.channel === 'beta' ? u.beta : isLatest ? u.latest : u.previous;
+const kindClass = r.channel === 'beta' ? 'soon' : r.channel === 'preview' ? 'gray' : isLatest ? 'ok' : 'gray';
+const verifyCmd = fileName ? `shasum -a 256 ~/Downloads/${fileName}` : undefined;
 ---
 <Base lang={lang} title={`${app.data.name} ${r.version}`} description={t(r.summary, lang)} current="apps">
-  <div class="wrap">
+  <div class="wrap version-page">
     <header class="page-hero">
-      <a class="crumb" href={`${base}releases/`}>{zh ? '← 全部版本' : '← All releases'}</a>
-      <p class="eyebrow tag">{kind}{r.badge && ` · ${t(r.badge, lang)}`}</p>
-      <h1>{app.data.name} {r.version}</h1>
+      <nav class="crumb-nav" aria-label={zh ? '面包屑导航' : 'Breadcrumb'}>
+        <a class="crumb-back" href={`${base}releases/`}>← {zh ? '全部版本' : 'All releases'}</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <a class="crumb-link" href={base}>{app.data.name}</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-cur" aria-current="page">{r.version}</span>
+      </nav>
+
+      <div class="ver-head">
+        <AppIcon app={app} size={48} eager />
+        <div class="ver-badges">
+          <span class:list={['badge', kindClass, { 'is-latest': isLatest && r.channel === 'stable' }]}>
+            {isLatest && r.channel === 'stable' && <span class="live-dot" aria-hidden="true"></span>}
+            {kind}
+          </span>
+          {r.badge && <span class="badge gray">{t(r.badge, lang)}</span>}
+        </div>
+      </div>
+
+      <h1>{app.data.name} <span class="ver-num">{r.version}</span></h1>
       <ReleaseMeta release={r} app={app} lang={lang} />
       <p class="sum">{t(r.summary, lang)}</p>
+
       <div class="cta">
         {r.download && <a class="btn btn-p" href={downloadURL(app.id, r.version)}>{u.download(r.version)} ↓</a>}
         {r.github && <a class="btn btn-s" href={r.github} rel="noopener">{u.githubRelease} ↗</a>}
         {older && <a class="btn btn-s" href={`${base}releases/${older.version}/`}>{zh ? `获取 ${older.version} 历史版本` : `Get ${older.version} previous release`}</a>}
       </div>
-      {!r.download && <p class="note">{u.noDownload}</p>}
+      {!r.download && <p class="note archive-note">{u.noDownload}</p>}
     </header>
 
-    <article class="prose">
-      {r.notes.map((n) => (
-        <section>
-          <h2>{t(n.title, lang)}</h2>
-          <ul>{n.items.map((x) => <li>{t(x, lang)}</li>)}</ul>
-        </section>
-      ))}
-      {r.sha256 && (
-        <section>
-          <h2>{zh ? '下载与校验' : 'Download and verify'}</h2>
-          {fileName && <p class="mono file">{fileName}</p>}
-          <p>{u.sha}</p>
-          <Checksum value={r.sha256} lang={lang} />
-          {fileName && (
-            <p class="muted small">{zh ? '下载后可在“终端”中运行以下命令，确认输出与上面的值一致：' : 'After downloading, run this in Terminal and confirm the output matches:'}<br /><code>shasum -a 256 ~/Downloads/{fileName}</code></p>
-          )}
-        </section>
-      )}
-    </article>
+    {(r.notes.length > 0 || r.sha256) && (
+      <div class="ver-body">
+        {r.notes.length > 0 && (
+          <div class="notes-stack">
+            {r.notes.map((n) => (
+              <section class="card note-card">
+                <div class="note-head">
+                  <h2>{t(n.title, lang)}</h2>
+                  <span class="note-count">{n.items.length}</span>
+                </div>
+                <ul class="note-list">
+                  {n.items.map((x) => <li>{t(x, lang)}</li>)}
+                </ul>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {r.sha256 && (
+          <section class="card verify-card">
+            <div class="verify-head">
+              <div class="verify-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <div>
+                <h2>{zh ? '下载与 SHA-256 校验' : 'Download and verify'}</h2>
+                <p class="verify-sub">{zh ? '核对安装包 SHA-256 摘要，确认文件完整且未经篡改。' : 'Check the SHA-256 digest to confirm your installer is authentic and intact.'}</p>
+              </div>
+            </div>
+
+            {fileName && (
+              <div class="verify-block">
+                <span class="verify-label">{zh ? '安装包文件' : 'Package file'}</span>
+                <div class="file-box">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                  <code class="file-name">{fileName}</code>
+                </div>
+              </div>
+            )}
+
+            <div class="verify-block">
+              <span class="verify-label">{u.sha}</span>
+              <Checksum value={r.sha256} lang={lang} />
+            </div>
+
+            {verifyCmd && (
+              <div class="verify-block">
+                <p class="verify-hint">{zh ? '下载后可在“终端”中运行以下命令，确认输出与上面的值一致：' : 'After downloading, run this in Terminal and confirm the output matches:'}</p>
+                <div class="term-box">
+                  <div class="term-bar">
+                    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="term-title">Terminal — zsh</span>
+                  </div>
+                  <div class="term-cmd">
+                    <span class="term-prompt" aria-hidden="true">$</span>
+                    <code class="term-code">{verifyCmd}</code>
+                    <button type="button" class="term-copy" data-copy={verifyCmd} data-done={u.copied}>{u.copy}</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+      </div>
+    )}
   </div>
 </Base>
 
 <style>
-  .tag { margin-top: 18px; }
-  .page-hero h1 { margin-top: 10px; }
-  .sum { margin-top: 14px; max-width: 780px; }
-  .file { color: var(--text); word-break: break-all; }
-  .small { font-size: 13px; margin-top: 14px; }
-  .small code { word-break: break-all; }
+  .version-page {
+    padding-bottom: 72px;
+  }
+
+  /* Breadcrumb */
+  .crumb-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+    color: var(--text-3);
+  }
+  .crumb-back,
+  .crumb-link {
+    color: var(--text-2);
+    transition: color 0.16s var(--ease-out);
+  }
+  .crumb-back:hover,
+  .crumb-link:hover {
+    color: var(--text);
+  }
+  .crumb-sep {
+    color: var(--line-strong);
+    user-select: none;
+  }
+
+  /* Hero */
+  .ver-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .ver-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge.is-latest {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ok);
+    flex: none;
+  }
+
+  .page-hero h1 {
+    margin: 14px 0 14px;
+  }
+  .ver-num {
+    font-variant-numeric: tabular-nums;
+  }
+  .page-hero .sum {
+    margin-top: 16px;
+    max-width: 760px;
+    color: var(--text-2);
+    font-size: 17px;
+    line-height: 1.62;
+  }
+  .archive-note {
+    max-width: 760px;
+  }
+
+  /* Main body */
+  .ver-body {
+    max-width: 820px;
+    display: grid;
+    gap: 24px;
+  }
+  .notes-stack {
+    display: grid;
+    gap: 16px;
+  }
+  .note-card {
+    padding: 26px 30px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm, none), var(--specular, none);
+  }
+  .note-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .note-head h2 {
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .note-count {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    border-radius: 999px;
+    flex: none;
+  }
+  .note-list {
+    list-style: none;
+    margin-top: 16px;
+    display: grid;
+    gap: 12px;
+  }
+  .note-list li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--text-2);
+    font-size: 15.5px;
+    line-height: 1.68;
+    overflow-wrap: anywhere;
+  }
+  .note-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+
+  /* Verification Card */
+  .verify-card {
+    padding: 28px 30px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm, none), var(--specular, none);
+    display: grid;
+    gap: 20px;
+  }
+  .verify-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .verify-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--ok);
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+  .verify-head h2 {
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .verify-sub {
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+  .verify-block {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+  .verify-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .file-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm, 12px);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text-2);
+    min-width: 0;
+  }
+  .file-box svg {
+    flex: none;
+    color: var(--text-3);
+  }
+  .file-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  .verify-hint {
+    font-size: 13.5px;
+    color: var(--text-2);
+  }
+
+  /* Terminal Command Box */
+  .term-box {
+    border-radius: 14px;
+    background: #131418;
+    color: #f5f5f7;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .term-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .term-dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .term-title {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: #a1a1aa;
+  }
+  .term-cmd {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px 14px;
+    min-width: 0;
+  }
+  .term-prompt {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #71717a;
+    user-select: none;
+    line-height: 1.55;
+    flex: none;
+  }
+  .term-code {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.55;
+    color: #f5f5f7;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  .term-copy {
+    flex: none;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e4e4e7;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background-color 0.16s var(--ease-out), border-color 0.16s var(--ease-out), color 0.16s var(--ease-out);
+  }
+  .term-copy:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+  }
+
+  @media (max-width: 640px) {
+    .note-card,
+    .verify-card {
+      padding: 20px;
+    }
+    .term-cmd {
+      padding: 12px;
+      gap: 8px;
+    }
+  }
 </style>

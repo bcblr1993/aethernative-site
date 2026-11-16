@@ -7,7 +7,7 @@ const zh = lang === 'zh';
 <div class="reply-inbox" data-reply-inbox data-lang={lang}>
   <details data-reply-menu>
     <summary class="icon-btn reply-bell" aria-label={zh ? '我的回复' : 'Replies to me'}>
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
       <b data-reply-count hidden></b>
     </summary>
     <div class="reply-panel" aria-label={zh ? '回复提醒' : 'Reply notifications'}>
@@ -93,18 +93,124 @@ const zh = lang === 'zh';
 </script>
 <style>
   .reply-inbox { position: relative; }
-  summary { list-style: none; cursor: pointer; }summary::-webkit-details-marker { display: none; }
-  .reply-bell { position: relative; display: flex; align-items: center; justify-content: center; }
-  [data-reply-count] { position: absolute; top: -5px; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: #d93a3a; color: white; font-size: 10px; line-height: 17px; text-align: center; }
-  .reply-panel { position: absolute; top: 44px; right: 0; width: min(360px, calc(100vw - 32px)); max-height: min(520px, calc(100dvh - 100px)); overflow-y: auto; padding: 20px; display: grid; gap: 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); z-index: 70; font-size: 14px; }
-  .reply-note { color: var(--text-3); font-size: 12px; }
-  [data-inbox-items] :global(.reply-inbox-item) { padding: 12px 0; border-top: 1px solid var(--line); }
-  [data-inbox-items] :global(a) { display: grid; gap: 6px; overflow-wrap: anywhere; }
-  [data-inbox-items] :global(a:hover) { color: var(--accent); }
-  [data-inbox-items] :global(.reply-quote) { color: var(--text-3); font-size: 12px; }
-  [data-inbox-items] :global(.reply-read), .reply-open { border: 0; background: none; padding: 6px 0; color: var(--accent); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
-  .reply-notice { position: fixed; bottom: 24px; right: 24px; width: min(340px, calc(100vw - 32px)); padding: 18px 42px 12px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); z-index: 65; display: grid; gap: 6px; font-size: 14px; }
-  .reply-dismiss { position: absolute; top: 8px; right: 8px; border: 0; background: none; color: var(--text-3); font-size: 22px; cursor: pointer; }
+  summary { list-style: none; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  .reply-bell {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-reply-count] {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #e53935;
+    border: 2px solid var(--bg);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    line-height: 13px;
+    text-align: center;
+  }
+  .reply-panel {
+    position: absolute;
+    top: 42px;
+    right: 0;
+    width: min(360px, calc(100vw - 32px));
+    max-height: min(520px, calc(100dvh - 100px));
+    overflow-y: auto;
+    padding: 20px;
+    display: grid;
+    gap: 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg), var(--specular);
+    z-index: 70;
+    font-size: 14px;
+  }
+  .reply-panel > strong { font-size: 15px; font-weight: 650; letter-spacing: -0.01em; }
+  .reply-note { color: var(--text-3); font-size: 12px; line-height: 1.55; }
+  [data-inbox-status] { font-size: 13px; color: var(--text-2); }
+  [data-inbox-items] :global(.reply-inbox-item) {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 6px;
+  }
+  [data-inbox-items] :global(a) {
+    display: grid;
+    gap: 5px;
+    overflow-wrap: anywhere;
+    padding: 8px 10px;
+    margin: -4px -10px 0;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.15s var(--ease-out), color 0.15s var(--ease-out);
+  }
+  [data-inbox-items] :global(a:hover) { background: var(--surface-2); color: var(--accent); }
+  [data-inbox-items] :global(.reply-quote) { color: var(--text-3); font-size: 12px; line-height: 1.5; }
+  [data-inbox-items] :global(.reply-read), .reply-open {
+    border: 0;
+    background: none;
+    padding: 4px 0;
+    color: var(--accent);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 550;
+    text-align: left;
+    cursor: pointer;
+    width: fit-content;
+  }
+  [data-inbox-items] :global(.reply-read:hover), .reply-open:hover {
+    color: var(--accent-2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .reply-notice {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: min(340px, calc(100vw - 32px));
+    padding: 18px 44px 14px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg), var(--specular);
+    z-index: 65;
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+  }
+  .reply-dismiss {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-3);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.15s var(--ease-out), color 0.15s var(--ease-out);
+  }
+  .reply-dismiss:hover { background: var(--surface-2); color: var(--text); }
   [hidden] { display: none !important; }
-  @media(max-width: 640px) { .reply-panel { position: fixed; top: calc(var(--nav-h) + 8px); left: 16px; right: 16px; width: auto; }.reply-notice { right: 16px; bottom: 16px; } }
+  @media(max-width: 640px) {
+    .reply-panel { position: fixed; top: calc(var(--nav-h) + 8px); left: 16px; right: 16px; width: auto; }
+    .reply-notice { right: 16px; bottom: 16px; }
+  }
 </style>

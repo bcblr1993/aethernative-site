@@ -1,0 +1,142 @@
+---
+import AppIcon from '../../../../components/AppIcon.astro';
+import KnownIssues from '../../../../components/KnownIssues.astro';
+import Base from '../../../../layouts/Base.astro';
+import { getApps, type App } from '../../../../lib/apps';
+import { href, ui, type Lang } from '../../../../lib/i18n';
+
+export async function getStaticPaths() {
+  return (await getApps()).flatMap((app) =>
+    (['zh', 'en'] as const).map((lang) => ({
+      params: { lang: lang === 'zh' ? undefined : 'en', slug: app.id },
+      props: { app, lang },
+    })),
+  );
+}
+
+const { app, lang } = Astro.props as { app: App; lang: Lang };
+const zh = lang === 'zh';
+---
+<Base lang={lang} title={`${app.data.name} · ${zh ? '已知问题与修复进度' : 'Known issues'}`} current="support">
+  <div class="wrap issues-page">
+    <header class="page-hero issues-hero">
+      <a class="crumb" href={href(lang, `/apps/${app.id}/`)}>{ui[lang].backTo(app.data.name)}</a>
+      <div class="issues-head">
+        <AppIcon app={app} size={52} eager />
+        <div class="issues-head-copy">
+          <p class="eyebrow">{zh ? 'Known Issues' : 'Known Issues'}</p>
+          <h1>{zh ? '已知问题与修复进度' : 'Known issues & fixes'}</h1>
+        </div>
+      </div>
+      <p class="lead">
+        {zh
+          ? `查看 ${app.data.name} 当前已发布的已知问题说明与修复状态；遇到不同情况可以随时继续反馈。`
+          : `Check published known issues and fix status for ${app.data.name}, or report a different problem.`}
+      </p>
+    </header>
+
+    <KnownIssues app={app.id} lang={lang} />
+
+    <section class="card issues-cta" aria-label={zh ? '反馈其他问题' : 'Report another issue'}>
+      <div class="issues-cta-copy">
+        <h2>{zh ? '没有找到你遇到的问题？' : 'Didn’t see your issue?'}</h2>
+        <p>
+          {zh
+            ? '欢迎登录后提交私密反馈并附上截图或版本信息，或在 GitHub 仓库提交公开 Issue。'
+            : 'Sign in to send private feedback with screenshots and version details, or open a public issue on GitHub.'}
+        </p>
+      </div>
+      <div class="issues-cta-actions">
+        <a class="btn btn-p btn-sm" href={href(lang, `/feedback/?app=${app.id}`)}>
+          {zh ? '我也遇到了问题' : 'Report a problem'} →
+        </a>
+        {app.data.repo && (
+          <a class="btn btn-s btn-sm" href={`${app.data.repo}/issues`} target="_blank" rel="noopener noreferrer">
+            GitHub Issues ↗
+          </a>
+        )}
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .issues-page {
+    max-width: 920px;
+    padding-bottom: 88px;
+  }
+  .issues-hero {
+    padding-bottom: 28px;
+  }
+  .issues-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 18px 0 14px;
+  }
+  .issues-head-copy {
+    min-width: 0;
+  }
+  .issues-head-copy .eyebrow {
+    margin-bottom: 4px;
+  }
+  .issues-head-copy h1 {
+    font-size: clamp(28px, 4.6vw, 44px);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .issues-hero .lead {
+    font-size: 16.5px;
+    max-width: 680px;
+  }
+
+  .issues-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 26px 30px;
+    margin-top: 28px;
+  }
+  .issues-cta-copy {
+    flex: 1 1 340px;
+    min-width: 0;
+  }
+  .issues-cta-copy h2 {
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .issues-cta-copy p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--text-2);
+  }
+  .issues-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .issues-page {
+      padding-bottom: 64px;
+    }
+    .issues-head {
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .issues-cta {
+      padding: 22px;
+    }
+    .issues-cta-actions {
+      width: 100%;
+    }
+    .issues-cta-actions .btn {
+      flex: 1 1 auto;
+    }
+  }
+</style>

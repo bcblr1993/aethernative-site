@@ -3,5 +3,10 @@ interface Props { size?: number }
 const { size = 14 } = Astro.props;
 ---
 <span class="brand-mark" aria-hidden="true">
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="#fff"><path d="M12 2l9 5v10l-9 5-9-5V7z" opacity=".95" /></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M12 2.5 20.2 7.25v9.5L12 21.5l-8.2-4.75v-9.5L12 2.5Z" fill="currentColor" fill-opacity="0.16" />
+    <path d="M12 2.5 20.2 7.25 12 12 3.8 7.25 12 2.5Z" fill="currentColor" fill-opacity="0.96" />
+    <path d="M12 12v9.5l-8.2-4.75v-9.5L12 12Z" fill="currentColor" fill-opacity="0.58" />
+    <path d="M12 12v9.5l8.2-4.75v-9.5L12 12Z" fill="currentColor" fill-opacity="0.32" />
+  </svg>
 </span>

@@ -1,8 +1,9 @@
 ---
 /** 软件文档页：隐私政策、许可协议、使用帮助……内容来自 src/content/apps/<id>/docs/<doc>.yaml */
 import { getCollection, type CollectionEntry } from 'astro:content';
-import Base from '../../../../layouts/Base.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import Text from '../../../../components/Text.astro';
+import Base from '../../../../layouts/Base.astro';
 import { getApps, type App } from '../../../../lib/apps';
 import { href, langs, t, ui, type Lang } from '../../../../lib/i18n';
 
@@ -12,7 +13,8 @@ export async function getStaticPaths() {
   return docs.flatMap((doc) => {
     const [appId, name] = doc.id.split('/');
     const app = apps.get(appId!);
-    if (!app) throw new Error(`docs/${doc.id}: 找不到软件 ${appId}`);
+    // 未正式发布的软件保留内容源，但不生成公开文档路由。
+    if (!app) return [];
     return langs.map((lang) => ({
       params: { lang: lang === 'zh' ? undefined : lang, slug: app.id, doc: name },
       props: { lang, app, doc },
@@ -20,40 +22,374 @@ export async function getStaticPaths() {
   });
 }
 
-interface Props { lang: Lang; app: App; doc: CollectionEntry<'docs'> }
+interface Props {
+  lang: Lang;
+  app: App;
+  doc: CollectionEntry<'docs'>;
+}
+
 const { lang, app, doc } = Astro.props;
 const d = doc.data;
+const zh = lang === 'zh';
 const base = href(lang, `/apps/${app.id}/`);
 // 相对链接（如 releases/）按软件目录解析
 const link = (h: string) => (/^(https?:|mailto:|\/|#)/.test(h) ? h : base + h);
 const external = (h: string) => /^https?:/.test(h);
+const showToc = d.sections.length >= 3;
 ---
 <Base lang={lang} title={`${t(d.title, lang)} · ${app.data.name}`} current="support">
-  <div class="wrap">
-    <header class="page-hero">
+  <div class="wrap doc-wrap">
+    <header class="page-hero doc-hero">
       <a class="crumb" href={base}>{ui[lang].backTo(app.data.name)}</a>
+      <div class="doc-app-pill">
+        <AppIcon app={app} size={28} eager />
+        <span class="doc-app-name">{app.data.name}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="doc-kind"><Text v={d.title} lang={lang} /></span>
+      </div>
       <h1><Text v={d.heading} lang={lang} /></h1>
-      {d.meta && <p class="muted"><Text v={d.meta} lang={lang} /></p>}
-      {d.lead && <p class="note lead-note"><Text v={d.lead} lang={lang} /></p>}
+      {d.meta && <p class="doc-meta"><Text v={d.meta} lang={lang} /></p>}
+      {d.lead && (
+        <div class="note lead-note">
+          <svg class="note-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v5" />
+            <path d="M12 16.5h.01" />
+          </svg>
+          <div><Text v={d.lead} lang={lang} /></div>
+        </div>
+      )}
     </header>
-    <article class="prose">
-      {d.sections.map((s) => (
-        <section>
-          <h2><Text v={s.heading} lang={lang} /></h2>
-          {s.body.map((p) => <p><Text v={p} lang={lang} /></p>)}
-          {s.steps.length > 0 && <ol>{s.steps.map((x) => <li><Text v={x} lang={lang} /></li>)}</ol>}
-          {s.list.length > 0 && <ul>{s.list.map((x) => <li><Text v={x} lang={lang} /></li>)}</ul>}
-          {s.note && <p class="note"><Text v={s.note} lang={lang} /></p>}
-          {s.links.length > 0 && (
-            <p class="links">{s.links.map((l) => <a href={link(l.href)} rel={external(l.href) ? 'noopener' : undefined}>{t(l.label, lang)}</a>)}</p>
-          )}
-        </section>
-      ))}
-    </article>
+
+    <div class:list={['doc-layout', { 'has-toc': showToc }]}>
+      {showToc && (
+        <aside class="doc-toc" aria-label={zh ? '本页目录' : 'On this page'}>
+          <div class="toc-inner">
+            <p class="toc-title">{zh ? '本页目录' : 'On this page'}</p>
+            <ol>
+              {d.sections.map((s, i) => (
+                <li>
+                  <a href={`#sec-${i + 1}`}>
+                    <span class="toc-num">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{t(s.heading, lang).replace(/\n+/g, ' ')}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </aside>
+      )}
+
+      <article class="prose doc-prose">
+        {d.sections.map((s, i) => (
+          <section class="card doc-section" id={`sec-${i + 1}`}>
+            <div class="sec-head-row">
+              <span class="sec-num">{String(i + 1).padStart(2, '0')}</span>
+              <h2><Text v={s.heading} lang={lang} /></h2>
+            </div>
+            {s.body.map((p) => <p><Text v={p} lang={lang} /></p>)}
+            {s.steps.length > 0 && (
+              <ol class="doc-steps">
+                {s.steps.map((x) => <li><Text v={x} lang={lang} /></li>)}
+              </ol>
+            )}
+            {s.list.length > 0 && (
+              <ul class="doc-list">
+                {s.list.map((x) => <li><Text v={x} lang={lang} /></li>)}
+              </ul>
+            )}
+            {s.note && (
+              <div class="note doc-note">
+                <Text v={s.note} lang={lang} />
+              </div>
+            )}
+            {s.links.length > 0 && (
+              <div class="links">
+                {s.links.map((l) => (
+                  <a class="doc-link" href={link(l.href)} rel={external(l.href) ? 'noopener' : undefined}>
+                    {t(l.label, lang)}
+                  </a>
+                ))}
+              </div>
+            )}
+          </section>
+        ))}
+
+        <div class="card doc-footer">
+          <div class="doc-footer-copy">
+            <strong>{zh ? `需要更多关于 ${app.data.name} 的帮助？` : `Need more help with ${app.data.name}?`}</strong>
+            <p>{zh ? '可查看已知问题进度，或登录后直接向开发者反馈。' : 'Check published known issues or sign in to send private feedback.'}</p>
+          </div>
+          <div class="doc-footer-actions">
+            <a class="btn btn-s btn-sm" href={`${base}issues/`}>{zh ? '已知问题' : 'Known issues'} →</a>
+            <a class="btn btn-s btn-sm" href={`${href(lang, '/feedback/')}?app=${app.id}`}>{ui[lang].feedback.nav} →</a>
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
 </Base>
 
 <style>
-  .lead-note { max-width: 780px; }
-  .links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .doc-wrap {
+    padding-bottom: 88px;
+  }
+  .doc-hero {
+    padding-bottom: 28px;
+    max-width: 820px;
+  }
+  .doc-app-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 5px 14px 5px 6px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm, none);
+    font-size: 13.5px;
+  }
+  .doc-app-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .doc-app-pill .sep {
+    color: var(--text-3);
+  }
+  .doc-kind {
+    color: var(--text-2);
+  }
+  .doc-hero h1 {
+    margin-top: 16px;
+    font-size: clamp(32px, 5vw, 52px);
+  }
+  .doc-meta {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .lead-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 780px;
+    margin-top: 20px;
+    padding: 15px 18px;
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm, 12px);
+    line-height: 1.65;
+  }
+  .note-ic {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    margin-top: 3px;
+    color: var(--accent);
+  }
+
+  .doc-layout {
+    display: block;
+  }
+  .doc-layout.has-toc {
+    display: grid;
+    grid-template-columns: minmax(0, 780px) minmax(200px, 240px);
+    gap: 36px;
+    align-items: start;
+    justify-content: space-between;
+  }
+  .doc-toc {
+    order: 2;
+    position: sticky;
+    top: calc(var(--nav-h) + 24px);
+  }
+  .toc-inner {
+    padding: 18px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm, none);
+  }
+  .toc-title {
+    font-size: 11.5px;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 10px;
+  }
+  .toc-inner ol {
+    list-style: none;
+    display: grid;
+    gap: 4px;
+  }
+  .toc-inner a {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--text-2);
+    transition: background 0.15s, color 0.15s;
+  }
+  .toc-inner a:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .toc-num {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-3);
+    margin-top: 1px;
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .doc-prose {
+    order: 1;
+    max-width: 780px;
+    width: 100%;
+    display: grid;
+    gap: 18px;
+  }
+  .doc-prose > .doc-section {
+    margin-top: 0;
+    padding: 28px 32px;
+    scroll-margin-top: calc(var(--nav-h) + 20px);
+  }
+  .sec-head-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .doc-section h2 {
+    margin-bottom: 0;
+    font-size: 22px;
+    line-height: 1.3;
+  }
+  .doc-section > p:first-of-type {
+    margin-top: 0;
+  }
+  .doc-section p {
+    line-height: 1.75;
+  }
+  .doc-steps,
+  .doc-list {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+    line-height: 1.7;
+  }
+  .doc-note {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+    border-radius: var(--radius-sm, 12px);
+    line-height: 1.65;
+  }
+  .links {
+    display: flex;
+    gap: 10px 16px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .prose a.doc-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    font-size: 13.5px;
+    font-weight: 550;
+    color: var(--accent);
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .prose a.doc-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+
+  .doc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+    padding: 24px 28px;
+    margin-top: 6px;
+  }
+  .doc-footer-copy {
+    flex: 1 1 300px;
+  }
+  .doc-footer-copy strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .doc-footer-copy p {
+    margin-top: 0;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+  .doc-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media (max-width: 1020px) {
+    .doc-layout.has-toc {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .doc-toc {
+      order: 0;
+      position: static;
+      max-width: 780px;
+    }
+    .toc-inner ol {
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .doc-wrap {
+      padding-bottom: 64px;
+    }
+    .doc-prose > .doc-section {
+      padding: 22px 20px;
+    }
+    .doc-section h2 {
+      font-size: 19px;
+    }
+    .doc-footer {
+      padding: 20px;
+    }
+    .doc-footer-actions {
+      width: 100%;
+    }
+    .doc-footer-actions .btn {
+      flex: 1 1 auto;
+    }
+  }
 </style>

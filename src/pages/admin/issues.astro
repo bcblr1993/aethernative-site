@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminHeader from '../../components/AdminHeader.astro';
+import {getAllApps} from '../../lib/apps';
+const apps=await getAllApps();
+---
+<Base lang="zh" title="已知问题管理" standalone>
+ <div class="wrap issues-admin"><AdminHeader title="已知问题" description="整理公开的问题说明、临时解决办法与修复版本。原始反馈、提交者和截图不会公开。"/>
+ <p data-status role="status">正在加载…</p>
+ <div data-private hidden><div class="toolbar"><button type="button" class="btn btn-p" data-new>新建问题</button><select data-issue-select aria-label="选择已知问题"><option value="">新建问题</option></select></div>
+ <form class="card editor">
+ <label>软件<select name="app_id" required>{apps.map(a=><option value={a.id}>{a.data.name}</option>)}</select></label>
+ <label>公开标题<input name="title" required maxlength="160"/></label><label>公开说明<textarea name="description" required maxlength="3000" rows="4"></textarea></label>
+ <label>临时解决方法<textarea name="workaround" maxlength="2000" rows="3"></textarea></label>
+ <div class="row"><label>处理状态<select name="status"><option value="investigating">排查中</option><option value="in_progress">修复中</option><option value="fixed">已修复</option></select></label><label>修复版本<input name="resolved_version" maxlength="40" placeholder="已修复时必填，必须是已发布版本"/></label></div>
+ <details><summary>英文内容（可选，未填写时英文页会注明使用中文说明）</summary><label>英文标题<input name="title_en" maxlength="160"/></label><label>英文说明<textarea name="description_en" maxlength="3000" rows="3"></textarea></label><label>英文临时解决方法<textarea name="workaround_en" maxlength="2000" rows="3"></textarea></label></details>
+ <label>关联反馈编号（仅管理员可见，每行一个）<textarea name="feedback_ids" rows="3" placeholder="从反馈管理点击“关联已知问题”可自动带入"></textarea></label>
+ <p class="small muted">同一条反馈只关联一个问题，保存时可将重复反馈归到此问题。不会复制原文或截图到公开说明。</p>
+ <label class="publish"><input name="published" type="checkbox"/> 发布到官网（取消勾选可隐藏，内容仍保留）</label>
+ <div class="toolbar"><button class="btn btn-p" data-save>保存</button><a data-preview target="_blank" rel="noopener">查看公开页面 ↗</a></div>
+ <p data-save-status role="status"></p>
+ </form></div></div>
+</Base>
+<script>
+ import{markSignedOut,onSignedOut}from '../../lib/auth-client';
+ const root=document.querySelector('.issues-admin')!,hint=root.querySelector<HTMLElement>('[data-status]')!,panel=root.querySelector<HTMLElement>('[data-private]')!,form=root.querySelector<HTMLFormElement>('form')!,picker=root.querySelector<HTMLSelectElement>('[data-issue-select]')!,saved=root.querySelector<HTMLElement>('[data-save-status]')!;
+ type Issue=Record<string,string|number>;let rows:Issue[]=[],links:{issue_id:string;feedback_id:string}[]=[],id='';let generation=0;
+ const app=form.elements.namedItem('app_id') as HTMLSelectElement;
+ const preview=()=>{root.querySelector<HTMLAnchorElement>('[data-preview]')!.href=`/apps/${app.value}/issues/`;};
+ function edit(key=''){id=key;picker.value=key;form.reset();saved.textContent='';const item=rows.find(r=>r.id===key);app.disabled=!!item;
+ if(item){for(const[name,value]of Object.entries(item)){const field=form.elements.namedItem(name);if(field instanceof HTMLInputElement&&field.type==='checkbox')field.checked=!!value;else if(field instanceof HTMLInputElement||field instanceof HTMLTextAreaElement||field instanceof HTMLSelectElement)field.value=String(value);}(form.elements.namedItem('feedback_ids') as HTMLTextAreaElement).value=links.filter(l=>l.issue_id===key).map(l=>l.feedback_id).join('\n');}preview();}
+ async function load(){const active=++generation;hint.textContent='正在加载…';try{const r=await fetch('/api/admin/issues',{cache:'no-store'});if(r.status===401){markSignedOut();return;}if(!r.ok)throw new Error();const d=await r.json();if(active!==generation)return;rows=d.issues;links=d.links;picker.replaceChildren(new Option('新建问题',''));for(const i of rows)picker.add(new Option(`${i.published?'已发布':'草稿'} · ${i.title}`,String(i.id)));panel.hidden=false;hint.textContent=`共 ${rows.length} 条（最多展示最近 500 条）`;return true;}catch{if(active===generation)hint.textContent='加载失败或当前账号没有管理权限。';}}
+ onSignedOut(()=>{generation++;panel.hidden=true;rows=[];links=[];form.reset();picker.replaceChildren();hint.textContent='请登录管理员账号。';});
+ picker.addEventListener('change',()=>edit(picker.value));root.querySelector('[data-new]')!.addEventListener('click',()=>edit());app.addEventListener('change',preview);
+ form.addEventListener('submit',async e=>{e.preventDefault();const active=generation;const btn=root.querySelector<HTMLButtonElement>('[data-save]')!;btn.disabled=true;saved.textContent='正在保存…';const data=Object.fromEntries(new FormData(form));const payload={...data,app_id:app.value,published:(form.elements.namedItem('published') as HTMLInputElement).checked,feedback_ids:String(data.feedback_ids).split(/\s+/).filter(Boolean)};
+ try{const r=await fetch(`/api/admin/issues${id?'/'+id:''}`,{method:id?'PATCH':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await r.json();if(active!==generation)return;if(r.status===401){markSignedOut();return;}if(!r.ok){saved.textContent=({unknown_release:'修复版本未在官网发布，请核对版本号。',feedback_app_mismatch:'反馈不存在或属于其他软件，请检查关联编号。'} as Record<string,string>)[result.error]??'保存失败，请检查必填项、权限和内容长度。';return;}if(await load()){edit(result.id);saved.textContent=payload.published?'已发布。公开页面最多缓存 60 秒。':'已保存草稿 / 已隐藏。';}}catch{if(active===generation)saved.textContent='保存失败，请重试。';}finally{btn.disabled=false;}});
+ void load().then(ok=>{if(!ok)return;const q=new URLSearchParams(location.search);const feedback=q.get('feedback');const existing=links.find(x=>x.feedback_id===feedback);if(existing){edit(existing.issue_id);return;}edit();if([...app.options].some(o=>o.value===q.get('app')))app.value=q.get('app')!;if(feedback&&/^[a-zA-Z0-9_-]{1,64}$/.test(feedback))(form.elements.namedItem('feedback_ids') as HTMLTextAreaElement).value=feedback;preview();});
+</script>
+<style>
+ .issues-admin{padding-bottom:60px}[hidden]{display:none!important}.toolbar,.row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:18px 0}.editor{padding:24px;max-width:900px}label{display:grid;gap:8px;margin:16px 0;font-size:14px}.row label{flex:1;min-width:220px}input,select,textarea{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);padding:10px;border-radius:9px;width:100%;min-width:0;box-sizing:border-box}textarea{resize:vertical}.publish{display:flex;align-items:center}.publish input{width:auto}.toolbar select{max-width:100%;flex:1;min-width:180px}summary{cursor:pointer}a{color:var(--accent)}@media(max-width:600px){.editor{padding:16px}.row label{min-width:0;flex-basis:100%}}
+</style>

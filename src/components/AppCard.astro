@@ -1,49 +1,129 @@
 ---
-import { downloadURL } from '../lib/download-url';
-/** 首页软件卡片。featured 为 true 时显示为横跨整行的大卡片，并带截图。 */
+/** 首页软件卡片。featured 为 true 时显示为横跨整行的专题双栏大卡片，并带端正高清截图。 */
 import { Image } from 'astro:assets';
+import { downloadURL } from '../lib/download-url';
 import PlatformBadges from './PlatformBadges.astro';
 import AppIcon from './AppIcon.astro';
 import { latestAppDownload, type App, type Release } from '../lib/apps';
 import { href, t, ui, type Lang } from '../lib/i18n';
 
-interface Props { app: App; releases: Release[]; lang: Lang }
-const { app, releases, lang } = Astro.props;
+interface Props {
+  app: App;
+  releases: Release[];
+  lang: Lang;
+  category?: string;
+}
+
+const { app, releases, lang, category = 'system' } = Astro.props;
+const zh = lang === 'zh';
 const u = ui[lang];
 const d = app.data;
 const latest = latestAppDownload(app, releases);
 const page = href(lang, `/apps/${app.id}/`);
 const shot = d.gallery[0];
+const shotLight = shot ? (lang === 'en' && shot.en ? shot.en : shot.zh) : undefined;
+const shotDark = shot?.zhDark ? (lang === 'en' && shot.enDark ? shot.enDark : shot.zhDark) : undefined;
 const platforms = d.platforms.map((p) => p.id).join(' ');
+const searchText = `${d.name} ${t(d.tagline, lang)} ${t(d.summary, lang)}`.toLocaleLowerCase(zh ? 'zh-CN' : 'en-US');
 ---
-<article class:list={['card', 'app-card', { feat: d.featured }]} data-platforms={platforms}>
+<article
+  class:list={['card', 'app-card', { feat: d.featured }]}
+  data-platforms={platforms}
+  data-category={category}
+  data-search={searchText}
+>
   <div class="body">
-    <a href={page} class="app-icon-link" aria-hidden="true" tabindex="-1">
-      <AppIcon app={app} />
-    </a>
-    <PlatformBadges app={app} lang={lang} />
-    <h3><a href={page}>{d.name}</a></h3>
-    <p>{t(d.summary, lang)}</p>
-    <a class="community-summary" href={`${page}#reviews`} data-community-summary={app.id} data-lang={lang}>{lang === 'zh' ? '评分与评论 →' : 'Ratings & reviews →'}</a>
-    <div class="download-total" data-download-total={app.id} data-lang={lang} aria-live="polite">
-      <span>{lang === 'zh' ? '累计下载' : 'Total downloads'}</span>
-      <strong data-download-count>—</strong>
+    <div class="card-top">
+      <a href={page} class="app-icon-link" aria-hidden="true" tabindex="-1">
+        <AppIcon app={app} size={d.featured ? 60 : 52} />
+      </a>
+      <div class="card-badges">
+        {d.featured && <span class="badge feat-tag">{zh ? '精选推荐' : 'Featured'}</span>}
+        <PlatformBadges app={app} lang={lang} maxTech={d.featured ? 2 : 1} />
+      </div>
     </div>
+
+    <div class="card-copy">
+      <h3>
+        <a href={page}>
+          <span>{d.name}</span>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </a>
+      </h3>
+      <p class="card-summary">{t(d.summary, lang)}</p>
+    </div>
+
     {d.featured && d.cardStats.length > 0 && (
       <div class="specs">
-        {d.cardStats.map((s) => <div><b>{t(s.value, lang)}</b>{t(s.label, lang)}</div>)}
+        {d.cardStats.map((s) => (
+          <div class="spec-item">
+            <b>{t(s.value, lang)}</b>
+            <span>{t(s.label, lang)}</span>
+          </div>
+        ))}
       </div>
     )}
-    <div class="cta">
-      {latest?.download && (
-        <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
-      )}
-      <a class="btn btn-s" href={page}>{u.learnMore} →</a>
+
+    <div class="card-foot">
+      <div class="card-meta">
+        <div class="download-total" data-download-total={app.id} data-lang={lang} aria-live="polite">
+          <span>{zh ? '累计下载' : 'Downloads'}</span>
+          <strong data-download-count>—</strong>
+        </div>
+        <span class="meta-sep" aria-hidden="true">·</span>
+        <a
+          class="community-summary"
+          href={`${page}#reviews`}
+          data-community-summary={app.id}
+          data-lang={lang}
+          title={zh ? '查看评分与评论' : 'View ratings & reviews'}
+        >
+          {zh ? '评分与评论 →' : 'Ratings & reviews →'}
+        </a>
+      </div>
+
+      <div class="card-actions">
+        {d.featured ? (
+          <>
+            {latest?.download && (
+              <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
+            )}
+            <a class="btn btn-s" href={page}>{u.learnMore} →</a>
+          </>
+        ) : (
+          <>
+            {latest?.download && (
+              <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
+            )}
+            <a class="more card-more" href={page}>{u.learnMore} →</a>
+          </>
+        )}
+      </div>
     </div>
   </div>
-  {d.featured && shot && (
-    <a class="shot" href={page} tabindex="-1" aria-hidden="true">
-      <Image src={lang === 'en' && shot.en ? shot.en : shot.zh} alt="" widths={[480, 800, 1120]} sizes="(max-width: 900px) calc(100vw - 64px), 560px" quality={75} loading="lazy" />
+
+  {d.featured && shotLight && (
+    <a class:list={['shot', { 'shot-has-dark': Boolean(shotDark) }]} href={page} tabindex="-1" aria-hidden="true">
+      <Image
+        class="shot-img shot-light"
+        src={shotLight}
+        alt=""
+        widths={[560, 960, 1280]}
+        sizes="(max-width: 900px) calc(100vw - 64px), 560px"
+        quality={82}
+        loading="lazy"
+      />
+      {shotDark && (
+        <Image
+          class="shot-img shot-dark"
+          src={shotDark}
+          alt=""
+          widths={[560, 960, 1280]}
+          sizes="(max-width: 900px) calc(100vw - 64px), 560px"
+          quality={82}
+          loading="lazy"
+        />
+      )}
     </a>
   )}
 </article>
@@ -51,67 +131,353 @@ const platforms = d.platforms.map((p) => p.id).join(' ');
 <script>
   const totals = document.querySelectorAll<HTMLElement>('[data-download-total]');
   if (totals.length) {
-    void fetch('/api/downloads', { credentials: 'omit' }).then(async response => {
+    void fetch('/api/downloads', { credentials: 'omit' }).then(async (response) => {
       if (!response.ok) throw new Error('unavailable');
       const data: { startedAt: number; apps: { appId: string; total: number }[] } = await response.json();
       if (!Number.isFinite(data.startedAt) || !Array.isArray(data.apps)) throw new Error('invalid_stats');
       for (const row of totals) {
         const zh = row.dataset.lang === 'zh';
-        const total = data.apps.find(app => app.appId === row.dataset.downloadTotal)?.total ?? 0;
+        const total = data.apps.find((app) => app.appId === row.dataset.downloadTotal)?.total ?? 0;
         if (!Number.isSafeInteger(total) || total < 0) continue;
         row.querySelector('[data-download-count]')!.textContent = total.toLocaleString(zh ? 'zh-CN' : 'en-US');
         const since = new Intl.DateTimeFormat(zh ? 'zh-CN' : 'en-US', { timeZone: 'Asia/Shanghai', dateStyle: 'medium' }).format(data.startedAt);
-        row.title = zh ? `自 ${since} 起本站发起的下载次数，含各版本；不含 App Store，不代表安装人数。` : `Download requests through this site since ${since}, across all versions. Excludes App Store downloads; not unique installs.`;
+        row.title = zh
+          ? `自 ${since} 起本站正式版本的下载发起次数，不代表安装人数。`
+          : `Download requests for released versions through this site since ${since}; not unique installs.`;
       }
     }).catch(() => {
-      for (const row of totals) row.querySelector('[data-download-count]')!.textContent = row.dataset.lang === 'zh' ? '暂不可用' : 'Unavailable';
+      for (const row of totals) {
+        row.querySelector('[data-download-count]')!.textContent = row.dataset.lang === 'zh' ? '暂不可用' : 'Unavailable';
+      }
     });
   }
+
   const summaries = document.querySelectorAll<HTMLElement>('[data-community-summary]');
-  const loadSummaries = () => fetch('/api/community', { credentials: 'omit' }).then(async r => {
-    if (!r.ok) return;
-    const data = await r.json();
-    for (const link of summaries) {
-      const s = data.apps.find((a: { appId: string }) => a.appId === link.dataset.communitySummary);
-      const zh = link.dataset.lang === 'zh';
-      link.textContent = `${s?.ratings ? `★ ${Number(s.average).toFixed(1)} (${s.ratings})` : zh ? '暂无评分' : 'No ratings yet'} · ♡ ${s?.likes ?? 0} · ${zh ? '评论 →' : 'Reviews →'}`;
-    }
-  }).catch(() => { /* Keep the working reviews link when the summary is unavailable. */ });
+  const loadSummaries = () =>
+    fetch('/api/community', { credentials: 'omit' }).then(async (r) => {
+      if (!r.ok) return;
+      const data = await r.json();
+      for (const link of summaries) {
+        const s = data.apps.find((a: { appId: string }) => a.appId === link.dataset.communitySummary);
+        const zh = link.dataset.lang === 'zh';
+        const ratings = s?.ratings
+          ? `★ ${Number(s.average).toFixed(1)} (${s.ratings})`
+          : zh ? '★ 暂无评分' : '★ No ratings';
+        link.textContent = `${ratings} · ♡ ${s?.likes ?? 0}`;
+      }
+    }).catch(() => { /* Keep the working reviews link when the summary is unavailable. */ });
+
   if (summaries.length) {
     if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
-        if (!entries.some(entry => entry.isIntersecting)) return;
-        observer.disconnect(); void loadSummaries();
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        void loadSummaries();
       }, { rootMargin: '300px' });
-      summaries.forEach(link => observer.observe(link.closest('article')!));
-    } else { void loadSummaries(); }
+      summaries.forEach((link) => observer.observe(link.closest('article')!));
+    } else {
+      void loadSummaries();
+    }
   }
 </script>
 
 <style>
-  .app-card { display: flex; flex-direction: column; transition: transform 0.25s; }
-  .app-card:hover { transform: translateY(-3px); }
-  .app-card[hidden] { display: none; }
-  .app-card .badges { margin: 18px 0 12px; }
-  .app-card h3 a:hover { color: var(--accent); }
-  .app-card p { margin-top: 6px; }
-  .community-summary { font-size: 13px; color: var(--text-2); margin-top: 14px; width: fit-content; }.community-summary:hover { color: var(--accent); }
-  .download-total { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; color: var(--text-2); font-size: 13px; }
-  .download-total strong { color: var(--text); font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
-  .app-icon-link { display: block; width: fit-content; margin-left: -6px; }
-  .body { display: flex; flex-direction: column; height: 100%; }
-  .body > .cta { margin-top: auto; padding-top: 26px; }
-  .feat { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 40px; align-items: center; }
-  .feat h3 { font-size: 34px; }
-  .specs { display: flex; gap: 22px; margin-top: 22px; font-size: 13px; color: var(--text-3); flex-wrap: wrap; }
-  .specs b { display: block; color: var(--text); font-size: 15px; }
-  .cta { margin-top: 26px; }
-  .shot { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14); }
+  .app-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 24px;
+    transition:
+      transform 0.28s var(--ease-out),
+      border-color 0.28s var(--ease-out),
+      box-shadow 0.28s var(--ease-out);
+  }
+  .app-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow), var(--specular);
+  }
+  .app-card[hidden] {
+    display: none;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .app-icon-link {
+    display: inline-flex;
+    flex: none;
+    border-radius: 14px;
+    transition: transform 0.25s var(--ease-out);
+  }
+  .app-card:hover .app-icon-link {
+    transform: scale(1.03);
+  }
+  .card-badges {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding-top: 2px;
+    min-width: 0;
+  }
+  .card-badges :global(.badges) {
+    justify-content: flex-end;
+    margin: 0;
+  }
+  .feat-tag {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+  }
+
+  .card-copy {
+    margin-top: 18px;
+  }
+  .card-copy h3 {
+    font-size: 19px;
+    font-weight: 640;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  .card-copy h3 a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    max-width: 100%;
+  }
+  .card-arrow {
+    color: var(--text-3);
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translate(-3px, 2px);
+    transition: opacity 0.22s var(--ease-out), transform 0.22s var(--ease-out), color 0.22s var(--ease-out);
+    flex: none;
+  }
+  .app-card:hover .card-arrow,
+  .card-copy h3 a:focus-visible .card-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+    color: var(--accent);
+  }
+  .card-copy h3 a:hover {
+    color: var(--accent);
+  }
+  .card-summary {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(14px * 1.55 * 2);
+  }
+
+  .card-foot {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-copy {
+    margin-bottom: 20px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .download-total {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    color: var(--text-3);
+  }
+  .download-total strong {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+  .meta-sep {
+    color: var(--text-3);
+    opacity: 0.6;
+  }
+  .community-summary {
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    transition: color 0.18s var(--ease-out);
+    white-space: nowrap;
+  }
+  .community-summary:hover {
+    color: var(--accent);
+  }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .card-actions .btn-sm {
+    min-height: 34px;
+    padding: 0 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .card-more {
+    font-size: 13px;
+    font-weight: 550;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  /* Featured full-span editorial spotlight */
+  .feat {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 40px;
+    padding: 36px;
+    align-items: center;
+  }
+  .feat .card-copy {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  .feat .card-copy h3 {
+    font-size: clamp(26px, 3vw, 34px);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+  .feat .card-summary {
+    margin-top: 12px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    min-height: 0;
+  }
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 22px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .spec-item {
+    background: var(--surface-2);
+    padding: 12px 14px;
+    min-width: 0;
+  }
+  .spec-item b {
+    display: block;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .spec-item span {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-3);
+  }
+  .feat .card-foot {
+    margin-top: 24px;
+    padding-top: 18px;
+    gap: 14px;
+  }
+  .feat .card-actions {
+    justify-content: flex-start;
+  }
+  .shot {
+    display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+  }
+  .feat:hover .shot {
+    border-color: var(--line-strong);
+  }
+  .shot-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .shot-dark {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .shot-has-dark .shot-light {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .shot-has-dark .shot-dark {
+    display: block;
+  }
+
   @media (max-width: 900px) {
-    .feat { grid-template-columns: 1fr; padding: 28px; gap: 28px; }
+    .feat {
+      grid-template-columns: 1fr;
+      padding: 28px;
+      gap: 28px;
+    }
   }
   @media (max-width: 640px) {
-    .feat { padding: 22px; }
-    .feat h3 { font-size: 28px; }
+    .app-card {
+      padding: 20px;
+    }
+    .feat {
+      padding: 22px;
+    }
+    .specs {
+      grid-template-columns: 1fr;
+    }
+    .card-summary {
+      min-height: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .app-card,
+    .app-icon-link,
+    .card-arrow,
+    .shot {
+      transition: none;
+    }
+    .app-card:hover,
+    .app-card:hover .app-icon-link {
+      transform: none;
+    }
   }
 </style>

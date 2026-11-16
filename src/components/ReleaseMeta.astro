@@ -1,14 +1,81 @@
 ---
 import type { App, Release } from '../lib/apps';
 import { fmtDate, t, ui, type Lang } from '../lib/i18n';
-interface Props { release: Release; app: App; lang: Lang }
-const { release: r, app, lang } = Astro.props;
+
+interface Props {
+  release: Release;
+  app: App;
+  lang: Lang;
+  showDate?: boolean;
+}
+
+const { release: r, app, lang, showDate = true } = Astro.props;
 const requirement = r.requirement ?? app.data.platforms.find((p) => p.id === r.platform)?.requirement;
+const hasAny = Boolean(r.build || showDate || requirement);
 ---
-<p class="rmeta">
-  {r.build && <>{ui[lang].build} {r.build} · </>}
-  <time datetime={r.date.toISOString().slice(0, 10)}>{fmtDate(r.date, lang)}</time>{requirement && <> · {t(requirement, lang)}</>}
-</p>
+{hasAny && (
+  <div class="rmeta">
+    {r.build && (
+      <span class="rmeta-item">
+        <span class="rmeta-k">{ui[lang].build}</span>
+        <code class="rmeta-v">{r.build}</code>
+      </span>
+    )}
+    {showDate && (
+      <span class="rmeta-item">
+        <time class="rmeta-date" datetime={r.date.toISOString().slice(0, 10)}>{fmtDate(r.date, lang)}</time>
+      </span>
+    )}
+    {requirement && (
+      <span class="rmeta-item rmeta-req">{t(requirement, lang)}</span>
+    )}
+  </div>
+)}
+
 <style>
-  .rmeta { color: var(--text-3); font-size: 14px; }
+  .rmeta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    color: var(--text-3);
+    font-size: 13.5px;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+  .rmeta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .rmeta-item + .rmeta-item::before {
+    content: '';
+    width: 1px;
+    height: 11px;
+    background: var(--line-strong);
+    margin-right: 6px;
+    flex: none;
+  }
+  .rmeta-k {
+    color: var(--text-3);
+  }
+  .rmeta-v {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    color: var(--text-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    padding: 1px 7px;
+    border-radius: 6px;
+    letter-spacing: -0.01em;
+  }
+  .rmeta-date {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2);
+  }
+  .rmeta-req {
+    color: var(--text-2);
+  }
 </style>

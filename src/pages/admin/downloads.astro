@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AdminHeader from '../../components/AdminHeader.astro';
-import { getApps } from '../../lib/apps';
-const apps = (await getApps()).map((a) => ({ id: a.id, name: a.data.name }));
+import { getAllApps } from '../../lib/apps';
+const apps = (await getAllApps()).map((a) => ({ id: a.id, name: a.data.name }));
 ---
 <Base lang="zh" title="每日下载统计" standalone>
   <div class="wrap download-admin" data-apps={JSON.stringify(apps)}>

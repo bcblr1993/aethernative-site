@@ -22,18 +22,34 @@ const themes = await Promise.all(gallery.themes.map(async theme => ({
 })));
 const first = themes[0].shots[0];
 ---
-<div class="theme-gallery" data-theme-gallery data-themes={JSON.stringify(themes)}>
-  <div class="tools">
-    <label class="theme-label"><span>{zh ? '应用主题' : 'App theme'}</span><select data-app-theme aria-label={zh ? '选择应用主题' : 'Choose app theme'}>{themes.map(theme => <option value={theme.id}>{theme.name}</option>)}</select></label>
-    <a data-theme-full class="more" href={first.full} target="_blank" rel="noopener">{zh ? '查看原图 ↗' : 'View full size ↗'}</a>
-  </div>
-  <div class="view-tabs" role="group" aria-label={zh ? '查看应用界面' : 'View app screens'}>{themes[0].shots.map((shot,index)=><button type="button" data-view-button={index} aria-pressed={index===0?'true':'false'}>{shot.label}</button>)}</div>
-  <div class="preview" data-preview aria-busy="false">
-    <p class="image-status" data-image-loading role="status" hidden>{zh ? '正在加载界面…' : 'Loading preview…'}</p>
-    <div class="image-status" data-image-error hidden><p role="alert">{zh ? '图片暂时无法加载' : 'Preview could not be loaded'}</p><button type="button" data-image-retry>{zh ? '重新加载' : 'Try again'}</button></div>
-    <figure style={`--w:${first.scale}%`}>
-      <img src={first.src} srcset={first.srcset} sizes="(max-width: 1120px) calc(100vw - 64px), 1020px" width={first.width} height={first.height} alt={first.alt} loading="lazy" decoding="async" data-full={first.full} />
-    </figure>
+<div class="theme-gallery" data-theme-gallery data-themes={JSON.stringify(themes)} data-reveal>
+  <div class="tg-frame">
+    <div class="tg-top">
+      <span class="eyebrow">{name} for Mac</span>
+      <div class="tools">
+        <label class="theme-label">
+          <span>{zh ? '应用主题' : 'App theme'}</span>
+          <span class="select-wrap">
+            <select data-app-theme aria-label={zh ? '选择应用主题' : 'Choose app theme'}>{themes.map(theme => <option value={theme.id}>{theme.name}</option>)}</select>
+            <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg>
+          </span>
+        </label>
+        <a data-theme-full class="more" href={first.full} target="_blank" rel="noopener">{zh ? '查看原图 ↗' : 'View full size ↗'}</a>
+      </div>
+    </div>
+    <div class="preview" data-preview aria-busy="false">
+      <p class="image-status" data-image-loading role="status" hidden>{zh ? '正在加载界面…' : 'Loading preview…'}</p>
+      <div class="image-status" data-image-error hidden>
+        <p role="alert">{zh ? '图片暂时无法加载' : 'Preview could not be loaded'}</p>
+        <button type="button" data-image-retry>{zh ? '重新加载' : 'Try again'}</button>
+      </div>
+      <figure style={`--w:${first.scale}%`}>
+        <img src={first.src} srcset={first.srcset} sizes="(max-width: 1120px) calc(100vw - 64px), 1072px" width={first.width} height={first.height} alt={first.alt} loading="lazy" decoding="async" data-full={first.full} />
+      </figure>
+    </div>
+    <div class="view-tabs" role="group" aria-label={zh ? '查看应用界面' : 'View app screens'}>
+      {themes[0].shots.map((shot,index)=><button type="button" data-view-button={index} aria-pressed={index===0?'true':'false'}>{shot.label}</button>)}
+    </div>
   </div>
   <p class="caption"><span>{t(gallery.note,lang)}</span></p>
   <p class="sr-only" data-theme-status aria-live="polite" aria-atomic="true"></p>
@@ -78,23 +94,199 @@ const first = themes[0].shots[0];
   }
 </script>
 <style>
-  .theme-gallery { margin: 32px auto 0; max-width: 1072px; }
-  .tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-  .theme-label { display: flex; align-items: center; gap: 12px; font-size: 14px; }
-  select { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; max-width: 100%; }
-  .preview { position: relative; aspect-ratio: 1145 / 760; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
-  figure { position: absolute; inset: 0; margin: 0; padding: 2.5%; display: grid; place-items: center; }
+  .theme-gallery {
+    margin-top: 52px;
+  }
+  .tg-frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-lg), var(--specular);
+    padding: 20px;
+  }
+  .tg-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 6px 14px;
+    flex-wrap: wrap;
+  }
+  .tools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+  .theme-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .select-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 550;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    box-shadow: var(--specular);
+    border-radius: 999px;
+    padding: 5px 30px 5px 13px;
+    max-width: 100%;
+    cursor: pointer;
+    transition: border-color 0.18s var(--ease-out), background-color 0.18s var(--ease-out);
+  }
+  select:hover {
+    border-color: var(--line-strong);
+    background: var(--surface-3);
+  }
+  .select-chevron {
+    position: absolute;
+    right: 11px;
+    pointer-events: none;
+    color: var(--text-3);
+  }
+  .preview {
+    position: relative;
+    aspect-ratio: 1145 / 700;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: radial-gradient(120% 100% at 50% 0%, #f1f3f7 0%, #e5e8ef 100%);
+  }
+  :global([data-theme='dark']) .preview {
+    background: radial-gradient(120% 100% at 50% 0%, #191b22 0%, #0d0e13 100%);
+  }
+  figure {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 3.2% 3.6%;
+    display: grid;
+    place-items: center;
+  }
   figure[hidden] { display: none; }
-  figure :global(img) { max-width: 100%; max-height: 100%; width: var(--w); height: auto; object-fit: contain; }
-  .image-status { position: absolute; inset: 0; z-index: 1; display: grid; place-content: start center; gap: 12px; margin: 0; padding: 32px 16px; text-align: center; color: var(--text-2); background: var(--surface); font-size: 14px; }
+  figure :global(img) {
+    max-width: 100%;
+    max-height: 100%;
+    width: var(--w);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.2)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  }
+  :global([data-theme='dark']) figure :global(img) {
+    filter: drop-shadow(0 24px 52px rgba(0, 0, 0, 0.55)) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+  }
+  .image-status {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--text-2);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 14px;
+  }
   .image-status[hidden] { display: none; }
   .image-status p { margin: 0; }
-  .image-status button { border-color: var(--line); background: var(--surface); color: var(--text); }
-  .view-tabs { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 16px 0; }
-  button { font: inherit; font-size: 14px; color: var(--text-2); padding: 8px 16px; border: 1px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; }
-  button[aria-pressed='true'] { color: var(--text); background: var(--surface); border-color: var(--line); }
-  select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .caption { text-align: center; font-size: 13px; color: var(--text-2); line-height: 1.6; }
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-  @media (max-width: 540px) { .tools { flex-wrap: wrap; } .theme-label { flex-wrap: wrap; gap: 8px; } .preview { border-radius: 12px; } button { padding: 8px 10px; } }
+  .image-status button {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 550;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 7px 16px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--specular), var(--shadow-sm);
+    cursor: pointer;
+  }
+  .image-status button:hover {
+    background: var(--surface-2);
+  }
+  .view-tabs {
+    display: flex;
+    width: max-content;
+    max-width: 100%;
+    margin: 16px auto 0;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .view-tabs::-webkit-scrollbar { display: none; }
+  .view-tabs button {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    padding: 6px 15px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .view-tabs button:hover { color: var(--text); }
+  .view-tabs button[aria-pressed='true'] {
+    color: var(--bg);
+    background: var(--text);
+    font-weight: 550;
+    box-shadow: var(--shadow-sm);
+  }
+  select:focus-visible, .view-tabs button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .caption {
+    margin: 14px auto 0;
+    max-width: 680px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .theme-gallery { margin-top: 38px; }
+    .tg-frame { padding: 10px; border-radius: 20px; }
+    .tg-top { padding: 4px 6px 10px; }
+    .tools { gap: 10px; }
+    .theme-label { flex-wrap: wrap; gap: 6px; }
+    .preview { aspect-ratio: 1145 / 760; border-radius: 14px; }
+    figure { padding: 2.5%; }
+    .view-tabs { justify-content: flex-start; }
+    .view-tabs button { padding: 6px 12px; }
+  }
 </style>

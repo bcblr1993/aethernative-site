@@ -4,6 +4,76 @@ interface Props { value: string; lang: Lang }
 const { value, lang } = Astro.props;
 ---
 <div class="checksum">
+  <svg class="cs-ico" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M8 1.75 13 3.8v3.7c0 3.25-2.12 5.64-5 6.75-2.88-1.11-5-3.5-5-6.75V3.8L8 1.75Z" />
+    <path d="m6 8.2 1.4 1.4L10.3 6.7" />
+  </svg>
   <span>{value}</span>
   <button type="button" data-copy={value} data-done={ui[lang].copied}>{ui[lang].copy}</button>
 </div>
+
+<style>
+  .checksum {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 8px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    transition: border-color 0.18s var(--ease-out), background-color 0.18s var(--ease-out);
+  }
+  .checksum:hover {
+    border-color: var(--line-strong);
+  }
+  .cs-ico {
+    flex: none;
+    color: var(--text-3);
+    opacity: 0.85;
+  }
+  .checksum span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    user-select: all;
+    letter-spacing: 0.01em;
+  }
+  .checksum button {
+    flex: none;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    box-shadow: var(--specular);
+    border-radius: 8px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 550;
+    cursor: pointer;
+    color: var(--text);
+    font-family: var(--font);
+    white-space: nowrap;
+    transition: background-color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), transform 0.12s var(--ease-out);
+  }
+  .checksum button:hover {
+    background: var(--surface-3);
+    border-color: color-mix(in srgb, var(--text) 22%, transparent);
+  }
+  .checksum button:active {
+    transform: scale(0.96);
+  }
+  @media (max-width: 480px) {
+    .checksum {
+      padding: 8px 8px 8px 11px;
+      gap: 8px;
+      font-size: 11.5px;
+    }
+    .checksum button {
+      padding: 4px 9px;
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+const {full=false}=Astro.props;
+---
+<section class="traffic card" data-traffic data-full={String(full)}>
+ <div class="heading"><div><h2>访问统计</h2><p class="small muted">Cloudflare · 北京时间 · 已排除识别到的机器人</p></div>{!full&&<a href="/admin/traffic/">查看访问趋势 →</a>}</div>
+ <form><label>统计范围 <select name="days"><option value="7">近 7 天</option><option value="30">近 30 天</option></select></label><button class="btn btn-s btn-sm">刷新</button></form>
+ <p data-traffic-status role="status">正在加载访问数据…</p>
+ <div data-traffic-private hidden>
+ <p class="small muted" data-traffic-time></p>
+ <div class="traffic-metrics">{[['today-visits','今日访问次数'],['today-pv','今日浏览量 PV'],['period-visits','所选期间访问次数'],['period-pv','所选期间浏览量 PV']].map(([id,label])=><div><span>{label}</span><strong data-value={id}>—</strong></div>)}</div>
+ <p class="small" data-traffic-compare></p>
+ {full&&<div class="traffic-charts">{[['pv','每日页面浏览量'],['visits','每日访问次数'],['pages','热门页面（PV）'],['sources','访问来源（PV）'],['devices','操作系统（PV）'],['countries','地区（PV）']].map(([id,label])=><article><h3>{label}</h3><div data-traffic-chart={id}></div></article>)}</div>}
+ <p class="small muted">访问次数不是独立人数，浏览量包含重复浏览。统计项目涵盖主域名、www 和 Pages 域名，可能包含管理员访问；Cloudflare 可能采样估算。今日为截至更新时间的部分数据，软件筛选不影响此处全站统计。</p>
+ </div>
+</section>
+<script>
+ import {bars,trend} from '../lib/admin-charts';
+ import {markSignedOut,onSignedOut} from '../lib/auth-client';
+ type Counts={pv:number;visits:number};
+ interface Report{capturedAt:number;from:string;to:string;today:Counts;yesterdaySameTime:Counts;period:Counts;daily:({day:string}&Counts)[];pages:Breakdown[];sources:Breakdown[];devices:Breakdown[];countries:Breakdown[]}
+ interface Breakdown{label:string;pv:number;visits:number}
+ for(const root of document.querySelectorAll<HTMLElement>('[data-traffic]')){
+ const status=root.querySelector<HTMLElement>('[data-traffic-status]')!,content=root.querySelector<HTMLElement>('[data-traffic-private]')!,form=root.querySelector('form')!;
+ let pending:AbortController|undefined;
+ const clear=()=>{content.hidden=true;root.querySelectorAll('[data-traffic-chart]').forEach(e=>e.replaceChildren());root.querySelectorAll('[data-value]').forEach(e=>e.textContent='—');root.querySelector('[data-traffic-time]')!.textContent='';root.querySelector('[data-traffic-compare]')!.textContent='';};
+ onSignedOut(()=>{pending?.abort();clear();status.textContent='请登录管理员账号查看访问统计。';});
+ async function load(){pending?.abort();const active=new AbortController();pending=active;clear();status.textContent='正在加载访问数据…';
+ try{const r=await fetch(`/api/admin/traffic?days=${new FormData(form).get('days')}`,{cache:'no-store',signal:active.signal});
+ if(r.status===401){markSignedOut();return;}if(!r.ok)throw new Error();
+ const data=await r.json() as {report:Report|null;stale:boolean;configured:boolean};if(active.signal.aborted)return;
+ if(!data.report){status.textContent=data.configured?'暂时无法读取 Cloudflare 统计，请稍后重试。':'访问统计尚未连接：需要配置 Cloudflare Analytics Read 专用令牌。';return;}
+ const d=data.report;status.textContent=!data.configured?'当前为保存的统计快照，自动刷新尚未配置。':data.stale?'暂时无法读取最新数据，显示上次成功获取的快照。':'已读取统计数据（最多缓存 5 分钟）。';
+ root.querySelector('[data-traffic-time]')!.textContent=`${d.from} 至 ${d.to} · 今日指 ${d.to} · 更新于 ${new Date(d.capturedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false})}`;
+ for(const [key,value]of Object.entries({'today-visits':d.today.visits,'today-pv':d.today.pv,'period-visits':d.period.visits,'period-pv':d.period.pv}))root.querySelector(`[data-value="${key}"]`)!.textContent=value.toLocaleString('zh-CN');
+ const delta=(a:number,b:number)=>b?`${a>=b?'+':''}${((a-b)/b*100).toFixed(1)}%`:'暂无可比基数';
+ root.querySelector('[data-traffic-compare]')!.textContent=`与昨日同一时段相比：访问 ${delta(d.today.visits,d.yesterdaySameTime.visits)}，PV ${delta(d.today.pv,d.yesterdaySameTime.pv)}。`;
+ if(root.dataset.full==='true'){
+ const target=(id:string)=>root.querySelector<HTMLElement>(`[data-traffic-chart="${id}"]`)!;
+ for(const metric of ['pv','visits'] as const)trend(target(metric),d.daily.map(x=>({label:x.day,value:x[metric]})),metric==='pv'?'每日页面浏览量':'每日访问次数');
+ for(const metric of ['pages','sources','devices','countries'] as const)bars(target(metric),d[metric].map(x=>({label:x.label==='(direct)'?'直接访问 / 未提供':x.label,value:x.pv})));
+ }content.hidden=false;
+ }catch{if(!active.signal.aborted)status.textContent='加载失败，请稍后刷新。';}}
+ form.addEventListener('submit',e=>{e.preventDefault();void load();});void load();
+ }
+</script>
+<style>
+ .traffic{padding:24px;margin:24px 0;box-shadow:none}.heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}h2{font-size:22px}h3{font-size:16px;margin-bottom:18px}form{display:flex;gap:12px;align-items:center;margin:18px 0}select{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);padding:8px;border-radius:8px}[hidden]{display:none!important}.traffic-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:20px 0}.traffic-metrics span{display:block;font-size:13px;color:var(--text-2)}strong{font-size:30px}.traffic-charts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0}.traffic-charts article{min-width:0;border-top:1px solid var(--line);padding-top:20px}
+ .traffic :global(.bar-row){display:grid;grid-template-columns:minmax(90px,1.2fr) minmax(30px,1fr) 50px;gap:10px;margin:12px 0;align-items:center;font-size:13px}.traffic :global(.bar-name){overflow-wrap:anywhere}.traffic :global(.bar-track){height:8px;background:var(--surface-2)}.traffic :global(.bar-track i){display:block;height:100%;background:var(--accent)}.traffic :global(.trend-columns){height:150px;display:flex;align-items:end;gap:3px;border-bottom:1px solid var(--line)}.traffic :global(.trend-column){height:100%;flex:1;min-width:1px;display:flex;align-items:end}.traffic :global(.trend-column i){display:block;width:100%;background:var(--accent)}.traffic :global(.chart-axis){display:flex;justify-content:space-between;font-size:11px;gap:8px;color:var(--text-2)}.traffic :global(details){margin-top:12px;max-height:250px;overflow:auto;font-size:13px}.traffic :global(table){width:100%;text-align:left}.traffic :global(td),.traffic :global(th){padding:6px}.traffic :global(summary){cursor:pointer}
+ @media(max-width:700px){.traffic{padding:18px}.traffic-metrics{grid-template-columns:1fr 1fr}.traffic-charts{grid-template-columns:1fr}}
+</style>

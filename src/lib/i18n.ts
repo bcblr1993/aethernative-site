@@ -48,7 +48,7 @@ export const ui = {
   zh: {
     htmlLang: 'zh-CN',
     tagline: '为 Apple 芯片原生打造',
-    description: '专为 Apple M 系列芯片深度优化的原生 Mac 与 iPhone 软件。',
+    description: '专为 Apple M 系列芯片深度优化的原生 Mac 软件。',
     nav: { apps: '软件', why: '理念', news: '动态', about: '关于', support: '支持' },
     community: {
       nav: 'Telegram 交流群',
@@ -98,7 +98,7 @@ export const ui = {
     backTo: (n: string) => `← 返回 ${n}`,
     news: {
       title: '官方动态',
-      lead: '公告与各款软件的版本更新。iPhone App 里的“动态”与这里内容一致。',
+      lead: '公告与各款 Mac 软件的正式版本更新。',
       announcement: '公告',
       release: '版本更新',
       pinned: '置顶',
@@ -191,7 +191,7 @@ export const ui = {
   en: {
     htmlLang: 'en',
     tagline: 'Built natively for Apple silicon',
-    description: 'Native Mac and iPhone apps, deeply optimized for Apple M-series chips.',
+    description: 'Native Mac apps, deeply optimized for Apple M-series chips.',
     nav: { apps: 'Apps', why: 'Philosophy', news: 'News', about: 'About', support: 'Support' },
     community: {
       nav: 'Telegram community',
@@ -241,7 +241,7 @@ export const ui = {
     backTo: (n: string) => `← Back to ${n}`,
     news: {
       title: 'News',
-      lead: 'Announcements and release updates for every app — the same feed you’ll see in the iPhone app.',
+      lead: 'Announcements and formal release updates for every Mac app.',
       announcement: 'Announcement',
       release: 'Release',
       pinned: 'Pinned',

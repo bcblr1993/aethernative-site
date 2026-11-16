@@ -3,7 +3,8 @@ import '../styles/global.css';
 import AuthMenu from '../components/AuthMenu.astro';
 import ReplyNotifications from '../components/ReplyNotifications.astro';
 import BrandMark from '../components/BrandMark.astro';
-import { altHref, href, site, ui, type Lang } from '../lib/i18n';
+import { getApps } from '../lib/apps';
+import { altHref, href, site, t, ui, type Lang } from '../lib/i18n';
 
 interface Props {
   lang: Lang;
@@ -19,9 +20,11 @@ interface Props {
 }
 const { lang, title, description, image, current, standalone = false } = Astro.props;
 const u = ui[lang];
+const zh = lang === 'zh';
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${u.tagline}`;
 const desc = description ?? u.description;
 const path = Astro.url.pathname;
+const isAdmin = path.startsWith('/admin');
 const zhPath = standalone ? '/' : lang === 'zh' ? path : altHref(path, 'en');
 const enPath = standalone ? '/en/' : lang === 'en' ? path : altHref(path, 'zh');
 const canonical = new URL(path, Astro.site);
@@ -33,6 +36,7 @@ const nav = [
   { key: 'about', label: u.nav.about, to: href(lang, '/about/') },
   { key: 'support', label: u.nav.support, to: href(lang, '/support/') },
 ];
+const footerApps = isAdmin ? [] : (await getApps()).slice(0, 6);
 ---
 <!doctype html>
 <html lang={u.htmlLang}>
@@ -57,8 +61,8 @@ const nav = [
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
@@ -69,7 +73,7 @@ const nav = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
-      // 默认跟随系统外观；用户点 ◐ 选了与系统不同的外观时记在 color-scheme 里，系统变化时实时更新
+      // 默认跟随系统外观；用户点外观切换选了与系统不同的外观时记在 color-scheme 里，系统变化时实时更新
       (() => {
         const root = document.documentElement;
         const mq = matchMedia('(prefers-color-scheme: dark)');
@@ -87,7 +91,7 @@ const nav = [
   </head>
   <body>
     <a class="skip" href="#content">{u.skip}</a>
-    <nav class="nav" aria-label={lang === 'zh' ? '主导航' : 'Main'}>
+    <nav class="nav" aria-label={zh ? '主导航' : 'Main'}>
       <div class="wrap">
         <a class="brand" aria-label={site.name} href={href(lang)}><BrandMark /><span class="brand-name">{site.name}</span></a>
         <div class="links">
@@ -95,12 +99,27 @@ const nav = [
         </div>
         <div class="nav-r">
           <a class="icon-btn" data-language-switch href={lang === 'zh' ? enPath : zhPath} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={u.switchLangLabel}>{u.switchLang}</a>
-          <button class="icon-btn" type="button" data-theme-toggle aria-label={u.theme}>◐</button>
+          <button class="icon-btn icon-sq" type="button" data-theme-toggle aria-label={u.theme} title={u.theme}>
+            <svg class="theme-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+            </svg>
+          </button>
           <ReplyNotifications lang={lang} />
           <AuthMenu lang={lang} />
           <details class="menu">
-            <summary class="icon-btn" aria-label={lang === 'zh' ? '菜单' : 'Menu'}>☰</summary>
-            <div class="menu-panel">{nav.map((n) => <a href={n.to}>{n.label}</a>)}</div>
+            <summary class="icon-btn icon-sq" aria-label={zh ? '菜单' : 'Menu'}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <path class="m-top" d="M4 8.5h16" />
+                <path class="m-bot" d="M4 15.5h16" />
+              </svg>
+            </summary>
+            <div class="menu-panel">
+              {nav.map((n) => <a href={n.to} aria-current={current === n.key ? 'page' : undefined}>{n.label}</a>)}
+            </div>
           </details>
         </div>
       </div>
@@ -108,18 +127,69 @@ const nav = [
     <main id="content">
       <slot />
     </main>
-    <footer class="footer">
-      <div class="wrap">
-        <span>© {new Date().getFullYear()} {site.name} · {u.madeBy}</span>
-        <div class="fl">
-          <a href={href(lang, '/privacy/')}>{u.privacy}</a>
-          <a href={href(lang, '/support/')}>{u.nav.support}</a>
-          <a href={href(lang, '/about/')}>{u.nav.about}</a>
-          <a href={site.github} rel="noopener">GitHub ↗</a>
-          <a href={site.telegram} target="_blank" rel="noopener noreferrer">{u.community.nav} ↗</a>
+    {isAdmin ? (
+      <footer class="footer footer-compact">
+        <div class="wrap">
+          <span>© {new Date().getFullYear()} {site.name} · {u.madeBy}</span>
+          <div class="fl">
+            <a href={href(lang, '/privacy/')}>{u.privacy}</a>
+            <a href={href(lang, '/support/')}>{u.nav.support}</a>
+            <a href={href(lang, '/about/')}>{u.nav.about}</a>
+            <a href={site.github} rel="noopener">GitHub ↗</a>
+            <a href={site.telegram} target="_blank" rel="noopener noreferrer">{u.community.nav} ↗</a>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    ) : (
+      <footer class="footer footer-dir">
+        <div class="wrap">
+          <div class="footer-grid">
+            <div class="footer-brand-col">
+              <a class="f-brand" href={href(lang)}>
+                <BrandMark />
+                <span>{site.name}</span>
+              </a>
+              <p class="f-bio">
+                {zh
+                  ? `专为 Apple 芯片深度优化的原生 Mac 软件，由${t(site.author, lang)}独立打造。`
+                  : `Native macOS software deeply optimized for Apple silicon by ${t(site.author, lang)}.`}
+              </p>
+              <span class="f-badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="6" y="6" width="12" height="12" rx="2" />
+                  <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+                </svg>
+                Apple Silicon Native
+              </span>
+            </div>
+            <div class="footer-col">
+              <h2 class="f-heading">{zh ? '软件作品' : 'Apps'}</h2>
+              {footerApps.map((app) => (
+                <a href={href(lang, `/apps/${app.id}/`)}>{app.data.name}</a>
+              ))}
+              <a class="f-more" href={href(lang, '/#apps')}>{zh ? '全部软件 →' : 'All apps →'}</a>
+            </div>
+            <div class="footer-col">
+              <h2 class="f-heading">{zh ? '支持与动态' : 'Support & News'}</h2>
+              <a href={href(lang, '/news/')}>{u.news.title}</a>
+              <a href={href(lang, '/support/')}>{u.nav.support}</a>
+              <a href={href(lang, '/feedback/')}>{u.feedback.title}</a>
+              <a href={href(lang, '/about/')}>{u.nav.about}</a>
+            </div>
+            <div class="footer-col">
+              <h2 class="f-heading">{zh ? '条款与社区' : 'Legal & Community'}</h2>
+              <a href={href(lang, '/privacy/')}>{u.privacy}</a>
+              <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a href={site.telegram} target="_blank" rel="noopener noreferrer">{u.community.nav} ↗</a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span>© {new Date().getFullYear()} {site.name} · {u.madeBy}</span>
+            <span>{u.footer}</span>
+          </div>
+        </div>
+      </footer>
+    )}
     <script>
       const root = document.documentElement;
       const languageLink = document.querySelector<HTMLAnchorElement>('[data-language-switch]');
@@ -187,15 +257,171 @@ const nav = [
           }
         }),
       );
+      // 渐进式滚动显现：仅在允许动画且支持 IntersectionObserver 时启用，首屏与超长等待均兜底可见
+      const revealNodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+      if (
+        !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        'IntersectionObserver' in window
+      ) {
+        const markVisible = (el: Element) => el.classList.add('is-visible');
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const pending: HTMLElement[] = [];
+        for (const el of revealNodes) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= vh) {
+            markVisible(el);
+          } else {
+            pending.push(el);
+          }
+        }
+        root.classList.add('reveal-ready');
+        if (pending.length > 0) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting || entry.boundingClientRect.top <= window.innerHeight) {
+                  markVisible(entry.target);
+                  io.unobserve(entry.target);
+                }
+              }
+            },
+            { rootMargin: '0px 0px -40px 0px', threshold: 0.01 },
+          );
+          pending.forEach((el) => io.observe(el));
+          window.setTimeout(() => {
+            pending.forEach(markVisible);
+            io.disconnect();
+          }, 1500);
+        }
+      }
     </script>
     <style>
+      .icon-sq { width: 32px; padding: 0; }
+      .theme-sun { display: none; }
+      .theme-moon { display: block; }
+      :global(:root[data-theme='dark']) .theme-sun { display: block; }
+      :global(:root[data-theme='dark']) .theme-moon { display: none; }
+
       .menu { display: none; position: relative; }
       .menu > summary { list-style: none; }
       .menu > summary::-webkit-details-marker { display: none; }
-      .menu-panel { position: absolute; right: 0; top: 40px; min-width: 180px; padding: 8px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; }
-      .menu-panel a { padding: 10px 12px; border-radius: 10px; font-size: 15px; }
-      .menu-panel a:hover { background: var(--surface-2); }
+      .menu path { transition: transform 0.22s var(--ease-out); }
+      .m-top { transform-origin: 12px 8.5px; }
+      .m-bot { transform-origin: 12px 15.5px; }
+      .menu[open] .m-top { transform: translateY(3.5px) rotate(45deg); }
+      .menu[open] .m-bot { transform: translateY(-3.5px) rotate(-45deg); }
+      .menu-panel {
+        position: absolute;
+        right: 0;
+        top: 42px;
+        min-width: 200px;
+        padding: 8px;
+        border-radius: 18px;
+        background: var(--surface);
+        border: 1px solid var(--line-strong);
+        box-shadow: var(--shadow-lg), var(--specular);
+        display: grid;
+        gap: 2px;
+        z-index: 60;
+      }
+      .menu-panel a {
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-2);
+        transition: background-color 0.15s var(--ease-out), color 0.15s var(--ease-out);
+      }
+      .menu-panel a:hover { background: var(--surface-2); color: var(--text); }
+      .menu-panel a[aria-current='page'] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
       @media (max-width: 900px) { .menu { display: block; } }
+
+      .footer-dir { padding: 64px 0 44px; background: var(--bg-alt); }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: minmax(240px, 1.55fr) repeat(3, minmax(0, 1fr));
+        gap: 44px;
+      }
+      .footer-brand-col {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .f-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+        font-weight: 650;
+        font-size: 16px;
+        letter-spacing: -0.015em;
+      }
+      .f-bio {
+        font-size: 13.5px;
+        line-height: 1.65;
+        color: var(--text-2);
+        max-width: 280px;
+      }
+      .f-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--specular);
+        color: var(--text-2);
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .footer-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 0;
+      }
+      .f-heading {
+        font-size: 12px;
+        font-weight: 650;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text);
+        line-height: 1.4;
+        margin-bottom: 4px;
+      }
+      .footer-col a {
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: var(--text-2);
+        width: fit-content;
+      }
+      .footer-col a:hover { color: var(--text); }
+      .footer-col a.f-more { color: var(--accent); font-weight: 550; margin-top: 2px; }
+      .footer-col a.f-more:hover { color: var(--accent-2); }
+      .footer-bottom {
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px 24px;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: var(--text-3);
+      }
+      @media (max-width: 900px) {
+        .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+        .footer-brand-col { grid-column: 1 / -1; }
+      }
+      @media (max-width: 540px) {
+        .footer-dir { padding: 48px 0 36px; }
+        .footer-grid { gap: 28px 20px; }
+        .footer-bottom { margin-top: 36px; padding-top: 20px; }
+      }
     </style>
   </body>
 </html>

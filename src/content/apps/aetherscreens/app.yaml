@@ -14,24 +14,21 @@ tagline:
   en: Control your Mac remotely over Tailscale and your local network
 
 summary:
-  zh: "从 Mac 连接远程 Mac 或 VNC 桌面，支持 Metal 渲染、原生键鼠、Bonjour 发现、Tailscale 导入与会话恢复。Mac 版可在应用内更新；iPhone / iPad 仍为开发安装版本。"
-  en: "Connect from your Mac to remote Macs or VNC desktops with Metal rendering, native keyboard and mouse, Bonjour discovery, Tailscale import and session recovery. Mac supports in-app updates; iPhone and iPad remain development installations."
+  zh: "从 Mac 连接远程 Mac 或 VNC 桌面，支持 Metal 渲染、原生键鼠、Bonjour 发现、Tailscale 导入、会话恢复与应用内更新。"
+  en: "Connect from your Mac to remote Macs or VNC desktops with Metal rendering, native keyboard and mouse, Bonjour discovery, Tailscale import, session recovery and in-app updates."
 
 platforms:
   - id: mac
     status: available
     requirement: { zh: Apple 芯片 · macOS 14+, en: Apple silicon · macOS 14+ }
-  - id: ios
-    status: dev
-    requirement: { zh: iPhone / iPad · iOS 17+, en: iPhone / iPad · iOS 17+ }
 
 cardStats:
   - value: "Swift"
     label: { zh: 原生协议实现, en: Native protocol }
   - value: "Metal"
     label: { zh: GPU 画面渲染, en: GPU Rendering }
-  - value: "iOS + Mac"
-    label: { zh: 双端原生, en: Native on Both }
+  - value: "SwiftUI"
+    label: { zh: 原生 Mac 界面, en: Native Mac UI }
 
 hero:
   eyebrow: { zh: 远程桌面 · Tailscale · 局域网, en: Remote Desktop · Tailscale · LAN }
@@ -40,19 +37,19 @@ hero:
     zh: "直接连接 macOS 自带的屏幕共享，无需在被控端安装任何软件。\n在家用局域网，在外走 Tailscale 加密直连。"
     en: "Connects to built-in macOS Screen Sharing, with nothing to install on the remote Mac.\nUse your LAN at home, or an encrypted Tailscale connection when away."
   requirements:
-    zh: 客户端：Apple 芯片 Mac（macOS 14+）或 iPhone / iPad（iOS 17+）· 被控端：开启屏幕共享的 Mac
-    en: "Client: Apple silicon Mac (macOS 14+) or iPhone / iPad (iOS 17+) · Remote: a Mac with Screen Sharing on"
+    zh: 客户端：Apple 芯片 Mac（macOS 14+）· 被控端：开启屏幕共享的 Mac
+    en: "Client: Apple silicon Mac (macOS 14+) · Remote: a Mac with Screen Sharing on"
 
 notice:
-  zh: macOS 1.1.0 现已提供下载；iPhone / iPad 暂需通过 Xcode 安装。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
-  en: macOS 1.1.0 is available; iPhone / iPad currently require an Xcode installation. Connect with a Mac account, or separately enable a VNC password in Screen Sharing settings.
+  zh: Mac 正式版现已提供下载。可使用 Mac 账号密码连接，也可在屏幕共享设置中单独启用 VNC 密码。
+  en: The formal Mac release is available now. Connect with a Mac account, or separately enable a VNC password in Screen Sharing settings.
 
 features:
   eyebrow: { zh: 功能, en: Features }
-  title: { zh: 为触控与 Mac 键鼠分别设计。, en: Designed for touch and for Mac input alike. }
+  title: { zh: 为 Mac 键鼠原生设计。, en: Designed for native Mac input. }
   lead:
-    zh: 同一套纯 Swift 协议与渲染内核，分别适配 iPhone / iPad 的触控操作和 Mac 的原生键鼠。
-    en: One pure-Swift protocol and rendering core, adapted to touch on iPhone and iPad and to native keyboard and mouse on the Mac.
+    zh: 纯 Swift 协议与渲染内核，完整适配 Mac 的原生键盘、鼠标与窗口操作。
+    en: A pure-Swift protocol and rendering core adapted to native Mac keyboard, mouse and window interactions.
   items:
     - kicker: { zh: 连接, en: Connect }
       title: { zh: 局域网自动发现与 Tailscale 同步, en: LAN discovery and Tailscale sync }
@@ -101,4 +98,4 @@ faq:
 
 cta:
   title: { zh: 下载 AetherScreens for Mac。, en: Download AetherScreens for Mac. }
-  note: {"zh":"Apple 芯片 Mac · macOS 14+ ／ iPhone、iPad · iOS 17+","en":"Apple silicon Mac · macOS 14+ / iPhone, iPad · iOS 17+"}
+  note: {"zh":"Apple 芯片 Mac · macOS 14+","en":"Apple silicon Mac · macOS 14+"}

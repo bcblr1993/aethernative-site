@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AppCard from '../../components/AppCard.astro';
+import AppIcon from '../../components/AppIcon.astro';
+import { Image } from 'astro:assets';
 import { getApps, getRecentReleases, getReleases } from '../../lib/apps';
 import { fmtDate, href, langParams, t, ui, type Lang } from '../../lib/i18n';
 
@@ -12,50 +14,177 @@ const zh = lang === 'zh';
 const apps = await getApps();
 const cards = await Promise.all(apps.map(async (app) => ({ app, releases: await getReleases(app.id) })));
 const recent = await getRecentReleases(5);
-const hasIos = apps.some((a) => a.data.platforms.some((p) => p.id === 'ios'));
+const featured = cards.find(({ app }) => app.data.featured && app.data.gallery[0]) ?? cards.find(({ app }) => app.data.gallery[0]);
+const dockApps = cards.slice(0, 8).map(({ app }) => app);
+const heroShot = featured?.app.data.gallery[0];
+const heroLight = heroShot ? (lang === 'en' && heroShot.en ? heroShot.en : heroShot.zh) : undefined;
+const heroDark = heroShot?.zhDark ? (lang === 'en' && heroShot.enDark ? heroShot.enDark : heroShot.zhDark) : undefined;
+
+type AppCategory = 'network' | 'dev' | 'system' | 'media';
+const appCategoryMap: Record<string, AppCategory> = {
+  aetherroute: 'network',
+  aetherscreens: 'network',
+  aethertransfer: 'network',
+  aetherterm: 'dev',
+  'antigravity-multiplexer': 'dev',
+  notchquota: 'dev',
+  aetherswitch: 'dev',
+  aetherdisk: 'system',
+  aetherguard: 'system',
+  aetherkey: 'system',
+  aetherzip: 'system',
+  aetherfilm: 'media',
+  aethernote: 'media',
+};
+const getCategory = (id: string): AppCategory => appCategoryMap[id] ?? 'system';
+
+const categories = [
+  { id: 'all', label: zh ? '全部' : 'All' },
+  { id: 'network', label: zh ? '网络与远程' : 'Network & Remote' },
+  { id: 'dev', label: zh ? '开发与效率' : 'Dev & Productivity' },
+  { id: 'system', label: zh ? '系统与安全' : 'System & Security' },
+  { id: 'media', label: zh ? '媒体与记录' : 'Media & Notes' },
+] as const;
 
 const stats = [
   { v: '100%', l: zh ? 'arm64 原生' : 'Native arm64' },
   { v: '0', l: zh ? 'Electron / 网页壳' : 'Electron / web wrappers' },
   { v: '~0.1%', l: zh ? '后台静默 CPU*' : 'Background idle CPU*' },
-  { v: 'Mac + iPhone', l: zh ? '双端协同' : 'Across your devices' },
+  { v: `${apps.length}`, l: zh ? '款正式发布应用' : 'Released Mac apps' },
 ];
+
 const principles = zh
   ? [
       ['原生到底', 'arm64 原生编译，SwiftUI / AppKit 界面，不套网页壳，启动即用。'],
       ['能效优先', '按需刷新、后台静默、批量处理。性能数据实测公开，不靠形容词。'],
       ['隐私默认', '数据留在本地，同步经端到端加密。不做追踪，不收集不必要的信息。'],
-      ['双端协同', 'Mac 与 iPhone 共享配置，通过 iCloud 接力，每台设备各自独立。'],
+      ['持续打磨', '只展示已有正式版本的产品，并持续提供签名更新与清晰的版本记录。'],
     ]
   : [
       ['Native all the way', 'Compiled for arm64 with SwiftUI and AppKit. No web wrappers — ready the moment you open it.'],
       ['Efficiency first', 'On-demand updates, quiet backgrounds, batched work. Performance is measured and published, not just described.'],
       ['Private by default', 'Your data stays on device and sync is end-to-end encrypted. No tracking, nothing unnecessary collected.'],
-      ['Better together', 'Mac and iPhone share settings through iCloud, while each device stays independent.'],
+      ['Actively refined', 'Only formally released products are listed, with signed updates and a clear release history.'],
     ];
+
 const icons = [
   '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/>',
   '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
   '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/>',
   '<rect x="2" y="4" width="13" height="10" rx="2"/><rect x="16" y="8" width="6" height="12" rx="1.5"/>',
 ];
+
+const siliconSpecs = zh
+  ? [
+      { k: 'ARCH', l: '指令架构', v: 'ARM64 Native Mach-O' },
+      { k: 'UI LAYER', l: '界面框架', v: 'SwiftUI & AppKit' },
+      { k: 'MEMORY', l: '内存模型', v: 'Unified Memory Zero-Copy' },
+      { k: 'POWER', l: '能效调度', v: 'E-Core Idle Scheduling' },
+    ]
+  : [
+      { k: 'ARCH', l: 'Architecture', v: 'ARM64 Native Mach-O' },
+      { k: 'UI LAYER', l: 'Interface', v: 'SwiftUI & AppKit' },
+      { k: 'MEMORY', l: 'Memory Model', v: 'Unified Memory Zero-Copy' },
+      { k: 'POWER', l: 'Scheduling', v: 'E-Core Idle Scheduling' },
+    ];
 ---
 <Base lang={lang}>
   <header class="hero">
-    <div class="wrap center">
-      <span class="chip"><b></b>{zh ? '独立开发 · 为 Apple 芯片而生' : 'Independent · Made for Apple silicon'}</span>
-      <h1>{zh ? <>为 M 芯片，<br /><span class="grad">重新打造。</span></> : <>Rebuilt for<br /><span class="grad">Apple silicon.</span></>}</h1>
+    <div class="hero-ambient" aria-hidden="true"></div>
+    <div class="wrap hero-center">
+      <span class="chip"><b></b>{zh ? 'Apple Silicon 原生独立工作室' : 'Independent Apple Silicon Studio'}</span>
+      <h1>
+        {zh
+          ? <>让 Mac 更轻，<br /><span class="grad">也更强。</span></>
+          : <>A lighter, faster<br /><span class="grad">way to use your Mac.</span></>}
+      </h1>
       <p class="lead">
         {zh
-          ? '一系列原生 Mac 与 iPhone 软件。arm64 原生、SwiftUI 界面、底层深度调优——把每一分性能和电量，都用在该用的地方。'
-          : 'A growing family of native Mac and iPhone apps. Native arm64, SwiftUI, and low-level tuning — every bit of performance and battery goes where it matters.'}
+          ? '一系列真正原生的 Mac 工具。没有网页壳，没有臃肿后台——只把性能、电量和注意力，用在真正重要的地方。'
+          : 'A growing family of truly native Mac tools. No web wrappers or bloated background work — just thoughtful software that respects your performance, battery, and focus.'}
       </p>
       <div class="cta">
-        <a class="btn btn-p" href="#apps">{zh ? '浏览全部软件' : 'Browse the apps'}</a>
-        <a class="btn btn-s" href="#why">{zh ? '了解设计理念 →' : 'Our philosophy →'}</a>
+        <a class="btn btn-p" href="#apps">{zh ? `探索 ${apps.length} 款应用` : `Explore ${apps.length} apps`} <span aria-hidden="true">↓</span></a>
+        <a class="btn btn-s" href="#why">{zh ? '为什么坚持原生' : 'Why native matters'} <span aria-hidden="true">→</span></a>
       </div>
+      <ul class="hero-notes" aria-label={zh ? '产品特点' : 'Product qualities'}>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>{zh ? 'Apple 公证签名' : 'Apple notarized'}</span>
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>{zh ? '零 Electron 网页壳' : 'Zero Electron wrappers'}</span>
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>{zh ? '本地隐私优先' : 'Local-first privacy'}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="wrap stage-wrap">
+      {featured && heroLight && (
+        <div class="studio-window" aria-label={zh ? `${featured.app.data.name} 应用预览` : `${featured.app.data.name} app preview`}>
+          <div class="studio-bar">
+            <div class="studio-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="studio-title">
+              <AppIcon app={featured.app} size={18} eager />
+              <span>{featured.app.data.name}</span>
+            </div>
+            <a class="studio-link" href={href(lang, `/apps/${featured.app.id}/`)}>
+              {zh ? '查看应用' : 'View app'} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div class:list={['studio-screen', { 'stage-has-dark': Boolean(heroDark) }]}>
+            <Image
+              class="stage-img stage-light"
+              src={heroLight}
+              alt={zh ? `${featured.app.data.name} 应用界面` : `${featured.app.data.name} interface`}
+              widths={[720, 1120, 1600]}
+              sizes="(max-width: 960px) calc(100vw - 32px), 980px"
+              quality={86}
+              loading="eager"
+            />
+            {heroDark && (
+              <Image
+                class="stage-img stage-dark"
+                src={heroDark}
+                alt={zh ? `${featured.app.data.name} 深色界面` : `${featured.app.data.name} dark interface`}
+                widths={[720, 1120, 1600]}
+                sizes="(max-width: 960px) calc(100vw - 32px), 980px"
+                quality={86}
+                loading="eager"
+              />
+            )}
+          </div>
+        </div>
+      )}
+
+      {dockApps.length > 0 && (
+        <nav class="app-dock" aria-label={zh ? '应用快速导览' : 'Quick app dock'}>
+          {dockApps.map((app) => (
+            <a
+              class:list={['dock-item', { 'is-active': featured?.app.id === app.id }]}
+              href={href(lang, `/apps/${app.id}/`)}
+              aria-label={app.data.name}
+            >
+              <AppIcon app={app} size={44} eager />
+              <span class="dock-tip" aria-hidden="true">{app.data.name}</span>
+            </a>
+          ))}
+        </nav>
+      )}
+    </div>
+
+    <div class="wrap center">
       <div class="stats">
-        {stats.map((s) => <div class="stat"><strong>{s.v}</strong><span>{s.l}</span></div>)}
+        {stats.map((s) => (
+          <div class="stat">
+            <strong>{s.v}</strong>
+            <span>{s.l}</span>
+          </div>
+        ))}
       </div>
       <p class="foot muted">{u.benchmarkNote}</p>
     </div>
@@ -63,20 +192,50 @@ const icons = [
 
   <section id="apps">
     <div class="wrap">
-      <div class="sec-head">
-        <div><div class="eyebrow">Apps</div><h2>{zh ? '软件作品' : 'Our apps'}</h2></div>
-        {hasIos && (
-          <div class="tabs" role="group" aria-label={zh ? '按平台筛选' : 'Filter by platform'}>
-            {(['all', 'mac', 'ios'] as const).map((f, i) => (
-              <button type="button" class="tab" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{u.filter[f]}</button>
-            ))}
-          </div>
-        )}
+      <div class="sec-head apps-head">
+        <div>
+          <div class="eyebrow">Apps</div>
+          <h2>{zh ? '软件作品' : 'Our apps'}</h2>
+        </div>
       </div>
+
+      <div class="apps-toolbar">
+        <div class="cat-tabs" role="group" aria-label={zh ? '按分类筛选应用' : 'Filter apps by category'}>
+          {categories.map((c) => (
+            <button
+              type="button"
+              class="cat-tab"
+              data-category-filter={c.id}
+              aria-pressed={c.id === 'all' ? 'true' : 'false'}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        <label class="app-search">
+          <span class="sr-only">{zh ? '搜索应用' : 'Search apps'}</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.2-3.2"></path></svg>
+          <input type="search" data-app-search placeholder={zh ? '搜索应用名称或功能…' : 'Search apps or features…'} autocomplete="off" />
+        </label>
+      </div>
+
       <div class="grid-3 apps-grid">
-        {cards.map(({ app, releases }) => <AppCard app={app} releases={releases} lang={lang} />)}
+        {cards.map(({ app, releases }) => (
+          <AppCard app={app} releases={releases} lang={lang} category={getCategory(app.id)} />
+        ))}
       </div>
-      <p class="download-note muted">{zh ? '下载量为本站自开始统计以来各版本的累计下载发起次数，不含 App Store 下载，不代表安装人数。' : 'Totals count download requests through this site across all versions since tracking began. App Store downloads are excluded; counts are not unique installs.'}</p>
+
+      <div class="empty-apps card" data-empty-apps hidden>
+        <strong>{zh ? '没有找到匹配的应用' : 'No matching apps'}</strong>
+        <span>{zh ? '试试更短的关键词，或切换分类筛选。' : 'Try a shorter search or switch to another category.'}</span>
+        <button type="button" class="btn btn-s btn-sm empty-reset" data-reset-filters>
+          {zh ? '显示全部应用' : 'Show all apps'}
+        </button>
+      </div>
+
+      <p class="results-count muted" data-results-count aria-live="polite"></p>
+      <p class="download-note muted">{zh ? '下载量为本站自开始统计以来各正式版本的累计下载发起次数，不代表安装人数。' : 'Totals count download requests through this site across released versions; counts are not unique installs.'}</p>
       <p class="soon muted">{u.moreSoon}</p>
     </div>
   </section>
@@ -84,27 +243,47 @@ const icons = [
   <section id="why">
     <div class="wrap">
       <div class="sec-head">
-        <div><div class="eyebrow">Philosophy</div><h2>{zh ? <>每一款软件，<br />都守同样的准则。</> : <>Every app.<br />The same principles.</>}</h2></div>
+        <div>
+          <div class="eyebrow">Philosophy</div>
+          <h2>{zh ? <>每一款软件，<br />都守同样的准则。</> : <>Every app.<br />The same principles.</>}</h2>
+        </div>
       </div>
-      <div class="grid-4">
+
+      <div class="grid-4 principles-grid">
         {principles.map(([title, body], i) => (
           <div class="card pcard">
-            <div class="pnum">0{i + 1}</div>
-            <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={icons[i]} /></div>
+            <div class="pcard-head">
+              <div class="pico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" set:html={icons[i]} /></div>
+              <div class="pnum">0{i + 1}</div>
+            </div>
             <h3>{title}</h3>
             <p>{body}</p>
           </div>
         ))}
       </div>
+
       <div class="silicon">
-        <div>
-          <div class="eyebrow" style="color:#a8b8ff">Apple Silicon</div>
+        <div class="silicon-copy">
+          <div class="eyebrow silicon-eyebrow">Apple Silicon Architecture</div>
           <h3>{zh ? <>不是“能在 M 芯片上跑”，<br />而是“为 M 芯片而写”。</> : <>Not just “runs on Apple silicon.”<br />Written for it.</>}</h3>
-          <p>{zh
-            ? '从统一内存到能效核心调度，每款软件都会针对 Apple 芯片的架构特性单独调优，并附上可复现的测试条件。'
-            : 'From unified memory to efficiency-core scheduling, every app is tuned for the architecture of Apple silicon — with reproducible test conditions published alongside.'}</p>
+          <p>
+            {zh
+              ? '从统一内存到能效核心调度，每款软件都会针对 Apple 芯片的架构特性单独调优，并附上可复现的测试条件。'
+              : 'From unified memory to efficiency-core scheduling, every app is tuned for the architecture of Apple silicon — with reproducible test conditions published alongside.'}
+          </p>
         </div>
-        <div class="chipart" aria-hidden="true"><span>M</span></div>
+
+        <div class="silicon-specs" aria-label={zh ? 'Apple Silicon 技术规格' : 'Apple Silicon technical stack'}>
+          {siliconSpecs.map((spec) => (
+            <div class="spec-row">
+              <div class="spec-key">
+                <span class="spec-tag">{spec.k}</span>
+                <span class="spec-label">{spec.l}</span>
+              </div>
+              <code class="spec-val">{spec.v}</code>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -112,16 +291,28 @@ const icons = [
   <section id="updates" class="updates-sec">
     <div class="wrap">
       <div class="sec-head">
-        <div><div class="eyebrow">Changelog</div><h2>{zh ? '最近更新' : 'Recent updates'}</h2></div>
+        <div>
+          <div class="eyebrow">Changelog</div>
+          <h2>{zh ? '最近更新' : 'Recent updates'}</h2>
+        </div>
         <a class="more" href={href(lang, '/news/')}>{u.news.all} →</a>
       </div>
+
       <div class="updates card">
         {recent.map(({ app, release }) => (
           <a class="up" href={href(lang, `/apps/${app.id}/releases/${release.version}/`)}>
-            <time datetime={release.date.toISOString().slice(0, 10)}>{fmtDate(release.date, lang)}</time>
-            <span class="v">{app.data.name} {release.version}</span>
-            <p>{t(release.summary, lang)}</p>
-            <span class="more">{u.releaseNotes} →</span>
+            <div class="up-id">
+              <AppIcon app={app} size={36} />
+              <div class="up-title">
+                <span class="up-name">{app.data.name}</span>
+                <span class="up-ver">{release.version.startsWith('v') ? release.version : `v${release.version}`}</span>
+              </div>
+            </div>
+            <p class="up-summary">{t(release.summary, lang)}</p>
+            <div class="up-tail">
+              <time datetime={release.date.toISOString().slice(0, 10)}>{fmtDate(release.date, lang)}</time>
+              <span class="up-arrow" aria-hidden="true">→</span>
+            </div>
           </a>
         ))}
       </div>
@@ -130,63 +321,769 @@ const icons = [
 </Base>
 
 <script>
-  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab');
-  tabs.forEach((tab) =>
-    tab.addEventListener('click', () => {
-      const f = tab.dataset.filter;
-      tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === tab)));
-      document.querySelectorAll<HTMLElement>('.apps-grid [data-platforms]').forEach((card) => {
-        card.hidden = f !== 'all' && !card.dataset.platforms?.split(' ').includes(f!);
-      });
+  const categoryButtons = document.querySelectorAll<HTMLButtonElement>('[data-category-filter]');
+  const platformTabs = document.querySelectorAll<HTMLButtonElement>('.tab[data-filter]');
+  const search = document.querySelector<HTMLInputElement>('[data-app-search]');
+  const cards = [...document.querySelectorAll<HTMLElement>('.apps-grid [data-platforms]')];
+  const empty = document.querySelector<HTMLElement>('[data-empty-apps]');
+  const count = document.querySelector<HTMLElement>('[data-results-count]');
+  const resetBtn = document.querySelector<HTMLButtonElement>('[data-reset-filters]');
+
+  let activeCategory = 'all';
+  let activePlatform = 'all';
+
+  const updateApps = () => {
+    const query = search?.value.trim().toLocaleLowerCase(document.documentElement.lang) ?? '';
+    let visible = 0;
+    for (const card of cards) {
+      const categoryMatch = activeCategory === 'all' || card.dataset.category === activeCategory;
+      const platformMatch = activePlatform === 'all' || card.dataset.platforms?.split(' ').includes(activePlatform);
+      const searchMatch = !query || card.dataset.search?.includes(query);
+      card.hidden = !categoryMatch || !platformMatch || !searchMatch;
+      if (!card.hidden) visible++;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    if (count) {
+      count.textContent = document.documentElement.lang.startsWith('zh')
+        ? `显示 ${visible} / ${cards.length} 款应用`
+        : `Showing ${visible} of ${cards.length} apps`;
+    }
+  };
+
+  categoryButtons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.categoryFilter ?? 'all';
+      categoryButtons.forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
+      updateApps();
     }),
   );
+
+  platformTabs.forEach((tab) =>
+    tab.addEventListener('click', () => {
+      activePlatform = tab.dataset.filter ?? 'all';
+      platformTabs.forEach((x) => x.setAttribute('aria-pressed', String(x === tab)));
+      updateApps();
+    }),
+  );
+
+  resetBtn?.addEventListener('click', () => {
+    activeCategory = 'all';
+    activePlatform = 'all';
+    if (search) search.value = '';
+    categoryButtons.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.categoryFilter === 'all')));
+    platformTabs.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.filter === 'all')));
+    updateApps();
+    search?.focus();
+  });
+
+  search?.addEventListener('input', updateApps);
+  updateApps();
 </script>
 
 <style>
-  .hero { padding: 110px 0 60px; position: relative; }
-  .hero::before { content: ''; position: absolute; inset: -40px 0 auto; height: 520px; background: radial-gradient(600px 300px at 50% 30%, var(--accent-soft), transparent 70%); z-index: -1; }
-  .hero h1 { margin: 26px 0 22px; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 80px auto 0; max-width: 880px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .stat { background: var(--surface); padding: 24px 16px; }
-  .stat strong { display: block; font-size: 26px; letter-spacing: -0.02em; font-weight: 650; }
-  .stat span { font-size: 13px; color: var(--text-3); }
-  .foot { font-size: 12px; margin-top: 12px; }
-  .tabs { display: inline-flex; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
-  .tab { border: 0; background: none; color: var(--text-2); font-size: 14px; padding: 7px 18px; border-radius: 999px; cursor: pointer; }
-  .tab[aria-pressed='true'] { background: var(--text); color: var(--bg); }
-  .download-note { margin-top: 24px; font-size: 12px; text-align: center; }
-  .soon { margin-top: 20px; font-size: 14px; text-align: center; }
-  .pnum { font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: 0.1em; }
-  .pico { width: 40px; height: 40px; border-radius: 11px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-top: 18px; }
-  .pcard { box-shadow: none; }
-  .pcard h3 { font-size: 19px; margin: 36px 0 8px; }
-  .pcard p { font-size: 14px; }
-  .silicon { margin-top: 20px; border-radius: var(--radius); padding: 48px; background: linear-gradient(135deg, #0d1024, #1c1450); color: #fff; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; overflow: hidden; }
-  .silicon h3 { font-size: 32px; line-height: 1.15; margin-top: 10px; }
-  .silicon p { color: rgba(255, 255, 255, 0.7); margin-top: 12px; font-size: 15px; }
-  .chipart { justify-self: center; width: 190px; height: 190px; border-radius: 32px; background: linear-gradient(145deg, #2a2d3e, #141622); border: 1px solid rgba(255, 255, 255, 0.14); display: grid; place-items: center; position: relative; box-shadow: 0 0 80px rgba(111, 140, 255, 0.35); }
-  .chipart::before { content: ''; position: absolute; inset: -14px; border-radius: 40px; background: repeating-linear-gradient(90deg, transparent 0 12px, rgba(255, 255, 255, 0.18) 12px 14px); -webkit-mask: linear-gradient(#000 0 0) top / 100% 12px no-repeat, linear-gradient(#000 0 0) bottom / 100% 12px no-repeat; mask: linear-gradient(#000 0 0) top / 100% 12px no-repeat, linear-gradient(#000 0 0) bottom / 100% 12px no-repeat; }
-  .chipart span { font-size: 40px; font-weight: 700; background: linear-gradient(135deg, #fff, #a8b8ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .updates-sec { padding-top: 20px; }
-  .updates { padding: 0; overflow: hidden; }
-  .up { display: grid; grid-template-columns: 110px 170px 1fr auto; gap: 20px; align-items: center; padding: 20px 28px; border-top: 1px solid var(--line); font-size: 14px; }
-  .up:first-child { border-top: 0; }
-  .up:hover { background: var(--surface-2); }
-  .up time { color: var(--text-3); }
-  .up .v { font-weight: 600; }
-  .up p { color: var(--text-2); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 84px 0 48px;
+    position: relative;
+    overflow-x: clip;
+  }
+  .hero-ambient {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 520px;
+    background: radial-gradient(65% 75% at 50% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 72%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .hero-center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-center h1 {
+    margin: 22px 0 20px;
+    font-size: clamp(42px, 6.4vw, 76px);
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  .hero-center .lead {
+    max-width: 610px;
+    margin-inline: auto;
+    text-wrap: pretty;
+  }
+  .hero-center .cta {
+    justify-content: center;
+    margin-top: 28px;
+  }
+  .hero-center .btn span {
+    transition: transform 0.2s var(--ease-out);
+  }
+  .hero-center .btn-p:hover span {
+    transform: translateY(2px);
+  }
+  .hero-center .btn-s:hover span {
+    transform: translateX(2px);
+  }
+  .hero-notes {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 24px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    color: var(--text-3);
+    font-size: 13px;
+  }
+  .hero-notes li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-notes svg {
+    color: var(--ok);
+    flex: none;
+  }
+
+  /* ---------- Studio Window Stage & App Dock ---------- */
+  .stage-wrap {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .studio-window {
+    width: 100%;
+    max-width: 980px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-lg), var(--specular);
+  }
+  .studio-bar {
+    height: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    gap: 12px;
+  }
+  .studio-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .studio-dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff5f57;
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.14);
+  }
+  .studio-dots i:nth-child(2) {
+    background: #febc2e;
+  }
+  .studio-dots i:nth-child(3) {
+    background: #28c840;
+  }
+  .studio-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    font-weight: 550;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .studio-link {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12.5px;
+    font-weight: 550;
+    color: var(--accent);
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 999px;
+    transition: background-color 0.2s var(--ease-out);
+  }
+  .studio-link:hover {
+    background: var(--accent-soft);
+  }
+  .studio-screen {
+    background: var(--bg-alt);
+  }
+  .stage-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .stage-dark {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .stage-has-dark .stage-light {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .stage-has-dark .stage-dark {
+    display: block;
+  }
+
+  /* Interactive macOS App Dock Strip */
+  .app-dock {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    background: var(--glass);
+    backdrop-filter: saturate(180%) blur(22px);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    box-shadow: var(--shadow), var(--specular);
+  }
+  .dock-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 12px;
+    transition: transform 0.24s var(--ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+  .dock-item:hover,
+  .dock-item:focus-visible {
+    transform: translateY(-5px) scale(1.16);
+    z-index: 2;
+  }
+  .dock-item.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-2);
+    transform: translateX(-50%);
+  }
+  .dock-tip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 550;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: var(--shadow-sm);
+    transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+  }
+  .dock-item:hover .dock-tip,
+  .dock-item:focus-visible .dock-tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ---------- Metrics Strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin: 40px auto 0;
+    max-width: 980px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .stat {
+    background: var(--surface);
+    padding: 24px 16px;
+  }
+  .stat strong {
+    display: block;
+    font-size: 27px;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+  .stat span {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-3);
+  }
+  .foot {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  /* ---------- Apps Filter & Search ---------- */
+  .apps-head {
+    margin-bottom: 24px;
+  }
+  .apps-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .cat-tabs {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    max-width: 100%;
+  }
+  .cat-tab {
+    border: 0;
+    background: transparent;
+    color: var(--text-2);
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .cat-tab:hover {
+    color: var(--text);
+  }
+  .cat-tab[aria-pressed='true'] {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+  }
+  :global(:root[data-theme='dark']) .cat-tab[aria-pressed='true'] {
+    background: var(--surface-3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 3px rgba(0, 0, 0, 0.35);
+  }
+
+  .app-search {
+    height: 40px;
+    min-width: 240px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-3);
+    transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .app-search:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .app-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 13.5px;
+  }
+  .app-search input::placeholder {
+    color: var(--text-3);
+  }
+
+  .results-count {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .empty-apps {
+    padding: 56px 24px;
+    text-align: center;
+    border-style: dashed;
+    box-shadow: none;
+    color: var(--text-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .empty-apps strong {
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 640;
+  }
+  .empty-apps span {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+  .empty-reset {
+    margin-top: 18px;
+  }
+  .download-note {
+    margin-top: 16px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .soon {
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* ---------- Philosophy & Apple Silicon Banner ---------- */
+  .pcard {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+  .pcard-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .pnum {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+  .pico {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+  }
+  .pcard h3 {
+    font-size: 18px;
+    font-weight: 640;
+    letter-spacing: -0.02em;
+    margin: 28px 0 8px;
+  }
+  .pcard p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .silicon {
+    margin-top: 20px;
+    border-radius: var(--radius-lg);
+    padding: 44px;
+    background:
+      radial-gradient(75% 100% at 50% 0%, rgba(255, 255, 255, 0.055), transparent 62%),
+      #0c0d12;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), var(--shadow-lg);
+    color: #f5f5f7;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+  }
+  .silicon-eyebrow {
+    color: #2997ff;
+  }
+  .silicon h3 {
+    font-size: clamp(26px, 3.2vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-top: 12px;
+    color: #f5f5f7;
+  }
+  .silicon p {
+    color: #a1a1aa;
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+  .silicon-specs {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.075);
+  }
+  .spec-row:first-child {
+    border-top: 0;
+  }
+  .spec-key {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .spec-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #a1a1aa;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2px 7px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .spec-label {
+    font-size: 12.5px;
+    color: #71717a;
+    white-space: nowrap;
+  }
+  .spec-val {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #f5f5f7;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Recent Updates (Linear Changelog) ---------- */
+  .updates-sec {
+    padding-top: 20px;
+  }
+  .updates {
+    padding: 0;
+    overflow: hidden;
+  }
+  .up {
+    display: grid;
+    grid-template-columns: minmax(240px, 310px) minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 24px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    transition: background-color 0.2s var(--ease-out);
+  }
+  .up:first-child {
+    border-top: 0;
+  }
+  .up:hover {
+    background: var(--surface-2);
+  }
+  .up-id {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .up-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  .up-name {
+    font-weight: 620;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .up-ver {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .up-summary {
+    color: var(--text-2);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .up-tail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+  }
+  .up-tail time {
+    color: var(--text-3);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .up-arrow {
+    color: var(--text-3);
+    transition: transform 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .up:hover .up-arrow {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
-    .silicon { grid-template-columns: 1fr; padding: 32px; }
-    .up { grid-template-columns: 100px 1fr; gap: 6px 16px; }
-    .up p { grid-column: 1 / -1; }
-    .up .more { display: none; }
+    .hero {
+      padding: 64px 0 40px;
+    }
+    .apps-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .app-search {
+      width: 100%;
+    }
+    .silicon {
+      grid-template-columns: 1fr;
+      padding: 32px;
+      gap: 28px;
+    }
+    .up {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px 16px;
+    }
+    .up-summary {
+      grid-column: 1 / -1;
+      order: 3;
+    }
   }
   @media (max-width: 640px) {
-    .hero { padding: 72px 0 40px; }
-    .stats { grid-template-columns: 1fr 1fr; margin-top: 56px; }
-    .stat strong { font-size: 21px; white-space: nowrap; }
-    .silicon h3 { font-size: 26px; }
-    .chipart { width: 150px; height: 150px; }
-    .up { padding: 16px 20px; }
+    .hero {
+      padding: 52px 0 36px;
+    }
+    .hero-center h1 {
+      font-size: clamp(38px, 11vw, 54px);
+    }
+    .hero-notes {
+      gap: 8px 16px;
+      font-size: 12.5px;
+    }
+    .stage-wrap {
+      margin-top: 38px;
+    }
+    .studio-window {
+      border-radius: 14px;
+    }
+    .studio-bar {
+      height: 36px;
+      padding: 0 12px;
+    }
+    .studio-title {
+      font-size: 12px;
+    }
+    .studio-link {
+      font-size: 12px;
+      padding: 3px 6px;
+    }
+    .app-dock {
+      gap: 5px;
+      padding: 8px 10px;
+      border-radius: 18px;
+    }
+    .dock-item :global(.product-icon) {
+      --icon-size: 32px !important;
+    }
+    .dock-item.is-active::after {
+      bottom: -4px;
+    }
+    .dock-tip {
+      display: none;
+    }
+    .stats {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 32px;
+    }
+    .stat {
+      padding: 18px 12px;
+    }
+    .stat strong {
+      font-size: 22px;
+      white-space: nowrap;
+    }
+    .cat-tabs {
+      border-radius: 16px;
+      width: 100%;
+    }
+    .cat-tab {
+      flex: 1 1 auto;
+      text-align: center;
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+    .silicon {
+      padding: 24px 20px;
+      border-radius: var(--radius);
+    }
+    .spec-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 12px 14px;
+    }
+    .spec-val {
+      text-align: left;
+      font-size: 12.5px;
+    }
+    .up {
+      padding: 14px 16px;
+    }
+    .up-summary {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-center .btn span,
+    .dock-item,
+    .dock-tip,
+    .up,
+    .up-arrow {
+      transition: none;
+    }
+    .dock-item:hover,
+    .dock-item:focus-visible,
+    .hero-center .btn:hover span,
+    .up:hover .up-arrow {
+      transform: none;
+    }
   }
 </style>

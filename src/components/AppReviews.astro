@@ -4,35 +4,75 @@ interface Props { appId: string; lang: Lang }
 const { appId, lang } = Astro.props;
 const zh = lang === 'zh';
 ---
-<section id="reviews" class="reviews" data-app-reviews data-app={appId} data-lang={lang}>
+<section id="reviews" class="reviews" data-app-reviews data-app={appId} data-lang={lang} data-reveal>
   <div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">Community</p><h2>{zh ? '喜欢它？聊聊你的体验' : 'How has your experience been?'}</h2><p class="muted">{zh ? '无需登录，分享真实使用感受。' : 'No sign-in needed. Share your experience.'}</p></div></div>
-    <div class="review-grid">
-      <div class="card review-score">
-        <p class="muted">{zh ? '用户评分' : 'Community rating'}</p>
-        <p class="score"><strong data-average>—</strong><span>/ 5</span></p>
-        <p class="muted small" data-rating-count>{zh ? '正在加载…' : 'Loading…'}</p>
-        <button class="btn btn-s" type="button" data-like aria-pressed="false" disabled>♡ <span data-like-text>{zh ? '点赞' : 'Like'}</span> <span data-likes>—</span></button>
-        <fieldset data-vote-controls disabled><legend>{zh ? '你的评分' : 'Your rating'}</legend><div class="stars">
-          {[1,2,3,4,5].map(n => <label><input type="radio" name={`rating-${appId}`} value={n} aria-label={zh ? `${n} 星` : `${n} ${n === 1 ? 'star' : 'stars'}`} /><span aria-hidden="true">★</span></label>)}
-        </div><button class="clear-rating" type="button" data-clear hidden>{zh ? '撤回评分' : 'Remove rating'}</button></fieldset>
-        <p class="muted small">{zh ? '同一浏览器保留一份点赞和评分，随时可修改。' : 'One like and rating per browser. You can change them anytime.'}</p>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Community</p>
+        <h2>{zh ? '喜欢它？聊聊你的体验' : 'How has your experience been?'}</h2>
+        <p class="lead">{zh ? '无需登录，分享真实使用感受。' : 'No sign-in needed. Share your experience.'}</p>
       </div>
+    </div>
+    <div class="review-grid">
+      <aside class="card review-score" aria-label={zh ? '评分概览' : 'Rating summary'}>
+        <div class="score-head">
+          <p class="score-label">{zh ? '用户评分' : 'Community rating'}</p>
+          <p class="score"><strong data-average>—</strong><span>/ 5</span></p>
+          <p class="muted small score-count" data-rating-count>{zh ? '正在加载…' : 'Loading…'}</p>
+        </div>
+        <div class="score-actions">
+          <button class="btn btn-s like-pill" type="button" data-like aria-pressed="false" disabled>
+            <svg class="like-heart" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+            <span data-like-text>{zh ? '点赞' : 'Like'}</span>
+            <span class="like-count" data-likes>—</span>
+          </button>
+          <fieldset data-vote-controls disabled>
+            <legend>{zh ? '你的评分' : 'Your rating'}</legend>
+            <div class="stars">
+              {[1,2,3,4,5].map(n => (
+                <label>
+                  <input type="radio" name={`rating-${appId}`} value={n} aria-label={zh ? `${n} 星` : `${n} ${n === 1 ? 'star' : 'stars'}`} />
+                  <span aria-hidden="true">
+                    <svg class="star-svg" viewBox="0 0 24 24">
+                      <path d="M12 2.75l2.77 5.61 6.2.9-4.48 4.37 1.06 6.17L12 16.88l-5.55 2.92 1.06-6.17L3.03 9.26l6.2-.9L12 2.75z" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </label>
+              ))}
+            </div>
+            <button class="clear-rating" type="button" data-clear hidden>{zh ? '撤回评分' : 'Remove rating'}</button>
+          </fieldset>
+        </div>
+        <p class="score-footnote">{zh ? '同一浏览器保留一份点赞和评分，随时可修改。' : 'One like and rating per browser. You can change them anytime.'}</p>
+      </aside>
+
       <div class="review-discussion">
         <div data-composer-home></div>
         <form class="card review-form" data-comment-form>
           <label for={`comment-${appId}`}>{zh ? '匿名评论' : 'Anonymous comment'}</label>
-          <div class="reply-target" data-reply-target hidden><span data-reply-label></span><button type="button" class="clear-rating" data-cancel-reply>{zh ? '取消回复' : 'Cancel reply'}</button></div>
+          <div class="reply-target" data-reply-target hidden>
+            <span data-reply-label></span>
+            <button type="button" class="clear-rating" data-cancel-reply>{zh ? '取消回复' : 'Cancel reply'}</button>
+          </div>
           <textarea id={`comment-${appId}`} name="body" rows="4" maxlength="1000" required placeholder={zh ? '哪些地方好用？你希望改进什么？' : 'What works well? What could be better?'}></textarea>
-          <p class="muted small">{zh ? '评论和回复提交后直接公开，未登录时以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately. Signed-out visitors use a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
-          <p class="muted small">{zh ? '登录后显示账号昵称，管理员带“站长”标识。回复提醒可跨浏览器查看；匿名评论请在原浏览器查看。' : 'Signed-in comments show your name, with a badge for the site owner. Reply notifications follow your account; anonymous comments stay in their original browser.'}</p>
+          <div class="review-form-notes">
+            <p class="muted small">{zh ? '评论和回复提交后直接公开，未登录时以访客编号区分。请勿填写联系方式、密码等隐私信息。最多 1000 字。' : 'Comments and replies appear immediately. Signed-out visitors use a guest ID. Do not include contact details, passwords or other private information. Up to 1,000 characters.'}</p>
+            <p class="muted small">{zh ? '登录后显示账号昵称，管理员带“站长”标识。回复提醒可跨浏览器查看；匿名评论请在原浏览器查看。' : 'Signed-in comments show your name, with a badge for the site owner. Reply notifications follow your account; anonymous comments stay in their original browser.'}</p>
+          </div>
           <p class="review-status" role="status" aria-live="polite" data-review-status></p>
-          <button class="btn btn-p btn-sm" type="submit" disabled>{zh ? '提交评论' : 'Submit comment'}</button>
+          <div class="review-form-foot">
+            <button class="btn btn-p btn-sm" type="submit" disabled>{zh ? '提交评论' : 'Submit comment'}</button>
+          </div>
         </form>
         <button type="button" class="btn btn-s btn-sm" data-retry hidden>{zh ? '重新加载' : 'Retry'}</button>
-        <div class="comments-heading"><h3>{zh ? '大家的评论' : 'Community comments'}</h3><span class="muted small">{zh ? '最新评论在前 · 回复按话题归组' : 'Newest first · Replies grouped by topic'}</span></div>
+        <div class="comments-heading">
+          <h3>{zh ? '大家的评论' : 'Community comments'}</h3>
+          <span class="muted small">{zh ? '最新评论在前 · 回复按话题归组' : 'Newest first · Replies grouped by topic'}</span>
+        </div>
         <a class="btn btn-s btn-sm" data-all-comments href={lang === 'zh' ? `/apps/${appId}/#reviews` : `/en/apps/${appId}/#reviews`} hidden>{zh ? '查看全部评论' : 'View all comments'}</a>
-        <p class="muted" data-empty hidden>{zh ? '还没有公开评论，欢迎分享第一条体验。' : 'No published comments yet. Be the first to share your experience.'}</p>
+        <p class="muted empty-state" data-empty hidden>{zh ? '还没有公开评论，欢迎分享第一条体验。' : 'No published comments yet. Be the first to share your experience.'}</p>
         <div data-comments></div>
         <button type="button" class="btn btn-s btn-sm" data-more hidden>{zh ? '加载更多' : 'Load more'}</button>
       </div>
@@ -99,7 +139,7 @@ const zh = lang === 'zh';
       });
       const actions = document.createElement('div'); actions.className = 'comment-actions';
       const likeButton = document.createElement('button'); likeButton.type = 'button'; likeButton.className = 'comment-like-button';
-      likeButton.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 10v10H3V10h4Zm0 0 5-7c1-1 2 0 2 1v5h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 1H7"/></svg>';
+      likeButton.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M7 10v10H3V10h4Zm0 0 5-7c1-1 2 0 2 1v5h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 1H7"/></svg>';
       const likeText = document.createElement('span'); likeButton.append(likeText);
       const paintLike = () => { likeText.textContent = `${zh ? (c.likedByMe ? '已赞' : '赞') : (c.likedByMe ? 'Liked' : 'Like')} ${c.likeCount}`; likeButton.setAttribute('aria-pressed', String(c.likedByMe)); likeButton.setAttribute('aria-label', zh ? `${c.likedByMe ? '取消点赞' : '点赞'}，${c.likeCount} 赞` : `${c.likedByMe ? 'Unlike' : 'Like'}, ${c.likeCount} likes`); };
       paintLike();
@@ -232,50 +272,537 @@ const zh = lang === 'zh';
   }
 </script>
 <style>
-  .reviews { border-top: 1px solid var(--line); scroll-margin-top: 120px; }
-  .review-grid { display: grid; grid-template-columns: minmax(220px, .42fr) minmax(0, 1fr); gap: 28px; align-items: start; }
-  .review-score { display: grid; gap: 16px; }
-  .score { display: flex; gap: 10px; align-items: baseline; }.score strong { font-size: 56px; line-height: 1; }.score span { color: var(--text-3); }
-  .review-score .btn { width: fit-content; gap: 9px; }.btn[aria-pressed=true] { color: var(--accent); border-color: var(--accent); }
-  fieldset { border: 0; padding: 0; margin: 4px 0; }legend { font-size: 14px; margin-bottom: 8px; }
-  .stars { display: flex; gap: 6px; }.stars label { position: relative; cursor: pointer; }.stars input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }.stars span { display: block; padding: 0 3px; font-size: 32px; color: var(--text-3); }.stars .filled span { color: var(--accent); }.stars input:focus-visible + span { outline: 2px solid var(--accent); border-radius: 5px; }.clear-rating { font-size: 12px; color: var(--text-2); margin-top: 8px; background: none; border: 0; text-decoration: underline; cursor: pointer; }
-  .review-form { display: grid; gap: 14px; }.review-form label { font-weight: 600; }.review-form textarea { width: 100%; min-height: 120px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); font: inherit; resize: vertical; }.review-form .btn { justify-self: start; }.review-status { margin: 16px 0; font-size: 14px; }.comments-heading { font-size: 20px; margin: 28px 0 16px; }
-  .review-discussion { min-width: 0; }
-  .small { font-size: 13px; line-height: 1.65; }
-  .comments-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .comments-heading h3 { font-size: 20px; }
+  .reviews {
+    border-top: 1px solid var(--line);
+    scroll-margin-top: calc(var(--nav-h) + 64px);
+    background: var(--bg);
+  }
+  .review-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 316px) minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .review-score {
+    display: grid;
+    gap: 20px;
+    padding: 28px;
+    min-width: 0;
+  }
+  @media (min-width: 861px) {
+    .review-score {
+      position: sticky;
+      top: calc(var(--nav-h) + 68px);
+    }
+  }
+  .score-head {
+    display: grid;
+    gap: 6px;
+  }
+  .score-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-3);
+    text-transform: uppercase;
+  }
+  .score {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin-top: 4px;
+  }
+  .score strong {
+    font-size: clamp(48px, 5vw, 58px);
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .score span {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .score-count {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2);
+  }
+  .score-actions {
+    display: grid;
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .like-pill {
+    width: 100%;
+    min-height: 42px;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-weight: 550;
+  }
+  .like-pill[aria-pressed='true'] {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 34%, transparent);
+    box-shadow: none;
+  }
+  .like-pill[aria-pressed='true'] .like-heart {
+    fill: currentColor;
+  }
+  .like-count {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text-2);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .like-pill[aria-pressed='true'] .like-count {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    border-color: transparent;
+    color: var(--accent);
+  }
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  legend {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    margin-bottom: 10px;
+  }
+  .stars {
+    --star-fill: var(--surface-3);
+    --star-stroke: var(--line-strong);
+    --star-active: #f59e0b;
+    --star-active-stroke: #d97706;
+    display: inline-flex;
+    gap: 4px;
+  }
+  :global([data-theme='dark']) .stars {
+    --star-active: #fbbf24;
+    --star-active-stroke: #f59e0b;
+  }
+  .stars label {
+    position: relative;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 8px;
+    transition: transform 0.15s var(--ease-out);
+  }
+  .stars input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+  .stars span {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--star-fill);
+    transition: color 0.15s var(--ease-out);
+  }
+  .stars .star-svg {
+    width: 25px;
+    height: 25px;
+    fill: currentColor;
+    stroke: var(--star-stroke);
+    stroke-width: 1.25;
+    transition: stroke 0.15s var(--ease-out);
+  }
+  .stars .filled span {
+    color: var(--star-active);
+  }
+  .stars .filled .star-svg {
+    stroke: var(--star-active-stroke);
+  }
+  fieldset:not(:disabled) .stars:hover label span {
+    color: var(--star-active);
+  }
+  fieldset:not(:disabled) .stars:hover label .star-svg {
+    stroke: var(--star-active-stroke);
+  }
+  fieldset:not(:disabled) .stars label:hover ~ label span {
+    color: var(--star-fill);
+  }
+  fieldset:not(:disabled) .stars label:hover ~ label .star-svg {
+    stroke: var(--star-stroke);
+  }
+  fieldset:not(:disabled) .stars label:hover {
+    transform: scale(1.1);
+  }
+  fieldset:disabled .stars label,
+  fieldset:disabled .stars input {
+    cursor: wait;
+  }
+  .stars input:focus-visible + span {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  .clear-rating {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-3);
+    margin-top: 10px;
+    background: none;
+    border: 0;
+    padding: 2px 0;
+    cursor: pointer;
+    transition: color 0.15s var(--ease-out);
+  }
+  .clear-rating:hover {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .score-footnote {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text-3);
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .review-discussion {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .review-form {
+    display: grid;
+    gap: 14px;
+    padding: 24px 26px;
+    min-width: 0;
+  }
+  .review-form label {
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .review-form textarea {
+    width: 100%;
+    min-height: 118px;
+    padding: 13px 15px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg-alt);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    line-height: 1.65;
+    resize: vertical;
+    transition: border-color 0.18s var(--ease-out), background-color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+  }
+  .review-form textarea::placeholder {
+    color: var(--text-3);
+  }
+  .review-form textarea:focus {
+    outline: none;
+    background: var(--surface);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .review-form-notes {
+    display: grid;
+    gap: 4px;
+  }
+  .review-form-notes .small {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-3);
+  }
+  .review-form-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .review-status {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--accent);
+    font-weight: 500;
+  }
   .review-status:empty { display: none; }
-  [data-comments] { display: grid; gap: 20px; margin-top: 16px; }
-  [data-comments] :global(.public-comment) { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); overflow-wrap: anywhere; min-width: 0; }
-  [data-comments] :global(.comment-meta) { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 13px; }
-  [data-comments] :global(.comment-avatar) { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-  [data-comments] :global(.comment-author) { color: var(--text); }
-  [data-comments] :global(time) { color: var(--text-2); font-size: 12px; margin-left: auto; }
-  [data-comments] :global(.comment-body) { margin: 12px 0 8px; white-space: pre-wrap; font-size: 15px; line-height: 1.8; }
-  [data-comments] :global(.comment-recipient) { margin-top: 12px; padding: 6px 10px; border-left: 2px solid var(--accent); background: var(--accent-soft); color: var(--text-2); font-size: 12px; border-radius: 0 6px 6px 0; }
-  [data-comments] :global(.thread-discussion) { margin-top: 18px; margin-left: 12px; padding: 16px 18px; border-left: 2px solid var(--accent); border-radius: 0 12px 12px 0; background: var(--surface-2); }
-  [data-comments] :global(.thread-heading) { color: var(--text-2); font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 0; }
-  [data-comments] :global(.thread-reply) { padding: 18px 0; border-bottom: 1px solid var(--line); }
-  [data-comments] :global(.thread-reply:last-child) { border-bottom: 0; padding-bottom: 4px; }
-  [data-comments] :global(.thread-reply .comment-avatar) { width: 26px; height: 26px; font-size: 12px; }
-  [data-comments] :global(.comment-actions) { display: flex; align-items: center; gap: 16px; }
-  [data-comments] :global(.comment-reply-button), [data-comments] :global(.comment-like-button) { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; border: 0; border-radius: 8px; background: none; padding: 6px 8px; font: inherit; font-size: 13px; color: var(--text-2); cursor: pointer; font-variant-numeric: tabular-nums; }
-  [data-comments] :global(.comment-actions button:hover) { background: var(--accent-soft); color: var(--accent); }
-  [data-comments] :global(.comment-like-button[aria-pressed=true]), [data-comments] :global(.comment-reply-button) { color: var(--accent); }
-  [data-comments] :global(.author-owner) { padding: 2px 7px; border-radius: 5px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 600; }
-  [data-comments] :global(.focused-comment) { outline: 2px solid var(--accent); outline-offset: 4px; scroll-margin-top: 132px; }
-  .reply-target { display: flex; align-items: start; gap: 12px; justify-content: space-between; font-size: 13px; overflow-wrap: anywhere; padding: 12px; background: var(--accent-soft); border-radius: 10px; }
-  .reply-target .clear-rating { flex-shrink: 0; margin: 0; min-height: 28px; }
-  .review-form.is-replying { margin-top: 12px; padding: 16px; box-shadow: none; border-color: var(--accent); }
+
+  .comments-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+    margin: 34px 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .comments-heading h3 {
+    font-size: 19px;
+    font-weight: 650;
+  }
+  .small { font-size: 13px; line-height: 1.6; }
+  .empty-state {
+    padding: 24px 0;
+    font-size: 14.5px;
+  }
+  [data-retry] { margin-top: 14px; }
+  [data-all-comments] { margin-bottom: 14px; }
+
+  [data-comments] {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+    min-width: 0;
+  }
+  [data-comments] :global(.public-comment) {
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm), var(--specular);
+    overflow-wrap: anywhere;
+    min-width: 0;
+    max-width: 100%;
+    transition: border-color 0.2s var(--ease-out);
+  }
+  [data-comments] :global(.public-comment:hover) {
+    border-color: var(--line-strong);
+  }
+  [data-comments] :global(.comment-meta) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    font-size: 13px;
+  }
+  [data-comments] :global(.comment-avatar) {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 650;
+  }
+  [data-comments] :global(.comment-meta:has(.author-owner) .comment-avatar) {
+    background: var(--text);
+    color: var(--bg);
+    border-color: transparent;
+  }
+  [data-comments] :global(.comment-author) {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  [data-comments] :global(.author-owner) {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+  }
+  [data-comments] :global(time) {
+    color: var(--text-3);
+    font-size: 12px;
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-comments] :global(.comment-recipient) {
+    display: inline-flex;
+    align-items: center;
+    margin: 10px 0 0;
+    padding: 3px 10px;
+    border-radius: 7px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text-2);
+    font-size: 12px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  [data-comments] :global(.comment-body) {
+    margin: 12px 0 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  [data-comments] :global(.comment-actions) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  [data-comments] :global(.comment-reply-button),
+  [data-comments] :global(.comment-like-button) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-2);
+    padding: 4px 12px;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-2);
+    cursor: pointer;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.15s var(--ease-out), color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), transform 0.12s var(--ease-out);
+  }
+  [data-comments] :global(.comment-actions button:hover) {
+    background: var(--surface-3);
+    border-color: var(--line-strong);
+    color: var(--text);
+  }
+  [data-comments] :global(.comment-actions button:active) {
+    transform: scale(0.96);
+  }
+  [data-comments] :global(.comment-like-button[aria-pressed=true]) {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--accent);
+  }
+  [data-comments] :global(.comment-reply-button:hover) {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 26%, transparent);
+    color: var(--accent);
+  }
+
+  [data-comments] :global(.thread-discussion) {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    min-width: 0;
+  }
+  [data-comments] :global(.thread-heading) {
+    color: var(--text-3);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 0;
+    user-select: none;
+  }
+  [data-comments] :global(.thread-heading:hover) {
+    color: var(--text-2);
+  }
+  [data-comments] :global(.thread-replies) {
+    margin-top: 10px;
+    padding-left: 14px;
+    border-left: 2px solid var(--line-strong);
+  }
+  [data-comments] :global(.thread-reply) {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    min-width: 0;
+  }
+  [data-comments] :global(.thread-reply:first-child) {
+    padding-top: 4px;
+  }
+  [data-comments] :global(.thread-reply:last-child) {
+    border-bottom: 0;
+    padding-bottom: 2px;
+  }
+  [data-comments] :global(.thread-reply .comment-avatar) {
+    width: 26px;
+    height: 26px;
+    font-size: 11.5px;
+  }
+  [data-comments] :global(.thread-reply .comment-body) {
+    font-size: 14.5px;
+    margin: 10px 0 12px;
+  }
+  [data-comments] :global(.focused-comment) {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    scroll-margin-top: calc(var(--nav-h) + 84px);
+  }
+  .reply-target {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    justify-content: space-between;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    color: var(--text);
+  }
+  .reply-target .clear-rating {
+    flex-shrink: 0;
+    margin: 0;
+    min-height: 24px;
+    color: var(--accent);
+  }
+  .review-form.is-replying {
+    margin-top: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--accent);
+  }
   [data-more] { margin-top: 20px; }
-  button:disabled { opacity: .5; cursor: wait; }
-  @media(max-width: 700px) {
-    .review-grid { grid-template-columns: 1fr; }
-    .review-score { gap: 12px; }
-    [data-comments] :global(.public-comment) { padding: 16px; }
-    [data-comments] :global(.thread-discussion) { margin-left: 0; padding: 12px; }
-    [data-comments] :global(time) { flex-basis: 100%; margin-left: 0; }
-    .review-form.is-replying { padding: 12px; }
+  button:disabled { opacity: 0.55; cursor: wait; }
+
+  @media (max-width: 860px) {
+    .review-grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    .review-score {
+      position: static;
+      gap: 16px;
+      padding: 22px;
+    }
+  }
+  @media (max-width: 640px) {
+    .review-form {
+      padding: 18px;
+    }
+    [data-comments] :global(.public-comment) {
+      padding: 18px 16px;
+      border-radius: 16px;
+    }
+    [data-comments] :global(.thread-discussion) {
+      padding: 12px;
+    }
+    [data-comments] :global(.thread-replies) {
+      padding-left: 10px;
+    }
+    [data-comments] :global(time) {
+      flex-basis: 100%;
+      margin-left: 0;
+    }
+    .review-form.is-replying {
+      padding: 14px;
+    }
   }
   [hidden] { display: none !important; }
 </style>
