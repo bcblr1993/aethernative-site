@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.0.0"
+    build: "2026111602"
+    date: 2026-11-16
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.0.0/AetherRoute-3.0.0-build-2026111602-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.0.0
+    sha256: 3bb1cc282f83fd2d7d6871bae20d619e532d4800bd52c87b5e2723a4454a0430
+    sparkle:
+      edSignature: ACuR1kq2Bu0YWBNXn7MmkVHUtXHzrozn4EqJ5EQrpnhJljpoN2N/EDdq9UxWZOhnCtHThcu4jq0WZq8ytp2dBA==
+      length: 31186700
+    summary:
+      zh: AetherRoute 3.0.0 重大版本发布：新增概览页内联展开策略组与就地切节点、原生 .mrs 规则集与 proxy-providers 生命周期、多源订阅合并与全局覆写（含 dialer-proxy 环路消除）、延迟历史折线与丢包感知故障转移、System Proxy 模式及实时路由模拟器，并修复双核热重载保留手动选中节点与 Snell 握手首包竞态。
+      en: AetherRoute 3.0.0 major release featuring inline Overview node switching with closed-loop pre-flight guards, native .mrs rule-providers and proxy-providers lifecycle, concurrent profile merging and Global Override with dialer-proxy cycle stripping, latency sparklines with loss-aware failover, System Proxy mode, Route Simulator IPC, and core fixes for reload Select retention and Snell handshake coalescing.
   - version: "2.9.5"
     build: "2026111301"
     date: 2026-11-13
