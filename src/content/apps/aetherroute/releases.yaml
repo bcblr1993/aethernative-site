@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.0.1"
+    build: "2026111603"
+    date: 2026-11-16
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.0.1/AetherRoute-3.0.1-build-2026111603-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.0.1
+    sha256: 37b535195a5eb2a0b1c46156bcb5000478e9a4d8db04995fe84ca55790e8d13c
+    sparkle:
+      edSignature: oFp8JmqWIYyg3kqpSxL/KeITOdt6ELgpbq8/ekMlu0kSu6JQeqBIIos2/3Uibun9kP57jLTcrJi9sSSL1EpFAA==
+      length: 31034354
+    summary:
+      zh: AetherRoute 3.0.1 稳定性与并发可靠性更新：全面修复连接生命周期状态机与自动恢复竞态、引入独立 ProxyLatencyStore 隔离高频测速刷新、迁移系统代理配置至串行后台协调并完善退出恢复、加固透明代理 4096 并发流预算及 FlowCore 租约安全关闭、增强路由模拟 GeoIP/ASN 离线查询与 iCloud KVS 幂等同步，并进一步降低双档切页延迟。
+      en: "AetherRoute 3.0.1 reliability and concurrency update: hardens connection lifecycle state transitions and automatic recovery, isolates high-frequency latency updates into ProxyLatencyStore, moves System Proxy changes onto a serial background coordinator with rollback, strengthens Transparent Proxy 4096-session budgets and FlowCore shutdown lease draining, adds offline GeoIP/ASN lookups to Route Simulator, enforces idempotent iCloud KVS sync, and further reduces page-switch tail latency."
   - version: "3.0.0"
     build: "2026111602"
     date: 2026-11-16
