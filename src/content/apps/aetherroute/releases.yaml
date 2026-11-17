@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.0.2"
+    build: "2026111702"
+    date: 2026-11-17
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.0.2/AetherRoute-3.0.2-build-2026111702-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.0.2
+    sha256: 4df8fd2b4ea4ddd9ffe953cc59105f912f796acd2f07cc3592d0d16e77f16ded
+    sparkle:
+      edSignature: MyOpNLhrQUjFNyd7WPkP09JoVPjwUDCkTbc4cwLWmZldjChUdFgqZzhNSEy+h+/ZBxy9up4WixtepexTC+gJDw==
+      length: 31485566
+    summary:
+      zh: AetherRoute 3.0.2 可靠性与升级兼容更新：彻底隔离订阅内规则集并补齐旧版 providers.json 无损升级迁移与用户自建规则保护、新增刷新间隔溢出防护、修复停用网络服务系统代理恢复缺失、加固规则与代理集合异步下载重入校验，并引入 SHA-256 哈希暂存文件名消除同名覆盖碰撞。
+      en: "AetherRoute 3.0.2 reliability and upgrade migration update: isolates profile-scoped rule providers with offline legacy providers.json migration while preserving user-defined global rule sets, guards refresh interval conversions against UInt32 overflow traps, restores pending System Proxy backups across disabled network services, prevents actor reentrancy resurrection on deleted/edited providers, and hashes staged filenames to eliminate punctuation and case collisions."
   - version: "3.0.1"
     build: "2026111603"
     date: 2026-11-16
