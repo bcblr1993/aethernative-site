@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T07:40:59.851Z",
+  "checkedAt": "2026-11-18T20:40:29.694Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -260,7 +260,7 @@
           "message": "更新源与当前正式版不一致或缺少签名字段"
         }
       ],
-      "failures": 23,
+      "failures": 24,
       "status": "failed"
     },
     {
