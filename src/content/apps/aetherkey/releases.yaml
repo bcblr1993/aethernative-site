@@ -1,6 +1,39 @@
 {
   "releases": [
     {
+      "version": "1.0.11",
+      "build": "2026111804",
+      "channel": "stable",
+      "summary": {
+        "zh": "修复 IDEA 等宿主更换输入控制器后，手动英文模式丢失的问题。",
+        "en": "Preserves manual English mode when hosts such as IntelliJ IDEA replace input controllers."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "中英文切换修复",
+            "en": "Input mode persistence"
+          },
+          "items": [
+            {
+              "zh": "手动模式按应用保存，并在按键和文本输入时同步，覆盖控制器更换及缺少激活回调的情况。",
+              "en": "Stores manual mode per application and synchronizes it on keyboard and text input, including replaced controllers and missing activation callbacks."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "HLb8kKcEPKIZGj51YA/BM3mOpLNejxmk68pokm//Kriuu8OjOKK7zxyWf9W4JNfx71/5uXmu4qqSCE3y5s9oAQ==",
+        "length": 9024701,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.11/AetherKey-1.0.11-update.zip"
+      },
+      "date": "2026-11-18",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.0.11/AetherKey-1.0.11-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.0.11",
+      "sha256": "6e84700c270eb4b1e6c5b389ca2fd3cfea76b686b5513fe74d8e25f21d92bb0a"
+    },
+    {
       "version": "1.0.10",
       "build": "2026111601",
       "date": "2026-11-16",
