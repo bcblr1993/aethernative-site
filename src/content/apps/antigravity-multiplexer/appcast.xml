@@ -4,13 +4,20 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.9.5</title>
-            <pubDate>Mon, 16 Nov 2026 08:29:59 +0800</pubDate>
-            <sparkle:version>84</sparkle:version>
-            <sparkle:shortVersionString>0.9.5</sparkle:shortVersionString>
+            <title>0.9.6</title>
+            <pubDate>Wed, 18 Nov 2026 12:28:34 +0800</pubDate>
+            <sparkle:version>85</sparkle:version>
+            <sparkle:shortVersionString>0.9.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.9.5 (Build 84) — 2026-11-16
+            <description sparkle:format="markdown"><![CDATA[## v0.9.6 (Build 85) — 2026-11-18
+
+### 官方 Antigravity 2.32.2 与 2.33.0 Apple Silicon 适配
+- 支持从本机官方 2.32.2 或官网 2.33.0 创建独立多开实例，以及将旧版分身升级至对应版本。
+- 验证 Google Developer ID 签名、公证、`app.asar` 与 `language_server` 完整性，并重新定位 2.33.0 凭据隔离入口（`keyring_bypass_offset: 35783936`）。
+- 内置 2.33.0 更新摘要：SSH 远程主机、GitHub Pull Request 状态、浏览器页内搜索及 Nord 主题。
+
+## v0.9.5 (Build 84) — 2026-11-16
 
 ### 官方 Antigravity 2.32.1 Apple Silicon 适配
 - 支持从本机官方 2.32.1 创建独立多开实例，以及将旧版分身升级到 2.32.1。
@@ -682,10 +689,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.5/Aether-Antigravity-Multiplexer-v0.9.5-macos-arm64.zip" length="4393812" type="application/octet-stream" sparkle:edSignature="gXG3VY4HwqGQRSym85Z4ZhvJg6yZb3VBSiGUWdgd6PXWQMyTOEaYpn1i/0get0tcDihUOnBJNQTET9ADkfuEDQ=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.6/Aether-Antigravity-Multiplexer-v0.9.6-macos-arm64.zip" length="4394239" type="application/octet-stream" sparkle:edSignature="dxuUxjwgVBtUPQKAseKuYUHdKlU7DKMQFnUdSOAZsdFEKxE8Az6YO4vOI0BSOmflIC+EFuqAAU2qBAVFO40fDw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: ssS8CELOqzTBti6i+LhtBct6/9iKvsZwrvmE4rHBxkUVAIGiSuZ6bBZ1XU9GmtlvzMlMiLZLNHjN7P0bssHpAQ==
-length: 99926
+edSignature: zssV3NsElgCLxd2lPlJKFavkxT0QL2sLIb6MbK4AAbMebKhEH/gHAdrlFL2rO1ifMyxbZ1q96FIaGJoiF2ekDg==
+length: 100442
 -->
