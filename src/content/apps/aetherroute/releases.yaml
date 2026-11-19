@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.0.4"
+    build: "2026111905"
+    date: 2026-11-19
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.0.4/AetherRoute-3.0.4-build-2026111905-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.0.4
+    sha256: cba9dc5a4c92fbb25a9303a4f4b917335fc07fada228aedbd237d6022d06adda
+    sparkle:
+      edSignature: b3VGPIB3ISCQrOI0Et74nwcaGvM3AbP02iQAJQ4mUCXlmUPd76a+EcVmcwHw5zPdvv998Y0R73dhN8tvOl5iDQ==
+      length: 31929308
+    summary:
+      zh: AetherRoute 3.0.4 全新原生软件更新体验：以自定义 SwiftUI Sparkle 更新窗全面替代旧版系统对话框，遵循 AetherVisual 设计语言，带来版本跃迁胶囊、Apple 公证与 Ed25519 验签标识、结构化更新要点卡片及下载/验签/重启三态实时进度。
+      en: "AetherRoute 3.0.4 native software update experience: replaces Sparkle's stock alert with a custom SwiftUI SPUUserDriver window built on AetherVisual tokens, featuring version transition pills, Apple Notarized & Ed25519 verification badges, structured release-note cards, and live download/verify/restart progress."
   - version: "3.0.3"
     build: "2026111902"
     date: 2026-11-19
