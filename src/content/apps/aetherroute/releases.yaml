@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.0.3"
+    build: "2026111902"
+    date: 2026-11-19
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.0.3/AetherRoute-3.0.3-build-2026111902-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.0.3
+    sha256: 5d36f1d37bdf92329149f2c2eb83e202e3b94c256b929ad385a3d0517ae19178
+    sparkle:
+      edSignature: 8T1VsZld1YSX012/X2CSclBB/4NOBIyuum1QphNj2UcCHjOBTkdDrCizU4pARufEyW2pipEfniVIsEWAcmtBBA==
+      length: 31870496
+    summary:
+      zh: AetherRoute 3.0.3 深度安全与稳定性审计更新：根治 Rust 双引擎 TUN 协议栈畸形包死核、28 秒 FIN 延迟与 FFI 关闭竞态，封堵不可信 proxy-providers 本地路径证书读取并合入 GeoData mmap 与原位加密存储，全面加固透明代理 4096 并发预算、订阅拉取 SSRF 防护、iCloud 加密同步幂等性与系统代理失败回滚。
+      en: "AetherRoute 3.0.3 comprehensive security and stability audit release: eliminates TUN netstack malformed-packet exits, 28s TCP FIN delays, ring-buffer UB, and FFI shutdown races in the Rust dual-engine; blocks local-path cert/key reads in untrusted proxy-providers and integrates GeoData mmap indexing and in-place encrypted FakeIP storage; hardens Transparent Proxy 4096-session concurrency budgets, subscription SSRF guards, idempotent encrypted iCloud sync, and System Proxy rollback."
   - version: "3.0.2"
     build: "2026111702"
     date: 2026-11-17
