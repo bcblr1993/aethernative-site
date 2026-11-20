@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.1.0"
+    build: "2026112002"
+    date: 2026-11-20
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.1.0/AetherRoute-3.1.0-build-2026112002-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.1.0
+    sha256: b1be9bcade0235c3d06960281fa5c2c6116e0792879af85b1ad693fd4864e320
+    sparkle:
+      edSignature: 2PyHvf61aWG+2rxmvUbJO+YqaFPSHicUgMEnTUQnF/gS2LoF+PBql5KHO+veMUEsttYgnnTGBBxpNUZW8v1yCA==
+      length: 32299820
+    summary:
+      zh: AetherRoute 3.1.0 带来三大高频效率升级：概览页按需出口画像与 AI / 流媒体可用性检测、规则页 4 套本地零依赖场景化规则预设，以及 DNS 页 Fake-IP 自动反查、一键清缓存与有界近期解析记录。
+      en: "AetherRoute 3.1.0 introduces three high-frequency workflow upgrades: on-demand egress profile and AI/streaming availability checks on Overview (with Proxies AI filtering), four built-in offline scenario rule presets on Rules, and instant Fake-IP reverse lookup, DNS cache flush, and bounded recent DNS queries."
   - version: "3.0.4"
     build: "2026111905"
     date: 2026-11-19
