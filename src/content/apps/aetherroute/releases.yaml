@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.1.2"
+    build: "2026112104"
+    date: 2026-11-21
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.1.2/AetherRoute-3.1.2-build-2026112104-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.1.2
+    sha256: 00ae7224ed7377dfbf1d2ef99964f3aff6884e6464c24ba50add80485b336f1f
+    sparkle:
+      edSignature: 7Xlu1BnddiKxQVikJe8dZxqpaKwWKl3midrKqTNpJyqFhCK3NpBAjKfVXzmpylKZ7uEIJh16afk5YXjbJGDrDw==
+      length: 32005288
+    summary:
+      zh: 全面打磨 macOS 界面布局、动效无障碍与多语言体验。
+      en: Refines macOS UI layout, motion, accessibility, and localization.
   - version: "3.1.1"
     build: "2026112103"
     date: 2026-11-21
