@@ -15,8 +15,8 @@
     "en": "Every word, processed on your Mac."
   },
   "summary": {
-    "zh": "无需账号、无需配置文件的原生拼音输入法，支持全拼、小鹤双拼和微软双拼。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
-    "en": "A native input method supporting full pinyin, Flypy and Microsoft shuangpin with no account or configuration files required for everyday use. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
+    "zh": "无需账号、无需配置文件的原生拼音输入法，支持全拼、小鹤、微软、自然码、搜狗双拼与五笔 86，支持简繁实时切换、横/竖排面板与按应用默认中英文。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
+    "en": "A native input method supporting full pinyin, Flypy, Microsoft, ZRM and Sogou shuangpin, plus Wubi 86, with Simplified/Traditional toggling, horizontal/vertical candidate layouts and per-app mode rules. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
   },
   "platforms": [
     {
@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.0.10 消除候选面板输入跳动并新增中/英与全/半角切换状态胶囊，升级全词库权重简拼与首字音节混拼、lue/nue 归并及音节级多鼻音模糊音，并修复 V 模式人民币大写越界崩溃与 Shift/上下文防误触。",
-    "en": "Version 1.0.10 anchors the candidate panel to eliminate jumping, adds a mode-switch Status HUD capsule, upgrades to full-lexicon weighted Jianpin and mixed initial+syllable input, adds lue/nue equivalence and syllable-level fuzzy nasals, and fixes V-mode RMB overflow and context/Shift edge cases."
+    "zh": "1.1.0 新增 ⌃⇧F 简繁实时切换与统一词库、自然码与搜狗双拼（含设置页 QWERTY 键位速查表）、11 项细粒度模糊音开关、候选面板竖排布局与字号/页大小自定义、按应用默认中英文模式及 V 模式宏与中文数字，并修复盘古标点空格、V 模式复位与大小写混排英文选词等问题。",
+    "en": "Version 1.1.0 adds ⌃⇧F Simplified/Traditional switching with unified lexicon, ZRM and Sogou shuangpin with keymap charts, 11 granular fuzzy rules, vertical panel layout with custom font/page sizes, per-app default modes, and V-mode macros/Chinese numerals, plus Pangu punctuation, V-mode reset, and mixed-case English selection fixes."
   },
   "gallery": [
     {
@@ -249,8 +249,8 @@
           "en": "Close to your caret, with room to write"
         },
         "body": {
-          "zh": "候选面板宽度随内容适配，支持翻页与展开，浅色和深色随系统变化。出现和收起采用轻量渐变，连续输入保持位置跟随。 可选开启四方向键选词：← / ↑ 上一个，→ / ↓ 下一个，空格确认。默认关闭，按自己的习惯选择。",
-          "en": "Content-adaptive width, paging and expanded candidates, with system light and dark appearance. Gentle fades and continuous caret following keep the panel near your text. Optionally enable all four arrows: Left/Up select the previous candidate, Right/Down select the next, and Space confirms. Off by default."
+          "zh": "候选面板支持横排/竖排切换、5–9 个每页候选数、14–19 pt 预设字号（引擎支持 13–22 pt）及宽度随内容适配，浅色和深色随系统变化。可选开启四方向键选词，也支持 ⌃⇧F 简繁体原位切换。",
+          "en": "Choose horizontal or vertical layouts, 5–9 candidates per page, and 14–19 pt font presets (13–22 pt engine range) with content-adaptive width and system light/dark appearance. Optional four-arrow selection and in-place ⌃⇧F Simplified/Traditional toggling are also built in."
         }
       },
       {
@@ -277,8 +277,8 @@
           "en": "Pick your familiar two-key layout"
         },
         "body": {
-          "zh": "全拼、小鹤双拼、微软双拼可从设置和输入法菜单切换，无需修改配置文件。整句、拼音编辑、候选词置顶与忘记共用同一套本机词库，换方案不用重新学习。",
-          "en": "Choose full pinyin, Flypy or Microsoft shuangpin in Settings or the input-method menu, with no configuration files to edit. Sentence candidates, inline editing, pins and forgotten words share one local dictionary across layouts."
+          "zh": "全拼、小鹤、微软、自然码与搜狗双拼可从设置和输入法菜单直接切换，设置页内附带实时 QWERTY 双拼键位速查表。整句、拼音编辑、简繁转换、候选词置顶与忘记共用同一套本机词库，换方案不用重新学习。",
+          "en": "Switch between full pinyin and Flypy, Microsoft, ZRM or Sogou shuangpin in Settings or the input-method menu, complete with a live QWERTY keymap reference chart. Sentence candidates, inline editing, script conversion, pins and forgotten words share one local dictionary across layouts."
         }
       },
       {
@@ -391,8 +391,8 @@
       "en": "Which input method fits the way you work?"
     },
     "lead": {
-      "zh": "相对搜狗的云服务生态，AetherKey 把无需账号、本机转换和紧凑界面作为默认体验；相对鼠须管的深度定制路线，常用词管理可以直接在界面完成。系统拼音的优势是随 Mac 即用。选择 AetherKey，是选择一套支持全拼与两种双拼、直接可控的日常操作。",
-      "en": "Compared with Sogou’s cloud ecosystem, AetherKey focuses on account-free local conversion and a compact interface. Compared with Rime’s deep customization, common word-management actions are available directly in the UI. macOS Pinyin is built in. Choose AetherKey for full pinyin, two shuangpin layouts and direct everyday controls."
+      "zh": "相对搜狗的云服务生态，AetherKey 把无需账号、本机转换和紧凑界面作为默认体验；相对鼠须管的深度定制路线，常用词管理、双拼键位、模糊音与按应用规则都可以在界面直接完成。系统拼音的优势是随 Mac 即用。选择 AetherKey，是选择一套支持全拼与四种双拼、直接可控的日常操作。",
+      "en": "Compared with Sogou’s cloud ecosystem, AetherKey focuses on account-free local conversion and a compact interface. Compared with Rime’s deep customization, word management, shuangpin keymaps, fuzzy pinyin and per-app rules are all configurable directly in the UI. macOS Pinyin is built in. Choose AetherKey for full pinyin, four shuangpin layouts and direct everyday controls."
     },
     "stats": [
       {
@@ -407,14 +407,14 @@
         }
       },
       {
-        "value": "68",
+        "value": "83",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "2026-11-16 · 面板稳态锚定、全词库简拼、V 模式大写、五笔与拼音回归",
-          "en": "2026-11-16 · Panel anchoring, weighted Jianpin, V-mode RMB, Wubi and pinyin regression"
+          "zh": "2026-11-22 · 简繁切换、自然码/搜狗双拼、竖排面板、按应用规则、V 模式与拼音/五笔回归",
+          "en": "2026-11-22 · Script conversion, ZRM/Sogou shuangpin, vertical layout, per-app rules, V-mode and pinyin/Wubi regression"
         }
       },
       {
@@ -441,8 +441,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.0.10",
-          "en": "AetherKey 1.0.10"
+          "zh": "AetherKey 1.1.0",
+          "en": "AetherKey 1.1.0"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -566,8 +566,8 @@
                 "en": "Compact candidates and inline editing"
               },
               "note": {
-                "zh": "全拼、小鹤与微软双拼；中间编辑、内容自适应面板",
-                "en": "Full pinyin, Flypy and Microsoft; inline editing and adaptive candidates"
+                "zh": "全拼及小鹤/微软/自然码/搜狗双拼；简繁切换、横/竖排面板与中间编辑",
+                "en": "Full pinyin plus Flypy, Microsoft, ZRM and Sogou shuangpin; Simp/Trad toggle, horizontal/vertical panel and inline editing"
               }
             },
             {
@@ -701,8 +701,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.0.10 支持全拼、小鹤双拼、微软双拼和五笔 86，支持本地词库导入导出，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.0.10 supports full pinyin, Flypy and Microsoft shuangpin, and Wubi 86 with local lexicon import/export; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.1.0 支持全拼、小鹤、微软、自然码、搜狗双拼与五笔 86，支持简繁切换、竖排候选面板、按应用默认模式与本地词库导入导出，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.1.0 supports full pinyin, Flypy, Microsoft, ZRM and Sogou shuangpin, plus Wubi 86, Simplified/Traditional toggling, vertical candidate layout, per-app mode rules and local lexicon import/export; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
@@ -736,8 +736,18 @@
           "en": "Which shuangpin layouts are available?"
         },
         "a": {
-          "zh": "1.0.3 支持小鹤双拼与微软双拼。在通用设置的「拼音方案」选择，或从输入法菜单直接切换。默认仍为全拼。微软分号键输入 ing；三种方案共用词库、学习和候选偏好。",
-          "en": "Version 1.0.3 supports Flypy and Microsoft shuangpin. Select a layout in General Settings or the input-method menu. Full pinyin remains the default. Microsoft uses semicolon for ing; all three layouts share dictionaries, learning and candidate preferences."
+          "zh": "1.1.0 支持小鹤、微软、自然码与搜狗四种双拼（以及全拼和五笔 86）。在通用设置的「输入方案」选择，或从输入法菜单直接切换，设置页内附带对应 QWERTY 键位速查表。微软与搜狗均用分号键输入 ing；全部拼音方案共用词库、简繁设置与候选偏好。",
+          "en": "Version 1.1.0 supports Flypy, Microsoft, ZRM and Sogou shuangpin alongside full pinyin and Wubi 86. Select a layout in General Settings or the input-method menu, with live QWERTY keymap charts in Settings. Both Microsoft and Sogou use semicolon for ing; all pinyin layouts share dictionaries, script conversion and candidate preferences."
+        }
+      },
+      {
+        "q": {
+          "zh": "如何切换简繁体、调整候选面板或按应用设置默认中英文？",
+          "en": "How do I switch Simplified/Traditional, customize the panel, or set per-app defaults?"
+        },
+        "a": {
+          "zh": "在通用设置或输入法菜单可开关「输出繁体中文」，也可按 ⌃⇧F 在输入时原位切换简繁体（与简体共享词频和置顶）。面板支持横排/竖排方向、5–9 个每页候选数与 14–19 pt 预设字号（引擎支持 13–22 pt）。终端和常见编辑器默认英文，也可在设置「按应用自动中英文」或输入法菜单为任意 .app 单独指定默认中英文规则。",
+          "en": "Toggle Traditional Chinese in General Settings, the input-method menu, or with ⌃⇧F in place while typing (pins and learned frequencies stay unified). Customize horizontal/vertical layout, 5–9 candidates per page, and 14–19 pt font presets (13–22 pt engine range). Terminals and code editors default to English automatically, and you can override any .app in Settings or the menu."
         }
       },
       {

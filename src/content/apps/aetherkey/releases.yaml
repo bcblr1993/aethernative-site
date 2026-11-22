@@ -1,6 +1,67 @@
 {
   "releases": [
     {
+      "version": "1.1.0",
+      "build": "2026112201",
+      "date": "2026-11-22",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.1.0/AetherKey-1.1.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v1.1.0",
+      "sha256": "204cf9e5d733b4a4f769cde2aea3ae0b1d0f9ad9de218e63d34f4839b9ef0e04",
+      "badge": {
+        "zh": "简繁切换 · 自然码/搜狗双拼 · 竖排面板 · 按应用规则",
+        "en": "Simp/Trad · ZRM & Sogou · Vertical Panel · Per-App Rules"
+      },
+      "summary": {
+        "zh": "新增 ⌃⇧F 简繁实时切换与统一词库、自然码/搜狗双拼（含键位速查表）、11 项细粒度模糊音、竖排与字号/页大小自定义、按应用默认中英文及 V 模式宏与中文数字，并修复盘古标点空格、V 模式复位、混排英文选词及长句/同音次选等问题。",
+        "en": "Adds ⌃⇧F Simplified/Traditional switching with unified lexicon, ZRM and Sogou shuangpin with keymaps, 11 granular fuzzy rules, vertical panel layout with custom font/page sizes, per-app default modes, and V-mode macros/Chinese numerals, plus Pangu punctuation, V-mode reset, mixed-case English selection, and long-sentence fixes."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "简繁转换、双拼扩展与面板自定义",
+            "en": "Script conversion, shuangpin layouts, and adaptive UI"
+          },
+          "items": [
+            {
+              "zh": "支持 ⌃⇧F 原位切换简/繁体中文并结合一对多词组校对，置顶、忽略与词频统一基于规范词条保存。",
+              "en": "Adds in-place ⌃⇧F Simplified/Traditional toggle with phrase overrides while unifying pins, ignores, and learned frequency under canonical entries."
+            },
+            {
+              "zh": "新增自然码与搜狗双拼（含分号 ing），并在设置页提供全部双拼方案的实时 QWERTY 键位速查表与 11 项细粒度模糊音开关。",
+              "en": "Adds ZRM and Sogou shuangpin (with semicolon ing), live QWERTY keymap reference charts for all shuangpin layouts, and 11 granular fuzzy pinyin toggles."
+            },
+            {
+              "zh": "支持候选面板横/竖排切换、每页 5–9 个候选、14–19 pt 字号档位（引擎 13–22 pt）及按应用自定义默认中英文模式。",
+              "en": "Adds horizontal/vertical candidate orientation, configurable 5–9 candidates per page, 14–19 pt font size presets (13–22 pt engine range), and per-app default input mode rules."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "V 模式宏扩展与核心问题修复",
+            "en": "V-mode macros and core fixes"
+          },
+          "items": [
+            {
+              "zh": "新增 vnow/vts/vuuid/varrow/vmath/vgreek/vfh 实用宏与非负整数小写中文数字，修复 V 模式结束复位与字母宏数字键直选。",
+              "en": "Adds vnow/vts/vuuid/varrow/vmath/vgreek/vfh utility macros and lowercase Chinese numerals, and fixes V-mode state reset and digit selection in macro mode."
+            },
+            {
+              "zh": "修复盘古空格对 CJK 标点的误判、大小写混排英文（英）按数字选词丢失大小写、24 音节长句与同音次选、首部退格翻页重置及 Sparkle 更新按钮首次点击竞态。",
+              "en": "Fixes Pangu spacing around CJK punctuation, numeric selection of mixed-case English candidates, 24-syllable composition with secondary homophones, cursor-0 backspace page reset, and initial Update button click race."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "jEZhSRBe28ennGo9FLaCckQ3wnCETOTPt5wTrIj99Q8TDWSdJgpi3fpxLL9MEJfKUL3Plv7dK73/U65SHHhHAg==",
+        "length": 9222190,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v1.1.0/AetherKey-1.1.0-update.zip"
+      }
+    },
+    {
       "version": "1.0.11",
       "build": "2026111804",
       "channel": "stable",
