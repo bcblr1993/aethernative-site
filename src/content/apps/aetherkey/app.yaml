@@ -15,8 +15,8 @@
     "en": "Every word, processed on your Mac."
   },
   "summary": {
-    "zh": "无需账号、无需配置文件的原生拼音输入法，支持全拼、小鹤、微软、自然码、搜狗双拼与五笔 86，支持简繁实时切换、横/竖排面板与按应用默认中英文。拼音中间直接改、常用词右键置顶，转换与学习留在本机；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
-    "en": "A native input method supporting full pinyin, Flypy, Microsoft, ZRM and Sogou shuangpin, plus Wubi 86, with Simplified/Traditional toggling, horizontal/vertical candidate layouts and per-app mode rules. Edit pinyin in place, pin words with a right-click, and keep conversion and learning on your Mac."
+    "zh": "无需账号、无需配置文件的原生拼音输入法，内置本机统计语言模型整句、中英混输、全拼/四双拼/五笔 86、U 模式拆字、快捷短语与剪贴板百宝箱，并支持本地/iCloud 文件夹双向同步；为偏爱紧凑界面的 Apple 芯片 Mac 用户打造。",
+    "en": "An account-free native macOS input method with on-device LM sentence decoding, mixed CN/EN typing, full pinyin, four shuangpin layouts, Wubi 86, U-mode radical lookup, a Quick Snippets & Clipboard History Toolbox, and local/iCloud folder two-way sync."
   },
   "platforms": [
     {
@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "1.1.0 新增 ⌃⇧F 简繁实时切换与统一词库、自然码与搜狗双拼（含设置页 QWERTY 键位速查表）、11 项细粒度模糊音开关、候选面板竖排布局与字号/页大小自定义、按应用默认中英文模式及 V 模式宏与中文数字，并修复盘古标点空格、V 模式复位与大小写混排英文选词等问题。",
-    "en": "Version 1.1.0 adds ⌃⇧F Simplified/Traditional switching with unified lexicon, ZRM and Sogou shuangpin with keymap charts, 11 granular fuzzy rules, vertical panel layout with custom font/page sizes, per-app default modes, and V-mode macros/Chinese numerals, plus Pangu punctuation, V-mode reset, and mixed-case English selection fixes."
+    "zh": "2.0.0 大版本发布：全新本机 LM / Bigram 整句引擎与多音字重排（模糊音默认关闭）、英文词库与中英混输、双拼同音候选穿插、U 模式拆字（u）、URL/邮箱智能标点与成对符号补全/退格、,/. 翻页与 [/] 以词定字及 ; 次选、百宝箱（⌃⇧V 剪贴板历史 / ⌃⇧E 快捷短语），以及本地/iCloud 文件夹双向词库同步。",
+    "en": "AetherKey 2.0.0 is here: on-device LM/Bigram sentence decoding and polyphone reranking (fuzzy pinyin off by default), English & mixed CN/EN input, shuangpin homophone interleaving, U-mode radical lookup (u), URL/email smart punctuation with paired Backspace, ,/. paging, [/] character extraction, ; 2nd-candidate commit, Toolbox (⌃⇧V clipboard history / ⌃⇧E quick snippets), and local/iCloud folder two-way sync."
   },
   "gallery": [
     {
@@ -407,14 +407,14 @@
         }
       },
       {
-        "value": "83",
+        "value": "105",
         "label": {
           "zh": "自动化测试通过",
           "en": "Automated tests passed"
         },
         "note": {
-          "zh": "2026-11-22 · 简繁切换、自然码/搜狗双拼、竖排面板、按应用规则、V 模式与拼音/五笔回归",
-          "en": "2026-11-22 · Script conversion, ZRM/Sogou shuangpin, vertical layout, per-app rules, V-mode and pinyin/Wubi regression"
+          "zh": "2026-11-23 · LM 整句解码、中英混输、U 模式拆字、智能标点、百宝箱、文件夹同步与全量回归",
+          "en": "2026-11-23 · LM sentence decoding, CN/EN mix, U-mode, smart punctuation, Toolbox, folder sync and full regression"
         }
       },
       {
@@ -441,8 +441,8 @@
           "en": "Your needs"
         },
         {
-          "zh": "AetherKey 1.1.0",
-          "en": "AetherKey 1.1.0"
+          "zh": "AetherKey 2.0.0",
+          "en": "AetherKey 2.0.0"
         },
         {
           "zh": "搜狗 Mac 版",
@@ -610,12 +610,12 @@
           "cells": [
             {
               "value": {
-                "zh": "记录留在本机",
-                "en": "Stored on your Mac"
+                "zh": "本机存储 + 文件夹双向同步",
+                "en": "Local storage + folder two-way sync"
               },
               "note": {
-                "zh": "学习、短语、置顶和忘记随更新保留；暂无云同步",
-                "en": "Learning, phrases, pins and forgotten words survive updates; no cloud sync"
+                "zh": "学习、短语、置顶和忘记随更新保留；支持通过本地目录或 iCloud Drive 文件夹无账号双向同步",
+                "en": "Learning, phrases, pins and forgotten words survive updates; optional account-free two-way sync via local or iCloud Drive folders"
               }
             },
             {
@@ -701,8 +701,8 @@
       ]
     },
     "footnote": {
-      "zh": "核对日期：2026-10-24；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 1.1.0 支持全拼、小鹤、微软、自然码、搜狗双拼与五笔 86，支持简繁切换、竖排候选面板、按应用默认模式与本地词库导入导出，当前没有语音、手写和云同步；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
-      "en": "Checked 2026-10-24 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 1.1.0 supports full pinyin, Flypy, Microsoft, ZRM and Sogou shuangpin, plus Wubi 86, Simplified/Traditional toggling, vertical candidate layout, per-app mode rules and local lexicon import/export; voice, handwriting and cloud sync are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
+      "zh": "核对日期：2026-11-23；依据搜狗 Mac 官方页面与更新日志、Apple 中文输入法手册和 Rime 官方指南，来源链接见使用帮助。对比体现产品取向，不代表某项功能独占；也未进行同条件的速度、内存或准确率对照测试。AetherKey 2.0.0 支持全拼、小鹤、微软、自然码、搜狗双拼与五笔 86，内置本机 LM 整句、中英混输、U 模式拆字、百宝箱及本地/iCloud 文件夹双向同步，当前没有账号云输入、语音与手写；版本检查会联网，输入转换在本机。本页引擎数据测于 1.0.2。",
+      "en": "Checked 2026-11-23 using official Sogou Mac pages, Apple’s Chinese input manual and Rime guides; source links are in Help. This compares product choices, not exclusive features or controlled speed, memory or accuracy results. AetherKey 2.0.0 supports full pinyin, Flypy, Microsoft, ZRM and Sogou shuangpin, plus Wubi 86, on-device LM sentences, mixed CN/EN typing, U-mode radical lookup, Toolbox, and local/iCloud folder two-way sync; account cloud input, voice and handwriting are not included. Version checks use the network; conversion stays local. Engine figures on this page are for 1.0.2."
     },
     "navLabel": {
       "zh": "优势与对比",
@@ -772,12 +772,22 @@
       },
       {
         "q": {
+          "zh": "如何用 U 模式拆字、百宝箱、模糊音与多台 Mac 同步词库？",
+          "en": "How do U-mode radical lookup, Toolbox, fuzzy pinyin, and multi-Mac sync work?"
+        },
+        "a": {
+          "zh": "输入 u 加部件拼音可拆字查生僻字（如 umumumu → 森）；按 ⌃⇧V 打开剪贴板历史（自动过滤密码管理器隐私条目）、⌃⇧E 打开快捷短语，也可在输入流用 vjb / vcy / vbq 呼出百宝箱。2.0.0 起模糊音默认关闭，可在设置按规则独立开启；在词库设置中指定本地目录或 iCloud Drive 文件夹即可无账号双向同步词库与短语。",
+          "en": "Type u plus component pinyin to look up rare characters (e.g. umumumu → 森). Press ⌃⇧V for privacy-filtered Clipboard History, ⌃⇧E for Quick Snippets, or type vjb / vcy / vbq in-stream for the Toolbox. Fuzzy pinyin is off by default starting in 2.0.0 and can be enabled per rule in Settings. Pick a local or iCloud Drive folder in Lexicon Settings for account-free two-way sync."
+        }
+      },
+      {
+        "q": {
           "zh": "能完全代替搜狗吗？",
           "en": "Can it fully replace Sogou?"
         },
         "a": {
-          "zh": "适合偏好本机处理和简洁原生界面的全拼与双拼用户。当前不含云同步、语音、手写；依赖这些能力时，搜狗等成熟输入法可能更适合。",
-          "en": "It suits full-pinyin and shuangpin users who prefer local processing and a focused native interface. The current release lacks cloud sync, voice, handwriting; mature input methods may better serve those needs."
+          "zh": "适合偏好本机处理、简洁原生界面和文件夹自主同步的全拼与双拼用户。当前不含账号云输入、语音与手写；依赖这些能力时，搜狗等成熟输入法可能更适合。",
+          "en": "It suits full-pinyin and shuangpin users who prefer local processing, a focused native interface and folder-based sync. The current release lacks account cloud input, voice and handwriting; mature input methods may better serve those needs."
         }
       },
       {

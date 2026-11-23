@@ -1,6 +1,67 @@
 {
   "releases": [
     {
+      "version": "2.0.0",
+      "build": "2026112301",
+      "date": "2026-11-23",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.0/AetherKey-2.0.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v2.0.0",
+      "sha256": "c4ee195ebd89d4861b9312f57e3353e2c60ffc97ad2b92ee151910c1a296ea8a",
+      "badge": {
+        "zh": "LM 整句引擎 · 中英混输 · U 拆字 · 百宝箱 · 文件夹同步",
+        "en": "LM Sentence Engine · CN/EN Mix · U-Mode · Toolbox · Folder Sync"
+      },
+      "summary": {
+        "zh": "2.0.0 大版本升级：引入本机统计语言模型（LM/Bigram Lattice）整句解码与多音字重排，移除笛卡尔积伪短语、降权古音、克制 Emoji 穿插并将模糊音默认关闭；新增英文词库与中英混输、双拼同音候选穿插、U 模式拆字、URL/邮箱智能标点与成对符号补全/退格、,/. 翻页与 [/] 以词定字及 ; 次选、快捷短语/隐私过滤剪贴板历史百宝箱及本地/iCloud 文件夹双向同步。",
+        "en": "Major 2.0.0 release introducing on-device LM/Bigram lattice sentence decoding and polyphone reranking, removing Cartesian pseudo-phrases, demoting archaic readings, restraining Emoji interleaving, and turning fuzzy pinyin off by default; adds English & mixed CN/EN typing, double-pinyin homophone interleaving, U-mode radical lookup, URL/email smart punctuation with paired Backspace, optional ,/. paging, [/] character extraction and ; 2nd-candidate selection, Quick Snippets + privacy-filtered Clipboard History Toolbox, and local/iCloud folder two-way sync."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "统计语言模型整句、中英混输与双拼优化",
+            "en": "LM lattice sentence engine, CN/EN mix, and shuangpin upgrades"
+          },
+          "items": [
+            {
+              "zh": "引入本机 LM / Bigram Lattice 整句解码与核心词库/多音字重排，彻底移除笛卡尔积伪短语拼接，降权生僻古音读法并克制 Emoji 候选穿插；模糊音默认改为关闭。",
+              "en": "Adds on-device LM/Bigram lattice sentence decoding with lexicon and polyphone reranking, eliminates Cartesian pseudo-phrases, demotes archaic readings, restrains Emoji interleaving, and disables fuzzy pinyin by default."
+            },
+            {
+              "zh": "内置本机英文词库，支持纯英文词联想与中英混合输入，并优化小鹤、微软、自然码与搜狗双拼的同音候选穿插排序。",
+              "en": "Adds an on-device English lexicon for English and mixed Chinese-English typing, plus frequency-interleaved homophone candidates for Flypy, Microsoft, ZRM, and Sogou shuangpin."
+            },
+            {
+              "zh": "新增 U 模式部件拆字（u + 部件拼音反查生僻字与读音），以及 URL/邮箱智能标点识别与括号/引号成对自动补全及成对退格。",
+              "en": "Adds U-mode radical decomposition (u + component pinyin), URL/email-aware smart punctuation, and auto-paired brackets/quotes with paired Backspace deletion."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "高效选词交互、百宝箱面板与文件夹双向同步",
+            "en": "Power-user keybindings, Toolbox panel, and folder sync"
+          },
+          "items": [
+            {
+              "zh": "新增可选 , / . 候选翻页、[ / ] 以词定字与 ; 选第二候选，支持左/右 Shift、Caps Lock 与切换英文时的缓冲区动作配置。",
+              "en": "Adds optional ,/. candidate paging, [/] first/last character selection, ; second-candidate commit, and configurable Left/Right Shift, Caps Lock, and switch-to-English buffer actions."
+            },
+            {
+              "zh": "新增快捷短语、隐私过滤剪贴板历史与百宝箱面板（⌃⇧V / ⌃⇧E 或输入 vjb / vcy / vbq 呼出），以及本地目录与 iCloud Drive 文件夹无账号双向词库同步。",
+              "en": "Adds Quick Snippets, privacy-filtered Clipboard History, and the Toolbox panel (⌃⇧V / ⌃⇧E or vjb / vcy / vbq), plus account-free two-way lexicon sync via local or iCloud Drive folders."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "Vcy3lwbHQh3BfRnBVS7/qbdVm0fpAh4ObtQvmX1xzkPyJgAB2awK7C8PVBTLabjVDrtgha8uKPPO2WuXakAEBA==",
+        "length": 10529172,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.0/AetherKey-2.0.0-update.zip"
+      }
+    },
+    {
       "version": "1.1.0",
       "build": "2026112201",
       "date": "2026-11-22",
