@@ -4,13 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>0.9.6</title>
-            <pubDate>Wed, 18 Nov 2026 12:28:34 +0800</pubDate>
-            <sparkle:version>85</sparkle:version>
-            <sparkle:shortVersionString>0.9.6</sparkle:shortVersionString>
+            <title>0.9.7</title>
+            <pubDate>Mon, 23 Nov 2026 09:22:37 +0800</pubDate>
+            <sparkle:version>86</sparkle:version>
+            <sparkle:shortVersionString>0.9.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v0.9.6 (Build 85) — 2026-11-18
+            <description sparkle:format="markdown"><![CDATA[## v0.9.7 (Build 86) — 2026-11-23
+
+### 🚀 全面适配官方最新 Antigravity 2.34.0 Apple Silicon 版 (Official Antigravity 2.34.0 Compatibility)
+- **核心二进制与凭据隔离入口定位**：
+  - 深度解析官方 2.34.0 `Contents/Resources/bin/language_server` 的 Go 运行时符号表（`__lrodata_gopcln`），精确定位 `codeassistclient.shouldBypassKeyring` 机器指令入口偏移量为 `35487216` (`0x21d7df0`)，严格校验 12 字节 ARM64 栈帧序言（`900b40f9f1c301d13f0210eb`），确保各多开分身独立 OAuth 凭据与 Keychain 隔离机制无缝生效。
+- **ASAR 补丁与官方安全指纹校验**：
+  - 完整验证 Google Developer ID 签名（`TeamIdentifier=EQHXZ8M8AV`）、公证票据、`app.asar`（`8934adef...`）与 `language_server`（`bf66ad9f...`）SHA-256 指纹，确认单窗口强制管线、Dock 常驻/无痕动态策略、托盘净化与独立 OAuth 回调补丁 100% 兼容。
+- **支持一键无损升级与创建新实例**：
+  - 支持从本机官方 `2.34.0` 直接创建新分身，或将现有分身一键无损极速升级（默认跳过备份，保留全部工作空间、会话历史与独立登录态）。
+
+## v0.9.6 (Build 85) — 2026-11-18
 
 ### 官方 Antigravity 2.32.2 与 2.33.0 Apple Silicon 适配
 - 支持从本机官方 2.32.2 或官网 2.33.0 创建独立多开实例，以及将旧版分身升级至对应版本。
@@ -689,10 +699,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.6/Aether-Antigravity-Multiplexer-v0.9.6-macos-arm64.zip" length="4394239" type="application/octet-stream" sparkle:edSignature="dxuUxjwgVBtUPQKAseKuYUHdKlU7DKMQFnUdSOAZsdFEKxE8Az6YO4vOI0BSOmflIC+EFuqAAU2qBAVFO40fDw=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v0.9.7/Aether-Antigravity-Multiplexer-v0.9.7-macos-arm64.zip" length="4394513" type="application/octet-stream" sparkle:edSignature="XZxJbUzF5x58/EBPwQIuUqBnW48DG5NM6g+Fxkteh7+RqQaNFQF31ju3yUQJ0GJb20UF7OSpdjIS97GmdRfBBA=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: zssV3NsElgCLxd2lPlJKFavkxT0QL2sLIb6MbK4AAbMebKhEH/gHAdrlFL2rO1ifMyxbZ1q96FIaGJoiF2ekDg==
-length: 100442
+edSignature: FBG5+QsWQqO08Dc4kDFbiXQ3bN0i0Bj43yxhaegr8QFYUQ4ZU1jZbWshKrtenXtNdF8u9XVMo/3erlakwKBTDg==
+length: 101625
 -->
