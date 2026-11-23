@@ -1,5 +1,35 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.10.2"
+    build: "2026112301"
+    date: 2026-11-23
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.10.2/AetherSwitch-1.10.2-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.10.2
+    sha256: 51c9f47ef5a1819af1923e0b69a9b9e1b8061aaff7c94e1f2fac82e145be6cfb
+    sparkle:
+      edSignature: +GoRlklARTS0u+Hng2AXQ8FXlHfLP4vQ7y3d3XA1OuufOnvxxodo1TxO8mYl2Z/PR/S3dvUlKOMIHLicL9ZqAQ==
+      length: 2016409
+    summary:
+      zh: 新增只读 AppleSMC 风扇转速与概览系统状态条、新装默认精简 3 列防刘海遮挡，并完成自旋锁解耦、Apple Silicon M5 频率兼容与折叠态能效核降耗等 15 项加固。
+      en: Adds read-only AppleSMC fan RPM monitoring and an overview system status strip, defaults fresh installs to 3 compact menu bar columns for notched MacBooks, and lands 15 core/UI stability and efficiency hardenings including M5 frequency support.
+    notes:
+      - title:
+          zh: 新增能力与体验打磨
+          en: New Features & UX Polish
+        items:
+          - zh: 新增只读 AppleSMC 风扇转速采样（FNum 与 F0Ac/F1Ac，兼容 flt 与 fpe2 编码），接入概览页 28pt 紧凑系统状态条与 CPU 详情页；无风扇机型（如 MacBook Air）自动隐藏，折叠态零常驻开销。
+            en: Added read-only AppleSMC fan RPM monitoring (`FNum` and `F0Ac`/`F1Ac`, supporting `flt` and `fpe2` encodings) in the new 28pt Overview status strip and CPU details, auto-hidden on fanless Macs with zero folded overhead.
+          - zh: 首次安装默认开启高频 3 列（CPU + 内存 + 网络，宽度 < 155pt），防止 13"/14" 刘海屏吞没状态栏图标，老用户既有配置原样保留；支持再次打开应用（Reopen）时自动展开面板。
+            en: Defaulted fresh installs to 3 core menu bar columns (CPU + Memory + Network, width < 155pt) to prevent notch clipping while preserving existing user settings, and auto-opened the popover on app reopen.
+      - title:
+          zh: 底层并发、能耗与工程加固
+          en: Concurrency, Efficiency & Release Hardening
+        items:
+          - zh: 解耦 FollowingBrightnessTransition 与 DisplayGammaBlackout 自旋锁内的硬件/WindowServer IPC 及 60Hz 中间帧同步刷盘；深色模式切换改用带超时保护的短生命周期 /usr/bin/osascript 子进程，彻底消除 NSAppleScript 常驻脏内存。
+            en: Decoupled hardware/WindowServer IPC and 60Hz intermediate preference flushes from spinlocks in brightness/gamma transitions, and replaced resident `NSAppleScript` with short-lived `/usr/bin/osascript` subprocesses for Dark Mode toggling.
+          - zh: 修复 Apple Silicon M5 频率读取恒空与虚拟卷每秒击穿 60s SMART 缓存问题；外接屏 DDC 按显示器隔离 I2C 锁并新增跟随系统亮度开关；折叠态采用 .utility 能效核调度与 20% 定时器容差，实测空载 CPU 降至约 0.034%。
+            en: Fixed Apple Silicon M5 cluster frequency matching and virtual-volume 60s SMART cache throttling, isolated external display DDC locks per endpoint with a system-brightness follow toggle, and reduced folded idle CPU to ~0.034% via `.utility` E-core scheduling.
   - version: "1.10.1"
     build: "2026110701"
     date: 2026-11-07
