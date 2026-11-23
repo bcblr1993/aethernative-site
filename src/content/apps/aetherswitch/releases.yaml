@@ -1,5 +1,39 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.11.0"
+    build: "2026112302"
+    date: 2026-11-23
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.11.0/AetherSwitch-1.11.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.11.0
+    sha256: 01471169034ce6f7303be76814d53a558b27a0bc5270064df0f759a282b31d2c
+    sparkle:
+      edSignature: B13O5rBhjXG7rzlNVjp2304YC7HHLcNfEdvjzHwOC3sg/PyXVceNnFvxBvyauM+1BG16OzHJ6fzijYSypXLVBw==
+      length: 2102425
+    summary:
+      zh: 面板 UI 六模块重构、内核级限时常亮与低电量自动释放、SoC 功耗与充电瓦数监控、原生中英双语与全键盘/VoiceOver 无障碍升级。
+      en: Modular 6-file panel architecture, kernel-timed keep-awake with low-battery auto-release, zero-overhead SoC & charging wattage telemetry, native zh-Hans/en localization, and full keyboard/VoiceOver accessibility.
+    notes:
+      - title:
+          zh: 新特性
+          en: Added
+        items:
+          - zh: 内核级智能限时常亮与低电量自动释放：支持无限期、30 分钟、1 小时、2 小时定时选项与低电量（≤ 20%）自动释放，由内核 IOPMAssertion 超时与 IOPSNotification 事件回调驱动，应用内零轮询定时器。
+            en: "Kernel-timed keep-awake & low-battery auto-release: choose indefinite, 30 min, 1 hr, or 2 hr with automatic release at ≤ 20% battery via IOPMAssertion timeout and IOPSNotification callbacks (zero in-app polling timers)."
+          - zh: 零额外系统调用 SoC 功耗与充电瓦数监控：复用既有 IOReport Energy Model 通道读取 CPU/GPU/SoC 功耗（W），并在电池采样中解析充电器握手功率与瞬时充放电功率。
+            en: "Zero-overhead SoC power & charging wattage telemetry: reuses existing IOReport Energy Model channels for CPU/GPU/SoC wattage and parses charger handshake & instantaneous battery power."
+          - zh: 原生零依赖中英双语国际化（zh-Hans + en）：全量双语键 100% 对齐，覆盖菜单栏状态项、设置窗口、全部面板卡片与详情页。
+            en: Native zero-dependency bilingual localization (zh-Hans + en) with 100% key parity across menu bar, settings window, dashboard cards, and detail tabs.
+          - zh: 全键盘快捷键与 VoiceOver 无障碍升级：支持 ⌘1~7 切换标签页、⌘, 打开设置、⌘R 刷新、⌘Q 退出，卡片支持焦点描边、Space/Return 激活与 VoiceOver 完整播报。
+            en: Full keyboard shortcuts (⌘1–7, ⌘,, ⌘R, ⌘Q) and VoiceOver accessibility with focus rings, Space/Return activation, and live menu bar readouts.
+      - title:
+          zh: 架构与性能
+          en: Architecture & Performance
+        items:
+          - zh: 面板 UI 拆分为 6 个独立模块，保持同步位图直赋渲染与固定 ≤ 800pt 弹窗高度预算，全页弹窗峰值物理内存 44.42 MB（≤ 50 MB 门禁），折叠态空载 CPU 均值 0.042%（≤ 0.1% 门禁）。
+            en: Split panel UI into 6 focused modules while preserving <= 800pt fixed height, 44.42 MB peak popover footprint (<= 50 MB gate), and 0.042% idle CPU (<= 0.1% gate).
+          - zh: Core 层 P2 打磨：合并重复进程 rusage 采样并缓存进程名、隐藏 GPU 列时释放 gpuService 句柄、改用内核 host_page_size、持久化所选磁盘。
+            en: "Core P2 polish: consolidated process rusage sampling with name caching, active gpuService release when hidden, kernel host_page_size, and persisted disk selection."
   - version: "1.10.2"
     build: "2026112301"
     date: 2026-11-23
