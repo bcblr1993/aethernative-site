@@ -1,6 +1,63 @@
 {
   "releases": [
     {
+      "version": "2.0.4",
+      "build": "2026112404",
+      "date": "2026-11-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.4/AetherKey-2.0.4-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v2.0.4",
+      "sha256": "adaa7ce44b2cde9a5c929222104660b970477b67961e9458b342884366f3bf31",
+      "badge": {
+        "zh": "合并系统输入法菜单 · 去除多余顶栏图标 · 非破坏性升级",
+        "en": "Merged Input Menu · No Extra Menu Bar Icon · Non-Destructive Upgrades"
+      },
+      "summary": {
+        "zh": "2.0.4 体验整合更新：彻底移除多余的独立菜单栏图标并清理旧版状态栏偏好键值，全部偏好、百宝箱、同步与更新入口原生合并至 macOS 系统输入法下拉列表中；同时在升级、重装与刷新流程中移除破坏性 TISDisableInputSource 调用，保障输入法稳定驻留于系统输入法序列。",
+        "en": "Removes the standalone NSStatusItem so AetherKey lives cleanly inside macOS's native Input Menu dropdown (with Quick Sync merged into IMK menu), cleans legacy status-item preferences, and stops destructive TISDisableInputSource cycling on upgrades and repairs."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "原生并入系统输入法菜单，彻底告别重复顶栏图标",
+            "en": "Cleanly merged into the macOS system Input Menu dropdown"
+          },
+          "items": [
+            {
+              "zh": "彻底移除 AppDelegate 独立 NSStatusItem 及其开关，启动时自动清理历史 NSStatusItem VisibleCC / Preferred Position 键值，顶栏仅由 macOS 系统输入法图标统一呈现。",
+              "en": "Removed AppDelegate's standalone NSStatusItem and toggle while clearing legacy Control Center status-item UserDefaults keys on launch."
+            },
+            {
+              "zh": "将「立即同步词库与常用语」与其他方案、偏好、工具箱与刷新入口完整合并进 AetherInputController.menu() 系统输入法原生菜单。",
+              "en": "Merged Sync Lexicon & Snippets directly into AetherInputController.menu() inside the system Input Menu."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "非破坏性升级与刷新机制（配合 2.0.3 矢量图标）",
+            "en": "Non-destructive upgrade/repair TIS lifecycle & Kinetic Ribbon A"
+          },
+          "items": [
+            {
+              "zh": "升级、覆写重装与手动刷新停用破坏性的 TISDisableInputSource 周期，仅在安装向导明确执行「卸载」时禁用输入源，避免系统移出已启用的输入法列表排位。",
+              "en": "Replaced forceCycleEnable: true with forceCycleEnable: false during upgrades, repairs, and installer runs so macOS never revokes UI-order visibility for enabled third-party input sources."
+            },
+            {
+              "zh": "完整保留 2.0.3「动感流线 A」纯矢量 menubar.pdf 图标与 2.0.2/2.0.0 全部功能。",
+              "en": "Retains the 2.0.3 Kinetic Ribbon A vector menubar.pdf icon and all 2.0.2/2.0.0 capabilities."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "ZXrWH/lqNZzNE6Fl7fVLVJD92OcUNeqo8Yhbmh+lnNCFgd/9KGNOBSGC+O0gaoYjbn+JAjEGlh1aDMEtB+HGAw==",
+        "length": 10566606,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.4/AetherKey-2.0.4-update.zip"
+      }
+    },
+    {
       "version": "2.0.3",
       "build": "2026112403",
       "date": "2026-11-24",

@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "2.0.3 稳定更新：全新上线「动感流线 A（Kinetic Ribbon A）」矢量输入法与菜单栏图标，改用 Apple 连续圆角与原生矢量 menubar.pdf 交付并在状态栏实现 1:1 锐利比例，同时完整保留 2.0.2 覆盖升级/卸载重装自愈与 2.0.0 全部功能。",
-    "en": "AetherKey 2.0.3 introduces a redesigned Kinetic Ribbon A vector menu bar and Input Sources badge sculpted with continuous squircle geometry and delivered natively via vector menubar.pdf, plus 1:1 status-item scaling alongside all 2.0.2 install/reinstall resilience and 2.0.0 features."
+    "zh": "2.0.4 稳定更新：彻底移除顶部菜单栏独立图标，全部菜单与「立即同步词库与常用语」原生并入系统输入法下拉列表；升级、覆写重装与手动刷新停用破坏性 TISDisableInputSource 周期，配合 2.0.3「动感流线 A」矢量 menubar.pdf 图标带来完整原生体验。",
+    "en": "AetherKey 2.0.4 removes its standalone menu bar icon and merges all actions (including Sync Now) directly into the native macOS Input Menu dropdown, eliminates destructive TISDisableInputSource cycling on upgrades and repairs, and keeps the Kinetic Ribbon A vector badge."
   },
   "gallery": [
     {
