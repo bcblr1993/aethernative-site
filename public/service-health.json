@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-23T07:51:38.268Z",
+  "checkedAt": "2026-11-24T00:00:41.853Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -113,26 +113,26 @@
     {
       "id": "aetherswitch",
       "name": "AetherSwitch",
-      "version": "1.10.2",
-      "download": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.10.2/AetherSwitch-1.10.2-arm64.dmg",
-      "sha256": "51c9f47ef5a1819af1923e0b69a9b9e1b8061aaff7c94e1f2fac82e145be6cfb",
-      "length": 2016409,
-      "updateDownload": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.10.2/AetherSwitch-1.10.2-arm64.dmg",
-      "updateLength": 2016409,
-      "edSignature": "+GoRlklARTS0u+Hng2AXQ8FXlHfLP4vQ7y3d3XA1OuufOnvxxodo1TxO8mYl2Z/PR/S3dvUlKOMIHLicL9ZqAQ==",
+      "version": "1.11.0",
+      "download": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.11.0/AetherSwitch-1.11.0-arm64.dmg",
+      "sha256": "01471169034ce6f7303be76814d53a558b27a0bc5270064df0f759a282b31d2c",
+      "length": 2102425,
+      "updateDownload": "https://github.com/bcblr1993/AetherSwitch/releases/download/v1.11.0/AetherSwitch-1.11.0-arm64.dmg",
+      "updateLength": 2102425,
+      "edSignature": "B13O5rBhjXG7rzlNVjp2304YC7HHLcNfEdvjzHwOC3sg/PyXVceNnFvxBvyauM+1BG16OzHJ6fzijYSypXLVBw==",
       "appcast": "/apps/aetherswitch/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 2016409,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391502964/b2e45c93-0ccb-4edb-a797-5ab6629057fe",
+          "bytes": 2102425,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1391502964/5a40610f-e365-4725-91f8-293aa1b153c3",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "51c9f47ef5a1819af1923e0b69a9b9e1b8061aaff7c94e1f2fac82e145be6cfb",
+          "actual": "01471169034ce6f7303be76814d53a558b27a0bc5270064df0f759a282b31d2c",
           "message": "SHA256 一致"
         },
         {
@@ -260,7 +260,7 @@
           "message": "更新源与当前正式版不一致或缺少签名字段"
         }
       ],
-      "failures": 33,
+      "failures": 34,
       "status": "failed"
     },
     {
