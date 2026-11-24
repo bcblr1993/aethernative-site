@@ -1,5 +1,27 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.12.1"
+    build: "2026112402"
+    date: 2026-11-24
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.12.1/AetherSwitch-1.12.1-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.12.1
+    sha256: b04a5384efebd3f3533e2bc08b51fe0adcf57241f38a1f5881a8d661f610ea9d
+    sparkle:
+      edSignature: jR3OH36TimHbda9e4GsIyGXQszlCoPMBu0GcEychbxvj2DoTefXk+W5XazI9l1aeUArGyJJR1aLAYTyaAi8LBA==
+      length: 3583129
+    summary:
+      zh: 全面重设计 macOS 液态玻璃双开关应用图标，并同步重绘菜单栏与面板矢量标识。
+      en: Redesigned the macOS Liquid Glass dual-toggle application icon and matching monochrome menu bar vector glyph.
+    notes:
+      - title:
+          zh: 视觉与图标焕新
+          en: Icon & Visual Redesign
+        items:
+          - zh: 重设计 macOS 液态玻璃质感「控制 + 监控」双开关应用图标（1024×1024 透明超椭圆 PNG 与全分辨率视网膜 AppIcon.icns），深浅色 Dock 与壁纸边缘均锐利自然。
+            en: Redesigned the primary app icon with a macOS Liquid Glass dual-toggle squircle design (1024x1024 transparent PNG and full retina AppIcon.icns) tuned for both Light and Dark Docks.
+          - zh: 按新图标几何同步重绘菜单栏与面板头部矢量标识 BrandGlyph，采用 evenOdd 镂空并完整兼容 flipped 与非 flipped 绘图坐标系。
+            en: Redesigned BrandGlyph for the menu bar and panel header to echo the dual-toggle geometry with evenOdd cutout rendering and full flipped/non-flipped coordinate parity.
   - version: "1.12.0"
     build: "2026112401"
     date: 2026-11-24
