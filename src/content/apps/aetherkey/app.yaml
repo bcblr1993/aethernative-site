@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "2.0.1 稳定更新：彻底修复覆盖升级、反复安装或卸载重装后输入法从顶部菜单栏与切换列表中消失的问题（自动刷新系统输入法服务并修复 macOS 27 连接名校验）；安装向导新增保留词库的安全卸载与一键修复，设置页支持菜单栏常驻快捷图标。完整保留 2.0.0 LM 整句、中英混输、U 拆字、百宝箱与文件夹同步全部特性。",
-    "en": "AetherKey 2.0.1 is here: resolves missing input menu items after upgrades, repeated installs, or uninstall/reinstall cycles via automatic system agent & TIS refresh plus standard macOS 27 IMK connection naming; adds clean uninstall and self-repair in the installer and an optional persistent menu bar shortcut toggle alongside all 2.0.0 features."
+    "zh": "2.0.2 稳定更新：彻底解决覆盖升级、多次重复安装或卸载重装后输入法从顶部菜单栏与切换列表中消失的问题（自动刷新系统输入法服务、持久化安装包指纹并修复 macOS 27 连接名校验）；安装向导支持保留词库的安全卸载与一键修复，设置页支持菜单栏常驻快捷图标。",
+    "en": "AetherKey 2.0.2 is here: eliminates missing input menu entries across upgrades, repeated installs, and uninstall/reinstall cycles via automatic system input-agent & TIS refresh, reliable bundle fingerprint persistence, and standard macOS 27 IMK connection naming; adds clean uninstall and self-repair in the installer plus an optional persistent menu bar shortcut toggle."
   },
   "gallery": [
     {

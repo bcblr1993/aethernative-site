@@ -1,6 +1,59 @@
 {
   "releases": [
     {
+      "version": "2.0.2",
+      "build": "2026112402",
+      "date": "2026-11-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.2/AetherKey-2.0.2-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v2.0.2",
+      "sha256": "1054f267e30167bcb415c1619ec92f6a6387e0631993e7ea6fdcbda144f41b37",
+      "badge": {
+        "zh": "菜单稳定刷新 · 指纹持久化 · 安全卸载重装 · macOS 27 修复",
+        "en": "Stable Menu Refresh · Fingerprint Persistence · Clean Uninstall · macOS 27 Fix"
+      },
+      "summary": {
+        "zh": "2.0.2 稳定更新：在 2.0.1 解决覆盖升级、多次安装与卸载重装后系统输入法菜单消失的基础上，修复主程序内 UserDefaults 指纹持久化并延长 TIS 启用后自动切入等待窗口，避免日常启动重复重启系统进程并确保升级/重装后直接自动切回 AetherKey 拼音。",
+        "en": "Stability release building on 2.0.1's install/reinstall menu-refresh resilience and macOS 27 IMK fix by fixing in-app UserDefaults bundle fingerprint persistence (sharedDefaults) and extending TIS auto-selection settle timing so normal logins stay fast and upgrades switch straight back to AetherKey."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "指纹持久化与自动切换可靠性",
+            "en": "Fingerprint persistence and auto-selection reliability"
+          },
+          "items": [
+            {
+              "zh": "修复主程序内调用 UserDefaults(suiteName:) 与自身 Bundle ID 相同返回 nil 的问题，新增 sharedDefaults() 统一主程序与安装向导指纹存储，确保日常重启不重复重启系统输入法进程，仅在真正覆盖安装、升级或卸载重装时触发刷新。",
+              "en": "Fixes UserDefaults(suiteName:) returning nil inside the main app via sharedDefaults(), ensuring normal restarts stay quiet while upgrades, repeated installs, and uninstall/reinstall cycles reliably refresh system input agents."
+            },
+            {
+              "zh": "延长 TISDisable/TISEnable 周期后的结算等待窗口并优先查询实时启用列表，使覆盖升级或卸载重装后自动切换回 AetherKey 拼音更稳定。",
+              "en": "Extends settle delay and checks the live enabled TIS list first in selectAetherKeyWithRetry so upgrades and reinstalls automatically switch back to AetherKey reliably."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "包含 2.0.1 全部安装体验与菜单栏修复",
+            "en": "Includes all 2.0.1 installer & macOS 27 improvements"
+          },
+          "items": [
+            {
+              "zh": "包含 macOS 27 InputMethodConnectionName 校验修复、安装向导保留词库与偏好的「卸载 AetherKey」与一键修复、通用设置「在菜单栏常驻 AetherKey 快捷图标」开关及手动「刷新系统输入法菜单」入口。",
+              "en": "Includes the macOS 27 InputMethodConnectionName fix, clean uninstall and repair actions in the setup wizard, the persistent menu bar shortcut toggle, and manual input-menu refresh actions."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "cF7PkxbQPpCQAXk2huZapUp8qwt/k78bxqjMph4A0Fk3LM1CfRL38epCVsOP2rM9ADpVFrcYFC00NX2RVl6eDQ==",
+        "length": 10577011,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.2/AetherKey-2.0.2-update.zip"
+      }
+    },
+    {
       "version": "2.0.1",
       "build": "2026112401",
       "date": "2026-11-24",
