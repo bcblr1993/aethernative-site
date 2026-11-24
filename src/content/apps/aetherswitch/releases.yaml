@@ -1,5 +1,37 @@
 # AetherSwitch 版本记录
 releases:
+  - version: "1.12.0"
+    build: "2026112401"
+    date: 2026-11-24
+    channel: stable
+    download: https://github.com/bcblr1993/AetherSwitch/releases/download/v1.12.0/AetherSwitch-1.12.0-arm64.dmg
+    github: https://github.com/bcblr1993/AetherSwitch/releases/tag/v1.12.0
+    sha256: 7ed3631a84bc3119c7b0b5c1f89be5fc824bf6da400d5a3442a912044125d7e2
+    sparkle:
+      edSignature: OB6++8nrEEkWygAMXM7IE4gxopiNihU9ye0BMBLuYqrtr9D8nlvHuahleDu8gp8KVz9KPMuVZR3cBoYb7ZAxBA==
+      length: 2230937
+    summary:
+      zh: 多显示器分屏亮度抽屉、原生 AppIntents 快捷指令、零权限 IOKit 外设电量、事件驱动低电量/高温节能守护与峰值内存瘦身。
+      en: Per-display brightness drawer, native AppIntents Shortcuts & Spotlight integration, zero-permission IOKit accessory batteries, event-driven low-power/thermal throttling, and peak memory slimming.
+    notes:
+      - title:
+          zh: 新特性
+          en: Added
+        items:
+          - zh: 多显示器独立亮度抽屉与外屏跟随开关：多屏或外接屏环境下提供按需展开的「分屏微调」抽屉，复用按端点隔离的 I2C 锁与 EDID 校验独立调节每台显示器，默认收起零子视图开销、收起即销毁并保持弹窗 ≤ 800pt 固定高度。
+            en: "Per-display brightness drawer & external display follow toggle: expands on demand for multi-display or external setups using endpoint-isolated I2C locks and EDID matching without overriding other screens; tears down all subviews on collapse within the fixed <= 800pt popover height."
+          - zh: 原生 AppIntents 快捷指令与 Spotlight 集成：基于 macOS 14+ 原生 AppIntents 框架（零第三方依赖、零新增权限），新增「开启屏幕常亮」「切换演示模式」「获取系统状态快照」三项快捷指令。
+            en: "Native AppIntents Shortcuts & Spotlight integration: zero external dependencies and zero new entitlements, adding Enable Keep Awake, Toggle Presentation Mode, and Get System Snapshot shortcuts."
+          - zh: 零权限只读外设电量监控：仅通过原生 IOKit IOPS 与只读 IORegistry 采集蓝牙鼠标、触控板、键盘与耳机电量并自动去重，不引入 CoreBluetooth、零蓝牙隐私弹窗，内置 60 秒节流缓存且仅在电池页按需采集。
+            en: "Zero-permission accessory battery monitoring: reads Bluetooth mice, trackpads, keyboards, and headphones via native IOKit IOPS and read-only IORegistry with automatic deduplication—no CoreBluetooth, no Bluetooth permission prompt, cached for 60s on demand only on the Battery tab."
+          - zh: 事件驱动低电量 / 高温自适应节能守护：监听系统低电量模式与热状态通知（零轮询定时器），折叠态自动将后台采样间隔翻倍（2.0x）并在概览系统状态条展示双语「节能降频 / Power Save」提示，展开后立即恢复 1.0x。
+            en: "Event-driven low-power & thermal adaptive guard: subscribes directly to Low Power Mode and thermal state notifications (zero polling timers), doubling the folded background sampling interval (2.0x) with a bilingual overview badge and restoring 1.0x when expanded."
+      - title:
+          zh: 性能与内存优化
+          en: Performance & Memory
+        items:
+          - zh: 全栈物理内存峰值瘦身：L10n 在 .lproj 加载成功时零兜底字典常驻（并兼容 SwiftPM 大小写资源目录），优化卡片离屏位图与符号缓存回收、重写菜单栏设置窗口为轻量显式布局；全页弹窗峰值物理内存 45.2 MB（≤ 50 MB 门禁），折叠态空载 CPU 均值 0.045%（≤ 0.1% 门禁）。
+            en: "End-to-end peak memory slimming: lazy L10n fallback tables when .lproj loads, proactive offscreen backing-image & symbol cache release, and lightweight explicit-frame menu bar settings layout—holding full-popover peak footprint at 45.2 MB (<= 50 MB gate) and folded idle CPU at 0.045% (<= 0.1% gate)."
   - version: "1.11.0"
     build: "2026112302"
     date: 2026-11-23
