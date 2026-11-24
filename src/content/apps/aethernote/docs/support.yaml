@@ -39,14 +39,14 @@ sections:
       zh: 追加、修改与整理
       en: Write, edit and arrange
     list:
-      - zh: 点开任意今天或历史日期的便签，回车追加一条；Shift + 回车换行，提交多行时自动分条。通过每条记录的菜单修改或删除。
-        en: Open today's note or any past day and press Return to add an entry. Shift–Return inserts a newline; submitting multiple lines creates separate entries. Use each entry's menu to edit or delete it.
-      - zh: 打开日期、回顾或设置时，晾衣绳暂时收起并暂停顶部触发。最后一个窗口关闭后，仅恢复原先显示的晾衣绳；已停用时保持隐藏。修改正文时追加框暂时收起，保存或取消后恢复。
-        en: Opening a day, review or Settings temporarily hides the clothesline and pauses edge reveal. Closing the last window restores it only if previously visible and still enabled. While editing an entry, the add-line box steps aside until you save or cancel.
-      - zh: 过去的日期一直可编辑，未来日期到当天才开放；修改不会把旧记录移到今天。
-        en: Past days remain editable and future days open when they arrive. Editing an old entry does not move it to today.
-      - zh: 左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。设置中可以开启周末、切换语言和材质。
-        en: Drag sideways to reorder and vertically to spring back. Click Tidy or double-click the rope to restore date order. Settings include weekends, languages and materials.
+      - zh: 点开任意今天或历史日期的便签，回车追加一条；Shift + 回车在单条内换行，有多个非空行时也可点“按行拆分”分别追加。通过每条记录的菜单修改（⌘↩ 保存、Esc 取消）或删除。
+        en: Open today's note or any past day and press Return to add an entry. Shift–Return inserts a newline within the same entry, with an optional Split lines action for multi-line drafts. Edit (⌘↩ to save, Esc to cancel) or delete from each entry's menu.
+      - zh: 单日编辑窗口顶部可点“返回一周”直接回到晾衣绳、点“本周回顾”或用 < / >（⌘[ / ⌘]）切换前后日期。主动通过菜单栏或 ⌃⌥L 展开晾衣绳时会先关闭或校验当前窗口，最小化窗口不再锁死入口。
+        en: From the day editor header, click Week to return straight to the clothesline, jump to Week in review, or step between days with < / > (⌘[ / ⌘]). Toggling the line via the menu bar or ⌃⌥L cleanly reveals it, and minimizing windows no longer locks it out.
+      - zh: 本周回顾支持 ⌘F 搜索全部正文与日期、日历选择器跳转任意周，以及直接切回晾衣绳；跨年或非当年周会自动显示年份。
+        en: Week in review supports ⌘F full-text and date search, a calendar date picker to jump to any week, and a return-to-line button. Week labels show years outside the current year.
+      - zh: 过去的日期一直可编辑，未来日期到当天才开放；修改不会把旧记录移到今天。左右拖动调整顺序，上下拉动回弹；点击整理按钮或双击绳子恢复日期顺序。
+        en: Past days remain editable and future days open when they arrive. Drag sideways to reorder and vertically to spring back, or click Tidy / double-click the rope to restore date order.
   - heading:
       zh: 晾衣绳显示控制
       en: Clothesline visibility
@@ -77,8 +77,8 @@ sections:
       zh: 备份与恢复
       en: Backup and recovery
     body:
-      - zh: 周回顾可以复制整周或导出 Markdown。设置可以导出 JSON 日记备份，草稿与偏好不包含在此导出中；备份整个数据目录可一并保留。
-        en: The weekly review can copy the week or export Markdown. Settings can export a JSON journal backup; drafts and preferences are separate. Copy the entire data folder to preserve them too.
+      - zh: 周回顾可以复制整周或导出 Markdown。设置可以导出 JSON 日记备份，也可以点击“从备份恢复…”选择备份 JSON，校验通过并确认后恢复（同时将原数据滚动保存到 journal.previous.json）；草稿与偏好不包含在此导出中，备份整个数据目录可一并保留。
+        en: The weekly review can copy the week or export Markdown. Settings can export a JSON journal backup or restore from one with validation and confirmation (rolling the prior journal into journal.previous.json). Drafts and preferences are separate; copy the entire data folder to preserve them too.
       - zh: 恢复前退出应用，先复制整个数据目录留作备份，再将导出的 JSON 复制为该目录中的 journal.json 后重开。journal.previous.json 只保留上一次写入前的状态，不是长期历史备份。
         en: To restore, quit the app, back up the entire data directory, then copy an exported JSON file into it as journal.json and reopen. journal.previous.json keeps only the state before the latest write, not a long-term history.
     links:

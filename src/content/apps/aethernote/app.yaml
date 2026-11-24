@@ -12,8 +12,8 @@ tagline:
   zh: 把做过的小事，挂在这一周。
   en: Hang the little things you did on your week.
 summary:
-  zh: "一天一张便签，记录和回看这一周。支持历史编辑、草稿保存与中英日界面；打开编辑、回顾或设置时，晾衣绳自动让位，菜单栏提供安静的每小时提醒。"
-  en: "One note a day to record and review your week, with historical editing, saved drafts and Chinese, English and Japanese interfaces. The clothesline steps aside while writing, reviewing or using Settings, with quiet hourly menu bar reminders."
+  zh: "一天一张便签，记录和回看这一周。支持单日与一周顺畅往返、历史编辑、⌘F 全文搜索、草稿保存、备份恢复与中英日界面。"
+  en: "One note a day to record and review your week, with seamless day-to-week navigation, historical editing, ⌘F search, saved drafts, backup restore and three-language support."
 platforms:
   - id: mac
     status: available
@@ -70,8 +70,8 @@ showcase:
     zh: 今天和过去的记录都可以继续编辑。周回顾按日期展开，方便阅读、复制与导出。
     en: Today's notes and past entries remain editable. The weekly review follows calendar order, ready to read, copy or export.
   note:
-    zh: 截图来自 macOS 27 上的 AetherNote；日期编辑器为 0.1.5，晾衣绳与设置为 0.1.4，其余为 0.1.3，内容均为演示数据。
-    en: Actual captures on macOS 27. The editor shows 0.1.5, the clothesline and Settings show 0.1.4, and other views show 0.1.3. All entries are demos in the Chinese interface.
+    zh: 截图来自 macOS 27 上的真实运行界面（日期编辑器为 0.1.5，晾衣绳与设置为 0.1.4，回顾与配色为 0.1.3），内容均为演示数据。
+    en: Actual captures on macOS 27 (editor from 0.1.5, clothesline and Settings from 0.1.4, review and colors from 0.1.3). All entries are demos in the Chinese interface.
   items:
     - title:
         zh: 给每一天，一点自己的颜色
@@ -81,25 +81,25 @@ showcase:
         en: Eight soft presets and custom colors with a preview before applying. Automatic colors stay with each date across restarts.
       image: ./media/daily-colors.png
     - title:
-        zh: 随时补记与修改
-        en: Add and edit anytime
+        zh: 随时补记、跨日切换与返回一周
+        en: Write, step across days and return to the week
       caption:
-        zh: 打开日期时晾衣绳暂时收起，紧凑的玻璃标题与清晰的正文区域让记录更专注；历史日期仍可补充、修改和删除。
-        en: The clothesline steps aside when a day opens. A compact glass header and clear writing area keep the focus on your notes. Past days remain editable.
+        zh: 编辑窗口支持返回一周、上一天/下一天切换、保留 Shift + 回车换行与按行拆分；历史日期仍可补充、修改和删除。
+        en: Jump back to the clothesline, step across days, keep newlines with Shift + Return or split lines. Past days remain editable anytime.
       image: ./media/editor.png
     - title:
-        zh: 安静地读完这一周
-        en: Read your week at your own pace
+        zh: 搜索、跳转并静静读完这一周
+        en: Search, jump and read your week
       caption:
-        zh: 七天导航、记录概览与按日分组，点一下即可回到当天继续编辑。
-        en: Navigate seven days, see entry counts and read daily groups. Jump straight back into any past day to keep writing.
+        zh: 七天导航、⌘F 全文与日期搜索、日历跳转和按日分组，点一下即可回到当天继续编辑。
+        en: Navigate seven days, search notes and dates with ⌘F, jump with a calendar picker and open any day to keep writing.
       image: ./media/review.png
     - title:
-        zh: 让记录更贴合你的习惯
-        en: Make this space yours
+        zh: 让记录与备份更贴合你的习惯
+        en: Settings, visibility and backup restore
       caption:
-        zh: 自主启用或停用晾衣绳，单独控制顶部展开；一键整理、语言和材质设置清晰可见。
-        en: Enable or disable the clothesline and choose whether hovering reveals it. Tidy, language and material controls are easy to find.
+        zh: 自主启用或停用晾衣绳，单独控制顶部展开；支持一键整理、语言材质切换及校验恢复完整 JSON 备份。
+        en: Enable or disable the clothesline and top-edge reveal, tidy the week, switch languages or materials, and export or restore JSON backups.
       image: ./media/settings.png
 features:
   eyebrow:
@@ -119,8 +119,8 @@ features:
         zh: 一行一件事，哪天都能改
         en: One line per moment. Any past day is editable.
       body:
-        zh: 回车追加，粘贴多行自动分条；未提交的草稿自动保存。昨天漏写的事情可以补上，原有记录可以修订，所属日期保持不变。
-        en: Return adds an entry and pasted lines become separate entries. Unsubmitted drafts save automatically. Add something you missed yesterday or correct an entry while keeping its original date.
+        zh: 回车追加，Shift + 回车在单条内换行，多行草稿也可一键按行拆分；未提交的草稿自动保存。昨天漏写的事情可以补上，原有记录可以修订，所属日期保持不变。
+        en: Return adds an entry, Shift + Return keeps newlines inside the same entry, and multi-line drafts can also split into separate lines. Unsubmitted drafts save automatically and past dates remain editable.
     - kicker:
         zh: 拖动与回弹
         en: Play
@@ -167,14 +167,14 @@ features:
         zh: 在设置或菜单选择“检查更新”，查看新版后下载，完成签名验证再安装并重新启动。默认手动检查，不自动下载，不强制重启。
         en: Choose Check for Updates in Settings or the menu, review the new version, download it, then install and relaunch after signature verification. Checks are manual, with no automatic downloads or forced restarts.
     - kicker:
-        zh: 专注编辑
-        en: Focused writing
+        zh: 专注与往返
+        en: Focus & flow
       title:
-        zh: 打开记录，让文字在前面
-        en: Give your writing room
+        zh: 专注记录，随时回到这一周
+        en: Focused writing, seamless return
       body:
-        zh: 打开记录、回顾或设置时暂时收起晾衣绳并暂停顶部触发；所有窗口关闭后按原先状态恢复。500pt 日期窗口保持输入时稳定，修改记录时留出更多正文空间。
-        en: Opening a day, review or Settings hides the clothesline and pauses top-edge reveal. It returns to its previous state after the windows close. The 500pt day editor stays steady while typing and gives entries more room during edits.
+        zh: 打开记录、回顾或设置时暂时收起晾衣绳，让文字居中；需要时点“返回一周”、切到回顾或使用 ⌘[ / ⌘] 翻阅前后日期，随时在日与周之间自如切换。
+        en: Opening a day, review or Settings hides the clothesline so writing stays centered. Click Week, jump to Review or step with ⌘[ / ⌘] to move effortlessly between a single day and your whole week.
 faq:
   eyebrow: FAQ
   title:

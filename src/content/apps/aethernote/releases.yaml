@@ -1,4 +1,38 @@
 releases:
+  - version: "0.2.0"
+    build: "2026112401"
+    date: 2026-11-24
+    channel: stable
+    platform: mac
+    download: https://github.com/bcblr1993/AetherNote/releases/download/v0.2.0/AetherNote-0.2.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/AetherNote/releases/tag/v0.2.0
+    sha256: 24ecd5a65531ee6a2a12b9ca056428108879b0f3f553a1c572e51b0619d0b0b9
+    sparkle:
+      edSignature: KI3f3+LZ6fnvqJZAwhF4SchPPZ4FwEC5CNdIWkJmMre5LGgZDg2Q8fnIH3CB+shv7H7gFh/U5goFQw0cbpQuCA==
+      length: 3130667
+    badge:
+      zh: 已签名 · Apple 公证
+      en: Signed · Apple notarized
+    summary:
+      zh: 从单日无缝回到一周，支持跨日切换、周回顾全文搜索、日历跳转与校验备份恢复。
+      en: Seamless day-to-week navigation, day stepping, global search, date jump, multiline entries and validated backup restore.
+    notes:
+      - title:
+          zh: 日周顺畅往返
+          en: Seamless day-to-week navigation
+        items:
+          - zh: 日期编辑窗口新增“返回一周”、上一天/下一天切换（⌘[ / ⌘]）、返回今天与“本周回顾”入口；主动点击菜单栏或按下 ⌃⌥L 可直接展开晾衣绳。
+            en: The day editor adds a Week button back to the clothesline, day stepping (⌘[ / ⌘]), a Today shortcut and direct access to Week in review. Toggling the line via the menu bar or ⌃⌥L cleanly reveals it.
+          - zh: 修复窗口最小化锁死晾衣绳以及在设置中重新开启总开关后关闭设置不恢复的问题；未固定晾衣绳在拖拽和右键换色期间不再误收起。
+            en: Fixed window minimization locking out the clothesline and re-enabling the line inside Settings. Unpinned lines stay open while dragging or using context menus.
+      - title:
+          zh: 搜索、多行记录与备份恢复
+          en: Search, multiline entries and backup restore
+        items:
+          - zh: Shift + 回车在单条记录内保留换行，草稿超过一行时提供“按行拆分”备选按钮；行内编辑支持 ⌘↩ 保存与 Esc 取消。
+            en: Shift + Return keeps newlines in a single entry, with an optional Split lines button for multi-line drafts. Inline edits save with ⌘↩ and cancel with Esc.
+          - zh: 本周回顾新增 ⌘F 全文与日期搜索、日历跳转以及返回晾衣绳按钮，跨年或非当年周自动显示年份；设置页支持校验后恢复 JSON 备份并增强暗色标签对比度。
+            en: Week in review adds ⌘F search, a calendar date picker and a return-to-line button, while week labels show years when needed. Settings adds validated JSON backup restore and improved dark-mode contrast.
   - version: 0.1.5
     build: "2026101501"
     date: 2026-10-15
