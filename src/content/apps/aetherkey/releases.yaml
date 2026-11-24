@@ -1,6 +1,63 @@
 {
   "releases": [
     {
+      "version": "2.0.1",
+      "build": "2026112401",
+      "date": "2026-11-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.1/AetherKey-2.0.1-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v2.0.1",
+      "sha256": "15acd1acdd5a047b045e59fa29f44c8a3f3f1730e63fadffc502246cd7a2d2ae",
+      "badge": {
+        "zh": "输入法菜单自动刷新 · macOS 27 连接名修复 · 安全卸载与重装",
+        "en": "Auto Menu Refresh · macOS 27 IMK Fix · Clean Uninstall & Reinstall"
+      },
+      "summary": {
+        "zh": "2.0.1 稳定性更新：解决覆盖升级、多次安装或卸载重装后系统输入法菜单栏及快捷键切换列表中偶发消失的问题，修复 macOS 27 下 InputMethodConnectionName 校验拒绝报错，安装向导新增保留词库的「卸载 AetherKey」与一键刷新修复，通用设置新增菜单栏常驻快捷图标开关。",
+        "en": "Stability release fixing missing input source menu entries after in-place upgrades, repeated installs, or uninstall/reinstall cycles, resolving the macOS 27 InputMethodConnectionName validation error, adding clean uninstall and repair actions in the installer, and adding an optional persistent menu bar shortcut icon toggle."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "升级/重装稳定性与 macOS 27 连接名修复",
+            "en": "Install/reinstall resilience and macOS 27 IMK fix"
+          },
+          "items": [
+            {
+              "zh": "新增 InputMethodRegistrar 安装路径与 bundle inode 指纹监测，在覆盖升级、多次重复安装、卸载重装及 Sparkle 应用内更新后自动清理隔离属性、刷新 LaunchServices 与 IntlFileCache，并重启持有旧文件描述符的 imklaunchagent / TextInputSwitcher / TextInputMenuAgent。",
+              "en": "Adds InputMethodRegistrar bundle path and inode fingerprinting to clear quarantine, refresh LaunchServices and IntlFileCache, and restart stale imklaunchagent / TextInputSwitcher / TextInputMenuAgent processes across upgrades, repeated installs, and uninstall/reinstall flows."
+            },
+            {
+              "zh": "将 InputMethodConnectionName 统一为标准命名 com.aethernative.inputmethod.AetherKey_Connection，消除 macOS 27 下 imklaunchagent 拒绝连接名引起的 Request for Endpoint Invalid 报错。",
+              "en": "Standardizes InputMethodConnectionName to com.aethernative.inputmethod.AetherKey_Connection, eliminating macOS 27 imklaunchagent rejection and Request for Endpoint Invalid errors."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "安装向导安全卸载、自愈修复与菜单栏常驻图标",
+            "en": "Clean uninstall, self-repair, and persistent menu bar icon"
+          },
+          "items": [
+            {
+              "zh": "「安装 AetherKey.app」新增保留个人词库与偏好的「卸载 AetherKey」确认操作、安装前自动切离当前会话与孤立进程清理，以及第 2 步一键「刷新系统输入法服务」。",
+              "en": "Adds an uninstall action (preserving user lexicon and settings), automatic session switch-away before replacement, and a one-click system input-menu repair button in the setup wizard."
+            },
+            {
+              "zh": "通用设置新增「在菜单栏常驻 AetherKey 快捷图标」开关（默认关闭避免重复），输入法菜单、状态栏菜单及「更新与启动」设置页均提供手动「刷新系统输入法菜单」按钮。",
+              "en": "Adds a persistent menu bar shortcut toggle in General Settings (off by default) and manual system input-menu refresh actions in menus and Update Settings."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "I5rKq1UpzCrEinFxjX0186u9WbGUqJKmgo+VlyyISg+g623lK+wvFlXh5uDUaHy3i5hjVzryeege+Ifx1eUDBA==",
+        "length": 10574631,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.1/AetherKey-2.0.1-update.zip"
+      }
+    },
+    {
       "version": "2.0.0",
       "build": "2026112301",
       "date": "2026-11-23",

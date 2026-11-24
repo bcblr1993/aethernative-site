@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "2.0.0 大版本发布：全新本机 LM / Bigram 整句引擎与多音字重排（模糊音默认关闭）、英文词库与中英混输、双拼同音候选穿插、U 模式拆字（u）、URL/邮箱智能标点与成对符号补全/退格、,/. 翻页与 [/] 以词定字及 ; 次选、百宝箱（⌃⇧V 剪贴板历史 / ⌃⇧E 快捷短语），以及本地/iCloud 文件夹双向词库同步。",
-    "en": "AetherKey 2.0.0 is here: on-device LM/Bigram sentence decoding and polyphone reranking (fuzzy pinyin off by default), English & mixed CN/EN input, shuangpin homophone interleaving, U-mode radical lookup (u), URL/email smart punctuation with paired Backspace, ,/. paging, [/] character extraction, ; 2nd-candidate commit, Toolbox (⌃⇧V clipboard history / ⌃⇧E quick snippets), and local/iCloud folder two-way sync."
+    "zh": "2.0.1 稳定更新：彻底修复覆盖升级、反复安装或卸载重装后输入法从顶部菜单栏与切换列表中消失的问题（自动刷新系统输入法服务并修复 macOS 27 连接名校验）；安装向导新增保留词库的安全卸载与一键修复，设置页支持菜单栏常驻快捷图标。完整保留 2.0.0 LM 整句、中英混输、U 拆字、百宝箱与文件夹同步全部特性。",
+    "en": "AetherKey 2.0.1 is here: resolves missing input menu items after upgrades, repeated installs, or uninstall/reinstall cycles via automatic system agent & TIS refresh plus standard macOS 27 IMK connection naming; adds clean uninstall and self-repair in the installer and an optional persistent menu bar shortcut toggle alongside all 2.0.0 features."
   },
   "gallery": [
     {
