@@ -1,6 +1,59 @@
 {
   "releases": [
     {
+      "version": "2.0.3",
+      "build": "2026112403",
+      "date": "2026-11-24",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.3/AetherKey-2.0.3-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherKey/releases/tag/v2.0.3",
+      "sha256": "de88098d757c7f339984acbc4d27a2407d553f2da92786a3651fea827faecd1b",
+      "badge": {
+        "zh": "动感流线 A 新图标 · 原生矢量 PDF · 1:1 菜单栏",
+        "en": "Kinetic Ribbon A Badge · Native Vector PDF · 1:1 Menu Bar"
+      },
+      "summary": {
+        "zh": "2.0.3 视觉打磨更新：采用全新「动感流线 A（Kinetic Ribbon A）」矢量输入法图标，配合 Apple 连续圆角（Squircle）与原生矢量 menubar.pdf（替代旧位图 TIFF），在系统输入法菜单、设置列表与 Retina 状态栏下全面提升锐利度与品牌辨识度。",
+        "en": "Refines the AetherKey input-source and menu bar presence with the new Kinetic Ribbon A vector badge: pure CGPath boolean geometry inside an Apple continuous squircle, native menubar.pdf vector delivery in Info.plist, and 1:1 status-item aspect ratio."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "全新「动感流线 A」矢量图标与原生 PDF 交付",
+            "en": "Kinetic Ribbon A badge & native vector PDF delivery"
+          },
+          "items": [
+            {
+              "zh": "重绘输入法菜单栏与设置图标：Apple 连续超椭圆键帽搭配斜切流线「A」字形与跃动横弧，与系统「ABC」明显区隔且更具定制张力。",
+              "en": "Redesigned the badge with an Apple continuous squircle housing a custom sweeping Kinetic Ribbon A cutout, distinctly separated from macOS ABC."
+            },
+            {
+              "zh": "将 Info.plist 中 tsInputMethodIconFileKey、tsInputModeMenuIconFileKey、tsInputModeAlternateMenuIconFileKey 与 tsInputModePaletteIconFileKey 全部升级为 16×16 纯矢量 menubar.pdf（保留黑白模板自动适配），并同步生成 1x/2x/3x 高清 TIFF 与 1:1 状态栏图标。",
+              "en": "Updated Info.plist input-method and mode icon keys to reference native 16×16 vector menubar.pdf template artwork, regenerated 1x/2x/3x TIFF fallbacks, and fixed status-item 1:1 sizing."
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh": "完整保留 2.0.2 安装自愈与 2.0.0 全量特性",
+            "en": "Includes all 2.0.2 install resilience & 2.0.0 capabilities"
+          },
+          "items": [
+            {
+              "zh": "保留覆盖升级/卸载重装/多次安装后自动刷新系统输入法代理、macOS 27 IMK 连接名兼容、LM 整句引擎、百宝箱与文件夹双向同步。",
+              "en": "Retains automatic system agent & TIS refresh across upgrades and reinstalls, macOS 27 IMK compatibility, on-device LM decoding, Quick Toolbox, and folder sync."
+            }
+          ]
+        }
+      ],
+      "sparkle": {
+        "edSignature": "tjqRgxJkuY8kR2+wv8LwVG0JL+4gjBj+sN3pEoSK4gnaZk7ZV4skvs475MUN25EknneYTvwl4yhB3/shfwy8Aw==",
+        "length": 10578792,
+        "download": "https://github.com/bcblr1993/AetherKey/releases/download/v2.0.3/AetherKey-2.0.3-update.zip"
+      }
+    },
+    {
       "version": "2.0.2",
       "build": "2026112402",
       "date": "2026-11-24",

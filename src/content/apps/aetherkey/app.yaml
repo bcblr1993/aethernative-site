@@ -73,8 +73,8 @@
     }
   },
   "notice": {
-    "zh": "2.0.2 稳定更新：彻底解决覆盖升级、多次重复安装或卸载重装后输入法从顶部菜单栏与切换列表中消失的问题（自动刷新系统输入法服务、持久化安装包指纹并修复 macOS 27 连接名校验）；安装向导支持保留词库的安全卸载与一键修复，设置页支持菜单栏常驻快捷图标。",
-    "en": "AetherKey 2.0.2 is here: eliminates missing input menu entries across upgrades, repeated installs, and uninstall/reinstall cycles via automatic system input-agent & TIS refresh, reliable bundle fingerprint persistence, and standard macOS 27 IMK connection naming; adds clean uninstall and self-repair in the installer plus an optional persistent menu bar shortcut toggle."
+    "zh": "2.0.3 稳定更新：全新上线「动感流线 A（Kinetic Ribbon A）」矢量输入法与菜单栏图标，改用 Apple 连续圆角与原生矢量 menubar.pdf 交付并在状态栏实现 1:1 锐利比例，同时完整保留 2.0.2 覆盖升级/卸载重装自愈与 2.0.0 全部功能。",
+    "en": "AetherKey 2.0.3 introduces a redesigned Kinetic Ribbon A vector menu bar and Input Sources badge sculpted with continuous squircle geometry and delivered natively via vector menubar.pdf, plus 1:1 status-item scaling alongside all 2.0.2 install/reinstall resilience and 2.0.0 features."
   },
   "gallery": [
     {
