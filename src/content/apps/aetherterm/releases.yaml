@@ -1,5 +1,14 @@
 # ApexTerm 版本记录
 releases:
+  - version: "1.27.0"
+    date: 2026-11-25
+    channel: stable
+    download: https://github.com/bcblr1993/ApexTerm/releases/download/v1.27.0/AetherTerm-v1.27.0-macos-arm64.dmg
+    github: https://github.com/bcblr1993/ApexTerm/releases/tag/v1.27.0
+    sha256: 801cba00e1123b679e37148ff35de67a09c9c833eed3ab5d6dc028b1aa1d23f3
+    summary:
+      zh: AetherTerm v1.27.0
+      en: AetherTerm v1.27.0
   - version: "1.26.0"
     date: 2026-11-25
     channel: stable
