@@ -1,6 +1,19 @@
 # AetherRoute 版本记录（由旧站 aetherroute.pages.dev/releases 迁移）
 # 新版本加在最上面即可；第一条 channel 为 stable 的记录会被当作“最新版本”。
 releases:
+  - version: "3.2.2"
+    build: "2026112503"
+    date: 2026-11-25
+    channel: stable
+    download: https://github.com/bcblr1993/AetherRoute/releases/download/v3.2.2/AetherRoute-3.2.2-build-2026112503-arm64.dmg
+    github: https://github.com/bcblr1993/AetherRoute/releases/tag/v3.2.2
+    sha256: e70f3113d2cad142f95a0e9a7d8afd287c802351a812f7c49cf09003a6254cc3
+    sparkle:
+      edSignature: KbhX6Sr0vmL/7BtHQ5hVRUQr3M7NOkWD6iI9QS8amfjwv/4NsLBm0sylaGxpLogyeR53hQcMGHD+0sGWvWIQAA==
+      length: 35202507
+    summary:
+      zh: 恢复透明代理下系统设置 VPN 开关可用性与外部启动平顺握持，概览页核心控件上移至实时流量上方并采用紧凑无小标题布局，修复 TUIC v5 QUIC 流不分片与首包保序问题。
+      en: Restores System Settings VPN availability and external toggle adoption while using Transparent Proxy, moves core controls into a compact headerless panel above live traffic, and fixes TUIC v5 QUIC stream fragmentation and initial stream ordering.
   - version: "3.2.1"
     build: "2026112501"
     date: 2026-11-25
