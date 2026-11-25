@@ -72,8 +72,8 @@
     }
   },
   "notice": {
-    "zh": "3.0.0 重大架构重构正式发布：全面采用悬浮毛玻璃侧栏、动态色彩光晕舞台与居中悬浮主控圆球，落地「智能护理（五列立式卡）」、交互式「空间透镜气泡星图」、系统清理「按应用分组 + 云盘空间只读透视」、「安全保护（启动项与护盾只读审计）」、「应用管理（本体只读保护 + 残留线索）」、「我的杂物（修改/访问双时间轴 + 重复快速对比）」、「性能优化（CPU/内存实时趋势折线图 + 低空间预警 + 菜单栏健康弹窗）」及 macOS 减少透明度/减弱动态效果适配。目录占用不等于可释放空间；移入废纸篓不会立即释放磁盘容量。",
-    "en": "AetherDisk 3.0.0 is now released with a full CleanMyMac 5 glass-stage redesign across 7 core modules: Smart Care 5-pillar dashboard, interactive Space Lens Bubble Map, Cleanup app-grouping + read-only Cloud Storage insights, read-only Protection launch-agent & vault audit, Applications & orphan clues (bundles protected), My Clutter modified/accessed dual-axis & duplicate comparison, Performance Sparklines + low-space alerts + MenuBar health popover, and Reduce Transparency / Reduce Motion support. Directory usage does not equal reclaimable space; Trash moves do not immediately free space."
+    "zh": "3.1.0 视觉与交互精修正式发布：基于 3.0.0 CleanMyMac 5 七模块毛玻璃舞台进一步打磨体验，新增「智能护理五维卡片就地展开快速审阅抽屉」「空间透镜气泡图双指捏合与 85%–180% 悬浮缩放/悬停射线高亮」「应用管理未用天数纯元数据估算与久未使用筛选」及「顶部菜单栏实时 CPU/内存双波形条（3 秒轻刷新）」。目录占用不等于可释放空间；移入废纸篓不会立即释放磁盘容量。",
+    "en": "AetherDisk 3.1.0 is now released with visual & interaction refinements on top of the 3.0.0 CleanMyMac 5 redesign: Smart Care inline pillar quick-review drawers, interactive Space Lens Bubble Map pinch & 85%–180% floating zoom + hover spoke highlights, Applications metadata-only unused-days insights & stale sorting (bundles strictly protected), and live CPU/memory sparklines in MenuBarExtra. Directory usage does not equal reclaimable space; Trash moves do not immediately free space."
   },
   "gallery": [
     {
@@ -195,8 +195,8 @@
           "en": "Five-pillar Smart Care & Assistant"
         },
         "body": {
-          "zh": "一屏总览系统清理、安全保护、性能优化、应用管理与空间透镜五大维度健康评分；搭配悬浮毛玻璃侧栏、发光主控球及减少透明度/减弱动态效果无障碍适配。",
-          "en": "At-a-glance health score and five vertical pillars for Cleanup, Protection, Performance, Applications and Space Lens, wrapped in an inset glass sidebar, floating action orb and Reduce Transparency / Reduce Motion support."
+          "zh": "一屏总览系统清理、安全保护、性能优化、应用管理与空间透镜五大维度健康评分并支持「展开摘要」就地快速核查；搭配悬浮毛玻璃侧栏、发光主控球及减少透明度/减弱动态效果无障碍适配。",
+          "en": "At-a-glance health score and five vertical pillars for Cleanup, Protection, Performance, Applications and Space Lens with inline quick-review drawers, wrapped in an inset glass sidebar, floating action orb and Reduce Transparency / Reduce Motion support."
         }
       },
       {
@@ -205,12 +205,12 @@
           "en": "Space Lens"
         },
         "title": {
-          "zh": "比例气泡星图与五维空间拓扑",
-          "en": "Interactive Bubble Lens & 5 space modes"
+          "zh": "比例气泡缩放聚焦与五维空间拓扑",
+          "en": "Zoomable Bubble Lens & 5 space modes"
         },
         "body": {
-          "zh": "左右同屏「目录树 + 交互式比例气泡图」，结合旭日图、树状图、分栏树与占比条四维配色下钻；受保护路径带斜纹防误删光圈。",
-          "en": "Split tree + proportional Bubble Map alongside Sunburst, Squarified Treemap, Miller Columns and Space Bar with four semantic color modes and protected-node hatching."
+          "zh": "左右同屏「目录树 + 交互式比例气泡图」，支持捏合与 85%–180% 悬浮缩放条（100% 一键重置）、悬停射线高亮、结合旭日图、树状图、分栏树与占比条四维配色下钻；受保护路径带斜纹防误删光圈。",
+          "en": "Split tree + proportional Bubble Map with pinch & 85%–180% floating zoom controls, hover spoke highlights, alongside Sunburst, Squarified Treemap, Miller Columns and Space Bar with four semantic color modes and protected-node hatching."
         }
       },
       {
@@ -251,8 +251,8 @@
           "en": "App footprints, dual-axis & duplicate compare"
         },
         "body": {
-          "zh": "应用管理透视本体体积、关联缓存与卸载残留（.app 本体严格只读）；我的杂物支持修改/访问双时间轴筛选、资产卡片、疑似重复对比与 Quick Look（⌘Y）。",
-          "en": "Inspect app bundles (strictly protected read-only) plus associated caches and orphan clues; browse My Clutter across modified/accessed time axes with duplicate comparison and Quick Look (⌘Y)."
+          "zh": "应用管理只读透视本体体积、未活跃天数估算与「久未使用」筛选、关联缓存与卸载残留（.app 本体严格只读）；我的杂物支持修改/访问双时间轴筛选、资产卡片、疑似重复对比与 Quick Look（⌘Y）。",
+          "en": "Inspect app bundles (strictly protected read-only), metadata-estimated unused days & stale sorting, associated caches and orphan clues; browse My Clutter across modified/accessed time axes with duplicate comparison and Quick Look (⌘Y)."
         }
       },
       {

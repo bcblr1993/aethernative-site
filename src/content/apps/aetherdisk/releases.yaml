@@ -1,6 +1,54 @@
 {
   "releases": [
     {
+      "version": "3.1.0",
+      "build": "2026112502",
+      "date": "2026-11-25",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v3.1.0/AetherDisk-3.1.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v3.1.0",
+      "sha256": "dcd8d82ddfb7f8b3d36418097a1b4dfa983995de78f80b3d01089c187ba95618",
+      "sparkle": {
+        "edSignature": "tfQyOGLK8sFpTHcTAjGEJxsxy/x4Mup+sPfpdYrhXEk8oAODtdGqjWvZgugRGZxxoe9Evbf2c2Po+RUyi7l7Bg==",
+        "length": 5674613
+      },
+      "badge": {
+        "zh": "正式版 · 3.1.0 视觉与交互精修 · 已通过 Apple 公证",
+        "en": "Release · 3.1.0 Visual & Interaction Refinements · Apple notarized"
+      },
+      "summary": {
+        "zh": "3.1.0 体验精修版：新增智能护理五维卡片就地快速审阅抽屉、空间透镜气泡图双指捏合与 85%–180% 悬浮缩放/悬停射线高亮、应用管理只读未用天数与「久未使用」筛选排序，以及顶部菜单栏实时 CPU/内存双波形条。",
+        "en": "3.1.0 polish release adding Smart Care inline pillar quick-review drawers, interactive Space Lens Bubble Map pinch & 85%–180% floating zoom + hover spoke highlights, read-only Applications unused-days estimation & stale sorting, and live MenuBar CPU/memory sparklines."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "3.1.0 四大视觉与交互精修亮点",
+            "en": "3.1.0 Visual & Interaction Refinements"
+          },
+          "items": [
+            {
+              "zh": "「智能护理」五列纵向卡片新增非嵌套「展开摘要」就地快速审阅抽屉，直接透视系统清理、安全保护、性能优化、应用管理与空间透镜只读线索并直达对应工作台。",
+              "en": "Adds non-nested inline quick-review drawers across all 5 Smart Care pillars (Cleanup, Protection, Performance, Applications and Space Lens)."
+            },
+            {
+              "zh": "「空间透镜」气泡图新增双指捏合手势与左下角半透明悬浮缩放条（85%–180% 与 100% 一键重置）、中心缩放同步命中、悬停径向射线高亮及两行元数据浮窗。",
+              "en": "Bubble Lens adds pinch-to-zoom and a floating 85%–180% zoom capsule (with 100% reset), synchronized center-scaled hit testing, hover spoke highlights and two-line hover cards."
+            },
+            {
+              "zh": "「应用管理」新增基于系统元数据估算的未活跃天数（lastUsedAt）与「久未使用」筛选排序及活跃标签，所有 .app 应用本体严格保持只读保护。",
+              "en": "Applications adds read-only metadata-estimated unused days (lastUsedAt) with stale filtering and activity badges while keeping all .app bundles strictly protected."
+            },
+            {
+              "zh": "Mac 顶部菜单栏健康弹窗（MenuBarExtra）新增实时 CPU/内存双 TelemetrySparkline 趋势波形条与 3 秒轻量只读刷新循环。",
+              "en": "MenuBarHealthPopoverView embeds live CPU and memory TelemetrySparkline strips with a lightweight 3-second read-only refresh cadence."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "3.0.0",
       "build": "2026112501",
       "date": "2026-11-25",
