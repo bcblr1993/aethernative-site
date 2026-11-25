@@ -17,16 +17,16 @@
     "en": "See where your space goes."
   },
   "summary": {
-    "zh": "原生 macOS 磁盘空间分析与安全清理工具。提供旭日图、树状图、分栏树与占比条四种可视化视图，磁盘友好有界并发扫描、挂载卷与 APFS 快照只读透视、纯元数据重复线索及 Quick Look 预览；重要目录默认保护，清理前先校验再移入废纸篓。",
-    "en": "A native macOS disk analyzer and safe cleanup tool. Offers Sunburst, Treemap, Miller Columns and Space Bar visualizations, disk-friendly bounded concurrency profiles, mounted volume & read-only APFS snapshot insights, metadata-only duplicate clues and Quick Look previews, with source/installer protection and Trash-only confirmation."
+    "zh": "全面对齐 CleanMyMac 5 现代视觉与模块化体验的原生 macOS 空间护理与系统透视工具。聚合「智能护理、系统清理、安全保护、性能优化、应用管理、我的杂物、空间透镜」七大核心模块及工程洞察、文件类型与占用变化；纯元数据只读扫描，绝不读取文件内容，清理仅经确认后移入废纸篓。",
+    "en": "A native macOS space-care and system-insights tool aligned with CleanMyMac 5 across Smart Care, System Cleanup + read-only Cloud Storage, Protection, Performance Sparklines, Applications, My Clutter dual-axis comparison, and Space Lens Bubble Map. Metadata-only scans never read file contents, and cleanup moves items to Trash only after explicit confirmation."
   },
   "platforms": [
     {
       "id": "mac",
       "status": "available",
       "requirement": {
-        "zh": "Apple M 系列芯片 · macOS 26+",
-        "en": "Apple M-series · macOS 26+"
+        "zh": "Apple M 系列芯片 · macOS 14+",
+        "en": "Apple M-series · macOS 14+"
       }
     }
   ],
@@ -67,72 +67,89 @@
       "en": "See folder and hidden-directory usage and compare scans over time. Review cleanup suggestions before confirming; source files and release installers stay protected."
     },
     "requirements": {
-      "zh": "Apple M 系列芯片（M1 及更新）· macOS 26 或更新版本",
-      "en": "Apple M-series silicon · macOS 26 or later"
+      "zh": "Apple M 系列芯片（M1 及更新）· macOS 14 或更新版本",
+      "en": "Apple M-series silicon · macOS 14 or later"
     }
   },
   "notice": {
-    "zh": "2.0.0 大版本正式发布：新增旭日图 / 树状图 / 分栏树多维空间可视化与四种配色模式、磁盘友好三档扫描策略（含 IOPOL_THROTTLE 限流）、挂载卷只读切换与 APFS 本地快照透视、纯元数据疑似重复大文件线索、Quick Look 快速预览及多快照占用走势图。目录占用不等于实际可释放空间；移入废纸篓不会立即释放空间。",
-    "en": "AetherDisk 2.0.0 is now released with Sunburst, Treemap and Miller Columns visualizations across four color modes, three disk-friendly scan performance profiles with IOPOL_THROTTLE throttling, mounted volume switching and read-only APFS snapshot insights, metadata-only duplicate clues, Quick Look previews and multi-snapshot trend charts. Folder usage is not a promise of reclaimable space; moving files to Trash does not immediately free space."
+    "zh": "3.0.0 重大架构重构正式发布：全面采用悬浮毛玻璃侧栏、动态色彩光晕舞台与居中悬浮主控圆球，落地「智能护理（五列立式卡）」、交互式「空间透镜气泡星图」、系统清理「按应用分组 + 云盘空间只读透视」、「安全保护（启动项与护盾只读审计）」、「应用管理（本体只读保护 + 残留线索）」、「我的杂物（修改/访问双时间轴 + 重复快速对比）」、「性能优化（CPU/内存实时趋势折线图 + 低空间预警 + 菜单栏健康弹窗）」及 macOS 减少透明度/减弱动态效果适配。目录占用不等于可释放空间；移入废纸篓不会立即释放磁盘容量。",
+    "en": "AetherDisk 3.0.0 is now released with a full CleanMyMac 5 glass-stage redesign across 7 core modules: Smart Care 5-pillar dashboard, interactive Space Lens Bubble Map, Cleanup app-grouping + read-only Cloud Storage insights, read-only Protection launch-agent & vault audit, Applications & orphan clues (bundles protected), My Clutter modified/accessed dual-axis & duplicate comparison, Performance Sparklines + low-space alerts + MenuBar health popover, and Reduce Transparency / Reduce Motion support. Directory usage does not equal reclaimable space; Trash moves do not immediately free space."
   },
   "gallery": [
     {
       "label": {
-        "zh": "磁盘概览 · 旭日图（深浅外观）",
-        "en": "Overview · Sunburst (Light and Dark)"
+        "zh": "智能护理 · 五维空间与健康体检（深浅外观）",
+        "en": "Smart Care · 5-Pillar Overview (Light & Dark)"
+      },
+      "zh": "./media/smartcare-light.png",
+      "zhDark": "./media/smartcare-dark.png"
+    },
+    {
+      "label": {
+        "zh": "空间透镜 · 比例气泡星图（深浅外观）",
+        "en": "Space Lens · Bubble Map (Light & Dark)"
+      },
+      "zh": "./media/bubble-light.png",
+      "zhDark": "./media/bubble-dark.png"
+    },
+    {
+      "label": {
+        "zh": "系统清理 · 双栏审阅与按应用分组",
+        "en": "System Cleanup · Master-Detail & App Grouping"
+      },
+      "zh": "./media/suggestions-dark.png"
+    },
+    {
+      "label": {
+        "zh": "系统清理 · 云盘空间只读透视（深浅外观）",
+        "en": "Cloud Storage · Read-Only Insights (Light & Dark)"
+      },
+      "zh": "./media/cloud-light.png",
+      "zhDark": "./media/cloud-dark.png"
+    },
+    {
+      "label": {
+        "zh": "安全保护 · 启动项与隐私护盾只读审计（深浅外观）",
+        "en": "Protection · Launch Agents & Vault Shields (Light & Dark)"
+      },
+      "zh": "./media/protection-light.png",
+      "zhDark": "./media/protection-dark.png"
+    },
+    {
+      "label": {
+        "zh": "性能优化 · 实时遥测波形与低空间阈值（深浅外观）",
+        "en": "Performance · Telemetry Sparklines & Alerts (Light & Dark)"
+      },
+      "zh": "./media/performance-light.png",
+      "zhDark": "./media/performance-dark.png"
+    },
+    {
+      "label": {
+        "zh": "应用管理 · 本体只读保护与残留线索",
+        "en": "Applications · Bundle Footprint & Orphan Clues"
+      },
+      "zh": "./media/applications-dark.png"
+    },
+    {
+      "label": {
+        "zh": "我的杂物 · 双时间轴、资产卡片与重复对比（深浅外观）",
+        "en": "My Clutter · Dual-Axis & Duplicate Comparison (Light & Dark)"
+      },
+      "zh": "./media/large-light.png",
+      "zhDark": "./media/clutter-duplicates-dark.png"
+    },
+    {
+      "label": {
+        "zh": "空间透镜 · 旭日图 / 树状图 / 分栏树（深浅外观）",
+        "en": "Space Lens · Sunburst, Treemap & Miller Columns"
       },
       "zh": "./media/overview-light.png",
       "zhDark": "./media/overview-dark.png"
     },
     {
       "label": {
-        "zh": "磁盘概览 · 树状图（深浅外观）",
-        "en": "Overview · Treemap (Light and Dark)"
-      },
-      "zh": "./media/treemap-light.png",
-      "zhDark": "./media/treemap-dark.png"
-    },
-    {
-      "label": {
-        "zh": "磁盘概览 · Miller 分栏树",
-        "en": "Overview · Miller Columns"
-      },
-      "zh": "./media/columns-light.png"
-    },
-    {
-      "label": {
-        "zh": "工程洞察 · 构建缓存占比",
-        "en": "Project Insights · Build Caches"
-      },
-      "zh": "./media/projects-light.png"
-    },
-    {
-      "label": {
-        "zh": "跨目录大文件与重复线索",
-        "en": "Large Files & Duplicate Clues"
-      },
-      "zh": "./media/large-light.png",
-      "zhDark": "./media/large-dark.png"
-    },
-    {
-      "label": {
-        "zh": "文件类型与陈旧分布",
-        "en": "File Types & Age Distribution"
-      },
-      "zh": "./media/types-light.png",
-      "zhDark": "./media/types-dark.png"
-    },
-    {
-      "label": {
-        "zh": "保守的清理建议",
-        "en": "Conservative cleanup suggestions"
-      },
-      "zh": "./media/suggestions-dark.png"
-    },
-    {
-      "label": {
-        "zh": "扫描策略、权限与更新设置",
-        "en": "Scan Profiles, Access & Updates"
+        "zh": "扫描策略、低空间阈值与更新设置（深浅外观）",
+        "en": "Scan Profiles, Threshold Alerts & Updates"
       },
       "zh": "./media/updates-light.png",
       "zhDark": "./media/updates-dark.png"
@@ -147,108 +164,109 @@
     },
     {
       "label": {
-        "zh": "多快照走势与占用变化",
-        "en": "Multi-Snapshot Trends & Changes"
+        "zh": "工程洞察、文件类型与多快照变化",
+        "en": "Projects, File Types & Snapshot Trends"
       },
-      "zh": "./media/changes-light.png"
+      "zh": "./media/projects-light.png",
+      "zhDark": "./media/types-dark.png"
     }
   ],
   "features": {
     "eyebrow": {
-      "zh": "看清，再整理",
-      "en": "Understand before cleaning"
+      "zh": "CleanMyMac 级视觉 · 原生安全底线",
+      "en": "CleanMyMac-grade clarity · Native safety"
     },
     "title": {
-      "zh": "每一步，都清楚。",
-      "en": "Clarity at every step."
+      "zh": "七大核心模块，步步只读可控。",
+      "en": "Seven core modules. Read-only where it counts."
     },
     "lead": {
-      "zh": "本机扫描、保守建议、明确确认。",
-      "en": "Local scans. Conservative suggestions. Explicit confirmation."
+      "zh": "本机元数据扫描、清晰分组预览、确认后仅移入废纸篓。",
+      "en": "Metadata-only local scans. Clear grouped review. Trash-only confirmation."
     },
     "items": [
       {
         "kicker": {
-          "zh": "可视化",
-          "en": "Visualize"
+          "zh": "旗舰主页",
+          "en": "Smart Care"
         },
         "title": {
-          "zh": "旭日图、树状图与分栏树联动",
-          "en": "Sunburst, Treemap & Miller Columns"
+          "zh": "智能护理五联舞台与智能助手",
+          "en": "Five-pillar Smart Care & Assistant"
         },
         "body": {
-          "zh": "支持四种空间视图与按目录、文件类型、陈旧度、保护状态四种配色语义；点击选中、再次点击目录快速下钻，受保护节点带斜纹与盾牌标识。",
-          "en": "Switch across four spatial views with four semantic color modes. Click to inspect, click again to drill down, with diagonal hatching and shields for protected paths."
+          "zh": "一屏总览系统清理、安全保护、性能优化、应用管理与空间透镜五大维度健康评分；搭配悬浮毛玻璃侧栏、发光主控球及减少透明度/减弱动态效果无障碍适配。",
+          "en": "At-a-glance health score and five vertical pillars for Cleanup, Protection, Performance, Applications and Space Lens, wrapped in an inset glass sidebar, floating action orb and Reduce Transparency / Reduce Motion support."
         }
       },
       {
         "kicker": {
-          "zh": "性能",
-          "en": "Performance"
+          "zh": "空间透镜",
+          "en": "Space Lens"
         },
         "title": {
-          "zh": "磁盘友好并发与 I/O 限流",
-          "en": "Disk-friendly bounded concurrency"
+          "zh": "比例气泡星图与五维空间拓扑",
+          "en": "Interactive Bubble Lens & 5 space modes"
         },
         "body": {
-          "zh": "提供节能低 I/O、均衡并发与极速并发三档策略，结合 Darwin IOPOL_THROTTLE 线程级限流与硬链接去重；绝不读取文件内容、不跟随符号链接、不跨卷。",
-          "en": "Choose Eco, Balanced or Fast scan profiles with Darwin IOPOL_THROTTLE disk throttling and hard-link deduplication. Never reads file contents, follows symlinks or crosses volumes."
+          "zh": "左右同屏「目录树 + 交互式比例气泡图」，结合旭日图、树状图、分栏树与占比条四维配色下钻；受保护路径带斜纹防误删光圈。",
+          "en": "Split tree + proportional Bubble Map alongside Sunburst, Squarified Treemap, Miller Columns and Space Bar with four semantic color modes and protected-node hatching."
         }
       },
       {
         "kicker": {
-          "zh": "系统透视",
-          "en": "System Insights"
+          "zh": "清理与云盘",
+          "en": "Cleanup & Cloud"
         },
         "title": {
-          "zh": "挂载卷切换与 APFS 快照透视",
-          "en": "Volumes & read-only APFS snapshots"
+          "zh": "按应用分组清理与云盘只读透视",
+          "en": "App-grouped cleanup & Cloud insights"
         },
         "body": {
-          "zh": "侧边栏一键切换已挂载卷（外部卷锁定仅只读分析）；只读查看 APFS 本地快照清单、废纸篓占用与完整磁盘访问权限状态，绝不删除系统快照。",
-          "en": "Switch mounted volumes in the sidebar (external volumes are strictly read-only). Inspect APFS local snapshots, Trash usage and Full Disk Access read-only without deleting snapshots."
+          "zh": "支持按应用与开发工具链折叠审阅缓存、日志与窗口状态；内置 CloudStorage 只读透视对比本机驻留与云端占位体积，绝不触发下载或云端删除。",
+          "en": "Group caches, logs and saved states by app/toolchain, and inspect CloudStorage local vs dataless placeholder usage read-only without triggering downloads or cloud deletion."
         }
       },
       {
         "kicker": {
-          "zh": "线索与预览",
-          "en": "Clues & Preview"
+          "zh": "保护与性能",
+          "en": "Protection & Health"
         },
         "title": {
-          "zh": "纯元数据重复线索与 Quick Look",
-          "en": "Metadata duplicate clues & Quick Look"
+          "zh": "启动代理审计与实时性能波形",
+          "en": "Launch audit & live telemetry sparklines"
         },
         "body": {
-          "zh": "在不读取文件正文的情况下，按大于等于 1 MiB 文件的逻辑大小与扩展名归组提示潜在重复占用；支持原生 Quick Look（⌘Y）与文件夹拖放只读扫描。",
-          "en": "Groups ≥1 MiB unique-inode files by logical size and extension without reading file contents. Includes native Quick Look (⌘Y) and drag-and-drop folder scanning."
+          "zh": "纯元数据审计 LaunchAgents/LaunchDaemons 与隐私防线；通过 Darwin Mach/IOKit 展示内存与 CPU 历史波形图、低空间阈值提醒、APFS 快照及菜单栏六宫格。",
+          "en": "Metadata-only audit of LaunchAgents/Daemons and credential shields, paired with live Mach/IOKit memory & CPU sparklines, configurable low-space alerts, APFS snapshots and MenuBar health monitor."
         }
       },
       {
         "kicker": {
-          "zh": "保护",
-          "en": "Protect"
+          "zh": "应用与杂物",
+          "en": "Apps & Clutter"
         },
         "title": {
-          "zh": "源码、安装包与自定义目录保护",
-          "en": "Source, installers & custom protection"
+          "zh": "应用足迹、双时间轴与重复对比",
+          "en": "App footprints, dual-axis & duplicate compare"
         },
         "body": {
-          "zh": "自动识别开发工程并校验普通文件清单；包含源码、Git 工作树、安装包、签名归档或链接的候选阻止清理，支持添加本机自定义保护目录并在清理前再次校验指纹。",
-          "en": "Validates regular-file project manifests and blocks cleanup for source code, Git worktrees, installers, signing archives or symlinks, alongside local custom protected folders and pre-Trash fingerprint revalidation."
+          "zh": "应用管理透视本体体积、关联缓存与卸载残留（.app 本体严格只读）；我的杂物支持修改/访问双时间轴筛选、资产卡片、疑似重复对比与 Quick Look（⌘Y）。",
+          "en": "Inspect app bundles (strictly protected read-only) plus associated caches and orphan clues; browse My Clutter across modified/accessed time axes with duplicate comparison and Quick Look (⌘Y)."
         }
       },
       {
         "kicker": {
-          "zh": "趋势与审计",
-          "en": "Trends & Audit"
+          "zh": "安全底线",
+          "en": "Safety First"
         },
         "title": {
-          "zh": "多快照走势、审计账本与 CSV 报告",
-          "en": "Snapshot trends, audit ledger & CSV"
+          "zh": "绝不读文件内容，清理前重验指纹",
+          "en": "Never reads contents; revalidates before Trash"
         },
         "body": {
-          "zh": "保留最近 10 份完整扫描快照与连续增长热点，展示多快照柱状走势图；本机审计账本记录最近 50 次废纸篓操作，支持 10 列 CSV 安全导出。",
-          "en": "Retains up to 10 completed scan snapshots with continuous growth hotspots and a bar trend chart, logs the last 50 Trash actions locally, and exports 10-column sanitized CSV reports."
+          "zh": "全程不跟随符号链接、不跨卷、不读取普通文件正文；Git 工作树、源码、安装包与自定义保护自动锁定，执行前重新校验 inode 与进程占用后仅移入废纸篓。",
+          "en": "Never follows symlinks, crosses volumes or reads regular file contents. Blocks Git trees, source code, installers and custom folders, revalidating inodes and open processes before moving items to Trash."
         }
       }
     ]

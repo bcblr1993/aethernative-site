@@ -1,6 +1,54 @@
 {
   "releases": [
     {
+      "version": "3.0.0",
+      "build": "2026112501",
+      "date": "2026-11-25",
+      "channel": "stable",
+      "platform": "mac",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v3.0.0/AetherDisk-3.0.0-arm64.dmg",
+      "github": "https://github.com/bcblr1993/AetherDisk/releases/tag/v3.0.0",
+      "sha256": "4a1ad5b6b9fb564eb04c00555b73af9e3a0b87591069b62109bb3acbe5394cf9",
+      "sparkle": {
+        "edSignature": "4p7s91hdNUnqmccB59eZ6Xin6JWAC4ZJmx4ly11ngorosMRhCx3jqqMWl1m3KmxcqppqeI30uGzgu8zxhdGzCA==",
+        "length": 5591128
+      },
+      "badge": {
+        "zh": "正式版 · 3.0.0 CleanMyMac 深度重构 · 已通过 Apple 公证",
+        "en": "Major Release · 3.0.0 CleanMyMac Redesign · Apple notarized"
+      },
+      "summary": {
+        "zh": "3.0.0 旗舰升级：全面重构为 CleanMyMac 5 悬浮毛玻璃舞台壳层与七大核心模块——新增智能护理五联舞台、空间透镜交互式比例气泡星图、系统清理按应用分组与只读 CloudStorage 云盘透视、安全保护启动代理与护盾审计、应用管理只读足迹、我的杂物双时间轴与疑似重复快速对比、性能优化历史波形与低空间只读预警及 macOS 无障碍自适应。",
+        "en": "Major 3.0.0 redesign aligned with CleanMyMac 5: floating glass sidebar stage and 7 core modules adding the 5-pillar Smart Care hub, interactive Space Lens Bubble Map, app-grouped Cleanup + read-only CloudStorage insights, read-only Protection launch-agent & vault audit, Applications footprint & orphan clues, My Clutter dual-axis + duplicate comparison, Performance Sparklines + low-space alerts + MenuBar health popover, and Accessibility adaptation."
+      },
+      "notes": [
+        {
+          "title": {
+            "zh": "3.0.0 全新 CleanMyMac 5 舞台体系、无障碍与七大核心模块",
+            "en": "3.0.0 CleanMyMac 5 Stage Shell, Accessibility & Seven Core Modules"
+          },
+          "items": [
+            {
+              "zh": "重塑内嵌悬浮圆角毛玻璃侧边栏、十套动态色彩舞台光晕、居中悬浮发光主控圆球及一屏免滚动「智能护理（Smart Care）」五联卡片舞台；全面适配 macOS「减少透明度（accessibilityReduceTransparency）」实色高对比与「减弱动态效果（accessibilityReduceMotion）」。",
+              "en": "Introduces an inset floating glass sidebar, ten stage glow palettes, floating action orb and single-screen 5-pillar Smart Care hub, with full macOS accessibilityReduceTransparency and accessibilityReduceMotion support."
+            },
+            {
+              "zh": "「空间透镜」升级为「左目录树 + 右比例气泡画布」左右双栏布局与黄金角无重叠气泡图（Bubble Lens）；「系统清理」支持按应用/工具链折叠分组，并新增 ~/Library/CloudStorage 与 iCloud Drive 纯元数据云盘驻留/占位只读透视（绝不触发下载或云端删除）。",
+              "en": "Space Lens adds split tree + golden-angle Bubble Lens canvas; System Cleanup adds app/toolchain grouping alongside read-only ~/Library/CloudStorage & iCloud Drive local vs dataless placeholder inspection."
+            },
+            {
+              "zh": "新增 100% 只读「安全保护」模块（LaunchAgents/LaunchDaemons 元数据、凭据护盾与下载安装包核查）、「应用管理」三栏足迹与卸载残留线索（.app 本体严格只读保护），以及「我的杂物」ATTR_CMN_ACCTIME 修改/访问双时间轴筛选与疑似重复快速对比面板。",
+              "en": "Adds read-only Protection (LaunchAgents/Daemons metadata, credential shields & Downloads audit), Applications bundle footprints & orphan clues (bundles strictly protected), and My Clutter modified/accessed dual-axis filtering with duplicate comparison."
+            },
+            {
+              "zh": "「性能优化」与顶部菜单栏六宫格升级 30 点采样历史 Sparkline 趋势图、用户可调低空间阈值只读预警（10/20/50/100 GiB）及后台启动项一键直达联动；CLI aetherdisk-scan 新增 --apps、--health 与 --cloud 参数。",
+              "en": "Performance and MenuBarExtra add 30-sample CPU/memory sparklines, configurable 10/20/50/100 GiB read-only low-space alerts and Protection launch-items linkage; CLI aetherdisk-scan adds --apps, --health and --cloud."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "2.0.0",
       "build": "2026112301",
       "date": "2026-11-23",
