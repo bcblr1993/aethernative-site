@@ -4,13 +4,23 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>Aether Antigravity Multiplexer</title>
         <item>
-            <title>1.0.1</title>
-            <pubDate>Wed, 25 Nov 2026 10:25:12 +0800</pubDate>
-            <sparkle:version>101</sparkle:version>
-            <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+            <title>1.0.2</title>
+            <pubDate>Thu, 26 Nov 2026 05:04:02 +0800</pubDate>
+            <sparkle:version>102</sparkle:version>
+            <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## v1.0.1 (Build 101) — 2026-11-25
+            <description sparkle:format="markdown"><![CDATA[## v1.0.2 (Build 102) — 2026-11-26
+
+### 🚀 全面适配官方最新 Antigravity 2.35.2 Apple Silicon 版 (Official Antigravity 2.35.2 Compatibility)
+- **核心二进制与凭据隔离入口定位**：
+  - 深度解析官方 `2.35.2` `Contents/Resources/bin/language_server`（SHA-256: `8b11ecde9d089ebbe4511871e75bd046e04f33865c27b617e29a3c237a2bd575`），确认 `codeassistclient.shouldBypassKeyring` 机器指令入口偏移量保持为 `37748304` (`0x23ffe50`)，严格校验 12 字节 ARM64 栈帧序言（`900b40f9f1c301d13f0210eb`），确保各分身独立 OAuth 凭据与 Keychain 隔离机制稳定生效。
+- **ASAR 补丁与官方签名指纹校验**：
+  - 完整记录 `2.35.2` 官方 `app.asar` 指纹（`e057115571cf5085406d20f2427a5afac272b712ec84332c7157da0113d4b2d0`），通过 Google 官方签名验证（`TeamIdentifier=EQHXZ8M8AV`）与 `create_instance.patch_asar` 补丁及完整性哈希重算实测。
+- **支持一键无损极速升级与持续体验保障**：
+  - 支持直接基于最新官方 `2.35.2` 克隆新建隔离实例或触发已有实例一键无损极速升级（保持数据目录与登录状态，跳过冗余备份），同时延续 `Studio Bento` 模块化架构与 `Dark Obsidian` / `Light Frost` 双主题工作台体验。
+
+## v1.0.1 (Build 101) — 2026-11-25
 
 ### 🚀 全面适配官方最新 Antigravity 2.35.1 Apple Silicon 版 (Official Antigravity 2.35.1 Compatibility)
 - **核心二进制与凭据隔离入口定位**：
@@ -723,10 +733,10 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
 
 此管理器更新不会自动升级副本或修改实例数据。
 ]]></description>
-            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v1.0.1/Aether-Antigravity-Multiplexer-v1.0.1-macos-arm64.zip" length="3251866" type="application/octet-stream" sparkle:edSignature="ahvIkxMLnp7VBtsclT5MWrjwLxrx4LONTJnv7am3ztVG/0L0rfitZafft8EEXiZF4cF2JA2d9+wLsGHUa/2DDg=="></enclosure>
+            <enclosure url="https://github.com/bcblr1993/aether-antigravity-multiplexer/releases/download/v1.0.2/Aether-Antigravity-Multiplexer-v1.0.2-macos-arm64.zip" length="3251973" type="application/octet-stream" sparkle:edSignature="5l6Tf1mOVdxmQemzJ9kXa17Cy27hIliicTOjZu9KVbxFT/E7ZciKrXVmTRWjaYhy5ctcLpHmCGuE1tEHhSJJAw=="></enclosure>
         </item>
     </channel>
 </rss><!-- sparkle-signatures:
-edSignature: +F2IPhv50bm5wKzLDSEo8QfLitoFu7hMIROmd/oN/jZMvgPB1EpQ7VFbdbU13DcFOuOv4p3YmA3fVO9BT2yWAg==
-length: 104821
+edSignature: 1+HIRoflDDdy1N3IiKvsHsxFfQPjuo5U+3G07KNYSc4P7oROYT9qOrH9VLtGvbuhpPrQtYt/Kqj+bYHAlPWTDg==
+length: 106099
 -->
