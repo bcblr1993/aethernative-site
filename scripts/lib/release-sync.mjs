@@ -32,6 +32,26 @@ export function parseSparkleLine(text) {
   return sig && len ? { edSignature: sig[1], length: Number(len[1]) } : null;
 }
 
+/** 从区块中解析 Sparkle 签名与长度，兼容 sparkle 字段与顶层 edSignature 字段。 */
+export function resolveBlockSparkle(block, assetSize) {
+  if (block?.sparkle != null && block.sparkle !== '') {
+    const sp = typeof block.sparkle === 'string'
+      ? parseSparkleLine(block.sparkle)
+      : (typeof block.sparkle === 'object' && !Array.isArray(block.sparkle)
+        && block.sparkle.edSignature && Number.isInteger(Number(block.sparkle.length)) && Number(block.sparkle.length) > 0
+        ? { edSignature: String(block.sparkle.edSignature), length: Number(block.sparkle.length) }
+        : null);
+    if (!sp) throw new Error('区块里的 sparkle 无法解析，请直接粘贴 sign_update 的输出：sparkle:edSignature="..." length="..."');
+    return sp;
+  }
+  if (block?.edSignature != null && block.edSignature !== '') {
+    const length = block.length != null ? Number(block.length) : assetSize;
+    if (!Number.isInteger(length) || length <= 0) throw new Error('区块里的 edSignature 缺少有效的 length');
+    return { edSignature: String(block.edSignature), length };
+  }
+  return null;
+}
+
 /** 从 appcast.xml 中找到指定版本（shortVersionString）的签名、长度与构建号。 */
 export function findInAppcast(xml, version) {
   for (const item of xml.match(/<item>[\s\S]*?<\/item>/g) ?? []) {

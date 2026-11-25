@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 import {
   buildEntry, compareVersions, detectBuild, detectVersion, findInAppcast, parseSiteBlock,
-  latestStableVersion, parseSparkleLine, pickAsset, upsertRelease, verifySignedFeed, verifySparkleSignature,
+  latestStableVersion, parseSparkleLine, pickAsset, resolveBlockSparkle, upsertRelease, verifySignedFeed, verifySparkleSignature,
 } from './release-sync.mjs';
 
 const SIG = 'A'.repeat(86) + '==';
@@ -25,6 +25,25 @@ describe('parseSparkleLine', () => {
     expect(parseSparkleLine(`length="9" sparkle:edSignature="${SIG}"`)).toEqual({ edSignature: SIG, length: 9 });
   });
   it('缺字段返回 null', () => expect(parseSparkleLine('length="9"')).toBeNull());
+});
+
+describe('resolveBlockSparkle', () => {
+  it('解析区块中的 sparkle 字符串或对象', () => {
+    expect(resolveBlockSparkle({ sparkle: `sparkle:edSignature="${SIG}" length="123"` }, 999)).toEqual({ edSignature: SIG, length: 123 });
+    expect(resolveBlockSparkle({ sparkle: { edSignature: SIG, length: 456 } }, 999)).toEqual({ edSignature: SIG, length: 456 });
+  });
+  it('兼容顶层 edSignature，优先区块 length，否则回退 assetSize', () => {
+    expect(resolveBlockSparkle({ edSignature: SIG }, 11692919)).toEqual({ edSignature: SIG, length: 11692919 });
+    expect(resolveBlockSparkle({ edSignature: SIG, length: 555 }, 11692919)).toEqual({ edSignature: SIG, length: 555 });
+  });
+  it('无签名返回 null，格式错误时抛出明确错误', () => {
+    expect(resolveBlockSparkle(null, 100)).toBeNull();
+    expect(resolveBlockSparkle({}, 100)).toBeNull();
+    expect(() => resolveBlockSparkle({ sparkle: 'bad' }, 100)).toThrow(/sparkle 无法解析/);
+    expect(() => resolveBlockSparkle({ sparkle: { edSignature: SIG } }, 100)).toThrow(/sparkle 无法解析/);
+    expect(() => resolveBlockSparkle({ edSignature: SIG }, 0)).toThrow(/缺少有效的 length/);
+    expect(() => resolveBlockSparkle({ edSignature: SIG, length: -5 }, 100)).toThrow(/缺少有效的 length/);
+  });
 });
 
 describe('findInAppcast', () => {

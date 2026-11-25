@@ -12,10 +12,25 @@ beforeEach(() => {
   pending = [];
   env = { DB: createD1(), ASSETS: { fetch: vi.fn(async () => new Response(JSON.stringify({ aetherroute: { '1.4.2': target } }))) } };
 });
-async function request(method = 'GET', headers: Record<string, string> = {}, params: Record<string, string> = { app: 'aetherroute', version: '1.4.2' }) {
-  const response = await download({ request: new Request('https://aethernative.com/api/download/aetherroute/1.4.2', {
-    method, headers: { 'User-Agent': 'Mozilla/5.0 Safari/604.1', ...headers },
-  }), env, params, waitUntil: (p: Promise<unknown>) => pending.push(p) } as any);
+async function request(
+  method = 'GET',
+  headers: Record<string, string | undefined> = {},
+  params: Record<string, string> = { app: 'aetherroute', version: '1.4.2' },
+  cf?: Record<string, unknown>,
+) {
+  const merged: Record<string, string> = {};
+  for (const [k, v] of Object.entries({
+    'User-Agent': 'Mozilla/5.0 Safari/604.1',
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Dest': 'document',
+    ...headers,
+  })) {
+    if (v !== undefined) merged[k] = v;
+  }
+  const req = new Request('https://aethernative.com/api/download/aetherroute/1.4.2', { method, headers: merged });
+  if (cf) Object.defineProperty(req, 'cf', { value: cf });
+  const response = await download({ request: req, env, params, waitUntil: (p: Promise<unknown>) => pending.push(p) } as any);
   await Promise.all(pending);
   return response;
 }
@@ -38,8 +53,21 @@ describe('download initiations', () => {
     ['HEAD', {}], ['GET', { Purpose: 'prefetch' }], ['GET', { 'Sec-Purpose': 'prefetch;prerender' }],
     ['GET', { 'User-Agent': 'Googlebot' }], ['GET', { 'User-Agent': 'meta-externalagent/1.1' }],
     ['GET', { 'User-Agent': '' }], ['GET', { 'User-Agent': 'curl/8.0' }],
+    ['GET', { 'User-Agent': 'Go-http-client/2.0' }], ['GET', { 'User-Agent': 'undici' }],
+    ['GET', { 'User-Agent': 'axios/1.7.0' }], ['GET', { 'User-Agent': 'facebookexternalhit/1.1' }],
+    ['GET', { 'User-Agent': 'Mozilla/5.0 Playwright' }],
+    ['GET', { 'Sec-Fetch-Mode': undefined }], ['GET', { 'Sec-Fetch-Mode': '' }], ['GET', { 'Sec-Fetch-Mode': 'cors' }],
+    ['GET', { 'Sec-Fetch-Dest': 'empty' }], ['GET', { 'Accept-Language': undefined }], ['GET', { 'Accept-Language': '  ' }],
+    ['GET', { Range: 'bytes=0-0' }],
   ])('does not count automation %s %j but still redirects', async (method, headers) => {
     expect((await request(method, headers)).status).toBe(302); expect(count()).toBeNull();
+  });
+  it.each([
+    { verifiedBotCategory: 'Search Engine Crawler' },
+    { botManagement: { verifiedBot: true } },
+  ])('does not count Cloudflare verified bots %j', async (cf) => {
+    expect((await request('GET', {}, { app: 'aetherroute', version: '1.4.2' }, cf)).status).toBe(302);
+    expect(count()).toBeNull();
   });
   it('rejects unknown versions, prototype keys, traversal and non-read methods', async () => {
     for (const params of [{ app: '../x', version: '1.4.2' }, { app: 'aetherroute', version: 'missing' }, { app: 'constructor', version: 'name' }]) {

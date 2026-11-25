@@ -96,7 +96,7 @@ const featClass = (i: number, total: number) => {
         <a href={`${base}issues/`}>{zh ? '已知问题' : 'Known issues'}</a>
         {hasDoc('support') && <a href={`${base}support/`}>{u.help}</a>}
       </div>
-      {latest?.download && <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)}>{u.download(latest.version)}</a>}
+      {latest?.download && <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)} rel="nofollow">{u.download(latest.version)}</a>}
     </div>
   </div>
 
@@ -107,7 +107,7 @@ const featClass = (i: number, total: number) => {
       <h1>{t(d.hero.title, lang).split('\n').map((line) => <span class="hero-title-line">{line}</span>)}</h1>
       <p class="lead"><Text v={d.hero.lead} lang={lang} /></p>
       <div class="cta">
-        {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>{u.macDownload(latest.version)} ↓</a>}
+        {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)} rel="nofollow">{u.macDownload(latest.version)} ↓</a>}
         {releases.length > 0 && <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>}
       </div>
       <div class="hero-meta">
@@ -446,7 +446,7 @@ const featClass = (i: number, total: number) => {
           <p class="eyebrow">{d.name} for Mac</p>
           <h2 class="mt"><Text v={d.cta.title} lang={lang} /></h2>
           <div class="cta">
-            {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>{u.macDownload(latest.version)} ↓</a>}
+            {latest?.download && <a class="btn btn-p" href={downloadURL(app.id, latest.version)} rel="nofollow">{u.macDownload(latest.version)} ↓</a>}
             {releases.length > 0 && <a class="btn btn-s" href={`${base}releases/`}>{u.allReleases} →</a>}
           </div>
           <p class="req muted"><Text v={d.cta.note} lang={lang} /></p>

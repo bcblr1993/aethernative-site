@@ -86,14 +86,14 @@ const searchText = `${d.name} ${t(d.tagline, lang)} ${t(d.summary, lang)}`.toLoc
         {d.featured ? (
           <>
             {latest?.download && (
-              <a class="btn btn-p" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
+              <a class="btn btn-p" href={downloadURL(app.id, latest.version)} rel="nofollow">↓ {u.macDownload(latest.version)}</a>
             )}
             <a class="btn btn-s" href={page}>{u.learnMore} →</a>
           </>
         ) : (
           <>
             {latest?.download && (
-              <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)}>↓ {u.macDownload(latest.version)}</a>
+              <a class="btn btn-p btn-sm" href={downloadURL(app.id, latest.version)} rel="nofollow">↓ {u.macDownload(latest.version)}</a>
             )}
             <a class="more card-more" href={page}>{u.learnMore} →</a>
           </>

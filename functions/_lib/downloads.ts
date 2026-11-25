@@ -2,12 +2,20 @@ export const beijingDay = (time = Date.now()) => new Date(time + 8 * 3600_000).t
 export const validApp = (s: string) => /^[a-z0-9][a-z0-9-]{0,63}$/.test(s);
 export const validVersion = (s: string) => /^[A-Za-z0-9._+-]{1,100}$/.test(s);
 
-/** Skip known automation and speculative loads. This is a request count, not unique people. */
+const AUTOMATED_UA = /(?:bot|crawler|spider|slurp|externalagent|facebookexternalhit|skypeuripreview|whatsapp\/|nginx-ssl|curl|wget|python|httpx|aiohttp|urllib|requests\/|scrapy|go-http-client|okhttp|apache-httpclient|java\/|undici|axios|node-fetch|\bnode\/\d|reqwest|httpie|postman|insomnia|libwww|lwp-|guzzle|php\/|ruby|perl|powershell|playwright|puppeteer|selenium|phantomjs|webdriver|headless|lighthouse|pagespeed|uptimerobot|pingdom|statuscake|linkcheck|lychee|ahrefs|semrush|httrack|ia_archiver|archive\.org|heritrix|nutch|zgrab|nuclei|masscan|censys|shodan)/i;
+
+/** Skip known automation, non-navigation fetches and speculative loads. This is a request count, not unique people. */
 export function shouldCountDownload(request: Request) {
   if (request.method !== 'GET') return false;
   if (/prefetch|prerender/i.test(`${request.headers.get('Purpose') ?? ''} ${request.headers.get('Sec-Purpose') ?? ''}`)) return false;
+  if (request.headers.has('Range')) return false;
+  const cf = (request as Request & { cf?: { verifiedBotCategory?: string; botManagement?: { verifiedBot?: boolean } } }).cf;
+  if (cf?.botManagement?.verifiedBot || cf?.verifiedBotCategory) return false;
   const agent = request.headers.get('User-Agent') ?? '';
-  if (!agent || /bot|crawler|spider|slurp|externalagent|nginx-ssl|curl|wget|python|headless/i.test(agent)) return false;
+  if (!/^(?:Mozilla|Opera)\//i.test(agent) || AUTOMATED_UA.test(agent)) return false;
+  if ((request.headers.get('Sec-Fetch-Mode') ?? '').toLowerCase() !== 'navigate') return false;
+  if ((request.headers.get('Sec-Fetch-Dest') ?? '').toLowerCase() !== 'document') return false;
+  if (!(request.headers.get('Accept-Language') ?? '').trim()) return false;
   return true;
 }
 

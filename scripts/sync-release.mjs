@@ -20,7 +20,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { parse } from 'yaml';
 import {
-  buildEntry, detectBuild, detectVersion, findInAppcast, parseSiteBlock, parseSparkleLine,
+  buildEntry, detectBuild, detectVersion, findInAppcast, parseSiteBlock, resolveBlockSparkle,
   latestStableVersion, pickAsset, upsertRelease, verifySignedFeed, verifySparkleSignature,
 } from './lib/release-sync.mjs';
 
@@ -112,8 +112,12 @@ const feedBuf = feedAsset ? await download(feedAsset.browser_download_url) : nul
 
 // Sparkle 签名：区块 > Release 附件 appcast.xml > 仓库 appcast.xml
 let appcast = null;
-let sparkle = block?.sparkle ? (typeof block.sparkle === 'string' ? parseSparkleLine(block.sparkle) : block.sparkle) : null;
-if (block?.sparkle && !sparkle) fail('区块里的 sparkle 无法解析，请直接粘贴 sign_update 的输出：sparkle:edSignature="..." length="..."');
+let sparkle = null;
+try {
+  sparkle = resolveBlockSparkle(block, asset.size);
+} catch (e) {
+  fail(e.message);
+}
 if (!sparkle && feedBuf) {
   appcast = findInAppcast(feedBuf.toString('utf8'), version);
   if (appcast) {

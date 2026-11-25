@@ -140,7 +140,7 @@ const channelClass = (r: Release) =>
 
                     <div class="acts">
                       {isLatest && r.download && (
-                        <a class="btn btn-p btn-sm" href={downloadURL(app.id, r.version)}>
+                        <a class="btn btn-p btn-sm" href={downloadURL(app.id, r.version)} rel="nofollow">
                           {u.download(r.version)} ↓
                         </a>
                       )}
