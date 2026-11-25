@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-25T03:18:51.430Z",
+  "checkedAt": "2026-11-25T08:48:09.996Z",
   "apps": [
     {
       "id": "aetherroute",
@@ -82,23 +82,23 @@
     {
       "id": "aetherterm",
       "name": "AetherTerm",
-      "version": "1.25.0",
-      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.25.0/AetherTerm-v1.25.0-macos-arm64.dmg",
-      "sha256": "d01a4104601359c27bc011fa5d85de6f85564f14a277236e8254b535f334faef",
-      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.25.0/AetherTerm-v1.25.0-macos-arm64.dmg",
+      "version": "1.27.0",
+      "download": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.27.0/AetherTerm-v1.27.0-macos-arm64.dmg",
+      "sha256": "801cba00e1123b679e37148ff35de67a09c9c833eed3ab5d6dc028b1aa1d23f3",
+      "updateDownload": "https://github.com/bcblr1993/ApexTerm/releases/download/v1.27.0/AetherTerm-v1.27.0-macos-arm64.dmg",
       "appcast": null,
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 5186032,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/870d58da-fd78-47ec-b00b-66474b5f1da0",
+          "bytes": 6983941,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1386401242/0f9be4f1-2f5a-451c-82a8-06af4d1ba1b5",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "d01a4104601359c27bc011fa5d85de6f85564f14a277236e8254b535f334faef",
+          "actual": "801cba00e1123b679e37148ff35de67a09c9c833eed3ab5d6dc028b1aa1d23f3",
           "message": "SHA256 一致"
         },
         {
@@ -339,23 +339,23 @@
     {
       "id": "aethertransfer",
       "name": "AetherTransfer",
-      "version": "0.1.2",
-      "download": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.1.2/AetherTransfer-0.1.2-arm64.dmg",
-      "sha256": "6146970b87cc1405af81a1226cea60beb39650d45e66c6c5dd75fd6d0c44bd3a",
-      "updateDownload": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.1.2/AetherTransfer-0.1.2-arm64.dmg",
+      "version": "0.2.0",
+      "download": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.2.0/AetherTransfer-0.2.0-arm64.dmg",
+      "sha256": "12640d536109ca9372969a2115558d3a9f0485efff32c45e3c48fe5cdcfdfbb1",
+      "updateDownload": "https://github.com/bcblr1993/AetherTransfer/releases/download/v0.2.0/AetherTransfer-0.2.0-arm64.dmg",
       "appcast": null,
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 7574387,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1408572433/756042d7-a7ed-4712-a26c-7197e5298133",
+          "bytes": 9594299,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1408572433/1d30fc0a-8d5f-4ed0-a5f9-9c90314a3def",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "6146970b87cc1405af81a1226cea60beb39650d45e66c6c5dd75fd6d0c44bd3a",
+          "actual": "12640d536109ca9372969a2115558d3a9f0485efff32c45e3c48fe5cdcfdfbb1",
           "message": "SHA256 一致"
         },
         {
@@ -370,26 +370,26 @@
     {
       "id": "aetherdisk",
       "name": "AetherDisk",
-      "version": "2.0.0",
-      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v2.0.0/AetherDisk-2.0.0-arm64.dmg",
-      "sha256": "112ac435492092e0363da858ccd7135143af1a2386e57e0cabecfe34e815d7c9",
-      "length": 4221595,
-      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v2.0.0/AetherDisk-2.0.0-arm64.dmg",
-      "updateLength": 4221595,
-      "edSignature": "TWY0vS3vx9znbyt/+b1pkOAIl9t2sRpjzn5u5MzPDjnQ11YbuX8VNqK/de7FC0gvP9T3KTO6vJ8uOHI+VivsCg==",
+      "version": "3.1.0",
+      "download": "https://github.com/bcblr1993/AetherDisk/releases/download/v3.1.0/AetherDisk-3.1.0-arm64.dmg",
+      "sha256": "dcd8d82ddfb7f8b3d36418097a1b4dfa983995de78f80b3d01089c187ba95618",
+      "length": 5674613,
+      "updateDownload": "https://github.com/bcblr1993/AetherDisk/releases/download/v3.1.0/AetherDisk-3.1.0-arm64.dmg",
+      "updateLength": 5674613,
+      "edSignature": "tfQyOGLK8sFpTHcTAjGEJxsxy/x4Mup+sPfpdYrhXEk8oAODtdGqjWvZgugRGZxxoe9Evbf2c2Po+RUyi7l7Bg==",
       "appcast": "/apps/aetherdisk/appcast.xml",
       "checks": [
         {
           "kind": "package",
           "status": "ok",
-          "bytes": 4221595,
-          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/aa74078e-ca71-4a23-8d8e-7f6ced731483",
+          "bytes": 5674613,
+          "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1431698247/5b707213-42f9-4415-a5bb-1795c75b6906",
           "message": "安装包可下载"
         },
         {
           "kind": "sha256",
           "status": "ok",
-          "actual": "112ac435492092e0363da858ccd7135143af1a2386e57e0cabecfe34e815d7c9",
+          "actual": "dcd8d82ddfb7f8b3d36418097a1b4dfa983995de78f80b3d01089c187ba95618",
           "message": "SHA256 一致"
         },
         {
